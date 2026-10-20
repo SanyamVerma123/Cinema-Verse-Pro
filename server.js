@@ -64,8 +64,8 @@ function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 4,
-      name: 'Server 4: FilmU Multi-Audio (Hindi Dubbed & Regional)',
-      badge: 'Hindi Dub • Tamil • Telugu 4K',
+      name: 'Server 4: Global Mirror (Multi-Language & Dubbed)',
+      badge: 'Global Mirror • Multi-Language 4K',
       url: isTv 
         ? `https://embed.filmu.in/tv/${tmdb}/${s}/${e}`
         : `https://embed.filmu.in/movie/${tmdb}`

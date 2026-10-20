@@ -366,42 +366,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -572,42 +572,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -771,42 +771,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -1167,42 +1167,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -1709,42 +1709,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -1796,7 +1796,7 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -1824,7 +1824,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -1869,7 +1869,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -1890,7 +1890,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -1936,7 +1936,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "te",
@@ -2017,7 +2017,7 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -2045,7 +2045,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -2090,42 +2090,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -2171,42 +2171,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -2253,42 +2253,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -2334,42 +2334,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -2662,42 +2662,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -2807,42 +2807,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -3013,42 +3013,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -3315,7 +3315,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -3336,7 +3336,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -3566,7 +3566,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -3587,7 +3587,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -3633,42 +3633,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -3714,42 +3714,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -3892,42 +3892,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -4158,42 +4158,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -4317,42 +4317,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -4399,42 +4399,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -4480,42 +4480,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -4562,42 +4562,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -5197,42 +5197,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -5417,42 +5417,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -5569,42 +5569,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -5650,42 +5650,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -5732,42 +5732,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -6068,42 +6068,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -6295,42 +6295,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -6528,42 +6528,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -6609,42 +6609,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -7336,21 +7336,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -7860,21 +7860,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -8262,21 +8262,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -8414,21 +8414,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -8871,42 +8871,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -9096,42 +9096,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -9176,42 +9176,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -9469,42 +9469,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -9852,42 +9852,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -9934,42 +9934,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -11467,42 +11467,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -11548,42 +11548,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -11706,7 +11706,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -11727,7 +11727,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -11897,7 +11897,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -11918,7 +11918,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -12126,7 +12126,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -12147,7 +12147,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -12192,7 +12192,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -12213,7 +12213,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -12259,7 +12259,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -12280,7 +12280,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -12464,7 +12464,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -12485,7 +12485,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -12656,7 +12656,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -12677,7 +12677,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -12722,7 +12722,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -12743,7 +12743,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -12789,7 +12789,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -12810,7 +12810,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -14424,21 +14424,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -15123,21 +15123,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -15950,21 +15950,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -16010,21 +16010,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -16070,21 +16070,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -16207,42 +16207,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -16288,42 +16288,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -16445,42 +16445,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -16526,42 +16526,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -17026,42 +17026,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -17108,42 +17108,42 @@ const catalog = [
         "name": "English (Original)",
         "flag": "🌐",
         "isDub": false,
-        "defaultServer": 0
+        "defaultServer": 3
       },
       {
         "code": "hi",
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "es",
         "name": "Spanish Dubbed",
         "flag": "🇪🇸",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "fr",
         "name": "French Dubbed",
         "flag": "🇫🇷",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "de",
         "name": "German Dubbed",
         "flag": "🇩🇪",
         "isDub": true,
-        "defaultServer": 4
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese Dubbed",
         "flag": "🇯🇵",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       }
     ]
   },
@@ -17387,7 +17387,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -17408,7 +17408,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -17535,7 +17535,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -17556,7 +17556,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -17602,7 +17602,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -17623,7 +17623,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -17668,7 +17668,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -17689,7 +17689,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -17783,7 +17783,7 @@ const catalog = [
         "name": "Hindi (Original)",
         "flag": "🇮🇳",
         "isDub": false,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "ta",
@@ -17804,7 +17804,7 @@ const catalog = [
         "name": "English Dubbed",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -18783,21 +18783,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -19134,21 +19134,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -19742,21 +19742,21 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "ja",
         "name": "Japanese (Original)",
         "flag": "🇯🇵",
         "isDub": false,
-        "defaultServer": 8
+        "defaultServer": 3
       },
       {
         "code": "en",
         "name": "English Dub",
         "flag": "🌐",
         "isDub": true,
-        "defaultServer": 0
+        "defaultServer": 3
       }
     ]
   },
@@ -19809,7 +19809,7 @@ const catalog = [
         "name": "Hindi Dubbed",
         "flag": "🇮🇳",
         "isDub": true,
-        "defaultServer": 2
+        "defaultServer": 3
       },
       {
         "code": "te",

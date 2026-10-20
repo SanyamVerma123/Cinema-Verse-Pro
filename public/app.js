@@ -9,7 +9,7 @@ let heroItems = [];
 let currentHeroIndex = 0;
 let heroTimer = null;
 let currentItem = null;
-let currentServerIndex = 0;
+let currentServerIndex = 3; // Default: Server 4 (Global Mirror)
 let currentSeason = 1;
 let currentEpisode = 1;
 let availableServers = [];
@@ -915,18 +915,18 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: VidLink Pro HD', badge: 'Fastest • 0 Ads', provider: 'VidLink Pro' },
-  { id: 1, name: 'Server 2: VidSrc CC 4K', badge: 'Direct 4K UHD', provider: 'VidSrc CC' },
-  { id: 2, name: 'Server 3: AutoEmbed CC', badge: 'Multi-Audio & Subs', provider: 'AutoEmbed CC' },
-  { id: 3, name: 'Server 4: VidSrc XYZ', badge: 'Global Mirror', provider: 'VidSrc XYZ' },
-  { id: 4, name: 'Server 5: SuperEmbed VIP', badge: 'Zero Buffer Cloud', provider: 'SuperEmbed VIP' },
-  { id: 5, name: 'Server 6: 2Embed CC', badge: 'Multi-Language Audio', provider: '2Embed CC' },
-  { id: 6, name: 'Server 7: MoviesAPI Club', badge: 'Fast HD Cloud', provider: 'MoviesAPI' },
-  { id: 7, name: 'Server 8: SmashyStream', badge: 'Global Mirror Backup', provider: 'SmashyStream' },
-  { id: 8, name: 'Server 9: AnimeWorld VIP', badge: 'Multi-Audio (Hindi/Eng/Jap)', provider: 'AnimeWorld' },
-  { id: 9, name: 'Server 10: Zephyrix Anime', badge: 'WatchAnimeWorld Cloud', provider: 'Zephyrix' }
+  { id: 0, name: 'Server 1: VidLink Pro HD', badge: 'Fastest • 0 Ads • 4K', provider: 'VidLink Pro' },
+  { id: 1, name: 'Server 2: VidSrc PM 4K', badge: 'Direct 4K UHD', provider: 'VidSrc PM' },
+  { id: 2, name: 'Server 3: AutoEmbed CC', badge: 'Auto Dub & Subs', provider: 'AutoEmbed CC' },
+  { id: 3, name: 'Server 4: Global Mirror', badge: 'Multi-Language • 4K', provider: 'Global Mirror' },
+  { id: 4, name: 'Server 5: 2Embed CC Captions', badge: 'Multi-Language CC', provider: '2Embed CC' },
+  { id: 5, name: 'Server 6: FilmU VIP Cloud Mirror', badge: 'Fast Cloud Mirror', provider: 'FilmU VIP' },
+  { id: 6, name: 'Server 7: 2Embed TMDB Direct', badge: 'Fast HD 1080p', provider: '2Embed Direct' },
+  { id: 7, name: 'Server 8: AutoEmbed IMDb Mirror', badge: 'Backup Mirror', provider: 'AutoEmbed Mirror' },
+  { id: 8, name: 'Server 9: AnimeWorld VIP', badge: 'Hindi / Eng / Jap', provider: 'AnimeWorld' },
+  { id: 9, name: 'Server 10: VidLink Pro Clean Alternative', badge: 'Clean 4K Ultra HD', provider: 'VidLink Alt' }
 ];
-let selectedServerIndex = 0;
+let selectedServerIndex = 3; // Default: Server 4 (Global Mirror)
 
 // ========================================================
 // NETFLIX DETAILS MODAL (MOVIE PAGE)
@@ -1277,22 +1277,20 @@ function handlePlayerClick(e) {
   handlePlayerMouseMove();
 }
 
-async function openPlayer(item, season = 1, episode = 1, serverIndex = selectedServerIndex || 0) {
+async function openPlayer(item, season = 1, episode = 1, serverIndex = 3) {
   closeDetailsModal();
   currentItem = item;
   currentSeason = parseInt(season, 10);
   currentEpisode = parseInt(episode, 10);
-  currentServerIndex = parseInt(serverIndex, 10) || 0;
+  currentServerIndex = (serverIndex !== undefined && serverIndex !== null) ? parseInt(serverIndex, 10) : (selectedServerIndex !== undefined ? selectedServerIndex : 3);
 
-  // Auto-route to multi-audio server if dubbed language is preferred
+  // Auto-route to multi-audio server (Server 4: Global Mirror) if dubbed language is preferred
   const isAnime = item.platformId === 'animeworld' || item.platformId === 'crunchyroll' || item.genres?.includes('Animation');
-  if (currentServerIndex === 0) {
-    if (selectedDubLanguage === 'hi') {
-      currentServerIndex = isAnime ? 8 : 2;
-    } else if (selectedDubLanguage === 'ja' && isAnime) {
+  if (selectedDubLanguage && selectedDubLanguage !== 'en') {
+    if (isAnime && selectedDubLanguage === 'ja') {
       currentServerIndex = 8;
-    } else if (selectedDubLanguage === 'ta' || selectedDubLanguage === 'te' || selectedDubLanguage === 'kn' || selectedDubLanguage === 'ml') {
-      currentServerIndex = 3; // Server 4: FilmU Multi-Audio (Hindi Dubbed & Regional)
+    } else {
+      currentServerIndex = 3; // Server 4: Global Mirror (Multi-Language & Dubbed)
     }
   }
 
@@ -1458,22 +1456,13 @@ function changeDubLanguage(langCode, btnElement) {
 
   const isAnime = currentItem && (currentItem.platformId === 'animeworld' || currentItem.platformId === 'crunchyroll' || currentItem.genres?.includes('Animation'));
 
-  if (langCode === 'hi') {
-    if (isAnime) {
-      loadServerStream(8); // Server 9: AnimeWorld VIP (Multi-Audio: Hindi/Eng/Jap)
-    } else {
-      loadServerStream(2); // Server 3: AutoEmbed CC (Auto Dub & Multi-Audio)
-    }
-    showToast(`🎧 Audio set to ${langName} • Server 3 (Auto Dub CC) Active`, 'success');
-  } else if (langCode === 'ja') {
-    loadServerStream(isAnime ? 8 : 1);
-    showToast(`🎧 Audio set to ${langName} • Japanese Audio Active`, 'success');
-  } else if (langCode === 'ta' || langCode === 'te' || langCode === 'kn' || langCode === 'ml') {
-    loadServerStream(3); // Server 4: FilmU Multi-Audio (Hindi Dubbed & Regional)
-    showToast(`🎧 Audio set to ${langName} • Server 4 (FilmU Multi-Audio) Active`, 'success');
+  // For multi-language and default, use Server 4 (Global Mirror)
+  if (langCode === 'ja' && isAnime) {
+    loadServerStream(8); // Server 9: AnimeWorld VIP (Multi-Audio: Hindi/Eng/Jap)
+    showToast(`🎧 Audio set to ${langName} • Server 9 (AnimeWorld VIP) Active`, 'success');
   } else {
-    loadServerStream(0); // Server 1: VidLink Pro HD
-    showToast(`🎧 Audio set to ${langName}`, 'info');
+    loadServerStream(3); // Server 4: Global Mirror (Multi-Language & Dubbed)
+    showToast(`🎧 Audio set to ${langName} • Server 4 (Global Mirror) Active`, 'success');
   }
 }
 
