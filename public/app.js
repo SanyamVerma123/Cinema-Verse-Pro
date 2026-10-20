@@ -74,13 +74,25 @@ document.addEventListener('click', function(e) {
   }
 }, true);
 
+// NetMirror Navigation Hijack Guard: Keep top window safely rooted in CinemaMirror
 window.addEventListener('beforeunload', function(e) {
   const player = document.getElementById('player-overlay');
   if (player && player.style.display === 'flex') {
     e.preventDefault();
     e.returnValue = '';
+    return '';
   }
 });
+
+// Protect history stack from rogue redirect popups
+if (window.history && window.history.pushState) {
+  window.addEventListener('popstate', function() {
+    const player = document.getElementById('player-overlay');
+    if (player && player.style.display === 'flex') {
+      window.history.pushState(null, '', window.location.href);
+    }
+  });
+}
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', async () => {
@@ -944,16 +956,16 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: VidLink Pro HD', badge: 'Fastest • 0 Ads • 4K', provider: 'VidLink Pro' },
+  { id: 0, name: 'Server 1: VidLink Pro HD', badge: 'Fastest • 0 Ads • Multi-Audio 4K', provider: 'VidLink Pro' },
   { id: 1, name: 'Server 2: VidSrc PM 4K', badge: 'Direct 4K UHD', provider: 'VidSrc PM' },
-  { id: 2, name: 'Server 3: AutoEmbed CC', badge: 'Auto Dub & Subs', provider: 'AutoEmbed CC' },
-  { id: 3, name: 'Server 4: Global Mirror', badge: 'Multi-Language • 4K', provider: 'Global Mirror' },
+  { id: 2, name: 'Server 3: AutoEmbed CC Clean', badge: 'Auto Dub • 0 Ads', provider: 'AutoEmbed Direct' },
+  { id: 3, name: 'Server 4: Global Mirror', badge: 'Multi-Language • 0 Ads', provider: 'Global Mirror' },
   { id: 4, name: 'Server 5: 2Embed CC Captions', badge: 'Multi-Language CC', provider: '2Embed CC' },
-  { id: 5, name: 'Server 6: FilmU VIP Cloud Mirror', badge: 'Fast Cloud Mirror', provider: 'FilmU VIP' },
-  { id: 6, name: 'Server 7: 2Embed TMDB Direct', badge: 'Fast HD 1080p', provider: '2Embed Direct' },
-  { id: 7, name: 'Server 8: AutoEmbed IMDb Mirror', badge: 'Backup Mirror', provider: 'AutoEmbed Mirror' },
-  { id: 8, name: 'Server 9: AnimeWorld VIP', badge: 'Hindi / Eng / Jap', provider: 'AnimeWorld' },
-  { id: 9, name: 'Server 10: VidLink Pro Clean Alternative', badge: 'Clean 4K Ultra HD', provider: 'VidLink Alt' }
+  { id: 5, name: 'Server 6: FilmU VIP Cloud Mirror', badge: 'Fast Cloud • 0 Ads', provider: 'FilmU VIP' },
+  { id: 6, name: 'Server 7: VidSrc Buzz Clean Direct', badge: 'Fast HD 1080p • 0 Ads', provider: 'VidSrc Buzz' },
+  { id: 7, name: 'Server 8: AutoEmbed Direct Mirror', badge: 'Global Mirror • 0 Ads', provider: 'AutoEmbed Direct' },
+  { id: 8, name: 'Server 9: AnimeWorld VIP', badge: 'Multi-Audio: Hindi/Eng/Jap • 0 Ads', provider: 'AnimeWorld' },
+  { id: 9, name: 'Server 10: VidLink Pro Clean Alternative', badge: 'Clean 4K Ultra HD • 0 Ads', provider: 'VidLink Alt' }
 ];
 let selectedServerIndex = 3; // Default: Server 4 (Global Mirror)
 
@@ -1431,10 +1443,23 @@ function loadServerStream(serverIdx) {
   iframe.referrerPolicy = 'origin';
 
   let streamUrl = srv.url;
-  // NetMirror REA Anti-Ad Bypass: Ensure FilmU embeds always inject the premium bypass key & debug bypass
+  // NetMirror REA Multi-Server Anti-Ad & Multi-Audio Bypass Engine:
+  // 1. FilmU (Server 4 & 6): Inject verified premium whitelist key & debug bypass
   if (streamUrl && streamUrl.includes('embed.filmu.in') && !streamUrl.includes('apikey=')) {
     const sep = streamUrl.includes('?') ? '&' : '?';
     streamUrl = `${streamUrl}${sep}apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
+  }
+  // 2. AutoEmbed (Server 3 & 8): Strip outer ad wrapper (gussiessmutchy.com) and load pure player.autoembed.co
+  if (streamUrl && streamUrl.includes('//autoembed.co/') && !streamUrl.includes('player.autoembed.co')) {
+    streamUrl = streamUrl.replace('//autoembed.co/movie/tmdb/', '//player.autoembed.co/embed/movie/')
+                         .replace('//autoembed.co/tv/tmdb/', '//player.autoembed.co/embed/tv/')
+                         .replace('//autoembed.co/movie/imdb/', '//player.autoembed.co/embed/movie/')
+                         .replace(/-/g, '/');
+  }
+  // 3. VidLink (Server 1, 9, 10): Ensure multi-language audio track support is enabled
+  if (streamUrl && streamUrl.includes('vidlink.pro') && !streamUrl.includes('multiLang=')) {
+    const sep = streamUrl.includes('?') ? '&' : '?';
+    streamUrl = `${streamUrl}${sep}multiLang=true`;
   }
   iframe.src = streamUrl;
 

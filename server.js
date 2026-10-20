@@ -80,10 +80,10 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     {
       id: 1,
       name: 'Server 1: VidLink Pro HD',
-      badge: 'Fastest • 0 Ads • 4K',
+      badge: 'Fastest • 0 Ads • Multi-Audio 4K',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
     },
     {
       id: 2,
@@ -95,11 +95,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 3,
-      name: 'Server 3: AutoEmbed CC (Auto Dub)',
-      badge: 'Multi-Audio & Subs • Fixed',
+      name: 'Server 3: AutoEmbed CC Clean (0 Ads)',
+      badge: 'Multi-Audio & Dub • 0 Redirects',
       url: isTv 
-        ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}`
-        : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`
+        ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`
     },
     {
       id: 4,
@@ -120,42 +120,42 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     {
       id: 6,
       name: 'Server 6: FilmU VIP Cloud Mirror',
-      badge: 'Ultra Fast Cloud',
+      badge: 'Ultra Fast Cloud • 0 Ads',
       url: isTv 
         ? `https://embed.filmu.in/tv/${imdbOrTmdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
         : `https://embed.filmu.in/movie/${imdbOrTmdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
     },
     {
       id: 7,
-      name: 'Server 7: 2Embed TMDB Direct',
-      badge: 'Fast HD 1080p',
+      name: 'Server 7: VidSrc Buzz Clean Direct',
+      badge: 'Fast HD 1080p • 0 Ads',
       url: isTv 
-        ? `https://www.2embed.cc/embedtv/${tmdbOrImdb}&s=${s}&e=${e}`
-        : `https://www.2embed.cc/embed/${tmdbOrImdb}`
+        ? `https://vidsrc.buzz/embed/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://vidsrc.buzz/embed/movie/${tmdbOrImdb}`
     },
     {
       id: 8,
-      name: 'Server 8: AutoEmbed IMDb Mirror',
-      badge: 'Global Mirror',
+      name: 'Server 8: AutoEmbed Direct Mirror',
+      badge: 'Global Mirror • 0 Ads',
       url: isTv 
-        ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}`
-        : `https://autoembed.co/movie/imdb/${imdbOrTmdb}`
+        ? `https://player.autoembed.co/embed/tv/${imdbOrTmdb}/${s}/${e}`
+        : `https://player.autoembed.co/embed/movie/${imdbOrTmdb}`
     },
     {
       id: 9,
       name: 'Server 9: AnimeWorld VIP',
-      badge: 'Multi-Audio: Hindi/Eng/Jap',
+      badge: 'Multi-Audio: Hindi/Eng/Jap • 0 Ads',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
     },
     {
       id: 10,
       name: 'Server 10: VidLink Pro Clean Alternative',
-      badge: 'Clean 4K Ultra HD',
+      badge: 'Clean 4K Ultra HD • 0 Ads',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
     }
   ];
 
