@@ -19833,6 +19833,301 @@ const catalog = [
         "defaultServer": 3
       }
     ]
+  },
+  {
+    "id": "ani-baki",
+    "imdbId": "tt6357658",
+    "tmdbId": 80623,
+    "type": "series",
+    "title": "Baki",
+    "year": 2018,
+    "rating": 7.5,
+    "matchRate": "98% Match",
+    "maturity": "TV-MA",
+    "duration": "3 Seasons",
+    "quality": "4K Ultra HD",
+    "audio": "Japanese (Original) • Hindi Dub • English Dub",
+    "genres": [
+      "Animation",
+      "Action",
+      "Drama"
+    ],
+    "rank": 1,
+    "platform": "Anime World",
+    "platformId": "animeworld",
+    "platformBadge": "ANIME",
+    "platformColor": "#F59E0B",
+    "poster": "https://images.metahub.space/poster/medium/tt6357658/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt6357658/img",
+    "description": "While martial arts champion Baki Hanma trains hard to surpass his legendary father, five violent and brutally dangerous death row inmates descend upon Tokyo to challenge him.",
+    "cast": [
+      "Nobunaga Shimazaki",
+      "Akio Otsuka",
+      "Toru Furuya",
+      "Sora Amamiya"
+    ],
+    "director": "Toshiki Hirano",
+    "featured": false,
+    "trending": true,
+    "top10Series": true,
+    "languages": [
+      {
+        "code": "ja",
+        "name": "Japanese (Original)",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 3
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 3
+      },
+      {
+        "code": "en",
+        "name": "English Dub",
+        "flag": "🌐",
+        "isDub": true,
+        "defaultServer": 3
+      }
+    ]
+  },
+  {
+    "id": "ani-baki-dou",
+    "imdbId": "tt38201910",
+    "tmdbId": 300054,
+    "type": "series",
+    "title": "Baki-Dou: The Invincible Samurai",
+    "year": 2024,
+    "rating": 8,
+    "matchRate": "99% Match",
+    "maturity": "TV-MA",
+    "duration": "1 Season",
+    "quality": "4K Ultra HD",
+    "audio": "Japanese (Original) • Hindi Dub • English Dub",
+    "genres": [
+      "Animation",
+      "Action",
+      "Drama"
+    ],
+    "rank": 2,
+    "platform": "Anime World",
+    "platformId": "animeworld",
+    "platformBadge": "ANIME",
+    "platformColor": "#F59E0B",
+    "poster": "https://images.metahub.space/poster/medium/tt38201910/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt38201910/img",
+    "description": "Baki and the strongest Underground Arena fighters face a threat of historical proportions: the resurrected legendary swordsman Miyamoto Musashi.",
+    "cast": [
+      "Nobunaga Shimazaki",
+      "Akio Otsuka",
+      "Hochu Otsuka"
+    ],
+    "director": "Toshiki Hirano",
+    "featured": false,
+    "trending": true,
+    "top10Series": true,
+    "languages": [
+      {
+        "code": "ja",
+        "name": "Japanese (Original)",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 3
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 3
+      },
+      {
+        "code": "en",
+        "name": "English Dub",
+        "flag": "🌐",
+        "isDub": true,
+        "defaultServer": 3
+      }
+    ]
+  },
+  {
+    "id": "ani-baki-hanma",
+    "imdbId": "tt13357140",
+    "tmdbId": 129600,
+    "type": "series",
+    "title": "Baki Hanma",
+    "year": 2021,
+    "rating": 7.7,
+    "matchRate": "97% Match",
+    "maturity": "TV-MA",
+    "duration": "2 Seasons",
+    "quality": "4K Ultra HD",
+    "audio": "Japanese (Original) • Hindi Dub • English Dub",
+    "genres": [
+      "Animation",
+      "Action",
+      "Drama"
+    ],
+    "rank": 3,
+    "platform": "Netflix",
+    "platformId": "netflix",
+    "platformBadge": "NETFLIX",
+    "platformColor": "#E50914",
+    "poster": "https://images.metahub.space/poster/medium/tt13357140/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt13357140/img",
+    "description": "To gain the skills he needs to surpass his powerful father, Baki enters Arizona State Prison to take on the notorious inmate known as Mr. Unchained.",
+    "cast": [
+      "Nobunaga Shimazaki",
+      "Akio Otsuka",
+      "Hochu Otsuka",
+      "Mami Koyama"
+    ],
+    "director": "Toshiki Hirano",
+    "featured": false,
+    "trending": true,
+    "top10Series": true,
+    "languages": [
+      {
+        "code": "ja",
+        "name": "Japanese (Original)",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 3
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 3
+      },
+      {
+        "code": "en",
+        "name": "English Dub",
+        "flag": "🌐",
+        "isDub": true,
+        "defaultServer": 3
+      }
+    ]
+  },
+  {
+    "id": "ani-baki-grappler",
+    "imdbId": "tt0981456",
+    "tmdbId": 56425,
+    "type": "series",
+    "title": "Baki the Grappler",
+    "year": 2001,
+    "rating": 7.6,
+    "matchRate": "95% Match",
+    "maturity": "TV-14",
+    "duration": "2 Seasons",
+    "quality": "1080p Full HD",
+    "audio": "Japanese (Original) • Hindi Dub • English Dub",
+    "genres": [
+      "Animation",
+      "Action",
+      "Drama"
+    ],
+    "rank": 4,
+    "platform": "Anime World",
+    "platformId": "animeworld",
+    "platformBadge": "ANIME",
+    "platformColor": "#F59E0B",
+    "poster": "https://images.metahub.space/poster/medium/tt0981456/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt0981456/img",
+    "description": "Young Baki Hanma strives to become the greatest martial artist in the world to defeat his father, the Ogre Yujiro Hanma.",
+    "cast": [
+      "Masami Kikuchi",
+      "Kenji Nomura",
+      "Yukiko Hanioka"
+    ],
+    "director": "Hitoshi Nanba",
+    "featured": false,
+    "trending": false,
+    "languages": [
+      {
+        "code": "ja",
+        "name": "Japanese (Original)",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 3
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 3
+      },
+      {
+        "code": "en",
+        "name": "English Dub",
+        "flag": "🌐",
+        "isDub": true,
+        "defaultServer": 3
+      }
+    ]
+  },
+  {
+    "id": "ani-baki-kengan",
+    "imdbId": "tt31869664",
+    "tmdbId": 1263421,
+    "type": "movie",
+    "title": "Baki Hanma VS Kengan Ashura",
+    "year": 2024,
+    "rating": 7.1,
+    "matchRate": "96% Match",
+    "maturity": "TV-MA",
+    "duration": "1h 02m",
+    "quality": "4K Ultra HD",
+    "audio": "Japanese (Original) • Hindi Dub • English Dub",
+    "genres": [
+      "Animation",
+      "Action"
+    ],
+    "rank": 5,
+    "platform": "Netflix",
+    "platformId": "netflix",
+    "platformBadge": "NETFLIX",
+    "platformColor": "#E50914",
+    "poster": "https://images.metahub.space/poster/medium/tt31869664/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt31869664/img",
+    "description": "It is the ultimate martial arts showdown: the toughest fighters from Baki Hanma and Kengan Ashura clash in an unprecedented, earth-shaking martial arts crossover.",
+    "cast": [
+      "Nobunaga Shimazaki",
+      "Tatsuhisa Suzuki",
+      "Megumi Han"
+    ],
+    "director": "Toshiki Hirano",
+    "featured": false,
+    "trending": true,
+    "top10Movies": true,
+    "languages": [
+      {
+        "code": "ja",
+        "name": "Japanese (Original)",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 3
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 3
+      },
+      {
+        "code": "en",
+        "name": "English Dub",
+        "flag": "🌐",
+        "isDub": true,
+        "defaultServer": 3
+      }
+    ]
   }
 ];
 

@@ -28,14 +28,53 @@ const OTT_PLATFORMS = [
   { id: 'animeworld', name: 'Anime World', icon: 'fa-solid fa-fire', color: '#F59E0B', badge: 'ANIME WORLD', description: 'Anime World Hindi/Eng/Jap Multi-Audio Hub' }
 ];
 
+// In-Memory Dynamic TMDb Resolver Cache (Eliminates Stranger Things fallback)
+const TMDB_RESOLVER_CACHE = new Map();
+
+async function resolveTmdbId(imdbId, isTv = false) {
+  if (!imdbId || !String(imdbId).startsWith('tt')) return imdbId;
+  if (TMDB_RESOLVER_CACHE.has(imdbId)) return TMDB_RESOLVER_CACHE.get(imdbId);
+
+  const types = isTv ? ['series', 'movie'] : ['movie', 'series'];
+  for (const t of types) {
+    try {
+      const res = await fetch(`https://v3-cinemeta.strem.io/meta/${t}/${imdbId}.json`, { signal: AbortSignal.timeout(3500) });
+      if (res.ok) {
+        const d = await res.json();
+        const tmdb = d.meta?.moviedb_id || d.meta?.tmdb_id;
+        if (tmdb) {
+          const val = String(tmdb);
+          TMDB_RESOLVER_CACHE.set(imdbId, val);
+          return val;
+        }
+      }
+    } catch(e) {}
+  }
+  return null;
+}
+
 // Helper: Stream server resolver (10 High-Speed Clean Servers)
-function getStreamServers(type, id, season = 1, episode = 1) {
+async function getStreamServers(type, id, season = 1, episode = 1) {
   const item = catalogData.find(x => x.id === id || x.imdbId === id || String(x.tmdbId) === String(id));
-  const imdb = item ? item.imdbId : (String(id).startsWith('tt') ? id : 'tt6263850');
-  const tmdb = item ? (item.tmdbId || item.id) : (String(id).startsWith('tt') ? '66732' : id);
   const isTv = type === 'series' || type === 'tv';
   const s = parseInt(season, 10) || 1;
   const e = parseInt(episode, 10) || 1;
+
+  let imdb = item ? item.imdbId : (String(id).startsWith('tt') ? id : null);
+  let tmdb = item ? item.tmdbId : (!String(id).startsWith('tt') ? id : null);
+
+  // If TMDB ID is missing and we have an IMDb ID, resolve it dynamically
+  if (!tmdb && imdb) {
+    if (TMDB_RESOLVER_CACHE.has(imdb)) {
+      tmdb = TMDB_RESOLVER_CACHE.get(imdb);
+    } else {
+      tmdb = await resolveTmdbId(imdb, isTv);
+    }
+  }
+
+  // If still no TMDB ID, fallback to imdb for URL substitution, NEVER Stranger Things
+  const tmdbOrImdb = tmdb || imdb || id;
+  const imdbOrTmdb = imdb || tmdb || id;
 
   const servers = [
     {
@@ -43,80 +82,80 @@ function getStreamServers(type, id, season = 1, episode = 1) {
       name: 'Server 1: VidLink Pro HD',
       badge: 'Fastest • 0 Ads • 4K',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false`
-        : `https://vidlink.pro/movie/${tmdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false`
     },
     {
       id: 2,
       name: 'Server 2: VidSrc PM 4K',
       badge: 'Direct Ultra HD',
       url: isTv 
-        ? `https://vidsrc.pm/embed/tv/${tmdb}/${s}/${e}`
-        : `https://vidsrc.pm/embed/movie/${tmdb}`
+        ? `https://vidsrc.pm/embed/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`
     },
     {
       id: 3,
       name: 'Server 3: AutoEmbed CC (Auto Dub)',
       badge: 'Multi-Audio & Subs • Fixed',
       url: isTv 
-        ? `https://autoembed.co/tv/tmdb/${tmdb}-${s}-${e}`
-        : `https://autoembed.co/movie/tmdb/${tmdb}`
+        ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}`
+        : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`
     },
     {
       id: 4,
       name: 'Server 4: Global Mirror (Multi-Language & Dubbed)',
       badge: 'Global Mirror • Multi-Language 4K',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${tmdb}/${s}/${e}`
-        : `https://embed.filmu.in/movie/${tmdb}`
+        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://embed.filmu.in/movie/${tmdbOrImdb}`
     },
     {
       id: 5,
       name: 'Server 5: 2Embed CC Captions',
       badge: 'Multi-Language CC & Audio',
       url: isTv 
-        ? `https://www.2embed.cc/embedtv/${imdb}&s=${s}&e=${e}`
-        : `https://www.2embed.cc/embed/${imdb}`
+        ? `https://www.2embed.cc/embedtv/${imdbOrTmdb}&s=${s}&e=${e}`
+        : `https://www.2embed.cc/embed/${imdbOrTmdb}`
     },
     {
       id: 6,
       name: 'Server 6: FilmU VIP Cloud Mirror',
       badge: 'Ultra Fast Cloud',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${imdb}/${s}/${e}`
-        : `https://embed.filmu.in/movie/${imdb}`
+        ? `https://embed.filmu.in/tv/${imdbOrTmdb}/${s}/${e}`
+        : `https://embed.filmu.in/movie/${imdbOrTmdb}`
     },
     {
       id: 7,
       name: 'Server 7: 2Embed TMDB Direct',
       badge: 'Fast HD 1080p',
       url: isTv 
-        ? `https://www.2embed.cc/embedtv/${tmdb}&s=${s}&e=${e}`
-        : `https://www.2embed.cc/embed/${tmdb}`
+        ? `https://www.2embed.cc/embedtv/${tmdbOrImdb}&s=${s}&e=${e}`
+        : `https://www.2embed.cc/embed/${tmdbOrImdb}`
     },
     {
       id: 8,
       name: 'Server 8: AutoEmbed IMDb Mirror',
       badge: 'Global Mirror',
       url: isTv 
-        ? `https://autoembed.co/tv/tmdb/${tmdb}-${s}-${e}`
-        : `https://autoembed.co/movie/imdb/${imdb}`
+        ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}`
+        : `https://autoembed.co/movie/imdb/${imdbOrTmdb}`
     },
     {
       id: 9,
       name: 'Server 9: AnimeWorld VIP',
       badge: 'Multi-Audio: Hindi/Eng/Jap',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${tmdb}/${s}/${e}`
-        : `https://embed.filmu.in/movie/${tmdb}`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}`
     },
     {
       id: 10,
       name: 'Server 10: VidLink Pro Clean Alternative',
       badge: 'Clean 4K Ultra HD',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdb}/${s}/${e}`
-        : `https://vidlink.pro/movie/${tmdb}`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}`
     }
   ];
 
@@ -299,11 +338,15 @@ app.get('/api/search', async (req, res) => {
       }
 
       const targetOtt = OTT_PLATFORMS.find(p => p.id === targetPlatformId) || OTT_PLATFORMS.find(p => p.id === 'netflix');
+      const tmdbResolved = m.moviedb_id || m.tmdb_id || null;
+      if (tmdbResolved && imdb) {
+        TMDB_RESOLVER_CACHE.set(imdb, String(tmdbResolved));
+      }
 
       liveResults.push({
         id: imdb,
         imdbId: imdb,
-        tmdbId: m.tmdb_id || null,
+        tmdbId: tmdbResolved,
         type: isSeries ? 'series' : 'movie',
         title: m.name,
         year: parseInt(m.releaseInfo, 10) || 2023,
@@ -448,10 +491,15 @@ app.get('/api/details/:id', async (req, res) => {
           ? `https://www.youtube.com/watch?v=${meta.trailers[0].source}` 
           : null;
 
+        const tmdbResolved = meta.moviedb_id || meta.tmdb_id || null;
+        if (tmdbResolved && (meta.imdb_id || id)) {
+          TMDB_RESOLVER_CACHE.set(meta.imdb_id || id, String(tmdbResolved));
+        }
+
         item = {
           id: meta.imdb_id || meta.id || id,
           imdbId: meta.imdb_id || meta.id || id,
-          tmdbId: meta.tmdb_id || null,
+          tmdbId: tmdbResolved,
           type: detectedType,
           title: meta.name,
           year: parseInt(meta.releaseInfo, 10) || 2023,
@@ -501,11 +549,11 @@ app.get('/api/details/:id', async (req, res) => {
 });
 
 // 5. Stream Sources Endpoint
-app.get('/api/sources/:type/:id', (req, res) => {
+app.get('/api/sources/:type/:id', async (req, res) => {
   const { type, id } = req.params;
   const season = req.query.s || 1;
   const episode = req.query.e || 1;
-  const servers = getStreamServers(type, id, season, episode);
+  const servers = await getStreamServers(type, id, season, episode);
 
   res.json({
     status: 'success',
