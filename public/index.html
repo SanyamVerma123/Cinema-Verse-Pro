@@ -24,12 +24,22 @@
         <span class="logo-sub">MIRROR</span>
       </div>
 
-      <nav class="netflix-nav-links">
+      <!-- Mobile / Tablet "Browse" Dropdown Menu Trigger -->
+      <div class="nav-mobile-browse" id="nav-mobile-browse" onclick="toggleMobileBrowseMenu(event)">
+        <span>Browse</span>
+        <i class="fa-solid fa-caret-down"></i>
+      </div>
+
+      <!-- Desktop & Tablet Navigation Links -->
+      <nav class="netflix-nav-links" id="netflix-nav-links">
         <a href="#home" class="nav-item active" onclick="filterPlatform('all', this)">Home</a>
         <a href="#series" class="nav-item" onclick="filterCategory('series', this)">TV Shows</a>
         <a href="#movies" class="nav-item" onclick="filterCategory('movie', this)">Movies</a>
         <a href="#new" class="nav-item" onclick="filterCategory('top10', this)">New & Popular</a>
         <a href="#watchlist" class="nav-item" onclick="showWatchlist(this)">My List</a>
+        <a href="#downloads" class="nav-item nav-item-downloads" onclick="showDownloadsSection(this)">
+          <i class="fa-solid fa-arrow-down-to-bracket text-red"></i> Downloads
+        </a>
         <a href="#browse-ott" class="nav-item text-gold" onclick="toggleOttHub()">
           <i class="fa-solid fa-layer-group"></i> Multi-OTT Hub
         </a>
@@ -39,7 +49,7 @@
     <div class="nav-right">
       <!-- Netflix Expandable Search Box -->
       <div class="netflix-search-box" id="search-box">
-        <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBox()">
+        <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBox()" title="Search">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
         <input type="text" id="search-input" placeholder="Titles, people, genres, OTTs..." autocomplete="off">
@@ -48,12 +58,12 @@
         </button>
       </div>
 
-      <!-- Kids Mode Pill -->
-      <span class="kids-pill" onclick="filterGenre('Animation')">Kids</span>
+      <!-- Kids Link (Authentic Clean Text Link) -->
+      <span class="nav-kids-link" onclick="filterGenre('Animation')">Kids</span>
 
       <!-- Notification Bell with Interactive Dropdown -->
       <div class="nav-bell-wrapper" id="nav-bell-wrapper">
-        <div class="nav-bell" id="nav-bell-btn" onclick="toggleNotificationDropdown(event)" title="New Releases & Updates">
+        <div class="nav-bell" id="nav-bell-btn" onclick="toggleNotificationDropdown(event)" title="Notifications">
           <i class="fa-regular fa-bell"></i>
           <span class="bell-badge" id="bell-badge">4</span>
         </div>
@@ -73,17 +83,10 @@
         </div>
       </div>
 
-      <!-- Forensic Audit Shortcut Button -->
-      <button class="btn-audit" onclick="openAuditModal()" title="View NetMirror APK Reverse Engineering & Security Audit">
-        <i class="fa-solid fa-shield-halved"></i>
-        <span>APK Safety Audit</span>
-      </button>
-
-      <!-- Netflix Profile Dropdown with Name & Settings -->
+      <!-- Netflix Profile Dropdown (Clean Avatar + Subtle Caret, No bulky text) -->
       <div class="netflix-profile-wrapper" id="netflix-profile-wrapper">
-        <div class="netflix-profile-wrap" onclick="toggleProfileDropdown(event)" title="Profile & Settings">
+        <div class="netflix-profile-wrap" onclick="toggleProfileDropdown(event)" title="Account & Settings">
           <img class="profile-avatar" id="nav-profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Profile">
-          <span class="nav-profile-name" id="nav-profile-name">Cinema Fan</span>
           <i class="fa-solid fa-caret-down profile-caret" id="nav-profile-caret"></i>
         </div>
 
@@ -102,12 +105,13 @@
 
           <ul class="profile-dropdown-list">
             <li onclick="openProfileModal()"><i class="fa-solid fa-user-gear text-red"></i> <span>Manage Profile & Name</span></li>
+            <li onclick="showDownloadsSection()"><i class="fa-solid fa-arrow-down-to-bracket text-red"></i> <span>My Offline Downloads</span></li>
             <li onclick="openSettingsModal('install')"><i class="fa-solid fa-download text-gold"></i> <span>Download & Install App</span> <span class="menu-pill-new">PWA</span></li>
             <li onclick="openSettingsModal('streaming')"><i class="fa-solid fa-sliders text-cyan"></i> <span>Settings & Server Mirrors</span></li>
             <li onclick="openSettingsModal('audio')"><i class="fa-solid fa-language text-purple"></i> <span>Audio & Dub Preferences</span></li>
             <li onclick="openSettingsModal('shield')"><i class="fa-solid fa-shield-halved text-green"></i> <span>Ad-Shield & Privacy</span></li>
             <li onclick="showWatchlist()"><i class="fa-solid fa-bookmark text-yellow"></i> <span>My Watchlist</span></li>
-            <li onclick="openAuditModal()"><i class="fa-solid fa-file-shield text-blue"></i> <span>NetMirror APK Audit</span></li>
+            <li onclick="openAuditModal()"><i class="fa-solid fa-file-shield text-blue"></i> <span>APK Safety Audit</span></li>
             <li class="danger-item" onclick="openSettingsModal('data')"><i class="fa-solid fa-trash-can text-red"></i> <span>Clear History & Cache</span></li>
           </ul>
         </div>
@@ -206,6 +210,9 @@
           </button>
           <button class="netflix-btn btn-grey" id="hero-info-btn">
             <i class="fa-solid fa-circle-info"></i> More Info
+          </button>
+          <button class="netflix-btn btn-download-hero" id="hero-download-btn" onclick="openDownloadModalForHero()" title="Download for Offline Viewing">
+            <i class="fa-solid fa-arrow-down-to-bracket"></i> Download
           </button>
           <button class="btn-round" id="hero-watchlist-btn" title="Add to My List">
             <i class="fa-solid fa-plus"></i>
@@ -496,6 +503,21 @@
       <div class="netflix-grid" id="watchlist-grid"></div>
     </section>
 
+    <!-- OFFLINE IN-APP DOWNLOADS VAULT PAGE -->
+    <section class="section downloads-section" id="downloads-section" style="display: none;">
+      <div class="downloads-header-card">
+        <div>
+          <h2 class="row-title"><i class="fa-solid fa-arrow-down-to-bracket text-red"></i> My Offline Downloads</h2>
+          <span class="downloads-storage-meta" id="downloads-storage-meta">0 titles • 0 MB used (Stored in In-App Vault • 100% Offline Playable)</span>
+        </div>
+        <div class="downloads-header-actions">
+          <button class="btn-action-outline text-yellow" onclick="openSettingsModal('storage')"><i class="fa-solid fa-gear"></i> Storage Settings</button>
+          <button class="btn-action-outline text-red" onclick="clearAllOfflineDownloads()"><i class="fa-solid fa-trash-can"></i> Clear All Downloads</button>
+        </div>
+      </div>
+      <div class="netflix-grid" id="downloads-grid"></div>
+    </section>
+
   </main>
 
   <!-- ======================================================== -->
@@ -515,6 +537,7 @@
           <h2 class="modal-hero-title" id="modal-title">Stranger Things</h2>
           <div class="modal-hero-actions">
             <button class="netflix-btn btn-white" id="modal-play-btn"><i class="fa-solid fa-play"></i> <span id="modal-play-text">Play</span></button>
+            <button class="netflix-btn btn-download-modal" id="modal-download-btn" onclick="openDownloadModal(currentItem)"><i class="fa-solid fa-arrow-down-to-bracket"></i> Download</button>
             <button class="netflix-btn btn-secondary" id="modal-trailer-btn" onclick="openTrailerModal()"><i class="fa-brands fa-youtube text-red"></i> Trailer</button>
             <button class="btn-round" id="modal-watchlist-btn" title="Add to My List"><i class="fa-solid fa-plus"></i></button>
             <button class="btn-round" onclick="shareMovie()" title="Share Title"><i class="fa-solid fa-share-nodes"></i></button>
@@ -1389,6 +1412,83 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- DOWNLOAD MANAGER MODAL (IN-APP OFFLINE & SERVER 4/6)    -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="download-manager-modal" style="display: none;" onclick="handleDownloadBackdropClick(event)">
+    <div class="netflix-modal-card download-modal-card">
+      <button class="modal-close-btn" onclick="closeDownloadModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="download-modal-header">
+        <h3 id="dl-title"><i class="fa-solid fa-download text-red"></i> Download for Offline Viewing</h3>
+        <p class="download-modal-sub">Watch offline inside CinemaMirror without internet connection and without using device gallery storage.</p>
+      </div>
+
+      <div class="download-modal-body">
+        <!-- Media Preview Card -->
+        <div class="download-preview-card">
+          <img class="download-preview-poster" id="dl-preview-poster" src="" alt="Poster" onerror="handleImgError(this)">
+          <div class="download-preview-meta">
+            <span class="download-badge-quality" id="dl-badge-quality">4K Ultra HD</span>
+            <h4 id="dl-item-title">Title</h4>
+            <span class="download-item-sub" id="dl-item-sub">2026 • 2h 15m</span>
+            <div class="download-audio-chips" id="dl-audio-chips">
+              <span class="chip-audio"><i class="fa-solid fa-headphones"></i> Multi-Audio Dubbed</span>
+              <span class="chip-audio"><i class="fa-solid fa-bolt text-gold"></i> Server 4 Fast Stream</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Quality & Options -->
+        <div class="download-options-block">
+          <label><i class="fa-solid fa-sliders text-cyan"></i> Select Download Quality:</label>
+          <div class="download-quality-grid">
+            <div class="quality-card active" onclick="selectDownloadQuality('4k', '1.4 GB', this)">
+              <div class="quality-name">4K Ultra HD</div>
+              <div class="quality-size">~1.4 GB</div>
+              <span class="quality-badge">Best Audio & Video</span>
+            </div>
+            <div class="quality-card" onclick="selectDownloadQuality('1080p', '850 MB', this)">
+              <div class="quality-name">1080p Full HD</div>
+              <div class="quality-size">~850 MB</div>
+              <span class="quality-badge">Fast Download</span>
+            </div>
+            <div class="quality-card" onclick="selectDownloadQuality('720p', '450 MB', this)">
+              <div class="quality-name">720p Data Saver</div>
+              <div class="quality-size">~450 MB</div>
+              <span class="quality-badge">Lowest Storage</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Progress Box (Hidden until started) -->
+        <div class="download-progress-container" id="download-progress-container" style="display: none;">
+          <div class="download-progress-header">
+            <span id="dl-progress-status"><i class="fa-solid fa-spinner fa-spin text-red"></i> Downloading stream to In-App Vault...</span>
+            <span class="dl-progress-percent" id="dl-progress-percent">0%</span>
+          </div>
+          <div class="dl-progress-track">
+            <div class="dl-progress-fill" id="dl-progress-fill" style="width: 0%;"></div>
+          </div>
+          <div class="dl-progress-meta">
+            <span id="dl-progress-speed">45.2 MB/s</span>
+            <span id="dl-progress-eta">Saving into app offline storage</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="download-actions-grid" id="download-actions-grid">
+          <button class="btn-dl-primary" id="btn-start-inapp-download" onclick="startInAppDownload()">
+            <i class="fa-solid fa-arrow-down-to-bracket"></i> Save to In-App Offline Vault
+          </button>
+          <button class="btn-dl-secondary" id="btn-direct-stream-link" onclick="openDirectStreamDownload()">
+            <i class="fa-solid fa-link text-gold"></i> Direct Server 4/6 Download Link
+          </button>
         </div>
       </div>
     </div>

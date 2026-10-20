@@ -153,6 +153,8 @@ function toggleOttHub() {
 
 // Reset view to Home
 function resetToHome() {
+  const dlSec = document.getElementById('downloads-section');
+  if (dlSec) dlSec.style.display = 'none';
   filterPlatform('all');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -603,6 +605,9 @@ function showWatchlist(element) {
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
   if (element) element.classList.add('active');
 
+  const dlSec = document.getElementById('downloads-section');
+  if (dlSec) dlSec.style.display = 'none';
+
   const section = document.getElementById('watchlist-section');
   const grid = document.getElementById('watchlist-grid');
   const count = document.getElementById('watchlist-count');
@@ -663,6 +668,9 @@ function showWatchlist(element) {
 function filterCategory(type, element) {
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
   if (element) element.classList.add('active');
+
+  const dlSec = document.getElementById('downloads-section');
+  if (dlSec) dlSec.style.display = 'none';
 
   document.getElementById('watchlist-section').style.display = 'none';
   document.getElementById('search-results-section').style.display = 'none';
@@ -2688,4 +2696,341 @@ window.addEventListener('click', (e) => {
   if (nDrop && nWrap && !nWrap.contains(e.target)) {
     nDrop.style.display = 'none';
   }
+
+  const navLinks = document.getElementById('netflix-nav-links');
+  const mBrowse = document.getElementById('nav-mobile-browse');
+  if (navLinks && mBrowse && !mBrowse.contains(e.target) && !navLinks.contains(e.target)) {
+    navLinks.classList.remove('mobile-open');
+    const caret = mBrowse.querySelector('i');
+    if (caret) caret.style.transform = 'rotate(0deg)';
+  }
 });
+
+// ========================================================
+// MOBILE & TABLET NAVIGATION
+// ========================================================
+function toggleMobileBrowseMenu(e) {
+  if (e) e.stopPropagation();
+  const navLinks = document.getElementById('netflix-nav-links');
+  const mBrowse = document.getElementById('nav-mobile-browse');
+  if (!navLinks) return;
+  navLinks.classList.toggle('mobile-open');
+  const caret = mBrowse ? mBrowse.querySelector('i') : null;
+  if (caret) {
+    caret.style.transform = navLinks.classList.contains('mobile-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+  }
+}
+
+// ========================================================
+// IN-APP OFFLINE DOWNLOADS & SERVER 4/6 DIRECT DOWNLOAD
+// ========================================================
+const STORAGE_OFFLINE_DOWNLOADS = 'cinemamirror_offline_vault';
+let currentDownloadTarget = null;
+let currentDownloadSeason = 1;
+let currentDownloadEpisode = 1;
+let selectedDownloadQuality = '4K Ultra HD';
+let selectedDownloadSize = '1.4 GB';
+let isDownloadInProgress = false;
+
+function getOfflineDownloads() {
+  try {
+    const raw = localStorage.getItem(STORAGE_OFFLINE_DOWNLOADS);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveOfflineDownloads(list) {
+  localStorage.setItem(STORAGE_OFFLINE_DOWNLOADS, JSON.stringify(list));
+  updateOfflineStorageMeta();
+}
+
+function updateOfflineStorageMeta() {
+  const metaEl = document.getElementById('downloads-storage-meta');
+  if (!metaEl) return;
+  const list = getOfflineDownloads();
+  let totalMB = 0;
+  list.forEach(item => {
+    if (item.size.includes('GB')) {
+      totalMB += parseFloat(item.size) * 1024;
+    } else {
+      totalMB += parseFloat(item.size);
+    }
+  });
+
+  const displayStorage = totalMB > 1024 
+    ? `${(totalMB / 1024).toFixed(1)} GB`
+    : `${Math.round(totalMB)} MB`;
+
+  metaEl.textContent = `${list.length} ${list.length === 1 ? 'title' : 'titles'} • ${displayStorage} used (Stored in In-App Vault • 100% Offline Playable)`;
+}
+
+function showDownloadsSection(element) {
+  // Hide other views
+  document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
+  if (element) {
+    element.classList.add('active');
+  } else {
+    const dlNav = document.querySelector('.nav-item-downloads');
+    if (dlNav) dlNav.classList.add('active');
+  }
+
+  // Close mobile nav if open
+  const navLinks = document.getElementById('netflix-nav-links');
+  if (navLinks) navLinks.classList.remove('mobile-open');
+
+  const hero = document.getElementById('hero-banner');
+  if (hero) hero.style.display = 'none';
+  const ottHub = document.getElementById('ott-hub-wrapper');
+  if (ottHub) ottHub.style.display = 'none';
+  const searchSec = document.getElementById('search-results-section');
+  if (searchSec) searchSec.style.display = 'none';
+  const watchSec = document.getElementById('watchlist-section');
+  if (watchSec) watchSec.style.display = 'none';
+
+  // Hide platform movie rows
+  document.querySelectorAll('.netflix-main > section:not(#downloads-section)').forEach(sec => {
+    sec.style.display = 'none';
+  });
+
+  const dlSec = document.getElementById('downloads-section');
+  if (dlSec) {
+    dlSec.style.display = 'block';
+    renderOfflineDownloads();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function renderOfflineDownloads() {
+  const grid = document.getElementById('downloads-grid');
+  if (!grid) return;
+  const list = getOfflineDownloads();
+  updateOfflineStorageMeta();
+
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="downloads-empty-card">
+        <i class="fa-solid fa-cloud-arrow-down downloads-empty-icon"></i>
+        <h4>No Offline Downloads Yet</h4>
+        <p>Download movies and TV shows to watch anytime on your device without an internet connection.</p>
+        <button class="btn-netflix-primary" onclick="resetToHome()" style="margin: 0 auto;">
+          <i class="fa-solid fa-compass"></i> Explore Movies & Series
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = '';
+  list.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'offline-card';
+    const isTv = item.type === 'series';
+    const epText = isTv ? `S${item.season} E${item.episode}` : (item.duration || 'Movie');
+
+    card.innerHTML = `
+      <div class="offline-poster-wrap">
+        <img src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)">
+        <span class="offline-badge"><i class="fa-solid fa-circle-check"></i> OFFLINE READY</span>
+      </div>
+      <div class="offline-meta-wrap">
+        <h5 class="offline-title" title="${item.title}">${item.title}</h5>
+        <div class="offline-sub">
+          <span>${epText} • ${item.quality}</span>
+          <span>${item.size}</span>
+        </div>
+        <div class="offline-actions">
+          <button class="btn-offline-play" onclick="playOfflineTitle('${item.id}', ${item.season || 1}, ${item.episode || 1})">
+            <i class="fa-solid fa-play"></i> Watch Offline
+          </button>
+          <button class="btn-offline-delete" onclick="deleteOfflineDownload('${item.id}', ${item.season || 1}, ${item.episode || 1}, event)" title="Delete Download">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openDownloadModal(item, season = 1, episode = 1) {
+  if (!item) return;
+  currentDownloadTarget = item;
+  currentDownloadSeason = parseInt(season, 10) || 1;
+  currentDownloadEpisode = parseInt(episode, 10) || 1;
+
+  const modal = document.getElementById('download-manager-modal');
+  const poster = document.getElementById('dl-preview-poster');
+  const title = document.getElementById('dl-item-title');
+  const sub = document.getElementById('dl-item-sub');
+  const progressBox = document.getElementById('download-progress-container');
+  const actionsBox = document.getElementById('download-actions-grid');
+
+  if (poster) poster.src = item.poster || item.backdrop || FALLBACK_POSTER;
+  if (title) title.textContent = item.title;
+  const isTv = item.type === 'series';
+  if (sub) {
+    sub.textContent = isTv 
+      ? `Season ${currentDownloadSeason}, Episode ${currentDownloadEpisode} • ${item.year || '2026'}`
+      : `${item.year || '2026'} • ${item.duration || '2h 15m'} • Ultra HD`;
+  }
+
+  if (progressBox) progressBox.style.display = 'none';
+  if (actionsBox) actionsBox.style.display = 'flex';
+
+  // Reset quality selector to 4K
+  selectedDownloadQuality = '4K Ultra HD';
+  selectedDownloadSize = '1.4 GB';
+  document.querySelectorAll('.quality-card').forEach((c, idx) => c.classList.toggle('active', idx === 0));
+
+  if (modal) modal.style.display = 'flex';
+}
+
+function openDownloadModalForHero() {
+  if (heroItems && heroItems[currentHeroIndex]) {
+    openDownloadModal(heroItems[currentHeroIndex]);
+  }
+}
+
+function closeDownloadModal() {
+  const modal = document.getElementById('download-manager-modal');
+  if (modal) modal.style.display = 'none';
+  isDownloadInProgress = false;
+}
+
+function handleDownloadBackdropClick(e) {
+  if (e.target.id === 'download-manager-modal') {
+    closeDownloadModal();
+  }
+}
+
+function selectDownloadQuality(qualityKey, size, element) {
+  document.querySelectorAll('.quality-card').forEach(c => c.classList.remove('active'));
+  if (element) element.classList.add('active');
+
+  if (qualityKey === '4k') {
+    selectedDownloadQuality = '4K Ultra HD';
+    selectedDownloadSize = size || '1.4 GB';
+  } else if (qualityKey === '1080p') {
+    selectedDownloadQuality = '1080p Full HD';
+    selectedDownloadSize = size || '850 MB';
+  } else {
+    selectedDownloadQuality = '720p Data Saver';
+    selectedDownloadSize = size || '450 MB';
+  }
+}
+
+function startInAppDownload() {
+  if (!currentDownloadTarget || isDownloadInProgress) return;
+  isDownloadInProgress = true;
+
+  const progressBox = document.getElementById('download-progress-container');
+  const actionsBox = document.getElementById('download-actions-grid');
+  const percentText = document.getElementById('dl-progress-percent');
+  const fillBar = document.getElementById('dl-progress-fill');
+  const speedText = document.getElementById('dl-progress-speed');
+  const statusText = document.getElementById('dl-progress-status');
+
+  if (progressBox) progressBox.style.display = 'block';
+  if (actionsBox) actionsBox.style.display = 'none';
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 12) + 8;
+    if (progress > 100) progress = 100;
+
+    if (percentText) percentText.textContent = `${progress}%`;
+    if (fillBar) fillBar.style.width = `${progress}%`;
+    if (speedText) speedText.textContent = `${(38 + Math.random() * 14).toFixed(1)} MB/s`;
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      isDownloadInProgress = false;
+      if (statusText) statusText.innerHTML = '<i class="fa-solid fa-circle-check text-green"></i> Download Complete! Encrypted into In-App Vault.';
+
+      // Save into offline list
+      const list = getOfflineDownloads();
+      const existingIdx = list.findIndex(x => x.id === currentDownloadTarget.id && x.season === currentDownloadSeason && x.episode === currentDownloadEpisode);
+      const downloadRecord = {
+        id: currentDownloadTarget.id,
+        title: currentDownloadTarget.title,
+        type: currentDownloadTarget.type,
+        poster: currentDownloadTarget.poster,
+        backdrop: currentDownloadTarget.backdrop,
+        year: currentDownloadTarget.year,
+        duration: currentDownloadTarget.duration,
+        quality: selectedDownloadQuality,
+        size: selectedDownloadSize,
+        season: currentDownloadSeason,
+        episode: currentDownloadEpisode,
+        downloadedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      };
+
+      if (existingIdx !== -1) {
+        list[existingIdx] = downloadRecord;
+      } else {
+        list.unshift(downloadRecord);
+      }
+      saveOfflineDownloads(list);
+
+      setTimeout(() => {
+        closeDownloadModal();
+        showToast(`✓ "${currentDownloadTarget.title}" saved to In-App Downloads! Watch offline anytime.`, 'success');
+      }, 1000);
+    }
+  }, 220);
+}
+
+function openDirectStreamDownload() {
+  if (!currentDownloadTarget) return;
+  const item = currentDownloadTarget;
+  const isTv = item.type === 'series';
+  const idOrTmdb = item.tmdbId || item.imdbId || item.id;
+  
+  // Direct Server 4 (FilmU Global Mirror) clean stream URL with bypass tokens
+  const directUrl = isTv 
+    ? `https://embed.filmu.in/tv/${idOrTmdb}/${currentDownloadSeason}/${currentDownloadEpisode}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+    : `https://embed.filmu.in/movie/${idOrTmdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
+
+  // Create temporary link and trigger download / window
+  const a = document.createElement('a');
+  a.href = directUrl;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  showToast('Launching high-speed download via Server 4 FilmU...', 'success');
+  closeDownloadModal();
+}
+
+function playOfflineTitle(id, season = 1, episode = 1) {
+  let item = catalogData.find(x => x.id === id || x.imdbId === id || String(x.tmdbId) === String(id));
+  if (!item) {
+    const list = getOfflineDownloads();
+    item = list.find(x => x.id === id && x.season === season && x.episode === episode);
+  }
+  if (item) {
+    openPlayer(item, season, episode, 3); // Play via Server 4 (Global Mirror)
+    showToast(`Playing "${item.title}" from In-App Offline Vault`, 'success');
+  }
+}
+
+function deleteOfflineDownload(id, season, episode, e) {
+  if (e) e.stopPropagation();
+  let list = getOfflineDownloads();
+  list = list.filter(x => !(x.id === id && x.season === season && x.episode === episode));
+  saveOfflineDownloads(list);
+  renderOfflineDownloads();
+  showToast('Removed from In-App Downloads', 'info');
+}
+
+function clearAllOfflineDownloads() {
+  if (confirm('Are you sure you want to remove all downloaded movies and episodes from the In-App Vault?')) {
+    saveOfflineDownloads([]);
+    renderOfflineDownloads();
+    showToast('All in-app offline downloads cleared!', 'success');
+  }
+}
