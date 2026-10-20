@@ -106,8 +106,8 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
       name: 'Server 4: Global Mirror (Multi-Language & Dubbed)',
       badge: 'Global Mirror • Multi-Language 4K',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://embed.filmu.in/movie/${tmdbOrImdb}`
+        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
     },
     {
       id: 5,
@@ -122,8 +122,8 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
       name: 'Server 6: FilmU VIP Cloud Mirror',
       badge: 'Ultra Fast Cloud',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${imdbOrTmdb}/${s}/${e}`
-        : `https://embed.filmu.in/movie/${imdbOrTmdb}`
+        ? `https://embed.filmu.in/tv/${imdbOrTmdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        : `https://embed.filmu.in/movie/${imdbOrTmdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
     },
     {
       id: 7,
@@ -770,3 +770,5 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`  10 Streaming Servers • Multi-OTT Hub • Adaptive Shield`);
   console.log('===================================================');
 });
+
+module.exports = app;

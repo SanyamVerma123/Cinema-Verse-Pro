@@ -40,11 +40,40 @@ window.handleImgError = function(img, fallback = FALLBACK_POSTER) {
   img.src = fallback;
 };
 
-// Anti-Redirect Guard: Neutralize rogue popups and prevent iframe from hijacking the top window
-window.open = function(url) {
-  console.warn('[Netflix Mirror Shield] Blocked popup window:', url);
-  return null;
-};
+// NetMirror REA Anti-Redirect Guard: Neutralize rogue popups and prevent iframe from hijacking the top window
+try {
+  Object.defineProperty(window, 'open', {
+    value: function(url) {
+      console.warn('[CinemaMirror Shield] Blocked popup window:', url);
+      return null;
+    },
+    writable: false,
+    configurable: false
+  });
+} catch (e) {
+  window.open = function(url) {
+    console.warn('[CinemaMirror Shield] Blocked popup window:', url);
+    return null;
+  };
+}
+
+// Block rogue synthetic link clicks targeting external ad pages
+document.addEventListener('click', function(e) {
+  let target = e.target;
+  while (target && target !== document.body && target !== document.documentElement) {
+    if (target.tagName === 'A' && (target.target === '_blank' || target.target === '_new')) {
+      const href = target.getAttribute('href') || target.href || '';
+      if (href && (href.startsWith('http://') || href.startsWith('https://')) && !href.includes(window.location.hostname)) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.warn('[CinemaMirror Shield] Blocked external ad link click:', href);
+        return false;
+      }
+    }
+    target = target.parentElement;
+  }
+}, true);
+
 window.addEventListener('beforeunload', function(e) {
   const player = document.getElementById('player-overlay');
   if (player && player.style.display === 'flex') {
@@ -1400,7 +1429,14 @@ function loadServerStream(serverIdx) {
   const iframe = document.getElementById('player-iframe');
   iframe.removeAttribute('sandbox');
   iframe.referrerPolicy = 'origin';
-  iframe.src = srv.url;
+
+  let streamUrl = srv.url;
+  // NetMirror REA Anti-Ad Bypass: Ensure FilmU embeds always inject the premium bypass key & debug bypass
+  if (streamUrl && streamUrl.includes('embed.filmu.in') && !streamUrl.includes('apikey=')) {
+    const sep = streamUrl.includes('?') ? '&' : '?';
+    streamUrl = `${streamUrl}${sep}apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
+  }
+  iframe.src = streamUrl;
 
   // 3. Smooth Dismissal of Buffering Overlay
   let dismissed = false;
