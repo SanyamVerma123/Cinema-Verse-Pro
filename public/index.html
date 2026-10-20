@@ -5,9 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Netflix Mirror Pro — Watch TV Shows & Movies Online Free</title>
   <meta name="description" content="Watch Netflix, Prime Video, Disney+ Hotstar, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
+  <!-- PWA & Mobile Web App Meta -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#e50914">
-  <link rel="apple-touch-icon" href="/manifest.json">
+  <meta name="theme-color" content="#141414">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CinemaMirror">
+
+  <!-- Crisp App Icons for Homescreen Installation & Browser Tabs -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -18,17 +29,22 @@
   <!-- ======================================================== -->
   <header class="netflix-navbar" id="navbar">
     <div class="nav-left">
-      <!-- Netflix Iconic Wordmark Logo -->
-      <div class="netflix-logo" onclick="resetToHome()">
-        <span class="logo-netflix">NETFLIX</span>
-        <span class="logo-sub">MIRROR</span>
+      <!-- Netflix Iconic Wordmark Logo with Brand Icon Badge -->
+      <div class="netflix-logo" onclick="resetToHome()" role="button" tabindex="0" title="CinemaMirror Home">
+        <div class="logo-badge-icon">
+          <img src="/logo.svg" alt="CinemaMirror" width="28" height="28" class="logo-svg-img">
+        </div>
+        <div class="logo-text-group">
+          <span class="logo-netflix">NETFLIX</span>
+          <span class="logo-sub">MIRROR</span>
+        </div>
       </div>
 
       <!-- Mobile / Tablet "Browse" Dropdown Menu Trigger -->
-      <div class="nav-mobile-browse" id="nav-mobile-browse" onclick="toggleMobileBrowseMenu(event)">
+      <button type="button" class="nav-mobile-browse" id="nav-mobile-browse" onclick="toggleMobileBrowseMenu(event)" aria-label="Browse Menu">
         <span>Browse</span>
         <i class="fa-solid fa-caret-down"></i>
-      </div>
+      </button>
 
       <!-- Desktop & Tablet Navigation Links -->
       <nav class="netflix-nav-links" id="netflix-nav-links">
@@ -63,10 +79,10 @@
 
       <!-- Notification Bell with Interactive Dropdown -->
       <div class="nav-bell-wrapper" id="nav-bell-wrapper">
-        <div class="nav-bell" id="nav-bell-btn" onclick="toggleNotificationDropdown(event)" title="Notifications">
+        <button type="button" class="nav-bell" id="nav-bell-btn" onclick="toggleNotificationDropdown(event)" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">
           <i class="fa-regular fa-bell"></i>
           <span class="bell-badge" id="bell-badge">4</span>
-        </div>
+        </button>
         
         <!-- Netflix Notifications Dropdown Panel -->
         <div class="notifications-dropdown" id="notifications-dropdown" style="display: none;">
@@ -83,12 +99,12 @@
         </div>
       </div>
 
-      <!-- Netflix Profile Dropdown (Clean Avatar + Subtle Caret, No bulky text) -->
+      <!-- Netflix Profile Dropdown (Clean Button + Avatar + Subtle Caret, Touch-Optimized) -->
       <div class="netflix-profile-wrapper" id="netflix-profile-wrapper">
-        <div class="netflix-profile-wrap" onclick="toggleProfileDropdown(event)" title="Account & Settings">
+        <button type="button" class="netflix-profile-wrap" id="nav-profile-btn" onclick="toggleProfileDropdown(event)" aria-label="Account & Settings" aria-haspopup="true" aria-expanded="false" title="Account & Settings">
           <img class="profile-avatar" id="nav-profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Profile">
           <i class="fa-solid fa-caret-down profile-caret" id="nav-profile-caret"></i>
-        </div>
+        </button>
 
         <!-- Profile Dropdown Flyout -->
         <div class="profile-dropdown-menu" id="profile-dropdown-menu" style="display: none;">

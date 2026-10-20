@@ -153,6 +153,8 @@ function toggleOttHub() {
 
 // Reset view to Home
 function resetToHome() {
+  closeProfileDropdown();
+  closeNotificationDropdown();
   const dlSec = document.getElementById('downloads-section');
   if (dlSec) dlSec.style.display = 'none';
   filterPlatform('all');
@@ -602,6 +604,7 @@ function updateWatchlistButton(btnElement, itemId) {
 }
 
 function showWatchlist(element) {
+  closeProfileDropdown();
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
   if (element) element.classList.add('active');
 
@@ -2122,6 +2125,7 @@ function updateActiveServerChips() {
 // ========================================================
 
 async function openAuditModal() {
+  closeProfileDropdown();
   const modal = document.getElementById('audit-modal');
   const findingsList = document.getElementById('audit-findings-list');
   findingsList.innerHTML = '<p style="color: var(--text-dim); padding: 20px;">Loading forensic findings...</p>';
@@ -2282,6 +2286,7 @@ let selectedEditAvatar = currentProfileAvatar;
 
 function initProfile() {
   updateProfileDOM();
+  setupProfileEventListeners();
 }
 
 function updateProfileDOM() {
@@ -2296,25 +2301,116 @@ function updateProfileDOM() {
   if (dropdownAvatar) dropdownAvatar.src = currentProfileAvatar;
 }
 
-function toggleProfileDropdown(e) {
-  if (e) e.stopPropagation();
+function setupProfileEventListeners() {
+  const btn = document.getElementById('nav-profile-btn');
+  const dropdown = document.getElementById('profile-dropdown-menu');
+  const wrapper = document.getElementById('netflix-profile-wrapper');
+
+  if (btn) {
+    btn.onclick = function(e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      toggleProfileDropdown();
+    };
+  }
+
+  if (dropdown) {
+    dropdown.onclick = function(e) {
+      e.stopPropagation();
+    };
+  }
+
+  // Bell Notifications button direct handler
+  const bellBtn = document.getElementById('nav-bell-btn');
+  const bellDropdown = document.getElementById('notifications-dropdown');
+  if (bellBtn) {
+    bellBtn.onclick = function(e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      toggleNotificationDropdown();
+    };
+  }
+  if (bellDropdown) {
+    bellDropdown.onclick = function(e) {
+      e.stopPropagation();
+    };
+  }
+
+  // Mobile browse menu trigger direct handler
+  const browseBtn = document.getElementById('nav-mobile-browse');
+  if (browseBtn) {
+    browseBtn.onclick = function(e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      toggleMobileBrowseMenu();
+    };
+  }
+
+  // Desktop hover intent for Netflix-standard smooth dropdown
+  if (wrapper && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let hoverTimer = null;
+    wrapper.addEventListener('mouseenter', () => {
+      clearTimeout(hoverTimer);
+      openProfileDropdown();
+    });
+    wrapper.addEventListener('mouseleave', () => {
+      hoverTimer = setTimeout(() => {
+        closeProfileDropdown();
+      }, 250);
+    });
+  }
+}
+
+function openProfileDropdown() {
   const dropdown = document.getElementById('profile-dropdown-menu');
   const caret = document.getElementById('nav-profile-caret');
-  const notifDropdown = document.getElementById('notifications-dropdown');
+  const btn = document.getElementById('nav-profile-btn');
   
-  if (notifDropdown) notifDropdown.style.display = 'none';
+  closeNotificationDropdown();
 
+  if (dropdown) {
+    dropdown.classList.add('show');
+    dropdown.style.display = 'block';
+  }
+  if (caret) caret.style.transform = 'rotate(180deg)';
+  if (btn) btn.setAttribute('aria-expanded', 'true');
+}
+
+function closeProfileDropdown() {
+  const dropdown = document.getElementById('profile-dropdown-menu');
+  const caret = document.getElementById('nav-profile-caret');
+  const btn = document.getElementById('nav-profile-btn');
+
+  if (dropdown) {
+    dropdown.classList.remove('show');
+    dropdown.style.display = 'none';
+  }
+  if (caret) caret.style.transform = 'rotate(0deg)';
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+function toggleProfileDropdown(e) {
+  if (e && e.stopPropagation) {
+    e.stopPropagation();
+  }
+  const dropdown = document.getElementById('profile-dropdown-menu');
   if (!dropdown) return;
-  const isShown = dropdown.style.display === 'block';
-  dropdown.style.display = isShown ? 'none' : 'block';
-  if (caret) caret.style.transform = isShown ? 'rotate(0deg)' : 'rotate(180deg)';
+  const isVisible = dropdown.classList.contains('show') || dropdown.style.display === 'block';
+  if (isVisible) {
+    closeProfileDropdown();
+  } else {
+    openProfileDropdown();
+  }
 }
 
 function openProfileModal() {
-  const dropdown = document.getElementById('profile-dropdown-menu');
-  if (dropdown) dropdown.style.display = 'none';
-  const caret = document.getElementById('nav-profile-caret');
-  if (caret) caret.style.transform = 'rotate(0deg)';
+  closeProfileDropdown();
 
   const modal = document.getElementById('profile-edit-modal');
   const nameInput = document.getElementById('profile-name-input');
@@ -2407,16 +2503,39 @@ function initNotifications() {
   // Handled dynamically
 }
 
-function toggleNotificationDropdown(e) {
-  if (e) e.stopPropagation();
+function openNotificationDropdown() {
   const dropdown = document.getElementById('notifications-dropdown');
-  const profileDropdown = document.getElementById('profile-dropdown-menu');
-  
-  if (profileDropdown) profileDropdown.style.display = 'none';
+  const btn = document.getElementById('nav-bell-btn');
+  closeProfileDropdown();
 
+  if (dropdown) {
+    dropdown.classList.add('show');
+    dropdown.style.display = 'block';
+  }
+  if (btn) btn.setAttribute('aria-expanded', 'true');
+}
+
+function closeNotificationDropdown() {
+  const dropdown = document.getElementById('notifications-dropdown');
+  const btn = document.getElementById('nav-bell-btn');
+
+  if (dropdown) {
+    dropdown.classList.remove('show');
+    dropdown.style.display = 'none';
+  }
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+function toggleNotificationDropdown(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const dropdown = document.getElementById('notifications-dropdown');
   if (!dropdown) return;
-  const isShown = dropdown.style.display === 'block';
-  dropdown.style.display = isShown ? 'none' : 'block';
+  const isShown = dropdown.classList.contains('show') || dropdown.style.display === 'block';
+  if (isShown) {
+    closeNotificationDropdown();
+  } else {
+    openNotificationDropdown();
+  }
 }
 
 function renderNotifications() {
@@ -2566,10 +2685,8 @@ function initSettings() {
 
 function openSettingsModal(tabName = 'install') {
   // Close any open dropdowns
-  const pDrop = document.getElementById('profile-dropdown-menu');
-  if (pDrop) pDrop.style.display = 'none';
-  const nDrop = document.getElementById('notifications-dropdown');
-  if (nDrop) nDrop.style.display = 'none';
+  closeProfileDropdown();
+  closeNotificationDropdown();
 
   const modal = document.getElementById('app-settings-modal');
   if (!modal) return;
@@ -2681,20 +2798,18 @@ function resetAllAppSettings() {
   }
 }
 
-// Global click-outside listener to close dropdowns
-window.addEventListener('click', (e) => {
+// Global outside click & touch listener to close dropdowns
+function handleOutsideClicks(e) {
   const pDrop = document.getElementById('profile-dropdown-menu');
   const pWrap = document.getElementById('netflix-profile-wrapper');
   if (pDrop && pWrap && !pWrap.contains(e.target)) {
-    pDrop.style.display = 'none';
-    const caret = document.getElementById('nav-profile-caret');
-    if (caret) caret.style.transform = 'rotate(0deg)';
+    closeProfileDropdown();
   }
 
   const nDrop = document.getElementById('notifications-dropdown');
   const nWrap = document.getElementById('nav-bell-wrapper');
   if (nDrop && nWrap && !nWrap.contains(e.target)) {
-    nDrop.style.display = 'none';
+    closeNotificationDropdown();
   }
 
   const navLinks = document.getElementById('netflix-nav-links');
@@ -2704,13 +2819,42 @@ window.addEventListener('click', (e) => {
     const caret = mBrowse.querySelector('i');
     if (caret) caret.style.transform = 'rotate(0deg)';
   }
+}
+
+window.addEventListener('click', handleOutsideClicks);
+
+document.addEventListener('touchstart', (e) => {
+  const pWrap = document.getElementById('netflix-profile-wrapper');
+  const nWrap = document.getElementById('nav-bell-wrapper');
+  const mBrowse = document.getElementById('nav-mobile-browse');
+  const navLinks = document.getElementById('netflix-nav-links');
+  if (
+    (!pWrap || !pWrap.contains(e.target)) &&
+    (!nWrap || !nWrap.contains(e.target)) &&
+    (!mBrowse || !mBrowse.contains(e.target)) &&
+    (!navLinks || !navLinks.contains(e.target))
+  ) {
+    handleOutsideClicks(e);
+  }
+}, { passive: true });
+
+// Keyboard shortcut: Escape closes all open dropdowns & modals
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeProfileDropdown();
+    closeNotificationDropdown();
+    closeProfileModal();
+    closeSettingsModal();
+    closeDownloadModal();
+    if (typeof closeAuditModal === 'function') closeAuditModal();
+  }
 });
 
 // ========================================================
 // MOBILE & TABLET NAVIGATION
 // ========================================================
 function toggleMobileBrowseMenu(e) {
-  if (e) e.stopPropagation();
+  if (e && e.stopPropagation) e.stopPropagation();
   const navLinks = document.getElementById('netflix-nav-links');
   const mBrowse = document.getElementById('nav-mobile-browse');
   if (!navLinks) return;
@@ -2767,6 +2911,7 @@ function updateOfflineStorageMeta() {
 }
 
 function showDownloadsSection(element) {
+  closeProfileDropdown();
   // Hide other views
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
   if (element) {

@@ -1,18 +1,36 @@
 {
-  "name": "CinemaMirror Pro",
+  "name": "CinemaMirror Pro — Multi-OTT Streaming",
   "short_name": "CinemaMirror",
   "description": "Ultra HD 4K Multi-OTT Streaming Hub with 10 High-Speed Mirrors and Ad-Shield",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#0b0f19",
+  "background_color": "#141414",
   "theme_color": "#e50914",
   "orientation": "any",
   "icons": [
     {
-      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%23111827'/><path d='M133.5 416V96h65.8l113.4 195V96H378.5v320h-65.8L199.3 221v195h-65.8z' fill='%23e50914'/></svg>",
-      "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
   "categories": ["entertainment", "movies", "video"]
