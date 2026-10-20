@@ -5802,15 +5802,233 @@ input[type=range][orient=vertical] {
 }
 
 /* ======================================================== */
-/* DOWNLOAD MANAGER MODAL                                   */
+/* SHARE MODAL & SOCIAL CHANNELS                            */
 /* ======================================================== */
-.download-modal-card {
-  max-width: 580px;
+.share-modal-card {
+  max-width: 480px;
   width: 92%;
   background: #181818;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 26px;
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+}
+.share-modal-header h3 {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.share-modal-sub {
+  color: #9ca3af;
+  font-size: 13px;
+  margin: 0 0 16px 0;
+}
+.share-preview-card {
+  display: flex;
+  gap: 14px;
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 18px;
+  align-items: center;
+}
+.share-preview-poster {
+  width: 56px;
+  height: 80px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.share-preview-meta {
+  flex: 1;
+  min-width: 0;
+}
+.share-badge-quality {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+.share-preview-meta h4 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.share-item-sub {
+  font-size: 11px;
+  color: #9ca3af;
+}
+.share-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+@media (max-width: 480px) {
+  .share-channels-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.share-channel-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s ease, filter 0.18s ease;
+  touch-action: manipulation;
+}
+.share-channel-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+.share-channel-btn i {
+  font-size: 20px;
+}
+.share-whatsapp { background: #25D366; }
+.share-telegram { background: #0088cc; }
+.share-twitter { background: #000; border: 1px solid rgba(255, 255, 255, 0.2); }
+.share-facebook { background: #1877F2; }
+.share-system { background: #374151; }
+
+.share-copy-box label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #d1d5db;
+  margin-bottom: 6px;
+}
+.share-input-wrap {
+  display: flex;
+  gap: 8px;
+}
+.share-input-wrap input {
+  flex: 1;
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 9px 12px;
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+}
+.btn-copy-link {
+  background: #e50914;
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-copy-link:hover {
+  background: #b90710;
+}
+
+/* Hero Banner Share Button */
+.btn-share-hero {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+.btn-share-hero:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* APK Install Button in Settings Tab */
+.install-actions-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 240px;
+}
+.btn-install-apk-primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+  transition: all 0.2s ease;
+}
+.btn-install-apk-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+  filter: brightness(1.08);
+}
+.btn-install-apk-primary i {
+  font-size: 24px;
+}
+.apk-btn-text {
+  display: flex;
+  flex-direction: column;
+}
+.apk-btn-text strong {
+  font-size: 14px;
+  font-weight: 800;
+}
+.apk-btn-text small {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.btn-install-pwa-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #e5e5e5;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-install-pwa-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* ======================================================== */
+/* DOWNLOAD MANAGER MODAL                                   */
+/* ======================================================== */
+.download-modal-card {
+  max-width: 620px;
+  width: 92%;
+  background: #181818;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 24px;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
 }
 .download-modal-header h3 {
@@ -5825,8 +6043,202 @@ input[type=range][orient=vertical] {
 .download-modal-sub {
   color: #9ca3af;
   font-size: 13px;
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
   line-height: 1.4;
+}
+
+/* Real Video Download Streams Section */
+.download-real-sources-section {
+  margin-bottom: 20px;
+}
+.dl-sources-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.dl-sources-header h5 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dl-sources-badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.dl-sources-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+.dl-sources-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dl-source-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  gap: 12px;
+  transition: all 0.2s;
+}
+.dl-source-item:hover {
+  border-color: rgba(229, 9, 20, 0.4);
+  background: #151d30;
+}
+.dl-source-meta {
+  flex: 1;
+  min-width: 0;
+}
+.dl-source-header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.dl-source-pill {
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  background: #e50914;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+.dl-source-size {
+  font-size: 12px;
+  font-weight: 800;
+  color: #fbbf24;
+}
+.dl-source-seeds {
+  font-size: 11px;
+}
+.dl-source-filename {
+  font-size: 12px;
+  color: #d1d5db;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dl-source-btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.btn-dl-stream {
+  background: #e50914;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.btn-dl-stream:hover {
+  background: #b90710;
+}
+.btn-dl-copy {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-dl-copy:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* In-App Vault Section */
+.download-vault-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 14px;
+}
+.download-vault-section h5 {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #e5e5e5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vault-actions-row {
+  display: flex;
+  gap: 10px;
+}
+@media (max-width: 550px) {
+  .vault-actions-row {
+    flex-direction: column;
+  }
+}
+.btn-vault-download {
+  flex: 1;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+.btn-vault-download:hover {
+  background: #1d4ed8;
+}
+.btn-server-stream-link {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.btn-server-stream-link:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 .download-preview-card {
   display: flex;
