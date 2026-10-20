@@ -100,8 +100,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupSearch();
   setupKeyboardShortcuts();
   checkDailyUnlockPass();
+  initProfile();
+  initSettings();
+  initPwaInstall();
   await loadCatalog();
   renderContinueWatching();
+  renderNotifications();
 });
 
 // Check & Activate Daily Ad-Free Unlock Pass (NetMirror Feature)
@@ -2240,3 +2244,448 @@ function setupKeyboardShortcuts() {
     }
   });
 }
+
+// ========================================================
+// NETFLIX PROFILES & CUSTOM AVATARS SYSTEM
+// ========================================================
+const STORAGE_PROFILE_NAME = 'cinemamirror_profile_name';
+const STORAGE_PROFILE_AVATAR = 'cinemamirror_profile_avatar';
+const STORAGE_DEFAULT_SERVER = 'cinemamirror_default_server';
+const STORAGE_DEFAULT_ZOOM = 'cinemamirror_default_zoom';
+const STORAGE_AUTOPLAY_NEXT = 'cinemamirror_autoplay_next';
+const STORAGE_SUB_SIZE = 'cinemamirror_sub_size';
+const STORAGE_AUTO_SUB = 'cinemamirror_auto_sub';
+const STORAGE_NOTIF_READ = 'cinemamirror_notif_read';
+
+const NETFLIX_AVATARS = [
+  { id: 'classic', name: 'Classic Red', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' },
+  { id: 'cyberpunk', name: 'Cyberpunk Neon', url: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=150&q=80' },
+  { id: 'cinema', name: 'Cinema Director', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80' },
+  { id: 'anime', name: 'Anime Hero', url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80' },
+  { id: 'star', name: 'Retro Star', url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80' },
+  { id: 'ninja', name: 'Shadow Warrior', url: 'https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=150&q=80' },
+  { id: 'gamer', name: '4K Streamer', url: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=150&q=80' },
+  { id: 'neon', name: 'Neon Mask', url: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=150&q=80' }
+];
+
+let currentProfileName = localStorage.getItem(STORAGE_PROFILE_NAME) || 'Cinema Fan';
+let currentProfileAvatar = localStorage.getItem(STORAGE_PROFILE_AVATAR) || NETFLIX_AVATARS[0].url;
+let selectedEditAvatar = currentProfileAvatar;
+
+function initProfile() {
+  updateProfileDOM();
+}
+
+function updateProfileDOM() {
+  const navName = document.getElementById('nav-profile-name');
+  const navAvatar = document.getElementById('nav-profile-avatar');
+  const dropdownName = document.getElementById('dropdown-profile-name');
+  const dropdownAvatar = document.getElementById('dropdown-profile-avatar');
+
+  if (navName) navName.textContent = currentProfileName;
+  if (navAvatar) navAvatar.src = currentProfileAvatar;
+  if (dropdownName) dropdownName.textContent = currentProfileName;
+  if (dropdownAvatar) dropdownAvatar.src = currentProfileAvatar;
+}
+
+function toggleProfileDropdown(e) {
+  if (e) e.stopPropagation();
+  const dropdown = document.getElementById('profile-dropdown-menu');
+  const caret = document.getElementById('nav-profile-caret');
+  const notifDropdown = document.getElementById('notifications-dropdown');
+  
+  if (notifDropdown) notifDropdown.style.display = 'none';
+
+  if (!dropdown) return;
+  const isShown = dropdown.style.display === 'block';
+  dropdown.style.display = isShown ? 'none' : 'block';
+  if (caret) caret.style.transform = isShown ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+function openProfileModal() {
+  const dropdown = document.getElementById('profile-dropdown-menu');
+  if (dropdown) dropdown.style.display = 'none';
+  const caret = document.getElementById('nav-profile-caret');
+  if (caret) caret.style.transform = 'rotate(0deg)';
+
+  const modal = document.getElementById('profile-edit-modal');
+  const nameInput = document.getElementById('profile-name-input');
+  const previewName = document.getElementById('edit-preview-name');
+  const previewAvatar = document.getElementById('edit-preview-avatar');
+
+  selectedEditAvatar = currentProfileAvatar;
+  if (nameInput) nameInput.value = currentProfileName;
+  if (previewName) previewName.textContent = currentProfileName;
+  if (previewAvatar) previewAvatar.src = currentProfileAvatar;
+
+  renderAvatarGrid();
+
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeProfileModal() {
+  const modal = document.getElementById('profile-edit-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handleProfileBackdropClick(e) {
+  if (e.target.id === 'profile-edit-modal') {
+    closeProfileModal();
+  }
+}
+
+function renderAvatarGrid() {
+  const grid = document.getElementById('avatars-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  NETFLIX_AVATARS.forEach(av => {
+    const isSelected = av.url === selectedEditAvatar;
+    const item = document.createElement('div');
+    item.className = `avatar-option ${isSelected ? 'selected' : ''}`;
+    item.onclick = () => selectAvatar(av.url, item);
+    item.innerHTML = `
+      <img src="${av.url}" alt="${av.name}">
+      ${isSelected ? '<div class="avatar-check"><i class="fa-solid fa-check"></i></div>' : ''}
+    `;
+    grid.appendChild(item);
+  });
+}
+
+function selectAvatar(url, element) {
+  selectedEditAvatar = url;
+  const previewAvatar = document.getElementById('edit-preview-avatar');
+  if (previewAvatar) previewAvatar.src = url;
+
+  document.querySelectorAll('#avatars-grid .avatar-option').forEach(el => {
+    el.classList.remove('selected');
+    const chk = el.querySelector('.avatar-check');
+    if (chk) chk.remove();
+  });
+
+  element.classList.add('selected');
+  const chk = document.createElement('div');
+  chk.className = 'avatar-check';
+  chk.innerHTML = '<i class="fa-solid fa-check"></i>';
+  element.appendChild(chk);
+}
+
+function updateProfilePreviewName(val) {
+  const previewName = document.getElementById('edit-preview-name');
+  if (previewName) {
+    previewName.textContent = val.trim() || 'Cinema Fan';
+  }
+}
+
+function saveProfileChanges() {
+  const nameInput = document.getElementById('profile-name-input');
+  const newName = (nameInput ? nameInput.value.trim() : '') || 'Cinema Fan';
+
+  currentProfileName = newName;
+  currentProfileAvatar = selectedEditAvatar;
+
+  localStorage.setItem(STORAGE_PROFILE_NAME, currentProfileName);
+  localStorage.setItem(STORAGE_PROFILE_AVATAR, currentProfileAvatar);
+
+  updateProfileDOM();
+  closeProfileModal();
+  showToast(`Profile updated: Welcome back, ${currentProfileName}!`, 'success');
+}
+
+// ========================================================
+// NOTIFICATIONS FOR NEW RELEASES & MOVIES
+// ========================================================
+function initNotifications() {
+  // Handled dynamically
+}
+
+function toggleNotificationDropdown(e) {
+  if (e) e.stopPropagation();
+  const dropdown = document.getElementById('notifications-dropdown');
+  const profileDropdown = document.getElementById('profile-dropdown-menu');
+  
+  if (profileDropdown) profileDropdown.style.display = 'none';
+
+  if (!dropdown) return;
+  const isShown = dropdown.style.display === 'block';
+  dropdown.style.display = isShown ? 'none' : 'block';
+}
+
+function renderNotifications() {
+  const list = document.getElementById('notif-list');
+  const badge = document.getElementById('bell-badge');
+  if (!list || !catalogData || catalogData.length === 0) return;
+
+  // Filter standout new releases / popular titles
+  const highlights = catalogData.filter(x => x.year >= 2022 || x.rank).slice(0, 6);
+  if (highlights.length === 0) return;
+
+  const isRead = localStorage.getItem(STORAGE_NOTIF_READ) === 'true';
+  if (badge) {
+    badge.textContent = isRead ? '0' : String(highlights.length);
+    badge.style.display = isRead ? 'none' : 'inline-block';
+  }
+
+  list.innerHTML = '';
+  highlights.forEach(item => {
+    const itemEl = document.createElement('div');
+    itemEl.className = 'notif-item';
+    itemEl.onclick = () => {
+      toggleNotificationDropdown();
+      openPlayer(item);
+    };
+
+    const isTop = !!item.rank;
+    itemEl.innerHTML = `
+      <img class="notif-poster" src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)">
+      <div class="notif-content">
+        <div class="notif-tag-row">
+          <span class="notif-tag">${isTop ? 'Trending #1' : 'New 4K Release'}</span>
+          <span class="notif-date">${item.year || '2026'} • ${item.quality || '4K UHD'}</span>
+        </div>
+        <h5 class="notif-title">${item.title}</h5>
+        <p class="notif-desc">${item.description || 'Watch now in multi-language Ultra HD audio.'}</p>
+      </div>
+      <div class="notif-play-btn" title="Watch Now">
+        <i class="fa-solid fa-play"></i>
+      </div>
+    `;
+    list.appendChild(itemEl);
+  });
+}
+
+function clearAllNotifications() {
+  localStorage.setItem(STORAGE_NOTIF_READ, 'true');
+  const badge = document.getElementById('bell-badge');
+  if (badge) badge.style.display = 'none';
+  showToast('All notifications marked as read', 'info');
+}
+
+// ========================================================
+// DEEP APP SETTINGS & PWA DOWNLOAD SYSTEM
+// ========================================================
+let deferredInstallPrompt = null;
+
+function initPwaInstall() {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    const btn = document.getElementById('btn-install-pwa');
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-download"></i> Install App Now';
+    }
+  });
+
+  window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    showToast('🎉 CinemaMirror Pro installed successfully on your home screen!', 'success');
+  });
+
+  // Register Service Worker for PWA compliance
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(err => {
+      console.warn('SW registration skipped:', err.message);
+    });
+  }
+}
+
+function triggerPwaInstall() {
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        showToast('Installing CinemaMirror Pro App...', 'success');
+      }
+      deferredInstallPrompt = null;
+    });
+  } else {
+    // Provide device-specific guidance toast
+    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isAndroid = /Android/.test(navigator.userAgent);
+    if (isIos) {
+      showToast('Tap the Safari Share button (⬆️) and select "Add to Home Screen"', 'info');
+    } else if (isAndroid) {
+      showToast('Tap the Chrome menu (⋮) and select "Install app" or "Add to Home Screen"', 'info');
+    } else {
+      showToast('Click the install icon in your browser address bar to install on PC/Mac', 'info');
+    }
+  }
+}
+
+function initSettings() {
+  // Load saved default server
+  const savedServer = localStorage.getItem(STORAGE_DEFAULT_SERVER);
+  if (savedServer !== null) {
+    const srvIdx = parseInt(savedServer, 10);
+    selectedServerIndex = srvIdx;
+    currentServerIndex = srvIdx;
+    const sel = document.getElementById('setting-default-server');
+    if (sel) sel.value = String(srvIdx);
+    const navSel = document.getElementById('server-select');
+    if (navSel) navSel.value = String(srvIdx);
+  }
+
+  // Load saved default zoom
+  const savedZoom = localStorage.getItem(STORAGE_DEFAULT_ZOOM);
+  if (savedZoom) {
+    currentVideoZoom = savedZoom;
+    const zoomSel = document.getElementById('setting-default-zoom');
+    if (zoomSel) zoomSel.value = savedZoom;
+  }
+
+  // Load saved dub language
+  const savedDub = localStorage.getItem('preferred_dub_language');
+  if (savedDub) {
+    selectedDubLanguage = savedDub;
+    const dubSel = document.getElementById('setting-default-dub');
+    if (dubSel) dubSel.value = savedDub;
+  }
+
+  // Load autoplay pref
+  const savedAutoplay = localStorage.getItem(STORAGE_AUTOPLAY_NEXT);
+  if (savedAutoplay !== null) {
+    const chk = document.getElementById('setting-autoplay-next');
+    if (chk) chk.checked = savedAutoplay === 'true';
+  }
+
+  // Load sub size
+  const savedSubSize = localStorage.getItem(STORAGE_SUB_SIZE);
+  if (savedSubSize) {
+    const subSel = document.getElementById('setting-sub-size');
+    if (subSel) subSel.value = savedSubSize;
+  }
+}
+
+function openSettingsModal(tabName = 'install') {
+  // Close any open dropdowns
+  const pDrop = document.getElementById('profile-dropdown-menu');
+  if (pDrop) pDrop.style.display = 'none';
+  const nDrop = document.getElementById('notifications-dropdown');
+  if (nDrop) nDrop.style.display = 'none';
+
+  const modal = document.getElementById('app-settings-modal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+
+  // Activate requested tab
+  const tabBtn = document.querySelector(`.settings-tab-btn[data-tab="${tabName}"]`);
+  switchSettingsTab(tabName, tabBtn);
+}
+
+function closeSettingsModal() {
+  const modal = document.getElementById('app-settings-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handleSettingsBackdropClick(e) {
+  if (e.target.id === 'app-settings-modal') {
+    closeSettingsModal();
+  }
+}
+
+function switchSettingsTab(tabName, btnElement) {
+  document.querySelectorAll('.settings-tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.settings-tab-panel').forEach(pane => pane.classList.remove('active'));
+
+  if (btnElement) {
+    btnElement.classList.add('active');
+  } else {
+    const matchBtn = document.querySelector(`.settings-tab-btn[data-tab="${tabName}"]`);
+    if (matchBtn) matchBtn.classList.add('active');
+  }
+
+  const targetPane = document.getElementById(`tab-${tabName}`);
+  if (targetPane) targetPane.classList.add('active');
+}
+
+function saveDefaultServerPref(val) {
+  const idx = parseInt(val, 10);
+  selectedServerIndex = idx;
+  currentServerIndex = idx;
+  localStorage.setItem(STORAGE_DEFAULT_SERVER, String(idx));
+  const navSel = document.getElementById('server-select');
+  if (navSel) navSel.value = String(idx);
+  const srvName = STREAMING_SERVERS[idx] ? STREAMING_SERVERS[idx].name.split(':')[0] : `Server ${idx + 1}`;
+  showToast(`Default mirror set to ${srvName}`, 'success');
+}
+
+function saveDefaultZoomPref(val) {
+  currentVideoZoom = val;
+  localStorage.setItem(STORAGE_DEFAULT_ZOOM, val);
+  showToast(`Screen fit preference set to ${val}`, 'info');
+}
+
+function saveAutoplayPref(checked) {
+  localStorage.setItem(STORAGE_AUTOPLAY_NEXT, String(checked));
+  showToast(`Autoplay next episode ${checked ? 'enabled' : 'disabled'}`, 'info');
+}
+
+function saveDefaultDubPref(val) {
+  selectedDubLanguage = val;
+  localStorage.setItem('preferred_dub_language', val);
+  const audioSel = document.getElementById('player-audio-select');
+  if (audioSel) audioSel.value = val;
+  showToast(`Preferred dubbing audio track set to ${val.toUpperCase()}`, 'success');
+}
+
+function saveSubSizePref(val) {
+  localStorage.setItem(STORAGE_SUB_SIZE, val);
+  showToast(`Subtitle text size set to ${val}`, 'info');
+}
+
+function saveAutoSubPref(checked) {
+  localStorage.setItem(STORAGE_AUTO_SUB, String(checked));
+  showToast(`Auto subtitles ${checked ? 'enabled' : 'disabled'}`, 'info');
+}
+
+function clearContinueWatchingData() {
+  localStorage.removeItem(STORAGE_CONTINUE_WATCHING);
+  renderContinueWatching();
+  showToast('Continue Watching history cleared!', 'success');
+}
+
+function clearWatchlistData() {
+  localStorage.removeItem(STORAGE_WATCHLIST);
+  showToast('Watchlist cleared!', 'success');
+}
+
+function resetAllAppSettings() {
+  if (confirm('Are you sure you want to reset all CinemaMirror preferences to default?')) {
+    localStorage.removeItem(STORAGE_PROFILE_NAME);
+    localStorage.removeItem(STORAGE_PROFILE_AVATAR);
+    localStorage.removeItem(STORAGE_DEFAULT_SERVER);
+    localStorage.removeItem(STORAGE_DEFAULT_ZOOM);
+    localStorage.removeItem(STORAGE_AUTOPLAY_NEXT);
+    localStorage.removeItem(STORAGE_SUB_SIZE);
+    localStorage.removeItem(STORAGE_AUTO_SUB);
+    localStorage.removeItem('preferred_dub_language');
+
+    currentProfileName = 'Cinema Fan';
+    currentProfileAvatar = NETFLIX_AVATARS[0].url;
+    selectedServerIndex = 3;
+    currentServerIndex = 3;
+    selectedDubLanguage = 'en';
+
+    updateProfileDOM();
+    initSettings();
+    showToast('All app settings restored to default!', 'success');
+    closeSettingsModal();
+  }
+}
+
+// Global click-outside listener to close dropdowns
+window.addEventListener('click', (e) => {
+  const pDrop = document.getElementById('profile-dropdown-menu');
+  const pWrap = document.getElementById('netflix-profile-wrapper');
+  if (pDrop && pWrap && !pWrap.contains(e.target)) {
+    pDrop.style.display = 'none';
+    const caret = document.getElementById('nav-profile-caret');
+    if (caret) caret.style.transform = 'rotate(0deg)';
+  }
+
+  const nDrop = document.getElementById('notifications-dropdown');
+  const nWrap = document.getElementById('nav-bell-wrapper');
+  if (nDrop && nWrap && !nWrap.contains(e.target)) {
+    nDrop.style.display = 'none';
+  }
+});

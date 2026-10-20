@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Netflix Mirror Pro — Watch TV Shows & Movies Online Free</title>
   <meta name="description" content="Watch Netflix, Prime Video, Disney+ Hotstar, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#e50914">
+  <link rel="apple-touch-icon" href="/manifest.json">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -48,10 +51,26 @@
       <!-- Kids Mode Pill -->
       <span class="kids-pill" onclick="filterGenre('Animation')">Kids</span>
 
-      <!-- Notification Bell -->
-      <div class="nav-bell" onclick="showToast('You are watching the latest 2026 4K releases')">
-        <i class="fa-regular fa-bell"></i>
-        <span class="bell-badge">3</span>
+      <!-- Notification Bell with Interactive Dropdown -->
+      <div class="nav-bell-wrapper" id="nav-bell-wrapper">
+        <div class="nav-bell" id="nav-bell-btn" onclick="toggleNotificationDropdown(event)" title="New Releases & Updates">
+          <i class="fa-regular fa-bell"></i>
+          <span class="bell-badge" id="bell-badge">4</span>
+        </div>
+        
+        <!-- Netflix Notifications Dropdown Panel -->
+        <div class="notifications-dropdown" id="notifications-dropdown" style="display: none;">
+          <div class="notif-header">
+            <h4><i class="fa-solid fa-bell text-red"></i> New Movies & Releases</h4>
+            <button class="notif-clear-btn" onclick="clearAllNotifications()">Mark all read</button>
+          </div>
+          <div class="notif-list" id="notif-list">
+            <!-- Dynamically populated from catalog in app.js -->
+          </div>
+          <div class="notif-footer">
+            <span class="notif-footer-text"><i class="fa-solid fa-sparkles text-gold"></i> Updated with 2026 Cinema Releases</span>
+          </div>
+        </div>
       </div>
 
       <!-- Forensic Audit Shortcut Button -->
@@ -60,10 +79,38 @@
         <span>APK Safety Audit</span>
       </button>
 
-      <!-- Netflix Profile Dropdown -->
-      <div class="netflix-profile-wrap">
-        <img class="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Profile">
-        <i class="fa-solid fa-caret-down profile-caret"></i>
+      <!-- Netflix Profile Dropdown with Name & Settings -->
+      <div class="netflix-profile-wrapper" id="netflix-profile-wrapper">
+        <div class="netflix-profile-wrap" onclick="toggleProfileDropdown(event)" title="Profile & Settings">
+          <img class="profile-avatar" id="nav-profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Profile">
+          <span class="nav-profile-name" id="nav-profile-name">Cinema Fan</span>
+          <i class="fa-solid fa-caret-down profile-caret" id="nav-profile-caret"></i>
+        </div>
+
+        <!-- Profile Dropdown Flyout -->
+        <div class="profile-dropdown-menu" id="profile-dropdown-menu" style="display: none;">
+          <div class="profile-menu-user-row" onclick="openProfileModal()">
+            <img class="profile-menu-avatar" id="dropdown-profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar">
+            <div class="profile-menu-user-info">
+              <span class="profile-menu-username" id="dropdown-profile-name">Cinema Fan</span>
+              <span class="profile-menu-badge"><i class="fa-solid fa-crown text-gold"></i> Pro 4K VIP Member</span>
+            </div>
+            <i class="fa-solid fa-pen-to-square profile-edit-icon" title="Edit Profile"></i>
+          </div>
+
+          <div class="profile-menu-divider"></div>
+
+          <ul class="profile-dropdown-list">
+            <li onclick="openProfileModal()"><i class="fa-solid fa-user-gear text-red"></i> <span>Manage Profile & Name</span></li>
+            <li onclick="openSettingsModal('install')"><i class="fa-solid fa-download text-gold"></i> <span>Download & Install App</span> <span class="menu-pill-new">PWA</span></li>
+            <li onclick="openSettingsModal('streaming')"><i class="fa-solid fa-sliders text-cyan"></i> <span>Settings & Server Mirrors</span></li>
+            <li onclick="openSettingsModal('audio')"><i class="fa-solid fa-language text-purple"></i> <span>Audio & Dub Preferences</span></li>
+            <li onclick="openSettingsModal('shield')"><i class="fa-solid fa-shield-halved text-green"></i> <span>Ad-Shield & Privacy</span></li>
+            <li onclick="showWatchlist()"><i class="fa-solid fa-bookmark text-yellow"></i> <span>My Watchlist</span></li>
+            <li onclick="openAuditModal()"><i class="fa-solid fa-file-shield text-blue"></i> <span>NetMirror APK Audit</span></li>
+            <li class="danger-item" onclick="openSettingsModal('data')"><i class="fa-solid fa-trash-can text-red"></i> <span>Clear History & Cache</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </header>
@@ -955,6 +1002,394 @@
       </div>
       <div class="trailer-video-stage">
         <iframe id="trailer-iframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- PROFILE EDIT & AVATAR MODAL                                -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="profile-edit-modal" style="display: none;" onclick="handleProfileBackdropClick(event)">
+    <div class="netflix-modal-card profile-settings-card">
+      <button class="modal-close-btn" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="profile-modal-header">
+        <h3><i class="fa-solid fa-user-pen text-red"></i> Edit Profile</h3>
+        <p class="profile-modal-sub">Customize your profile name and pick your favorite Netflix streaming avatar.</p>
+      </div>
+
+      <div class="profile-modal-body">
+        <!-- Live Avatar & Name Preview -->
+        <div class="profile-preview-card">
+          <img class="profile-preview-avatar" id="edit-preview-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Avatar">
+          <div class="profile-preview-meta">
+            <span class="profile-preview-badge"><i class="fa-solid fa-crown text-gold"></i> VIP Ultra HD</span>
+            <h4 id="edit-preview-name">Cinema Fan</h4>
+            <span class="profile-preview-status">Active Streamer • All OTTs Unlocked</span>
+          </div>
+        </div>
+
+        <!-- Name Input -->
+        <div class="profile-input-group">
+          <label for="profile-name-input"><i class="fa-solid fa-signature text-gold"></i> Profile Name:</label>
+          <div class="profile-input-box">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="profile-name-input" placeholder="Enter your name..." maxlength="24" oninput="updateProfilePreviewName(this.value)">
+          </div>
+        </div>
+
+        <!-- Avatar Selection Grid -->
+        <div class="profile-avatars-section">
+          <label><i class="fa-solid fa-image text-cyan"></i> Select Profile Avatar:</label>
+          <div class="avatars-grid" id="avatars-grid">
+            <!-- Rendered by JS or predefined options -->
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-modal-actions">
+        <button class="btn-netflix-secondary" onclick="closeProfileModal()">Cancel</button>
+        <button class="btn-netflix-primary" onclick="saveProfileChanges()"><i class="fa-solid fa-floppy-disk"></i> Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- DEEP APP SETTINGS & PWA DOWNLOAD MODAL                     -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="app-settings-modal" style="display: none;" onclick="handleSettingsBackdropClick(event)">
+    <div class="netflix-modal-card app-settings-card">
+      <button class="modal-close-btn" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="settings-modal-header">
+        <div class="settings-header-title">
+          <h3><i class="fa-solid fa-sliders text-red"></i> CinemaMirror Pro Settings</h3>
+          <span class="settings-header-badge">v3.2.0 • Ultra HD</span>
+        </div>
+        <p class="settings-header-desc">Manage homescreen app installation, streaming mirrors, multi-language dubbing, and privacy.</p>
+      </div>
+
+      <div class="settings-modal-layout">
+        <!-- Settings Sidebar Navigation -->
+        <div class="settings-sidebar">
+          <button class="settings-tab-btn active" data-tab="install" onclick="switchSettingsTab('install', this)">
+            <i class="fa-solid fa-download text-gold"></i>
+            <span>Download App</span>
+            <span class="tab-badge-new">NEW</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="streaming" onclick="switchSettingsTab('streaming', this)">
+            <i class="fa-solid fa-server text-cyan"></i>
+            <span>Streaming Mirrors</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="audio" onclick="switchSettingsTab('audio', this)">
+            <i class="fa-solid fa-language text-purple"></i>
+            <span>Audio & Dubbing</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="subtitles" onclick="switchSettingsTab('subtitles', this)">
+            <i class="fa-solid fa-closed-captioning text-green"></i>
+            <span>Subtitles</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="shield" onclick="switchSettingsTab('shield', this)">
+            <i class="fa-solid fa-shield-halved text-red"></i>
+            <span>Ad-Shield & Privacy</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="storage" onclick="switchSettingsTab('storage', this)">
+            <i class="fa-solid fa-database text-yellow"></i>
+            <span>Storage & History</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="about" onclick="switchSettingsTab('about', this)">
+            <i class="fa-solid fa-circle-info text-blue"></i>
+            <span>About App</span>
+          </button>
+        </div>
+
+        <!-- Settings Tab Content Area -->
+        <div class="settings-content-pane">
+
+          <!-- TAB 1: DOWNLOAD & HOMESCREEN INSTALLATION -->
+          <div class="settings-tab-panel active" id="tab-install">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-mobile-screen-button text-gold"></i> Install CinemaMirror on Your Home Screen</h4>
+              <p>Experience true full-screen, native app performance without browser address bars, ads, or interruptions.</p>
+            </div>
+
+            <!-- Install CTA Card -->
+            <div class="install-cta-card">
+              <div class="install-cta-icon">
+                <i class="fa-solid fa-arrow-down-to-bracket text-red"></i>
+              </div>
+              <div class="install-cta-info">
+                <h5>1-Click Add to Home Screen (PWA)</h5>
+                <p>Installs directly on Android, iPhone, iPad, Windows, and Mac as a standalone native app.</p>
+                <div class="install-features-row">
+                  <span><i class="fa-solid fa-check text-green"></i> Full Screen 4K</span>
+                  <span><i class="fa-solid fa-check text-green"></i> 0 Browser Tabs</span>
+                  <span><i class="fa-solid fa-check text-green"></i> Instant Launch</span>
+                </div>
+              </div>
+              <button class="btn-install-app" id="btn-install-pwa" onclick="triggerPwaInstall()">
+                <i class="fa-solid fa-download"></i> Install App
+              </button>
+            </div>
+
+            <!-- Platform Specific Install Guides -->
+            <div class="install-guides-grid">
+              <div class="guide-card">
+                <div class="guide-header">
+                  <i class="fa-brands fa-android text-green"></i>
+                  <h6>Android (Chrome / Brave)</h6>
+                </div>
+                <ol>
+                  <li>Tap the <strong>three dots (⋮)</strong> menu in the top right.</li>
+                  <li>Select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</li>
+                  <li>Confirm by tapping <strong>Install</strong>.</li>
+                </ol>
+              </div>
+
+              <div class="guide-card">
+                <div class="guide-header">
+                  <i class="fa-brands fa-apple text-white"></i>
+                  <h6>iPhone / iPad (Safari)</h6>
+                </div>
+                <ol>
+                  <li>Tap the <strong>Share button (<i class="fa-solid fa-arrow-up-from-bracket"></i>)</strong> at the bottom.</li>
+                  <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+                  <li>Tap <strong>Add</strong> in the top-right corner.</li>
+                </ol>
+              </div>
+
+              <div class="guide-card">
+                <div class="guide-header">
+                  <i class="fa-brands fa-windows text-cyan"></i>
+                  <h6>PC / Windows / Mac</h6>
+                </div>
+                <ol>
+                  <li>Click the <strong>Install icon</strong> in your browser address bar.</li>
+                  <li>Or open the browser menu &gt; <strong>"Install CinemaMirror Pro"</strong>.</li>
+                  <li>Launch directly from your Desktop or Taskbar.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: STREAMING & MIRRORS -->
+          <div class="settings-tab-panel" id="tab-streaming">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-server text-cyan"></i> Streaming Mirror Preferences</h4>
+              <p>Select your default preferred server mirror and playback configurations.</p>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Default Streaming Server</label>
+                <span>Choose which server loads automatically when clicking play on any movie or show.</span>
+              </div>
+              <select class="settings-dropdown" id="setting-default-server" onchange="saveDefaultServerPref(this.value)">
+                <option value="3">Server 4: Global Mirror (Multi-Language • 0 Ads)</option>
+                <option value="0">Server 1: VidLink Pro HD (Fastest • 0 Ads • Multi-Audio)</option>
+                <option value="2">Server 3: AutoEmbed CC Clean (0 Ads • Multi-Audio)</option>
+                <option value="1">Server 2: VidSrc PM 4K (Direct Ultra HD)</option>
+                <option value="4">Server 5: 2Embed CC Captions (Multi-Language CC)</option>
+                <option value="5">Server 6: FilmU VIP Cloud Mirror (0 Ads)</option>
+                <option value="6">Server 7: VidSrc Buzz Clean Direct (0 Ads)</option>
+                <option value="7">Server 8: AutoEmbed Direct Mirror (0 Ads)</option>
+                <option value="8">Server 9: AnimeWorld VIP (Hindi/Eng/Jap • 0 Ads)</option>
+                <option value="9">Server 10: VidLink Pro Clean Alternative (0 Ads)</option>
+              </select>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Default Screen Fit / Aspect Ratio</label>
+                <span>Select how videos automatically scale inside the cinema viewport stage.</span>
+              </div>
+              <select class="settings-dropdown" id="setting-default-zoom" onchange="saveDefaultZoomPref(this.value)">
+                <option value="fit">Fit to Screen (Default)</option>
+                <option value="zoom">Zoom / Fill (No Black Bars)</option>
+                <option value="cinema">Cinema Anamorphic 21:9</option>
+                <option value="stretch">Stretch 16:9 Full</option>
+              </select>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Auto-Play Next Episode</label>
+                <span>Automatically queue and buffer the subsequent TV episode when finished.</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-autoplay-next" checked onchange="saveAutoplayPref(this.checked)">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- TAB 3: AUDIO & DUBBING -->
+          <div class="settings-tab-panel" id="tab-audio">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-language text-purple"></i> Audio & Dubbed Language Preferences</h4>
+              <p>Configure which language audio track CinemaMirror prioritizes across streaming servers.</p>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Default Dubbed Audio Track</label>
+                <span>Preferred language for Hollywood movies, Anime, and international releases.</span>
+              </div>
+              <select class="settings-dropdown" id="setting-default-dub" onchange="saveDefaultDubPref(this.value)">
+                <option value="en">🌐 English (Original Audio)</option>
+                <option value="hi">🇮🇳 Hindi Dubbed</option>
+                <option value="ja">🇯🇵 Japanese (Anime Audio)</option>
+                <option value="ta">🇮🇳 Tamil Dubbed</option>
+                <option value="te">🇮🇳 Telugu Dubbed</option>
+                <option value="es">🇪🇸 Spanish Dubbed</option>
+                <option value="fr">🇫🇷 French Dubbed</option>
+                <option value="de">🇩🇪 German Dubbed</option>
+              </select>
+            </div>
+
+            <div class="setting-note-card">
+              <i class="fa-solid fa-circle-info text-cyan"></i>
+              <p>When Hindi, Tamil, Telugu, or Japanese is chosen, CinemaMirror automatically auto-routes playback to <strong>Server 4 (Global Mirror)</strong> or <strong>Server 9 (AnimeWorld VIP)</strong> which support multi-audio streams.</p>
+            </div>
+          </div>
+
+          <!-- TAB 4: SUBTITLES -->
+          <div class="settings-tab-panel" id="tab-subtitles">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-closed-captioning text-green"></i> Subtitles & Closed Captions</h4>
+              <p>Customize font appearance and default caption language.</p>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Subtitle Font Size</label>
+                <span>Choose preferred text sizing for closed captions.</span>
+              </div>
+              <select class="settings-dropdown" id="setting-sub-size" onchange="saveSubSizePref(this.value)">
+                <option value="normal">Normal (100%)</option>
+                <option value="small">Small (75%)</option>
+                <option value="large">Large (125%)</option>
+                <option value="xlarge">Extra Large (150%)</option>
+              </select>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Auto-Load English CC</label>
+                <span>Automatically request English captions when available.</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-auto-sub" checked onchange="saveAutoSubPref(this.checked)">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- TAB 5: AD-SHIELD & PRIVACY -->
+          <div class="settings-tab-panel" id="tab-shield">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-shield-halved text-red"></i> Anti-Redirect & Ad-Shield Guard</h4>
+              <p>Active security protections discovered from NetMirror APK reverse engineering.</p>
+            </div>
+
+            <div class="shield-status-card">
+              <div class="shield-badge-pill"><span class="pulse-dot"></span> AD-SHIELD ACTIVE</div>
+              <h5>Top-Level Window Hijack Protection</h5>
+              <p>Ad redirect networks (ProfitOn, Poringasitia, GussiesSmutchy) are intercepted and neutralized before they can hijack your tab or spawn popunders.</p>
+              <div class="shield-metrics-grid">
+                <div class="shield-metric-box">
+                  <span class="metric-num text-green">0</span>
+                  <span class="metric-label">Redirect Popups</span>
+                </div>
+                <div class="shield-metric-box">
+                  <span class="metric-num text-cyan">100%</span>
+                  <span class="metric-label">Sandbox-Free</span>
+                </div>
+                <div class="shield-metric-box">
+                  <span class="metric-num text-gold">10 / 10</span>
+                  <span class="metric-label">Active Mirrors</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Strict Navigation Lockdown</label>
+                <span>Locks window.open and prevents child frames from navigating the top browser tab.</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-strict-shield" checked disabled>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- TAB 6: DATA & STORAGE -->
+          <div class="settings-tab-panel" id="tab-storage">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-database text-yellow"></i> Data & Storage Management</h4>
+              <p>Manage locally stored watch history, watchlist, and custom profile preferences.</p>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Clear Continue Watching</label>
+                <span>Remove all saved in-progress movie and episode playback positions.</span>
+              </div>
+              <button class="btn-action-outline text-yellow" onclick="clearContinueWatchingData()">
+                <i class="fa-solid fa-clock-rotate-left"></i> Clear History
+              </button>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Reset My Watchlist</label>
+                <span>Remove all saved bookmarks from your personal watchlist.</span>
+              </div>
+              <button class="btn-action-outline text-red" onclick="clearWatchlistData()">
+                <i class="fa-solid fa-trash-can"></i> Clear Watchlist
+              </button>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Factory Reset App Preferences</label>
+                <span>Restore default profile name, avatar, and server mirror selections.</span>
+              </div>
+              <button class="btn-action-outline text-red" onclick="resetAllAppSettings()">
+                <i class="fa-solid fa-arrows-rotate"></i> Reset All
+              </button>
+            </div>
+          </div>
+
+          <!-- TAB 7: ABOUT -->
+          <div class="settings-tab-panel" id="tab-about">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-circle-info text-blue"></i> About CinemaMirror Pro</h4>
+              <p>Next-generation free universal streaming platform with Netflix design system.</p>
+            </div>
+
+            <div class="about-app-card">
+              <div class="about-logo">
+                <span class="logo-netflix">NETFLIX</span> <span class="logo-sub">MIRROR PRO</span>
+              </div>
+              <p class="about-version">Build: <strong>v3.2.0 (2026 Release)</strong> • Environment: <strong>Vercel Edge</strong></p>
+              <p class="about-desc">Engineered for clean, ad-free streaming across Netflix, Prime Video, Disney+, HBO Max, Apple TV+, and anime platforms with automatic multi-language dubbing.</p>
+
+              <div class="about-repo-box">
+                <i class="fa-brands fa-github text-white"></i>
+                <div class="about-repo-info">
+                  <span class="repo-name">SanyamVerma123 / CinemaMirror-Pro</span>
+                  <span class="repo-branch"><i class="fa-solid fa-code-branch text-green"></i> main branch (Clean CI/CD)</span>
+                </div>
+                <a href="https://github.com/SanyamVerma123/CinemaMirror-Pro" target="_blank" rel="noopener noreferrer" class="btn-github-link">
+                  View Source <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
