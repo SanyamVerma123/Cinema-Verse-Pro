@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment & local logs
+.env
+*.log
+.DS_Store
+Thumbs.db
+
+# Scratch and REA forensics cache
+scratch/
+extracted_netmirror/

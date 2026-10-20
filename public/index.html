@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Netflix Mirror Pro — Watch TV Shows & Movies Online Free</title>
+  <meta name="description" content="Watch Netflix, Prime Video, Disney+ Hotstar, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="netflix-body">
+
+  <!-- ======================================================== -->
+  <!-- NETFLIX TOP NAVIGATION BAR                               -->
+  <!-- ======================================================== -->
+  <header class="netflix-navbar" id="navbar">
+    <div class="nav-left">
+      <!-- Netflix Iconic Wordmark Logo -->
+      <div class="netflix-logo" onclick="resetToHome()">
+        <span class="logo-netflix">NETFLIX</span>
+        <span class="logo-sub">MIRROR</span>
+      </div>
+
+      <nav class="netflix-nav-links">
+        <a href="#home" class="nav-item active" onclick="filterPlatform('all', this)">Home</a>
+        <a href="#series" class="nav-item" onclick="filterCategory('series', this)">TV Shows</a>
+        <a href="#movies" class="nav-item" onclick="filterCategory('movie', this)">Movies</a>
+        <a href="#new" class="nav-item" onclick="filterCategory('top10', this)">New & Popular</a>
+        <a href="#watchlist" class="nav-item" onclick="showWatchlist(this)">My List</a>
+        <a href="#browse-ott" class="nav-item text-gold" onclick="toggleOttHub()">
+          <i class="fa-solid fa-layer-group"></i> Multi-OTT Hub
+        </a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <!-- Netflix Expandable Search Box -->
+      <div class="netflix-search-box" id="search-box">
+        <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBox()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <input type="text" id="search-input" placeholder="Titles, people, genres, OTTs..." autocomplete="off">
+        <button class="clear-search-btn" id="clear-search" onclick="clearSearch()" style="display: none;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Kids Mode Pill -->
+      <span class="kids-pill" onclick="filterGenre('Animation')">Kids</span>
+
+      <!-- Notification Bell -->
+      <div class="nav-bell" onclick="showToast('You are watching the latest 2026 4K releases')">
+        <i class="fa-regular fa-bell"></i>
+        <span class="bell-badge">3</span>
+      </div>
+
+      <!-- Forensic Audit Shortcut Button -->
+      <button class="btn-audit" onclick="openAuditModal()" title="View NetMirror APK Reverse Engineering & Security Audit">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>APK Safety Audit</span>
+      </button>
+
+      <!-- Netflix Profile Dropdown -->
+      <div class="netflix-profile-wrap">
+        <img class="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Profile">
+        <i class="fa-solid fa-caret-down profile-caret"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="netflix-main" id="main-content">
+
+    <!-- COMMON SEARCH RESULTS OVERLAY -->
+    <section class="section search-results-section" id="search-results-section" style="display: none;">
+      <div class="search-header-container">
+        <div>
+          <h2 class="section-title"><i class="fa-solid fa-magnifying-glass text-red"></i> Search in Common across All OTTs: "<span id="search-query-display"></span>"</h2>
+          <span class="section-count" id="search-count">0 titles found</span>
+        </div>
+
+        <!-- OTT Search Filter Chips -->
+        <div class="search-filter-pills" id="search-filter-pills">
+          <button class="search-pill active" onclick="filterSearchPlatform('all', this)">All</button>
+          <button class="search-pill pill-nflx" onclick="filterSearchPlatform('netflix', this)">Netflix</button>
+          <button class="search-pill pill-prm" onclick="filterSearchPlatform('prime', this)">Prime</button>
+          <button class="search-pill pill-dis" onclick="filterSearchPlatform('disney', this)">Disney+</button>
+          <button class="search-pill pill-hbo" onclick="filterSearchPlatform('hbo', this)">HBO Max</button>
+          <button class="search-pill pill-app" onclick="filterSearchPlatform('apple', this)">Apple TV+</button>
+          <button class="search-pill pill-cr" onclick="filterSearchPlatform('crunchyroll', this)">Crunchyroll</button>
+          <button class="search-pill pill-par" onclick="filterSearchPlatform('paramount', this)">Paramount+</button>
+          <button class="search-pill pill-hulu" onclick="filterSearchPlatform('hulu', this)">Hulu</button>
+          <button class="search-pill pill-pea" onclick="filterSearchPlatform('peacock', this)">Peacock</button>
+          <button class="search-pill pill-sony" onclick="filterSearchPlatform('sonyliv', this)">Sony LIV</button>
+          <button class="search-pill pill-zee" onclick="filterSearchPlatform('zee5', this)">Zee5</button>
+          <button class="search-pill pill-jio" onclick="filterSearchPlatform('jiocinema', this)">JioCinema</button>
+          <button class="search-pill pill-aw" onclick="filterSearchPlatform('animeworld', this)">Anime World</button>
+        </div>
+
+        <!-- Content Type & Quick Tags Filter Bar -->
+        <div class="search-secondary-bar" id="search-secondary-bar">
+          <div class="search-type-group">
+            <span class="filter-label"><i class="fa-solid fa-filter text-red"></i> Type:</span>
+            <button class="type-pill active" onclick="filterSearchType('all', this)">All</button>
+            <button class="type-pill" onclick="filterSearchType('movie', this)"><i class="fa-solid fa-film"></i> Movies</button>
+            <button class="type-pill" onclick="filterSearchType('series', this)"><i class="fa-solid fa-tv"></i> TV Series</button>
+          </div>
+          <div class="search-quick-tags">
+            <span class="filter-label"><i class="fa-solid fa-bolt text-gold"></i> Quick:</span>
+            <button class="tag-pill" onclick="applyQuickTag('Trending')">Trending Hits</button>
+            <button class="tag-pill" onclick="applyQuickTag('Action')">Action</button>
+            <button class="tag-pill" onclick="applyQuickTag('Anime')">Anime Multi-Audio</button>
+            <button class="tag-pill" onclick="applyQuickTag('Hindi')">Bollywood / Hindi</button>
+            <button class="tag-pill" onclick="applyQuickTag('Sci-Fi')">Sci-Fi 4K</button>
+            <button class="tag-pill" onclick="applyQuickTag('Comedy')">Comedy</button>
+            <button class="tag-pill" onclick="applyQuickTag('Horror')">Horror & Thriller</button>
+          </div>
+        </div>
+      </div>
+      <div class="netflix-grid" id="search-grid"></div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- NETFLIX BILLBOARD HERO FEATURED SPOTLIGHT                -->
+    <!-- ======================================================== -->
+    <section class="netflix-billboard" id="hero-banner">
+      <div class="billboard-backdrop" id="hero-backdrop"></div>
+      <div class="billboard-gradient-left"></div>
+      <div class="billboard-gradient-bottom"></div>
+
+      <!-- Left / Right Carousel Buttons -->
+      <button class="hero-arrow arrow-left" onclick="prevHeroSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hero-arrow arrow-right" onclick="nextHeroSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+
+      <div class="billboard-content">
+        <div class="billboard-badges">
+          <span class="badge-ott" id="hero-platform-badge">NETFLIX</span>
+          <span class="badge-top10" id="hero-badge-tag"><i class="fa-solid fa-fire text-red"></i> #1 in TV Shows Today</span>
+        </div>
+
+        <h1 class="billboard-title" id="hero-title">Stranger Things</h1>
+
+        <div class="billboard-meta" id="hero-meta">
+          <span class="meta-match text-green font-bold" id="hero-match">99% Match</span>
+          <span class="meta-year" id="hero-year">2024</span>
+          <span class="badge-maturity" id="hero-maturity">16+</span>
+          <span class="meta-duration" id="hero-duration">4 Seasons</span>
+          <span class="badge-quality" id="hero-quality">4K Ultra HD</span>
+          <span class="badge-audio" id="hero-audio">Dolby Atmos</span>
+        </div>
+
+        <p class="billboard-desc" id="hero-desc">
+          When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.
+        </p>
+
+        <div class="billboard-actions">
+          <button class="netflix-btn btn-white" id="hero-play-btn">
+            <i class="fa-solid fa-play"></i> Play
+          </button>
+          <button class="netflix-btn btn-grey" id="hero-info-btn">
+            <i class="fa-solid fa-circle-info"></i> More Info
+          </button>
+          <button class="btn-round" id="hero-watchlist-btn" title="Add to My List">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Billboard Maturity Tag & Audio Toggle -->
+      <div class="billboard-right-meta">
+        <button class="btn-audio-toggle" id="hero-audio-btn" onclick="toggleHeroAudio()" title="Mute/Unmute Preview">
+          <i class="fa-solid fa-volume-high" id="hero-audio-icon"></i>
+        </button>
+        <span class="billboard-age-rating" id="hero-age-rating">16+</span>
+      </div>
+
+      <!-- Slide Indicator Dots -->
+      <div class="billboard-dots" id="hero-dots"></div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- MULTI-OTT PLATFORM HUB (NETMIRROR INTEGRATION IN COMMON) -->
+    <!-- ======================================================== -->
+    <div class="ott-hub-wrapper" id="ott-hub-wrapper">
+      <div class="ott-hub-header">
+        <span class="ott-hub-title"><i class="fa-solid fa-layer-group text-red"></i> Watch Across All OTT Platforms at Same Place:</span>
+      </div>
+      <div class="ott-platforms-bar" id="ott-platforms-bar">
+        <div class="ott-card active" onclick="filterPlatform('all', this)">
+          <i class="fa-solid fa-globe"></i>
+          <span class="ott-label">ALL OTTs</span>
+        </div>
+        <div class="ott-card ott-nflx" onclick="filterPlatform('netflix', this)">
+          <span class="ott-brand">NETFLIX</span>
+        </div>
+        <div class="ott-card ott-prm" onclick="filterPlatform('prime', this)">
+          <span class="ott-brand">prime video</span>
+        </div>
+        <div class="ott-card ott-dis" onclick="filterPlatform('disney', this)">
+          <span class="ott-brand">Disney+ hotstar</span>
+        </div>
+        <div class="ott-card ott-hbo" onclick="filterPlatform('hbo', this)">
+          <span class="ott-brand">MAX</span>
+        </div>
+        <div class="ott-card ott-app" onclick="filterPlatform('apple', this)">
+          <span class="ott-brand"><i class="fa-brands fa-apple"></i> tv+</span>
+        </div>
+        <div class="ott-card ott-cr" onclick="filterPlatform('crunchyroll', this)">
+          <span class="ott-brand">Crunchyroll</span>
+        </div>
+        <div class="ott-card ott-par" onclick="filterPlatform('paramount', this)">
+          <span class="ott-brand">Paramount+</span>
+        </div>
+        <div class="ott-card ott-hulu" onclick="filterPlatform('hulu', this)">
+          <span class="ott-brand">hulu</span>
+        </div>
+        <div class="ott-card ott-pea" onclick="filterPlatform('peacock', this)">
+          <span class="ott-brand">peacock</span>
+        </div>
+        <div class="ott-card ott-sony" onclick="filterPlatform('sonyliv', this)">
+          <span class="ott-brand">SONY LIV</span>
+        </div>
+        <div class="ott-card ott-zee" onclick="filterPlatform('zee5', this)">
+          <span class="ott-brand">ZEE5</span>
+        </div>
+        <div class="ott-card ott-jio" onclick="filterPlatform('jiocinema', this)">
+          <span class="ott-brand">JioCinema</span>
+        </div>
+        <div class="ott-card ott-aw" onclick="filterPlatform('animeworld', this)">
+          <span class="ott-brand">ANIME WORLD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVE OTT PLATFORM FILTER BANNER -->
+    <section class="section platform-banner-section" id="platform-banner-section" style="display: none;">
+      <div class="platform-banner" id="platform-banner">
+        <div class="platform-banner-content">
+          <h2 id="platform-banner-title">Netflix Originals & Blockbusters</h2>
+          <p id="platform-banner-desc">Showing exclusive titles and top movies from Netflix</p>
+        </div>
+        <button class="btn-reset-platform" onclick="filterPlatform('all')"><i class="fa-solid fa-xmark"></i> Show All OTTs</button>
+      </div>
+    </section>
+
+    <!-- CONTINUE WATCHING ROW -->
+    <section class="netflix-row-wrap" id="continue-watching-section" style="display: none;">
+      <div class="row-header">
+        <h2 class="row-title">Continue Watching for You</h2>
+        <button class="btn-clear-cw" onclick="clearContinueWatching()">Clear All</button>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('continue-watching-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="continue-watching-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('continue-watching-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ROW 1: TOP 10 MOVIES TODAY (WITH GIANT NETFLIX NUMBERS!) -->
+    <!-- ======================================================== -->
+    <section class="netflix-row-wrap" id="section-top10-movies">
+      <div class="row-header">
+        <h2 class="row-title">Top 10 Movies Today</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('top10-movies-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row top10-row" id="top10-movies-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('top10-movies-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ROW 2: TOP 10 TV SHOWS TODAY (WITH GIANT NETFLIX NUMBERS!)-->
+    <!-- ======================================================== -->
+    <section class="netflix-row-wrap" id="section-top10-series">
+      <div class="row-header">
+        <h2 class="row-title">Top 10 TV Shows Today</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('top10-series-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row top10-row" id="top10-series-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('top10-series-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 3: POPULAR ON NETFLIX -->
+    <section class="netflix-row-wrap" id="section-netflix">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-nflx">NETFLIX</span> Only on Netflix</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('netflix-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="netflix-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('netflix-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 4: PRIME VIDEO EXCLUSIVES -->
+    <section class="netflix-row-wrap" id="section-prime">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-prm">PRIME VIDEO</span> Prime Video Exclusives</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('prime-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="prime-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('prime-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 5: DISNEY+ HOTSTAR VAULT -->
+    <section class="netflix-row-wrap" id="section-disney">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-dis">DISNEY+ HOTSTAR</span> Marvel Studios & Disney Vault</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('disney-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="disney-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('disney-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 6: HBO MAX PRESTIGE -->
+    <section class="netflix-row-wrap" id="section-hbo">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-hbo">MAX</span> HBO Prestige Series & Warner Bros</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('hbo-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="hbo-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('hbo-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 7: APPLE TV+ MASTERPIECES -->
+    <section class="netflix-row-wrap" id="section-apple">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-app">APPLE TV+</span> Apple Original Series</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('apple-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="apple-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('apple-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 8: ANIME & CRUNCHYROLL -->
+    <section class="netflix-row-wrap" id="section-crunchyroll">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-cr">CRUNCHYROLL</span> Anime Hub & Shonen Masterpieces</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('crunchyroll-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="crunchyroll-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('crunchyroll-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 9: PARAMOUNT+ BLOCKBUSTERS -->
+    <section class="netflix-row-wrap" id="section-paramount">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-par">PARAMOUNT+</span> Paramount+ Blockbusters & Showtime</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('paramount-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="paramount-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('paramount-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 10: HULU ORIGINALS -->
+    <section class="netflix-row-wrap" id="section-hulu">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-hulu">HULU</span> Hulu Originals & FX Award-Winners</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('hulu-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="hulu-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('hulu-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 11: PEACOCK EXCLUSIVES -->
+    <section class="netflix-row-wrap" id="section-peacock">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-pea">PEACOCK</span> Peacock Exclusives & NBCUniversal Hits</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('peacock-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="peacock-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('peacock-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 12: SONY LIV INDIAN ORIGINALS -->
+    <section class="netflix-row-wrap" id="section-sonyliv">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-sony">SONY LIV</span> Sony LIV Premium Indian Originals & Thrillers</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('sonyliv-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="sonyliv-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('sonyliv-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 13: ZEE5 BLOCKBUSTERS -->
+    <section class="netflix-row-wrap" id="section-zee5">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-zee">ZEE5</span> Zee5 Regional Blockbusters & Cinema</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('zee5-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="zee5-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('zee5-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 14: JIOCINEMA DIRECT PREMIERES -->
+    <section class="netflix-row-wrap" id="section-jiocinema">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-jio">JIOCINEMA</span> JioCinema Premieres & Bollywood Hits</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('jiocinema-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="jiocinema-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('jiocinema-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 15: ANIME WORLD (WatchAnimeWorld Hub) -->
+    <section class="netflix-row-wrap" id="section-animeworld">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-aw">ANIME WORLD</span> WatchAnimeWorld VIP (Hindi/Eng/Jap Multi-Audio)</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('animeworld-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="animeworld-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('animeworld-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- WATCHLIST (MY LIST) PAGE -->
+    <section class="section" id="watchlist-section" style="display: none;">
+      <div class="row-header">
+        <h2 class="row-title"><i class="fa-solid fa-bookmark text-red"></i> My List</h2>
+        <span class="section-count" id="watchlist-count">0 titles</span>
+      </div>
+      <div class="netflix-grid" id="watchlist-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- NETFLIX DETAILS MODAL (FULL DIALOG VIEW)                 -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="details-modal" style="display: none;" onclick="handleModalBackdropClick(event)">
+    <div class="netflix-modal-card">
+      <button class="modal-close-btn" onclick="closeDetailsModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="modal-hero-wrap">
+        <img class="modal-hero-img" id="modal-backdrop-img" src="" alt="">
+        <div class="modal-hero-fade"></div>
+        <div class="modal-hero-info">
+          <div class="modal-ott-pill" id="modal-platform-badge">
+            <span class="platform-chip" id="modal-platform-chip">NETFLIX</span>
+          </div>
+          <h2 class="modal-hero-title" id="modal-title">Stranger Things</h2>
+          <div class="modal-hero-actions">
+            <button class="netflix-btn btn-white" id="modal-play-btn"><i class="fa-solid fa-play"></i> <span id="modal-play-text">Play</span></button>
+            <button class="netflix-btn btn-secondary" id="modal-trailer-btn" onclick="openTrailerModal()"><i class="fa-brands fa-youtube text-red"></i> Trailer</button>
+            <button class="btn-round" id="modal-watchlist-btn" title="Add to My List"><i class="fa-solid fa-plus"></i></button>
+            <button class="btn-round" onclick="shareMovie()" title="Share Title"><i class="fa-solid fa-share-nodes"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-content-grid">
+        <div class="modal-left-col">
+          <div class="modal-meta-row">
+            <span class="meta-match text-green font-bold" id="modal-match">99% Match</span>
+            <span class="meta-year" id="modal-year">2024</span>
+            <span class="badge-maturity" id="modal-maturity">16+</span>
+            <span class="meta-duration" id="modal-duration">4 Seasons</span>
+            <span class="badge-quality" id="modal-quality">4K Ultra HD</span>
+            <span class="badge-audio" id="modal-audio">Dolby Atmos</span>
+          </div>
+          <p class="modal-synopsis" id="modal-desc"></p>
+
+          <!-- Available Audio & Dubbed Languages Selector -->
+          <div class="modal-audio-dub-box" id="modal-audio-dub-box">
+            <div class="audio-dub-header">
+              <span class="audio-dub-title"><i class="fa-solid fa-language text-gold"></i> Available Audio & Dubbed Languages:</span>
+              <span class="audio-dub-status" id="modal-selected-language-label">English (Original)</span>
+            </div>
+            <div class="modal-language-chips" id="modal-language-chips"></div>
+          </div>
+
+          <!-- Streaming Server Selector on Movie Page -->
+          <div class="modal-server-select-box">
+            <div class="server-box-header">
+              <span class="server-box-title"><i class="fa-solid fa-server text-red"></i> Select Streaming Server:</span>
+              <span class="server-box-status" id="modal-selected-server-name">Server 1: VidLink Pro HD</span>
+            </div>
+            <div class="modal-server-chips" id="modal-server-chips"></div>
+          </div>
+
+          <!-- TV Series Season & Episode Picker with Rich Thumbnails -->
+          <div class="modal-episodes-section" id="modal-episodes-section" style="display: none;">
+            <div class="episodes-header-row">
+              <h3><i class="fa-solid fa-layer-group text-red"></i> Episodes</h3>
+              <select class="netflix-select" id="modal-season-select" onchange="renderModalEpisodes(this.value)"></select>
+            </div>
+            <div class="episodes-container" id="modal-episodes-grid"></div>
+          </div>
+        </div>
+
+        <div class="modal-right-col">
+          <div class="modal-info-item">
+            <span class="info-label">Streaming Home:</span>
+            <span class="info-value font-bold text-gold" id="modal-ott-source">Netflix</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">Cast:</span>
+            <div class="modal-cast-chips" id="modal-cast"></div>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">Director:</span>
+            <span class="info-value" id="modal-director">-</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">Genres:</span>
+            <span class="info-value" id="modal-genres-list">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- More Like This Grid -->
+      <div class="modal-more-section">
+        <h3>More Like This</h3>
+        <div class="more-like-grid" id="modal-similar-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- NETFLIX CINEMA VIDEO PLAYER (ZERO REDIRECT, ZERO ERROR)  -->
+  <!-- ======================================================== -->
+  <div class="netflix-player-overlay" id="player-overlay" style="display: none;">
+    <!-- Top Player Header (Auto-Hiding) -->
+    <div class="player-top-bar" id="player-header">
+      <div class="player-left-info">
+        <button class="player-btn-back" id="btn-player-back" onclick="closePlayer(true)" title="Back to Movie Details (Esc)">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span class="btn-back-text">Back to Movie</span>
+        </button>
+        <div class="player-title-block">
+          <h3 class="player-main-title" id="player-stream-title">Stranger Things</h3>
+          <div class="player-meta-badges" id="player-meta-badges">
+            <span class="player-badge-pill" id="player-stream-subtitle">Server 1: VidLink Pro HD</span>
+            <span class="player-badge-pill badge-quality">4K Ultra HD</span>
+            <span class="player-badge-pill badge-audio"><i class="fa-solid fa-volume-high"></i> Dolby Atmos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-right-controls">
+        <!-- Streaming Servers Dropdown Pill -->
+        <div class="player-server-pill" id="player-server-pill">
+          <i class="fa-solid fa-server text-red"></i>
+          <select class="netflix-select-pill" id="server-select" onchange="changeServer(this.value)">
+            <option value="0">Server 1: VidLink Pro HD (Fastest • 0 Ads • 4K)</option>
+            <option value="1">Server 2: VidSrc PM 4K (Direct Ultra HD)</option>
+            <option value="2">Server 3: AutoEmbed CC (Auto Dub & Multi-Audio)</option>
+            <option value="3">Server 4: FilmU Multi-Audio (Hindi Dubbed & Regional)</option>
+            <option value="4">Server 5: 2Embed CC Captions (Multi-Language CC)</option>
+            <option value="5">Server 6: FilmU VIP Cloud Mirror</option>
+            <option value="6">Server 7: 2Embed TMDB Direct (Fast HD)</option>
+            <option value="7">Server 8: AutoEmbed IMDb Mirror</option>
+            <option value="8">Server 9: AnimeWorld VIP (Hindi/Eng/Jap)</option>
+            <option value="9">Server 10: VidLink Pro Clean Alternative</option>
+          </select>
+        </div>
+
+        <!-- Audio & Dubbed Language Selector in Header -->
+        <div class="player-audio-pill" id="player-audio-pill" title="Change Dubbed Audio Track">
+          <i class="fa-solid fa-language text-gold"></i>
+          <select class="netflix-select-pill" id="player-audio-select" onchange="changeDubLanguage(this.value)">
+            <option value="en">🌐 English (Original)</option>
+            <option value="hi">🇮🇳 Hindi Dubbed</option>
+            <option value="ja">🇯🇵 Japanese Audio</option>
+            <option value="ta">🇮🇳 Tamil Dubbed</option>
+            <option value="te">🇮🇳 Telugu Dubbed</option>
+            <option value="es">🇪🇸 Spanish Dubbed</option>
+            <option value="fr">🇫🇷 French Dubbed</option>
+            <option value="de">🇩🇪 German Dubbed</option>
+          </select>
+        </div>
+
+        <!-- Zoom Out / Full Page Mode Toggle -->
+        <button class="player-pill-btn" id="btn-theater-mode" onclick="toggleTheaterMode()" title="Toggle Full Page / Zoom Out to Show Movie Details & Episodes">
+          <i class="fa-solid fa-compress" id="theater-icon"></i>
+          <span id="theater-text">Zoom Out</span>
+        </button>
+
+        <!-- Movie & Stream Settings Button -->
+        <button class="player-pill-btn" id="btn-player-settings" onclick="togglePlayerSettings()" title="Movie & Stream Settings (Aspect Ratio, Zoom, Speed, Audio)">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </button>
+
+        <!-- Reload / Pure Stream Button -->
+        <button class="player-icon-btn" onclick="zapAdOverlays()" title="Reload Stream / Clean Buffer">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+
+        <!-- Episodes Drawer Button -->
+        <button class="player-pill-btn" id="btn-episodes-drawer" onclick="toggleEpisodesDrawer()" title="Episode Selector" style="display: none;">
+          <i class="fa-solid fa-list-ul"></i>
+          <span>Episodes</span>
+        </button>
+
+        <!-- Fullscreen Button -->
+        <button class="player-icon-btn" onclick="toggleFullscreen()" title="Fullscreen (F)">
+          <i class="fa-solid fa-expand" id="fullscreen-icon"></i>
+        </button>
+
+        <!-- Close Player Button -->
+        <button class="player-icon-btn btn-player-close" onclick="closePlayer()" title="Exit Player (Esc)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Video Viewport Stage -->
+    <div class="player-stage" id="player-viewport">
+      <!-- NETFLIX RED CIRCULAR BUFFER SPINNER OVERLAY -->
+      <div class="player-buffering-overlay" id="player-buffering-overlay">
+        <div class="netflix-spinner-box">
+          <div class="netflix-spinner-ring"></div>
+          <div class="netflix-spinner-text" id="buffering-text">Loading Stream in 4K Ultra HD</div>
+          <div class="netflix-spinner-sub" id="buffering-sub">Direct clean stream • Neutralizing popups & ads</div>
+        </div>
+      </div>
+
+      <!-- Pure Video Stream Iframe (ZERO SANDBOX RESTRICTIONS - 100% CLEAN PLAYBACK) -->
+      <iframe
+        id="player-iframe"
+        src=""
+        allowfullscreen
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
+        referrerpolicy="origin"
+      ></iframe>
+
+      <!-- MOVIE & STREAM SETTINGS FLYOUT PANEL -->
+      <div class="player-settings-panel" id="player-settings-panel" style="display: none;">
+        <div class="settings-panel-header">
+          <h4><i class="fa-solid fa-sliders text-red"></i> Movie & Stream Settings</h4>
+          <button class="settings-close-btn" onclick="togglePlayerSettings()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="settings-panel-body">
+          <!-- Video Zoom / Aspect Ratio -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-expand"></i> Aspect Ratio & Screen Fit:</label>
+            <div class="settings-pill-row">
+              <button class="setting-pill active" onclick="setVideoZoom('fit', this)">Fit (Default)</button>
+              <button class="setting-pill" onclick="setVideoZoom('zoom', this)">Zoom / Fill</button>
+              <button class="setting-pill" onclick="setVideoZoom('cinema', this)">Cinema 21:9</button>
+              <button class="setting-pill" onclick="setVideoZoom('stretch', this)">Stretch</button>
+            </div>
+          </div>
+          <!-- Server Selector in Settings -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-server text-red"></i> Streaming Server Mirror:</label>
+            <select class="settings-select" id="settings-panel-server-select" onchange="changeServer(this.value)">
+              <option value="0">Server 1: VidLink Pro HD (Fastest • 0 Ads)</option>
+              <option value="1">Server 2: VidSrc CC 4K (Direct Ultra HD)</option>
+              <option value="2">Server 3: AutoEmbed CC (Multi-Audio & Subs)</option>
+              <option value="3">Server 4: VidSrc XYZ (Global Mirror)</option>
+              <option value="4">Server 5: SuperEmbed VIP (Cloud Stream)</option>
+              <option value="5">Server 6: 2Embed CC (Multi-Language • Auto-Bypass)</option>
+              <option value="6">Server 7: MoviesAPI Club (Fast HD)</option>
+              <option value="7">Server 8: SmashyStream (Global Mirror)</option>
+              <option value="8">Server 9: AnimeWorld VIP (Multi-Audio: Hindi/Eng/Jap)</option>
+              <option value="9">Server 10: Zephyrix Anime (WatchAnimeWorld Cloud)</option>
+            </select>
+          </div>
+          <!-- Dubbed Audio & Multi-Language Track Selector -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-language text-gold"></i> Dubbed Audio Language & Multi-Track:</label>
+            <div class="settings-pill-row" id="settings-audio-pills">
+              <button class="setting-pill active" onclick="changeDubLanguage('en', this)">🌐 English (Original)</button>
+              <button class="setting-pill" onclick="changeDubLanguage('hi', this)">🇮🇳 Hindi Dubbed</button>
+              <button class="setting-pill" onclick="changeDubLanguage('ja', this)">🇯🇵 Japanese</button>
+              <button class="setting-pill" onclick="changeDubLanguage('ta', this)">🇮🇳 Tamil Dub</button>
+              <button class="setting-pill" onclick="changeDubLanguage('te', this)">🇮🇳 Telugu Dub</button>
+              <button class="setting-pill" onclick="changeDubLanguage('es', this)">🇪🇸 Spanish</button>
+              <button class="setting-pill" onclick="changeDubLanguage('fr', this)">🇫🇷 French</button>
+              <button class="setting-pill" onclick="changeDubLanguage('de', this)">🇩🇪 German</button>
+            </div>
+          </div>
+          <!-- Video Quality -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-tv"></i> Video Quality:</label>
+            <div class="settings-pill-row">
+              <button class="setting-pill active" onclick="setQualityPill('4k', this)">4K Ultra HD</button>
+              <button class="setting-pill" onclick="setQualityPill('1080p', this)">1080p FHD</button>
+              <button class="setting-pill" onclick="setQualityPill('auto', this)">Auto (Adaptive)</button>
+            </div>
+          </div>
+          <!-- Playback Speed -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-gauge-high"></i> Playback Speed:</label>
+            <div class="settings-pill-row">
+              <button class="setting-pill" onclick="setPlaybackSpeed(0.75, this)">0.75x</button>
+              <button class="setting-pill active" onclick="setPlaybackSpeed(1.0, this)">1.0x Normal</button>
+              <button class="setting-pill" onclick="setPlaybackSpeed(1.25, this)">1.25x</button>
+              <button class="setting-pill" onclick="setPlaybackSpeed(1.5, this)">1.5x</button>
+            </div>
+          </div>
+          <!-- Audio & Subtitles Information -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-language"></i> Audio & Subtitles:</label>
+            <p class="settings-tip">Select audio tracks and subtitles directly via the CC / Audio controls in the video player canvas.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Episodes Side Drawer (TV Series) -->
+      <div class="netflix-episodes-drawer" id="episodes-drawer" style="display: none;">
+        <div class="drawer-header">
+          <div class="drawer-title-group">
+            <i class="fa-solid fa-layer-group text-red"></i>
+            <h3>Episodes</h3>
+          </div>
+          <button class="btn-close-drawer" onclick="toggleEpisodesDrawer()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="drawer-season-picker">
+          <label>Season:</label>
+          <select class="netflix-select" id="drawer-season-select" onchange="renderDrawerEpisodes(this.value)"></select>
+        </div>
+        <div class="drawer-episodes-list" id="drawer-episodes-list"></div>
+      </div>
+    </div>
+
+    <!-- THEATER DUAL VIEW (SHOWS MOVIE DETAILS & EPISODES WHEN ZOOMED OUT) -->
+    <div class="player-theater-details" id="player-theater-details" style="display: none;">
+      <div class="theater-inner-wrap">
+        <!-- Movie Title & Metadata Row -->
+        <div class="theater-info-row">
+          <div class="theater-info-left">
+            <h2 class="theater-movie-title" id="theater-title">Movie Title</h2>
+            <div class="modal-meta-row" id="theater-meta-row">
+              <span class="meta-match text-green font-bold" id="theater-match">99% Match</span>
+              <span class="meta-year" id="theater-year">2024</span>
+              <span class="badge-maturity" id="theater-maturity">16+</span>
+              <span class="meta-duration" id="theater-duration">4 Seasons</span>
+              <span class="badge-quality" id="theater-quality">4K Ultra HD</span>
+              <span class="badge-audio" id="theater-audio">Dolby Atmos</span>
+            </div>
+            <p class="theater-synopsis" id="theater-desc"></p>
+          </div>
+          <div class="theater-info-right">
+            <button class="netflix-btn btn-white" onclick="toggleTheaterMode()"><i class="fa-solid fa-expand"></i> Full Page View</button>
+            <button class="netflix-btn btn-secondary" onclick="togglePlayerSettings()"><i class="fa-solid fa-gear"></i> Movie Settings</button>
+          </div>
+        </div>
+
+        <!-- Server Selector in Theater Mode -->
+        <div class="modal-server-select-box">
+          <div class="server-box-header">
+            <span class="server-box-title"><i class="fa-solid fa-server text-red"></i> Change Streaming Server:</span>
+            <span class="server-box-status" id="theater-selected-server-name">Server 1: VidLink Pro HD</span>
+          </div>
+          <div class="modal-server-chips" id="theater-server-chips"></div>
+        </div>
+
+        <!-- Episodes List with 16:9 Thumbnails in Theater Mode -->
+        <div class="theater-episodes-section" id="theater-episodes-section" style="display: none;">
+          <div class="episodes-header-row">
+            <h3><i class="fa-solid fa-layer-group text-red"></i> Episodes & Seasons</h3>
+            <select class="netflix-select" id="theater-season-select" onchange="renderTheaterEpisodes(this.value)"></select>
+          </div>
+          <div class="episodes-container" id="theater-episodes-grid"></div>
+        </div>
+
+        <!-- More Like This in Theater Mode -->
+        <div class="theater-more-section">
+          <h3>More Like This</h3>
+          <div class="more-like-grid" id="theater-similar-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Controls Bar (Netflix Style Auto-Hiding) -->
+    <div class="player-bottom-bar" id="player-bottom-bar">
+      <!-- Scrub Bar / Timeline with Red Netflix fill -->
+      <div class="player-timeline-wrapper">
+        <div class="player-timeline-track">
+          <div class="player-timeline-progress" id="player-timeline-progress"></div>
+        </div>
+      </div>
+
+      <div class="player-bottom-controls">
+        <div class="controls-left">
+          <!-- Play / Pause -->
+          <button class="bottom-icon-btn" onclick="togglePlayPause()" title="Play / Pause (Space)" id="btn-play-pause">
+            <i class="fa-solid fa-pause" id="play-pause-icon"></i>
+          </button>
+
+          <!-- Rewind 10s -->
+          <button class="bottom-icon-btn" onclick="seekRelative(-10)" title="Rewind 10s">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span class="btn-num">10</span>
+          </button>
+
+          <!-- Forward 10s -->
+          <button class="bottom-icon-btn" onclick="seekRelative(10)" title="Forward 10s">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span class="btn-num">10</span>
+          </button>
+
+          <!-- Volume with horizontal hover slider -->
+          <div class="volume-slider-group">
+            <button class="bottom-icon-btn" onclick="toggleMute()" title="Mute / Unmute" id="btn-volume-icon">
+              <i class="fa-solid fa-volume-high" id="bottom-vol-icon"></i>
+            </button>
+            <div class="volume-slider-box">
+              <input type="range" id="bottom-volume-slider" min="0" max="1" step="0.05" value="1.0" oninput="setVolume(this.value)">
+            </div>
+          </div>
+
+          <!-- Live / Stream status -->
+          <div class="stream-status-tag">
+            <span class="live-dot"></span>
+            <span id="player-status-text">ULTRA HD STREAM</span>
+          </div>
+        </div>
+
+        <div class="controls-center">
+          <span class="player-center-title" id="player-center-title">Now Playing</span>
+        </div>
+
+        <div class="controls-right">
+          <!-- Next Episode Button (Series Only) -->
+          <button class="netflix-btn-next-ep" id="btn-player-next-ep" onclick="playNextEpisode()" title="Next Episode" style="display: none;">
+            <span>Next Episode</span>
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+
+          <!-- Episodes Drawer Toggle (Series Only) -->
+          <button class="bottom-icon-btn" id="btn-bottom-episodes" onclick="toggleEpisodesDrawer()" title="Episodes List" style="display: none;">
+            <i class="fa-solid fa-layer-group"></i>
+          </button>
+
+          <!-- Quick Playback Speed (0.75x, 1x, 1.25x, 1.5x, 2x) -->
+          <button class="bottom-pill-btn" id="btn-quick-speed" onclick="cyclePlaybackSpeed()" title="Playback Speed (Click to cycle)">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span id="player-speed-text">1.0x</span>
+          </button>
+
+          <!-- Quick Aspect Ratio / Screen Fit (Fit, Zoom, Cinema, Stretch) -->
+          <button class="bottom-pill-btn" id="btn-quick-zoom" onclick="cycleVideoZoom()" title="Aspect Ratio & Fit (Click to cycle)">
+            <i class="fa-solid fa-crop-simple"></i>
+            <span id="player-zoom-text">Fit 16:9</span>
+          </button>
+
+          <!-- Zoom Out / Full Page Mode Button in Bottom Bar -->
+          <button class="bottom-pill-btn" id="btn-bottom-theater" onclick="toggleTheaterMode()" title="Toggle Full Page / Zoom Out">
+            <i class="fa-solid fa-compress" id="bottom-theater-icon"></i>
+            <span id="bottom-theater-text">Zoom Out</span>
+          </button>
+
+          <!-- Quick Server Cycle Pill (Hidden in Full Page, Shown in Theater) -->
+          <button class="bottom-pill-btn" id="btn-bottom-server" onclick="cycleNextServer()" title="Switch to Next Server">
+            <i class="fa-solid fa-server"></i>
+            <span id="quick-server-tag">Server 1</span>
+          </button>
+
+          <!-- Settings Gear in Bottom Bar -->
+          <button class="bottom-icon-btn" onclick="togglePlayerSettings()" title="Movie & Stream Settings">
+            <i class="fa-solid fa-gear"></i>
+          </button>
+
+          <!-- Fullscreen Button -->
+          <button class="bottom-icon-btn" onclick="toggleFullscreen()" title="Fullscreen (F)">
+            <i class="fa-solid fa-expand" id="bottom-fullscreen-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORENSIC REA AUDIT & SAFETY REPORT MODAL -->
+  <div class="netflix-modal-backdrop" id="audit-modal" style="display: none;" onclick="handleAuditBackdropClick(event)">
+    <div class="netflix-modal-card modal-audit-card">
+      <button class="modal-close-btn" onclick="closeAuditModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="audit-header">
+        <div class="audit-badge-wrap">
+          <i class="fa-solid fa-shield-virus audit-icon text-red"></i>
+          <div>
+            <h2>NetMirror APK (v3.0) — Reverse Engineering & Safety Audit</h2>
+            <p class="audit-subtitle">Forensic analysis on <code>app.netmirror.netmirrornew</code> using REA</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="audit-body">
+        <div class="verdict-banner">
+          <div class="verdict-status status-warning">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div>
+              <strong>Safety Verdict: Adware & Privacy-Hostile Piracy Wrapper (Medium Risk)</strong>
+              <p>While the APK does not contain destructive trojans, it operates an undisclosed affiliate redirect, a resilient C2 dynamic backend, and aggressive ad trackers.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="audit-section-heading"><i class="fa-solid fa-magnifying-glass-arrow-right"></i> Confirmed Forensic Findings in NetMirror APK</h3>
+        <div class="findings-list" id="audit-findings-list"></div>
+
+        <h3 class="audit-section-heading"><i class="fa-solid fa-sparkles text-gold"></i> Why Netflix Mirror Web Pro Is Superior</h3>
+        <div class="comparison-grid">
+          <div class="comp-card comp-bad">
+            <h4><i class="fa-solid fa-xmark text-red"></i> Original NetMirror APK</h4>
+            <ul>
+              <li><i class="fa-solid fa-xmark"></i> Undisclosed 10s affiliate redirect on launch</li>
+              <li><i class="fa-solid fa-xmark"></i> C2-style dynamic backend repointing (mobidetect)</li>
+              <li><i class="fa-solid fa-xmark"></i> Exfiltrates user watch history to net52.cc</li>
+              <li><i class="fa-solid fa-xmark"></i> Intrusive popunder ads & external app redirects</li>
+              <li><i class="fa-solid fa-xmark"></i> Cleartext traffic leaves users vulnerable</li>
+            </ul>
+          </div>
+
+          <div class="comp-card comp-good">
+            <h4><i class="fa-solid fa-check text-green"></i> Netflix Mirror Web Pro</h4>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> 100% Free full Netflix-grade streaming experience</li>
+              <li><i class="fa-solid fa-check"></i> All OTTs in one place (Netflix, Prime, Disney+, HBO Max, Apple TV+)</li>
+              <li><i class="fa-solid fa-check"></i> Adaptive Shield: ZERO redirects & NO "Sandbox not allowed" error</li>
+              <li><i class="fa-solid fa-check"></i> 8 High-Speed Mirror Servers with 1-click fallback</li>
+              <li><i class="fa-solid fa-check"></i> Complete privacy: 0 telemetry, 0 data exfiltration</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- TRAILER PREVIEW MODAL -->
+  <div class="netflix-modal-backdrop" id="trailer-modal" style="display: none;" onclick="handleTrailerBackdropClick(event)">
+    <div class="netflix-modal-card modal-trailer-card">
+      <button class="modal-close-btn" onclick="closeTrailerModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="trailer-header">
+        <h3 id="trailer-modal-title"><i class="fa-brands fa-youtube text-red"></i> Official Trailer</h3>
+      </div>
+      <div class="trailer-video-stage">
+        <iframe id="trailer-iframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+    <span id="toast-message">Message</span>
+  </div>
+
+  <!-- NETFLIX FOOTER -->
+  <footer class="netflix-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <span class="footer-brand"><span class="text-red">NETFLIX</span> MIRROR PRO</span>
+        <p>The ultimate free streaming platform inspired by Netflix with multi-OTT integration.</p>
+      </div>
+      <div class="footer-links-grid">
+        <a href="#home" onclick="filterPlatform('all')">FAQ</a>
+        <a href="#help" onclick="openAuditModal()">Safety Audit</a>
+        <a href="#terms" onclick="showToast('CinemaMirror is 100% ad-free')">Terms of Use</a>
+        <a href="#privacy" onclick="showToast('Your privacy is 100% protected on your device')">Privacy Policy</a>
+      </div>
+      <p class="footer-copy">© 2026 Netflix Mirror Pro. Universal OTT Platform.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
