@@ -1041,16 +1041,16 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: AutoEmbed Ultra HD (0 Ads)', badge: 'Fastest • 0 Ads • Multi-Audio 4K', provider: 'AutoEmbed' },
-  { id: 1, name: 'Server 2: VidSrc Buzz Clean Direct', badge: 'Direct Ultra HD • 0 Ads', provider: 'VidSrc Buzz' },
+  { id: 0, name: 'Server 1: VidLink Pro HD', badge: 'Fastest • 0 Ads • Multi-Audio 4K', provider: 'VidLink Pro' },
+  { id: 1, name: 'Server 2: VidSrc PM 4K', badge: 'Direct 4K UHD', provider: 'VidSrc PM' },
   { id: 2, name: 'Server 3: AutoEmbed CC Clean', badge: 'Auto Dub • 0 Ads', provider: 'AutoEmbed Direct' },
   { id: 3, name: 'Server 4: Global Mirror', badge: 'Multi-Language • 0 Ads', provider: 'Global Mirror' },
-  { id: 4, name: 'Server 5: AutoEmbed CC Clean Captions', badge: 'Multi-Language CC • 0 Ads', provider: 'AutoEmbed Direct' },
+  { id: 4, name: 'Server 5: 2Embed CC Captions', badge: 'Multi-Language CC', provider: '2Embed CC' },
   { id: 5, name: 'Server 6: FilmU VIP Cloud Mirror', badge: 'Fast Cloud • 0 Ads', provider: 'FilmU VIP' },
   { id: 6, name: 'Server 7: VidSrc Buzz Clean Direct', badge: 'Fast HD 1080p • 0 Ads', provider: 'VidSrc Buzz' },
   { id: 7, name: 'Server 8: AutoEmbed Direct Mirror', badge: 'Global Mirror • 0 Ads', provider: 'AutoEmbed Direct' },
   { id: 8, name: 'Server 9: AnimeWorld VIP', badge: 'Multi-Audio: Hindi/Eng/Jap • 0 Ads', provider: 'AnimeWorld' },
-  { id: 9, name: 'Server 10: FilmU Pro Clean Alternative', badge: 'Clean 4K Ultra HD • 0 Ads', provider: 'FilmU Alt' }
+  { id: 9, name: 'Server 10: VidLink Pro Clean Alternative', badge: 'Clean 4K Ultra HD • 0 Ads', provider: 'VidLink Alt' }
 ];
 let selectedServerIndex = 3; // Default: Server 4 (Global Mirror)
 
@@ -1674,14 +1674,6 @@ function loadServerStream(serverIdx) {
   if (streamUrl && streamUrl.includes('vidlink.pro') && !streamUrl.includes('multiLang=')) {
     const sep = streamUrl.includes('?') ? '&' : '?';
     streamUrl = `${streamUrl}${sep}multiLang=true`;
-  }
-  // 4. Upgrade any lingering 2embed.cc or vidsrc.pm URLs to clean ad-free mirrors
-  if (streamUrl && streamUrl.includes('2embed.cc')) {
-    streamUrl = streamUrl.replace(/https?:\/\/(www\.)?2embed\.cc\/embedtv\/([^\s&]+)[^"'\s]*/, 'https://player.autoembed.co/embed/tv/$2')
-                         .replace(/https?:\/\/(www\.)?2embed\.cc\/embed\/([^\s&]+)[^"'\s]*/, 'https://player.autoembed.co/embed/movie/$2');
-  }
-  if (streamUrl && streamUrl.includes('vidsrc.pm')) {
-    streamUrl = streamUrl.replace('vidsrc.pm', 'vidsrc.buzz');
   }
   iframe.src = streamUrl;
 

@@ -89,19 +89,19 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   const servers = [
     {
       id: 1,
-      name: 'Server 1: AutoEmbed Ultra HD (0 Ads)',
+      name: 'Server 1: VidLink Pro HD',
       badge: 'Fastest • 0 Ads • Multi-Audio 4K',
       url: isTv 
-        ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
     },
     {
       id: 2,
-      name: 'Server 2: VidSrc Buzz Clean Direct (0 Ads)',
-      badge: 'Direct Ultra HD • 0 Ads',
+      name: 'Server 2: VidSrc PM 4K',
+      badge: 'Direct Ultra HD',
       url: isTv 
-        ? `https://vidsrc.buzz/embed/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://vidsrc.buzz/embed/movie/${tmdbOrImdb}`
+        ? `https://vidsrc.pm/embed/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`
     },
     {
       id: 3,
@@ -121,11 +121,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 5,
-      name: 'Server 5: AutoEmbed CC Clean Captions (0 Ads)',
-      badge: 'Multi-Language CC & Audio • 0 Ads',
+      name: 'Server 5: 2Embed CC Captions',
+      badge: 'Multi-Language CC & Audio',
       url: isTv 
-        ? `https://player.autoembed.co/embed/tv/${imdbOrTmdb}/${s}/${e}`
-        : `https://player.autoembed.co/embed/movie/${imdbOrTmdb}`
+        ? `https://www.2embed.cc/embedtv/${imdbOrTmdb}&s=${s}&e=${e}`
+        : `https://www.2embed.cc/embed/${imdbOrTmdb}`
     },
     {
       id: 6,
@@ -153,19 +153,19 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 9,
-      name: 'Server 9: AnimeWorld VIP (Multi-Audio)',
+      name: 'Server 9: AnimeWorld VIP',
       badge: 'Multi-Audio: Hindi/Eng/Jap • 0 Ads',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
     },
     {
       id: 10,
-      name: 'Server 10: FilmU Pro Clean Alternative',
+      name: 'Server 10: VidLink Pro Clean Alternative',
       badge: 'Clean 4K Ultra HD • 0 Ads',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
     }
   ];
 
