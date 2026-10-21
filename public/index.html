@@ -812,6 +812,12 @@
   <!-- NETFLIX CINEMA VIDEO PLAYER (ZERO REDIRECT, ZERO ERROR)  -->
   <!-- ======================================================== -->
   <div class="netflix-player-overlay" id="player-overlay" style="display: none;">
+    <!-- Small React-Style Floating Arrow Tab to Reveal Controls -->
+    <button class="player-reveal-arrow-tab" id="player-reveal-tab" onclick="revealPlayerTopBar()" title="Show CinemaVerse Controls (or hover top edge)">
+      <i class="fa-solid fa-chevron-down"></i>
+      <span class="reveal-tab-text">Controls</span>
+    </button>
+
     <!-- Top Player Header (Auto-Hiding) -->
     <div class="player-top-bar" id="player-header">
       <div class="player-left-info">
@@ -901,7 +907,7 @@
         </button>
 
         <!-- Toggle Cinema Bar View -->
-        <button class="player-icon-btn" id="btn-collapse-player-bar" onclick="togglePlayerTopBar()" title="Hide CinemaVerse Bar (Full Video View)">
+        <button class="player-icon-btn" id="btn-collapse-player-bar" onclick="collapsePlayerTopBar()" title="Hide CinemaVerse Bar (Full Video View)">
           <i class="fa-solid fa-chevron-up" id="collapse-player-icon"></i>
         </button>
 

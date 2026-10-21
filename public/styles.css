@@ -8155,71 +8155,35 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ==========================================================================
-   7. CINEMAVERSE LUXURY VIDEO PLAYER HEADER (ZERO OVERLAP WITH STREAM CONTROLS)
-   Sits cleanly ABOVE the video stream so iframe native controls
-   (Quality 4K/1080p, Subtitles/CC, Speed, Server) are 100% accessible.
+   7. CINEMAVERSE FLOATING LUXURY GLASSMORPHISM TOP BAR (AUTO MOVE-UP & REVEAL)
+   Ultra-aesthetic frosted glass panel with automatic slide-up on play
+   and small React-style arrow tab for instant reveal.
    ========================================================================== */
 .netflix-player-overlay {
   position: fixed !important;
   inset: 0 !important;
   background: #000000 !important;
   z-index: 5000 !important;
-  display: flex !important;
-  flex-direction: column !important;
   overflow: hidden !important;
 }
 
-.player-top-bar {
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  height: 48px !important;
-  min-height: 48px !important;
-  max-height: 48px !important;
-  flex-shrink: 0 !important;
-  margin: 0 !important;
-  padding: 0 16px !important;
-  border-radius: 0 !important;
-  background: #090a0f !important;
-  border: none !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 10px !important;
-  z-index: 100 !important;
-  transition: transform 0.25s ease, margin-top 0.25s ease, opacity 0.2s ease !important;
+.netflix-player-overlay[style*="display: none"] {
+  display: none !important;
 }
 
-.netflix-player-overlay.header-collapsed .player-top-bar {
-  transform: translateY(-100%) !important;
-  margin-top: -48px !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
+.netflix-player-overlay:not([style*="display: none"]) {
+  display: block !important;
 }
 
-.netflix-player-overlay.header-collapsed:hover .player-top-bar,
-.netflix-player-overlay.header-collapsed .player-top-bar:hover {
-  transform: translateY(0) !important;
-  margin-top: 0 !important;
-  opacity: 1 !important;
-  pointer-events: all !important;
-}
-
+/* Video Stage takes full screen so video is 100% immersive */
 .player-stage {
-  flex: 1 1 0% !important;
+  position: absolute !important;
+  inset: 0 !important;
   width: 100% !important;
-  height: calc(100% - 48px) !important;
-  min-height: 0 !important;
-  position: relative !important;
+  height: 100% !important;
   background: #000000 !important;
   overflow: hidden !important;
-}
-
-.netflix-player-overlay.header-collapsed .player-stage {
-  height: 100% !important;
+  z-index: 10 !important;
 }
 
 .player-stage iframe {
@@ -8230,27 +8194,115 @@ h1, h2, h3, h4, h5, h6,
   background: #000000 !important;
 }
 
+/* Floating Luxury Glassmorphism Top Panel */
+.player-top-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 14px 20px 0 !important;
+  height: auto !important;
+  min-height: 52px !important;
+  padding: 8px 18px !important;
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, rgba(22, 26, 38, 0.8) 0%, rgba(10, 12, 18, 0.88) 100%) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.18) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  z-index: 1000 !important;
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, box-shadow 0.3s ease !important;
+}
+
+/* When video plays or auto-moved up: slides off screen completely so ZERO overlap with subtitles/quality */
+.netflix-player-overlay.top-bar-hidden .player-top-bar {
+  transform: translateY(calc(-100% - 30px)) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Small React-style Arrow Reveal Tab docked at top center */
+.player-reveal-arrow-tab {
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(-100%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: 1001 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 5px 16px 7px !important;
+  background: linear-gradient(180deg, rgba(22, 26, 38, 0.88) 0%, rgba(10, 12, 18, 0.94) 100%) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-top: none !important;
+  border-radius: 0 0 14px 14px !important;
+  color: #ffffff !important;
+  font-family: var(--font-body) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 15px rgba(229, 9, 20, 0.35) !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.player-reveal-arrow-tab i {
+  color: var(--netflix-red) !important;
+  font-size: 11px !important;
+  transition: transform 0.25s ease !important;
+}
+
+.player-reveal-arrow-tab:hover {
+  transform: translateX(-50%) translateY(2px) !important;
+  background: linear-gradient(180deg, rgba(32, 38, 54, 0.95) 0%, rgba(18, 20, 28, 0.98) 100%) !important;
+  border-color: rgba(229, 9, 20, 0.5) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85), 0 0 20px rgba(229, 9, 20, 0.6) !important;
+}
+
+.player-reveal-arrow-tab:hover i {
+  transform: translateY(2px) !important;
+}
+
+/* When top bar is hidden, reveal tab drops down smoothly */
+.netflix-player-overlay.top-bar-hidden .player-reveal-arrow-tab {
+  transform: translateX(-50%) translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+
+/* Glassmorphism Controls inside Top Panel */
 .player-left-info {
   display: flex !important;
   align-items: center !important;
-  gap: 10px !important;
+  gap: 12px !important;
   flex: 0 1 auto !important;
   min-width: 0 !important;
 }
 
 .player-btn-back {
   background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   color: #fff !important;
-  height: 32px !important;
-  padding: 0 12px !important;
-  border-radius: 8px !important;
+  height: 34px !important;
+  padding: 0 14px !important;
+  border-radius: 9999px !important;
   font-size: 12px !important;
   font-weight: 600 !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
   cursor: pointer !important;
+  backdrop-filter: blur(12px) !important;
   transition: all 0.2s ease !important;
   flex-shrink: 0 !important;
 }
@@ -8258,33 +8310,37 @@ h1, h2, h3, h4, h5, h6,
 .player-btn-back:hover {
   background: var(--netflix-red) !important;
   border-color: var(--netflix-red) !important;
+  box-shadow: 0 0 16px rgba(229, 9, 20, 0.5) !important;
+  transform: scale(1.03) !important;
 }
 
 .player-title-block {
   display: flex !important;
   align-items: center !important;
+  gap: 8px !important;
   min-width: 0 !important;
 }
 
 .player-main-title {
   font-family: var(--font-display) !important;
   font-weight: 700 !important;
-  font-size: 13.5px !important;
-  color: #f3f4f6 !important;
+  font-size: 14px !important;
+  color: #ffffff !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  max-width: 260px !important;
+  max-width: 240px !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
 }
 
 .player-meta-badges {
-  display: none !important; /* Conceal redundant clutter to give space to controls */
+  display: none !important;
 }
 
 .player-right-controls {
   display: flex !important;
   align-items: center !important;
-  gap: 6px !important;
+  gap: 8px !important;
   flex-shrink: 0 !important;
   margin-left: auto !important;
 }
@@ -8292,10 +8348,12 @@ h1, h2, h3, h4, h5, h6,
 .player-server-pill,
 .player-audio-pill {
   background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  border-radius: 8px !important;
-  padding: 0 10px !important;
-  height: 32px !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 9999px !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  padding: 0 12px !important;
+  height: 34px !important;
   display: flex !important;
   align-items: center !important;
   gap: 6px !important;
@@ -8304,14 +8362,14 @@ h1, h2, h3, h4, h5, h6,
 
 .player-server-pill:hover,
 .player-audio-pill:hover {
-  background: rgba(255, 255, 255, 0.14) !important;
-  border-color: rgba(255, 255, 255, 0.25) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
 }
 
 .netflix-select-pill {
   font-family: var(--font-body) !important;
   font-weight: 600 !important;
-  font-size: 12px !important;
+  font-size: 11.5px !important;
   color: #f3f4f6 !important;
   background: transparent !important;
   border: none !important;
@@ -8328,17 +8386,18 @@ h1, h2, h3, h4, h5, h6,
 
 .player-pill-btn {
   background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
   color: #fff !important;
-  height: 32px !important;
-  padding: 0 10px !important;
-  border-radius: 8px !important;
+  height: 34px !important;
+  padding: 0 12px !important;
+  border-radius: 9999px !important;
   font-size: 11.5px !important;
   font-weight: 600 !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
   cursor: pointer !important;
+  backdrop-filter: blur(12px) !important;
   transition: all 0.2s ease !important;
   white-space: nowrap !important;
 }
@@ -8346,32 +8405,62 @@ h1, h2, h3, h4, h5, h6,
 .player-pill-btn:hover {
   background: rgba(255, 255, 255, 0.16) !important;
   border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-1px) !important;
 }
 
 .player-icon-btn {
   background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  border-radius: 8px !important;
-  width: 32px !important;
-  height: 32px !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 50% !important;
+  width: 34px !important;
+  height: 34px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   color: #d1d5db !important;
   font-size: 12px !important;
   cursor: pointer !important;
+  backdrop-filter: blur(12px) !important;
   transition: all 0.2s ease !important;
 }
 
 .player-icon-btn:hover {
-  background: rgba(229, 9, 20, 0.25) !important;
+  background: rgba(229, 9, 20, 0.3) !important;
   border-color: var(--netflix-red) !important;
   color: #ffffff !important;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.5) !important;
+  transform: scale(1.06) !important;
 }
 
 .player-icon-btn.btn-player-close:hover {
   background: #e50914 !important;
   border-color: #e50914 !important;
+}
+
+/* In Theater Mode (Zoom Out), lock to sticky above */
+.netflix-player-overlay.theater-mode {
+  display: block !important;
+  overflow-y: auto !important;
+}
+
+.netflix-player-overlay.theater-mode .player-top-bar {
+  position: sticky !important;
+  top: 0 !important;
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background: rgba(12, 14, 20, 0.98) !important;
+}
+
+.netflix-player-overlay.theater-mode .player-reveal-arrow-tab {
+  display: none !important;
+}
+
+.netflix-player-overlay.theater-mode .player-stage {
+  position: relative !important;
+  inset: auto !important;
 }
 
 @media (max-width: 1200px) {

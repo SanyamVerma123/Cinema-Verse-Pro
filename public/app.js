@@ -130,6 +130,7 @@ async function initializeApplication() {
   initProfile();
   initSettings();
   initPwaInstall();
+  initPlayerTopBarAutoMove();
   await loadCatalog();
   renderContinueWatching();
   renderNotifications();
@@ -157,9 +158,6 @@ function handleInitialHash() {
     if (typeof openPlatformGrid === 'function') {
       openPlatformGrid(ottKey);
     }
-  } else if (hash.startsWith('#watch') || hash.startsWith('#play')) {
-    const item = currentCatalog.find(x => x.title.toLowerCase().includes('stranger')) || currentCatalog[0];
-    if (item) openPlayer(item, 1, 1);
   }
 }
 
@@ -2077,6 +2075,8 @@ async function openPlayer(item, season = 1, episode = 1, serverIndex = 3) {
     const overlay = document.getElementById('player-overlay');
     overlay.style.display = 'flex';
     handlePlayerMouseMove();
+    revealPlayerTopBar();
+    schedulePlayerTopBarAutoMove(3500);
 
     if (isTheaterMode) {
       populateTheaterDetails(item);
@@ -2444,16 +2444,81 @@ function toggleTheaterMode(forceState = null) {
   }
 }
 
+let playerTopBarTimer = null;
+let isPlayerTopBarHovered = false;
+
+function initPlayerTopBarAutoMove() {
+  const overlay = document.getElementById('player-overlay');
+  const header = document.getElementById('player-header');
+  const revealTab = document.getElementById('player-reveal-tab');
+  if (!overlay || !header) return;
+
+  header.addEventListener('mouseenter', () => {
+    isPlayerTopBarHovered = true;
+    clearTimeout(playerTopBarTimer);
+  });
+
+  header.addEventListener('mouseleave', () => {
+    isPlayerTopBarHovered = false;
+    schedulePlayerTopBarAutoMove(3500);
+  });
+
+  if (revealTab) {
+    revealTab.addEventListener('mouseenter', () => {
+      revealPlayerTopBar();
+    });
+  }
+
+  overlay.addEventListener('mousemove', (e) => {
+    // If mouse moves within the top 65px of the screen, reveal top bar
+    if (e.clientY <= 65) {
+      revealPlayerTopBar();
+    } else if (!isPlayerTopBarHovered && !overlay.classList.contains('theater-mode')) {
+      schedulePlayerTopBarAutoMove(3500);
+    }
+  });
+}
+
+function revealPlayerTopBar() {
+  const overlay = document.getElementById('player-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('top-bar-hidden');
+  clearTimeout(playerTopBarTimer);
+  if (!isPlayerTopBarHovered && !overlay.classList.contains('theater-mode')) {
+    schedulePlayerTopBarAutoMove(4000);
+  }
+}
+
+function collapsePlayerTopBar() {
+  const overlay = document.getElementById('player-overlay');
+  if (!overlay || overlay.classList.contains('theater-mode')) return;
+  overlay.classList.add('top-bar-hidden');
+  clearTimeout(playerTopBarTimer);
+}
+
+function schedulePlayerTopBarAutoMove(delay = 3500) {
+  clearTimeout(playerTopBarTimer);
+  const overlay = document.getElementById('player-overlay');
+  if (!overlay || overlay.classList.contains('theater-mode')) return;
+  playerTopBarTimer = setTimeout(() => {
+    if (!isPlayerTopBarHovered && overlay.style.display !== 'none' && !overlay.classList.contains('theater-mode')) {
+      collapsePlayerTopBar();
+    }
+  }, delay);
+}
+
 function togglePlayerTopBar() {
   const overlay = document.getElementById('player-overlay');
-  const icon = document.getElementById('collapse-player-icon');
   if (!overlay) return;
-  const isCollapsed = overlay.classList.toggle('header-collapsed');
-  if (icon) {
-    icon.className = isCollapsed ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up';
+  if (overlay.classList.contains('top-bar-hidden')) {
+    revealPlayerTopBar();
+  } else {
+    collapsePlayerTopBar();
   }
-  showToast(isCollapsed ? 'CinemaVerse header hidden (Hover top edge to reveal)' : 'CinemaVerse header restored', 'info');
 }
+
+window.revealPlayerTopBar = revealPlayerTopBar;
+window.collapsePlayerTopBar = collapsePlayerTopBar;
 window.togglePlayerTopBar = togglePlayerTopBar;
 
 function populateTheaterDetails(item) {
