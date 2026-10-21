@@ -134,13 +134,18 @@ async function initializeApplication() {
   await loadCatalog();
   renderContinueWatching();
   renderNotifications();
-  handleInitialHash();
+  if (!window.location.hash || window.location.hash === '#home') {
+    restoreHomeView();
+  } else {
+    handleInitialHash();
+  }
   window.addEventListener('hashchange', handleInitialHash);
 }
 
 function handleInitialHash() {
   const hash = window.location.hash;
   if (!hash || hash === '#home') {
+    restoreHomeView();
     return;
   }
   if (hash === '#series') {
@@ -2445,38 +2450,10 @@ function toggleTheaterMode(forceState = null) {
 }
 
 let playerTopBarTimer = null;
-let isPlayerTopBarHovered = false;
 
 function initPlayerTopBarAutoMove() {
-  const overlay = document.getElementById('player-overlay');
-  const header = document.getElementById('player-header');
-  const revealTab = document.getElementById('player-reveal-tab');
-  if (!overlay || !header) return;
-
-  header.addEventListener('mouseenter', () => {
-    isPlayerTopBarHovered = true;
-    clearTimeout(playerTopBarTimer);
-  });
-
-  header.addEventListener('mouseleave', () => {
-    isPlayerTopBarHovered = false;
-    schedulePlayerTopBarAutoMove(3500);
-  });
-
-  if (revealTab) {
-    revealTab.addEventListener('mouseenter', () => {
-      revealPlayerTopBar();
-    });
-  }
-
-  overlay.addEventListener('mousemove', (e) => {
-    // If mouse moves within the top 65px of the screen, reveal top bar
-    if (e.clientY <= 65) {
-      revealPlayerTopBar();
-    } else if (!isPlayerTopBarHovered && !overlay.classList.contains('theater-mode')) {
-      schedulePlayerTopBarAutoMove(3500);
-    }
-  });
+  // Purely click-driven as requested by user — NO hover triggers!
+  clearTimeout(playerTopBarTimer);
 }
 
 function revealPlayerTopBar() {
@@ -2484,9 +2461,6 @@ function revealPlayerTopBar() {
   if (!overlay) return;
   overlay.classList.remove('top-bar-hidden');
   clearTimeout(playerTopBarTimer);
-  if (!isPlayerTopBarHovered && !overlay.classList.contains('theater-mode')) {
-    schedulePlayerTopBarAutoMove(4000);
-  }
 }
 
 function collapsePlayerTopBar() {
@@ -2501,7 +2475,7 @@ function schedulePlayerTopBarAutoMove(delay = 3500) {
   const overlay = document.getElementById('player-overlay');
   if (!overlay || overlay.classList.contains('theater-mode')) return;
   playerTopBarTimer = setTimeout(() => {
-    if (!isPlayerTopBarHovered && overlay.style.display !== 'none' && !overlay.classList.contains('theater-mode')) {
+    if (overlay.style.display !== 'none' && !overlay.classList.contains('theater-mode')) {
       collapsePlayerTopBar();
     }
   }, delay);
