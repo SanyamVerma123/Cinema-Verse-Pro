@@ -9,7 +9,7 @@ let heroItems = [];
 let currentHeroIndex = 0;
 let heroTimer = null;
 let currentItem = null;
-let currentServerIndex = 3; // Default: Server 4 (Global Mirror)
+let currentServerIndex = 0; // Default: Server 1 (Global Mirror - 0 Ads)
 let currentSeason = 1;
 let currentEpisode = 1;
 let availableServers = [];
@@ -1041,18 +1041,18 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: VidLink Pro HD', badge: 'Fastest • 0 Ads • Multi-Audio 4K', provider: 'VidLink Pro' },
-  { id: 1, name: 'Server 2: VidSrc PM 4K', badge: 'Direct 4K UHD', provider: 'VidSrc PM' },
-  { id: 2, name: 'Server 3: AutoEmbed CC Clean', badge: 'Auto Dub • 0 Ads', provider: 'AutoEmbed Direct' },
-  { id: 3, name: 'Server 4: Global Mirror', badge: 'Multi-Language • 0 Ads', provider: 'Global Mirror' },
-  { id: 4, name: 'Server 5: 2Embed CC Captions', badge: 'Multi-Language CC', provider: '2Embed CC' },
-  { id: 5, name: 'Server 6: FilmU VIP Cloud Mirror', badge: 'Fast Cloud • 0 Ads', provider: 'FilmU VIP' },
-  { id: 6, name: 'Server 7: VidSrc Buzz Clean Direct', badge: 'Fast HD 1080p • 0 Ads', provider: 'VidSrc Buzz' },
-  { id: 7, name: 'Server 8: AutoEmbed Direct Mirror', badge: 'Global Mirror • 0 Ads', provider: 'AutoEmbed Direct' },
-  { id: 8, name: 'Server 9: AnimeWorld VIP', badge: 'Multi-Audio: Hindi/Eng/Jap • 0 Ads', provider: 'AnimeWorld' },
-  { id: 9, name: 'Server 10: VidLink Pro Clean Alternative', badge: 'Clean 4K Ultra HD • 0 Ads', provider: 'VidLink Alt' }
+  { id: 0, name: 'Server 1: Global Mirror (Multi-Language & Dubbed)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global Mirror', hasAds: false },
+  { id: 1, name: 'Server 2: AutoEmbed CC Clean', badge: '✅ 0 Ads • Multi-Audio & Dub', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Direct', hasAds: false },
+  { id: 2, name: 'Server 3: FilmU VIP Cloud Mirror', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'FilmU VIP', hasAds: false },
+  { id: 3, name: 'Server 4: VidSrc Buzz Clean Direct', badge: '✅ 0 Ads • Fast HD 1080p', shortBadge: '✅ 0 Ads', provider: 'VidSrc Buzz', hasAds: false },
+  { id: 4, name: 'Server 5: AutoEmbed Direct Mirror', badge: '✅ 0 Ads • Global Mirror', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Direct', hasAds: false },
+  { id: 5, name: 'Server 6: AnimeWorld VIP (Multi-Audio)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
+  { id: 6, name: 'Server 7: VidLink Clean Alternative', badge: '✅ 0 Ads • Clean 4K Ultra HD', shortBadge: '✅ 0 Ads', provider: 'VidLink Alt', hasAds: false },
+  { id: 7, name: 'Server 8: VidLink Pro HD', badge: '⚠️ Contains Popups & Ads', shortBadge: '⚠️ Ads', provider: 'VidLink Pro', hasAds: true },
+  { id: 8, name: 'Server 9: VidSrc PM 4K', badge: '⚠️ Contains Popups & Ads', shortBadge: '⚠️ Ads', provider: 'VidSrc PM', hasAds: true },
+  { id: 9, name: 'Server 10: 2Embed CC Captions', badge: '⚠️ High Ads & Redirects', shortBadge: '⚠️ Ads', provider: '2Embed CC', hasAds: true }
 ];
-let selectedServerIndex = 3; // Default: Server 4 (Global Mirror)
+let selectedServerIndex = 0; // Default: Server 1 (Global Mirror - 0 Ads)
 
 // ========================================================
 // NETFLIX DETAILS MODAL (MOVIE PAGE)
@@ -1206,11 +1206,12 @@ function renderMoviePageServerChips(item) {
   chipsContainer.innerHTML = '';
   STREAMING_SERVERS.forEach((srv, idx) => {
     const pill = document.createElement('div');
-    pill.className = `server-chip-pill ${idx === selectedServerIndex ? 'active' : ''}`;
+    const adClass = srv.hasAds ? 'has-ad' : 'is-clean';
+    pill.className = `server-chip-pill ${adClass} ${idx === selectedServerIndex ? 'active' : ''}`;
     pill.innerHTML = `
-      <i class="fa-solid fa-server text-red"></i>
+      <i class="fa-solid fa-server ${srv.hasAds ? 'text-gold' : 'text-green'}"></i>
       <span>${srv.name.split(':')[0]}</span>
-      <span class="server-chip-badge">${srv.badge.split('•')[0].trim()}</span>
+      <span class="server-chip-badge ${srv.hasAds ? 'badge-ad-warning' : 'badge-clean'}">${srv.shortBadge}</span>
     `;
     pill.onclick = () => {
       selectedServerIndex = idx;
@@ -1537,15 +1538,15 @@ async function openPlayer(item, season = 1, episode = 1, serverIndex = 3) {
   currentItem = item;
   currentSeason = parseInt(season, 10);
   currentEpisode = parseInt(episode, 10);
-  currentServerIndex = (serverIndex !== undefined && serverIndex !== null) ? parseInt(serverIndex, 10) : (selectedServerIndex !== undefined ? selectedServerIndex : 3);
+  currentServerIndex = (serverIndex !== undefined && serverIndex !== null) ? parseInt(serverIndex, 10) : (selectedServerIndex !== undefined ? selectedServerIndex : 0);
 
-  // Auto-route to multi-audio server (Server 4: Global Mirror) if dubbed language is preferred
+  // Auto-route to multi-audio server (Server 1: Global Mirror) if dubbed language is preferred
   const isAnime = item.platformId === 'animeworld' || item.platformId === 'crunchyroll' || item.genres?.includes('Animation');
   if (selectedDubLanguage && selectedDubLanguage !== 'en') {
     if (isAnime && selectedDubLanguage === 'ja') {
-      currentServerIndex = 8;
+      currentServerIndex = 5; // Server 6: AnimeWorld VIP (Multi-Audio: Hindi/Eng/Jap)
     } else {
-      currentServerIndex = 3; // Server 4: Global Mirror (Multi-Language & Dubbed)
+      currentServerIndex = 0; // Server 1: Global Mirror (Multi-Language & Dubbed)
     }
   }
 
@@ -1731,13 +1732,13 @@ function changeDubLanguage(langCode, btnElement) {
 
   const isAnime = currentItem && (currentItem.platformId === 'animeworld' || currentItem.platformId === 'crunchyroll' || currentItem.genres?.includes('Animation'));
 
-  // For multi-language and default, use Server 4 (Global Mirror)
+  // For multi-language and default, use Server 1 (Global Mirror)
   if (langCode === 'ja' && isAnime) {
-    loadServerStream(8); // Server 9: AnimeWorld VIP (Multi-Audio: Hindi/Eng/Jap)
-    showToast(`🎧 Audio set to ${langName} • Server 9 (AnimeWorld VIP) Active`, 'success');
+    loadServerStream(5); // Server 6: AnimeWorld VIP (Multi-Audio: Hindi/Eng/Jap)
+    showToast(`🎧 Audio set to ${langName} • Server 6 (AnimeWorld VIP) Active`, 'success');
   } else {
-    loadServerStream(3); // Server 4: Global Mirror (Multi-Language & Dubbed)
-    showToast(`🎧 Audio set to ${langName} • Server 4 (Global Mirror) Active`, 'success');
+    loadServerStream(0); // Server 1: Global Mirror (Multi-Language & Dubbed)
+    showToast(`🎧 Audio set to ${langName} • Server 1 (Global Mirror) Active`, 'success');
   }
 }
 
@@ -2028,11 +2029,12 @@ function renderTheaterServerChips() {
   container.innerHTML = '';
   STREAMING_SERVERS.forEach((srv, idx) => {
     const pill = document.createElement('div');
-    pill.className = `server-chip-pill ${idx === currentServerIndex ? 'active' : ''}`;
+    const adClass = srv.hasAds ? 'has-ad' : 'is-clean';
+    pill.className = `server-chip-pill ${adClass} ${idx === currentServerIndex ? 'active' : ''}`;
     pill.innerHTML = `
-      <i class="fa-solid fa-server text-red"></i>
+      <i class="fa-solid fa-server ${srv.hasAds ? 'text-gold' : 'text-green'}"></i>
       <span>${srv.name.split(':')[0]}</span>
-      <span class="server-chip-badge">${srv.badge.split('•')[0].trim()}</span>
+      <span class="server-chip-badge ${srv.hasAds ? 'badge-ad-warning' : 'badge-clean'}">${srv.shortBadge}</span>
     `;
     pill.onclick = () => {
       loadServerStream(idx);
@@ -2992,8 +2994,8 @@ function resetAllAppSettings() {
 
     currentProfileName = 'Cinema Fan';
     currentProfileAvatar = NETFLIX_AVATARS[0].url;
-    selectedServerIndex = 3;
-    currentServerIndex = 3;
+    selectedServerIndex = 0;
+    currentServerIndex = 0;
     selectedDubLanguage = 'en';
 
     updateProfileDOM();

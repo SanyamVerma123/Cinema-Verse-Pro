@@ -3343,9 +3343,41 @@ input[type=range][orient=vertical] {
   color: #9ca3af;
 }
 
+.server-chip-pill.is-clean .server-chip-badge,
+.server-chip-badge.badge-clean {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+}
+
+.server-chip-pill.has-ad {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+}
+
+.server-chip-pill.has-ad:hover {
+  background: rgba(245, 158, 11, 0.16);
+  border-color: rgba(245, 158, 11, 0.55);
+}
+
+.server-chip-pill.has-ad .server-chip-badge,
+.server-chip-badge.badge-ad-warning {
+  background: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+.server-chip-pill.has-ad.active {
+  background: rgba(239, 68, 68, 0.28);
+  border-color: #ef4444;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.45);
+}
+
 .server-chip-pill.active .server-chip-badge {
   background: #e50914;
   color: #fff;
+  border-color: transparent;
 }
 
 /* Netflix Episode List with Rich 16:9 Thumbnails */
