@@ -4,12 +4,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta name="description" content="Browse a universal movie and TV catalog with a responsive, multi-platform interface. 100% ad-free 4K streaming." />
         <meta name="theme-color" content="#101114" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="CinemaMirror" />
+        <meta name="apple-mobile-web-app-title" content="CinemaVerse" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
