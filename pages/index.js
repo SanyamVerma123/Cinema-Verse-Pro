@@ -7,7 +7,7 @@ export default function Home({ pageMarkup }) {
   return (
     <>
       <Head>
-        <title>CinemaMirror Pro — Movies & Series</title>
+        <title>CinemaVerse — Universal Multi-OTT Streaming</title>
       </Head>
       <div dangerouslySetInnerHTML={{ __html: pageMarkup }} />
       <Script src="/app.js" strategy="afterInteractive" />

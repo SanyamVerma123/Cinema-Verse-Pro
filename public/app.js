@@ -1,6 +1,6 @@
 /* ========================================================
-   NETFLIX MIRROR PRO — COMPLETE CLIENT APPLICATION
-   Multi-OTT Hub, 8 Mirror Servers, Zero Redirects, Zero Sandbox Errors
+   CINEMAVERSE PRO — COMPLETE CLIENT APPLICATION
+   Universal Multi-OTT Hub, 10 Mirror Servers, Zero Redirects, Zero Sandbox Errors
    ======================================================== */
 
 // Global State
@@ -25,14 +25,14 @@ let currentVideoZoom = 'fit';
 let currentQuality = '4k';
 let currentSpeed = 1.0;
 
-// Storage Keys
-const STORAGE_WATCHLIST = 'netflixmirror_watchlist';
-const STORAGE_CONTINUE_WATCHING = 'netflixmirror_continue_watching';
-const STORAGE_DAILY_PASS = 'netflixmirror_daily_pass';
+// Storage Keys (CinemaVerse Pro Universe)
+const STORAGE_WATCHLIST = 'cinemaverse_watchlist';
+const STORAGE_CONTINUE_WATCHING = 'cinemaverse_continue_watching';
+const STORAGE_DAILY_PASS = 'cinemaverse_daily_pass';
 
 // Fallback high-res assets (clean cinema themed SVGs instead of sailboat photos)
-const FALLBACK_POSTER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="34">NETFLIX</text><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="Arial,sans-serif" font-weight="600" font-size="16">ULTRA HD 4K</text></svg>';
-const FALLBACK_BACKDROP = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><rect width="1280" height="720" fill="%230b0f19"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="48">NETFLIX PRO</text></svg>';
+const FALLBACK_POSTER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="34">CINEMAVERSE</text><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="Arial,sans-serif" font-weight="600" font-size="16">ULTRA HD 4K</text></svg>';
+const FALLBACK_BACKDROP = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><rect width="1280" height="720" fill="%230b0f19"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="48">CINEMAVERSE PRO</text></svg>';
 
 // Global image error handler
 window.handleImgError = function(img, fallback = FALLBACK_POSTER) {
@@ -61,16 +61,16 @@ function openTrustedExternalLink(url) {
     link.remove();
     return true;
   } catch (error) {
-    console.warn('[CinemaMirror] Could not open external link:', error);
+    console.warn('[CinemaVerse] Could not open external link:', error);
     return false;
   }
 }
 
-// NetMirror REA Anti-Redirect Guard: Neutralize rogue popups and prevent iframe from hijacking the top window
+// CinemaVerse Adaptive Anti-Redirect Guard: Neutralize rogue popups and prevent iframe from hijacking the top window
 try {
   Object.defineProperty(window, 'open', {
     value: function(url) {
-      console.warn('[CinemaMirror Shield] Blocked popup window:', url);
+      console.warn('[CinemaVerse Shield] Blocked popup window:', url);
       return null;
     },
     writable: false,
@@ -78,7 +78,7 @@ try {
   });
 } catch (e) {
   window.open = function(url) {
-    console.warn('[CinemaMirror Shield] Blocked popup window:', url);
+    console.warn('[CinemaVerse Shield] Blocked popup window:', url);
     return null;
   };
 }
@@ -93,7 +93,7 @@ document.addEventListener('click', function(e) {
       if (href && (href.startsWith('http://') || href.startsWith('https://')) && !href.includes(window.location.hostname)) {
         e.preventDefault();
         e.stopPropagation();
-        console.warn('[CinemaMirror Shield] Blocked external ad link click:', href);
+        console.warn('[CinemaVerse Shield] Blocked external ad link click:', href);
         return false;
       }
     }
@@ -101,7 +101,7 @@ document.addEventListener('click', function(e) {
   }
 }, true);
 
-// NetMirror Navigation Hijack Guard: Keep top window safely rooted in CinemaMirror
+// CinemaVerse Navigation Hijack Guard: Keep top window safely rooted in CinemaVerse
 window.addEventListener('beforeunload', function(e) {
   const player = document.getElementById('player-overlay');
   if (player && player.style.display === 'flex') {
@@ -133,6 +133,34 @@ async function initializeApplication() {
   await loadCatalog();
   renderContinueWatching();
   renderNotifications();
+  handleInitialHash();
+  window.addEventListener('hashchange', handleInitialHash);
+}
+
+function handleInitialHash() {
+  const hash = window.location.hash;
+  if (!hash || hash === '#home') {
+    return;
+  }
+  if (hash === '#series') {
+    filterCategory('series');
+  } else if (hash === '#movies') {
+    filterCategory('movie');
+  } else if (hash === '#new') {
+    filterCategory('top10');
+  } else if (hash === '#watchlist') {
+    showWatchlist();
+  } else if (hash === '#downloads') {
+    showDownloadsSection();
+  } else if (hash.startsWith('#ott-')) {
+    const ottKey = hash.replace('#ott-', '');
+    if (typeof openPlatformGrid === 'function') {
+      openPlatformGrid(ottKey);
+    }
+  } else if (hash.startsWith('#watch') || hash.startsWith('#play')) {
+    const item = currentCatalog.find(x => x.title.toLowerCase().includes('stranger')) || currentCatalog[0];
+    if (item) openPlayer(item, 1, 1);
+  }
 }
 
 if (document.readyState === 'loading') {
@@ -185,9 +213,19 @@ function toggleSearchBox() {
 // Multi-OTT Hub Toggle / Scroll
 function toggleOttHub() {
   const hub = document.getElementById('ott-hub-wrapper');
-  hub.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  hub.style.animation = 'pulse 1s ease';
-  setTimeout(() => hub.style.animation = '', 1000);
+  if (hub) {
+    hub.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    hub.style.animation = 'pulse 1s ease';
+    setTimeout(() => hub.style.animation = '', 1000);
+  }
+}
+
+// Multi-OTT Horizontal Carousel Navigation
+function slideOttBar(direction) {
+  const bar = document.getElementById('ott-platforms-bar');
+  if (!bar) return;
+  const scrollAmount = Math.max(280, bar.clientWidth * 0.65) * direction;
+  bar.scrollBy({ left: scrollAmount, behavior: 'smooth' });
 }
 
 // Reset view to Home
@@ -209,6 +247,8 @@ function restoreHomeView() {
   };
   setDisplay('hero-banner', 'flex');
   setDisplay('ott-hub-wrapper', 'block');
+  setDisplay('category-header-bar', 'none');
+  setDisplay('category-grid-section', 'none');
   setDisplay('watchlist-section', 'none');
   setDisplay('downloads-section', 'none');
   setDisplay('search-results-section', 'none');
@@ -218,6 +258,9 @@ function restoreHomeView() {
 }
 
 function resetToHome() {
+  currentActiveCategory = 'all';
+  currentCategoryViewMode = 'rows';
+  currentCategoryGenre = 'all';
   closeProfileDropdown();
   closeNotificationDropdown();
   restoreHomeView();
@@ -225,10 +268,14 @@ function resetToHome() {
   const homeLink = document.querySelector('.netflix-nav-links .nav-item[href="#home"]');
   if (homeLink) homeLink.classList.add('active');
   document.querySelectorAll('.ott-card').forEach(card => card.classList.remove('active'));
-  const allOtt = document.querySelector('.ott-card');
+  const allOtt = document.querySelector('.ott-card.ott-card-all, .ott-card');
   if (allOtt) allOtt.classList.add('active');
   activePlatformFilter = 'all';
-  filterPlatform('all');
+  if (currentCatalog.length) {
+    heroItems = currentCatalog.filter(x => x.featured || x.trending).slice(0, 6);
+    setupHeroCarousel();
+    renderAllRows(currentCatalog, 'all');
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -246,11 +293,49 @@ async function loadCatalog() {
 
       // Render All Netflix Rows
       renderAllRows(currentCatalog);
+
+      // Update OTT Hub counts dynamically
+      updateOttHubDynamicCounts();
     }
   } catch (err) {
     console.error('Failed to load catalog:', err);
     showToast('Failed to connect to streaming catalog', 'error');
   }
+}
+
+function updateOttHubDynamicCounts() {
+  if (!currentCatalog || !currentCatalog.length) return;
+  const totalCount = currentCatalog.length;
+  const hubBadge = document.querySelector('.ott-hub-badge');
+  if (hubBadge) hubBadge.innerHTML = `<i class="fa-solid fa-sparkles text-gold"></i> 14 Platforms • ${totalCount}+ Titles`;
+
+  const allSub = document.querySelector('.ott-card-all .ott-subcount');
+  if (allSub) allSub.textContent = `${totalCount}+ Titles`;
+
+  const platformMap = {
+    netflix: '.ott-nflx',
+    prime: '.ott-prm',
+    disney: '.ott-dis',
+    hbo: '.ott-hbo',
+    apple: '.ott-app',
+    crunchyroll: '.ott-cr',
+    paramount: '.ott-par',
+    hulu: '.ott-hulu',
+    peacock: '.ott-pea',
+    sonyliv: '.ott-sony',
+    zee5: '.ott-zee',
+    jiocinema: '.ott-jio',
+    animeworld: '.ott-aw'
+  };
+
+  Object.entries(platformMap).forEach(([pid, selector]) => {
+    const count = currentCatalog.filter(x => x.platformId === pid).length;
+    const card = document.querySelector(selector);
+    if (card) {
+      const sub = card.querySelector('.ott-subcount');
+      if (sub) sub.textContent = `${count} Titles`;
+    }
+  });
 }
 
 // ========================================================
@@ -367,58 +452,134 @@ function slideRow(rowId, direction) {
 // ========================================================
 
 function filterPlatform(platformId, element) {
+  const pid = (platformId || 'all').toLowerCase();
+  if (pid === 'all') {
+    restoreHomeView();
+    closeProfileDropdown();
+    closeNotificationDropdown();
+    document.querySelectorAll('.nav-item').forEach(link => link.classList.remove('active'));
+    const homeLink = document.querySelector('.netflix-nav-links .nav-item[href="#home"]');
+    if (homeLink) homeLink.classList.add('active');
+
+    document.querySelectorAll('.ott-card').forEach(c => c.classList.remove('active'));
+    const allCard = document.querySelector('.ott-card-all');
+    if (allCard) allCard.classList.add('active');
+
+    const bannerSec = document.getElementById('platform-banner-section');
+    if (bannerSec) bannerSec.style.display = 'none';
+    const catBar = document.getElementById('category-header-bar');
+    if (catBar) catBar.style.display = 'none';
+    const gridSec = document.getElementById('category-grid-section');
+    if (gridSec) gridSec.style.display = 'none';
+    showAllSections();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    openPlatformGrid(pid);
+  }
+}
+
+function openPlatformGrid(platformId) {
   restoreHomeView();
   closeProfileDropdown();
   closeNotificationDropdown();
-  document.querySelectorAll('.nav-item').forEach(link => link.classList.remove('active'));
-  const homeLink = document.querySelector('.netflix-nav-links .nav-item[href="#home"]');
-  if (homeLink && platformId === 'all') homeLink.classList.add('active');
-  if (element && element.classList.contains('nav-item')) element.classList.add('active');
-  activePlatformFilter = platformId.toLowerCase();
+  closeMobileBrowseMenu();
 
+  const pid = (platformId || 'all').toLowerCase();
+  activePlatformFilter = pid;
+
+  // Highlight OTT Hub card
   document.querySelectorAll('.ott-card').forEach(c => c.classList.remove('active'));
-  if (element) {
-    element.classList.add('active');
-  } else {
-    const match = document.querySelector(`.ott-card.ott-${platformId}`) || document.querySelector('.ott-card');
-    if (match) match.classList.add('active');
+  const classMap = {
+    all: '.ott-card-all',
+    netflix: '.ott-nflx',
+    prime: '.ott-prm',
+    disney: '.ott-dis',
+    hbo: '.ott-hbo',
+    apple: '.ott-app',
+    crunchyroll: '.ott-cr',
+    paramount: '.ott-par',
+    hulu: '.ott-hulu',
+    peacock: '.ott-pea',
+    sonyliv: '.ott-sony',
+    zee5: '.ott-zee',
+    jiocinema: '.ott-jio',
+    animeworld: '.ott-aw'
+  };
+  const targetSelector = classMap[pid] || '.ott-card-all';
+  const match = document.querySelector(targetSelector);
+  if (match) {
+    match.classList.add('active');
+    match.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }
 
-  const bannerSec = document.getElementById('platform-banner-section');
-  const bannerTitle = document.getElementById('platform-banner-title');
-  const bannerDesc = document.getElementById('platform-banner-desc');
-  const bannerEl = document.getElementById('platform-banner');
-
-  if (activePlatformFilter === 'all') {
-    if (bannerSec) bannerSec.style.display = 'none';
-    showAllSections();
-  } else {
-    if (bannerSec) bannerSec.style.display = 'block';
-
-    const platformNames = {
-      netflix: { title: 'Netflix Originals & Worldwide Blockbusters', desc: 'Stream award-winning Netflix original series, top movies and animated hits in 4K.', color: '#e50914' },
-      prime: { title: 'Amazon Prime Video Exclusives', desc: 'Binge-worthy Prime originals, blockbuster cinema and critically acclaimed shows.', color: '#00a8e1' },
-      disney: { title: 'Disney+ Hotstar Vault', desc: 'The complete home of Marvel Studios, Star Wars, Pixar and Disney theatrical releases.', color: '#113ccf' },
-      hbo: { title: 'HBO Max Prestige Television & Warner Bros', desc: 'Legendary HBO series, epic sagas and Warner Bros cinematic blockbusters.', color: '#9933ff' },
-      apple: { title: 'Apple TV+ Original Masterpieces', desc: 'Visionary, star-studded Apple Original series and movies streaming in crisp 4K.', color: '#ffffff' },
-      crunchyroll: { title: 'Anime Hub / Crunchyroll Exclusives', desc: 'Top trending shonen anime, dark fantasy series and legendary Japanese animation.', color: '#f47521' },
-      paramount: { title: 'Paramount+ Blockbusters & Showtime', desc: 'Action-packed Hollywood cinema, top naval adventures and Paramount originals.', color: '#0064ff' },
-      hulu: { title: 'Hulu Originals & FX Award-Winners', desc: 'Acclaimed television, Emmy-winning drama and hit exclusive comedy series.', color: '#1ce783' },
-      peacock: { title: 'Peacock Exclusives & NBCUniversal Hits', desc: 'Stream iconic comedy series, fresh hit thrillers and Universal theatrical releases.', color: '#f7a800' },
-      sonyliv: { title: 'Sony LIV Premium Indian Originals', desc: 'Critically acclaimed Indian biographical series, gripping thrillers and premium cinema.', color: '#ff334b' },
-      zee5: { title: 'Zee5 Regional Cinema & Blockbusters', desc: 'Massive regional Indian hits, poignant historical epics and bingeable Hindi series.', color: '#a855f7' },
-      jiocinema: { title: 'JioCinema Direct Premieres & Bollywood', desc: 'Direct-to-digital Indian blockbusters, psychological thrillers and HBO prestige content.', color: '#e11d48' },
-      animeworld: { title: 'WatchAnimeWorld VIP Multi-Audio Hub', desc: 'High-speed anime streaming featuring Hindi Dubs, English Sub/Dub and original Japanese audio.', color: '#f59e0b' }
-    };
-
-    const info = platformNames[activePlatformFilter] || { title: `${platformId.toUpperCase()} Vault`, desc: 'Showing titles from this OTT platform', color: '#e50914' };
-    if (bannerTitle) bannerTitle.textContent = info.title;
-    if (bannerDesc) bannerDesc.textContent = info.desc;
-    if (bannerEl) bannerEl.style.borderColor = `${info.color}88`;
-
-    focusPlatformRow(activePlatformFilter);
+  if (pid === 'all') {
+    filterPlatform('all');
+    return;
   }
+
+  const pConfMap = {
+    netflix: { name: 'Netflix', color: '#E50914', desc: 'Stream award-winning Netflix original series, top movies and animated hits in 4K Ultra HD.' },
+    prime: { name: 'Amazon Prime Video', color: '#00A8E1', desc: 'Binge-worthy Prime originals, blockbuster cinema and critically acclaimed shows in 4K.' },
+    disney: { name: 'Disney+ Hotstar', color: '#113CCF', desc: 'The complete home of Marvel Studios, Star Wars, Pixar and Disney theatrical blockbusters.' },
+    hbo: { name: 'HBO Max', color: '#9933FF', desc: 'Legendary HBO prestige television, epic sagas and Warner Bros cinematic universe.' },
+    apple: { name: 'Apple TV+', color: '#FFFFFF', desc: 'Visionary, star-studded Apple Original series and movies streaming in crisp 4K.' },
+    crunchyroll: { name: 'Crunchyroll Anime', color: '#F47521', desc: 'Top trending shonen anime, dark fantasy series and legendary Japanese animation.' },
+    paramount: { name: 'Paramount+', color: '#0064FF', desc: 'Action-packed Hollywood cinema, top naval adventures and Paramount originals.' },
+    hulu: { name: 'Hulu', color: '#1CE783', desc: 'Acclaimed television, Emmy-winning drama and hit exclusive comedy series.' },
+    peacock: { name: 'Peacock', color: '#F7A800', desc: 'Stream iconic comedy series, fresh hit thrillers and Universal theatrical releases.' },
+    sonyliv: { name: 'Sony LIV', color: '#FF334B', desc: 'Critically acclaimed Indian biographical series, gripping thrillers and premium cinema.' },
+    zee5: { name: 'Zee5', color: '#A855F7', desc: 'Massive regional Indian hits, poignant historical epics and bingeable Hindi series.' },
+    jiocinema: { name: 'JioCinema', color: '#E11D48', desc: 'Direct-to-digital Indian blockbusters, psychological thrillers and Bollywood hits.' },
+    animeworld: { name: 'Anime World (Multi-Audio)', color: '#F59E0B', desc: 'VIP anime streaming featuring Hindi Dubs, English Sub/Dub and original Japanese audio.' }
+  };
+
+  const pConf = pConfMap[pid] || { name: pid.toUpperCase(), color: '#E50914', desc: `Browse complete catalog of ${pid.toUpperCase()} on CinemaVerse.` };
+  const pItems = currentCatalog.filter(x => x.platformId === pid);
+
+  // Update Category Header Bar for this Platform
+  const bar = document.getElementById('category-header-bar');
+  const iconEl = document.getElementById('category-icon');
+  const titleEl = document.getElementById('category-title');
+  const badgeEl = document.getElementById('category-count-badge');
+  const descEl = document.getElementById('category-desc');
+  const gridLabel = document.getElementById('view-mode-grid-label');
+
+  if (bar) bar.style.display = 'flex';
+  if (iconEl) iconEl.innerHTML = `<i class="fa-solid fa-layer-group" style="color: ${pConf.color}"></i>`;
+  if (titleEl) titleEl.textContent = pConf.name;
+  if (badgeEl) badgeEl.textContent = `${pItems.length} Titles Available in 4K`;
+  if (descEl) descEl.textContent = pConf.desc;
+  if (gridLabel) gridLabel.textContent = `All ${pItems.length} Titles Grid`;
+
+  // Genre chips for platform
+  const chipsContainer = document.getElementById('category-genre-chips');
+  if (chipsContainer) {
+    const genres = ['All', 'Action', 'Drama', 'Comedy', 'Sci-Fi', 'Thriller', 'Horror', 'Romance', 'Animation'];
+    chipsContainer.innerHTML = genres.map((g, idx) => `
+      <button type="button" class="genre-chip ${idx === 0 ? 'active' : ''}" onclick="filterPlatformGridGenre('${pid}', '${g.toLowerCase()}', this)">${g}</button>
+    `).join('');
+  }
+
+  // Switch to Grid Mode to display up to 100 titles immediately
+  switchCategoryView('grid', false);
+  renderCategoryGrid(pItems);
+
+  if (bar) bar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+window.openPlatformGrid = openPlatformGrid;
+
+function filterPlatformGridGenre(platformId, genre, btn) {
+  if (btn) {
+    document.querySelectorAll('#category-genre-chips .genre-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  let items = currentCatalog.filter(x => x.platformId === platformId);
+  if (genre && genre !== 'all') {
+    items = items.filter(x => x.genres && x.genres.some(g => g.toLowerCase().includes(genre)));
+  }
+  renderCategoryGrid(items);
+}
+window.filterPlatformGridGenre = filterPlatformGridGenre;
 
 function showAllSections() {
   const allSectionIds = [
@@ -465,29 +626,70 @@ function focusPlatformRow(platformId) {
 // SECTION RENDERING
 // ========================================================
 
-function renderAllRows(items) {
-  // 1. Top 10 Movies Today (Netflix giant number outlines)
+function renderAllRows(items, activeCategory = 'all') {
+  // 1. Top 10 Movies Today
   const top10Movies = items.filter(x => x.type === 'movie' && x.rank).sort((a, b) => a.rank - b.rank).slice(0, 10);
   renderTop10List('top10-movies-list', top10Movies);
 
-  // 2. Top 10 TV Shows Today (Netflix giant number outlines)
+  // 2. Top 10 TV Shows Today
   const top10Series = items.filter(x => x.type === 'series' && x.rank).sort((a, b) => a.rank - b.rank).slice(0, 10);
   renderTop10List('top10-series-list', top10Series);
 
+  // Toggle Top 10 sections based on category
+  const sTop10M = document.getElementById('section-top10-movies');
+  const sTop10S = document.getElementById('section-top10-series');
+  if (sTop10M) sTop10M.style.display = (activeCategory === 'movie' || activeCategory === 'all' || activeCategory === 'top10') && top10Movies.length ? 'block' : 'none';
+  if (sTop10S) sTop10S.style.display = (activeCategory === 'series' || activeCategory === 'all' || activeCategory === 'top10') && top10Series.length ? 'block' : 'none';
+
   // 3. Dedicated OTT Platform Rows for All 13 Platforms
-  renderHorizontalList('netflix-list', items.filter(x => x.platformId === 'netflix'));
-  renderHorizontalList('prime-list', items.filter(x => x.platformId === 'prime'));
-  renderHorizontalList('disney-list', items.filter(x => x.platformId === 'disney'));
-  renderHorizontalList('hbo-list', items.filter(x => x.platformId === 'hbo'));
-  renderHorizontalList('apple-list', items.filter(x => x.platformId === 'apple'));
-  renderHorizontalList('crunchyroll-list', items.filter(x => x.platformId === 'crunchyroll'));
-  renderHorizontalList('paramount-list', items.filter(x => x.platformId === 'paramount'));
-  renderHorizontalList('hulu-list', items.filter(x => x.platformId === 'hulu'));
-  renderHorizontalList('peacock-list', items.filter(x => x.platformId === 'peacock'));
-  renderHorizontalList('sonyliv-list', items.filter(x => x.platformId === 'sonyliv'));
-  renderHorizontalList('zee5-list', items.filter(x => x.platformId === 'zee5'));
-  renderHorizontalList('jiocinema-list', items.filter(x => x.platformId === 'jiocinema'));
-  renderHorizontalList('animeworld-list', items.filter(x => x.platformId === 'animeworld'));
+  const platformConfigs = [
+    { id: 'netflix', list: 'netflix-list', section: 'section-netflix', name: 'Netflix', defaultTitle: 'Only on Netflix' },
+    { id: 'prime', list: 'prime-list', section: 'section-prime', name: 'Prime Video', defaultTitle: 'Prime Video Exclusives' },
+    { id: 'disney', list: 'disney-list', section: 'section-disney', name: 'Disney+ Hotstar', defaultTitle: 'Marvel Studios & Disney Vault' },
+    { id: 'hbo', list: 'hbo-list', section: 'section-hbo', name: 'HBO Max', defaultTitle: 'HBO Prestige Series & Warner Bros' },
+    { id: 'apple', list: 'apple-list', section: 'section-apple', name: 'Apple TV+', defaultTitle: 'Apple Original Series & Cinema' },
+    { id: 'crunchyroll', list: 'crunchyroll-list', section: 'section-crunchyroll', name: 'Crunchyroll', defaultTitle: 'Anime Hub & Shonen Masterpieces' },
+    { id: 'paramount', list: 'paramount-list', section: 'section-paramount', name: 'Paramount+', defaultTitle: 'Paramount+ Blockbusters & Showtime' },
+    { id: 'hulu', list: 'hulu-list', section: 'section-hulu', name: 'Hulu', defaultTitle: 'Hulu Originals & FX Award-Winners' },
+    { id: 'peacock', list: 'peacock-list', section: 'section-peacock', name: 'Peacock', defaultTitle: 'Peacock Exclusives & NBCUniversal Hits' },
+    { id: 'sonyliv', list: 'sonyliv-list', section: 'section-sonyliv', name: 'Sony LIV', defaultTitle: 'Sony LIV Premium Indian Originals & Thrillers' },
+    { id: 'zee5', list: 'zee5-list', section: 'section-zee5', name: 'Zee5', defaultTitle: 'Zee5 Regional Blockbusters & Cinema' },
+    { id: 'jiocinema', list: 'jiocinema-list', section: 'section-jiocinema', name: 'JioCinema', defaultTitle: 'JioCinema Premieres & Bollywood Hits' },
+    { id: 'animeworld', list: 'animeworld-list', section: 'section-animeworld', name: 'Anime World', defaultTitle: 'WatchAnimeWorld VIP (Hindi/Eng/Jap Multi-Audio)' }
+  ];
+
+  platformConfigs.forEach(p => {
+    const pItems = items.filter(x => x.platformId === p.id);
+    renderHorizontalList(p.list, pItems);
+    const sec = document.getElementById(p.section);
+    if (sec) {
+      sec.style.display = pItems.length > 0 ? 'block' : 'none';
+      const headerEl = sec.querySelector('.row-header');
+      const titleEl = sec.querySelector('.row-title');
+      if (titleEl) {
+        const badge = titleEl.querySelector('.badge-inline-ott');
+        const badgeHtml = badge ? badge.outerHTML : '';
+        if (activeCategory === 'series') {
+          titleEl.innerHTML = `${badgeHtml} ${p.name} TV Series (${pItems.length})`;
+        } else if (activeCategory === 'movie') {
+          titleEl.innerHTML = `${badgeHtml} ${p.name} Blockbuster Movies (${pItems.length})`;
+        } else {
+          titleEl.innerHTML = `${badgeHtml} ${p.defaultTitle} (${pItems.length})`;
+        }
+      }
+      if (headerEl) {
+        let viewAllBtn = headerEl.querySelector('.row-view-all-btn');
+        if (!viewAllBtn) {
+          viewAllBtn = document.createElement('button');
+          viewAllBtn.type = 'button';
+          viewAllBtn.className = 'row-view-all-btn';
+          headerEl.appendChild(viewAllBtn);
+        }
+        viewAllBtn.innerHTML = `<span>View All ${pItems.length} Titles</span> <i class="fa-solid fa-chevron-right"></i>`;
+        viewAllBtn.onclick = () => openPlatformGrid(p.id);
+      }
+    }
+  });
 }
 
 // Top 10 List Renderer with Netflix giant numbers
@@ -567,7 +769,8 @@ function renderHorizontalList(containerId, items) {
 // Continue Watching
 function getContinueWatching() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_CONTINUE_WATCHING)) || [];
+    const raw = localStorage.getItem(STORAGE_CONTINUE_WATCHING) || localStorage.getItem('netflixmirror_continue_watching');
+    return raw ? JSON.parse(raw) : [];
   } catch (e) {
     return [];
   }
@@ -645,7 +848,8 @@ function renderContinueWatching() {
 // Watchlist (My List)
 function getWatchlist() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_WATCHLIST)) || [];
+    const raw = localStorage.getItem(STORAGE_WATCHLIST) || localStorage.getItem('netflixmirror_watchlist');
+    return raw ? JSON.parse(raw) : [];
   } catch (e) {
     return [];
   }
@@ -685,6 +889,7 @@ function showWatchlist(element) {
   closeProfileDropdown();
   closeMobileBrowseMenu();
   closeNotificationDropdown();
+  closeAllModals();
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
   const watchlistLink = element || document.querySelector('.netflix-nav-links .nav-item[href="#watchlist"]');
   if (watchlistLink) watchlistLink.classList.add('active');
@@ -750,45 +955,290 @@ function showWatchlist(element) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Category Filtering
+// Global Category State
+let currentActiveCategory = 'all'; // 'all', 'series', 'movie', 'top10'
+let currentCategoryViewMode = 'rows'; // 'rows' or 'grid'
+let currentCategoryGenre = 'all';
+let currentCategorySort = 'popular';
+
+// Comprehensive Category Filtering ("TV Shows", "Movies", "New & Popular", "Home")
 function filterCategory(type, element) {
+  currentActiveCategory = type;
+  currentCategoryGenre = 'all';
+
   restoreHomeView();
   closeProfileDropdown();
   closeMobileBrowseMenu();
   closeNotificationDropdown();
+
+  // Set active nav link
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
-  if (element) element.classList.add('active');
+  if (element) {
+    element.classList.add('active');
+  } else {
+    const sel = document.querySelector(`.netflix-nav-links .nav-item[href="#${type === 'series' ? 'series' : type === 'movie' ? 'movies' : type === 'top10' ? 'new' : 'home'}"]`);
+    if (sel) sel.classList.add('active');
+  }
 
-  const dlSec = document.getElementById('downloads-section');
-  if (dlSec) dlSec.style.display = 'none';
+  // Update Billboard Hero showcase to feature matching category
+  if (type === 'series') {
+    const seriesHeroes = currentCatalog.filter(x => x.type === 'series' && (x.featured || x.trending));
+    if (seriesHeroes.length) {
+      heroItems = seriesHeroes;
+      setupHeroCarousel();
+    }
+  } else if (type === 'movie') {
+    const movieHeroes = currentCatalog.filter(x => x.type === 'movie' && (x.featured || x.trending));
+    if (movieHeroes.length) {
+      heroItems = movieHeroes;
+      setupHeroCarousel();
+    }
+  } else {
+    heroItems = currentCatalog.filter(x => x.featured || x.trending).slice(0, 6);
+    setupHeroCarousel();
+  }
 
-  const watchlistSection = document.getElementById('watchlist-section');
-  if (watchlistSection) watchlistSection.style.display = 'none';
-  const searchSection = document.getElementById('search-results-section');
-  if (searchSection) searchSection.style.display = 'none';
-  const hero = document.getElementById('hero-banner');
-  if (hero) hero.style.display = 'flex';
-  const ottHub = document.getElementById('ott-hub-wrapper');
-  if (ottHub) ottHub.style.display = 'block';
+  // Render Category Header Bar
+  renderCategoryHeader(type);
 
-  const sTop10M = document.getElementById('section-top10-movies');
-  const sTop10S = document.getElementById('section-top10-series');
-  const sNflx = document.getElementById('section-netflix');
-  const sPrm = document.getElementById('section-prime');
-  const sDis = document.getElementById('section-disney');
-  const sHbo = document.getElementById('section-hbo');
-  const sApp = document.getElementById('section-apple');
-  const sCr = document.getElementById('section-crunchyroll');
+  // Filter Catalog Items for Category
+  let filteredItems = [...currentCatalog];
+  if (type === 'series') {
+    filteredItems = currentCatalog.filter(x => x.type === 'series');
+  } else if (type === 'movie') {
+    filteredItems = currentCatalog.filter(x => x.type === 'movie');
+  }
 
-  const allRows = [sTop10M, sTop10S, sNflx, sPrm, sDis, sHbo, sApp, sCr,
-    'section-paramount', 'section-hulu', 'section-peacock', 'section-sonyliv',
-    'section-zee5', 'section-jiocinema', 'section-animeworld']
-    .map(row => typeof row === 'string' ? document.getElementById(row) : row)
-    .filter(Boolean);
-  allRows.forEach(row => {
-    const isTop10 = row.id === 'section-top10-movies' || row.id === 'section-top10-series';
-    row.style.display = type === 'all' || (type === 'top10' && isTop10) || (type !== 'top10' && row.id !== (type === 'movie' ? 'section-top10-series' : 'section-top10-movies')) ? 'block' : 'none';
+  // Render Rows with only the category's titles
+  renderAllRows(filteredItems, type);
+
+  // If in Grid Mode, render the full category grid
+  if (currentCategoryViewMode === 'grid' && type !== 'all') {
+    renderCategoryGrid(filteredItems);
+  } else {
+    switchCategoryView('rows', false);
+  }
+
+  // Scroll smoothly to category section if on page
+  const catBar = document.getElementById('category-header-bar');
+  if (type !== 'all' && catBar) {
+    catBar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+// Render Category Header Bar (Pills, count badge, description)
+function renderCategoryHeader(type) {
+  const bar = document.getElementById('category-header-bar');
+  if (!bar) return;
+  if (type === 'all') {
+    bar.style.display = 'none';
+    const gridSec = document.getElementById('category-grid-section');
+    if (gridSec) gridSec.style.display = 'none';
+    return;
+  }
+
+  bar.style.display = 'flex';
+
+  const iconEl = document.getElementById('category-icon');
+  const titleEl = document.getElementById('category-title');
+  const badgeEl = document.getElementById('category-count-badge');
+  const descEl = document.getElementById('category-desc');
+  const gridLabel = document.getElementById('view-mode-grid-label');
+  const chipsContainer = document.getElementById('category-genre-chips');
+
+  const seriesCount = currentCatalog.filter(x => x.type === 'series').length;
+  const movieCount = currentCatalog.filter(x => x.type === 'movie').length;
+
+  let genres = [];
+  if (type === 'series') {
+    if (iconEl) iconEl.innerHTML = '<i class="fa-solid fa-tv text-red"></i>';
+    if (titleEl) titleEl.textContent = 'TV Shows';
+    if (badgeEl) badgeEl.textContent = `${seriesCount} Series Across OTTs`;
+    if (descEl) descEl.textContent = 'Binge-worthy drama, sci-fi sagas, anime, and acclaimed TV series streaming in 4K across all 14 platforms.';
+    if (gridLabel) gridLabel.textContent = `All ${seriesCount} Series Grid`;
+    genres = ['All', 'Drama', 'Sci-Fi', 'Action', 'Anime', 'Crime', 'Comedy', 'Thriller', 'Horror', 'Mystery'];
+  } else if (type === 'movie') {
+    if (iconEl) iconEl.innerHTML = '<i class="fa-solid fa-film text-red"></i>';
+    if (titleEl) titleEl.textContent = 'Movies';
+    if (badgeEl) badgeEl.textContent = `${movieCount} Blockbusters in 4K`;
+    if (descEl) descEl.textContent = 'Stream legendary cinema, theatrical premieres, Oscar-winning epics, and Hollywood blockbusters with 0 ads.';
+    if (gridLabel) gridLabel.textContent = `All ${movieCount} Movies Grid`;
+    genres = ['All', 'Action', 'Sci-Fi', 'Drama', 'Crime', 'Thriller', 'Adventure', 'Mystery', 'Biography', 'Horror'];
+  } else if (type === 'top10') {
+    if (iconEl) iconEl.innerHTML = '<i class="fa-solid fa-fire text-red"></i>';
+    if (titleEl) titleEl.textContent = 'New & Popular';
+    const topCount = currentCatalog.filter(x => x.rank).length;
+    if (badgeEl) badgeEl.textContent = `${topCount} Trending Hits`;
+    if (descEl) descEl.textContent = 'The most watched movies, top series, and trending entertainment across Netflix, Prime, Disney, MAX, and Apple TV+.';
+    if (gridLabel) gridLabel.textContent = `All Trending Grid`;
+    genres = ['All', 'Action', 'Drama', 'Sci-Fi', 'Crime', 'Thriller'];
+  }
+
+  // Populate Genre Chips
+  if (chipsContainer) {
+    chipsContainer.innerHTML = '';
+    genres.forEach((genre, idx) => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = `cat-genre-chip ${idx === 0 ? 'active' : ''}`;
+      chip.textContent = genre;
+      chip.onclick = () => filterCategoryGenre(genre, chip);
+      chipsContainer.appendChild(chip);
+    });
+  }
+}
+
+// Genre Filtering within Active Category
+function filterCategoryGenre(genre, chipElement) {
+  currentCategoryGenre = genre.toLowerCase();
+  document.querySelectorAll('.cat-genre-chip').forEach(c => c.classList.remove('active'));
+  if (chipElement) chipElement.classList.add('active');
+
+  let items = [...currentCatalog];
+  if (currentActiveCategory === 'series') {
+    items = items.filter(x => x.type === 'series');
+  } else if (currentActiveCategory === 'movie') {
+    items = items.filter(x => x.type === 'movie');
+  } else if (currentActiveCategory === 'top10') {
+    items = items.filter(x => x.rank);
+  }
+
+  if (genre.toLowerCase() !== 'all') {
+    items = items.filter(x => x.genres && x.genres.some(g => {
+      const gl = g.toLowerCase();
+      const target = genre.toLowerCase();
+      if (target === 'anime') return gl === 'animation' || gl === 'dark fantasy' || x.platformId === 'crunchyroll' || x.platformId === 'animeworld';
+      return gl.includes(target) || target.includes(gl);
+    }));
+  }
+
+  if (currentCategoryViewMode === 'grid') {
+    renderCategoryGrid(items);
+  } else {
+    renderAllRows(items, currentActiveCategory);
+  }
+}
+
+// View Mode Switcher: 'rows' vs 'grid'
+function switchCategoryView(mode, shouldScroll = true) {
+  currentCategoryViewMode = mode;
+  const rowsBtn = document.getElementById('view-mode-rows');
+  const gridBtn = document.getElementById('view-mode-grid');
+  const gridSec = document.getElementById('category-grid-section');
+  const allRowSections = document.querySelectorAll('.netflix-row-wrap:not(#continue-watching-section)');
+
+  if (rowsBtn) rowsBtn.classList.toggle('active', mode === 'rows');
+  if (gridBtn) gridBtn.classList.toggle('active', mode === 'grid');
+
+  if (mode === 'grid') {
+    allRowSections.forEach(r => r.style.display = 'none');
+    if (gridSec) {
+      gridSec.style.display = 'block';
+      let items = [...currentCatalog];
+      if (currentActiveCategory === 'series') items = items.filter(x => x.type === 'series');
+      else if (currentActiveCategory === 'movie') items = items.filter(x => x.type === 'movie');
+      else if (currentActiveCategory === 'top10') items = items.filter(x => x.rank);
+
+      if (currentCategoryGenre !== 'all') {
+        items = items.filter(x => x.genres && x.genres.some(g => g.toLowerCase().includes(currentCategoryGenre)));
+      }
+      renderCategoryGrid(items);
+    }
+  } else {
+    if (gridSec) gridSec.style.display = 'none';
+    let items = [...currentCatalog];
+    if (currentActiveCategory === 'series') items = items.filter(x => x.type === 'series');
+    else if (currentActiveCategory === 'movie') items = items.filter(x => x.type === 'movie');
+    renderAllRows(items, currentActiveCategory);
+  }
+
+  if (shouldScroll) {
+    const catBar = document.getElementById('category-header-bar');
+    if (catBar) catBar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// Render All Titles Grid
+function renderCategoryGrid(items) {
+  const grid = document.getElementById('category-grid');
+  const countEl = document.getElementById('category-grid-count');
+  if (!grid) return;
+
+  grid.innerHTML = '';
+  if (countEl) {
+    const typeLabel = currentActiveCategory === 'series' ? 'TV Series' : currentActiveCategory === 'movie' ? 'Movies' : 'Titles';
+    countEl.textContent = `${items.length} ${typeLabel} Available`;
+  }
+
+  if (items.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column: 1 / -1; padding: 60px 20px; text-align: center;">
+        <i class="fa-solid fa-film text-dim" style="font-size: 42px; margin-bottom: 12px; display: block;"></i>
+        <h3 style="font-size: 18px; margin-bottom: 6px;">No titles found in this genre</h3>
+        <p class="text-dim" style="font-size: 14px;">Try selecting "All" or switching categories.</p>
+        <button type="button" class="netflix-btn btn-red" onclick="filterCategoryGenre('All')" style="margin-top: 14px;">Show All ${currentActiveCategory === 'series' ? 'TV Shows' : 'Movies'}</button>
+      </div>
+    `;
+    return;
+  }
+
+  // Sort items according to active sort option
+  let sorted = [...items];
+  if (currentCategorySort === 'rating') {
+    sorted.sort((a, b) => (parseInt(b.matchRate) || 90) - (parseInt(a.matchRate) || 90));
+  } else if (currentCategorySort === 'latest') {
+    sorted.sort((a, b) => parseInt(b.year || 0) - parseInt(a.year || 0));
+  } else {
+    sorted.sort((a, b) => (a.rank || 999) - (b.rank || 999));
+  }
+
+  sorted.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+    const hasDub = item.languages?.length > 1 || item.audio?.includes('Dub') || item.audio?.includes('Hindi');
+    const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
+
+    card.innerHTML = `
+      <div class="card-poster-wrap">
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)" loading="lazy">
+        <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
+        ${dubBadgeHtml}
+        <div class="card-play-hover">
+          <div class="play-circle"><i class="fa-solid fa-play"></i></div>
+        </div>
+      </div>
+      <div class="card-info">
+        <h4 class="card-title">${item.title}</h4>
+        <div class="card-meta">
+          <span class="text-green font-bold">${item.matchRate || '99% Match'}</span>
+          <span>${item.year || ''}</span>
+          <span>${item.duration || ''}</span>
+        </div>
+        <div class="card-tags-mini">
+          ${(item.genres || []).slice(0, 2).map(g => `<span class="mini-tag">${g}</span>`).join('')}
+        </div>
+      </div>
+    `;
+    card.onclick = () => openDetailsModal(item);
+    grid.appendChild(card);
   });
+}
+
+// Sort Category Grid
+function sortCategoryGrid(sortKey, btnElement) {
+  currentCategorySort = sortKey;
+  document.querySelectorAll('.grid-sort-pill').forEach(b => b.classList.remove('active'));
+  if (btnElement) btnElement.classList.add('active');
+
+  let items = [...currentCatalog];
+  if (currentActiveCategory === 'series') items = items.filter(x => x.type === 'series');
+  else if (currentActiveCategory === 'movie') items = items.filter(x => x.type === 'movie');
+  else if (currentActiveCategory === 'top10') items = items.filter(x => x.rank);
+
+  if (currentCategoryGenre !== 'all') {
+    items = items.filter(x => x.genres && x.genres.some(g => g.toLowerCase().includes(currentCategoryGenre)));
+  }
+  renderCategoryGrid(items);
 }
 
 function toggleHomeVisibilityForSearch(isSearching) {
@@ -1407,12 +1857,12 @@ function shareMovie(item = currentItem) {
 
   const title = item.title || 'Movie';
   const url = `${window.location.origin}/#${item.id || item.imdbId || ''}`;
-  const shareText = `Watch "${title}" (${item.year || '2026'}) in 4K Ultra HD on CinemaMirror Pro! 100% Free & 0 Ads:`;
+  const shareText = `Watch "${title}" (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse Pro! 100% Free & 0 Ads:`;
 
   // Try native Web Share API on mobile devices first
   if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     navigator.share({
-      title: `${title} - CinemaMirror Pro`,
+      title: `${title} - CinemaVerse Pro`,
       text: shareText,
       url: url
     }).catch(err => {
@@ -1477,7 +1927,7 @@ function shareVia(channel) {
   const item = currentShareItem;
   const title = item.title || 'Movie';
   const url = `${window.location.origin}/#${item.id || item.imdbId || ''}`;
-  const text = `Watch "${title}" (${item.year || '2026'}) in 4K Ultra HD on CinemaMirror Pro! 100% Free & 0 Ads:`;
+  const text = `Watch "${title}" (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse Pro! 100% Free & 0 Ads:`;
 
   if (channel === 'whatsapp') {
     openTrustedExternalLink(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + url)}`);
@@ -1489,7 +1939,7 @@ function shareVia(channel) {
     openTrustedExternalLink(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`);
   } else if (channel === 'native') {
     if (navigator.share) {
-      navigator.share({ title: `${title} - CinemaMirror`, text, url }).catch(() => {});
+      navigator.share({ title: `${title} - CinemaVerse`, text, url }).catch(() => {});
     } else {
       copyShareLink();
     }
@@ -1994,6 +2444,18 @@ function toggleTheaterMode(forceState = null) {
   }
 }
 
+function togglePlayerTopBar() {
+  const overlay = document.getElementById('player-overlay');
+  const icon = document.getElementById('collapse-player-icon');
+  if (!overlay) return;
+  const isCollapsed = overlay.classList.toggle('header-collapsed');
+  if (icon) {
+    icon.className = isCollapsed ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up';
+  }
+  showToast(isCollapsed ? 'CinemaVerse header hidden (Hover top edge to reveal)' : 'CinemaVerse header restored', 'info');
+}
+window.togglePlayerTopBar = togglePlayerTopBar;
+
 function populateTheaterDetails(item) {
   if (!item) return;
 
@@ -2350,6 +2812,9 @@ function updateActiveServerChips() {
 
 async function openAuditModal() {
   closeProfileDropdown();
+  closeNotificationDropdown();
+  closeMobileBrowseMenu();
+  closeAllModals();
   const modal = document.getElementById('audit-modal');
   const findingsList = document.getElementById('audit-findings-list');
   findingsList.innerHTML = '<p style="color: var(--text-dim); padding: 20px;">Loading forensic findings...</p>';
@@ -2441,6 +2906,8 @@ function setupKeyboardShortcuts() {
       if (playerOpen) toggleMute();
     } else if ((e.key === 't' || e.key === 'T') && playerOpen) {
       toggleTheaterMode();
+    } else if ((e.key === 'h' || e.key === 'H' || e.key === 'z' || e.key === 'Z') && playerOpen) {
+      togglePlayerTopBar();
     } else if ((e.key === 's' || e.key === 'S') && playerOpen) {
       togglePlayerSettings();
     } else if ((e.key === 'e' || e.key === 'E') && playerOpen) {
@@ -2484,14 +2951,14 @@ function setupKeyboardShortcuts() {
 // ========================================================
 // NETFLIX PROFILES & CUSTOM AVATARS SYSTEM
 // ========================================================
-const STORAGE_PROFILE_NAME = 'cinemamirror_profile_name';
-const STORAGE_PROFILE_AVATAR = 'cinemamirror_profile_avatar';
-const STORAGE_DEFAULT_SERVER = 'cinemamirror_default_server';
-const STORAGE_DEFAULT_ZOOM = 'cinemamirror_default_zoom';
-const STORAGE_AUTOPLAY_NEXT = 'cinemamirror_autoplay_next';
-const STORAGE_SUB_SIZE = 'cinemamirror_sub_size';
-const STORAGE_AUTO_SUB = 'cinemamirror_auto_sub';
-const STORAGE_NOTIF_READ = 'cinemamirror_notif_read';
+const STORAGE_PROFILE_NAME = 'cinemaverse_profile_name';
+const STORAGE_PROFILE_AVATAR = 'cinemaverse_profile_avatar';
+const STORAGE_DEFAULT_SERVER = 'cinemaverse_default_server';
+const STORAGE_DEFAULT_ZOOM = 'cinemaverse_default_zoom';
+const STORAGE_AUTOPLAY_NEXT = 'cinemaverse_autoplay_next';
+const STORAGE_SUB_SIZE = 'cinemaverse_sub_size';
+const STORAGE_AUTO_SUB = 'cinemaverse_auto_sub';
+const STORAGE_NOTIF_READ = 'cinemaverse_notif_read';
 
 const NETFLIX_AVATARS = [
   { id: 'classic', name: 'Classic Red', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' },
@@ -2504,8 +2971,8 @@ const NETFLIX_AVATARS = [
   { id: 'neon', name: 'Neon Mask', url: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=150&q=80' }
 ];
 
-let currentProfileName = localStorage.getItem(STORAGE_PROFILE_NAME) || 'Cinema Fan';
-let currentProfileAvatar = localStorage.getItem(STORAGE_PROFILE_AVATAR) || NETFLIX_AVATARS[0].url;
+let currentProfileName = localStorage.getItem(STORAGE_PROFILE_NAME) || localStorage.getItem('cinemamirror_profile_name') || 'Cinema Fan';
+let currentProfileAvatar = localStorage.getItem(STORAGE_PROFILE_AVATAR) || localStorage.getItem('cinemamirror_profile_avatar') || NETFLIX_AVATARS[0].url;
 let selectedEditAvatar = currentProfileAvatar;
 
 function initProfile() {
@@ -2633,8 +3100,43 @@ function toggleProfileDropdown(e) {
   }
 }
 
+// Master Modal Dismissal Handler
+function closeAllModals() {
+  const modalBackdrops = document.querySelectorAll('.netflix-modal-backdrop');
+  modalBackdrops.forEach(m => {
+    if (m) m.style.display = 'none';
+  });
+}
+window.closeAllModals = closeAllModals;
+
+// Unified Profile Dropdown Option Handler
+function handleProfileOption(e, action, param) {
+  if (e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
+  }
+  closeProfileDropdown();
+  closeNotificationDropdown();
+  closeMobileBrowseMenu();
+  closeAllModals();
+
+  if (action === 'profile') {
+    openProfileModal();
+  } else if (action === 'downloads') {
+    showDownloadsSection();
+  } else if (action === 'watchlist') {
+    showWatchlist();
+  } else if (action === 'settings') {
+    openSettingsModal(param || 'install');
+  } else if (action === 'audit') {
+    openAuditModal();
+  }
+}
+window.handleProfileOption = handleProfileOption;
+
 function openProfileModal() {
   closeProfileDropdown();
+  closeAllModals();
 
   const modal = document.getElementById('profile-edit-modal');
   const nameInput = document.getElementById('profile-name-input');
@@ -2829,7 +3331,7 @@ function initPwaInstall() {
 
   window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
-    showToast('🎉 CinemaMirror Pro installed successfully on your home screen!', 'success');
+    showToast('🎉 CinemaVerse Pro installed successfully on your home screen!', 'success');
   });
 
   // Register Service Worker for PWA compliance
@@ -2845,7 +3347,7 @@ function triggerPwaInstall() {
     deferredInstallPrompt.prompt();
     deferredInstallPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
-        showToast('Installing CinemaMirror Pro App...', 'success');
+        showToast('Installing CinemaVerse Pro App...', 'success');
       }
       deferredInstallPrompt = null;
     });
@@ -2911,6 +3413,8 @@ function openSettingsModal(tabName = 'install') {
   // Close any open dropdowns
   closeProfileDropdown();
   closeNotificationDropdown();
+  closeMobileBrowseMenu();
+  closeAllModals();
 
   const tabAliases = { data: 'storage' };
   tabName = tabAliases[tabName] || tabName;
@@ -3005,7 +3509,7 @@ function clearWatchlistData() {
 }
 
 function resetAllAppSettings() {
-  if (confirm('Are you sure you want to reset all CinemaMirror preferences to default?')) {
+  if (confirm('Are you sure you want to reset all CinemaVerse preferences to default?')) {
     localStorage.removeItem(STORAGE_PROFILE_NAME);
     localStorage.removeItem(STORAGE_PROFILE_AVATAR);
     localStorage.removeItem(STORAGE_DEFAULT_SERVER);
@@ -3099,7 +3603,7 @@ function toggleMobileBrowseMenu(e) {
 // ========================================================
 // IN-APP OFFLINE DOWNLOADS & SERVER 4/6 DIRECT DOWNLOAD
 // ========================================================
-const STORAGE_OFFLINE_DOWNLOADS = 'cinemamirror_offline_vault';
+const STORAGE_OFFLINE_DOWNLOADS = 'cinemaverse_offline_vault';
 let currentDownloadTarget = null;
 let currentDownloadSeason = 1;
 let currentDownloadEpisode = 1;
@@ -3109,7 +3613,7 @@ let isDownloadInProgress = false;
 
 function getOfflineDownloads() {
   try {
-    const raw = localStorage.getItem(STORAGE_OFFLINE_DOWNLOADS);
+    const raw = localStorage.getItem(STORAGE_OFFLINE_DOWNLOADS) || localStorage.getItem('cinemamirror_offline_vault');
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
     return [];
@@ -3145,6 +3649,7 @@ function showDownloadsSection(element) {
   closeProfileDropdown();
   closeNotificationDropdown();
   closeMobileBrowseMenu();
+  closeAllModals();
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
   if (element) {
     element.classList.add('active');
@@ -3512,3 +4017,20 @@ function clearAllOfflineDownloads() {
     showToast('All in-app offline downloads cleared!', 'success');
   }
 }
+
+// Global Window bindings for HTML event handlers
+window.toggleProfileDropdown = toggleProfileDropdown;
+window.openProfileDropdown = openProfileDropdown;
+window.closeProfileDropdown = closeProfileDropdown;
+window.handleProfileOption = handleProfileOption;
+window.openProfileModal = openProfileModal;
+window.closeProfileModal = closeProfileModal;
+window.openSettingsModal = openSettingsModal;
+window.closeSettingsModal = closeSettingsModal;
+window.openAuditModal = openAuditModal;
+window.closeAuditModal = closeAuditModal;
+window.showWatchlist = showWatchlist;
+window.showDownloadsSection = showDownloadsSection;
+window.closeAllModals = closeAllModals;
+window.filterPlatform = filterPlatform;
+window.filterByCategory = filterByCategory;

@@ -1,61 +1,76 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <!-- Background Gradient -->
-    <radialGradient id="bgGrad" cx="50%" cy="35%" r="75%">
-      <stop offset="0%" stop-color="#1f2937"/>
-      <stop offset="100%" stop-color="#0b0f19"/>
+    <!-- Background Cosmic Gradient -->
+    <radialGradient id="cvBgGrad" cx="50%" cy="30%" r="85%">
+      <stop offset="0%" stop-color="#181c2e"/>
+      <stop offset="50%" stop-color="#0e111d"/>
+      <stop offset="100%" stop-color="#05070c"/>
     </radialGradient>
-    
-    <!-- Red Ribbon Gradients -->
-    <linearGradient id="nLeftStem" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#B81D24"/>
-      <stop offset="100%" stop-color="#800a0f"/>
-    </linearGradient>
-    
-    <linearGradient id="nRightStem" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#DB0510"/>
+
+    <!-- Crimson Cinema Neon Gradient -->
+    <linearGradient id="cvCrimson" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff334b"/>
+      <stop offset="50%" stop-color="#E50914"/>
       <stop offset="100%" stop-color="#99040c"/>
     </linearGradient>
-    
-    <linearGradient id="nDiagonal" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF1E27"/>
-      <stop offset="40%" stop-color="#E50914"/>
-      <stop offset="100%" stop-color="#B20710"/>
+
+    <!-- Cosmic Verse Cyan-Purple Gradient -->
+    <linearGradient id="cvCosmic" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
     </linearGradient>
 
-    <!-- Drop Shadow for 3D ribbon depth -->
-    <filter id="ribbonShadow" x="-20%" y="-20%" width="150%" height="150%">
-      <feDropShadow dx="-4" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.85"/>
+    <!-- Shimmering Gold Star Gradient -->
+    <linearGradient id="cvGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#EAB308"/>
+    </linearGradient>
+
+    <!-- Deep 3D Shadow -->
+    <filter id="cvShadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.9"/>
     </filter>
 
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="14" result="blur" />
+    <!-- Ambient Cosmic Glow -->
+    <filter id="cvGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
   </defs>
 
-  <!-- App Icon Base: Rounded Modern Squircle -->
-  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
-  <rect width="504" height="504" x="4" y="4" rx="108" fill="none" stroke="rgba(229, 9, 20, 0.35)" stroke-width="3"/>
+  <!-- App Squircle Base with Dual Neon Border -->
+  <rect width="512" height="512" rx="116" fill="url(#cvBgGrad)"/>
+  <rect width="504" height="504" x="4" y="4" rx="112" fill="none" stroke="rgba(229, 9, 20, 0.4)" stroke-width="3"/>
+  <rect width="496" height="496" x="8" y="8" rx="108" fill="none" stroke="rgba(168, 85, 247, 0.25)" stroke-width="1.5"/>
 
-  <!-- Subtle Ambient Glow under the N -->
-  <ellipse cx="256" cy="270" rx="140" ry="170" fill="rgba(229, 9, 20, 0.18)" filter="url(#glow)"/>
+  <!-- Cosmic Ambient Nebula Glow -->
+  <ellipse cx="210" cy="240" rx="130" ry="150" fill="rgba(229, 9, 20, 0.25)" filter="url(#cvGlow)"/>
+  <ellipse cx="320" cy="280" rx="130" ry="150" fill="rgba(168, 85, 247, 0.22)" filter="url(#cvGlow)"/>
 
-  <!-- The Iconic Folded Netflix "N" Ribbon -->
-  <g id="ribbon-N">
-    <!-- Left Vertical Stem (Dark Red, sits behind) -->
-    <rect x="148" y="96" width="68" height="320" rx="3" fill="url(#nLeftStem)"/>
+  <!-- CinemaVerse Iconic Emblem: Interlocking Cinematic 'C' and Universe 'V' Ribbon -->
+  <g filter="url(#cvShadow)">
+    <!-- Back Wing of "V" (Verse Cosmos) -->
+    <path d="M 285 365 L 395 140 L 330 140 L 256 315 Z" fill="url(#cvCosmic)"/>
 
-    <!-- Right Vertical Stem (Mid Red, sits behind) -->
-    <rect x="296" y="96" width="68" height="320" rx="3" fill="url(#nRightStem)"/>
+    <!-- Arc of Cinematic "C" (Crimson Ribbon) -->
+    <path d="M 310 148 C 240 120 135 155 130 256 C 125 355 235 395 305 365 L 290 315 C 240 338 185 315 185 256 C 185 198 245 172 295 195 Z" fill="url(#cvCrimson)" filter="url(#cvShadow)"/>
 
-    <!-- Diagonal Ribbon (Vivid Bright Red, casts deep shadow across left stem) -->
-    <polygon points="148,96 216,96 364,416 296,416" fill="url(#nDiagonal)" filter="url(#ribbonShadow)"/>
+    <!-- Front Wing of "V" (Crossing Over) -->
+    <path d="M 256 315 L 205 205 L 255 190 L 285 260 L 350 140 L 400 140 L 285 365 Z" fill="url(#cvCosmic)"/>
   </g>
 
-  <!-- Crown / Mirror Pro Top Emblem Badge -->
-  <g transform="translate(256, 70) scale(0.9)">
-    <circle cx="0" cy="0" r="16" fill="#F59E0B" filter="url(#glow)"/>
-    <path d="M-8,4 L-4,-6 L0,-1 L4,-6 L8,4 Z" fill="#111827"/>
+  <!-- Cinema 4K Starburst Sparks -->
+  <g transform="translate(390, 140)" filter="url(#cvGlow)">
+    <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4" fill="url(#cvGold)"/>
+  </g>
+  <g transform="translate(130, 240) scale(0.6)" filter="url(#cvGlow)">
+    <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4" fill="#38bdf8"/>
+  </g>
+
+  <!-- Crown / VIP Emblem at Top Center -->
+  <g transform="translate(256, 76) scale(0.95)" filter="url(#cvGlow)">
+    <circle cx="0" cy="0" r="16" fill="url(#cvGold)"/>
+    <path d="M-9,5 L-5,-7 L0,-1 L5,-7 L9,5 Z" fill="#0f172a"/>
   </g>
 </svg>

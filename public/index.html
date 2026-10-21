@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netflix Mirror Pro — Watch TV Shows & Movies Online Free</title>
-  <meta name="description" content="Watch Netflix, Prime Video, Disney+ Hotstar, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
+  <title>CinemaVerse — Universal Multi-OTT Streaming</title>
+  <meta name="description" content="Watch Netflix, Prime Video, Disney+, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
   <!-- PWA & Mobile Web App Meta -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#141414">
+  <meta name="theme-color" content="#06070a">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="CinemaMirror">
+  <meta name="apple-mobile-web-app-title" content="CinemaVerse">
 
   <!-- Crisp App Icons for Homescreen Installation & Browser Tabs -->
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
   <link rel="shortcut icon" href="/favicon.ico">
@@ -24,22 +25,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Robust early image fallback handler to prevent any uncaught TypeError before app.js evaluates
+    window.handleImgError = function(img, fallback) {
+      if (!img) return;
+      img.onerror = null;
+      img.src = fallback || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="28">CINEMAVERSE</text></svg>';
+    };
+  </script>
 </head>
 <body class="netflix-body">
 
   <!-- ======================================================== -->
-  <!-- NETFLIX TOP NAVIGATION BAR                               -->
+  <!-- CINEMAVERSE TOP NAVIGATION BAR                            -->
   <!-- ======================================================== -->
   <header class="netflix-navbar" id="navbar">
     <div class="nav-left">
-      <!-- Netflix Iconic Wordmark Logo with Brand Icon Badge -->
-      <div class="netflix-logo" onclick="resetToHome()" role="button" tabindex="0" title="CinemaMirror Home">
+      <!-- CinemaVerse Iconic Wordmark Logo with Brand Icon Badge -->
+      <div class="netflix-logo" onclick="resetToHome()" role="button" tabindex="0" title="CinemaVerse Home">
         <div class="logo-badge-icon">
-          <img src="/logo.svg" alt="CinemaMirror" width="28" height="28" class="logo-svg-img">
+          <img src="/logo.svg" alt="CinemaVerse" width="28" height="28" class="logo-svg-img">
         </div>
         <div class="logo-text-group">
-          <span class="logo-netflix">NETFLIX</span>
-          <span class="logo-sub">MIRROR</span>
+          <span class="logo-netflix">CINEMA</span>
+          <span class="logo-sub">VERSE</span>
         </div>
       </div>
 
@@ -111,7 +120,7 @@
 
         <!-- Profile Dropdown Flyout -->
         <div class="profile-dropdown-menu" id="profile-dropdown-menu" style="display: none;">
-          <div class="profile-menu-user-row" onclick="openProfileModal()">
+          <div class="profile-menu-user-row" onclick="handleProfileOption(event, 'profile')">
             <img class="profile-menu-avatar" id="dropdown-profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar">
             <div class="profile-menu-user-info">
               <span class="profile-menu-username" id="dropdown-profile-name">Cinema Fan</span>
@@ -123,15 +132,15 @@
           <div class="profile-menu-divider"></div>
 
           <ul class="profile-dropdown-list">
-            <li onclick="openProfileModal()"><i class="fa-solid fa-user-gear text-red"></i> <span>Manage Profile & Name</span></li>
-            <li onclick="showDownloadsSection()"><i class="fa-solid fa-arrow-down-to-bracket text-red"></i> <span>My Offline Downloads</span></li>
-            <li onclick="openSettingsModal('install')"><i class="fa-solid fa-download text-gold"></i> <span>Download & Install App</span> <span class="menu-pill-new">PWA</span></li>
-            <li onclick="openSettingsModal('streaming')"><i class="fa-solid fa-sliders text-cyan"></i> <span>Settings & Server Mirrors</span></li>
-            <li onclick="openSettingsModal('audio')"><i class="fa-solid fa-language text-purple"></i> <span>Audio & Dub Preferences</span></li>
-            <li onclick="openSettingsModal('shield')"><i class="fa-solid fa-shield-halved text-green"></i> <span>Ad-Shield & Privacy</span></li>
-            <li onclick="showWatchlist()"><i class="fa-solid fa-bookmark text-yellow"></i> <span>My Watchlist</span></li>
-            <li onclick="openAuditModal()"><i class="fa-solid fa-file-shield text-blue"></i> <span>APK Safety Audit</span></li>
-            <li class="danger-item" onclick="openSettingsModal('data')"><i class="fa-solid fa-trash-can text-red"></i> <span>Clear History & Cache</span></li>
+            <li onclick="handleProfileOption(event, 'profile')"><i class="fa-solid fa-user-gear text-red"></i> <span>Manage Profile & Name</span></li>
+            <li onclick="handleProfileOption(event, 'downloads')"><i class="fa-solid fa-arrow-down-to-bracket text-red"></i> <span>My Offline Downloads</span></li>
+            <li onclick="handleProfileOption(event, 'settings', 'install')"><i class="fa-solid fa-download text-gold"></i> <span>Download & Install App</span> <span class="menu-pill-new">PWA</span></li>
+            <li onclick="handleProfileOption(event, 'settings', 'streaming')"><i class="fa-solid fa-sliders text-cyan"></i> <span>Settings & Server Mirrors</span></li>
+            <li onclick="handleProfileOption(event, 'settings', 'audio')"><i class="fa-solid fa-language text-purple"></i> <span>Audio & Dub Preferences</span></li>
+            <li onclick="handleProfileOption(event, 'settings', 'shield')"><i class="fa-solid fa-shield-halved text-green"></i> <span>Ad-Shield & Privacy</span></li>
+            <li onclick="handleProfileOption(event, 'watchlist')"><i class="fa-solid fa-bookmark text-yellow"></i> <span>My Watchlist</span></li>
+            <li onclick="handleProfileOption(event, 'audit')"><i class="fa-solid fa-file-shield text-blue"></i> <span>APK Safety Audit</span></li>
+            <li class="danger-item" onclick="handleProfileOption(event, 'settings', 'data')"><i class="fa-solid fa-trash-can text-red"></i> <span>Clear History & Cache</span></li>
           </ul>
         </div>
       </div>
@@ -255,55 +264,175 @@
     </section>
 
     <!-- ======================================================== -->
+    <!-- ======================================================== -->
     <!-- MULTI-OTT PLATFORM HUB (NETMIRROR INTEGRATION IN COMMON) -->
     <!-- ======================================================== -->
     <div class="ott-hub-wrapper" id="ott-hub-wrapper">
+      <div class="ott-hub-ambient-sheen"></div>
       <div class="ott-hub-header">
-        <span class="ott-hub-title"><i class="fa-solid fa-layer-group text-red"></i> Watch Across All OTT Platforms at Same Place:</span>
+        <div class="ott-hub-header-left">
+          <div class="ott-hub-icon-badge">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <div class="ott-hub-titles">
+            <h3 class="ott-hub-title">Multi-OTT Streaming Universe</h3>
+            <span class="ott-hub-subtitle">Stream premium content across 14 global platforms • 100% Free & 0 Ads</span>
+          </div>
+        </div>
+        <div class="ott-hub-header-right">
+          <span class="ott-hub-badge"><i class="fa-solid fa-sparkles text-gold"></i> 14 Platforms • 1,300+ Titles</span>
+          <div class="ott-hub-nav-arrows">
+            <button type="button" class="ott-nav-arrow" onclick="slideOttBar(-1)" aria-label="Scroll OTTs Left" title="Scroll Left">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="ott-nav-arrow" onclick="slideOttBar(1)" aria-label="Scroll OTTs Right" title="Scroll Right">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="ott-platforms-bar" id="ott-platforms-bar">
-        <div class="ott-card active" onclick="filterPlatform('all', this)">
-          <i class="fa-solid fa-globe"></i>
-          <span class="ott-label">ALL OTTs</span>
-        </div>
-        <div class="ott-card ott-nflx" onclick="filterPlatform('netflix', this)">
-          <span class="ott-brand">NETFLIX</span>
-        </div>
-        <div class="ott-card ott-prm" onclick="filterPlatform('prime', this)">
-          <span class="ott-brand">prime video</span>
-        </div>
-        <div class="ott-card ott-dis" onclick="filterPlatform('disney', this)">
-          <span class="ott-brand">Disney+ hotstar</span>
-        </div>
-        <div class="ott-card ott-hbo" onclick="filterPlatform('hbo', this)">
-          <span class="ott-brand">MAX</span>
-        </div>
-        <div class="ott-card ott-app" onclick="filterPlatform('apple', this)">
-          <span class="ott-brand"><i class="fa-brands fa-apple"></i> tv+</span>
-        </div>
-        <div class="ott-card ott-cr" onclick="filterPlatform('crunchyroll', this)">
-          <span class="ott-brand">Crunchyroll</span>
-        </div>
-        <div class="ott-card ott-par" onclick="filterPlatform('paramount', this)">
-          <span class="ott-brand">Paramount+</span>
-        </div>
-        <div class="ott-card ott-hulu" onclick="filterPlatform('hulu', this)">
-          <span class="ott-brand">hulu</span>
-        </div>
-        <div class="ott-card ott-pea" onclick="filterPlatform('peacock', this)">
-          <span class="ott-brand">peacock</span>
-        </div>
-        <div class="ott-card ott-sony" onclick="filterPlatform('sonyliv', this)">
-          <span class="ott-brand">SONY LIV</span>
-        </div>
-        <div class="ott-card ott-zee" onclick="filterPlatform('zee5', this)">
-          <span class="ott-brand">ZEE5</span>
-        </div>
-        <div class="ott-card ott-jio" onclick="filterPlatform('jiocinema', this)">
-          <span class="ott-brand">JioCinema</span>
-        </div>
-        <div class="ott-card ott-aw" onclick="filterPlatform('animeworld', this)">
-          <span class="ott-brand">ANIME WORLD</span>
+
+      <div class="ott-platforms-scroll-wrap">
+        <div class="ott-platforms-bar" id="ott-platforms-bar">
+          <!-- All OTTs -->
+          <div class="ott-card active ott-card-all" onclick="filterPlatform('all', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-globe"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">ALL OTTs</span>
+              <span class="ott-subcount">1,300+ Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Netflix -->
+          <div class="ott-card ott-nflx" onclick="filterPlatform('netflix', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-play"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">NETFLIX</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Prime Video -->
+          <div class="ott-card ott-prm" onclick="filterPlatform('prime', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-circle-play"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">prime video</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Disney+ Hotstar -->
+          <div class="ott-card ott-dis" onclick="filterPlatform('disney', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-sparkles"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">Disney+ hotstar</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- HBO Max -->
+          <div class="ott-card ott-hbo" onclick="filterPlatform('hbo', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-crown"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">MAX</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Apple TV+ -->
+          <div class="ott-card ott-app" onclick="filterPlatform('apple', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-brands fa-apple"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">Apple tv+</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Crunchyroll -->
+          <div class="ott-card ott-cr" onclick="filterPlatform('crunchyroll', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-dragon"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">Crunchyroll</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Paramount+ -->
+          <div class="ott-card ott-par" onclick="filterPlatform('paramount', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-mountain"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">Paramount+</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Hulu -->
+          <div class="ott-card ott-hulu" onclick="filterPlatform('hulu', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-tv"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">hulu</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Peacock -->
+          <div class="ott-card ott-pea" onclick="filterPlatform('peacock', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-feather"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">peacock</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Sony LIV -->
+          <div class="ott-card ott-sony" onclick="filterPlatform('sonyliv', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-film"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">SONY LIV</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Zee5 -->
+          <div class="ott-card ott-zee" onclick="filterPlatform('zee5', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-star"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">ZEE5</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- JioCinema -->
+          <div class="ott-card ott-jio" onclick="filterPlatform('jiocinema', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-clapperboard"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">JioCinema</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Anime World -->
+          <div class="ott-card ott-aw" onclick="filterPlatform('animeworld', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-fire"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">ANIME WORLD</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -317,6 +446,50 @@
         </div>
         <button class="btn-reset-platform" onclick="filterPlatform('all')"><i class="fa-solid fa-xmark"></i> Show All OTTs</button>
       </div>
+    </section>
+
+    <!-- DYNAMIC CATEGORY HEADER BAR & VIEW SWITCHER -->
+    <div class="category-header-bar" id="category-header-bar" style="display: none;">
+      <div class="category-header-info">
+        <div class="category-title-wrap">
+          <span class="category-icon" id="category-icon"><i class="fa-solid fa-tv text-red"></i></span>
+          <h2 class="category-title" id="category-title">TV Shows</h2>
+          <span class="category-count-badge" id="category-count-badge">49 Series</span>
+        </div>
+        <p class="category-desc" id="category-desc">Explore award-winning series, binge-worthy dramas, and 4K TV hits across all OTT platforms.</p>
+      </div>
+      <div class="category-actions">
+        <!-- Genre Filter Chips -->
+        <div class="category-genre-chips" id="category-genre-chips">
+          <!-- Dynamically populated from JavaScript -->
+        </div>
+        <!-- View Mode Switcher -->
+        <div class="category-view-switcher">
+          <button type="button" class="view-switch-btn active" id="view-mode-rows" onclick="switchCategoryView('rows')" title="Platform Rows View">
+            <i class="fa-solid fa-bars-staggered"></i> <span>Rows</span>
+          </button>
+          <button type="button" class="view-switch-btn" id="view-mode-grid" onclick="switchCategoryView('grid')" title="All Titles Grid View">
+            <i class="fa-solid fa-grip"></i> <span id="view-mode-grid-label">All Titles Grid</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DYNAMIC CATEGORY ALL-TITLES GRID SECTION -->
+    <section class="section category-grid-section" id="category-grid-section" style="display: none;">
+      <div class="category-grid-toolbar">
+        <div class="category-grid-meta-wrap">
+          <span class="category-grid-count" id="category-grid-count">49 Titles Available</span>
+          <span class="category-grid-subtext">Click any title to view details, trailers, episodes, or stream in 4K</span>
+        </div>
+        <div class="category-grid-sort">
+          <span class="sort-label">Sort:</span>
+          <button type="button" class="grid-sort-pill active" onclick="sortCategoryGrid('popular', this)">Most Popular</button>
+          <button type="button" class="grid-sort-pill" onclick="sortCategoryGrid('rating', this)">Highest Rated</button>
+          <button type="button" class="grid-sort-pill" onclick="sortCategoryGrid('latest', this)">Latest Year</button>
+        </div>
+      </div>
+      <div class="netflix-grid" id="category-grid"></div>
     </section>
 
     <!-- CONTINUE WATCHING ROW -->
@@ -727,6 +900,11 @@
           <i class="fa-solid fa-expand" id="fullscreen-icon"></i>
         </button>
 
+        <!-- Toggle Cinema Bar View -->
+        <button class="player-icon-btn" id="btn-collapse-player-bar" onclick="togglePlayerTopBar()" title="Hide CinemaVerse Bar (Full Video View)">
+          <i class="fa-solid fa-chevron-up" id="collapse-player-icon"></i>
+        </button>
+
         <!-- Close Player Button -->
         <button class="player-icon-btn btn-player-close" onclick="closePlayer()" title="Exit Player (Esc)">
           <i class="fa-solid fa-xmark"></i>
@@ -1002,8 +1180,8 @@
         <div class="audit-badge-wrap">
           <i class="fa-solid fa-shield-virus audit-icon text-red"></i>
           <div>
-            <h2>NetMirror APK (v3.0) — Reverse Engineering & Safety Audit</h2>
-            <p class="audit-subtitle">Forensic analysis on <code>app.netmirror.netmirrornew</code> using REA</p>
+            <h2>CinemaVerse Pro — APK Forensic & Security Architecture Audit</h2>
+            <p class="audit-subtitle">Forensic vulnerability inspection on legacy <code>app.netmirror.netmirrornew</code> using REA</p>
           </div>
         </div>
       </div>
@@ -1019,13 +1197,13 @@
           </div>
         </div>
 
-        <h3 class="audit-section-heading"><i class="fa-solid fa-magnifying-glass-arrow-right"></i> Confirmed Forensic Findings in NetMirror APK</h3>
+        <h3 class="audit-section-heading"><i class="fa-solid fa-magnifying-glass-arrow-right"></i> Confirmed Forensic Findings in Legacy NetMirror APK</h3>
         <div class="findings-list" id="audit-findings-list"></div>
 
-        <h3 class="audit-section-heading"><i class="fa-solid fa-sparkles text-gold"></i> Why Netflix Mirror Web Pro Is Superior</h3>
+        <h3 class="audit-section-heading"><i class="fa-solid fa-sparkles text-gold"></i> Why CinemaVerse Pro Is Superior</h3>
         <div class="comparison-grid">
           <div class="comp-card comp-bad">
-            <h4><i class="fa-solid fa-xmark text-red"></i> Original NetMirror APK</h4>
+            <h4><i class="fa-solid fa-xmark text-red"></i> Legacy NetMirror APK Vulnerabilities</h4>
             <ul>
               <li><i class="fa-solid fa-xmark"></i> Undisclosed 10s affiliate redirect on launch</li>
               <li><i class="fa-solid fa-xmark"></i> C2-style dynamic backend repointing (mobidetect)</li>
@@ -1036,7 +1214,7 @@
           </div>
 
           <div class="comp-card comp-good">
-            <h4><i class="fa-solid fa-check text-green"></i> Netflix Mirror Web Pro</h4>
+            <h4><i class="fa-solid fa-check text-green"></i> CinemaVerse Pro</h4>
             <ul>
               <li><i class="fa-solid fa-check"></i> 100% Free full Netflix-grade streaming experience</li>
               <li><i class="fa-solid fa-check"></i> All OTTs in one place (Netflix, Prime, Disney+, HBO Max, Apple TV+)</li>
@@ -1048,6 +1226,8 @@
         </div>
       </div>
     </div>
+  </div>
+
   <!-- TRAILER PREVIEW MODAL -->
   <div class="netflix-modal-backdrop" id="trailer-modal" style="display: none;" onclick="handleTrailerBackdropClick(event)">
     <div class="netflix-modal-card modal-trailer-card">
@@ -1118,7 +1298,7 @@
 
       <div class="settings-modal-header">
         <div class="settings-header-title">
-          <h3><i class="fa-solid fa-sliders text-red"></i> CinemaMirror Pro Settings</h3>
+          <h3><i class="fa-solid fa-sliders text-red"></i> CinemaVerse Pro Settings</h3>
           <span class="settings-header-badge">v3.2.0 • Ultra HD</span>
         </div>
         <p class="settings-header-desc">Manage homescreen app installation, streaming mirrors, multi-language dubbing, and privacy.</p>
@@ -1164,7 +1344,7 @@
           <!-- TAB 1: DOWNLOAD & HOMESCREEN INSTALLATION -->
           <div class="settings-tab-panel active" id="tab-install">
             <div class="settings-pane-header">
-              <h4><i class="fa-solid fa-mobile-screen-button text-gold"></i> Install CinemaMirror on Your Home Screen</h4>
+              <h4><i class="fa-solid fa-mobile-screen-button text-gold"></i> Install CinemaVerse on Your Home Screen</h4>
               <p>Experience true full-screen, native app performance without browser address bars, ads, or interruptions.</p>
             </div>
 
@@ -1183,7 +1363,7 @@
                 </div>
               </div>
               <div class="install-actions-vertical">
-                <a href="/download/CinemaMirror-Pro.apk" download="CinemaMirror-Pro.apk" class="btn-install-apk-primary" id="btn-download-apk" title="Download Android APK File">
+                <a href="/download/CinemaVerse-Pro.apk" download="CinemaVerse-Pro.apk" class="btn-install-apk-primary" id="btn-download-apk" title="Download Android APK File">
                   <i class="fa-brands fa-android"></i>
                   <div class="apk-btn-text">
                     <strong>Download Android APK</strong>
@@ -1230,7 +1410,7 @@
                 </div>
                 <ol>
                   <li>Click the <strong>Install icon</strong> in your browser address bar.</li>
-                  <li>Or open the browser menu &gt; <strong>"Install CinemaMirror Pro"</strong>.</li>
+                  <li>Or open the browser menu &gt; <strong>"Install CinemaVerse Pro"</strong>.</li>
                   <li>Launch directly from your Desktop or Taskbar.</li>
                 </ol>
               </div>
@@ -1292,7 +1472,7 @@
           <div class="settings-tab-panel" id="tab-audio">
             <div class="settings-pane-header">
               <h4><i class="fa-solid fa-language text-purple"></i> Audio & Dubbed Language Preferences</h4>
-              <p>Configure which language audio track CinemaMirror prioritizes across streaming servers.</p>
+              <p>Configure which language audio track CinemaVerse prioritizes across streaming servers.</p>
             </div>
 
             <div class="setting-row">
@@ -1314,7 +1494,7 @@
 
             <div class="setting-note-card">
               <i class="fa-solid fa-circle-info text-cyan"></i>
-              <p>When Hindi, Tamil, Telugu, or Japanese is chosen, CinemaMirror automatically auto-routes playback to <strong>Server 4 (Global Mirror)</strong> or <strong>Server 9 (AnimeWorld VIP)</strong> which support multi-audio streams.</p>
+              <p>When Hindi, Tamil, Telugu, or Japanese is chosen, CinemaVerse automatically auto-routes playback to <strong>Server 4 (Global Mirror)</strong> or <strong>Server 9 (AnimeWorld VIP)</strong> which support multi-audio streams.</p>
             </div>
           </div>
 
@@ -1354,7 +1534,7 @@
           <div class="settings-tab-panel" id="tab-shield">
             <div class="settings-pane-header">
               <h4><i class="fa-solid fa-shield-halved text-red"></i> Anti-Redirect & Ad-Shield Guard</h4>
-              <p>Active security protections discovered from NetMirror APK reverse engineering.</p>
+              <p>Active security protections engineered into CinemaVerse Pro from reverse engineering analysis.</p>
             </div>
 
             <div class="shield-status-card">
@@ -1430,13 +1610,13 @@
           <!-- TAB 7: ABOUT -->
           <div class="settings-tab-panel" id="tab-about">
             <div class="settings-pane-header">
-              <h4><i class="fa-solid fa-circle-info text-blue"></i> About CinemaMirror Pro</h4>
+              <h4><i class="fa-solid fa-circle-info text-blue"></i> About CinemaVerse Pro</h4>
               <p>Next-generation free universal streaming platform with Netflix design system.</p>
             </div>
 
             <div class="about-app-card">
               <div class="about-logo">
-                <span class="logo-netflix">NETFLIX</span> <span class="logo-sub">MIRROR PRO</span>
+                <span class="logo-netflix">CINEMA</span> <span class="logo-sub">VERSE PRO</span>
               </div>
               <p class="about-version">Build: <strong>v3.2.0 (2026 Release)</strong> • Environment: <strong>Vercel Edge</strong></p>
               <p class="about-desc">Engineered for clean, ad-free streaming across Netflix, Prime Video, Disney+, HBO Max, Apple TV+, and anime platforms with automatic multi-language dubbing.</p>
@@ -1444,10 +1624,10 @@
               <div class="about-repo-box">
                 <i class="fa-brands fa-github text-white"></i>
                 <div class="about-repo-info">
-                  <span class="repo-name">SanyamVerma123 / CinemaMirror-Pro</span>
+                  <span class="repo-name">CinemaVerse Pro</span>
                   <span class="repo-branch"><i class="fa-solid fa-code-branch text-green"></i> main branch (Clean CI/CD)</span>
                 </div>
-                <a href="https://github.com/SanyamVerma123/CinemaMirror-Pro" target="_blank" rel="noopener noreferrer" data-allow-external="true" class="btn-github-link">
+                <a href="https://github.com/SanyamVerma123/CinemaVerse-Pro" target="_blank" rel="noopener noreferrer" data-allow-external="true" class="btn-github-link">
                   View Source <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
               </div>
@@ -1474,7 +1654,7 @@
       <div class="share-preview-card">
         <img class="share-preview-poster" id="share-preview-poster" src="" alt="Poster" onerror="window.handleImgError(this)">
         <div class="share-preview-meta">
-          <span class="share-badge-quality"><i class="fa-solid fa-sparkles text-gold"></i> CinemaMirror Pro</span>
+          <span class="share-badge-quality"><i class="fa-solid fa-sparkles text-gold"></i> CinemaVerse Pro</span>
           <h4 id="share-preview-title">Title</h4>
           <span class="share-item-sub" id="share-preview-sub">2026 • 4K Ultra HD • Zero Ads</span>
         </div>
@@ -1607,16 +1787,16 @@
   <footer class="netflix-footer">
     <div class="footer-inner">
       <div class="footer-top">
-        <span class="footer-brand"><span class="text-red">NETFLIX</span> MIRROR PRO</span>
-        <p>The ultimate free streaming platform inspired by Netflix with multi-OTT integration.</p>
+        <span class="footer-brand"><span class="text-red">CINEMA</span>VERSE PRO</span>
+        <p>The ultimate free universal multi-OTT streaming platform.</p>
       </div>
       <div class="footer-links-grid">
         <a href="#home" onclick="filterPlatform('all')">FAQ</a>
         <a href="#help" onclick="openAuditModal()">Safety Audit</a>
-        <a href="#terms" onclick="showToast('CinemaMirror is 100% ad-free')">Terms of Use</a>
+        <a href="#terms" onclick="showToast('CinemaVerse is 100% ad-free')">Terms of Use</a>
         <a href="#privacy" onclick="showToast('Your privacy is 100% protected on your device')">Privacy Policy</a>
       </div>
-      <p class="footer-copy">© 2026 Netflix Mirror Pro. Universal OTT Platform.</p>
+      <p class="footer-copy">© 2026 CinemaVerse Pro. Universal Multi-OTT Streaming Universe.</p>
     </div>
   </footer>
 

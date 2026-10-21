@@ -1,5 +1,5 @@
 /* ========================================================
-   CINEMAMIRROR PRO — PROFESSIONAL OTT STREAMING STYLESHEET
+   CINEMAVERSE PRO — PROFESSIONAL OTT STREAMING STYLESHEET
    ======================================================== */
 
 :root {
@@ -2886,6 +2886,28 @@ input[type=range][orient=vertical] {
   color: #e5e5e5;
   letter-spacing: -0.2px;
 }
+.row-view-all-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+}
+.row-view-all-btn:hover {
+  background: var(--netflix-red);
+  border-color: var(--netflix-red);
+  color: #ffffff;
+  transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.45);
+}
 .row-slider-container {
   position: relative;
 }
@@ -3555,18 +3577,17 @@ input[type=range][orient=vertical] {
 
 /* Top Player Header */
 .player-top-bar {
-  height: 52px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0) 100%);
+  height: 48px;
+  background: #090a0f;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  padding: 0 16px;
+  position: relative;
   z-index: 100;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -4532,15 +4553,15 @@ input[type=range][orient=vertical] {
 }
 
 .netflix-player-overlay:not(.theater-mode) .player-top-bar {
-  background: linear-gradient(180deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%) !important;
-  border-bottom: none !important;
+  background: #090a0f !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   height: 48px !important;
-  padding: 0 18px !important;
+  padding: 0 16px !important;
 }
 
 .netflix-player-overlay:not(.theater-mode) .player-main-title {
-  font-size: 13px !important;
-  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 13.5px !important;
+  color: rgba(255, 255, 255, 0.95) !important;
 }
 
 /* In Zoom Out (Theater Mode): Sticky compact top navigation header cleanly above video */
@@ -6905,7 +6926,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 
 /* ==========================================================================
-   CINEMAMIRROR PRO — ULTRA-AESTHETIC NEXT-GEN STREAMING UI SUITE
+   CINEMAVERSE PRO — ULTRA-AESTHETIC NEXT-GEN STREAMING UI SUITE
    ========================================================================== */
 
 :root {
@@ -7454,33 +7475,611 @@ h1, h2, h3, h4, h5, h6,
   transform: scale(1.08) !important;
 }
 
-/* 4. Multi-OTT Platform Hub Carousel */
+/* 4. Ultra-Aesthetic Multi-OTT Universe Hub */
 .ott-hub-wrapper {
-  background: rgba(15, 17, 23, 0.72) !important;
-  backdrop-filter: blur(24px) !important;
+  position: relative !important;
+  background: rgba(13, 15, 22, 0.78) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
   border: 1px solid rgba(255, 255, 255, 0.09) !important;
-  border-radius: 20px !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 30px rgba(229, 9, 20, 0.08) !important;
+  padding: 22px 28px 20px !important;
+  margin: 12px 4% 28px !important;
+  overflow: hidden !important;
 }
 
+.ott-hub-ambient-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(229, 9, 20, 0.7) 25%, 
+    rgba(153, 51, 255, 0.7) 50%, 
+    rgba(0, 168, 225, 0.7) 75%, 
+    transparent 100%);
+  pointer-events: none;
+}
+
+.ott-hub-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 18px !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+}
+
+.ott-hub-header-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+.ott-hub-icon-badge {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.28) 0%, rgba(229, 9, 20, 0.06) 100%) !important;
+  border: 1px solid rgba(229, 9, 20, 0.45) !important;
+  color: #ff3844 !important;
+  font-size: 18px !important;
+  box-shadow: 0 0 18px rgba(229, 9, 20, 0.35) !important;
+  flex-shrink: 0 !important;
+}
+
+.ott-hub-titles {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.ott-hub-title {
+  font-family: var(--font-display) !important;
+  font-size: clamp(16px, 1.8vw, 20px) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.015em !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+}
+
+.ott-hub-subtitle {
+  font-size: 12.5px !important;
+  color: #9ca3af !important;
+  font-weight: 400 !important;
+}
+
+.ott-hub-header-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+.ott-hub-badge {
+  font-family: var(--font-display) !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  padding: 6px 14px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #e5e5e5 !important;
+  white-space: nowrap !important;
+}
+
+.ott-hub-nav-arrows {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.ott-nav-arrow {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.ott-nav-arrow:hover {
+  background: rgba(229, 9, 20, 0.25) !important;
+  border-color: rgba(229, 9, 20, 0.6) !important;
+  transform: scale(1.1) !important;
+}
+
+.ott-platforms-scroll-wrap {
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.ott-platforms-bar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  overflow-x: auto !important;
+  padding: 4px 2px 8px !important;
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: thin !important;
+}
+
+.ott-platforms-bar::-webkit-scrollbar {
+  height: 4px;
+}
+.ott-platforms-bar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+.ott-platforms-bar::-webkit-scrollbar-thumb {
+  background: rgba(229, 9, 20, 0.4);
+  border-radius: 4px;
+}
+
+/* Individual Luxury OTT Card */
 .ott-card {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  height: 52px !important;
+  padding: 6px 16px 6px 10px !important;
   border-radius: 14px !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  cursor: pointer !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  flex: 0 0 auto !important;
+  user-select: none !important;
 }
 
 .ott-card:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.09) !important;
   border-color: rgba(255, 255, 255, 0.28) !important;
-  transform: translateY(-4px) scale(1.02) !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5) !important;
 }
 
-.ott-card.active {
+.ott-card-icon-wrap {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 9px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 15px !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.25s ease !important;
+}
+
+.ott-card:hover .ott-card-icon-wrap {
+  transform: scale(1.1) !important;
+}
+
+.ott-card-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+  align-items: flex-start !important;
+}
+
+.ott-brand {
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.4px !important;
+  line-height: 1.15 !important;
+  white-space: nowrap !important;
+}
+
+.ott-subcount {
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #9ca3af !important;
+  letter-spacing: 0.3px !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+}
+
+.ott-active-dot {
+  width: 5px !important;
+  height: 5px !important;
+  border-radius: 50% !important;
+  opacity: 0 !important;
+  margin-left: 2px !important;
+  transition: all 0.25s ease !important;
+}
+
+.ott-card.active .ott-active-dot {
+  opacity: 1 !important;
+}
+
+/* Platform-Specific Brand Themes & Glows */
+/* ALL OTTs */
+.ott-card-all .ott-brand { color: #ffffff !important; }
+.ott-card-all.active {
+  background: rgba(229, 9, 20, 0.16) !important;
+  border-color: #e50914 !important;
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.45) !important;
+}
+.ott-card-all.active .ott-active-dot { background: #e50914 !important; box-shadow: 0 0 8px #e50914 !important; }
+
+/* Netflix */
+.ott-nflx .ott-card-icon-wrap { background: rgba(229, 9, 20, 0.15) !important; color: #e50914 !important; }
+.ott-nflx .ott-brand { color: #e50914 !important; font-family: 'Impact', 'Arial Black', sans-serif !important; letter-spacing: 1.2px !important; }
+.ott-nflx.active {
+  background: rgba(229, 9, 20, 0.18) !important;
+  border-color: #e50914 !important;
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.5) !important;
+}
+.ott-nflx.active .ott-active-dot { background: #e50914 !important; box-shadow: 0 0 8px #e50914 !important; }
+
+/* Prime Video */
+.ott-prm .ott-card-icon-wrap { background: rgba(0, 168, 225, 0.15) !important; color: #00a8e1 !important; }
+.ott-prm .ott-brand { color: #00a8e1 !important; }
+.ott-prm.active {
+  background: rgba(0, 168, 225, 0.18) !important;
+  border-color: #00a8e1 !important;
+  box-shadow: 0 0 25px rgba(0, 168, 225, 0.5) !important;
+}
+.ott-prm.active .ott-active-dot { background: #00a8e1 !important; box-shadow: 0 0 8px #00a8e1 !important; }
+
+/* Disney+ Hotstar */
+.ott-dis .ott-card-icon-wrap { background: rgba(17, 60, 207, 0.18) !important; color: #3b82f6 !important; }
+.ott-dis .ott-brand { color: #60a5fa !important; }
+.ott-dis.active {
+  background: rgba(17, 60, 207, 0.22) !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.5) !important;
+}
+.ott-dis.active .ott-active-dot { background: #60a5fa !important; box-shadow: 0 0 8px #60a5fa !important; }
+
+/* HBO Max */
+.ott-hbo .ott-card-icon-wrap { background: rgba(153, 51, 255, 0.15) !important; color: #a855f7 !important; }
+.ott-hbo .ott-brand { color: #c084fc !important; font-weight: 900 !important; letter-spacing: 1px !important; }
+.ott-hbo.active {
+  background: rgba(153, 51, 255, 0.2) !important;
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.5) !important;
+}
+.ott-hbo.active .ott-active-dot { background: #c084fc !important; box-shadow: 0 0 8px #c084fc !important; }
+
+/* Apple TV+ */
+.ott-app .ott-card-icon-wrap { background: rgba(255, 255, 255, 0.12) !important; color: #ffffff !important; }
+.ott-app .ott-brand { color: #ffffff !important; }
+.ott-app.active {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4) !important;
+}
+.ott-app.active .ott-active-dot { background: #ffffff !important; box-shadow: 0 0 8px #ffffff !important; }
+
+/* Crunchyroll */
+.ott-cr .ott-card-icon-wrap { background: rgba(244, 117, 33, 0.15) !important; color: #f97316 !important; }
+.ott-cr .ott-brand { color: #fb923c !important; }
+.ott-cr.active {
+  background: rgba(244, 117, 33, 0.2) !important;
+  border-color: #f97316 !important;
+  box-shadow: 0 0 25px rgba(249, 115, 22, 0.5) !important;
+}
+.ott-cr.active .ott-active-dot { background: #fb923c !important; box-shadow: 0 0 8px #fb923c !important; }
+
+/* Paramount+ */
+.ott-par .ott-card-icon-wrap { background: rgba(0, 100, 255, 0.15) !important; color: #38bdf8 !important; }
+.ott-par .ott-brand { color: #38bdf8 !important; }
+.ott-par.active {
+  background: rgba(0, 100, 255, 0.2) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.5) !important;
+}
+.ott-par.active .ott-active-dot { background: #38bdf8 !important; box-shadow: 0 0 8px #38bdf8 !important; }
+
+/* Hulu */
+.ott-hulu .ott-card-icon-wrap { background: rgba(28, 231, 131, 0.15) !important; color: #22c55e !important; }
+.ott-hulu .ott-brand { color: #4ade80 !important; }
+.ott-hulu.active {
+  background: rgba(28, 231, 131, 0.2) !important;
+  border-color: #22c55e !important;
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.5) !important;
+}
+.ott-hulu.active .ott-active-dot { background: #4ade80 !important; box-shadow: 0 0 8px #4ade80 !important; }
+
+/* Peacock */
+.ott-pea .ott-card-icon-wrap { background: rgba(247, 168, 0, 0.15) !important; color: #eab308 !important; }
+.ott-pea .ott-brand { color: #facc15 !important; }
+.ott-pea.active {
+  background: rgba(247, 168, 0, 0.2) !important;
+  border-color: #eab308 !important;
+  box-shadow: 0 0 25px rgba(234, 179, 8, 0.5) !important;
+}
+.ott-pea.active .ott-active-dot { background: #facc15 !important; box-shadow: 0 0 8px #facc15 !important; }
+
+/* Sony LIV */
+.ott-sony .ott-card-icon-wrap { background: rgba(255, 51, 75, 0.15) !important; color: #f43f5e !important; }
+.ott-sony .ott-brand { color: #fb7185 !important; }
+.ott-sony.active {
+  background: rgba(255, 51, 75, 0.2) !important;
+  border-color: #f43f5e !important;
+  box-shadow: 0 0 25px rgba(244, 63, 94, 0.5) !important;
+}
+.ott-sony.active .ott-active-dot { background: #fb7185 !important; box-shadow: 0 0 8px #fb7185 !important; }
+
+/* Zee5 */
+.ott-zee .ott-card-icon-wrap { background: rgba(168, 85, 247, 0.15) !important; color: #a855f7 !important; }
+.ott-zee .ott-brand { color: #c084fc !important; }
+.ott-zee.active {
+  background: rgba(168, 85, 247, 0.2) !important;
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.5) !important;
+}
+.ott-zee.active .ott-active-dot { background: #c084fc !important; box-shadow: 0 0 8px #c084fc !important; }
+
+/* JioCinema */
+.ott-jio .ott-card-icon-wrap { background: rgba(225, 29, 72, 0.15) !important; color: #e11d48 !important; }
+.ott-jio .ott-brand { color: #fb7185 !important; }
+.ott-jio.active {
+  background: rgba(225, 29, 72, 0.2) !important;
+  border-color: #e11d48 !important;
+  box-shadow: 0 0 25px rgba(225, 29, 72, 0.5) !important;
+}
+.ott-jio.active .ott-active-dot { background: #fb7185 !important; box-shadow: 0 0 8px #fb7185 !important; }
+
+/* Anime World */
+.ott-aw .ott-card-icon-wrap { background: rgba(245, 158, 11, 0.15) !important; color: #f59e0b !important; }
+.ott-aw .ott-brand { color: #fbbf24 !important; }
+.ott-aw.active {
+  background: rgba(245, 158, 11, 0.2) !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.5) !important;
+}
+.ott-aw.active .ott-active-dot { background: #fbbf24 !important; box-shadow: 0 0 8px #fbbf24 !important; }
+
+/* ======================================================== */
+/* 5. Dynamic Category Header Bar & View Switcher           */
+/* ======================================================== */
+.category-header-bar {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  background: rgba(14, 16, 24, 0.88) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 2px solid var(--netflix-red) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6) !important;
+  padding: 22px 28px !important;
+  margin: 10px 4% 24px !important;
+  animation: soft-rise-in 300ms cubic-bezier(.2,.7,.2,1) both !important;
+}
+
+.category-header-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.category-title-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+.category-icon {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(229, 9, 20, 0.16) !important;
+  border: 1px solid rgba(229, 9, 20, 0.35) !important;
+  font-size: 16px !important;
+}
+
+.category-title {
+  font-family: var(--font-display) !important;
+  font-size: clamp(22px, 3vw, 30px) !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  letter-spacing: -0.02em !important;
+  margin: 0 !important;
+}
+
+.category-count-badge {
+  font-family: var(--font-display) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  padding: 4px 12px !important;
+  border-radius: 9999px !important;
   background: rgba(229, 9, 20, 0.2) !important;
+  border: 1px solid rgba(229, 9, 20, 0.5) !important;
+  color: #ff4d58 !important;
+}
+
+.category-desc {
+  font-size: 13.5px !important;
+  color: #9ca3af !important;
+  margin: 0 !important;
+  max-width: 800px !important;
+}
+
+.category-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+  padding-top: 6px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.category-genre-chips {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  overflow-x: auto !important;
+  padding: 4px 0 !important;
+  scrollbar-width: none !important;
+}
+.category-genre-chips::-webkit-scrollbar { display: none; }
+
+.cat-genre-chip {
+  font-family: var(--font-body) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #d1d5db !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+}
+
+.cat-genre-chip:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.cat-genre-chip.active {
+  background: var(--netflix-red) !important;
   border-color: var(--netflix-red) !important;
-  box-shadow: 0 0 25px rgba(229, 9, 20, 0.45) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(229, 9, 20, 0.45) !important;
+}
+
+.category-view-switcher {
+  display: flex !important;
+  align-items: center !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 9999px !important;
+  padding: 3px !important;
+  gap: 4px !important;
+  flex-shrink: 0 !important;
+}
+
+.view-switch-btn {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  background: transparent !important;
+  color: #9ca3af !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.view-switch-btn:hover {
+  color: #ffffff !important;
+}
+
+.view-switch-btn.active {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Category Grid Toolbar */
+.category-grid-section {
+  padding: 10px 4% 40px !important;
+}
+
+.category-grid-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 22px !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+}
+
+.category-grid-meta-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.category-grid-count {
+  font-family: var(--font-display) !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+}
+
+.category-grid-subtext {
+  font-size: 12.5px !important;
+  color: #9ca3af !important;
+}
+
+.category-grid-sort {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.sort-label {
+  font-size: 12px !important;
+  color: #9ca3af !important;
+  font-weight: 600 !important;
+}
+
+.grid-sort-pill {
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  padding: 5px 12px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #9ca3af !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.grid-sort-pill:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.grid-sort-pill.active {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.card-tags-mini {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.mini-tag {
+  font-size: 9.5px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #9ca3af;
 }
 
 /* 5. Movie Poster Cards — Smooth 3D Depth */
@@ -7555,70 +8154,247 @@ h1, h2, h3, h4, h5, h6,
   color: var(--netflix-red) !important;
 }
 
-/* 7. Floating Luxury Video Player Bar */
-.player-top-bar {
-  background: rgba(14, 16, 22, 0.88) !important;
-  backdrop-filter: blur(28px) saturate(200%) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8) !important;
-  margin: 12px 16px 0 !important;
-  padding: 10px 16px !important;
+/* ==========================================================================
+   7. CINEMAVERSE LUXURY VIDEO PLAYER HEADER (ZERO OVERLAP WITH STREAM CONTROLS)
+   Sits cleanly ABOVE the video stream so iframe native controls
+   (Quality 4K/1080p, Subtitles/CC, Speed, Server) are 100% accessible.
+   ========================================================================== */
+.netflix-player-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: #000000 !important;
+  z-index: 5000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
 }
 
-.player-title {
+.player-top-bar {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  border-radius: 0 !important;
+  background: #090a0f !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  z-index: 100 !important;
+  transition: transform 0.25s ease, margin-top 0.25s ease, opacity 0.2s ease !important;
+}
+
+.netflix-player-overlay.header-collapsed .player-top-bar {
+  transform: translateY(-100%) !important;
+  margin-top: -48px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.netflix-player-overlay.header-collapsed:hover .player-top-bar,
+.netflix-player-overlay.header-collapsed .player-top-bar:hover {
+  transform: translateY(0) !important;
+  margin-top: 0 !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+
+.player-stage {
+  flex: 1 1 0% !important;
+  width: 100% !important;
+  height: calc(100% - 48px) !important;
+  min-height: 0 !important;
+  position: relative !important;
+  background: #000000 !important;
+  overflow: hidden !important;
+}
+
+.netflix-player-overlay.header-collapsed .player-stage {
+  height: 100% !important;
+}
+
+.player-stage iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block !important;
+  background: #000000 !important;
+}
+
+.player-left-info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+}
+
+.player-btn-back {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: #fff !important;
+  height: 32px !important;
+  padding: 0 12px !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.player-btn-back:hover {
+  background: var(--netflix-red) !important;
+  border-color: var(--netflix-red) !important;
+}
+
+.player-title-block {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+}
+
+.player-main-title {
   font-family: var(--font-display) !important;
-  font-weight: 800 !important;
-  font-size: 17px !important;
-  letter-spacing: -0.015em !important;
+  font-weight: 700 !important;
+  font-size: 13.5px !important;
+  color: #f3f4f6 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 260px !important;
+}
+
+.player-meta-badges {
+  display: none !important; /* Conceal redundant clutter to give space to controls */
+}
+
+.player-right-controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
 }
 
 .player-server-pill,
 .player-audio-pill {
   background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  border-radius: 9999px !important;
-  backdrop-filter: blur(14px) !important;
-  padding: 4px 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 8px !important;
+  padding: 0 10px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
   transition: all 0.2s ease !important;
 }
 
 .player-server-pill:hover,
 .player-audio-pill:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
 }
 
 .netflix-select-pill {
   font-family: var(--font-body) !important;
   font-weight: 600 !important;
+  font-size: 12px !important;
   color: #f3f4f6 !important;
   background: transparent !important;
   border: none !important;
   outline: none !important;
   cursor: pointer !important;
+  max-width: 170px !important;
 }
 
-.player-ctrl-btn {
+.netflix-select-pill option {
+  background: #12141a !important;
+  color: #fff !important;
+  padding: 8px !important;
+}
+
+.player-pill-btn {
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  border-radius: 50% !important;
-  width: 36px !important;
-  height: 36px !important;
-  display: flex !important;
+  color: #fff !important;
+  height: 32px !important;
+  padding: 0 10px !important;
+  border-radius: 8px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+}
+
+.player-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.player-icon-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 8px !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   color: #d1d5db !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
   transition: all 0.2s ease !important;
 }
 
-.player-ctrl-btn:hover {
-  background: rgba(229, 9, 20, 0.3) !important;
+.player-icon-btn:hover {
+  background: rgba(229, 9, 20, 0.25) !important;
   border-color: var(--netflix-red) !important;
   color: #ffffff !important;
-  box-shadow: 0 0 15px rgba(229, 9, 20, 0.5) !important;
-  transform: scale(1.06) !important;
+}
+
+.player-icon-btn.btn-player-close:hover {
+  background: #e50914 !important;
+  border-color: #e50914 !important;
+}
+
+@media (max-width: 1200px) {
+  .player-btn-back .btn-back-text {
+    display: none !important;
+  }
+  #btn-theater-mode span,
+  #btn-player-settings span,
+  #btn-episodes-drawer span {
+    display: none !important;
+  }
+  .netflix-select-pill {
+    max-width: 120px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #player-audio-pill {
+    display: none !important;
+  }
+  .player-main-title {
+    max-width: 140px !important;
+  }
 }
 
 /* 8. Server Chips Hierarchy Styling */
@@ -7659,6 +8435,7 @@ h1, h2, h3, h4, h5, h6,
 
 /* 9. Modal Dialogs — Luxury Glassmorphism */
 .netflix-modal-backdrop {
+  z-index: 20000 !important;
   backdrop-filter: blur(28px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
   background: rgba(6, 7, 10, 0.85) !important;
@@ -7695,4 +8472,498 @@ h1, h2, h3, h4, h5, h6,
   border-radius: 9999px !important;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.3) !important;
   backdrop-filter: blur(20px) !important;
+}
+
+/* 11. Responsive Breakpoints for Multi-OTT & Category Bar */
+@media (max-width: 900px) {
+  .ott-hub-wrapper {
+    padding: 18px 20px !important;
+    margin: 10px 3% 22px !important;
+    border-radius: 18px !important;
+  }
+  .category-header-bar {
+    padding: 18px 20px !important;
+    margin: 10px 3% 20px !important;
+    border-radius: 18px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .ott-hub-wrapper {
+    padding: 14px 14px 12px !important;
+    margin: 8px 10px 18px !important;
+    border-radius: 16px !important;
+  }
+  .ott-hub-header {
+    margin-bottom: 12px !important;
+  }
+  .ott-hub-badge {
+    display: none !important;
+  }
+  .ott-card {
+    height: 46px !important;
+    padding: 4px 12px 4px 8px !important;
+    border-radius: 11px !important;
+    gap: 8px !important;
+  }
+  .ott-card-icon-wrap {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 13px !important;
+  }
+  .ott-brand {
+    font-size: 11.5px !important;
+  }
+  .ott-subcount {
+    font-size: 9px !important;
+  }
+  .category-header-bar {
+    padding: 14px 14px !important;
+    margin: 8px 10px 18px !important;
+    border-radius: 16px !important;
+    gap: 12px !important;
+  }
+  .category-title {
+    font-size: 20px !important;
+  }
+  .category-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .category-view-switcher {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .view-switch-btn {
+    flex: 1 !important;
+    justify-content: center !important;
+  }
+  .category-grid-toolbar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+}
+
+/* ==========================================================================
+   CINEMAVERSE PRO — BALANCED PROPORTIONS & RESPONSIVE DESKTOP CALIBRATION
+   Eliminates oversized typography, enforces Netflix-style hero peek,
+   and guarantees full navbar and controls visibility at 100% normal browser zoom.
+   ========================================================================== */
+
+/* 1. Base Typography Calibration */
+body {
+  font-size: 14px;
+}
+
+/* 2. Top Navigation Bar — Sleek, Compact, Never Cuts Off Controls */
+.netflix-navbar {
+  height: 58px !important;
+  min-height: 58px !important;
+  padding: 0 clamp(16px, 3vw, 40px) !important;
+  background: linear-gradient(180deg, rgba(8, 10, 15, 0.95) 0%, rgba(8, 10, 15, 0.8) 75%, transparent 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.nav-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(10px, 1.5vw, 24px) !important;
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+}
+
+.netflix-logo {
+  gap: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+.logo-badge-icon {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.logo-badge-icon img.logo-svg-img {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.logo-netflix {
+  font-size: 22px !important;
+  letter-spacing: 1px !important;
+}
+
+.logo-sub {
+  font-size: 10px !important;
+  padding: 1px 4px !important;
+  letter-spacing: 1.5px !important;
+}
+
+.netflix-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(4px, 0.8vw, 12px) !important;
+  flex-wrap: nowrap !important;
+  margin-left: 0 !important;
+}
+
+.netflix-nav-links .nav-item {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 5px 8px !important;
+  border-radius: 6px !important;
+  white-space: nowrap !important;
+}
+
+/* Ensure right-side utility bar is NEVER pushed off-screen */
+.nav-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(6px, 0.8vw, 12px) !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+}
+
+.nav-kids-link {
+  font-size: 12.5px !important;
+  padding: 4px 6px !important;
+}
+
+.nav-bell {
+  width: 34px !important;
+  height: 34px !important;
+  font-size: 15px !important;
+}
+
+.netflix-profile-wrap {
+  gap: 4px !important;
+  padding: 2px 4px !important;
+}
+
+.profile-avatar {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 6px !important;
+}
+
+.profile-caret {
+  font-size: 11px !important;
+}
+
+/* Collapse extra desktop nav items gracefully on screens <= 1400px so controls always fit */
+@media (max-width: 1400px) {
+  .netflix-nav-links .nav-item-downloads,
+  .netflix-nav-links .nav-item.text-gold {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1080px) {
+  .netflix-nav-links {
+    display: none !important;
+  }
+  .nav-mobile-browse {
+    display: flex !important;
+  }
+}
+
+/* 3. Hero Billboard — Balanced Height, Peek Affordance & Proportional Typography */
+.netflix-billboard {
+  position: relative !important;
+  height: clamp(330px, 46vh, 440px) !important;
+  min-height: 330px !important;
+  max-height: 440px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 64px clamp(20px, 4vw, 56px) 24px !important;
+  margin-bottom: 0 !important;
+  overflow: hidden !important;
+}
+
+.billboard-backdrop {
+  background-position: center 25% !important;
+}
+
+.billboard-gradient-bottom {
+  height: 140px !important;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(14, 16, 22, 0.5) 40%, 
+    rgba(14, 16, 22, 0.95) 85%, 
+    var(--canvas-bg) 100%) !important;
+}
+
+.billboard-content {
+  position: relative !important;
+  z-index: 5 !important;
+  max-width: min(100%, 540px) !important;
+}
+
+.billboard-badges {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+
+.badge-ott {
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  letter-spacing: 0.8px !important;
+}
+
+.badge-top10 {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.billboard-title {
+  font-family: var(--font-display) !important;
+  font-size: clamp(1.75rem, 3.2vw, 2.6rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.12 !important;
+  margin: 6px 0 10px 0 !important;
+  max-width: 18ch !important;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.9) !important;
+}
+
+.billboard-meta {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
+  font-size: 12.5px !important;
+  margin-bottom: 10px !important;
+}
+
+.meta-match {
+  font-size: 12px !important;
+  padding: 2px 7px !important;
+  border-radius: 4px !important;
+  background: rgba(16, 185, 129, 0.16) !important;
+}
+
+.meta-year,
+.meta-duration {
+  font-size: 12.5px !important;
+  color: #d1d5db !important;
+}
+
+.badge-maturity,
+.badge-quality,
+.badge-audio {
+  font-size: 10.5px !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+
+.billboard-desc {
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+  color: #d8d8d8 !important;
+  margin-bottom: 14px !important;
+  max-width: 50ch !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Hero Action Buttons — Elegant, Compact, Proportional */
+.billboard-actions {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.billboard-actions .netflix-btn {
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 0 16px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+}
+
+.billboard-actions .btn-play-hero,
+.billboard-actions .btn-white {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.billboard-actions .btn-play-hero:hover,
+.billboard-actions .btn-white:hover {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+.billboard-actions .btn-grey,
+.billboard-actions .btn-secondary {
+  background: rgba(109, 109, 110, 0.7) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.billboard-actions .btn-download-hero {
+  background: rgba(16, 185, 129, 0.16) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.45) !important;
+}
+
+.billboard-actions .btn-round {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  border-radius: 50% !important;
+  font-size: 13px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(40, 44, 52, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+}
+
+.billboard-right-meta {
+  bottom: 24px !important;
+  right: 0 !important;
+  gap: 8px !important;
+}
+
+.btn-audio-toggle {
+  width: 34px !important;
+  height: 34px !important;
+  font-size: 13px !important;
+}
+
+.billboard-age-rating {
+  font-size: 11.5px !important;
+  padding: 4px 10px !important;
+}
+
+/* 4. Multi-OTT Hub — Proportional & Cinematic Peeking Effect */
+.ott-hub-wrapper {
+  margin: 0 clamp(16px, 3vw, 40px) 24px !important;
+  padding: 16px 20px 14px !important;
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, rgba(22, 26, 36, 0.8) 0%, rgba(14, 16, 22, 0.85) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.ott-hub-header {
+  margin-bottom: 12px !important;
+}
+
+.ott-hub-title {
+  font-size: 15px !important;
+}
+
+.ott-hub-subtitle {
+  font-size: 11.5px !important;
+}
+
+.ott-hub-badge {
+  font-size: 11px !important;
+  padding: 4px 10px !important;
+}
+
+.ott-card {
+  min-width: 128px !important;
+  height: 50px !important;
+  padding: 6px 12px !important;
+  border-radius: 10px !important;
+  gap: 8px !important;
+}
+
+.ott-card-icon-wrap {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 13px !important;
+}
+
+.ott-brand {
+  font-size: 12px !important;
+}
+
+.ott-subcount {
+  font-size: 9.5px !important;
+}
+
+/* 5. Content Rows & Posters — Balanced Film Poster Aspect Ratios */
+.netflix-row-wrap {
+  padding-inline: clamp(16px, 3vw, 40px) !important;
+  margin-bottom: 22px !important;
+}
+
+.row-header {
+  margin-bottom: 10px !important;
+}
+
+.row-title {
+  font-size: 1.15rem !important;
+  gap: 8px !important;
+}
+
+.netflix-row .movie-card {
+  flex-basis: clamp(126px, 11vw, 164px) !important;
+  min-width: 120px !important;
+  border-radius: 8px !important;
+}
+
+.card-info {
+  padding: 8px 10px 10px !important;
+}
+
+.card-title {
+  font-size: 12.5px !important;
+  margin-bottom: 3px !important;
+}
+
+.card-meta {
+  font-size: 11px !important;
+}
+
+/* 6. Dedicated Grid Mode */
+.category-grid-section {
+  padding: 16px clamp(16px, 3vw, 40px) 40px !important;
+}
+
+.netflix-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr)) !important;
+  gap: 14px !important;
+}
+
+/* 7. Category Header Bar */
+.category-header-bar {
+  margin: 12px clamp(16px, 3vw, 40px) 18px !important;
+  padding: 14px 20px !important;
+  border-radius: 14px !important;
+}
+
+.category-title {
+  font-size: 22px !important;
+}
+
+.category-badge {
+  font-size: 11.5px !important;
+  padding: 3px 9px !important;
+}
+
+.category-desc {
+  font-size: 12.5px !important;
 }

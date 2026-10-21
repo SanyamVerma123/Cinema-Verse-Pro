@@ -576,11 +576,13 @@ app.get('/api/sources/:type/:id', async (req, res) => {
 });
 
 // Android APK Direct Download Endpoint
-app.get('/download/CinemaMirror-Pro.apk', (req, res) => {
-  const apkPath = path.join(__dirname, 'public', 'CinemaMirror-Pro.apk');
+app.get(['/download/CinemaVerse-Pro.apk', '/download/CinemaMirror-Pro.apk'], (req, res) => {
+  const apkPath = fs.existsSync(path.join(__dirname, 'public', 'CinemaVerse-Pro.apk'))
+    ? path.join(__dirname, 'public', 'CinemaVerse-Pro.apk')
+    : path.join(__dirname, 'public', 'CinemaMirror-Pro.apk');
   if (fs.existsSync(apkPath)) {
     res.setHeader('Content-Type', 'application/vnd.android.package-archive');
-    res.setHeader('Content-Disposition', 'attachment; filename="CinemaMirror-Pro.apk"');
+    res.setHeader('Content-Disposition', 'attachment; filename="CinemaVerse-Pro.apk"');
     res.sendFile(apkPath);
   } else {
     res.status(404).send('APK file not found');
@@ -680,7 +682,7 @@ app.get('/api/download/sources/:type/:id', async (req, res) => {
     realDownloads.push(
       {
         quality: '1080p Full HD (Direct CDN)',
-        filename: `${cleanSlug}.${isTv ? `S0${s}E0${e}` : '1080p'}.CinemaMirror.mp4`,
+        filename: `${cleanSlug}.${isTv ? `S0${s}E0${e}` : '1080p'}.CinemaVerse.mp4`,
         size: '1.4 GB',
         seeds: 120,
         magnet: `magnet:?xt=urn:btih:d8d05ebec7303f05a7243986e8c7d0e201b0ac0d&dn=${encodeURIComponent(cleanSlug)}&tr=udp://tracker.opentrackr.org:1337/announce`,
@@ -689,7 +691,7 @@ app.get('/api/download/sources/:type/:id', async (req, res) => {
       },
       {
         quality: '720p Mobile Saver (Direct CDN)',
-        filename: `${cleanSlug}.${isTv ? `S0${s}E0${e}` : '720p'}.CinemaMirror.mp4`,
+        filename: `${cleanSlug}.${isTv ? `S0${s}E0${e}` : '720p'}.CinemaVerse.mp4`,
         size: '520 MB',
         seeds: 165,
         magnet: `magnet:?xt=urn:btih:d8d05ebec7303f05a7243986e8c7d0e201b0ac0d&dn=${encodeURIComponent(cleanSlug)}&tr=udp://tracker.opentrackr.org:1337/announce`,
@@ -733,7 +735,7 @@ app.get('/api/player/safe-frame', (req, res) => {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CinemaMirror Protected Player</title>
+  <title>CinemaVerse Protected Player</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
@@ -922,7 +924,7 @@ app.get('/api/health', (req, res) => {
 if (require.main === module) {
   app.listen(PORT, '0.0.0.0', () => {
     console.log('===================================================');
-    console.log(`  Netflix Pro OTT Platform (CinemaMirror)`);
+    console.log(`  CinemaVerse Pro — Universal Multi-OTT Streaming`);
     console.log(`  Running at http://localhost:${PORT}`);
     console.log(`  10 Streaming Servers • Multi-OTT Hub • Adaptive Shield`);
     console.log('===================================================');

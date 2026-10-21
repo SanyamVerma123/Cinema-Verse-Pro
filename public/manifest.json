@@ -1,11 +1,11 @@
 {
-  "name": "CinemaMirror Pro — Multi-OTT Streaming",
-  "short_name": "CinemaMirror",
+  "name": "CinemaVerse Pro — Multi-OTT Streaming",
+  "short_name": "CinemaVerse",
   "description": "Ultra HD 4K Multi-OTT Streaming Hub with 10 High-Speed Mirrors and Ad-Shield",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#141414",
+  "background_color": "#06070a",
   "theme_color": "#e50914",
   "orientation": "any",
   "icons": [
