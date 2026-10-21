@@ -35,6 +35,13 @@
   </script>
 </head>
 <body class="netflix-body">
+  <script id="early-img-error">
+    window.handleImgError = function(img, fallback) {
+      if (!img) return;
+      img.onerror = null;
+      img.src = fallback || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="28">CINEMAVERSE</text></svg>';
+    };
+  </script>
 
   <!-- ======================================================== -->
   <!-- CINEMAVERSE TOP NAVIGATION BAR                            -->
@@ -888,6 +895,10 @@
         </button>
 
         <!-- Fullscreen Button -->
+        <button class="player-icon-btn" onclick="shareMovie()" title="Share Movie or Series (Get Direct Watch Link)">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+
         <button class="player-icon-btn" onclick="toggleFullscreen()" title="Fullscreen (F)">
           <i class="fa-solid fa-expand" id="fullscreen-icon"></i>
         </button>
@@ -992,6 +1003,12 @@
               <button class="setting-pill" onclick="setPlaybackSpeed(1.5, this)">1.5x</button>
             </div>
           </div>
+          <!-- Share Direct Link -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-share-nodes"></i> Share with Friends:</label>
+            <button class="setting-pill" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; background: rgba(229, 9, 20, 0.15); border-color: rgba(229, 9, 20, 0.4); color: #fff; font-weight: 600; cursor: pointer;" onclick="shareMovie()"><i class="fa-solid fa-share-nodes"></i> Share Direct Watch Link</button>
+          </div>
+
           <!-- Audio & Subtitles Information -->
           <div class="settings-group">
             <label><i class="fa-solid fa-language"></i> Audio & Subtitles:</label>
@@ -1036,6 +1053,7 @@
           </div>
           <div class="theater-info-right">
             <button class="netflix-btn btn-white" onclick="toggleTheaterMode()"><i class="fa-solid fa-expand"></i> Full Page View</button>
+            <button class="netflix-btn btn-secondary" onclick="shareMovie()"><i class="fa-solid fa-share-nodes"></i> Share</button>
             <button class="netflix-btn btn-secondary" onclick="togglePlayerSettings()"><i class="fa-solid fa-gear"></i> Movie Settings</button>
           </div>
         </div>

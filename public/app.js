@@ -132,14 +132,187 @@ async function initializeApplication() {
   initPwaInstall();
   initPlayerTopBarAutoMove();
   await loadCatalog();
-  renderContinueWatching();
-  renderNotifications();
-  if (!window.location.hash || window.location.hash === '#home') {
+  try { renderContinueWatching(); } catch (e) { console.warn('renderContinueWatching:', e); }
+  try { renderNotifications(); } catch (e) { console.warn('renderNotifications:', e); }
+
+  // 1. Resolve Deep Links first (Shared videos, movies, series via ?watch=... or #watch=... or #tt...)
+  const deepLink = parseDeepLinkParams();
+  if (deepLink && deepLink.watchId) {
+    await handleDeepLinkPlayback(deepLink.watchId, deepLink.season, deepLink.episode);
+  } else if (!window.location.hash || window.location.hash === '#home') {
     restoreHomeView();
   } else {
     handleInitialHash();
   }
   window.addEventListener('hashchange', handleInitialHash);
+}
+
+// ========================================================
+// UNIVERSAL VIDEO DEEP LINK & SHARE ROUTING SYSTEM
+// ========================================================
+
+function findCatalogItem(idOrQuery) {
+  if (!idOrQuery || !currentCatalog || !currentCatalog.length) return null;
+  const clean = String(idOrQuery).trim().toLowerCase();
+
+  // 1. Exact match on catalog id (e.g. 'nflx-1', 'prm-12')
+  let match = currentCatalog.find(x => x.id && String(x.id).toLowerCase() === clean);
+  if (match) return match;
+
+  // 2. Exact match on imdbId (e.g. 'tt4574334')
+  match = currentCatalog.find(x => x.imdbId && String(x.imdbId).toLowerCase() === clean);
+  if (match) return match;
+
+  // 3. Match on tmdbId
+  match = currentCatalog.find(x => x.tmdbId && String(x.tmdbId) === clean);
+  if (match) return match;
+
+  // 4. Exact match on title (slugified or lowercased)
+  match = currentCatalog.find(x => {
+    if (!x.title) return false;
+    const slug = x.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    return slug === clean || x.title.toLowerCase() === clean;
+  });
+  if (match) return match;
+
+  // 5. Partial title match
+  match = currentCatalog.find(x => x.title && x.title.toLowerCase().includes(clean));
+  return match || null;
+}
+
+function parseDeepLinkParams() {
+  let watchId = null;
+  let season = 1;
+  let episode = 1;
+
+  // 1. Check URL Search Parameters (e.g. ?watch=tt4574334&s=2&e=3 or ?v=nflx-1 or ?id=tt4574334)
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    watchId = urlParams.get('watch') || urlParams.get('v') || urlParams.get('id') || urlParams.get('movie') || urlParams.get('series') || urlParams.get('play');
+    if (urlParams.get('s') || urlParams.get('season')) {
+      season = parseInt(urlParams.get('s') || urlParams.get('season'), 10) || 1;
+    }
+    if (urlParams.get('e') || urlParams.get('ep') || urlParams.get('episode')) {
+      episode = parseInt(urlParams.get('e') || urlParams.get('ep') || urlParams.get('episode'), 10) || 1;
+    }
+  } catch (e) {}
+
+  // 2. Check URL Hash (e.g. #tt4574334, #nflx-1, #watch=tt4574334, #watch-tt4574334, #watch/tt4574334, #tt4574334-s2-e3)
+  let rawHash = window.location.hash ? window.location.hash.substring(1).trim() : '';
+
+  if (rawHash) {
+    // If hash contains query-style string (e.g. #watch?id=tt4574334&s=1&e=2)
+    if (rawHash.includes('?')) {
+      const qIndex = rawHash.indexOf('?');
+      try {
+        const hashParams = new URLSearchParams(rawHash.substring(qIndex + 1));
+        if (!watchId) watchId = hashParams.get('id') || hashParams.get('watch') || hashParams.get('v') || hashParams.get('play');
+        if (hashParams.get('s') || hashParams.get('season')) season = parseInt(hashParams.get('s') || hashParams.get('season'), 10) || season;
+        if (hashParams.get('e') || hashParams.get('ep') || hashParams.get('episode')) episode = parseInt(hashParams.get('e') || hashParams.get('ep') || hashParams.get('episode'), 10) || episode;
+      } catch (e) {}
+      rawHash = rawHash.substring(0, qIndex);
+    }
+
+    if (!watchId) {
+      if (rawHash.startsWith('watch=')) {
+        watchId = rawHash.replace('watch=', '');
+      } else if (rawHash.startsWith('play=')) {
+        watchId = rawHash.replace('play=', '');
+      } else if (rawHash.startsWith('watch/')) {
+        watchId = rawHash.replace('watch/', '');
+      } else if (rawHash.startsWith('play/')) {
+        watchId = rawHash.replace('play/', '');
+      } else if (rawHash.startsWith('watch-')) {
+        watchId = rawHash.replace('watch-', '');
+      } else if (rawHash.startsWith('play-')) {
+        watchId = rawHash.replace('play-', '');
+      } else if (!['home', 'series', 'movies', 'new', 'watchlist', 'downloads'].includes(rawHash.toLowerCase()) && !rawHash.startsWith('ott-')) {
+        // Any non-navigation hash (like #tt4574334 or #nflx-1) is treated as a direct video ID
+        watchId = rawHash;
+      }
+    }
+  }
+
+  // 3. Extract embedded season/episode patterns, e.g. tt4574334-s2-e3 or tt4574334/2/3
+  if (watchId) {
+    const sePattern = watchId.match(/-s(\d+)-e(\d+)/i) || watchId.match(/\/(\d+)\/(\d+)/);
+    if (sePattern) {
+      season = parseInt(sePattern[1], 10) || season;
+      episode = parseInt(sePattern[2], 10) || episode;
+      watchId = watchId.replace(/-s\d+-e\d+/i, '').replace(/\/\d+\/\d+/, '');
+    }
+  }
+
+  return {
+    watchId: watchId ? decodeURIComponent(watchId).trim() : null,
+    season: isNaN(season) || season < 1 ? 1 : season,
+    episode: isNaN(episode) || episode < 1 ? 1 : episode
+  };
+}
+
+async function handleDeepLinkPlayback(watchId, season = 1, episode = 1) {
+  if (!watchId) return false;
+
+  // Ensure catalog is loaded
+  if (!currentCatalog || !currentCatalog.length) {
+    await loadCatalog();
+  }
+
+  let item = findCatalogItem(watchId);
+
+  // Fallback for external IMDb IDs not preloaded in catalog
+  if (!item && /^tt\d+$/i.test(watchId)) {
+    try {
+      showToast('Connecting to streaming mirrors...', 'info');
+      const [seriesRes, movieRes] = await Promise.allSettled([
+        fetch(`https://v3-cinemeta.strem.io/meta/series/${watchId}.json`).then(r => r.json()),
+        fetch(`https://v3-cinemeta.strem.io/meta/movie/${watchId}.json`).then(r => r.json())
+      ]);
+      const seriesMeta = seriesRes.status === 'fulfilled' && seriesRes.value?.meta;
+      const movieMeta = movieRes.status === 'fulfilled' && movieRes.value?.meta;
+      const meta = seriesMeta || movieMeta;
+
+      if (meta) {
+        item = {
+          id: watchId,
+          imdbId: watchId,
+          type: seriesMeta ? 'series' : 'movie',
+          title: meta.name || 'Shared Title',
+          year: parseInt(meta.year, 10) || 2024,
+          poster: meta.poster || FALLBACK_POSTER,
+          backdrop: meta.background || meta.poster || FALLBACK_BACKDROP,
+          description: meta.description || 'Watch now in 4K Ultra HD on CinemaVerse.',
+          genres: meta.genres || ['Drama', 'Action'],
+          matchRate: '99% Match',
+          maturity: '16+',
+          duration: seriesMeta ? `${meta.videos ? meta.videos.length : 1} Episodes` : '2h 05m',
+          seasons: seriesMeta?.videos ? [{
+            season: season || 1,
+            episodes: meta.videos.filter(v => v.season === (season || 1)).map(v => ({
+              episode: v.episode || v.number,
+              title: v.name || v.title || `Episode ${v.episode}`,
+              thumbnail: v.thumbnail || meta.poster
+            }))
+          }] : [{ season: 1, episodes: [{ episode: 1, title: 'Episode 1' }] }]
+        };
+      }
+    } catch (e) {
+      console.warn('External title metadata fallback failed:', e);
+    }
+  }
+
+  if (item) {
+    const epStr = item.type === 'series' ? ` (Season ${season} Episode ${episode})` : '';
+    showToast(`Opening "${item.title}"${epStr}...`, 'info');
+    restoreHomeView();
+    // Launch player immediately with full streaming support
+    await openPlayer(item, season, episode);
+    return true;
+  }
+
+  showToast(`Could not find shared title "${watchId}"`, 'error');
+  restoreHomeView();
+  return false;
 }
 
 function handleInitialHash() {
@@ -150,19 +323,31 @@ function handleInitialHash() {
   }
   if (hash === '#series') {
     filterCategory('series');
+    return;
   } else if (hash === '#movies') {
     filterCategory('movie');
+    return;
   } else if (hash === '#new') {
     filterCategory('top10');
+    return;
   } else if (hash === '#watchlist') {
     showWatchlist();
+    return;
   } else if (hash === '#downloads') {
     showDownloadsSection();
+    return;
   } else if (hash.startsWith('#ott-')) {
     const ottKey = hash.replace('#ott-', '');
     if (typeof openPlatformGrid === 'function') {
       openPlatformGrid(ottKey);
     }
+    return;
+  }
+
+  // Check if hash points to a specific video/movie/series
+  const deepLink = parseDeepLinkParams();
+  if (deepLink && deepLink.watchId) {
+    handleDeepLinkPlayback(deepLink.watchId, deepLink.season, deepLink.episode);
   }
 }
 
@@ -1853,29 +2038,48 @@ function handleTrailerBackdropClick(e) {
 // REAL MULTI-PLATFORM SHARE SYSTEM
 // ========================================================
 let currentShareItem = null;
+let currentShareSeason = 1;
+let currentShareEpisode = 1;
 
-function shareMovie(item = currentItem) {
+function buildShareUrl(item, season = null, episode = null) {
+  if (!item) return window.location.href;
+  const id = item.id || item.imdbId || '';
+  const s = season || (currentItem === item ? currentSeason : 1) || 1;
+  const e = episode || (currentItem === item ? currentEpisode : 1) || 1;
+  
+  const base = `${window.location.protocol}//${window.location.host}${window.location.pathname.replace(/\/$/, '')}`;
+  
+  if (item.type === 'series') {
+    return `${base}/?watch=${encodeURIComponent(id)}&s=${s}&e=${e}#watch=${encodeURIComponent(id)}`;
+  }
+  return `${base}/?watch=${encodeURIComponent(id)}#watch=${encodeURIComponent(id)}`;
+}
+
+function shareMovie(item = currentItem, season = null, episode = null) {
   if (!item) return;
   currentShareItem = item;
+  currentShareSeason = season || (currentItem === item ? currentSeason : 1) || 1;
+  currentShareEpisode = episode || (currentItem === item ? currentEpisode : 1) || 1;
 
   const title = item.title || 'Movie';
-  const url = `${window.location.origin}/#${item.id || item.imdbId || ''}`;
-  const shareText = `Watch "${title}" (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse Pro! 100% Free & 0 Ads:`;
+  const url = buildShareUrl(item, currentShareSeason, currentShareEpisode);
+  const epInfo = item.type === 'series' ? ` (Season ${currentShareSeason} Episode ${currentShareEpisode})` : '';
+  const shareText = `Watch "${title}"${epInfo} (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse! 100% Free & 0 Ads:`;
 
   // Try native Web Share API on mobile devices first
   if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     navigator.share({
-      title: `${title} - CinemaVerse Pro`,
+      title: `${title}${epInfo} - CinemaVerse`,
       text: shareText,
       url: url
     }).catch(err => {
       if (err.name !== 'AbortError') {
-        openShareModal(item);
+        openShareModal(item, currentShareSeason, currentShareEpisode);
       }
     });
   } else {
-    // Open dedicated Netflix-style Share Sheet on Desktop or when native share is cancelled/unavailable
-    openShareModal(item);
+    // Open dedicated Share Sheet on Desktop or when native share is cancelled/unavailable
+    openShareModal(item, currentShareSeason, currentShareEpisode);
   }
 }
 
@@ -1885,9 +2089,11 @@ function shareHeroMovie() {
   }
 }
 
-function openShareModal(item = currentItem) {
+function openShareModal(item = currentItem, season = null, episode = null) {
   if (!item) return;
   currentShareItem = item;
+  currentShareSeason = season || (currentItem === item ? currentSeason : 1) || 1;
+  currentShareEpisode = episode || (currentItem === item ? currentEpisode : 1) || 1;
 
   const modal = document.getElementById('share-modal');
   const poster = document.getElementById('share-preview-poster');
@@ -1899,10 +2105,11 @@ function openShareModal(item = currentItem) {
   if (title) title.textContent = item.title || 'Cinema Title';
   if (sub) {
     const isTv = item.type === 'series';
-    sub.textContent = `${item.year || '2026'} • ${isTv ? 'TV Series' : (item.duration || 'Movie')} • 4K Ultra HD • Zero Ads`;
+    const epStr = isTv ? ` • Season ${currentShareSeason} Ep ${currentShareEpisode}` : '';
+    sub.textContent = `${item.year || '2026'} • ${isTv ? 'TV Series' : (item.duration || 'Movie')}${epStr} • 4K Ultra HD • Zero Ads`;
   }
 
-  const shareUrl = `${window.location.origin}/#${item.id || item.imdbId || ''}`;
+  const shareUrl = buildShareUrl(item, currentShareSeason, currentShareEpisode);
   if (linkInput) linkInput.value = shareUrl;
 
   const copyBtn = document.getElementById('btn-copy-share');
@@ -1929,11 +2136,12 @@ function shareVia(channel) {
   if (!currentShareItem) return;
   const item = currentShareItem;
   const title = item.title || 'Movie';
-  const url = `${window.location.origin}/#${item.id || item.imdbId || ''}`;
-  const text = `Watch "${title}" (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse Pro! 100% Free & 0 Ads:`;
+  const epInfo = item.type === 'series' ? ` (Season ${currentShareSeason} Episode ${currentShareEpisode})` : '';
+  const url = buildShareUrl(item, currentShareSeason, currentShareEpisode);
+  const text = `Watch "${title}"${epInfo} (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse! 100% Free & 0 Ads:`;
 
   if (channel === 'whatsapp') {
-    openTrustedExternalLink(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + url)}`);
+    openTrustedExternalLink(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + url)}`);
   } else if (channel === 'telegram') {
     openTrustedExternalLink(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
   } else if (channel === 'twitter') {
@@ -1942,7 +2150,7 @@ function shareVia(channel) {
     openTrustedExternalLink(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`);
   } else if (channel === 'native') {
     if (navigator.share) {
-      navigator.share({ title: `${title} - CinemaVerse`, text, url }).catch(() => {});
+      navigator.share({ title: `${title}${epInfo} - CinemaVerse`, text, url }).catch(() => {});
     } else {
       copyShareLink();
     }
@@ -1952,7 +2160,7 @@ function shareVia(channel) {
 function copyShareLink() {
   const linkInput = document.getElementById('share-link-input');
   const copyBtn = document.getElementById('btn-copy-share');
-  const url = linkInput ? linkInput.value : window.location.href;
+  const url = linkInput && linkInput.value ? linkInput.value : (currentShareItem ? buildShareUrl(currentShareItem, currentShareSeason, currentShareEpisode) : window.location.href);
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url).then(() => {
@@ -3306,10 +3514,10 @@ function toggleNotificationDropdown(e) {
 function renderNotifications() {
   const list = document.getElementById('notif-list');
   const badge = document.getElementById('bell-badge');
-  if (!list || !catalogData || catalogData.length === 0) return;
+  if (!list || !currentCatalog || currentCatalog.length === 0) return;
 
   // Filter standout new releases / popular titles
-  const highlights = catalogData.filter(x => x.year >= 2022 || x.rank).slice(0, 6);
+  const highlights = currentCatalog.filter(x => x.year >= 2022 || x.rank).slice(0, 6);
   if (highlights.length === 0) return;
 
   const isRead = localStorage.getItem(STORAGE_NOTIF_READ) === 'true';
@@ -4072,4 +4280,5 @@ window.showWatchlist = showWatchlist;
 window.showDownloadsSection = showDownloadsSection;
 window.closeAllModals = closeAllModals;
 window.filterPlatform = filterPlatform;
-window.filterByCategory = filterByCategory;
+window.filterCategory = filterCategory;
+window.filterByCategory = filterCategory;
