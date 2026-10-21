@@ -6902,3 +6902,578 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 
 
+
+
+/* ==========================================================================
+   CINEMAMIRROR PRO — ULTRA-AESTHETIC NEXT-GEN STREAMING UI SUITE
+   ========================================================================== */
+
+:root {
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --canvas-bg: #090a0e;
+  --surface-1: #101217;
+  --surface-2: #161820;
+  --surface-3: #1f222c;
+  --glass-bg: rgba(14, 16, 22, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.18);
+  --netflix-red: #E50914;
+  --netflix-red-bright: #ff1f2d;
+  --red-halo: 0 0 30px rgba(229, 9, 20, 0.45);
+  --gold-accent: #f59e0b;
+  --emerald-accent: #10b981;
+}
+
+body.netflix-body {
+  font-family: var(--font-body);
+  background: var(--canvas-bg);
+  background-image: 
+    radial-gradient(ellipse 85% 55% at 50% -20%, rgba(229, 9, 20, 0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 12%, rgba(17, 60, 207, 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 10% 45%, rgba(153, 51, 255, 0.07) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: #f3f4f6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings & Display Titles */
+h1, h2, h3, h4, h5, h6,
+.logo-netflix,
+.billboard-title,
+.row-title,
+.modal-title,
+.netflix-btn,
+.ott-card-name,
+.section-title {
+  font-family: var(--font-display);
+  letter-spacing: -0.018em;
+}
+
+/* 2. Glassmorphism Top Navigation */
+.netflix-navbar {
+  background: rgba(9, 10, 14, 0.82) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.netflix-navbar.scrolled {
+  background: rgba(8, 9, 12, 0.95) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Logo Treatment */
+.logo-netflix {
+  font-weight: 900 !important;
+  background: linear-gradient(135deg, #ff2330 0%, #E50914 55%, #b20710 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 2px 10px rgba(229, 9, 20, 0.5));
+}
+
+.logo-sub {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #ffffff 0%, #9ca3af 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-badge-icon {
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.3) 0%, rgba(229, 9, 20, 0.06) 100%) !important;
+  border: 1px solid rgba(229, 9, 20, 0.5) !important;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4) !important;
+}
+
+/* Nav Links Aesthetic */
+.netflix-nav-links .nav-item {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #d1d5db;
+  position: relative;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.22s ease;
+}
+
+.netflix-nav-links .nav-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.netflix-nav-links .nav-item.active {
+  color: #ffffff;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.netflix-nav-links .nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--netflix-red);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--netflix-red);
+}
+
+/* Search Box Polish */
+.netflix-search-box {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.netflix-search-box.open {
+  background: rgba(18, 20, 27, 0.96);
+  border-color: rgba(229, 9, 20, 0.7);
+  box-shadow: 0 0 22px rgba(229, 9, 20, 0.35);
+}
+
+/* Notification Bell */
+.nav-bell {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 50% !important;
+  transition: all 0.2s ease !important;
+}
+
+.nav-bell:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: scale(1.06);
+}
+
+.bell-badge {
+  background: var(--netflix-red) !important;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.7) !important;
+}
+
+/* Profile Pill */
+.netflix-profile-wrap {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 9999px !important;
+  padding: 4px 10px 4px 4px !important;
+  transition: all 0.22s ease !important;
+}
+
+.netflix-profile-wrap:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+.profile-avatar {
+  border: 1.5px solid rgba(229, 9, 20, 0.7) !important;
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.45) !important;
+}
+
+/* 3. Hero Billboard — Cinematic Showcase */
+.netflix-billboard {
+  position: relative;
+  overflow: hidden;
+}
+
+.billboard-gradient-bottom {
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(9, 10, 14, 0.2) 20%, 
+    rgba(9, 10, 14, 0.8) 65%, 
+    var(--canvas-bg) 100%) !important;
+}
+
+.billboard-gradient-left {
+  background: linear-gradient(90deg, 
+    rgba(9, 10, 14, 0.96) 0%, 
+    rgba(9, 10, 14, 0.72) 45%, 
+    transparent 100%) !important;
+}
+
+.billboard-title {
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.025em !important;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.8) !important;
+  line-height: 1.08 !important;
+}
+
+.billboard-platform-tag {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  background: rgba(229, 9, 20, 0.2);
+  border: 1px solid rgba(229, 9, 20, 0.55);
+  color: #ff4d58;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 16px rgba(229, 9, 20, 0.35);
+}
+
+.billboard-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.billboard-match {
+  color: #34d399 !important;
+  font-weight: 800 !important;
+  background: rgba(16, 185, 129, 0.16) !important;
+  border: 1px solid rgba(16, 185, 129, 0.45) !important;
+  padding: 3px 11px !important;
+  border-radius: 9999px !important;
+  font-size: 12px !important;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.3) !important;
+}
+
+.billboard-quality,
+.billboard-audio-badge,
+.billboard-age-rating {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 3px 9px !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #e5e7eb !important;
+}
+
+.billboard-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #d1d5db;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+}
+
+/* Luxury Hero Action Buttons */
+.netflix-btn.btn-play-hero {
+  background: #ffffff !important;
+  color: #0b0c10 !important;
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: 15px !important;
+  padding: 12px 28px !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  box-shadow: 0 4px 22px rgba(255, 255, 255, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.netflix-btn.btn-play-hero:hover {
+  background: #ff1f2d !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 8px 30px rgba(229, 9, 20, 0.6) !important;
+}
+
+.netflix-btn.btn-info-hero {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  color: #ffffff !important;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  font-size: 14.5px !important;
+  padding: 12px 24px !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.netflix-btn.btn-info-hero:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+.btn-download-hero {
+  background: rgba(16, 185, 129, 0.14) !important;
+  border: 1px solid rgba(16, 185, 129, 0.45) !important;
+  color: #34d399 !important;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  border-radius: 9999px !important;
+  backdrop-filter: blur(14px) !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-download-hero:hover {
+  background: rgba(16, 185, 129, 0.26) !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-round {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(14px) !important;
+  border-radius: 50% !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-round:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: scale(1.08) !important;
+}
+
+/* 4. Multi-OTT Platform Hub Carousel */
+.ott-hub-wrapper {
+  background: rgba(15, 17, 23, 0.72) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45) !important;
+}
+
+.ott-card {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.ott-card:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+.ott-card.active {
+  background: rgba(229, 9, 20, 0.2) !important;
+  border-color: var(--netflix-red) !important;
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.45) !important;
+}
+
+/* 5. Movie Poster Cards — Smooth 3D Depth */
+.movie-card {
+  border-radius: 12px !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.movie-card .card-poster-wrap {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.movie-card:hover {
+  transform: translateY(-8px) scale(1.03) !important;
+  z-index: 10 !important;
+}
+
+.movie-card:hover .card-poster-wrap {
+  border-color: rgba(229, 9, 20, 0.65) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.9), 0 0 25px rgba(229, 9, 20, 0.35) !important;
+}
+
+.card-poster {
+  border-radius: 12px !important;
+  transition: transform 0.4s ease !important;
+}
+
+.movie-card:hover .card-poster {
+  transform: scale(1.04) !important;
+}
+
+.play-circle {
+  background: var(--netflix-red) !important;
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.7) !important;
+  border: 2px solid rgba(255, 255, 255, 0.9) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.movie-card:hover .play-circle {
+  transform: scale(1.15) !important;
+}
+
+.card-ott-badge {
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* 6. Section Headers */
+.row-header {
+  margin-bottom: 12px !important;
+}
+
+.row-title {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  letter-spacing: -0.015em !important;
+  color: #f9fafb !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.row-title i {
+  color: var(--netflix-red) !important;
+}
+
+/* 7. Floating Luxury Video Player Bar */
+.player-top-bar {
+  background: rgba(14, 16, 22, 0.88) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8) !important;
+  margin: 12px 16px 0 !important;
+  padding: 10px 16px !important;
+}
+
+.player-title {
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: 17px !important;
+  letter-spacing: -0.015em !important;
+}
+
+.player-server-pill,
+.player-audio-pill {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 9999px !important;
+  backdrop-filter: blur(14px) !important;
+  padding: 4px 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.player-server-pill:hover,
+.player-audio-pill:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.netflix-select-pill {
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  color: #f3f4f6 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+}
+
+.player-ctrl-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #d1d5db !important;
+  transition: all 0.2s ease !important;
+}
+
+.player-ctrl-btn:hover {
+  background: rgba(229, 9, 20, 0.3) !important;
+  border-color: var(--netflix-red) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.5) !important;
+  transform: scale(1.06) !important;
+}
+
+/* 8. Server Chips Hierarchy Styling */
+.server-chip-pill {
+  border-radius: 9999px !important;
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.server-chip-pill.is-clean {
+  background: rgba(16, 185, 129, 0.08) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+.server-chip-pill.is-clean:hover {
+  background: rgba(16, 185, 129, 0.16) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+}
+
+.server-chip-pill.is-clean.active {
+  background: rgba(16, 185, 129, 0.25) !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.45) !important;
+  color: #fff !important;
+}
+
+.server-chip-pill.has-ad {
+  background: rgba(245, 158, 11, 0.06) !important;
+  border-color: rgba(245, 158, 11, 0.28) !important;
+  opacity: 0.88;
+}
+
+.server-chip-pill.has-ad:hover {
+  background: rgba(245, 158, 11, 0.14) !important;
+  opacity: 1;
+}
+
+/* 9. Modal Dialogs — Luxury Glassmorphism */
+.netflix-modal-backdrop {
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  background: rgba(6, 7, 10, 0.85) !important;
+}
+
+.netflix-modal-card {
+  background: #111319 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 80px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(229, 9, 20, 0.15) !important;
+}
+
+.modal-close-btn {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(14px) !important;
+  border-radius: 50% !important;
+  transition: all 0.2s ease !important;
+}
+
+.modal-close-btn:hover {
+  background: var(--netflix-red) !important;
+  border-color: var(--netflix-red) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 0 18px rgba(229, 9, 20, 0.6) !important;
+}
+
+/* 10. Sleek Toast Notifications */
+.toast {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  background: rgba(18, 20, 28, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.3) !important;
+  backdrop-filter: blur(20px) !important;
+}
