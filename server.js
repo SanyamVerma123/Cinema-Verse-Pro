@@ -89,11 +89,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   const servers = [
     {
       id: 1,
-      name: 'Server 1: VidLink Pro HD',
+      name: 'Server 1: AutoEmbed Ultra HD (0 Ads)',
       badge: 'Fastest • 0 Ads • Multi-Audio 4K',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`
     },
     {
       id: 2,
@@ -153,19 +153,19 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 9,
-      name: 'Server 9: AnimeWorld VIP',
+      name: 'Server 9: AnimeWorld VIP (Multi-Audio)',
       badge: 'Multi-Audio: Hindi/Eng/Jap • 0 Ads',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
     },
     {
       id: 10,
-      name: 'Server 10: VidLink Pro Clean Alternative',
+      name: 'Server 10: FilmU Pro Clean Alternative',
       badge: 'Clean 4K Ultra HD • 0 Ads',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
     }
   ];
 

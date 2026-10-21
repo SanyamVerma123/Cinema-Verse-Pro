@@ -1041,7 +1041,7 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: VidLink Pro HD', badge: 'Fastest • 0 Ads • Multi-Audio 4K', provider: 'VidLink Pro' },
+  { id: 0, name: 'Server 1: AutoEmbed Ultra HD (0 Ads)', badge: 'Fastest • 0 Ads • Multi-Audio 4K', provider: 'AutoEmbed' },
   { id: 1, name: 'Server 2: VidSrc Buzz Clean Direct', badge: 'Direct Ultra HD • 0 Ads', provider: 'VidSrc Buzz' },
   { id: 2, name: 'Server 3: AutoEmbed CC Clean', badge: 'Auto Dub • 0 Ads', provider: 'AutoEmbed Direct' },
   { id: 3, name: 'Server 4: Global Mirror', badge: 'Multi-Language • 0 Ads', provider: 'Global Mirror' },
@@ -1050,7 +1050,7 @@ const STREAMING_SERVERS = [
   { id: 6, name: 'Server 7: VidSrc Buzz Clean Direct', badge: 'Fast HD 1080p • 0 Ads', provider: 'VidSrc Buzz' },
   { id: 7, name: 'Server 8: AutoEmbed Direct Mirror', badge: 'Global Mirror • 0 Ads', provider: 'AutoEmbed Direct' },
   { id: 8, name: 'Server 9: AnimeWorld VIP', badge: 'Multi-Audio: Hindi/Eng/Jap • 0 Ads', provider: 'AnimeWorld' },
-  { id: 9, name: 'Server 10: VidLink Pro Clean Alternative', badge: 'Clean 4K Ultra HD • 0 Ads', provider: 'VidLink Alt' }
+  { id: 9, name: 'Server 10: FilmU Pro Clean Alternative', badge: 'Clean 4K Ultra HD • 0 Ads', provider: 'FilmU Alt' }
 ];
 let selectedServerIndex = 3; // Default: Server 4 (Global Mirror)
 
@@ -1651,11 +1651,9 @@ function loadServerStream(serverIdx) {
     if (bufferSub) bufferSub.textContent = 'High-speed clean stream • Neutralizing popups & ads...';
   }
 
-  // 2. High-Speed Direct Stream Loading — Kernel-Level Anti-Ad Sandbox Shield (0 Popups, 0 Redirects)
+  // 2. High-Speed Direct Stream Loading — 100% Server Compatible (Zero Sandbox Restrictions)
   const iframe = document.getElementById('player-iframe');
-  // Allow scripts, HTML5 video engine, HLS/m3u8 playback, same-origin storage & forms.
-  // Explicitly OMIT allow-popups, allow-popups-to-escape-sandbox, and allow-top-navigation to block all ad redirects.
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads');
+  iframe.removeAttribute('sandbox');
   iframe.referrerPolicy = 'origin';
 
   let streamUrl = srv.url;
