@@ -40,6 +40,32 @@ window.handleImgError = function(img, fallback = FALLBACK_POSTER) {
   img.src = fallback;
 };
 
+const TRUSTED_EXTERNAL_HOSTS = new Set([
+  'api.whatsapp.com', 't.me', 'twitter.com', 'www.facebook.com',
+  'github.com', 'embed.filmu.in'
+]);
+
+function openTrustedExternalLink(url) {
+  try {
+    const targetUrl = new URL(url, window.location.href);
+    if (targetUrl.protocol !== 'https:' || !TRUSTED_EXTERNAL_HOSTS.has(targetUrl.hostname)) return false;
+    const link = document.createElement('a');
+    link.href = targetUrl.href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.dataset.allowExternal = 'true';
+    link.style.position = 'fixed';
+    link.style.left = '-10000px';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    return true;
+  } catch (error) {
+    console.warn('[CinemaMirror] Could not open external link:', error);
+    return false;
+  }
+}
+
 // NetMirror REA Anti-Redirect Guard: Neutralize rogue popups and prevent iframe from hijacking the top window
 try {
   Object.defineProperty(window, 'open', {
@@ -62,6 +88,7 @@ document.addEventListener('click', function(e) {
   let target = e.target;
   while (target && target !== document.body && target !== document.documentElement) {
     if (target.tagName === 'A' && (target.target === '_blank' || target.target === '_new')) {
+      if (target.dataset.allowExternal === 'true') return;
       const href = target.getAttribute('href') || target.href || '';
       if (href && (href.startsWith('http://') || href.startsWith('https://')) && !href.includes(window.location.hostname)) {
         e.preventDefault();
@@ -94,8 +121,8 @@ if (window.history && window.history.pushState) {
   });
 }
 
-// Initialize Application
-document.addEventListener('DOMContentLoaded', async () => {
+// Initialize Application whether this script loads before or after DOMContentLoaded.
+async function initializeApplication() {
   setupNavbarScroll();
   setupSearch();
   setupKeyboardShortcuts();
@@ -106,7 +133,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadCatalog();
   renderContinueWatching();
   renderNotifications();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeApplication, { once: true });
+} else {
+  // This file is loaded afterInteractive in Next.js. Wait until the script has
+  // finished evaluating so its later `let` bindings are initialized before
+  // startup callbacks read them.
+  window.setTimeout(initializeApplication, 0);
+}
 
 // Check & Activate Daily Ad-Free Unlock Pass (NetMirror Feature)
 function checkDailyUnlockPass() {
@@ -152,11 +188,43 @@ function toggleOttHub() {
 }
 
 // Reset view to Home
+function closeMobileBrowseMenu() {
+  const navLinks = document.getElementById('netflix-nav-links');
+  const browseButton = document.getElementById('nav-mobile-browse');
+  if (navLinks) navLinks.classList.remove('mobile-open');
+  const caret = browseButton && browseButton.querySelector('i');
+  if (caret) caret.style.transform = 'rotate(0deg)';
+}
+
+function restoreHomeView() {
+  const main = document.getElementById('main-content');
+  if (!main) return;
+  main.querySelectorAll(':scope > section').forEach(section => { section.style.display = 'block'; });
+  const setDisplay = (id, display) => {
+    const view = document.getElementById(id);
+    if (view) view.style.display = display;
+  };
+  setDisplay('hero-banner', 'flex');
+  setDisplay('ott-hub-wrapper', 'block');
+  setDisplay('watchlist-section', 'none');
+  setDisplay('downloads-section', 'none');
+  setDisplay('search-results-section', 'none');
+  setDisplay('platform-banner-section', 'none');
+  closeMobileBrowseMenu();
+  if (typeof renderContinueWatching === 'function') renderContinueWatching();
+}
+
 function resetToHome() {
   closeProfileDropdown();
   closeNotificationDropdown();
-  const dlSec = document.getElementById('downloads-section');
-  if (dlSec) dlSec.style.display = 'none';
+  restoreHomeView();
+  document.querySelectorAll('.nav-item').forEach(link => link.classList.remove('active'));
+  const homeLink = document.querySelector('.netflix-nav-links .nav-item[href="#home"]');
+  if (homeLink) homeLink.classList.add('active');
+  document.querySelectorAll('.ott-card').forEach(card => card.classList.remove('active'));
+  const allOtt = document.querySelector('.ott-card');
+  if (allOtt) allOtt.classList.add('active');
+  activePlatformFilter = 'all';
   filterPlatform('all');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -296,6 +364,13 @@ function slideRow(rowId, direction) {
 // ========================================================
 
 function filterPlatform(platformId, element) {
+  restoreHomeView();
+  closeProfileDropdown();
+  closeNotificationDropdown();
+  document.querySelectorAll('.nav-item').forEach(link => link.classList.remove('active'));
+  const homeLink = document.querySelector('.netflix-nav-links .nav-item[href="#home"]');
+  if (homeLink && platformId === 'all') homeLink.classList.add('active');
+  if (element && element.classList.contains('nav-item')) element.classList.add('active');
   activePlatformFilter = platformId.toLowerCase();
 
   document.querySelectorAll('.ott-card').forEach(c => c.classList.remove('active'));
@@ -429,7 +504,7 @@ function renderTop10List(containerId, items) {
       <div class="top10-rank-num">${rankNum}</div>
       <div class="movie-card">
         <div class="card-poster-wrap">
-          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)" loading="lazy">
+          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)" loading="lazy">
           <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
           ${dubBadgeHtml}
           <div class="card-play-hover">
@@ -465,7 +540,7 @@ function renderHorizontalList(containerId, items) {
     card.className = 'movie-card';
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)" loading="lazy">
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)" loading="lazy">
         <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
         ${dubBadgeHtml}
         <div class="card-play-hover">
@@ -541,7 +616,7 @@ function renderContinueWatching() {
     card.className = 'movie-card';
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${c.poster}" alt="${c.title}" onerror="handleImgError(this)">
+        <img class="card-poster" src="${c.poster}" alt="${c.title}" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${c.platformId || 'nflx'}">${c.platform || 'STREAM'}</div>
         <div class="card-play-hover">
           <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -605,15 +680,20 @@ function updateWatchlistButton(btnElement, itemId) {
 
 function showWatchlist(element) {
   closeProfileDropdown();
+  closeMobileBrowseMenu();
+  closeNotificationDropdown();
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
-  if (element) element.classList.add('active');
-
-  const dlSec = document.getElementById('downloads-section');
-  if (dlSec) dlSec.style.display = 'none';
+  const watchlistLink = element || document.querySelector('.netflix-nav-links .nav-item[href="#watchlist"]');
+  if (watchlistLink) watchlistLink.classList.add('active');
 
   const section = document.getElementById('watchlist-section');
   const grid = document.getElementById('watchlist-grid');
   const count = document.getElementById('watchlist-count');
+  if (!section || !grid || !count) return;
+  const main = document.getElementById('main-content');
+  if (main) main.querySelectorAll(':scope > section').forEach(view => { view.style.display = view === section ? 'block' : 'none'; });
+  const ottHub = document.getElementById('ott-hub-wrapper');
+  if (ottHub) ottHub.style.display = 'none';
   const list = getWatchlist();
 
   count.textContent = `${list.length} titles`;
@@ -633,7 +713,7 @@ function showWatchlist(element) {
       card.className = 'movie-card';
       card.innerHTML = `
         <div class="card-poster-wrap">
-          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)">
+          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
           <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
           <div class="card-play-hover">
             <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -669,15 +749,24 @@ function showWatchlist(element) {
 
 // Category Filtering
 function filterCategory(type, element) {
+  restoreHomeView();
+  closeProfileDropdown();
+  closeMobileBrowseMenu();
+  closeNotificationDropdown();
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
   if (element) element.classList.add('active');
 
   const dlSec = document.getElementById('downloads-section');
   if (dlSec) dlSec.style.display = 'none';
 
-  document.getElementById('watchlist-section').style.display = 'none';
-  document.getElementById('search-results-section').style.display = 'none';
-  document.getElementById('hero-banner').style.display = 'flex';
+  const watchlistSection = document.getElementById('watchlist-section');
+  if (watchlistSection) watchlistSection.style.display = 'none';
+  const searchSection = document.getElementById('search-results-section');
+  if (searchSection) searchSection.style.display = 'none';
+  const hero = document.getElementById('hero-banner');
+  if (hero) hero.style.display = 'flex';
+  const ottHub = document.getElementById('ott-hub-wrapper');
+  if (ottHub) ottHub.style.display = 'block';
 
   const sTop10M = document.getElementById('section-top10-movies');
   const sTop10S = document.getElementById('section-top10-series');
@@ -688,36 +777,15 @@ function filterCategory(type, element) {
   const sApp = document.getElementById('section-apple');
   const sCr = document.getElementById('section-crunchyroll');
 
-  if (type === 'all') {
-    showAllSections();
-  } else if (type === 'movie') {
-    sTop10M.style.display = 'block';
-    sTop10S.style.display = 'none';
-    sNflx.style.display = 'block';
-    sPrm.style.display = 'block';
-    sDis.style.display = 'block';
-    sHbo.style.display = 'block';
-    sApp.style.display = 'none';
-    sCr.style.display = 'none';
-  } else if (type === 'series') {
-    sTop10M.style.display = 'none';
-    sTop10S.style.display = 'block';
-    sNflx.style.display = 'block';
-    sPrm.style.display = 'block';
-    sDis.style.display = 'block';
-    sHbo.style.display = 'block';
-    sApp.style.display = 'block';
-    sCr.style.display = 'block';
-  } else if (type === 'top10') {
-    sTop10M.style.display = 'block';
-    sTop10S.style.display = 'block';
-    sNflx.style.display = 'none';
-    sPrm.style.display = 'none';
-    sDis.style.display = 'none';
-    sHbo.style.display = 'none';
-    sApp.style.display = 'none';
-    sCr.style.display = 'none';
-  }
+  const allRows = [sTop10M, sTop10S, sNflx, sPrm, sDis, sHbo, sApp, sCr,
+    'section-paramount', 'section-hulu', 'section-peacock', 'section-sonyliv',
+    'section-zee5', 'section-jiocinema', 'section-animeworld']
+    .map(row => typeof row === 'string' ? document.getElementById(row) : row)
+    .filter(Boolean);
+  allRows.forEach(row => {
+    const isTop10 = row.id === 'section-top10-movies' || row.id === 'section-top10-series';
+    row.style.display = type === 'all' || (type === 'top10' && isTop10) || (type !== 'top10' && row.id !== (type === 'movie' ? 'section-top10-series' : 'section-top10-movies')) ? 'block' : 'none';
+  });
 }
 
 function toggleHomeVisibilityForSearch(isSearching) {
@@ -727,6 +795,7 @@ function toggleHomeVisibilityForSearch(isSearching) {
   const cw = document.getElementById('continue-watching-section');
   const rows = document.querySelectorAll('.netflix-row-wrap');
   const watchlist = document.getElementById('watchlist-section');
+  const downloads = document.getElementById('downloads-section');
 
   if (isSearching) {
     if (hero) hero.style.display = 'none';
@@ -734,6 +803,7 @@ function toggleHomeVisibilityForSearch(isSearching) {
     if (pb) pb.style.display = 'none';
     if (cw) cw.style.display = 'none';
     if (watchlist) watchlist.style.display = 'none';
+    if (downloads) downloads.style.display = 'none';
     rows.forEach(r => r.style.display = 'none');
   } else {
     if (hero) hero.style.display = 'flex';
@@ -764,7 +834,7 @@ function filterGenre(genre) {
     card.className = 'movie-card';
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)">
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
         <div class="card-play-hover">
           <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -928,7 +998,7 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
       card.className = 'movie-card';
       card.innerHTML = `
         <div class="card-poster-wrap">
-          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)">
+          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
           <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
           <div class="card-type-badge">${item.type === 'series' ? 'SERIES' : 'MOVIE'}</div>
           ${dubBadgeHtml}
@@ -972,10 +1042,10 @@ function clearSearch() {
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
   { id: 0, name: 'Server 1: VidLink Pro HD', badge: 'Fastest • 0 Ads • Multi-Audio 4K', provider: 'VidLink Pro' },
-  { id: 1, name: 'Server 2: VidSrc PM 4K', badge: 'Direct 4K UHD', provider: 'VidSrc PM' },
+  { id: 1, name: 'Server 2: VidSrc Buzz Clean Direct', badge: 'Direct Ultra HD • 0 Ads', provider: 'VidSrc Buzz' },
   { id: 2, name: 'Server 3: AutoEmbed CC Clean', badge: 'Auto Dub • 0 Ads', provider: 'AutoEmbed Direct' },
   { id: 3, name: 'Server 4: Global Mirror', badge: 'Multi-Language • 0 Ads', provider: 'Global Mirror' },
-  { id: 4, name: 'Server 5: 2Embed CC Captions', badge: 'Multi-Language CC', provider: '2Embed CC' },
+  { id: 4, name: 'Server 5: AutoEmbed CC Clean Captions', badge: 'Multi-Language CC • 0 Ads', provider: 'AutoEmbed Direct' },
   { id: 5, name: 'Server 6: FilmU VIP Cloud Mirror', badge: 'Fast Cloud • 0 Ads', provider: 'FilmU VIP' },
   { id: 6, name: 'Server 7: VidSrc Buzz Clean Direct', badge: 'Fast HD 1080p • 0 Ads', provider: 'VidSrc Buzz' },
   { id: 7, name: 'Server 8: AutoEmbed Direct Mirror', badge: 'Global Mirror • 0 Ads', provider: 'AutoEmbed Direct' },
@@ -1244,7 +1314,7 @@ function renderSimilarTitles(item) {
     card.className = 'movie-card';
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${sim.poster}" alt="${sim.title}" onerror="handleImgError(this)">
+        <img class="card-poster" src="${sim.poster}" alt="${sim.title}" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${sim.platformId}">${sim.platformBadge || sim.platform}</div>
         <div class="card-play-hover">
           <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -1386,13 +1456,13 @@ function shareVia(channel) {
   const text = `Watch "${title}" (${item.year || '2026'}) in 4K Ultra HD on CinemaMirror Pro! 100% Free & 0 Ads:`;
 
   if (channel === 'whatsapp') {
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+    openTrustedExternalLink(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + url)}`);
   } else if (channel === 'telegram') {
-    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
+    openTrustedExternalLink(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
   } else if (channel === 'twitter') {
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+    openTrustedExternalLink(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
   } else if (channel === 'facebook') {
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+    openTrustedExternalLink(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`);
   } else if (channel === 'native') {
     if (navigator.share) {
       navigator.share({ title: `${title} - CinemaMirror`, text, url }).catch(() => {});
@@ -1581,9 +1651,11 @@ function loadServerStream(serverIdx) {
     if (bufferSub) bufferSub.textContent = 'High-speed clean stream • Neutralizing popups & ads...';
   }
 
-  // 2. High-Speed Direct Stream Loading — ZERO SANDBOX RESTRICTIONS (100% Server Compatible)
+  // 2. High-Speed Direct Stream Loading — Kernel-Level Anti-Ad Sandbox Shield (0 Popups, 0 Redirects)
   const iframe = document.getElementById('player-iframe');
-  iframe.removeAttribute('sandbox');
+  // Allow scripts, HTML5 video engine, HLS/m3u8 playback, same-origin storage & forms.
+  // Explicitly OMIT allow-popups, allow-popups-to-escape-sandbox, and allow-top-navigation to block all ad redirects.
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads');
   iframe.referrerPolicy = 'origin';
 
   let streamUrl = srv.url;
@@ -1593,7 +1665,7 @@ function loadServerStream(serverIdx) {
     const sep = streamUrl.includes('?') ? '&' : '?';
     streamUrl = `${streamUrl}${sep}apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
   }
-  // 2. AutoEmbed (Server 3 & 8): Strip outer ad wrapper (gussiessmutchy.com) and load pure player.autoembed.co
+  // 2. AutoEmbed (Server 3, 5 & 8): Strip outer ad wrapper (gussiessmutchy.com) and load pure player.autoembed.co
   if (streamUrl && streamUrl.includes('//autoembed.co/') && !streamUrl.includes('player.autoembed.co')) {
     streamUrl = streamUrl.replace('//autoembed.co/movie/tmdb/', '//player.autoembed.co/embed/movie/')
                          .replace('//autoembed.co/tv/tmdb/', '//player.autoembed.co/embed/tv/')
@@ -1604,6 +1676,14 @@ function loadServerStream(serverIdx) {
   if (streamUrl && streamUrl.includes('vidlink.pro') && !streamUrl.includes('multiLang=')) {
     const sep = streamUrl.includes('?') ? '&' : '?';
     streamUrl = `${streamUrl}${sep}multiLang=true`;
+  }
+  // 4. Upgrade any lingering 2embed.cc or vidsrc.pm URLs to clean ad-free mirrors
+  if (streamUrl && streamUrl.includes('2embed.cc')) {
+    streamUrl = streamUrl.replace(/https?:\/\/(www\.)?2embed\.cc\/embedtv\/([^\s&]+)[^"'\s]*/, 'https://player.autoembed.co/embed/tv/$2')
+                         .replace(/https?:\/\/(www\.)?2embed\.cc\/embed\/([^\s&]+)[^"'\s]*/, 'https://player.autoembed.co/embed/movie/$2');
+  }
+  if (streamUrl && streamUrl.includes('vidsrc.pm')) {
+    streamUrl = streamUrl.replace('vidsrc.pm', 'vidsrc.buzz');
   }
   iframe.src = streamUrl;
 
@@ -2038,7 +2118,7 @@ function renderTheaterSimilar(item) {
     card.className = 'movie-card';
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${sim.poster}" alt="${sim.title}" onerror="handleImgError(this)">
+        <img class="card-poster" src="${sim.poster}" alt="${sim.title}" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${sim.platformId}">${sim.platformBadge || sim.platform}</div>
         <div class="card-play-hover">
           <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -2693,7 +2773,7 @@ function renderNotifications() {
 
     const isTop = !!item.rank;
     itemEl.innerHTML = `
-      <img class="notif-poster" src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)">
+      <img class="notif-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
       <div class="notif-content">
         <div class="notif-tag-row">
           <span class="notif-tag">${isTop ? 'Trending #1' : 'New 4K Release'}</span>
@@ -2817,8 +2897,14 @@ function openSettingsModal(tabName = 'install') {
   closeProfileDropdown();
   closeNotificationDropdown();
 
+  const tabAliases = { data: 'storage' };
+  tabName = tabAliases[tabName] || tabName;
+  const validTabs = new Set(['install', 'streaming', 'audio', 'subtitles', 'shield', 'storage', 'about']);
+  if (!validTabs.has(tabName)) tabName = 'install';
+
   const modal = document.getElementById('app-settings-modal');
   if (!modal) return;
+  closeMobileBrowseMenu();
   modal.style.display = 'flex';
 
   // Activate requested tab
@@ -3042,7 +3128,8 @@ function updateOfflineStorageMeta() {
 
 function showDownloadsSection(element) {
   closeProfileDropdown();
-  // Hide other views
+  closeNotificationDropdown();
+  closeMobileBrowseMenu();
   document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
   if (element) {
     element.classList.add('active');
@@ -3051,24 +3138,10 @@ function showDownloadsSection(element) {
     if (dlNav) dlNav.classList.add('active');
   }
 
-  // Close mobile nav if open
-  const navLinks = document.getElementById('netflix-nav-links');
-  if (navLinks) navLinks.classList.remove('mobile-open');
-
-  const hero = document.getElementById('hero-banner');
-  if (hero) hero.style.display = 'none';
+  const main = document.getElementById('main-content');
+  if (main) main.querySelectorAll(':scope > section').forEach(view => { view.style.display = view.id === 'downloads-section' ? 'block' : 'none'; });
   const ottHub = document.getElementById('ott-hub-wrapper');
   if (ottHub) ottHub.style.display = 'none';
-  const searchSec = document.getElementById('search-results-section');
-  if (searchSec) searchSec.style.display = 'none';
-  const watchSec = document.getElementById('watchlist-section');
-  if (watchSec) watchSec.style.display = 'none';
-
-  // Hide platform movie rows
-  document.querySelectorAll('.netflix-main > section:not(#downloads-section)').forEach(sec => {
-    sec.style.display = 'none';
-  });
-
   const dlSec = document.getElementById('downloads-section');
   if (dlSec) {
     dlSec.style.display = 'block';
@@ -3106,7 +3179,7 @@ function renderOfflineDownloads() {
 
     card.innerHTML = `
       <div class="offline-poster-wrap">
-        <img src="${item.poster}" alt="${item.title}" onerror="handleImgError(this)">
+        <img src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
         <span class="offline-badge"><i class="fa-solid fa-circle-check"></i> OFFLINE READY</span>
       </div>
       <div class="offline-meta-wrap">
@@ -3387,6 +3460,7 @@ function openDirectStreamDownload() {
   a.href = directUrl;
   a.target = '_blank';
   a.rel = 'noopener noreferrer';
+  a.dataset.allowExternal = 'true';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

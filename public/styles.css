@@ -6591,5 +6591,282 @@ input[type=range][orient=vertical] {
   margin: 0 0 18px 0;
 }
 
+/* ========================================================
+   RESPONSIVE POLISH & ACCESSIBLE INTERACTION STATES
+   Applied after legacy rules so every app view shares one
+   consistent layout without changing its interaction hooks.
+   ======================================================== */
+:root {
+  --bg-dark: #101114;
+  --bg-surface: #17191e;
+  --bg-card: #1d2026;
+  --bg-card-hover: #262a32;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --transition: 180ms ease;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  min-width: 320px;
+  background: radial-gradient(ellipse at 50% -28rem, rgba(108, 29, 36, 0.18), transparent 65%), var(--bg-dark);
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+button, input, select, textarea { font: inherit; }
+button, a, [role="button"], .movie-card { touch-action: manipulation; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible,
+[role="button"]:focus-visible, .movie-card:focus-visible {
+  outline: 2px solid #ff6670;
+  outline-offset: 3px;
+}
+
+.netflix-navbar {
+  min-height: 68px;
+  padding-inline: clamp(14px, 3.2vw, 48px);
+  background: linear-gradient(180deg, rgba(12, 13, 16, 0.98), rgba(12, 13, 16, 0.88));
+  border-bottom-color: rgba(255,255,255,.08);
+  box-shadow: 0 8px 28px rgba(0,0,0,.18);
+}
+
+.netflix-main { min-height: 65vh; }
+.netflix-billboard {
+  min-height: clamp(480px, 72vh, 820px);
+  height: min(84vh, 900px);
+  padding-inline: clamp(20px, 6vw, 96px);
+}
+.billboard-content { width: min(100%, 660px); }
+.billboard-title { font-size: clamp(2.25rem, 5.3vw, 4.5rem); text-wrap: balance; }
+.billboard-desc { max-width: 58ch; }
+.billboard-actions { flex-wrap: wrap; }
+.netflix-btn, .btn-download-hero, .btn-round { min-height: 44px; }
+
+.ott-hub-wrapper {
+  margin: 8px 0 28px;
+  padding: 20px clamp(16px, 4vw, 64px);
+  background: linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  border-color: rgba(255,255,255,.08);
+}
+.ott-platforms-bar, .search-filter-pills, .search-quick-tags, .search-type-group {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.24) transparent;
+}
+.netflix-row-wrap { padding-inline: clamp(16px, 4vw, 64px); margin-bottom: clamp(24px, 4vw, 48px); }
+.row-title { font-size: clamp(1.05rem, 1.6vw, 1.35rem); }
+.netflix-row { gap: clamp(10px, 1.2vw, 18px); }
+.netflix-row .movie-card { flex-basis: clamp(138px, 15vw, 208px); }
+.netflix-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 165px), 1fr)); gap: clamp(14px, 2vw, 24px); }
+.netflix-grid .movie-card { min-width: 0; }
+.movie-card {
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 9px;
+  box-shadow: 0 5px 18px rgba(0,0,0,.15);
+}
+.movie-card:hover { transform: translateY(-4px) scale(1.025); }
+.card-info { padding: 11px 12px 13px; }
+
+.search-results-section, .downloads-section {
+  padding: 96px clamp(16px, 4vw, 64px) 56px;
+}
+.search-header-container { gap: 18px; }
+.search-header-container .section-title { font-size: clamp(1.35rem, 2.5vw, 2rem); line-height: 1.25; }
+.search-pill, .type-pill, .tag-pill, .cat-pill { min-height: 38px; }
+
+.netflix-modal-backdrop {
+  align-items: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+}
+.netflix-modal-card {
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 14px;
+}
+.share-modal-card, .download-modal-card { max-height: calc(100dvh - 32px); overflow-y: auto; }
+.settings-modal-layout { min-height: 0; }
+.settings-content-pane { min-width: 0; }
+.settings-tab-panel, .setting-row, .about-repo-box { min-width: 0; }
+
+.toast { max-width: min(420px, calc(100vw - 32px)); }
+.netflix-footer { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+
+@media (max-width: 900px) {
+  html { scroll-padding-top: 70px; }
+  .netflix-navbar { min-height: 62px; }
+  .netflix-billboard { height: 72vh; min-height: 500px; padding-inline: 5vw; }
+  .billboard-right-meta { right: 0; }
+  .netflix-row-wrap { padding-inline: 4vw; }
+  .netflix-row .movie-card { flex-basis: clamp(138px, 23vw, 190px); }
+  .settings-modal-layout { grid-template-columns: 190px minmax(0, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .netflix-navbar { min-height: 58px; padding-inline: 10px; gap: 6px; }
+  .nav-left { min-width: 0; }
+  .netflix-logo { flex-shrink: 0; }
+  .nav-right { min-width: 0; }
+  .netflix-billboard {
+    height: auto;
+    min-height: min(700px, 78svh);
+    align-items: flex-end;
+    padding: 120px 20px 76px;
+    background-position: center;
+  }
+  .billboard-backdrop { background-position: 58% center; }
+  .billboard-gradient-left { width: 100%; background: linear-gradient(90deg, rgba(16,17,20,.82), rgba(16,17,20,.2)); }
+  .billboard-gradient-bottom { height: 72%; background: linear-gradient(180deg, transparent 0%, rgba(16,17,20,.45) 22%, #101114 100%); }
+  .billboard-title { max-width: 15ch; margin-block: 10px 12px; }
+  .billboard-meta { gap: 7px; font-size: 12px; flex-wrap: wrap; }
+  .billboard-desc { font-size: 14px; -webkit-line-clamp: 4; margin-bottom: 18px; }
+  .billboard-actions { gap: 8px; }
+  .netflix-btn { padding: 10px 15px; font-size: 14px; }
+  .btn-download-hero { padding: 10px 13px; font-size: 13px; }
+  .btn-round { width: 42px; height: 42px; }
+  .billboard-right-meta { bottom: 18px; right: 18px; gap: 8px; }
+  .billboard-age-rating { padding: 4px 10px; font-size: 12px; }
+  .billboard-dots { bottom: 28px; right: auto; left: 20px; }
+  .ott-hub-wrapper { padding: 16px; }
+  .netflix-row-wrap { padding-inline: 16px; margin-bottom: 24px; }
+  .netflix-row .movie-card { flex-basis: 38vw; max-width: 176px; }
+  .netflix-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .section { padding: 20px 16px; }
+  .search-results-section, .downloads-section { padding: 78px 16px 40px; }
+  .search-header-container .section-title { align-items: flex-start; }
+  .search-filter-pills { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; }
+  .search-pill { flex: 0 0 auto; }
+  .search-secondary-bar { gap: 12px; }
+  .settings-modal-layout { display: flex; flex-direction: column; }
+  .settings-sidebar { width: 100%; max-height: 150px; overflow: auto; }
+  .settings-content-pane { width: 100%; }
+  .setting-row, .about-repo-box { align-items: flex-start; flex-direction: column; }
+  .settings-dropdown, .install-actions-vertical { width: 100%; min-width: 0; }
+  .modal-content-grid { grid-template-columns: 1fr; gap: 18px; padding: 20px; }
+  .modal-hero-wrap { height: clamp(220px, 62vw, 340px); }
+  .modal-hero-info { left: 20px; right: 20px; bottom: 16px; }
+  .modal-hero-title { font-size: clamp(25px, 7vw, 34px); }
+  .modal-content-grid { padding: 18px 20px; }
+  .download-modal-card, .share-modal-card { width: 100%; padding: 18px; }
+  .share-input-wrap { flex-wrap: wrap; }
+  .share-input-wrap input { min-width: 0; }
+  .downloads-header-actions { width: 100%; flex-wrap: wrap; }
+}
+
+@media (max-width: 380px) {
+  .logo-text-group { display: none; }
+  .nav-mobile-browse { font-size: 11px; }
+  .netflix-search-box.open input { width: min(30vw, 112px); }
+  .netflix-grid { gap: 9px; }
+  .card-info { padding: 9px; }
+  .card-title { font-size: 12px; }
+  .card-meta { font-size: 10px; }
+}
+
+@media (hover: none) {
+  .movie-card:hover { transform: none; }
+  .movie-card:hover .card-play-hover { opacity: 0; }
+  .slider-arrow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Compact header and profile menu: avoid pushing or covering the page. */
+.netflix-navbar {
+  height: 60px;
+  min-height: 60px;
+  gap: 12px;
+  padding-inline: clamp(12px, 2.4vw, 36px);
+}
+.nav-left { gap: clamp(10px, 1.8vw, 24px); min-width: 0; }
+.netflix-nav-links { gap: clamp(10px, 1.5vw, 20px); margin-left: 0; }
+.netflix-nav-links .nav-item { font-size: 13px; white-space: nowrap; }
+.nav-right { gap: clamp(2px, .6vw, 8px); flex: 0 0 auto; }
+.search-toggle-btn, .nav-bell, .netflix-profile-wrap { min-width: 38px; min-height: 38px; }
+.profile-avatar { width: 28px; height: 28px; }
+.profile-caret { font-size: 10px; }
+.profile-dropdown-menu {
+  top: calc(100% + 8px);
+  width: min(280px, calc(100vw - 24px));
+  max-height: min(70vh, 520px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-color: rgba(255,255,255,.12);
+  border-radius: 12px;
+  background: #191b20;
+  box-shadow: 0 16px 44px rgba(0,0,0,.58);
+}
+.profile-menu-user-row { padding: 10px 14px; }
+.profile-dropdown-list li { min-height: 40px; padding: 8px 14px; font-size: 12px; }
+.profile-dropdown-list li i { flex: 0 0 18px; }
+
+/* Shorter, more balanced content views at laptop and phone sizes. */
+.netflix-billboard { min-height: 500px; height: min(76vh, 760px); }
+.search-results-section, .downloads-section { min-height: 0; }
+.section { padding-block: 20px; }
+.netflix-row-wrap { margin-bottom: 30px; }
+.netflix-row .movie-card { flex-basis: clamp(132px, 13.5vw, 184px); }
+.netflix-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 190px)); }
+.netflix-grid .movie-card { width: 100%; }
+
+@media (max-width: 950px) {
+  .netflix-navbar { height: 58px; min-height: 58px; }
+  .netflix-nav-links { top: calc(100% + 6px); left: 12px; }
+}
+
+@media (max-width: 600px) {
+  .netflix-navbar { height: 54px; min-height: 54px; padding-inline: 8px; gap: 2px; }
+  .nav-left { gap: 6px; }
+  .nav-right { gap: 0; }
+  .search-toggle-btn, .nav-bell, .netflix-profile-wrap { min-width: 34px; min-height: 36px; padding-inline: 4px; }
+  .profile-avatar { width: 26px; height: 26px; }
+  .netflix-profile-wrap { gap: 3px; }
+  .profile-dropdown-menu { top: calc(100% + 6px); right: -4px; width: min(280px, calc(100vw - 16px)); max-height: 68vh; }
+  .notifications-dropdown { top: calc(100% + 6px); right: -36px; max-height: 68vh; overflow-y: auto; }
+  .netflix-billboard { min-height: 430px; height: min(66svh, 580px); padding: 92px 16px 62px; }
+  .billboard-desc { -webkit-line-clamp: 3; }
+  .netflix-row-wrap { margin-bottom: 20px; }
+  .netflix-row .movie-card { flex-basis: min(39vw, 155px); }
+  .section { padding-block: 16px; }
+  .search-results-section, .downloads-section { padding-top: 70px; }
+  .settings-sidebar { max-height: 120px; }
+}
+
+@media (max-width: 380px) {
+  .netflix-navbar { padding-inline: 6px; }
+  .nav-mobile-browse { gap: 3px; padding-inline: 4px; }
+  .netflix-search-box.open input { width: 78px; }
+  .nav-bell { min-width: 30px; }
+  .netflix-row .movie-card { flex-basis: 42vw; }
+}
+
+@keyframes soft-rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.netflix-billboard .billboard-content { animation: soft-rise-in 520ms cubic-bezier(.2,.7,.2,1) both; }
+.netflix-modal-card { animation: soft-rise-in 220ms ease-out both; }
+.profile-dropdown-menu, .notifications-dropdown { transform-origin: top right; }
+.profile-dropdown-menu.show, .notifications-dropdown.show { animation: soft-rise-in 160ms ease-out both; }
+.netflix-row-wrap { animation: soft-rise-in 380ms ease-out both; }
+.netflix-row-wrap:nth-of-type(2n) { animation-delay: 35ms; }
+.netflix-row-wrap:nth-of-type(3n) { animation-delay: 70ms; }
+.netflix-btn, .btn-round, .search-pill, .type-pill, .tag-pill, .btn-action-outline {
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.netflix-btn:hover, .btn-round:hover, .search-pill:hover, .type-pill:hover, .tag-pill:hover, .btn-action-outline:hover { transform: translateY(-1px); }
+.profile-dropdown-list li:active, .settings-tab-btn:active { transform: scale(.985); }
+
+@media (max-width: 600px) {
+  .netflix-row-wrap:nth-of-type(n) { animation-delay: 0ms; }
+  .profile-dropdown-list li { min-height: 42px; }
+}
+
 
 

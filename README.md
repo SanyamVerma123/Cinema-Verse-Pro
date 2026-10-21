@@ -1,6 +1,6 @@
 # CinemaMirror Pro — 100% Ad-Free Streaming Web Application
 
-A modern, high-speed, and completely ad-free streaming web application built with **Node.js** and **Express.js**, designed as a drastically superior alternative to the third-party **NetMirror APK**.
+A responsive streaming catalog application powered by **Next.js** and **React**, with the existing Express API mounted behind Next.js routes.
 
 ---
 
@@ -39,15 +39,22 @@ Prior to building this web application, a full static, forensic, and dynamic rev
 
 ## 🛠️ How to Run
 
-1. Open PowerShell or Terminal in `d:\apps\FMR`:
+1. Install dependencies once:
    ```bash
-   cd d:\apps\FMR
-   npm start
+   npm install
    ```
-2. Open your web browser and navigate to:
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Open your browser at:
    ```
    http://localhost:3000
    ```
+
+For production, run `npm run build` followed by `npm start`.
 
 ---
 

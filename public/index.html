@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Netflix Mirror Pro — Watch TV Shows & Movies Online Free</title>
   <meta name="description" content="Watch Netflix, Prime Video, Disney+ Hotstar, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
   <!-- PWA & Mobile Web App Meta -->
@@ -742,10 +742,11 @@
         </div>
       </div>
 
-      <!-- Pure Video Stream Iframe (ZERO SANDBOX RESTRICTIONS - 100% CLEAN PLAYBACK) -->
+      <!-- Pure Video Stream Iframe (Strict Anti-Ad Sandbox: 0 Popups, 0 Redirects) -->
       <iframe
         id="player-iframe"
         src=""
+        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads"
         allowfullscreen
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
         referrerpolicy="origin"
@@ -1053,7 +1054,7 @@
         <h3 id="trailer-modal-title"><i class="fa-brands fa-youtube text-red"></i> Official Trailer</h3>
       </div>
       <div class="trailer-video-stage">
-        <iframe id="trailer-iframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        <iframe id="trailer-iframe" src="" allowfullscreen allow="autoplay; encrypted-media" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
       </div>
     </div>
   </div>
@@ -1444,7 +1445,7 @@
                   <span class="repo-name">SanyamVerma123 / CinemaMirror-Pro</span>
                   <span class="repo-branch"><i class="fa-solid fa-code-branch text-green"></i> main branch (Clean CI/CD)</span>
                 </div>
-                <a href="https://github.com/SanyamVerma123/CinemaMirror-Pro" target="_blank" rel="noopener noreferrer" class="btn-github-link">
+                <a href="https://github.com/SanyamVerma123/CinemaMirror-Pro" target="_blank" rel="noopener noreferrer" data-allow-external="true" class="btn-github-link">
                   View Source <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
               </div>
@@ -1469,7 +1470,7 @@
       </div>
 
       <div class="share-preview-card">
-        <img class="share-preview-poster" id="share-preview-poster" src="" alt="Poster" onerror="handleImgError(this)">
+        <img class="share-preview-poster" id="share-preview-poster" src="" alt="Poster" onerror="window.handleImgError(this)">
         <div class="share-preview-meta">
           <span class="share-badge-quality"><i class="fa-solid fa-sparkles text-gold"></i> CinemaMirror Pro</span>
           <h4 id="share-preview-title">Title</h4>
@@ -1529,7 +1530,7 @@
       <div class="download-modal-body">
         <!-- Media Preview Card -->
         <div class="download-preview-card">
-          <img class="download-preview-poster" id="dl-preview-poster" src="" alt="Poster" onerror="handleImgError(this)">
+          <img class="download-preview-poster" id="dl-preview-poster" src="" alt="Poster" onerror="window.handleImgError(this)">
           <div class="download-preview-meta">
             <span class="download-badge-quality" id="dl-badge-quality">4K Ultra HD</span>
             <h4 id="dl-item-title">Title</h4>
