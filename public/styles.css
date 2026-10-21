@@ -6953,17 +6953,34 @@ h1, h2, h3, h4, h5, h6,
 
 /* 2. Glassmorphism Top Navigation */
 .netflix-navbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-inline: clamp(16px, 3.5vw, 48px) !important;
+  gap: 16px !important;
+  height: 68px !important;
+  min-height: 68px !important;
   background: rgba(9, 10, 14, 0.82) !important;
   backdrop-filter: blur(28px) saturate(190%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  z-index: 1000 !important;
 }
 
 .netflix-navbar.scrolled {
   background: rgba(8, 9, 12, 0.95) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Nav Left Flex Structure */
+.nav-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(12px, 1.8vw, 28px) !important;
+  min-width: 0 !important;
+  flex: 0 1 auto !important;
 }
 
 /* Logo Treatment */
@@ -6991,15 +7008,25 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* Nav Links Aesthetic */
+.netflix-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(6px, 1.1vw, 16px) !important;
+  margin-left: 0 !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+
 .netflix-nav-links .nav-item {
   font-family: var(--font-body);
   font-size: 13.5px;
   font-weight: 500;
   color: #d1d5db;
   position: relative;
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: 8px;
   transition: all 0.22s ease;
+  white-space: nowrap;
 }
 
 .netflix-nav-links .nav-item:hover {
@@ -7025,32 +7052,212 @@ h1, h2, h3, h4, h5, h6,
   box-shadow: 0 0 10px var(--netflix-red);
 }
 
-/* Search Box Polish */
+/* Collapse non-essential desktop links on mid-size screens (<= 1366px) */
+@media (max-width: 1366px) {
+  .netflix-nav-links .nav-item-downloads,
+  .netflix-nav-links .nav-item.text-gold {
+    display: none !important;
+  }
+}
+
+/* Mobile & Tablet "Browse" Dropdown Switch (<= 1080px) */
+@media (max-width: 1080px) {
+  .nav-mobile-browse {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 9999px !important;
+    padding: 6px 14px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+  .nav-mobile-browse:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+  }
+  .netflix-nav-links {
+    display: none !important;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: clamp(12px, 3vw, 24px) !important;
+    background: rgba(14, 16, 22, 0.98) !important;
+    backdrop-filter: blur(28px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.9) !important;
+    flex-direction: column !important;
+    padding: 8px 0 !important;
+    min-width: 230px !important;
+    z-index: 10000 !important;
+  }
+  .netflix-nav-links.mobile-open {
+    display: flex !important;
+    animation: fadeInDown 0.2s ease forwards;
+  }
+  .netflix-nav-links .nav-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px 20px !important;
+    font-size: 13.5px !important;
+    color: #e5e5e5 !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    text-align: left !important;
+  }
+  .netflix-nav-links .nav-item:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+  }
+  .netflix-nav-links .nav-item.active::after {
+    display: none !important;
+  }
+  .netflix-nav-links.mobile-open .nav-item-downloads,
+  .netflix-nav-links.mobile-open .nav-item.text-gold {
+    display: flex !important;
+  }
+}
+
+/* Nav Right Flex Structure (Never squished) */
+.nav-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(8px, 1vw, 14px) !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+}
+
+/* Search Box Polish — Standard Compact Pill with Expandable Input */
 .netflix-search-box {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
-  backdrop-filter: blur(16px);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  border-radius: 9999px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.netflix-search-box:not(.open) {
+  width: 38px !important;
+  height: 38px !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+.netflix-search-box:not(.open) input {
+  width: 0 !important;
+  max-width: 0 !important;
+  opacity: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  border: none !important;
+  overflow: hidden !important;
+}
+
+.netflix-search-box:not(.open) .clear-search-btn {
+  display: none !important;
 }
 
 .netflix-search-box.open {
-  background: rgba(18, 20, 27, 0.96);
-  border-color: rgba(229, 9, 20, 0.7);
-  box-shadow: 0 0 22px rgba(229, 9, 20, 0.35);
+  background: rgba(18, 20, 27, 0.96) !important;
+  border-color: rgba(229, 9, 20, 0.7) !important;
+  box-shadow: 0 0 22px rgba(229, 9, 20, 0.35) !important;
+  padding: 2px 10px 2px 4px !important;
+  height: 38px !important;
+}
+
+.netflix-search-box.open input {
+  width: clamp(160px, 18vw, 240px) !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: #fff !important;
+  font-size: 13.5px !important;
+  padding: 4px 8px !important;
+  pointer-events: auto !important;
+}
+
+.search-toggle-btn {
+  background: none !important;
+  border: none !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  height: 34px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  transition: transform 0.18s ease !important;
+}
+
+.search-toggle-btn:hover {
+  transform: scale(1.1) !important;
+}
+
+/* Kids Pill Link */
+.nav-kids-link {
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #e5e5e5 !important;
+  cursor: pointer !important;
+  padding: 6px 12px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+}
+
+.nav-kids-link:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+@media (max-width: 1180px) {
+  .nav-kids-link {
+    display: none !important;
+  }
 }
 
 /* Notification Bell */
 .nav-bell {
-  background: rgba(255, 255, 255, 0.07) !important;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.06) !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 50% !important;
+  cursor: pointer !important;
   transition: all 0.2s ease !important;
+  color: #fff !important;
 }
 
 .nav-bell:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  transform: scale(1.06);
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  transform: scale(1.08) !important;
 }
 
 .bell-badge {
@@ -7060,21 +7267,33 @@ h1, h2, h3, h4, h5, h6,
 
 /* Profile Pill */
 .netflix-profile-wrap {
-  background: rgba(255, 255, 255, 0.07) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
   border-radius: 9999px !important;
-  padding: 4px 10px 4px 4px !important;
+  padding: 3px 10px 3px 4px !important;
+  min-width: auto !important;
+  min-height: 38px !important;
+  height: 38px !important;
+  cursor: pointer !important;
   transition: all 0.22s ease !important;
 }
 
 .netflix-profile-wrap:hover {
   background: rgba(255, 255, 255, 0.15) !important;
   border-color: rgba(255, 255, 255, 0.28) !important;
+  transform: translateY(-1px) !important;
 }
 
 .profile-avatar {
-  border: 1.5px solid rgba(229, 9, 20, 0.7) !important;
-  box-shadow: 0 0 12px rgba(229, 9, 20, 0.45) !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 1.5px solid rgba(229, 9, 20, 0.8) !important;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.4) !important;
 }
 
 /* 3. Hero Billboard — Cinematic Showcase */

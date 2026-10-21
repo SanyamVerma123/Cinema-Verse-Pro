@@ -173,9 +173,12 @@ function setupNavbarScroll() {
 function toggleSearchBox() {
   const box = document.getElementById('search-box');
   const input = document.getElementById('search-input');
+  if (!box || !input) return;
   box.classList.toggle('open');
   if (box.classList.contains('open')) {
     input.focus();
+  } else {
+    input.blur();
   }
 }
 
@@ -860,13 +863,15 @@ function filterGenre(genre) {
 // ========================================================
 
 function setupSearch() {
+  const box = document.getElementById('search-box');
   const input = document.getElementById('search-input');
   const clearBtn = document.getElementById('clear-search');
+  if (!input) return;
   let debounceTimeout = null;
 
   input.addEventListener('input', () => {
     const val = input.value.trim();
-    clearBtn.style.display = val ? 'block' : 'none';
+    if (clearBtn) clearBtn.style.display = val ? 'block' : 'none';
 
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
@@ -881,7 +886,25 @@ function setupSearch() {
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       clearSearch();
+      if (box) box.classList.remove('open');
       input.blur();
+    }
+  });
+
+  // Smooth collapse on blur if search query is empty
+  input.addEventListener('blur', () => {
+    setTimeout(() => {
+      if (box && !input.value.trim() && document.activeElement !== input) {
+        box.classList.remove('open');
+      }
+    }, 220);
+  });
+
+  // Smooth collapse when clicking anywhere outside if search is empty
+  document.addEventListener('click', (e) => {
+    if (!box || !box.classList.contains('open')) return;
+    if (!box.contains(e.target) && !input.value.trim()) {
+      box.classList.remove('open');
     }
   });
 }
