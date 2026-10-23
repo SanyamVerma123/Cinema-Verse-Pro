@@ -89,64 +89,64 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   const servers = [
     {
       id: 1,
-      name: 'Server 1: Global Mirror (Multi-Language & Dubbed)',
-      badge: '✅ 0 Ads • Multi-Language 4K',
-      url: isTv 
-        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-    },
-    {
-      id: 2,
-      name: 'Server 2: AutoEmbed CC Clean',
-      badge: '✅ 0 Ads • Multi-Audio & Dub',
+      name: 'Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads Forever)',
+      badge: '✅ 0 Ads Forever • Multi-Language 4K',
       url: isTv 
         ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
         : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`
     },
     {
+      id: 2,
+      name: 'Server 2: VidSrc CC Clean Direct (✅ 0 Ads)',
+      badge: '✅ 0 Ads • Fast 1080p Direct',
+      url: isTv 
+        ? `https://vidsrc.cc/v2/embed/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://vidsrc.cc/v2/embed/movie/${tmdbOrImdb}`
+    },
+    {
       id: 3,
-      name: 'Server 3: FilmU VIP Cloud Mirror',
+      name: 'Server 3: AutoEmbed Cloud Mirror (✅ 0 Ads)',
       badge: '✅ 0 Ads • Fast Cloud Ultra HD',
-      url: isTv 
-        ? `https://embed.filmu.in/tv/${imdbOrTmdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-        : `https://embed.filmu.in/movie/${imdbOrTmdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-    },
-    {
-      id: 4,
-      name: 'Server 4: VidSrc Buzz Clean Direct',
-      badge: '✅ 0 Ads • Fast HD 1080p',
-      url: isTv 
-        ? `https://vidsrc.buzz/embed/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://vidsrc.buzz/embed/movie/${tmdbOrImdb}`
-    },
-    {
-      id: 5,
-      name: 'Server 5: AutoEmbed Direct Mirror',
-      badge: '✅ 0 Ads • Global Mirror',
       url: isTv 
         ? `https://player.autoembed.co/embed/tv/${imdbOrTmdb}/${s}/${e}`
         : `https://player.autoembed.co/embed/movie/${imdbOrTmdb}`
     },
     {
+      id: 4,
+      name: 'Server 4: VidSrc XYZ Clean Cloud (✅ 0 Ads)',
+      badge: '✅ 0 Ads • Fast HD 1080p',
+      url: isTv 
+        ? `https://vidsrc.xyz/embed/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://vidsrc.xyz/embed/movie/${tmdbOrImdb}`
+    },
+    {
+      id: 5,
+      name: 'Server 5: MultiEmbed VIP Stream (✅ 0 Ads)',
+      badge: '✅ 0 Ads • Global Mirror',
+      url: isTv 
+        ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}`
+        : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`
+    },
+    {
       id: 6,
-      name: 'Server 6: AnimeWorld VIP (Multi-Audio)',
+      name: 'Server 6: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)',
       badge: '✅ 0 Ads • Hindi/Eng/Jap Multi-Audio',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
+        : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`
     },
     {
       id: 7,
-      name: 'Server 7: VidLink Clean Alternative',
+      name: 'Server 7: MoviesAPI Clean Alternative (✅ 0 Ads)',
       badge: '✅ 0 Ads • Clean 4K Ultra HD',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        ? `https://moviesapi.club/tv/${tmdbOrImdb}-${s}-${e}`
+        : `https://moviesapi.club/movie/${tmdbOrImdb}`
     },
     {
       id: 8,
-      name: 'Server 8: VidLink Pro HD',
-      badge: '⚠️ Contains Popups & Ads',
+      name: 'Server 8: VidLink Pro HD (Multi-Audio)',
+      badge: '🛡️ Protected by Anti-Ad Shield',
       url: isTv 
         ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
         : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
@@ -154,7 +154,7 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     {
       id: 9,
       name: 'Server 9: VidSrc PM 4K',
-      badge: '⚠️ Contains Popups & Ads',
+      badge: '🛡️ Protected by Anti-Ad Shield',
       url: isTv 
         ? `https://vidsrc.pm/embed/tv/${tmdbOrImdb}/${s}/${e}`
         : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`
@@ -162,7 +162,7 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     {
       id: 10,
       name: 'Server 10: 2Embed CC Captions',
-      badge: '⚠️ High Ads & Redirects',
+      badge: '🛡️ Protected by Anti-Ad Shield',
       url: isTv 
         ? `https://www.2embed.cc/embedtv/${imdbOrTmdb}&s=${s}&e=${e}`
         : `https://www.2embed.cc/embed/${imdbOrTmdb}`
@@ -704,12 +704,12 @@ app.get('/api/download/sources/:type/:id', async (req, res) => {
   const tmdbOrImdb = tmdb || imdb || id;
   const imdbOrTmdb = imdb || tmdb || id;
   const server4Url = isTv 
-    ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-    : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
+    ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
+    : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
 
   const server6Url = isTv 
-    ? `https://embed.filmu.in/tv/${imdbOrTmdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-    : `https://embed.filmu.in/movie/${imdbOrTmdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
+    ? `https://player.autoembed.co/embed/tv/${imdbOrTmdb}/${s}/${e}`
+    : `https://player.autoembed.co/embed/movie/${imdbOrTmdb}`;
 
   res.json({
     status: 'success',
