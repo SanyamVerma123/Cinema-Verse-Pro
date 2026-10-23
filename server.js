@@ -97,11 +97,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 2,
-      name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)',
-      badge: '✅ Fast 4K • Multi-Audio',
+      name: 'Server 2: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)',
+      badge: '✅ 0 Ads • Multi-Audio 4K',
       url: isTv 
-        ? `https://vidsrc2.ru/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
-        : `https://vidsrc2.ru/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`
+        ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
+        : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?theme=aurora&color=e50914&audioPicker=1`
     },
     {
       id: 3,
