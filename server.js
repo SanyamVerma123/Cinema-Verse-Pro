@@ -89,7 +89,7 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   const servers = [
     {
       id: 1,
-      name: 'Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads)',
+      name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)',
       badge: '✅ 0 Ads • Multi-Language 4K',
       url: isTv 
         ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`

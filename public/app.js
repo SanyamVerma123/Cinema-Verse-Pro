@@ -1702,7 +1702,7 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed VIP', hasAds: false },
+  { id: 0, name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global World Mirror', hasAds: false },
   { id: 1, name: 'Server 2: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
   { id: 2, name: 'Server 3: VidLink Pro Clean (✅ 0 Ads • Multi-Audio 4K)', badge: '✅ 0 Ads • Multi-Language Dubbed', shortBadge: '✅ 0 Ads', provider: 'VidLink Clean', hasAds: false },
   { id: 3, name: 'Server 4: MultiEmbed VIP Stream (✅ 0 Ads • Global Mirror)', badge: '✅ 0 Ads • Global Cloud Mirror', shortBadge: '✅ 0 Ads', provider: 'MultiEmbed VIP', hasAds: false },
