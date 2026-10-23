@@ -89,11 +89,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   const servers = [
     {
       id: 1,
-      name: 'Server 1: Global Mirror (Glassmorphism VIP • Multi-Language & Dubbed)',
-      badge: '✅ 0 Ads • Multi-Language 4K',
+      name: 'Server 1: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio)',
+      badge: '✅ 0 Ads • Glassmorphism 4K',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
     },
     {
       id: 2,
@@ -113,11 +113,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 4,
-      name: 'Server 4: VidLink Pro Clean (✅ 0 Ads • Multi-Audio 4K)',
-      badge: '✅ 0 Ads • Multi-Language Dubbed',
+      name: 'Server 4: Global Mirror (Multi-Language & Dubbed • ✅ 0 Ads)',
+      badge: '✅ 0 Ads • Multi-Language 4K',
       url: isTv 
-        ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
-        : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=false&multiLang=true`
+        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
     },
     {
       id: 5,
