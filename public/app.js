@@ -1719,6 +1719,21 @@ let selectedServerIndex = 0; // Default: Server 1 (Global Mirror - 0 Ads)
 // NETFLIX DETAILS MODAL (MOVIE PAGE)
 // ========================================================
 
+// Update Selected Server UI in Details Modal & Player
+function updateSelectedServerUI() {
+  const srv = STREAMING_SERVERS[selectedServerIndex] || STREAMING_SERVERS[0];
+  const statusEl = document.getElementById('modal-selected-server-name');
+  if (statusEl) statusEl.textContent = `${srv.name} (${srv.badge})`;
+  const playText = document.getElementById('modal-play-text');
+  if (playText) playText.textContent = `Play (${srv.name.split(':')[0]})`;
+  document.querySelectorAll('.server-chip-pill').forEach((p, idx) => {
+    p.classList.toggle('active', idx === selectedServerIndex);
+  });
+  const select = document.getElementById('server-select');
+  if (select) select.value = selectedServerIndex;
+}
+window.updateSelectedServerUI = updateSelectedServerUI;
+
 async function openDetailsModal(item) {
   currentItem = item;
   document.getElementById('modal-title').textContent = item.title;
@@ -1768,11 +1783,11 @@ async function openDetailsModal(item) {
     langContainer.innerHTML = '';
     const langs = item.languages || [
       { code: 'en', name: 'English (Original)', flag: '🌐', defaultServer: 0 },
-      { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 2 },
-      { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 8 },
-      { code: 'ta', name: 'Tamil Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 2 },
-      { code: 'te', name: 'Telugu Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 2 },
-      { code: 'es', name: 'Spanish Dubbed', flag: '🇪🇸', isDub: true, defaultServer: 5 }
+      { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 7 },
+      { code: 'ta', name: 'Tamil Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      { code: 'te', name: 'Telugu Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      { code: 'es', name: 'Spanish Dubbed', flag: '🇪🇸', isDub: true, defaultServer: 0 }
     ];
 
     langs.forEach(l => {
@@ -1787,11 +1802,8 @@ async function openDetailsModal(item) {
         chip.classList.add('active');
         if (langStatus) langStatus.textContent = l.name;
         
-        // Auto pre-select multi-audio server if dubbed
-        if (l.defaultServer !== undefined) {
-          selectedServerIndex = l.defaultServer;
-          updateSelectedServerUI();
-        }
+        // Sync selected server UI safely
+        updateSelectedServerUI();
         showToast(`🎧 Selected ${l.name} for playback`, 'info');
       };
       langContainer.appendChild(chip);
@@ -1801,7 +1813,7 @@ async function openDetailsModal(item) {
     if (langStatus) langStatus.textContent = activeMatch ? activeMatch.name : 'English (Original)';
   }
 
-  // Render 8 Streaming Server Chips on Movie Page
+  // Render 10 Streaming Server Chips on Movie Page
   renderMoviePageServerChips(item);
 
   // Play Button (Uses currently selected server)
@@ -1812,17 +1824,7 @@ async function openDetailsModal(item) {
   }
   playBtn.onclick = () => {
     closeDetailsModal();
-    // Auto-select multi-audio server if preferred
-    let srvIdx = selectedServerIndex;
-    const isAnime = item.platformId === 'animeworld' || item.platformId === 'crunchyroll' || item.genres?.includes('Animation');
-    if (selectedDubLanguage === 'hi') {
-      srvIdx = isAnime ? 8 : 2;
-    } else if (selectedDubLanguage === 'ja' && isAnime) {
-      srvIdx = 8;
-    } else if (selectedDubLanguage === 'ta' || selectedDubLanguage === 'te') {
-      srvIdx = 2;
-    }
-    openPlayer(item, 1, 1, srvIdx);
+    openPlayer(item, 1, 1, selectedServerIndex);
   };
 
   // TV Series Episodes with High-Resolution Thumbnails
@@ -1876,11 +1878,7 @@ function renderMoviePageServerChips(item) {
     `;
     pill.onclick = () => {
       selectedServerIndex = idx;
-      document.querySelectorAll('.server-chip-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      if (statusEl) statusEl.textContent = `${srv.name} (${srv.badge})`;
-      const playText = document.getElementById('modal-play-text');
-      if (playText) playText.textContent = `Play (${srv.name.split(':')[0]})`;
+      updateSelectedServerUI();
       showToast(`Selected ${srv.name.split(':')[0]} for playback`, 'info');
     };
     chipsContainer.appendChild(pill);
@@ -2217,27 +2215,19 @@ function handlePlayerClick(e) {
   handlePlayerMouseMove();
 }
 
-async function openPlayer(item, season = 1, episode = 1, serverIndex = 3) {
+async function openPlayer(item, season = 1, episode = 1, serverIndex = null) {
   closeDetailsModal();
   currentItem = item;
   currentSeason = parseInt(season, 10);
   currentEpisode = parseInt(episode, 10);
-  currentServerIndex = (serverIndex !== undefined && serverIndex !== null) ? parseInt(serverIndex, 10) : (selectedServerIndex !== undefined ? selectedServerIndex : 0);
-
-  // Auto-route to multi-audio server (Server 1: Global Mirror) if dubbed language is preferred
-  const isAnime = item.platformId === 'animeworld' || item.platformId === 'crunchyroll' || item.genres?.includes('Animation');
-  if (selectedDubLanguage && selectedDubLanguage !== 'en') {
-    if (isAnime && selectedDubLanguage === 'ja') {
-      currentServerIndex = 5; // Server 6: AnimeWorld VIP (Multi-Audio: Hindi/Eng/Jap)
-    } else {
-      currentServerIndex = 0; // Server 1: Global Mirror (Multi-Language & Dubbed)
-    }
-  }
+  currentServerIndex = (serverIndex !== undefined && serverIndex !== null) 
+    ? parseInt(serverIndex, 10) 
+    : (selectedServerIndex !== undefined ? selectedServerIndex : 0);
 
   // Sync Dubbed Audio Selector in Header
   const audioSelect = document.getElementById('player-audio-select');
   if (audioSelect) {
-    audioSelect.value = selectedDubLanguage;
+    audioSelect.value = selectedDubLanguage || 'en';
   }
   document.querySelectorAll('#settings-audio-pills .setting-pill').forEach(btn => {
     btn.classList.toggle('active', btn.getAttribute('onclick')?.includes(`'${selectedDubLanguage}'`));
@@ -2289,7 +2279,7 @@ async function openPlayer(item, season = 1, episode = 1, serverIndex = 3) {
     overlay.style.display = 'flex';
     handlePlayerMouseMove();
     revealPlayerTopBar();
-    schedulePlayerTopBarAutoMove(3500);
+    schedulePlayerTopBarAutoMove(7000);
 
     if (isTheaterMode) {
       populateTheaterDetails(item);
@@ -2344,7 +2334,51 @@ function loadServerStream(serverIdx) {
   iframe.removeAttribute('sandbox');
   iframe.referrerPolicy = 'origin';
 
-  let streamUrl = srv.url;
+  let streamUrl = srv ? srv.url : null;
+  if (!streamUrl && currentItem) {
+    const isTv = currentItem.type === 'series';
+    const s = currentSeason || 1;
+    const e = currentEpisode || 1;
+    const imdb = currentItem.imdbId || '';
+    const tmdb = currentItem.tmdbId || '';
+    const tmdbOrImdb = tmdb || imdb || currentItem.id;
+    switch (serverIdx) {
+      case 0:
+        streamUrl = isTv 
+          ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
+          : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
+        break;
+      case 1:
+        streamUrl = isTv
+          ? `https://vidsrc2.ru/embed/tv?imdb=${imdb}&tmdb=${tmdb}&season=${s}&episode=${e}`
+          : `https://vidsrc2.ru/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
+        break;
+      case 2:
+        streamUrl = isTv ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}` : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`;
+        break;
+      case 3:
+        streamUrl = isTv ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}` : `https://play2.123embed.net/movie/${tmdbOrImdb}`;
+        break;
+      case 4:
+        streamUrl = isTv ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}` : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`;
+        break;
+      case 5:
+        streamUrl = isTv ? `https://vidsrc.pm/embed/tv?imdb=${imdb}&tmdb=${tmdb}&season=${s}&episode=${e}` : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`;
+        break;
+      case 6:
+        streamUrl = isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
+        break;
+      case 7:
+        streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
+        break;
+      case 8:
+        streamUrl = isTv ? `https://www.2embed.cc/embedtv/${imdb || tmdbOrImdb}&s=${s}&e=${e}` : `https://www.2embed.cc/embed/${imdb || tmdbOrImdb}`;
+        break;
+      default:
+        streamUrl = isTv ? `https://vidlink.pro/tv/${tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=true&multiLang=true` : `https://vidlink.pro/movie/${tmdbOrImdb}?primaryColor=e50914&secondaryColor=10b981&iconColor=ffffff&autoplay=true&multiLang=true`;
+        break;
+    }
+  }
   // Anti-Ad Provider Normalization Engine:
   // 1. Ensure AutoEmbed always loads pure player.autoembed.co with IMDb ID passed for OpenSubtitles
   if (streamUrl && streamUrl.includes('//autoembed.co/') && !streamUrl.includes('player.autoembed.co')) {
@@ -2424,13 +2458,14 @@ function changeDubLanguage(langCode, btnElement) {
 
   const isAnime = currentItem && (currentItem.platformId === 'animeworld' || currentItem.platformId === 'crunchyroll' || currentItem.genres?.includes('Animation'));
 
-  // For multi-language and default, use Server 1 (Global Mirror)
+  // If anime and Japanese requested, route to AnimeWorld
   if (langCode === 'ja' && isAnime) {
-    loadServerStream(5); // Server 6: AnimeWorld VIP (Multi-Audio: Hindi/Eng/Jap)
-    showToast(`🎧 Audio set to ${langName} • Server 6 (AnimeWorld VIP) Active`, 'success');
+    loadServerStream(7); // Server 8: AnimeWorld VIP
+    showToast(`🎧 Audio set to ${langName} • Server 8 (AnimeWorld VIP) Active`, 'success');
   } else {
-    loadServerStream(0); // Server 1: Global Mirror (Multi-Language & Dubbed)
-    showToast(`🎧 Audio set to ${langName} • Server 1 (Global Mirror) Active`, 'success');
+    const srv = (availableServers && availableServers[currentServerIndex]) || STREAMING_SERVERS[currentServerIndex] || STREAMING_SERVERS[0];
+    const srvName = srv.name.split(':')[0];
+    showToast(`🎧 Audio & Dub preference: ${langName} (${srvName} active)`, 'success');
   }
 }
 
@@ -2664,10 +2699,31 @@ function toggleTheaterMode(forceState = null) {
 }
 
 let playerTopBarTimer = null;
+let isHeaderHovered = false;
 
 function initPlayerTopBarAutoMove() {
-  // Purely click-driven as requested by user — NO hover triggers!
   clearTimeout(playerTopBarTimer);
+  const header = document.getElementById('player-header');
+  if (header) {
+    header.addEventListener('mouseenter', () => {
+      isHeaderHovered = true;
+      clearTimeout(playerTopBarTimer);
+    });
+    header.addEventListener('mouseleave', () => {
+      isHeaderHovered = false;
+      schedulePlayerTopBarAutoMove(4000);
+    });
+  }
+  const srvSelect = document.getElementById('server-select');
+  if (srvSelect) {
+    srvSelect.addEventListener('focus', () => { isHeaderHovered = true; clearTimeout(playerTopBarTimer); });
+    srvSelect.addEventListener('change', () => { schedulePlayerTopBarAutoMove(4000); });
+  }
+  const audSelect = document.getElementById('player-audio-select');
+  if (audSelect) {
+    audSelect.addEventListener('focus', () => { isHeaderHovered = true; clearTimeout(playerTopBarTimer); });
+    audSelect.addEventListener('change', () => { schedulePlayerTopBarAutoMove(4000); });
+  }
 }
 
 function revealPlayerTopBar() {
@@ -2675,21 +2731,24 @@ function revealPlayerTopBar() {
   if (!overlay) return;
   overlay.classList.remove('top-bar-hidden');
   clearTimeout(playerTopBarTimer);
+  schedulePlayerTopBarAutoMove(8000);
 }
 
 function collapsePlayerTopBar() {
   const overlay = document.getElementById('player-overlay');
   if (!overlay || overlay.classList.contains('theater-mode')) return;
+  if (isHeaderHovered) return;
   overlay.classList.add('top-bar-hidden');
   clearTimeout(playerTopBarTimer);
 }
 
-function schedulePlayerTopBarAutoMove(delay = 3500) {
+function schedulePlayerTopBarAutoMove(delay = 4500) {
   clearTimeout(playerTopBarTimer);
   const overlay = document.getElementById('player-overlay');
   if (!overlay || overlay.classList.contains('theater-mode')) return;
+  if (isHeaderHovered) return;
   playerTopBarTimer = setTimeout(() => {
-    if (overlay.style.display !== 'none' && !overlay.classList.contains('theater-mode')) {
+    if (overlay.style.display !== 'none' && !overlay.classList.contains('theater-mode') && !isHeaderHovered) {
       collapsePlayerTopBar();
     }
   }, delay);
@@ -4205,7 +4264,7 @@ function openDirectStreamDownload() {
   const isTv = item.type === 'series';
   const idOrTmdb = item.tmdbId || item.imdbId || item.id;
   
-  // Direct Server 4 (FilmU Global Mirror) clean stream URL with bypass tokens
+  // Direct Global World Mirror clean stream URL
   const directUrl = isTv 
     ? `https://player.autoembed.co/embed/tv/${idOrTmdb}/${currentDownloadSeason}/${currentDownloadEpisode}`
     : `https://player.autoembed.co/embed/movie/${idOrTmdb}`;
@@ -4220,7 +4279,7 @@ function openDirectStreamDownload() {
   a.click();
   document.body.removeChild(a);
 
-  showToast('Launching high-speed download via Server 4 FilmU...', 'success');
+  showToast('Launching high-speed download via Global World Mirror...', 'success');
   closeDownloadModal();
 }
 
@@ -4276,6 +4335,11 @@ window.filterByCategory = filterCategory;
 // CinemaVerse Zero-Ad Defense Engine (Neutralizes Popups, Popunders & Window Hijacking)
 // ========================================================
 (function() {
+  function isPlayerActive() {
+    const overlay = document.getElementById('player-overlay');
+    return overlay && overlay.style.display === 'flex';
+  }
+
   const _origWindowOpen = window.open;
   window.open = function(url, target, features) {
     if (typeof url === 'string') {
@@ -4289,7 +4353,7 @@ window.filterByCategory = filterCategory;
       }
     }
     // If video player is active, suppress external popups
-    if (playerOpen) {
+    if (isPlayerActive()) {
       if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
         try {
           const parsed = new URL(url);
@@ -4305,8 +4369,7 @@ window.filterByCategory = filterCategory;
 
   // Reclaim focus smoothly if an external tab tried to steal focus
   window.addEventListener('blur', function() {
-    const overlay = document.getElementById('player-overlay');
-    if (overlay && overlay.style.display !== 'none') {
+    if (isPlayerActive()) {
       setTimeout(() => { 
         try { window.focus(); } catch(e) {}
       }, 50);
@@ -4315,7 +4378,7 @@ window.filterByCategory = filterCategory;
 
   // Prevent top-frame navigation hijack from rogue embeds
   window.addEventListener('beforeunload', function(e) {
-    if (playerOpen) {
+    if (isPlayerActive()) {
       const activeEl = document.activeElement;
       if (activeEl && activeEl.id === 'player-iframe') {
         e.preventDefault();
