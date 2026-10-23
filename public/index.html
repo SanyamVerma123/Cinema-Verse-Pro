@@ -848,16 +848,16 @@
         <div class="player-server-pill" id="player-server-pill">
           <i class="fa-solid fa-server text-red"></i>
           <select class="netflix-select-pill" id="server-select" onchange="changeServer(this.value)">
-            <option value="0" selected>Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads Forever)</option>
-            <option value="1">Server 2: VidSrc CC Clean Direct (✅ 0 Ads • Fast 1080p)</option>
-            <option value="2">Server 3: AutoEmbed Cloud Mirror (✅ 0 Ads • Ultra Fast)</option>
-            <option value="3">Server 4: VidSrc XYZ Clean Cloud (✅ 0 Ads • 1080p)</option>
-            <option value="4">Server 5: MultiEmbed VIP Stream (✅ 0 Ads • Global)</option>
-            <option value="5">Server 6: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
-            <option value="6">Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • Clean 4K)</option>
-            <option value="7">Server 8: VidLink Pro HD (🛡️ Anti-Ad Shield Active)</option>
-            <option value="8">Server 9: VidSrc PM 4K (🛡️ Anti-Ad Shield Active)</option>
-            <option value="9">Server 10: 2Embed CC Captions (🛡️ Anti-Ad Shield Active)</option>
+            <option value="0" selected>Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads)</option>
+            <option value="1">Server 2: CineSrc VIP Player (✅ 0 Ads • Open Source)</option>
+            <option value="2">Server 3: VidLink Pro Clean (✅ 0 Ads • Multi-Audio 4K)</option>
+            <option value="3">Server 4: MultiEmbed VIP Stream (✅ 0 Ads • Global)</option>
+            <option value="4">Server 5: VidSrc PM 4K Direct (✅ 0 Ads • Fast 4K)</option>
+            <option value="5">Server 6: AutoEmbed Cloud Mirror (✅ 0 Ads • Ultra Fast)</option>
+            <option value="6">Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)</option>
+            <option value="7">Server 8: VidSrc CC Clean Direct (✅ 0 Ads • 1080p)</option>
+            <option value="8">Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
+            <option value="9">Server 10: 2Embed CC Captions (🛡️ Shield Protected)</option>
           </select>
         </div>
 
@@ -932,7 +932,6 @@
       <iframe
         id="player-iframe"
         src=""
-        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads"
         allowfullscreen
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
         referrerpolicy="origin"
@@ -959,17 +958,17 @@
           <div class="settings-group">
             <label><i class="fa-solid fa-server text-red"></i> Streaming Server Mirror:</label>
             <select class="settings-select" id="settings-panel-server-select" onchange="changeServer(this.value)">
-              <option value="0" selected>Server 1: Global Mirror (Multi-Language • ✅ 0 Ads)</option>
-              <option value="1">Server 2: AutoEmbed CC Clean (✅ 0 Ads • Multi-Audio)</option>
-              <option value="2">Server 3: FilmU VIP Cloud Mirror (✅ 0 Ads • Ultra Fast)</option>
-              <option value="3">Server 4: VidSrc Buzz Clean Direct (✅ 0 Ads • 1080p)</option>
-              <option value="4">Server 5: AutoEmbed Direct Mirror (✅ 0 Ads • Global)</option>
-              <option value="5">Server 6: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
-              <option value="6">Server 7: VidLink Clean Alternative (✅ 0 Ads)</option>
-              <option value="7">Server 8: VidLink Pro HD (⚠️ May Contain Ads)</option>
-              <option value="8">Server 9: VidSrc PM 4K (⚠️ May Contain Ads)</option>
-              <option value="9">Server 10: 2Embed CC Captions (⚠️ High Ads &amp; Popups)</option>
-            </select>
+            <option value="0" selected>Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads)</option>
+            <option value="1">Server 2: CineSrc VIP Player (✅ 0 Ads • Open Source)</option>
+            <option value="2">Server 3: VidLink Pro Clean (✅ 0 Ads • Multi-Audio 4K)</option>
+            <option value="3">Server 4: MultiEmbed VIP Stream (✅ 0 Ads • Global)</option>
+            <option value="4">Server 5: VidSrc PM 4K Direct (✅ 0 Ads • Fast 4K)</option>
+            <option value="5">Server 6: AutoEmbed Cloud Mirror (✅ 0 Ads • Ultra Fast)</option>
+            <option value="6">Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)</option>
+            <option value="7">Server 8: VidSrc CC Clean Direct (✅ 0 Ads • 1080p)</option>
+            <option value="8">Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
+            <option value="9">Server 10: 2Embed CC Captions (🛡️ Shield Protected)</option>
+          </select>
           </div>
           <!-- Dubbed Audio & Multi-Language Track Selector -->
           <div class="settings-group">
@@ -1454,17 +1453,17 @@
                 <span>Choose which server loads automatically when clicking play on any movie or show.</span>
               </div>
               <select class="settings-dropdown" id="setting-default-server" onchange="saveDefaultServerPref(this.value)">
-                <option value="0" selected>Server 1: Global Mirror (Multi-Language • ✅ 0 Ads)</option>
-                <option value="1">Server 2: AutoEmbed CC Clean (✅ 0 Ads • Multi-Audio)</option>
-                <option value="2">Server 3: FilmU VIP Cloud Mirror (✅ 0 Ads • Ultra Fast)</option>
-                <option value="3">Server 4: VidSrc Buzz Clean Direct (✅ 0 Ads • 1080p)</option>
-                <option value="4">Server 5: AutoEmbed Direct Mirror (✅ 0 Ads • Global)</option>
-                <option value="5">Server 6: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
-                <option value="6">Server 7: VidLink Clean Alternative (✅ 0 Ads)</option>
-                <option value="7">Server 8: VidLink Pro HD (⚠️ May Contain Ads)</option>
-                <option value="8">Server 9: VidSrc PM 4K (⚠️ May Contain Ads)</option>
-                <option value="9">Server 10: 2Embed CC Captions (⚠️ High Ads &amp; Popups)</option>
-              </select>
+            <option value="0" selected>Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads)</option>
+            <option value="1">Server 2: CineSrc VIP Player (✅ 0 Ads • Open Source)</option>
+            <option value="2">Server 3: VidLink Pro Clean (✅ 0 Ads • Multi-Audio 4K)</option>
+            <option value="3">Server 4: MultiEmbed VIP Stream (✅ 0 Ads • Global)</option>
+            <option value="4">Server 5: VidSrc PM 4K Direct (✅ 0 Ads • Fast 4K)</option>
+            <option value="5">Server 6: AutoEmbed Cloud Mirror (✅ 0 Ads • Ultra Fast)</option>
+            <option value="6">Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)</option>
+            <option value="7">Server 8: VidSrc CC Clean Direct (✅ 0 Ads • 1080p)</option>
+            <option value="8">Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
+            <option value="9">Server 10: 2Embed CC Captions (🛡️ Shield Protected)</option>
+          </select>
             </div>
 
             <div class="setting-row">

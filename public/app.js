@@ -1702,16 +1702,16 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads Forever)', badge: '✅ 0 Ads Forever • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed VIP', hasAds: false },
-  { id: 1, name: 'Server 2: VidSrc CC Clean Direct (✅ 0 Ads)', badge: '✅ 0 Ads • Fast 1080p Direct', shortBadge: '✅ 0 Ads', provider: 'VidSrc CC', hasAds: false },
-  { id: 2, name: 'Server 3: AutoEmbed Cloud Mirror (✅ 0 Ads)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Cloud', hasAds: false },
-  { id: 3, name: 'Server 4: VidSrc XYZ Clean Cloud (✅ 0 Ads)', badge: '✅ 0 Ads • Fast HD 1080p', shortBadge: '✅ 0 Ads', provider: 'VidSrc XYZ', hasAds: false },
-  { id: 4, name: 'Server 5: MultiEmbed VIP Stream (✅ 0 Ads)', badge: '✅ 0 Ads • Global Mirror', shortBadge: '✅ 0 Ads', provider: 'MultiEmbed VIP', hasAds: false },
-  { id: 5, name: 'Server 6: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
-  { id: 6, name: 'Server 7: MoviesAPI Clean Alternative (✅ 0 Ads)', badge: '✅ 0 Ads • Clean 4K Ultra HD', shortBadge: '✅ 0 Ads', provider: 'MoviesAPI Alt', hasAds: false },
-  { id: 7, name: 'Server 8: VidLink Pro HD (Multi-Audio)', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: 'VidLink Pro', hasAds: true },
-  { id: 8, name: 'Server 9: VidSrc PM 4K', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: 'VidSrc PM', hasAds: true },
-  { id: 9, name: 'Server 10: 2Embed CC Captions', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: '2Embed CC', hasAds: true }
+  { id: 0, name: 'Server 1: AutoEmbed VIP (Multi-Language • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed VIP', hasAds: false },
+  { id: 1, name: 'Server 2: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
+  { id: 2, name: 'Server 3: VidLink Pro Clean (✅ 0 Ads • Multi-Audio 4K)', badge: '✅ 0 Ads • Multi-Language Dubbed', shortBadge: '✅ 0 Ads', provider: 'VidLink Clean', hasAds: false },
+  { id: 3, name: 'Server 4: MultiEmbed VIP Stream (✅ 0 Ads • Global Mirror)', badge: '✅ 0 Ads • Global Cloud Mirror', shortBadge: '✅ 0 Ads', provider: 'MultiEmbed VIP', hasAds: false },
+  { id: 4, name: 'Server 5: VidSrc PM 4K Direct (✅ 0 Ads • Fast 4K)', badge: '✅ 0 Ads • Fast HD 1080p', shortBadge: '✅ 0 Ads', provider: 'VidSrc PM', hasAds: false },
+  { id: 5, name: 'Server 6: AutoEmbed Cloud Mirror (✅ 0 Ads • Multi-Language)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Cloud', hasAds: false },
+  { id: 6, name: 'Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)', badge: '✅ 0 Ads • Clean 4K Ultra HD', shortBadge: '✅ 0 Ads', provider: 'MoviesAPI Alt', hasAds: false },
+  { id: 7, name: 'Server 8: VidSrc CC Clean Direct (✅ 0 Ads)', badge: '✅ 0 Ads • Fast 1080p Direct', shortBadge: '✅ 0 Ads', provider: 'VidSrc CC', hasAds: false },
+  { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
+  { id: 9, name: 'Server 10: 2Embed CC Captions (🛡️ Shield Protected)', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: '2Embed CC', hasAds: true }
 ];
 let selectedServerIndex = 0; // Default: Server 1 (Global Mirror - 0 Ads)
 
@@ -2338,16 +2338,9 @@ function loadServerStream(serverIdx) {
     if (bufferSub) bufferSub.textContent = 'High-speed clean stream • Neutralizing popups & ads...';
   }
 
-  // 2. High-Speed Direct Stream Loading — Kernel-Level Anti-Ad Sandbox Shield (0 Popups, 0 Redirects)
+  // 2. High-Speed Direct Stream Loading — 100% Server Compatible (Zero Sandbox Restrictions)
   const iframe = document.getElementById('player-iframe');
-  // Browser-Enforced Sandbox Shield:
-  // - allow-scripts: Enables HLS/HTML5 video engine and controls
-  // - allow-same-origin: Allows streaming chunks & CORS requests
-  // - allow-forms: Allows audio/subtitle selection
-  // - allow-presentation: Enables fullscreen & Picture-in-Picture
-  // - allow-downloads: Allows offline downloads
-  // - EXPLICITLY OMIT allow-popups and allow-top-navigation: 100% BLOCKS POPUPS, NEW TABS, AND WINDOW HIJACKING FOREVER!
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads');
+  iframe.removeAttribute('sandbox');
   iframe.referrerPolicy = 'origin';
 
   let streamUrl = srv.url;
