@@ -1703,11 +1703,11 @@ function clearSearch() {
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
   { id: 0, name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global World Mirror', hasAds: false },
-  { id: 1, name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • 🛡️ Zero-Ad Shield)', badge: '🛡️ Zero-Ad Shield • 4K HDR', shortBadge: '🛡️ Zero-Ad', provider: 'VidSrc Pro', hasAds: false },
+  { id: 1, name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)', badge: '✅ Fast 4K • Multi-Audio', shortBadge: '4K Multi-Audio', provider: 'VidSrc Pro', hasAds: false },
   { id: 2, name: 'Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
   { id: 3, name: 'Server 4: 123Embed Cloud Player (In-Player Switcher • 4K • ✅ 0 Ads)', badge: '✅ 0 Ads • In-Player Switcher', shortBadge: '✅ 0 Ads', provider: '123Embed Cloud', hasAds: false },
   { id: 4, name: 'Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Prime', hasAds: false },
-  { id: 5, name: 'Server 6: VidSrc Cloud Direct (🛡️ Zero-Ad Shield • 1080p)', badge: '🛡️ Zero-Ad Shield • 1080p Direct', shortBadge: '🛡️ Zero-Ad', provider: 'VidSrc Cloud', hasAds: false },
+  { id: 5, name: 'Server 6: VidSrc Cloud Direct (1080p Direct • Multi-Audio)', badge: 'Fast 1080p • Multi-Audio', shortBadge: '1080p Direct', provider: 'VidSrc Cloud', hasAds: false },
   { id: 6, name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror • ✅ 0 Ads)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: false },
   { id: 7, name: 'Server 8: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
   { id: 8, name: 'Server 9: 2Embed CC Captions (🛡️ Shield Protected)', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: '2Embed CC', hasAds: true },
@@ -2338,17 +2338,10 @@ function loadServerStream(serverIdx) {
     if (bufferSub) bufferSub.textContent = 'High-speed clean stream • Neutralizing popups & ads...';
   }
 
-  // 2. High-Speed Direct Stream Loading — Adaptive Zero-Ad Sandbox Shield
+  // 2. High-Speed Direct Stream Loading — Zero Sandbox Restrictions (100% Server Compatible)
   const iframe = document.getElementById('player-iframe');
-
-  // Adaptive Zero-Ad Sandbox Shield:
-  // VidSrc Pro does NOT have an anti-sandbox restriction and plays smoothly inside a sandbox!
-  // By omitting 'allow-popups' and 'allow-top-navigation', browser hard-blocks 100% of all ad popups, new tabs, and redirects!
-  if (srv.name.includes('VidSrc') || srv.provider.includes('VidSrc') || srv.name.includes('2Embed') || srv.hasAds) {
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads');
-  } else {
-    iframe.removeAttribute('sandbox');
-  }
+  // Unconditionally remove sandbox so providers never crash with 'Failed to load video streaming' or 'Please Disable Sandbox'
+  iframe.removeAttribute('sandbox');
   iframe.referrerPolicy = 'origin';
 
   let streamUrl = srv.url;

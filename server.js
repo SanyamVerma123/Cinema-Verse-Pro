@@ -97,11 +97,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 2,
-      name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • 🛡️ Zero-Ad Shield)',
-      badge: '🛡️ Zero-Ad Shield • 4K HDR',
+      name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)',
+      badge: '✅ Fast 4K • Multi-Audio',
       url: isTv 
-        ? `https://vidsrc.pro/embed/tv/${imdbOrTmdb}/${s}/${e}`
-        : `https://vidsrc.pro/embed/movie/${imdbOrTmdb}`
+        ? `https://vidsrc2.ru/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
+        : `https://vidsrc2.ru/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`
     },
     {
       id: 3,
@@ -129,11 +129,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 6,
-      name: 'Server 6: VidSrc Cloud Direct (🛡️ Zero-Ad Shield • 1080p)',
-      badge: '🛡️ Zero-Ad Shield • 1080p Direct',
+      name: 'Server 6: VidSrc Cloud Direct (1080p Direct • Multi-Audio)',
+      badge: 'Fast 1080p • Multi-Audio',
       url: isTv 
-        ? `https://vidsrc.pm/embed/tv/${imdbOrTmdb}/${s}/${e}`
-        : `https://vidsrc.pm/embed/movie/${imdbOrTmdb}`
+        ? `https://vidsrc.pm/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
+        : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`
     },
     {
       id: 7,
