@@ -1703,11 +1703,11 @@ function clearSearch() {
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
   { id: 0, name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global World Mirror', hasAds: false },
-  { id: 1, name: 'Server 2: FilmU Glassmorphism VIP (Multi-Language • 4K HDR • ✅ 0 Ads)', badge: '✅ 0 Ads • Glassmorphism 4K', shortBadge: '✅ 0 Ads', provider: 'FilmU VIP', hasAds: false },
+  { id: 1, name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • 🛡️ Zero-Ad Shield)', badge: '🛡️ Zero-Ad Shield • 4K HDR', shortBadge: '🛡️ Zero-Ad', provider: 'VidSrc Pro', hasAds: false },
   { id: 2, name: 'Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
   { id: 3, name: 'Server 4: 123Embed Cloud Player (In-Player Switcher • 4K • ✅ 0 Ads)', badge: '✅ 0 Ads • In-Player Switcher', shortBadge: '✅ 0 Ads', provider: '123Embed Cloud', hasAds: false },
   { id: 4, name: 'Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Prime', hasAds: false },
-  { id: 5, name: 'Server 6: FilmU Cloud Mirror (Glassmorphism Alternative • ✅ 0 Ads)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'FilmU Cloud', hasAds: false },
+  { id: 5, name: 'Server 6: VidSrc Cloud Direct (🛡️ Zero-Ad Shield • 1080p)', badge: '🛡️ Zero-Ad Shield • 1080p Direct', shortBadge: '🛡️ Zero-Ad', provider: 'VidSrc Cloud', hasAds: false },
   { id: 6, name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror • ✅ 0 Ads)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: false },
   { id: 7, name: 'Server 8: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
   { id: 8, name: 'Server 9: 2Embed CC Captions (🛡️ Shield Protected)', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: '2Embed CC', hasAds: true },
@@ -2338,24 +2338,32 @@ function loadServerStream(serverIdx) {
     if (bufferSub) bufferSub.textContent = 'High-speed clean stream • Neutralizing popups & ads...';
   }
 
-  // 2. High-Speed Direct Stream Loading — Zero Sandbox Restrictions (100% Server Compatible)
+  // 2. High-Speed Direct Stream Loading — Adaptive Zero-Ad Sandbox Shield
   const iframe = document.getElementById('player-iframe');
-  iframe.removeAttribute('sandbox');
+
+  // Adaptive Zero-Ad Sandbox Shield:
+  // VidSrc Pro does NOT have an anti-sandbox restriction and plays smoothly inside a sandbox!
+  // By omitting 'allow-popups' and 'allow-top-navigation', browser hard-blocks 100% of all ad popups, new tabs, and redirects!
+  if (srv.name.includes('VidSrc') || srv.provider.includes('VidSrc') || srv.name.includes('2Embed') || srv.hasAds) {
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads');
+  } else {
+    iframe.removeAttribute('sandbox');
+  }
   iframe.referrerPolicy = 'origin';
 
   let streamUrl = srv.url;
   // Anti-Ad Provider Normalization Engine:
-  // 1. Ensure AutoEmbed always loads pure player.autoembed.co (Zero outer ad wrappers)
+  // 1. Ensure AutoEmbed always loads pure player.autoembed.co with IMDb ID passed for OpenSubtitles
   if (streamUrl && streamUrl.includes('//autoembed.co/') && !streamUrl.includes('player.autoembed.co')) {
     streamUrl = streamUrl.replace('//autoembed.co/movie/tmdb/', '//player.autoembed.co/embed/movie/')
                          .replace('//autoembed.co/tv/tmdb/', '//player.autoembed.co/embed/tv/')
                          .replace('//autoembed.co/movie/imdb/', '//player.autoembed.co/embed/movie/')
                          .replace(/-/g, '/');
   }
-  // FilmU Glassmorphism Player Protection: Ensure FilmU embeds always inject the premium bypass key & debug bypass
-  if (streamUrl && streamUrl.includes('embed.filmu.in') && !streamUrl.includes('apikey=')) {
+  // Inject IMDb ID parameter into AutoEmbed so OpenSubtitles language search works seamlessly
+  if (streamUrl && streamUrl.includes('player.autoembed.co') && currentItem?.imdbId && !streamUrl.includes('imdb=')) {
     const sep = streamUrl.includes('?') ? '&' : '?';
-    streamUrl = `${streamUrl}${sep}apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
+    streamUrl = `${streamUrl}${sep}imdb=${encodeURIComponent(currentItem.imdbId)}`;
   }
   // VidLink Multi-Audio & Autoplay Configuration
   if (streamUrl && streamUrl.includes('vidlink.pro')) {

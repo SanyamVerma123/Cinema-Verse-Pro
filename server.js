@@ -92,16 +92,16 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
       name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)',
       badge: '✅ 0 Ads • Multi-Language 4K',
       url: isTv 
-        ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`
+        ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
+        : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`
     },
     {
       id: 2,
-      name: 'Server 2: FilmU Glassmorphism VIP (Multi-Language • 4K HDR • ✅ 0 Ads)',
-      badge: '✅ 0 Ads • Glassmorphism 4K',
+      name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • 🛡️ Zero-Ad Shield)',
+      badge: '🛡️ Zero-Ad Shield • 4K HDR',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${tmdbOrImdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-        : `https://embed.filmu.in/movie/${tmdbOrImdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        ? `https://vidsrc.pro/embed/tv/${imdbOrTmdb}/${s}/${e}`
+        : `https://vidsrc.pro/embed/movie/${imdbOrTmdb}`
     },
     {
       id: 3,
@@ -129,11 +129,11 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     },
     {
       id: 6,
-      name: 'Server 6: FilmU Cloud Mirror (Glassmorphism Alternative • ✅ 0 Ads)',
-      badge: '✅ 0 Ads • Fast Cloud Ultra HD',
+      name: 'Server 6: VidSrc Cloud Direct (🛡️ Zero-Ad Shield • 1080p)',
+      badge: '🛡️ Zero-Ad Shield • 1080p Direct',
       url: isTv 
-        ? `https://embed.filmu.in/tv/${imdbOrTmdb}/${s}/${e}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
-        : `https://embed.filmu.in/movie/${imdbOrTmdb}?apikey=streamie_premium_k7m3x9qp2v&debug=savu`
+        ? `https://vidsrc.pm/embed/tv/${imdbOrTmdb}/${s}/${e}`
+        : `https://vidsrc.pm/embed/movie/${imdbOrTmdb}`
     },
     {
       id: 7,
