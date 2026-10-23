@@ -1702,12 +1702,12 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global World Mirror', hasAds: false },
-  { id: 1, name: 'Server 2: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
-  { id: 2, name: 'Server 3: VidLink Pro Clean (✅ 0 Ads • Multi-Audio 4K)', badge: '✅ 0 Ads • Multi-Language Dubbed', shortBadge: '✅ 0 Ads', provider: 'VidLink Clean', hasAds: false },
-  { id: 3, name: 'Server 4: MultiEmbed VIP Stream (✅ 0 Ads • Global Mirror)', badge: '✅ 0 Ads • Global Cloud Mirror', shortBadge: '✅ 0 Ads', provider: 'MultiEmbed VIP', hasAds: false },
-  { id: 4, name: 'Server 5: VidSrc PM 4K Direct (✅ 0 Ads • Fast 4K)', badge: '✅ 0 Ads • Fast HD 1080p', shortBadge: '✅ 0 Ads', provider: 'VidSrc PM', hasAds: false },
-  { id: 5, name: 'Server 6: AutoEmbed Cloud Mirror (✅ 0 Ads • Multi-Language)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Cloud', hasAds: false },
+  { id: 0, name: 'Server 1: Global Mirror (Glassmorphism VIP • Multi-Language & Dubbed)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global Mirror (FilmU)', hasAds: false },
+  { id: 1, name: 'Server 2: AutoEmbed VIP (Clean Ultra HD • 0 Ads)', badge: '✅ 0 Ads • Fast 4K Direct', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed VIP', hasAds: false },
+  { id: 2, name: 'Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
+  { id: 3, name: 'Server 4: VidLink Pro Clean (✅ 0 Ads • Multi-Audio 4K)', badge: '✅ 0 Ads • Multi-Language Dubbed', shortBadge: '✅ 0 Ads', provider: 'VidLink Clean', hasAds: false },
+  { id: 4, name: 'Server 5: MultiEmbed VIP Stream (✅ 0 Ads • Global Mirror)', badge: '✅ 0 Ads • Global Cloud Mirror', shortBadge: '✅ 0 Ads', provider: 'MultiEmbed VIP', hasAds: false },
+  { id: 5, name: 'Server 6: FilmU Cloud Mirror (Glassmorphism Alternative)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'FilmU VIP', hasAds: false },
   { id: 6, name: 'Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)', badge: '✅ 0 Ads • Clean 4K Ultra HD', shortBadge: '✅ 0 Ads', provider: 'MoviesAPI Alt', hasAds: false },
   { id: 7, name: 'Server 8: VidSrc CC Clean Direct (✅ 0 Ads)', badge: '✅ 0 Ads • Fast 1080p Direct', shortBadge: '✅ 0 Ads', provider: 'VidSrc CC', hasAds: false },
   { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
@@ -2351,6 +2351,11 @@ function loadServerStream(serverIdx) {
                          .replace('//autoembed.co/tv/tmdb/', '//player.autoembed.co/embed/tv/')
                          .replace('//autoembed.co/movie/imdb/', '//player.autoembed.co/embed/movie/')
                          .replace(/-/g, '/');
+  }
+  // FilmU Glassmorphism Player Protection: Ensure FilmU embeds always inject the premium bypass key & debug bypass
+  if (streamUrl && streamUrl.includes('embed.filmu.in') && !streamUrl.includes('apikey=')) {
+    const sep = streamUrl.includes('?') ? '&' : '?';
+    streamUrl = `${streamUrl}${sep}apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
   }
   // 2. VidLink Multi-Audio Configuration
   if (streamUrl && streamUrl.includes('vidlink.pro') && !streamUrl.includes('multiLang=')) {
