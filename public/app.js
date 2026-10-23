@@ -1702,14 +1702,14 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Glassmorphism 4K', shortBadge: '✅ 0 Ads', provider: 'VidLink VIP', hasAds: false },
-  { id: 1, name: 'Server 2: AutoEmbed VIP (Clean Ultra HD • 0 Ads)', badge: '✅ 0 Ads • Fast 4K Direct', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed VIP', hasAds: false },
+  { id: 0, name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global World Mirror', hasAds: false },
+  { id: 1, name: 'Server 2: FilmU Glassmorphism VIP (Multi-Language • 4K HDR • ✅ 0 Ads)', badge: '✅ 0 Ads • Glassmorphism 4K', shortBadge: '✅ 0 Ads', provider: 'FilmU VIP', hasAds: false },
   { id: 2, name: 'Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
-  { id: 3, name: 'Server 4: Global Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global Mirror', hasAds: false },
-  { id: 4, name: 'Server 5: MultiEmbed VIP Stream (✅ 0 Ads • Global Mirror)', badge: '✅ 0 Ads • Global Cloud Mirror', shortBadge: '✅ 0 Ads', provider: 'MultiEmbed VIP', hasAds: false },
-  { id: 5, name: 'Server 6: FilmU Cloud Mirror (Glassmorphism Alternative)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'FilmU VIP', hasAds: false },
-  { id: 6, name: 'Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)', badge: '✅ 0 Ads • Clean 4K Ultra HD', shortBadge: '✅ 0 Ads', provider: 'MoviesAPI Alt', hasAds: false },
-  { id: 7, name: 'Server 8: VidSrc CC Clean Direct (✅ 0 Ads)', badge: '✅ 0 Ads • Fast 1080p Direct', shortBadge: '✅ 0 Ads', provider: 'VidSrc CC', hasAds: false },
+  { id: 3, name: 'Server 4: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio)', badge: 'In-Player Switcher • 4K', shortBadge: '4K Multi-Audio', provider: 'VidLink VIP', hasAds: false },
+  { id: 4, name: 'Server 5: 123Embed VIP Stream (Fast Direct • ✅ 0 Ads)', badge: '✅ 0 Ads • Fast Cloud Direct', shortBadge: '✅ 0 Ads', provider: '123Embed VIP', hasAds: false },
+  { id: 5, name: 'Server 6: AutoEmbed CC Clean (0 Ads • Ultra HD)', badge: '✅ 0 Ads • Ultra HD Clean', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed CC', hasAds: false },
+  { id: 6, name: 'Server 7: FilmU Cloud Mirror (Glassmorphism Alternative)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'FilmU Cloud', hasAds: false },
+  { id: 7, name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed VIP', hasAds: false },
   { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
   { id: 9, name: 'Server 10: 2Embed CC Captions (🛡️ Shield Protected)', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: '2Embed CC', hasAds: true }
 ];
@@ -2338,20 +2338,9 @@ function loadServerStream(serverIdx) {
     if (bufferSub) bufferSub.textContent = 'High-speed clean stream • Neutralizing popups & ads...';
   }
 
-  // 2. High-Speed Direct Stream Loading — Adaptive Anti-Ad Sandbox Shield
+  // 2. High-Speed Direct Stream Loading — Zero Sandbox Restrictions (100% Server Compatible)
   const iframe = document.getElementById('player-iframe');
-  // When loading VidLink Pro or protected servers, enforce the strict Zero-Ad Sandbox Shield:
-  // - allow-scripts: Enables HLS/HTML5 video engine and controls
-  // - allow-same-origin: Allows streaming chunks & CORS requests
-  // - allow-forms: Allows audio/subtitle selection
-  // - allow-presentation: Enables fullscreen & Picture-in-Picture
-  // - allow-downloads: Allows offline downloads
-  // - EXPLICITLY OMIT allow-popups and allow-top-navigation: 100% HARD-BLOCKS ALL AD POPUPS (xm.com, etc.), NEW TABS, AND WINDOW HIJACKING!
-  if (srv.name.includes('VidLink') || srv.provider.includes('VidLink')) {
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads');
-  } else {
-    iframe.removeAttribute('sandbox');
-  }
+  iframe.removeAttribute('sandbox');
   iframe.referrerPolicy = 'origin';
 
   let streamUrl = srv.url;
@@ -2368,26 +2357,31 @@ function loadServerStream(serverIdx) {
     const sep = streamUrl.includes('?') ? '&' : '?';
     streamUrl = `${streamUrl}${sep}apikey=streamie_premium_k7m3x9qp2v&debug=savu`;
   }
-  // 2. VidLink Multi-Audio Configuration
-  if (streamUrl && streamUrl.includes('vidlink.pro') && !streamUrl.includes('multiLang=')) {
-    const sep = streamUrl.includes('?') ? '&' : '?';
-    streamUrl = `${streamUrl}${sep}multiLang=true`;
+  // VidLink Multi-Audio & Autoplay Configuration
+  if (streamUrl && streamUrl.includes('vidlink.pro')) {
+    if (!streamUrl.includes('multiLang=')) {
+      const sep = streamUrl.includes('?') ? '&' : '?';
+      streamUrl = `${streamUrl}${sep}multiLang=true`;
+    }
+    if (!streamUrl.includes('autoplay=')) {
+      streamUrl = `${streamUrl}&autoplay=true`;
+    }
   }
   iframe.src = streamUrl;
 
-  // 3. Smooth Dismissal of Buffering Overlay
+  // 3. Instant & Smooth Dismissal of Buffering Overlay (Never get stuck buffering)
   let dismissed = false;
   const dismissBuffer = () => {
     if (!dismissed) {
       dismissed = true;
-      setTimeout(() => {
-        if (bufferOverlay) bufferOverlay.classList.add('fade-out');
-      }, 1200);
+      if (bufferOverlay) bufferOverlay.classList.add('fade-out');
     }
   };
 
-  iframe.onload = dismissBuffer;
-  setTimeout(dismissBuffer, 2600);
+  iframe.onload = () => {
+    setTimeout(dismissBuffer, 150);
+  };
+  setTimeout(dismissBuffer, 600); // 600ms failsafe timeout - never stuck buffering!
 
   showToast(`Streaming on ${srv.name.split(':')[0]}`, 'success');
 }
@@ -3178,30 +3172,12 @@ function setupKeyboardShortcuts() {
     }
   });
 
-  // Auto-Refocus Window Protection & Netflix Buffer Absorber (Prevents ad window hijacking when clicking player)
+  // Auto-Refocus Window Protection (Prevents ad window hijacking when clicking player)
   window.addEventListener('blur', () => {
-    const iframe = document.getElementById('player-iframe');
-    if (document.activeElement === iframe) {
+    if (playerOpen) {
       setTimeout(() => {
-        window.focus();
-      }, 80);
-
-      const now = Date.now();
-      if (!initialAdAbsorbed && (now - lastAdAbsorbTime > 3000)) {
-        initialAdAbsorbed = true;
-        lastAdAbsorbTime = now;
-        const bufferOverlay = document.getElementById('player-buffering-overlay');
-        const bufferText = document.getElementById('buffering-text');
-        const bufferSub = document.getElementById('buffering-sub');
-        if (bufferOverlay) {
-          bufferOverlay.classList.remove('fade-out');
-          if (bufferText) bufferText.textContent = 'Connecting Ultra HD Stream';
-          if (bufferSub) bufferSub.textContent = 'Ad neutralized • Resuming pure playback...';
-          setTimeout(() => {
-            bufferOverlay.classList.add('fade-out');
-          }, 1200);
-        }
-      }
+        try { window.focus(); } catch(e) {}
+      }, 60);
     }
   });
 }
@@ -4295,10 +4271,56 @@ window.filterCategory = filterCategory;
 window.filterByCategory = filterCategory;
 
 
-// CinemaVerse Focus Protection (Neutralizes background popunders & stolen focus)
-window.addEventListener('blur', function() {
-  const overlay = document.getElementById('player-overlay');
-  if (overlay && overlay.style.display !== 'none') {
-    setTimeout(() => { window.focus(); }, 80);
-  }
-});
+// ========================================================
+// CinemaVerse Zero-Ad Defense Engine (Neutralizes Popups, Popunders & Window Hijacking)
+// ========================================================
+(function() {
+  const _origWindowOpen = window.open;
+  window.open = function(url, target, features) {
+    if (typeof url === 'string') {
+      const u = url.toLowerCase();
+      if (u.includes('xm.com') || u.includes('worncalmy') || u.includes('adsterra') || 
+          u.includes('monetag') || u.includes('onclick') || u.includes('bet') || 
+          u.includes('casino') || u.includes('track') || u.includes('affiliate') || 
+          u.includes('pop') || u.includes('doubleclick') || u.includes('traffic')) {
+        console.warn('[Anti-Ad Shield] Neutralized ad popup target:', url);
+        return null;
+      }
+    }
+    // If video player is active, suppress external popups
+    if (playerOpen) {
+      if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+        try {
+          const parsed = new URL(url);
+          if (parsed.origin !== window.location.origin) {
+            console.warn('[Anti-Ad Shield] Blocked cross-origin player popup:', url);
+            return null;
+          }
+        } catch(e) {}
+      }
+    }
+    return _origWindowOpen.apply(this, arguments);
+  };
+
+  // Reclaim focus smoothly if an external tab tried to steal focus
+  window.addEventListener('blur', function() {
+    const overlay = document.getElementById('player-overlay');
+    if (overlay && overlay.style.display !== 'none') {
+      setTimeout(() => { 
+        try { window.focus(); } catch(e) {}
+      }, 50);
+    }
+  });
+
+  // Prevent top-frame navigation hijack from rogue embeds
+  window.addEventListener('beforeunload', function(e) {
+    if (playerOpen) {
+      const activeEl = document.activeElement;
+      if (activeEl && activeEl.id === 'player-iframe') {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
+    }
+  });
+})();

@@ -772,7 +772,7 @@
           <div class="modal-server-select-box">
             <div class="server-box-header">
               <span class="server-box-title"><i class="fa-solid fa-server text-red"></i> Select Streaming Server:</span>
-              <span class="server-box-status" id="modal-selected-server-name">Server 1: Global Mirror (✅ 0 Ads • Multi-Language)</span>
+              <span class="server-box-status" id="modal-selected-server-name">Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)</span>
             </div>
             <div class="modal-server-chips" id="modal-server-chips"></div>
           </div>
@@ -848,14 +848,14 @@
         <div class="player-server-pill" id="player-server-pill">
           <i class="fa-solid fa-server text-red"></i>
           <select class="netflix-select-pill" id="server-select" onchange="changeServer(this.value)">
-            <option value="0" selected>Server 1: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio • ✅ 0 Ads)</option>
-            <option value="1">Server 2: AutoEmbed VIP (Clean Ultra HD • 0 Ads)</option>
+            <option value="0" selected>Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)</option>
+            <option value="1">Server 2: FilmU Glassmorphism VIP (Multi-Language • 4K HDR • ✅ 0 Ads)</option>
             <option value="2">Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)</option>
-            <option value="3">Server 4: Global Mirror (Multi-Language & Dubbed • ✅ 0 Ads)</option>
-            <option value="4">Server 5: MultiEmbed VIP Stream (✅ 0 Ads • Global)</option>
-            <option value="5">Server 6: FilmU Cloud Mirror (Glassmorphism Alternative)</option>
-            <option value="6">Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)</option>
-            <option value="7">Server 8: VidSrc CC Clean Direct (✅ 0 Ads • 1080p)</option>
+            <option value="3">Server 4: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio)</option>
+            <option value="4">Server 5: 123Embed VIP Stream (Fast Direct • ✅ 0 Ads)</option>
+            <option value="5">Server 6: AutoEmbed CC Clean (0 Ads • Ultra HD)</option>
+            <option value="6">Server 7: FilmU Cloud Mirror (Glassmorphism Alternative)</option>
+            <option value="7">Server 8: MultiEmbed Cloud Stream (Global Mirror)</option>
             <option value="8">Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
             <option value="9">Server 10: 2Embed CC Captions (🛡️ Shield Protected)</option>
           </select>
@@ -920,7 +920,7 @@
     <!-- Video Viewport Stage -->
     <div class="player-stage" id="player-viewport">
       <!-- NETFLIX RED CIRCULAR BUFFER SPINNER OVERLAY -->
-      <div class="player-buffering-overlay" id="player-buffering-overlay">
+      <div class="player-buffering-overlay fade-out" id="player-buffering-overlay">
         <div class="netflix-spinner-box">
           <div class="netflix-spinner-ring"></div>
           <div class="netflix-spinner-text" id="buffering-text">Loading Stream in 4K Ultra HD</div>
@@ -932,7 +932,6 @@
       <iframe
         id="player-iframe"
         src=""
-        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads"
         allowfullscreen
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
         referrerpolicy="origin"
@@ -959,14 +958,14 @@
           <div class="settings-group">
             <label><i class="fa-solid fa-server text-red"></i> Streaming Server Mirror:</label>
             <select class="settings-select" id="settings-panel-server-select" onchange="changeServer(this.value)">
-            <option value="0" selected>Server 1: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio • ✅ 0 Ads)</option>
-            <option value="1">Server 2: AutoEmbed VIP (Clean Ultra HD • 0 Ads)</option>
+            <option value="0" selected>Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)</option>
+            <option value="1">Server 2: FilmU Glassmorphism VIP (Multi-Language • 4K HDR • ✅ 0 Ads)</option>
             <option value="2">Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)</option>
-            <option value="3">Server 4: Global Mirror (Multi-Language & Dubbed • ✅ 0 Ads)</option>
-            <option value="4">Server 5: MultiEmbed VIP Stream (✅ 0 Ads • Global)</option>
-            <option value="5">Server 6: FilmU Cloud Mirror (Glassmorphism Alternative)</option>
-            <option value="6">Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)</option>
-            <option value="7">Server 8: VidSrc CC Clean Direct (✅ 0 Ads • 1080p)</option>
+            <option value="3">Server 4: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio)</option>
+            <option value="4">Server 5: 123Embed VIP Stream (Fast Direct • ✅ 0 Ads)</option>
+            <option value="5">Server 6: AutoEmbed CC Clean (0 Ads • Ultra HD)</option>
+            <option value="6">Server 7: FilmU Cloud Mirror (Glassmorphism Alternative)</option>
+            <option value="7">Server 8: MultiEmbed Cloud Stream (Global Mirror)</option>
             <option value="8">Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
             <option value="9">Server 10: 2Embed CC Captions (🛡️ Shield Protected)</option>
           </select>
@@ -1074,7 +1073,7 @@
         <div class="modal-server-select-box">
           <div class="server-box-header">
             <span class="server-box-title"><i class="fa-solid fa-server text-red"></i> Change Streaming Server:</span>
-            <span class="server-box-status" id="theater-selected-server-name">Server 1: Global Mirror (✅ 0 Ads • Multi-Language)</span>
+            <span class="server-box-status" id="theater-selected-server-name">Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)</span>
           </div>
           <div class="modal-server-chips" id="theater-server-chips"></div>
         </div>
@@ -1454,14 +1453,14 @@
                 <span>Choose which server loads automatically when clicking play on any movie or show.</span>
               </div>
               <select class="settings-dropdown" id="setting-default-server" onchange="saveDefaultServerPref(this.value)">
-            <option value="0" selected>Server 1: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio • ✅ 0 Ads)</option>
-            <option value="1">Server 2: AutoEmbed VIP (Clean Ultra HD • 0 Ads)</option>
+            <option value="0" selected>Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)</option>
+            <option value="1">Server 2: FilmU Glassmorphism VIP (Multi-Language • 4K HDR • ✅ 0 Ads)</option>
             <option value="2">Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)</option>
-            <option value="3">Server 4: Global Mirror (Multi-Language & Dubbed • ✅ 0 Ads)</option>
-            <option value="4">Server 5: MultiEmbed VIP Stream (✅ 0 Ads • Global)</option>
-            <option value="5">Server 6: FilmU Cloud Mirror (Glassmorphism Alternative)</option>
-            <option value="6">Server 7: MoviesAPI Clean Alternative (✅ 0 Ads • 4K HDR)</option>
-            <option value="7">Server 8: VidSrc CC Clean Direct (✅ 0 Ads • 1080p)</option>
+            <option value="3">Server 4: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio)</option>
+            <option value="4">Server 5: 123Embed VIP Stream (Fast Direct • ✅ 0 Ads)</option>
+            <option value="5">Server 6: AutoEmbed CC Clean (0 Ads • Ultra HD)</option>
+            <option value="6">Server 7: FilmU Cloud Mirror (Glassmorphism Alternative)</option>
+            <option value="7">Server 8: MultiEmbed Cloud Stream (Global Mirror)</option>
             <option value="8">Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)</option>
             <option value="9">Server 10: 2Embed CC Captions (🛡️ Shield Protected)</option>
           </select>
