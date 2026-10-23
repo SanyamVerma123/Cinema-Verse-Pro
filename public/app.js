@@ -1702,7 +1702,7 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio)', badge: '✅ 0 Ads • Glassmorphism 4K', shortBadge: '✅ 0 Ads', provider: 'VidLink VIP', hasAds: false },
+  { id: 0, name: 'Server 1: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Glassmorphism 4K', shortBadge: '✅ 0 Ads', provider: 'VidLink VIP', hasAds: false },
   { id: 1, name: 'Server 2: AutoEmbed VIP (Clean Ultra HD • 0 Ads)', badge: '✅ 0 Ads • Fast 4K Direct', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed VIP', hasAds: false },
   { id: 2, name: 'Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
   { id: 3, name: 'Server 4: Global Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global Mirror', hasAds: false },
@@ -2338,9 +2338,20 @@ function loadServerStream(serverIdx) {
     if (bufferSub) bufferSub.textContent = 'High-speed clean stream • Neutralizing popups & ads...';
   }
 
-  // 2. High-Speed Direct Stream Loading — 100% Server Compatible (Zero Sandbox Restrictions)
+  // 2. High-Speed Direct Stream Loading — Adaptive Anti-Ad Sandbox Shield
   const iframe = document.getElementById('player-iframe');
-  iframe.removeAttribute('sandbox');
+  // When loading VidLink Pro or protected servers, enforce the strict Zero-Ad Sandbox Shield:
+  // - allow-scripts: Enables HLS/HTML5 video engine and controls
+  // - allow-same-origin: Allows streaming chunks & CORS requests
+  // - allow-forms: Allows audio/subtitle selection
+  // - allow-presentation: Enables fullscreen & Picture-in-Picture
+  // - allow-downloads: Allows offline downloads
+  // - EXPLICITLY OMIT allow-popups and allow-top-navigation: 100% HARD-BLOCKS ALL AD POPUPS (xm.com, etc.), NEW TABS, AND WINDOW HIJACKING!
+  if (srv.name.includes('VidLink') || srv.provider.includes('VidLink')) {
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-downloads');
+  } else {
+    iframe.removeAttribute('sandbox');
+  }
   iframe.referrerPolicy = 'origin';
 
   let streamUrl = srv.url;
