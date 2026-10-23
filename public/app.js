@@ -1705,13 +1705,13 @@ const STREAMING_SERVERS = [
   { id: 0, name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global World Mirror', hasAds: false },
   { id: 1, name: 'Server 2: FilmU Glassmorphism VIP (Multi-Language • 4K HDR • ✅ 0 Ads)', badge: '✅ 0 Ads • Glassmorphism 4K', shortBadge: '✅ 0 Ads', provider: 'FilmU VIP', hasAds: false },
   { id: 2, name: 'Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
-  { id: 3, name: 'Server 4: VidLink Pro VIP (Glassmorphism • Multi-Server & Audio)', badge: 'In-Player Switcher • 4K', shortBadge: '4K Multi-Audio', provider: 'VidLink VIP', hasAds: false },
-  { id: 4, name: 'Server 5: 123Embed VIP Stream (Fast Direct • ✅ 0 Ads)', badge: '✅ 0 Ads • Fast Cloud Direct', shortBadge: '✅ 0 Ads', provider: '123Embed VIP', hasAds: false },
-  { id: 5, name: 'Server 6: AutoEmbed CC Clean (0 Ads • Ultra HD)', badge: '✅ 0 Ads • Ultra HD Clean', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed CC', hasAds: false },
-  { id: 6, name: 'Server 7: FilmU Cloud Mirror (Glassmorphism Alternative)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'FilmU Cloud', hasAds: false },
-  { id: 7, name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed VIP', hasAds: false },
-  { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
-  { id: 9, name: 'Server 10: 2Embed CC Captions (🛡️ Shield Protected)', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: '2Embed CC', hasAds: true }
+  { id: 3, name: 'Server 4: 123Embed Cloud Player (In-Player Switcher • 4K • ✅ 0 Ads)', badge: '✅ 0 Ads • In-Player Switcher', shortBadge: '✅ 0 Ads', provider: '123Embed Cloud', hasAds: false },
+  { id: 4, name: 'Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Prime', hasAds: false },
+  { id: 5, name: 'Server 6: FilmU Cloud Mirror (Glassmorphism Alternative • ✅ 0 Ads)', badge: '✅ 0 Ads • Fast Cloud Ultra HD', shortBadge: '✅ 0 Ads', provider: 'FilmU Cloud', hasAds: false },
+  { id: 6, name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror • ✅ 0 Ads)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: false },
+  { id: 7, name: 'Server 8: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
+  { id: 8, name: 'Server 9: 2Embed CC Captions (🛡️ Shield Protected)', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: '2Embed CC', hasAds: true },
+  { id: 9, name: 'Server 10: VidLink Pro VIP (Multi-Server & Audio • 🛡️ Shield Protected)', badge: '🛡️ Multi-Server & Audio', shortBadge: '🛡️ Shielded', provider: 'VidLink VIP', hasAds: true }
 ];
 let selectedServerIndex = 0; // Default: Server 1 (Global Mirror - 0 Ads)
 
