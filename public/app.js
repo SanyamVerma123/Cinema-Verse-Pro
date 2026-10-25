@@ -9,7 +9,7 @@ let heroItems = [];
 let currentHeroIndex = 0;
 let heroTimer = null;
 let currentItem = null;
-let currentServerIndex = 0; // Default: Server 1 (Global Mirror - 0 Ads)
+let currentServerIndex = 0; // Default: Server 1 (Vidly Pro VIP)
 let currentSeason = 1;
 let currentEpisode = 1;
 let availableServers = [];
@@ -64,23 +64,6 @@ function openTrustedExternalLink(url) {
     console.warn('[CinemaVerse] Could not open external link:', error);
     return false;
   }
-}
-
-// CinemaVerse Adaptive Anti-Redirect Guard: Neutralize rogue popups and prevent iframe from hijacking the top window
-try {
-  Object.defineProperty(window, 'open', {
-    value: function(url) {
-      console.warn('[CinemaVerse Shield] Blocked popup window:', url);
-      return null;
-    },
-    writable: false,
-    configurable: false
-  });
-} catch (e) {
-  window.open = function(url) {
-    console.warn('[CinemaVerse Shield] Blocked popup window:', url);
-    return null;
-  };
 }
 
 // Block rogue synthetic link clicks targeting external ad pages
@@ -1702,93 +1685,17 @@ function clearSearch() {
 // ========================================================
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
-  { id: 0, name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'Global World Mirror', hasAds: false },
-  { id: 1, name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)', badge: '✅ Fast 4K • Multi-Audio', shortBadge: '4K Multi-Audio', provider: 'VidSrc Pro', hasAds: false },
-  { id: 2, name: 'Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)', badge: '✅ 0 Ads • Open-Source Clean Stream', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false },
-  { id: 3, name: 'Server 4: 123Embed Cloud Player (In-Player Switcher • 4K • ✅ 0 Ads)', badge: '✅ 0 Ads • In-Player Switcher', shortBadge: '✅ 0 Ads', provider: '123Embed Cloud', hasAds: false },
-  { id: 4, name: 'Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Language 4K', shortBadge: '✅ 0 Ads', provider: 'AutoEmbed Prime', hasAds: false },
-  { id: 5, name: 'Server 6: VidSrc Cloud Direct (1080p Direct • Multi-Audio)', badge: 'Fast 1080p • Multi-Audio', shortBadge: '1080p Direct', provider: 'VidSrc Cloud', hasAds: false },
-  { id: 6, name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror • ✅ 0 Ads)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: false },
-  { id: 7, name: 'Server 8: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi/Eng/Jap', shortBadge: '✅ 0 Ads', provider: 'AnimeWorld', hasAds: false },
-  { id: 8, name: 'Server 9: 2Embed CC Captions (🛡️ Shield Protected)', badge: '🛡️ Protected by Anti-Ad Shield', shortBadge: '🛡️ Shielded', provider: '2Embed CC', hasAds: true },
-  { id: 9, name: 'Server 10: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'Vidly Pro', hasAds: false }
+  { id: 0, name: 'Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'Vidly Pro', hasAds: false },
+  { id: 1, name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)', badge: 'External player • ads vary', shortBadge: 'Provider player', provider: 'Global World Mirror', hasAds: null },
+  { id: 2, name: 'Server 3: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)', badge: 'Fast 4K • Multi-Audio', shortBadge: '4K Multi-Audio', provider: 'VidSrc Pro', hasAds: null },
+  { id: 3, name: 'Server 4: CineSrc VIP Player (Open Source)', badge: 'External player • ads vary', shortBadge: 'Provider player', provider: 'CineSrc VIP', hasAds: null },
+  { id: 4, name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)', badge: 'In-Player Switcher • 4K', shortBadge: 'Provider player', provider: '123Embed Cloud', hasAds: null },
+  { id: 5, name: 'Server 6: AutoEmbed Prime VIP (Multi-Language • 4K HDR)', badge: 'Multi-Language 4K', shortBadge: 'Provider player', provider: 'AutoEmbed Prime', hasAds: null },
+  { id: 6, name: 'Server 7: VidSrc Cloud Direct (1080p Direct • Multi-Audio)', badge: 'Fast 1080p • Multi-Audio', shortBadge: '1080p Direct', provider: 'VidSrc Cloud', hasAds: null },
+  { id: 7, name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: null },
+  { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap)', badge: 'Hindi / English / Japanese', shortBadge: 'Provider player', provider: 'AnimeWorld', hasAds: null },
+  { id: 9, name: 'Server 10: 2Embed CC Captions', badge: 'External player • ads vary', shortBadge: 'Provider player', provider: '2Embed CC', hasAds: null },
 ];
-let selectedServerIndex = 0; // Default: Server 1 (Global Mirror - 0 Ads)
-
-// ========================================================
-// NETFLIX DETAILS MODAL (MOVIE PAGE)
-// ========================================================
-
-// Update Selected Server UI in Details Modal & Player
-function updateSelectedServerUI() {
-  const srv = STREAMING_SERVERS[selectedServerIndex] || STREAMING_SERVERS[0];
-  const statusEl = document.getElementById('modal-selected-server-name');
-  if (statusEl) statusEl.textContent = `${srv.name} (${srv.badge})`;
-  const playText = document.getElementById('modal-play-text');
-  if (playText) playText.textContent = `Play (${srv.name.split(':')[0]})`;
-  document.querySelectorAll('.server-chip-pill').forEach((p, idx) => {
-    p.classList.toggle('active', idx === selectedServerIndex);
-  });
-  const select = document.getElementById('server-select');
-  if (select) select.value = selectedServerIndex;
-}
-window.updateSelectedServerUI = updateSelectedServerUI;
-
-async function openDetailsModal(item) {
-  currentItem = item;
-  document.getElementById('modal-title').textContent = item.title;
-  document.getElementById('modal-desc').textContent = item.description || 'Watch now in Ultra HD.';
-  
-  const backdropImg = document.getElementById('modal-backdrop-img');
-  backdropImg.src = item.backdrop || item.poster || FALLBACK_BACKDROP;
-  backdropImg.onerror = () => handleImgError(backdropImg, FALLBACK_BACKDROP);
-
-  // Platform Tag
-  const chip = document.getElementById('modal-platform-chip');
-  if (chip) {
-    chip.textContent = item.platformBadge || item.platform;
-    chip.className = `platform-chip badge-${item.platformId}`;
-    if (item.platformColor) chip.style.backgroundColor = item.platformColor;
-  }
-  document.getElementById('modal-ott-source').textContent = item.platform;
-
-  document.getElementById('modal-year').textContent = item.year;
-  document.getElementById('modal-duration').textContent = item.duration;
-  document.getElementById('modal-quality').textContent = item.quality || '4K';
-  document.getElementById('modal-match').textContent = item.matchRate || '99% Match';
-  document.getElementById('modal-maturity').textContent = item.maturity || '16+';
-  document.getElementById('modal-audio').textContent = item.audio || 'Dolby Atmos';
-  document.getElementById('modal-director').textContent = item.director || 'Acclaimed Director';
-  document.getElementById('modal-genres-list').textContent = (item.genres || []).join(', ');
-
-  // Cast Chips
-  const castContainer = document.getElementById('modal-cast');
-  castContainer.innerHTML = '';
-  (item.cast || []).forEach(name => {
-    const chipEl = document.createElement('span');
-    chipEl.className = 'cast-chip';
-    chipEl.textContent = name;
-    castContainer.appendChild(chipEl);
-  });
-
-  // Watchlist Button
-  const wBtn = document.getElementById('modal-watchlist-btn');
-  updateWatchlistButton(wBtn, item.id);
-  wBtn.onclick = () => toggleWatchlist(item, wBtn);
-
-  // Available Audio & Dubbed Language Chips
-  const langContainer = document.getElementById('modal-language-chips');
-  const langStatus = document.getElementById('modal-selected-language-label');
-  if (langContainer) {
-    langContainer.innerHTML = '';
-    const langs = item.languages || [
-      { code: 'en', name: 'English (Original)', flag: '🌐', defaultServer: 0 },
-      { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
-      { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 7 },
-      { code: 'ta', name: 'Tamil Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
-      { code: 'te', name: 'Telugu Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
-      { code: 'es', name: 'Spanish Dubbed', flag: '🇪🇸', isDub: true, defaultServer: 0 }
-    ];
 
     langs.forEach(l => {
       const chip = document.createElement('button');
@@ -1869,12 +1776,12 @@ function renderMoviePageServerChips(item) {
   chipsContainer.innerHTML = '';
   STREAMING_SERVERS.forEach((srv, idx) => {
     const pill = document.createElement('div');
-    const adClass = srv.hasAds ? 'has-ad' : 'is-clean';
+    const adClass = srv.hasAds === true ? 'has-ad' : 'provider-player';
     pill.className = `server-chip-pill ${adClass} ${idx === selectedServerIndex ? 'active' : ''}`;
     pill.innerHTML = `
-      <i class="fa-solid fa-server ${srv.hasAds ? 'text-gold' : 'text-green'}"></i>
+      <i class="fa-solid fa-server ${srv.hasAds === true ? 'text-gold' : 'text-cyan'}"></i>
       <span>${srv.name.split(':')[0]}</span>
-      <span class="server-chip-badge ${srv.hasAds ? 'badge-ad-warning' : 'badge-clean'}">${srv.shortBadge}</span>
+      <span class="server-chip-badge ${srv.hasAds === true ? 'badge-ad-warning' : 'badge-provider'}">${srv.shortBadge}</span>
     `;
     pill.onclick = () => {
       selectedServerIndex = idx;
@@ -2062,7 +1969,7 @@ function shareMovie(item = currentItem, season = null, episode = null) {
   const title = item.title || 'Movie';
   const url = buildShareUrl(item, currentShareSeason, currentShareEpisode);
   const epInfo = item.type === 'series' ? ` (Season ${currentShareSeason} Episode ${currentShareEpisode})` : '';
-  const shareText = `Watch "${title}"${epInfo} (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse! 100% Free & 0 Ads:`;
+  const shareText = `Watch "${title}"${epInfo} (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse! Free to use; provider ads may appear:`;
 
   // Try native Web Share API on mobile devices first
   if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
@@ -2136,7 +2043,7 @@ function shareVia(channel) {
   const title = item.title || 'Movie';
   const epInfo = item.type === 'series' ? ` (Season ${currentShareSeason} Episode ${currentShareEpisode})` : '';
   const url = buildShareUrl(item, currentShareSeason, currentShareEpisode);
-  const text = `Watch "${title}"${epInfo} (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse! 100% Free & 0 Ads:`;
+  const text = `Watch "${title}"${epInfo} (${item.year || '2026'}) in 4K Ultra HD on CinemaVerse! Free to use; provider ads may appear:`;
 
   if (channel === 'whatsapp') {
     openTrustedExternalLink(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + url)}`);
@@ -2325,12 +2232,13 @@ function loadServerStream(serverIdx) {
   if (bufferOverlay) {
     bufferOverlay.classList.remove('fade-out');
     if (bufferText) bufferText.textContent = `Buffering ${srv.name.split(':')[0]}`;
-    if (bufferSub) bufferSub.textContent = 'High-speed clean stream • Neutralizing popups & ads...';
+    if (bufferSub) bufferSub.textContent = 'Loading the selected provider player...';
   }
 
-  // 2. High-Speed Direct Stream Loading — Zero Sandbox Restrictions (100% Server Compatible)
+  // 2. Load the provider without sandbox restrictions. Vidly and several mirrors
+  // detect sandboxed frames and refuse playback; popup handling must stay outside
+  // the provider iframe.
   const iframe = document.getElementById('player-iframe');
-  // Unconditionally remove sandbox so providers never crash with 'Failed to load video streaming' or 'Please Disable Sandbox'
   iframe.removeAttribute('sandbox');
   iframe.referrerPolicy = 'origin';
 
@@ -2344,40 +2252,41 @@ function loadServerStream(serverIdx) {
     const tmdbOrImdb = tmdb || imdb || currentItem.id;
     switch (serverIdx) {
       case 0:
-        streamUrl = isTv 
-          ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
-          : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
-        break;
-      case 1:
-        streamUrl = isTv
-          ? `https://vidsrc2.ru/embed/tv?imdb=${imdb}&tmdb=${tmdb}&season=${s}&episode=${e}`
-          : `https://vidsrc2.ru/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
-        break;
-      case 2:
-        streamUrl = isTv ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}` : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`;
-        break;
-      case 3:
-        streamUrl = isTv ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}` : `https://play2.123embed.net/movie/${tmdbOrImdb}`;
-        break;
-      case 4:
-        streamUrl = isTv ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}` : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`;
-        break;
-      case 5:
-        streamUrl = isTv ? `https://vidsrc.pm/embed/tv?imdb=${imdb}&tmdb=${tmdb}&season=${s}&episode=${e}` : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`;
-        break;
-      case 6:
-        streamUrl = isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
-        break;
-      case 7:
-        streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
-        break;
-      case 8:
-        streamUrl = isTv ? `https://www.2embed.cc/embedtv/${imdb || tmdbOrImdb}&s=${s}&e=${e}` : `https://www.2embed.cc/embed/${imdb || tmdbOrImdb}`;
-        break;
       default:
         streamUrl = isTv 
           ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
           : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?theme=aurora&color=e50914&audioPicker=1`;
+        break;
+      case 1:
+        streamUrl = isTv 
+          ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
+          : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
+        break;
+      case 2:
+        streamUrl = isTv 
+          ? `https://vidsrc2.ru/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
+          : `https://vidsrc2.ru/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
+        break;
+      case 3:
+        streamUrl = isTv ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}` : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`;
+        break;
+      case 4:
+        streamUrl = isTv ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}` : `https://play2.123embed.net/movie/${tmdbOrImdb}`;
+        break;
+      case 5:
+        streamUrl = isTv ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}` : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`;
+        break;
+      case 6:
+        streamUrl = isTv ? `https://vidsrc.pm/embed/tv?imdb=${imdb}&tmdb=${tmdb}&season=${s}&episode=${e}` : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`;
+        break;
+      case 7:
+        streamUrl = isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
+        break;
+      case 8:
+        streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
+        break;
+      case 9:
+        streamUrl = isTv ? `https://www.2embed.cc/embedtv/${imdb || tmdbOrImdb}&s=${s}&e=${e}` : `https://www.2embed.cc/embed/${imdb || tmdbOrImdb}`;
         break;
     }
   }
@@ -2462,8 +2371,8 @@ function changeDubLanguage(langCode, btnElement) {
 
   // If anime and Japanese requested, route to AnimeWorld
   if (langCode === 'ja' && isAnime) {
-    loadServerStream(7); // Server 8: AnimeWorld VIP
-    showToast(`🎧 Audio set to ${langName} • Server 8 (AnimeWorld VIP) Active`, 'success');
+    loadServerStream(8); // Server 9: AnimeWorld VIP
+    showToast(`🎧 Audio set to ${langName} • Server 9 (AnimeWorld VIP) Active`, 'success');
   } else {
     const srv = (availableServers && availableServers[currentServerIndex]) || STREAMING_SERVERS[currentServerIndex] || STREAMING_SERVERS[0];
     const srvName = srv.name.split(':')[0];
@@ -2831,9 +2740,9 @@ function renderTheaterServerChips() {
     const adClass = srv.hasAds ? 'has-ad' : 'is-clean';
     pill.className = `server-chip-pill ${adClass} ${idx === currentServerIndex ? 'active' : ''}`;
     pill.innerHTML = `
-      <i class="fa-solid fa-server ${srv.hasAds ? 'text-gold' : 'text-green'}"></i>
+      <i class="fa-solid fa-server ${srv.hasAds === true ? 'text-gold' : 'text-cyan'}"></i>
       <span>${srv.name.split(':')[0]}</span>
-      <span class="server-chip-badge ${srv.hasAds ? 'badge-ad-warning' : 'badge-clean'}">${srv.shortBadge}</span>
+      <span class="server-chip-badge ${srv.hasAds === true ? 'badge-ad-warning' : 'badge-provider'}">${srv.shortBadge}</span>
     `;
     pill.onclick = () => {
       loadServerStream(idx);
@@ -3234,14 +3143,6 @@ function setupKeyboardShortcuts() {
     }
   });
 
-  // Auto-Refocus Window Protection (Prevents ad window hijacking when clicking player)
-  window.addEventListener('blur', () => {
-    if (playerOpen) {
-      setTimeout(() => {
-        try { window.focus(); } catch(e) {}
-      }, 60);
-    }
-  });
 }
 
 // ========================================================
@@ -4334,8 +4235,8 @@ window.filterByCategory = filterCategory;
 
 
 // ========================================================
-// CinemaVerse Zero-Ad Defense Engine (Neutralizes Popups, Popunders & Window Hijacking)
-// ========================================================
+// Best-effort guard for popups requested by this page's own JavaScript.
+// It cannot intercept a cross-origin provider iframe's window.open calls.
 (function() {
   function isPlayerActive() {
     const overlay = document.getElementById('player-overlay');
@@ -4343,50 +4244,16 @@ window.filterByCategory = filterCategory;
   }
 
   const _origWindowOpen = window.open;
-  window.open = function(url, target, features) {
-    if (typeof url === 'string') {
-      const u = url.toLowerCase();
-      if (u.includes('xm.com') || u.includes('worncalmy') || u.includes('adsterra') || 
-          u.includes('monetag') || u.includes('onclick') || u.includes('bet') || 
-          u.includes('casino') || u.includes('track') || u.includes('affiliate') || 
-          u.includes('pop') || u.includes('doubleclick') || u.includes('traffic')) {
-        console.warn('[Anti-Ad Shield] Neutralized ad popup target:', url);
-        return null;
-      }
-    }
-    // If video player is active, suppress external popups
-    if (isPlayerActive()) {
-      if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
-        try {
-          const parsed = new URL(url);
-          if (parsed.origin !== window.location.origin) {
-            console.warn('[Anti-Ad Shield] Blocked cross-origin player popup:', url);
-            return null;
-          }
-        } catch(e) {}
-      }
+  window.open = function(url) {
+    if (isPlayerActive() && url) {
+      try {
+        const parsed = new URL(String(url), window.location.href);
+        if (parsed.origin !== window.location.origin) {
+          console.warn('[Popup guard] Blocked parent-page external popup:', parsed.href);
+          return null;
+        }
+      } catch(e) {}
     }
     return _origWindowOpen.apply(this, arguments);
   };
-
-  // Reclaim focus smoothly if an external tab tried to steal focus
-  window.addEventListener('blur', function() {
-    if (isPlayerActive()) {
-      setTimeout(() => { 
-        try { window.focus(); } catch(e) {}
-      }, 50);
-    }
-  });
-
-  // Prevent top-frame navigation hijack from rogue embeds
-  window.addEventListener('beforeunload', function(e) {
-    if (isPlayerActive()) {
-      const activeEl = document.activeElement;
-      if (activeEl && activeEl.id === 'player-iframe') {
-        e.preventDefault();
-        e.returnValue = '';
-        return '';
-      }
-    }
-  });
 })();

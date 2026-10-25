@@ -3372,6 +3372,13 @@ input[type=range][orient=vertical] {
   border: 1px solid rgba(16, 185, 129, 0.45);
 }
 
+.server-chip-pill.provider-player .server-chip-badge,
+.server-chip-badge.badge-provider {
+  background: rgba(148, 163, 184, 0.12);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+}
+
 .server-chip-pill.has-ad {
   background: rgba(245, 158, 11, 0.08);
   border-color: rgba(245, 158, 11, 0.35);
@@ -8496,6 +8503,16 @@ h1, h2, h3, h4, h5, h6,
 .server-chip-pill.is-clean {
   background: rgba(16, 185, 129, 0.08) !important;
   border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+.server-chip-pill.provider-player {
+  background: rgba(148, 163, 184, 0.06) !important;
+  border-color: rgba(148, 163, 184, 0.22) !important;
+}
+
+.server-chip-pill.provider-player:hover {
+  background: rgba(148, 163, 184, 0.12) !important;
+  border-color: rgba(148, 163, 184, 0.36) !important;
 }
 
 .server-chip-pill.is-clean:hover {

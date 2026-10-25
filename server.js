@@ -63,7 +63,7 @@ async function resolveTmdbId(imdbId, isTv = false) {
   return null;
 }
 
-// Helper: Stream server resolver (10 High-Speed Clean Servers)
+// Helper: Stream server resolver (Server 1: Vidly Pro VIP 0-Ads Primary)
 async function getStreamServers(type, id, season = 1, episode = 1) {
   const item = catalogData.find(x => x.id === id || x.imdbId === id || String(x.tmdbId) === String(id));
   const isTv = type === 'series' || type === 'tv';
@@ -86,86 +86,88 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   const tmdbOrImdb = tmdb || imdb || id;
   const imdbOrTmdb = imdb || tmdb || id;
 
+  const primaryMirrorUrl = isTv
+    ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
+    : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
+
   const servers = [
     {
       id: 1,
-      name: 'Server 1: Global World Mirror (Multi-Language & Dubbed • ✅ 0 Ads)',
-      badge: '✅ 0 Ads • Multi-Language 4K',
+      name: 'Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)',
+      badge: '✅ 0 Ads • Multi-Audio 4K',
       url: isTv 
-        ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
-        : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`
+        ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
+        : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?theme=aurora&color=e50914&audioPicker=1`
     },
     {
       id: 2,
-      name: 'Server 2: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)',
-      badge: '✅ Fast 4K • Multi-Audio',
+      name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)',
+      badge: 'External player • ads vary',
+      url: primaryMirrorUrl
+    },
+    {
+      id: 3,
+      name: 'Server 3: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)',
+      badge: 'Fast 4K • Multi-Audio',
       url: isTv 
         ? `https://vidsrc2.ru/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
         : `https://vidsrc2.ru/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`
     },
     {
-      id: 3,
-      name: 'Server 3: CineSrc VIP Player (✅ 0 Ads • Open Source)',
-      badge: '✅ 0 Ads • Open-Source Clean Stream',
+      id: 4,
+      name: 'Server 4: CineSrc VIP Player (Open Source)',
+      badge: 'External player • ads vary',
       url: isTv 
         ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}`
         : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`
     },
     {
-      id: 4,
-      name: 'Server 4: 123Embed Cloud Player (In-Player Switcher • 4K • ✅ 0 Ads)',
-      badge: '✅ 0 Ads • In-Player Switcher',
+      id: 5,
+      name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)',
+      badge: 'In-Player Switcher • 4K',
       url: isTv 
         ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}`
         : `https://play2.123embed.net/movie/${tmdbOrImdb}`
     },
     {
-      id: 5,
-      name: 'Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR • ✅ 0 Ads)',
-      badge: '✅ 0 Ads • Multi-Language 4K',
+      id: 6,
+      name: 'Server 6: AutoEmbed Prime VIP (Multi-Language • 4K HDR)',
+      badge: 'External player • ads vary',
       url: isTv 
         ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}`
         : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`
     },
     {
-      id: 6,
-      name: 'Server 6: VidSrc Cloud Direct (1080p Direct • Multi-Audio)',
+      id: 7,
+      name: 'Server 7: VidSrc Cloud Direct (1080p Direct • Multi-Audio)',
       badge: 'Fast 1080p • Multi-Audio',
       url: isTv 
         ? `https://vidsrc.pm/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
         : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`
     },
     {
-      id: 7,
-      name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror • ✅ 0 Ads)',
-      badge: 'Global Cloud Mirror',
+      id: 8,
+      name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)',
+      badge: 'External player • ads vary',
       url: isTv 
         ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}`
         : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`
     },
     {
-      id: 8,
-      name: 'Server 8: AnimeWorld VIP (Hindi/Eng/Jap • ✅ 0 Ads)',
-      badge: '✅ 0 Ads • Hindi/Eng/Jap Multi-Audio',
+      id: 9,
+      name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap)',
+      badge: 'Hindi / English / Japanese • ads vary',
       url: isTv 
         ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
         : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`
     },
     {
-      id: 9,
-      name: 'Server 9: 2Embed CC Captions (🛡️ Shield Protected)',
-      badge: '🛡️ Protected by Anti-Ad Shield',
+      id: 10,
+      name: 'Server 10: 2Embed CC Captions',
+      badge: 'External player • ads vary',
       url: isTv 
         ? `https://www.2embed.cc/embedtv/${imdbOrTmdb}&s=${s}&e=${e}`
         : `https://www.2embed.cc/embed/${imdbOrTmdb}`
-    },
-    {
-      id: 10,
-      name: 'Server 10: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)',
-      badge: '✅ 0 Ads • Multi-Audio 4K',
-      url: isTv 
-        ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
-        : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?theme=aurora&color=e50914&audioPicker=1`
     }
   ];
 
@@ -560,6 +562,7 @@ app.get('/api/details/:id', async (req, res) => {
 
 // 5. Stream Sources Endpoint
 app.get('/api/sources/:type/:id', async (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
   const { type, id } = req.params;
   const season = req.query.s || 1;
   const episode = req.query.e || 1;
