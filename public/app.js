@@ -1696,7 +1696,82 @@ const STREAMING_SERVERS = [
   { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap)', badge: 'Hindi / English / Japanese', shortBadge: 'Provider player', provider: 'AnimeWorld', hasAds: null },
   { id: 9, name: 'Server 10: 2Embed CC Captions', badge: 'External player • ads vary', shortBadge: 'Provider player', provider: '2Embed CC', hasAds: null },
 ];
+let selectedServerIndex = 0; // Default: Server 1 (Vidly Pro VIP)
 
+// ========================================================
+// NETFLIX DETAILS MODAL (MOVIE PAGE)
+// ========================================================
+
+// Update Selected Server UI in Details Modal & Player
+function updateSelectedServerUI() {
+  const srv = STREAMING_SERVERS[selectedServerIndex] || STREAMING_SERVERS[0];
+  const statusEl = document.getElementById('modal-selected-server-name');
+  if (statusEl) statusEl.textContent = `${srv.name} (${srv.badge})`;
+  const playText = document.getElementById('modal-play-text');
+  if (playText) playText.textContent = `Play (${srv.name.split(':')[0]})`;
+  document.querySelectorAll('.server-chip-pill').forEach((p, idx) => {
+    p.classList.toggle('active', idx === selectedServerIndex);
+  });
+  const select = document.getElementById('server-select');
+  if (select) select.value = selectedServerIndex;
+}
+window.updateSelectedServerUI = updateSelectedServerUI;
+
+async function openDetailsModal(item) {
+  currentItem = item;
+  document.getElementById('modal-title').textContent = item.title;
+  document.getElementById('modal-desc').textContent = item.description || 'Watch now in Ultra HD.';
+  
+  const backdropImg = document.getElementById('modal-backdrop-img');
+  backdropImg.src = item.backdrop || item.poster || FALLBACK_BACKDROP;
+  backdropImg.onerror = () => handleImgError(backdropImg, FALLBACK_BACKDROP);
+
+  // Platform Tag
+  const chip = document.getElementById('modal-platform-chip');
+  if (chip) {
+    chip.textContent = item.platformBadge || item.platform;
+    chip.className = `platform-chip badge-${item.platformId}`;
+    if (item.platformColor) chip.style.backgroundColor = item.platformColor;
+  }
+  document.getElementById('modal-ott-source').textContent = item.platform;
+
+  document.getElementById('modal-year').textContent = item.year;
+  document.getElementById('modal-duration').textContent = item.duration;
+  document.getElementById('modal-quality').textContent = item.quality || '4K';
+  document.getElementById('modal-match').textContent = item.matchRate || '99% Match';
+  document.getElementById('modal-maturity').textContent = item.maturity || '16+';
+  document.getElementById('modal-audio').textContent = item.audio || 'Dolby Atmos';
+  document.getElementById('modal-director').textContent = item.director || 'Acclaimed Director';
+  document.getElementById('modal-genres-list').textContent = (item.genres || []).join(', ');
+
+  // Cast Chips
+  const castContainer = document.getElementById('modal-cast');
+  castContainer.innerHTML = '';
+  (item.cast || []).forEach(name => {
+    const chipEl = document.createElement('span');
+    chipEl.className = 'cast-chip';
+    chipEl.textContent = name;
+    castContainer.appendChild(chipEl);
+  });
+
+  // Watchlist Button
+  const wBtn = document.getElementById('modal-watchlist-btn');
+  updateWatchlistButton(wBtn, item.id);
+  wBtn.onclick = () => toggleWatchlist(item, wBtn);
+
+  // Available Audio & Dubbed Language Chips
+  const langContainer = document.getElementById('modal-language-chips');
+  const langStatus = document.getElementById('modal-selected-language-label');
+  if (langContainer) {
+    langContainer.innerHTML = '';
+    const langs = item.languages || [
+      { code: 'en', name: 'English (Original)', flag: '🌐', defaultServer: 0 },
+      { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 8 },
+      { code: 'ta', name: 'Tamil Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      { code: 'te', name: 'Telugu Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      { code: 'es', name: 'Spanish Dubbed', flag: '🇪🇸', isDub: true, defaultServer: 0 }
+    ];
     langs.forEach(l => {
       const chip = document.createElement('button');
       chip.className = `modal-lang-chip ${selectedDubLanguage === l.code ? 'active' : ''}`;

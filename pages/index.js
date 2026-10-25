@@ -3,21 +3,16 @@ import path from 'node:path';
 import Script from 'next/script';
 import Head from 'next/head';
 
-let cachedMarkup = null;
-
 function getPageMarkup() {
-  if (cachedMarkup) return cachedMarkup;
   const htmlPath = path.join(process.cwd(), 'public', 'index.html');
   const document = fs.readFileSync(htmlPath, 'utf8');
   const body = document.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1];
 
   if (!body) throw new Error('The legacy page markup is missing its body element.');
 
-  cachedMarkup = body
+  return body
     .replace(/<script\b[^>]*src=["']app\.js["'][^>]*><\/script>/i, '')
     .trim();
-
-  return cachedMarkup;
 }
 
 export default function Home({ pageMarkup, meta }) {
