@@ -13,7 +13,8 @@ module.exports = {
   hasAds: null,
   iframeAttributes: {
     allow: 'autoplay; fullscreen; picture-in-picture; encrypted-media',
-    referrerPolicy: 'origin'
+    referrerPolicy: 'no-referrer',
+    allowFullScreen: true
   },
   buildUrl: function({ tmdb, imdb, id, isTv, season, episode }) {
     const s = season || 1;

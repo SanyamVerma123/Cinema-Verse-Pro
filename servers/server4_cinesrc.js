@@ -6,14 +6,16 @@ module.exports = {
   id: 4,
   clientIndex: 3,
   slug: 'cinesrc',
-  name: 'Server 4: CineSrc VIP Player (Open Source)',
-  badge: 'External player • ads vary',
-  shortBadge: 'Provider player',
+  name: 'Server 4: CineSrc VIP Player (Open Source • ✅ 0 Ads)',
+  badge: '✅ 0 Ads • Open Source',
+  shortBadge: '✅ 0 Ads',
   provider: 'CineSrc VIP',
-  hasAds: null,
+  hasAds: false,
   iframeAttributes: {
     allow: 'autoplay; fullscreen; picture-in-picture; encrypted-media',
-    referrerPolicy: 'origin'
+    referrerPolicy: 'no-referrer',
+    allowFullScreen: true,
+    sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation'
   },
   buildUrl: function({ tmdb, imdb, id, isTv, season, episode }) {
     const s = season || 1;

@@ -13,7 +13,8 @@ module.exports = {
   hasAds: null,
   iframeAttributes: {
     allow: 'autoplay; fullscreen; picture-in-picture; encrypted-media',
-    referrerPolicy: 'origin'
+    referrerPolicy: 'no-referrer',
+    allowFullScreen: true
   },
   buildUrl: function({ tmdb, imdb, id, isTv, season, episode }) {
     const s = season || 1;
@@ -21,7 +22,7 @@ module.exports = {
     const tmdbOrImdb = tmdb || imdb || id;
 
     return isTv
-      ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}`
-      : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`;
+      ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
+      : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
   }
 };

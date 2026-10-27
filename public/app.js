@@ -1686,10 +1686,10 @@ function clearSearch() {
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
   { id: 0, name: 'Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'Vidly Pro', hasAds: false },
-  { id: 1, name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)', badge: 'External player • ads vary', shortBadge: 'Provider player', provider: 'Global World Mirror', hasAds: null },
+  { id: 1, name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)', badge: 'Multi-Language • Dubbed', shortBadge: 'Dubbed Mirror', provider: 'Global World Mirror', hasAds: null },
   { id: 2, name: 'Server 3: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)', badge: 'Fast 4K • Multi-Audio', shortBadge: '4K Multi-Audio', provider: 'VidSrc Pro', hasAds: null },
-  { id: 3, name: 'Server 4: CineSrc VIP Player (Open Source)', badge: 'External player • ads vary', shortBadge: 'Provider player', provider: 'CineSrc VIP', hasAds: null },
-  { id: 4, name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)', badge: 'In-Player Switcher • 4K', shortBadge: 'Provider player', provider: '123Embed Cloud', hasAds: null },
+  { id: 3, name: 'Server 4: CineSrc VIP Player (Open Source • ✅ 0 Ads)', badge: '✅ 0 Ads • Open Source', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
+  { id: 4, name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)', badge: 'In-Player Switcher • 4K', shortBadge: 'Provider player', provider: '123Embed Cloud', hasAds: null, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
   { id: 5, name: 'Server 6: AutoEmbed Prime VIP (Multi-Language • 4K HDR)', badge: 'Multi-Language 4K', shortBadge: 'Provider player', provider: 'AutoEmbed Prime', hasAds: null },
   { id: 6, name: 'Server 7: VidSrc Cloud Direct (1080p Direct • Multi-Audio)', badge: 'Fast 1080p • Multi-Audio', shortBadge: '1080p Direct', provider: 'VidSrc Cloud', hasAds: null },
   { id: 7, name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: null },
@@ -2310,11 +2310,15 @@ function loadServerStream(serverIdx) {
     if (bufferSub) bufferSub.textContent = 'Loading the selected provider player...';
   }
 
-  // 2. Load the provider without sandbox restrictions. Vidly and several mirrors
-  // detect sandboxed frames and refuse playback; popup handling must stay outside
-  // the provider iframe.
+  // 2. Load the provider with per-server tailored sandbox & security attributes.
+  // Server 1 (Vidly Pro) and providers with anti-sandbox checks run unsandboxed;
+  // providers supporting sandbox run with strict browser-level popup lockout.
   const iframe = document.getElementById('player-iframe');
-  iframe.removeAttribute('sandbox');
+  if (srv && srv.iframeAttributes && srv.iframeAttributes.sandbox) {
+    iframe.setAttribute('sandbox', srv.iframeAttributes.sandbox);
+  } else {
+    iframe.removeAttribute('sandbox');
+  }
   iframe.referrerPolicy = (srv && srv.iframeAttributes && srv.iframeAttributes.referrerPolicy) || 'no-referrer';
   iframe.allow = (srv && srv.iframeAttributes && srv.iframeAttributes.allow) || 'autoplay; encrypted-media; picture-in-picture';
 
@@ -2350,7 +2354,9 @@ function loadServerStream(serverIdx) {
         streamUrl = isTv ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}` : `https://play2.123embed.net/movie/${tmdbOrImdb}`;
         break;
       case 5:
-        streamUrl = isTv ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}` : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`;
+        streamUrl = isTv 
+          ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
+          : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
         break;
       case 6:
         streamUrl = isTv ? `https://vidsrc.pm/embed/tv?imdb=${imdb}&tmdb=${tmdb}&season=${s}&episode=${e}` : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`;
@@ -4319,6 +4325,7 @@ window.filterByCategory = filterCategory;
     return overlay && overlay.style.display === 'flex';
   }
 
+  // Intercept and neutralize popup windows triggered during playback
   const _origWindowOpen = window.open;
   window.open = function(url) {
     if (isPlayerActive()) {
@@ -4328,14 +4335,20 @@ window.filterByCategory = filterCategory;
     return _origWindowOpen.apply(this, arguments);
   };
 
-  // Auto-Refocus Window Protection (Neutralizes background click steals)
-  window.addEventListener('blur', function() {
-    if (isPlayerActive()) {
-      setTimeout(function() {
-        try { window.focus(); } catch(e) {}
-      }, 40);
-    }
-  });
+  // Multi-Stage Auto-Refocus Shield (Rapidly neutralizes popunders and background window steals)
+  let refocusTimer = null;
+  function reassertWindowFocus() {
+    if (!isPlayerActive()) return;
+    try { window.focus(); } catch (e) {}
+    clearTimeout(refocusTimer);
+    refocusTimer = setTimeout(() => {
+      try { window.focus(); } catch (e) {}
+    }, 40);
+    setTimeout(() => {
+      try { window.focus(); } catch (e) {}
+    }, 150);
+  }
+  window.addEventListener('blur', reassertWindowFocus);
 
   // Prevent top-frame navigation hijack from rogue provider scripts
   window.addEventListener('beforeunload', function(e) {
@@ -4344,8 +4357,20 @@ window.filterByCategory = filterCategory;
       if (activeEl && (activeEl.tagName === 'IFRAME' || activeEl.id === 'player-iframe')) {
         console.warn('[CinemaVerse Shield] Blocked top-frame hijack attempt from iframe');
         e.preventDefault();
-        e.returnValue = '';
-        return '';
+        e.returnValue = 'Playback active in CinemaVerse';
+        return 'Playback active in CinemaVerse';
+      }
+    }
+  });
+
+  // Global Keyboard Shortcut: Press 'Z' to zap overlays & refresh clean stream
+  window.addEventListener('keydown', function(e) {
+    if (isPlayerActive()) {
+      if ((e.key === 'z' || e.key === 'Z') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+        e.preventDefault();
+        if (typeof zapAdOverlays === 'function') {
+          zapAdOverlays();
+        }
       }
     }
   });
