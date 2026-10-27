@@ -1687,14 +1687,14 @@ function clearSearch() {
 const STREAMING_SERVERS = [
   { id: 0, name: 'Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'Vidly Pro', hasAds: false },
   { id: 1, name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)', badge: 'Multi-Language • Dubbed', shortBadge: 'Dubbed Mirror', provider: 'Global World Mirror', hasAds: null },
-  { id: 2, name: 'Server 3: VidLink Pro VIP (Ultra HD 4K • Multi-Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'VidLink Pro', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
+  { id: 2, name: 'Server 3: VidLink Pro VIP (Ultra HD 4K • Multi-Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'VidLink Pro', hasAds: false },
   { id: 3, name: 'Server 4: CineSrc VIP Player (Open Source • ✅ 0 Ads)', badge: '✅ 0 Ads • Open Source', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
   { id: 4, name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)', badge: 'In-Player Switcher • 4K', shortBadge: 'Provider player', provider: '123Embed Cloud', hasAds: null, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
   { id: 5, name: 'Server 6: AutoEmbed Prime VIP (Multi-Language • 4K HDR)', badge: 'Multi-Language 4K', shortBadge: 'Provider player', provider: 'AutoEmbed Prime', hasAds: null },
-  { id: 6, name: 'Server 7: VidFast Cloud Direct (1080p Direct • ✅ 0 Ads)', badge: '✅ 0 Ads • 1080p Direct', shortBadge: '✅ 0 Ads', provider: 'VidFast Cloud', hasAds: false },
+  { id: 6, name: 'Server 7: AnyEmbed Prime Direct (1080p Direct • ✅ 0 Ads)', badge: '✅ 0 Ads • 1080p Direct', shortBadge: '✅ 0 Ads', provider: 'AnyEmbed Prime', hasAds: false },
   { id: 7, name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: null },
   { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap)', badge: 'Hindi / English / Japanese', shortBadge: 'Provider player', provider: 'AnimeWorld', hasAds: null },
-  { id: 9, name: 'Server 10: Nontongo CC Captions (Multi-Subtitles • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Subtitles', shortBadge: '✅ 0 Ads', provider: 'Nontongo Cloud', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
+  { id: 9, name: 'Server 10: Nontongo CC Captions (Multi-Subtitles • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Subtitles', shortBadge: '✅ 0 Ads', provider: 'Nontongo Cloud', hasAds: false },
 ];
 let selectedServerIndex = 0; // Default: Server 1 (Vidly Pro VIP)
 
@@ -2360,8 +2360,8 @@ function loadServerStream(serverIdx) {
         break;
       case 6:
         streamUrl = isTv 
-          ? `https://vidfast.vc/tv/${tmdb || tmdbOrImdb}/${s}/${e}?autoPlay=true`
-          : `https://vidfast.vc/movie/${tmdb || tmdbOrImdb}?autoPlay=true`;
+          ? `https://anyembed.xyz/embed/tmdb-tv-${tmdb || tmdbOrImdb}-${s}-${e}`
+          : `https://anyembed.xyz/embed/tmdb-movie-${tmdb || tmdbOrImdb}`;
         break;
       case 7:
         streamUrl = isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
@@ -2708,18 +2708,18 @@ function initPlayerTopBarAutoMove() {
     });
     header.addEventListener('mouseleave', () => {
       isHeaderHovered = false;
-      schedulePlayerTopBarAutoMove(4000);
+      schedulePlayerTopBarAutoMove(3000);
     });
   }
   const srvSelect = document.getElementById('server-select');
   if (srvSelect) {
     srvSelect.addEventListener('focus', () => { isHeaderHovered = true; clearTimeout(playerTopBarTimer); });
-    srvSelect.addEventListener('change', () => { schedulePlayerTopBarAutoMove(4000); });
+    srvSelect.addEventListener('change', () => { isHeaderHovered = false; schedulePlayerTopBarAutoMove(3000); });
   }
   const audSelect = document.getElementById('player-audio-select');
   if (audSelect) {
     audSelect.addEventListener('focus', () => { isHeaderHovered = true; clearTimeout(playerTopBarTimer); });
-    audSelect.addEventListener('change', () => { schedulePlayerTopBarAutoMove(4000); });
+    audSelect.addEventListener('change', () => { isHeaderHovered = false; schedulePlayerTopBarAutoMove(3000); });
   }
 }
 
@@ -2728,13 +2728,13 @@ function revealPlayerTopBar() {
   if (!overlay) return;
   overlay.classList.remove('top-bar-hidden');
   clearTimeout(playerTopBarTimer);
-  schedulePlayerTopBarAutoMove(8000);
+  schedulePlayerTopBarAutoMove(5000);
 }
 
-function collapsePlayerTopBar() {
+function collapsePlayerTopBar(force = true) {
   const overlay = document.getElementById('player-overlay');
   if (!overlay || overlay.classList.contains('theater-mode')) return;
-  if (isHeaderHovered) return;
+  isHeaderHovered = false; // Always release hover lock
   overlay.classList.add('top-bar-hidden');
   clearTimeout(playerTopBarTimer);
 }
@@ -2743,10 +2743,14 @@ function schedulePlayerTopBarAutoMove(delay = 4500) {
   clearTimeout(playerTopBarTimer);
   const overlay = document.getElementById('player-overlay');
   if (!overlay || overlay.classList.contains('theater-mode')) return;
-  if (isHeaderHovered) return;
   playerTopBarTimer = setTimeout(() => {
-    if (overlay.style.display !== 'none' && !overlay.classList.contains('theater-mode') && !isHeaderHovered) {
-      collapsePlayerTopBar();
+    if (overlay.style.display !== 'none' && !overlay.classList.contains('theater-mode')) {
+      const active = document.activeElement;
+      if (active && (active.tagName === 'SELECT' || active.tagName === 'INPUT')) {
+        schedulePlayerTopBarAutoMove(3000);
+        return;
+      }
+      collapsePlayerTopBar(true);
     }
   }, delay);
 }
@@ -2757,7 +2761,7 @@ function togglePlayerTopBar() {
   if (overlay.classList.contains('top-bar-hidden')) {
     revealPlayerTopBar();
   } else {
-    collapsePlayerTopBar();
+    collapsePlayerTopBar(true);
   }
 }
 

@@ -1,15 +1,15 @@
 /**
- * Server 7: VidFast Cloud Direct
- * 1080p/4K Direct Stream with Zero Ads
+ * Server 7: AnyEmbed Prime Direct
+ * 1080p/4K Direct Stream with Zero Redirects & Zero Ads
  */
 module.exports = {
   id: 7,
   clientIndex: 6,
-  slug: 'vidfast-direct',
-  name: 'Server 7: VidFast Cloud Direct (1080p Direct • ✅ 0 Ads)',
+  slug: 'anyembed-direct',
+  name: 'Server 7: AnyEmbed Prime Direct (1080p Direct • ✅ 0 Ads)',
   badge: '✅ 0 Ads • 1080p Direct',
   shortBadge: '✅ 0 Ads',
-  provider: 'VidFast Cloud',
+  provider: 'AnyEmbed Prime',
   hasAds: false,
   iframeAttributes: {
     allow: 'autoplay; fullscreen; picture-in-picture; encrypted-media',
@@ -22,7 +22,7 @@ module.exports = {
     const tmdbOrImdb = tmdb || imdb || id;
 
     return isTv
-      ? `https://vidfast.vc/tv/${tmdb || tmdbOrImdb}/${s}/${e}?autoPlay=true`
-      : `https://vidfast.vc/movie/${tmdb || tmdbOrImdb}?autoPlay=true`;
+      ? `https://anyembed.xyz/embed/tmdb-tv-${tmdb || tmdbOrImdb}-${s}-${e}`
+      : `https://anyembed.xyz/embed/tmdb-movie-${tmdb || tmdbOrImdb}`;
   }
 };
