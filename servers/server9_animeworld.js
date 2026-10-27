@@ -3,10 +3,10 @@
  * Dedicated Hindi / English / Japanese Anime & Cartoon Multi-Audio Player
  */
 module.exports = {
-  id: 9,
-  clientIndex: 8,
+  id: 6,
+  clientIndex: 5,
   slug: 'animeworld',
-  name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap)',
+  name: 'Server 6: AnimeWorld VIP (Hindi/Eng/Jap)',
   badge: 'Hindi / English / Japanese • ads vary',
   shortBadge: 'Provider player',
   provider: 'AnimeWorld',

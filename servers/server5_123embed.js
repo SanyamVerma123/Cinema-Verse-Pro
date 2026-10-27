@@ -3,10 +3,10 @@
  * In-Player Switcher & 4K Mirror
  */
 module.exports = {
-  id: 5,
-  clientIndex: 4,
+  id: 3,
+  clientIndex: 2,
   slug: '123embed',
-  name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)',
+  name: 'Server 3: 123Embed Cloud Player (In-Player Switcher • 4K)',
   badge: 'In-Player Switcher • 4K',
   shortBadge: 'Provider player',
   provider: '123Embed Cloud',

@@ -3,10 +3,10 @@
  * Open Source Clean Stream
  */
 module.exports = {
-  id: 4,
-  clientIndex: 3,
+  id: 2,
+  clientIndex: 1,
   slug: 'cinesrc',
-  name: 'Server 4: CineSrc VIP Player (Open Source • ✅ 0 Ads)',
+  name: 'Server 2: CineSrc VIP Player (Open Source • ✅ 0 Ads)',
   badge: '✅ 0 Ads • Open Source',
   shortBadge: '✅ 0 Ads',
   provider: 'CineSrc VIP',

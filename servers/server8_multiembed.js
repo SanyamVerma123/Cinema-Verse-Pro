@@ -3,10 +3,10 @@
  * Global Cloud Mirror
  */
 module.exports = {
-  id: 8,
-  clientIndex: 7,
+  id: 7,
+  clientIndex: 6,
   slug: 'multiembed',
-  name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)',
+  name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror)',
   badge: 'External player • ads vary',
   shortBadge: 'Cloud Mirror',
   provider: 'MultiEmbed Cloud',

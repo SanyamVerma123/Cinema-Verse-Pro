@@ -3,10 +3,10 @@
  * Multi-Language and Dubbed Player
  */
 module.exports = {
-  id: 2,
-  clientIndex: 1,
+  id: 4,
+  clientIndex: 3,
   slug: 'autoembed-global',
-  name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)',
+  name: 'Server 4: Global World Mirror (Multi-Language & Dubbed)',
   badge: 'External player • ads vary',
   shortBadge: 'Provider player',
   provider: 'Global World Mirror',

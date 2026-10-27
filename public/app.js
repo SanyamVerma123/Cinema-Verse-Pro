@@ -1686,15 +1686,15 @@ function clearSearch() {
 // Streaming Server Definitions
 const STREAMING_SERVERS = [
   { id: 0, name: 'Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'Vidly Pro', hasAds: false },
-  { id: 1, name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)', badge: 'Multi-Language • Dubbed', shortBadge: 'Dubbed Mirror', provider: 'Global World Mirror', hasAds: null },
-  { id: 2, name: 'Server 3: VidLink Pro VIP (Ultra HD 4K • Multi-Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'VidLink Pro', hasAds: false },
-  { id: 3, name: 'Server 4: CineSrc VIP Player (Open Source • ✅ 0 Ads)', badge: '✅ 0 Ads • Open Source', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
-  { id: 4, name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)', badge: 'In-Player Switcher • 4K', shortBadge: 'Provider player', provider: '123Embed Cloud', hasAds: null, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
-  { id: 5, name: 'Server 6: AutoEmbed Prime VIP (Multi-Language • 4K HDR)', badge: 'Multi-Language 4K', shortBadge: 'Provider player', provider: 'AutoEmbed Prime', hasAds: null },
-  { id: 6, name: 'Server 7: AnyEmbed Prime Direct (1080p Direct • ✅ 0 Ads)', badge: '✅ 0 Ads • 1080p Direct', shortBadge: '✅ 0 Ads', provider: 'AnyEmbed Prime', hasAds: false },
-  { id: 7, name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: null },
-  { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap)', badge: 'Hindi / English / Japanese', shortBadge: 'Provider player', provider: 'AnimeWorld', hasAds: null },
-  { id: 9, name: 'Server 10: Nontongo CC Captions (Multi-Subtitles • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Subtitles', shortBadge: '✅ 0 Ads', provider: 'Nontongo Cloud', hasAds: false },
+  { id: 1, name: 'Server 2: CineSrc VIP Player (Open Source • ✅ 0 Ads)', badge: '✅ 0 Ads • Open Source', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
+  { id: 2, name: 'Server 3: 123Embed Cloud Player (In-Player Switcher • 4K)', badge: 'In-Player Switcher • 4K', shortBadge: 'Provider player', provider: '123Embed Cloud', hasAds: null, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
+  { id: 3, name: 'Server 4: Global World Mirror (Multi-Language & Dubbed)', badge: 'Multi-Language • Dubbed', shortBadge: 'Dubbed Mirror', provider: 'Global World Mirror', hasAds: null },
+  { id: 4, name: 'Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR)', badge: 'Multi-Language 4K', shortBadge: 'Provider player', provider: 'AutoEmbed Prime', hasAds: null },
+  { id: 5, name: 'Server 6: AnimeWorld VIP (Hindi/Eng/Jap)', badge: 'Hindi / English / Japanese', shortBadge: 'Provider player', provider: 'AnimeWorld', hasAds: null },
+  { id: 6, name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: null },
+  { id: 7, name: 'Server 8: VidLink Pro VIP (Ultra HD 4K • Multi-Audio)', badge: 'Ultra HD 4K • Multi-Audio', shortBadge: '4K Multi-Audio', provider: 'VidLink Pro', hasAds: null },
+  { id: 8, name: 'Server 9: AnyEmbed Prime Direct (1080p Direct)', badge: '1080p Direct • HLS', shortBadge: '1080p Direct', provider: 'AnyEmbed Prime', hasAds: null },
+  { id: 9, name: 'Server 10: Nontongo CC Captions (Multi-Subtitles)', badge: 'Multi-Subtitles • Asian Dramas', shortBadge: 'Subtitles Cloud', provider: 'Nontongo Cloud', hasAds: null },
 ];
 let selectedServerIndex = 0; // Default: Server 1 (Vidly Pro VIP)
 
@@ -2338,38 +2338,47 @@ function loadServerStream(serverIdx) {
           : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?preview=1&theme=aurora&color=e50914&audioPicker=1`;
         break;
       case 1:
+        // Server 2: CineSrc VIP (0 Ads)
+        streamUrl = isTv ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}` : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`;
+        break;
+      case 2:
+        // Server 3: 123Embed Cloud (0 Ads)
+        streamUrl = isTv ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}` : `https://play2.123embed.net/movie/${tmdbOrImdb}`;
+        break;
+      case 3:
+        // Server 4: Global World Mirror
         streamUrl = isTv 
           ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
           : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
         break;
-      case 2:
-        streamUrl = isTv 
-          ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`
-          : `https://vidlink.pro/movie/${tmdb || tmdbOrImdb}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`;
-        break;
-      case 3:
-        streamUrl = isTv ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}` : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`;
-        break;
       case 4:
-        streamUrl = isTv ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}` : `https://play2.123embed.net/movie/${tmdbOrImdb}`;
-        break;
-      case 5:
+        // Server 5: AutoEmbed Prime VIP
         streamUrl = isTv 
           ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
           : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
         break;
+      case 5:
+        // Server 6: AnimeWorld VIP
+        streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
+        break;
       case 6:
+        // Server 7: MultiEmbed Cloud Stream
+        streamUrl = isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
+        break;
+      case 7:
+        // Server 8: VidLink Pro VIP
+        streamUrl = isTv 
+          ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`
+          : `https://vidlink.pro/movie/${tmdb || tmdbOrImdb}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`;
+        break;
+      case 8:
+        // Server 9: AnyEmbed Prime Direct
         streamUrl = isTv 
           ? `https://anyembed.xyz/embed/tmdb-tv-${tmdb || tmdbOrImdb}-${s}-${e}`
           : `https://anyembed.xyz/embed/tmdb-movie-${tmdb || tmdbOrImdb}`;
         break;
-      case 7:
-        streamUrl = isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
-        break;
-      case 8:
-        streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
-        break;
       case 9:
+        // Server 10: Nontongo CC Captions
         streamUrl = isTv 
           ? `https://www.nontongo.win/embed/tv/${tmdb || tmdbOrImdb}/${s}/${e}`
           : `https://www.nontongo.win/embed/movie/${tmdb || tmdbOrImdb}`;
@@ -2457,8 +2466,8 @@ function changeDubLanguage(langCode, btnElement) {
 
   // If anime and Japanese requested, route to AnimeWorld
   if (langCode === 'ja' && isAnime) {
-    loadServerStream(8); // Server 9: AnimeWorld VIP
-    showToast(`🎧 Audio set to ${langName} • Server 9 (AnimeWorld VIP) Active`, 'success');
+    loadServerStream(5); // Server 6: AnimeWorld VIP
+    showToast(`🎧 Audio set to ${langName} • Server 6 (AnimeWorld VIP) Active`, 'success');
   } else {
     const srv = (availableServers && availableServers[currentServerIndex]) || STREAMING_SERVERS[currentServerIndex] || STREAMING_SERVERS[0];
     const srvName = srv.name.split(':')[0];
@@ -4371,13 +4380,23 @@ window.filterByCategory = filterCategory;
     }
   });
 
-  // Global Keyboard Shortcut: Press 'Z' to zap overlays & refresh clean stream
+  // Global Keyboard Shortcuts during playback:
+  // - Press 'Z': zap overlays & refresh clean stream
+  // - Press '1', '2', or '3': instantly switch to the 100% ad-free servers
   window.addEventListener('keydown', function(e) {
     if (isPlayerActive()) {
-      if ((e.key === 'z' || e.key === 'Z') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
-        e.preventDefault();
-        if (typeof zapAdOverlays === 'function') {
-          zapAdOverlays();
+      if (!['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+        if (e.key === 'z' || e.key === 'Z') {
+          e.preventDefault();
+          if (typeof zapAdOverlays === 'function') {
+            zapAdOverlays();
+          }
+        } else if (['1', '2', '3'].includes(e.key)) {
+          e.preventDefault();
+          const targetServerIdx = parseInt(e.key, 10) - 1;
+          if (typeof loadServerStream === 'function') {
+            loadServerStream(targetServerIdx);
+          }
         }
       }
     }

@@ -9,14 +9,14 @@ const path = require('path');
 
 const SERVER_FILES = [
   { id: 1, file: './server1_vidly' },
-  { id: 2, file: './server2_autoembed_global' },
-  { id: 3, file: './server3_vidsrc_pro' },
-  { id: 4, file: './server4_cinesrc' },
-  { id: 5, file: './server5_123embed' },
-  { id: 6, file: './server6_autoembed_prime' },
-  { id: 7, file: './server7_vidsrc_direct' },
-  { id: 8, file: './server8_multiembed' },
-  { id: 9, file: './server9_animeworld' },
+  { id: 2, file: './server4_cinesrc' },
+  { id: 3, file: './server5_123embed' },
+  { id: 4, file: './server2_autoembed_global' },
+  { id: 5, file: './server6_autoembed_prime' },
+  { id: 6, file: './server9_animeworld' },
+  { id: 7, file: './server8_multiembed' },
+  { id: 8, file: './server3_vidsrc_pro' },
+  { id: 9, file: './server7_vidsrc_direct' },
   { id: 10, file: './server10_2embed' }
 ];
 
@@ -45,7 +45,7 @@ function buildStreamServers(params) {
   const e = parseInt(episode, 10) || 1;
   const tmdbOrImdb = tmdb || imdb || id;
 
-  return registeredServers.map(srv => {
+  return registeredServers.map((srv, idx) => {
     let url = '';
     try {
       url = srv.buildUrl({
@@ -65,7 +65,7 @@ function buildStreamServers(params) {
     }
 
     return {
-      id: srv.id,
+      id: idx + 1,
       name: srv.name,
       badge: srv.badge,
       url,

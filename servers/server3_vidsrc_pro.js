@@ -3,14 +3,14 @@
  * Ultra HD 4K Multi-Audio Player with Subtitles & Zero Ads
  */
 module.exports = {
-  id: 3,
-  clientIndex: 2,
+  id: 8,
+  clientIndex: 7,
   slug: 'vidlink-pro',
-  name: 'Server 3: VidLink Pro VIP (Ultra HD 4K • Multi-Audio • ✅ 0 Ads)',
-  badge: '✅ 0 Ads • Multi-Audio 4K',
-  shortBadge: '✅ 0 Ads',
+  name: 'Server 8: VidLink Pro VIP (Ultra HD 4K • Multi-Audio)',
+  badge: 'Ultra HD 4K • Multi-Audio',
+  shortBadge: '4K Multi-Audio',
   provider: 'VidLink Pro',
-  hasAds: false,
+  hasAds: null,
   iframeAttributes: {
     allow: 'autoplay; fullscreen; picture-in-picture; encrypted-media',
     referrerPolicy: 'no-referrer',
