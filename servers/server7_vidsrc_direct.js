@@ -1,16 +1,16 @@
 /**
- * Server 7: VidSrc Cloud Direct
- * 1080p Direct & Multi-Audio
+ * Server 7: VidFast Cloud Direct
+ * 1080p/4K Direct Stream with Zero Ads
  */
 module.exports = {
   id: 7,
   clientIndex: 6,
-  slug: 'vidsrc-direct',
-  name: 'Server 7: VidSrc Cloud Direct (1080p Direct • Multi-Audio)',
-  badge: 'Fast 1080p • Multi-Audio',
-  shortBadge: '1080p Direct',
-  provider: 'VidSrc Cloud',
-  hasAds: null,
+  slug: 'vidfast-direct',
+  name: 'Server 7: VidFast Cloud Direct (1080p Direct • ✅ 0 Ads)',
+  badge: '✅ 0 Ads • 1080p Direct',
+  shortBadge: '✅ 0 Ads',
+  provider: 'VidFast Cloud',
+  hasAds: false,
   iframeAttributes: {
     allow: 'autoplay; fullscreen; picture-in-picture; encrypted-media',
     referrerPolicy: 'no-referrer',
@@ -22,7 +22,7 @@ module.exports = {
     const tmdbOrImdb = tmdb || imdb || id;
 
     return isTv
-      ? `https://vidsrc.pm/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
-      : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`;
+      ? `https://vidfast.vc/tv/${tmdb || tmdbOrImdb}/${s}/${e}?autoPlay=true`
+      : `https://vidfast.vc/movie/${tmdb || tmdbOrImdb}?autoPlay=true`;
   }
 };

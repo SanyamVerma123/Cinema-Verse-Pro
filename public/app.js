@@ -1687,14 +1687,14 @@ function clearSearch() {
 const STREAMING_SERVERS = [
   { id: 0, name: 'Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'Vidly Pro', hasAds: false },
   { id: 1, name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)', badge: 'Multi-Language • Dubbed', shortBadge: 'Dubbed Mirror', provider: 'Global World Mirror', hasAds: null },
-  { id: 2, name: 'Server 3: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)', badge: 'Fast 4K • Multi-Audio', shortBadge: '4K Multi-Audio', provider: 'VidSrc Pro', hasAds: null },
+  { id: 2, name: 'Server 3: VidLink Pro VIP (Ultra HD 4K • Multi-Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Audio 4K', shortBadge: '✅ 0 Ads', provider: 'VidLink Pro', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
   { id: 3, name: 'Server 4: CineSrc VIP Player (Open Source • ✅ 0 Ads)', badge: '✅ 0 Ads • Open Source', shortBadge: '✅ 0 Ads', provider: 'CineSrc VIP', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
   { id: 4, name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)', badge: 'In-Player Switcher • 4K', shortBadge: 'Provider player', provider: '123Embed Cloud', hasAds: null, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
   { id: 5, name: 'Server 6: AutoEmbed Prime VIP (Multi-Language • 4K HDR)', badge: 'Multi-Language 4K', shortBadge: 'Provider player', provider: 'AutoEmbed Prime', hasAds: null },
-  { id: 6, name: 'Server 7: VidSrc Cloud Direct (1080p Direct • Multi-Audio)', badge: 'Fast 1080p • Multi-Audio', shortBadge: '1080p Direct', provider: 'VidSrc Cloud', hasAds: null },
+  { id: 6, name: 'Server 7: VidFast Cloud Direct (1080p Direct • ✅ 0 Ads)', badge: '✅ 0 Ads • 1080p Direct', shortBadge: '✅ 0 Ads', provider: 'VidFast Cloud', hasAds: false },
   { id: 7, name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: null },
   { id: 8, name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap)', badge: 'Hindi / English / Japanese', shortBadge: 'Provider player', provider: 'AnimeWorld', hasAds: null },
-  { id: 9, name: 'Server 10: 2Embed CC Captions', badge: 'External player • ads vary', shortBadge: 'Provider player', provider: '2Embed CC', hasAds: null },
+  { id: 9, name: 'Server 10: Nontongo CC Captions (Multi-Subtitles • ✅ 0 Ads)', badge: '✅ 0 Ads • Multi-Subtitles', shortBadge: '✅ 0 Ads', provider: 'Nontongo Cloud', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
 ];
 let selectedServerIndex = 0; // Default: Server 1 (Vidly Pro VIP)
 
@@ -2344,8 +2344,8 @@ function loadServerStream(serverIdx) {
         break;
       case 2:
         streamUrl = isTv 
-          ? `https://vidsrc2.ru/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
-          : `https://vidsrc2.ru/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
+          ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`
+          : `https://vidlink.pro/movie/${tmdb || tmdbOrImdb}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`;
         break;
       case 3:
         streamUrl = isTv ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}` : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`;
@@ -2359,7 +2359,9 @@ function loadServerStream(serverIdx) {
           : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
         break;
       case 6:
-        streamUrl = isTv ? `https://vidsrc.pm/embed/tv?imdb=${imdb}&tmdb=${tmdb}&season=${s}&episode=${e}` : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`;
+        streamUrl = isTv 
+          ? `https://vidfast.vc/tv/${tmdb || tmdbOrImdb}/${s}/${e}?autoPlay=true`
+          : `https://vidfast.vc/movie/${tmdb || tmdbOrImdb}?autoPlay=true`;
         break;
       case 7:
         streamUrl = isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
@@ -2368,7 +2370,9 @@ function loadServerStream(serverIdx) {
         streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
         break;
       case 9:
-        streamUrl = isTv ? `https://www.2embed.cc/embedtv/${imdb || tmdbOrImdb}&s=${s}&e=${e}` : `https://www.2embed.cc/embed/${imdb || tmdbOrImdb}`;
+        streamUrl = isTv 
+          ? `https://www.nontongo.win/embed/tv/${tmdb || tmdbOrImdb}/${s}/${e}`
+          : `https://www.nontongo.win/embed/movie/${tmdb || tmdbOrImdb}`;
         break;
     }
   }
