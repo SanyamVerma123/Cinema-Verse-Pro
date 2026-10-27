@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
 let catalogData = require('./catalog');
+const serverRegistry = require('./servers/index');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -63,7 +64,7 @@ async function resolveTmdbId(imdbId, isTv = false) {
   return null;
 }
 
-// Helper: Stream server resolver (Server 1: Vidly Pro VIP 0-Ads Primary)
+// Helper: Stream server resolver (Delegates to modular servers/ registry)
 async function getStreamServers(type, id, season = 1, episode = 1) {
   const item = catalogData.find(x => x.id === id || x.imdbId === id || String(x.tmdbId) === String(id));
   const isTv = type === 'series' || type === 'tv';
@@ -82,96 +83,16 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     }
   }
 
-  // If still no TMDB ID, fallback to imdb for URL substitution, NEVER Stranger Things
   const tmdbOrImdb = tmdb || imdb || id;
-  const imdbOrTmdb = imdb || tmdb || id;
 
-  const primaryMirrorUrl = isTv
-    ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
-    : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
-
-  const servers = [
-    {
-      id: 1,
-      name: 'Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • ✅ 0 Ads)',
-      badge: '✅ 0 Ads • Multi-Audio 4K',
-      url: isTv 
-        ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
-        : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?theme=aurora&color=e50914&audioPicker=1`
-    },
-    {
-      id: 2,
-      name: 'Server 2: Global World Mirror (Multi-Language & Dubbed)',
-      badge: 'External player • ads vary',
-      url: primaryMirrorUrl
-    },
-    {
-      id: 3,
-      name: 'Server 3: VidSrc Pro VIP (Ultra HD 4K • Multi-Server & Audio)',
-      badge: 'Fast 4K • Multi-Audio',
-      url: isTv 
-        ? `https://vidsrc2.ru/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
-        : `https://vidsrc2.ru/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`
-    },
-    {
-      id: 4,
-      name: 'Server 4: CineSrc VIP Player (Open Source)',
-      badge: 'External player • ads vary',
-      url: isTv 
-        ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}`
-        : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`
-    },
-    {
-      id: 5,
-      name: 'Server 5: 123Embed Cloud Player (In-Player Switcher • 4K)',
-      badge: 'In-Player Switcher • 4K',
-      url: isTv 
-        ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://play2.123embed.net/movie/${tmdbOrImdb}`
-    },
-    {
-      id: 6,
-      name: 'Server 6: AutoEmbed Prime VIP (Multi-Language • 4K HDR)',
-      badge: 'External player • ads vary',
-      url: isTv 
-        ? `https://autoembed.co/tv/tmdb/${tmdbOrImdb}-${s}-${e}`
-        : `https://autoembed.co/movie/tmdb/${tmdbOrImdb}`
-    },
-    {
-      id: 7,
-      name: 'Server 7: VidSrc Cloud Direct (1080p Direct • Multi-Audio)',
-      badge: 'Fast 1080p • Multi-Audio',
-      url: isTv 
-        ? `https://vidsrc.pm/embed/tv?imdb=${imdb || ''}&tmdb=${tmdb || ''}&season=${s}&episode=${e}`
-        : `https://vidsrc.pm/embed/movie/${tmdbOrImdb}`
-    },
-    {
-      id: 8,
-      name: 'Server 8: MultiEmbed Cloud Stream (Global Mirror)',
-      badge: 'External player • ads vary',
-      url: isTv 
-        ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}`
-        : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`
-    },
-    {
-      id: 9,
-      name: 'Server 9: AnimeWorld VIP (Hindi/Eng/Jap)',
-      badge: 'Hindi / English / Japanese • ads vary',
-      url: isTv 
-        ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}`
-        : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`
-    },
-    {
-      id: 10,
-      name: 'Server 10: 2Embed CC Captions',
-      badge: 'External player • ads vary',
-      url: isTv 
-        ? `https://www.2embed.cc/embedtv/${imdbOrTmdb}&s=${s}&e=${e}`
-        : `https://www.2embed.cc/embed/${imdbOrTmdb}`
-    }
-  ];
-
-  return servers;
+  return serverRegistry.buildStreamServers({
+    type,
+    id,
+    tmdb: tmdb || tmdbOrImdb,
+    imdb,
+    season: s,
+    episode: e
+  });
 }
 
 // 1. Platforms Endpoint

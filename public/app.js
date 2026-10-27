@@ -2315,7 +2315,8 @@ function loadServerStream(serverIdx) {
   // the provider iframe.
   const iframe = document.getElementById('player-iframe');
   iframe.removeAttribute('sandbox');
-  iframe.referrerPolicy = 'origin';
+  iframe.referrerPolicy = (srv && srv.iframeAttributes && srv.iframeAttributes.referrerPolicy) || 'no-referrer';
+  iframe.allow = (srv && srv.iframeAttributes && srv.iframeAttributes.allow) || 'autoplay; encrypted-media; picture-in-picture';
 
   let streamUrl = srv ? srv.url : null;
   if (!streamUrl && currentItem) {
@@ -2329,8 +2330,8 @@ function loadServerStream(serverIdx) {
       case 0:
       default:
         streamUrl = isTv 
-          ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
-          : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?theme=aurora&color=e50914&audioPicker=1`;
+          ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?preview=1&theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
+          : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?preview=1&theme=aurora&color=e50914&audioPicker=1`;
         break;
       case 1:
         streamUrl = isTv 
@@ -4310,8 +4311,8 @@ window.filterByCategory = filterCategory;
 
 
 // ========================================================
-// Best-effort guard for popups requested by this page's own JavaScript.
-// It cannot intercept a cross-origin provider iframe's window.open calls.
+// CinemaVerse Adaptive Shield & Zero-Ad Defense Engine
+// ========================================================
 (function() {
   function isPlayerActive() {
     const overlay = document.getElementById('player-overlay');
@@ -4320,15 +4321,32 @@ window.filterByCategory = filterCategory;
 
   const _origWindowOpen = window.open;
   window.open = function(url) {
-    if (isPlayerActive() && url) {
-      try {
-        const parsed = new URL(String(url), window.location.href);
-        if (parsed.origin !== window.location.origin) {
-          console.warn('[Popup guard] Blocked parent-page external popup:', parsed.href);
-          return null;
-        }
-      } catch(e) {}
+    if (isPlayerActive()) {
+      console.warn('[CinemaVerse Shield] Blocked popup window during playback:', url);
+      return null;
     }
     return _origWindowOpen.apply(this, arguments);
   };
+
+  // Auto-Refocus Window Protection (Neutralizes background click steals)
+  window.addEventListener('blur', function() {
+    if (isPlayerActive()) {
+      setTimeout(function() {
+        try { window.focus(); } catch(e) {}
+      }, 40);
+    }
+  });
+
+  // Prevent top-frame navigation hijack from rogue provider scripts
+  window.addEventListener('beforeunload', function(e) {
+    if (isPlayerActive()) {
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.tagName === 'IFRAME' || activeEl.id === 'player-iframe')) {
+        console.warn('[CinemaVerse Shield] Blocked top-frame hijack attempt from iframe');
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
+    }
+  });
 })();
