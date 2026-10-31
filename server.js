@@ -617,6 +617,116 @@ app.get('/api/details/:id', async (req, res) => {
   });
 });
 
+// In-Memory Trailer Resolution Cache
+const TRAILER_CACHE = new Map();
+
+// 4.5. Official Trailer Resolver Endpoint
+app.get('/api/trailer/:type/:id', async (req, res) => {
+  const { type, id } = req.params;
+  const isTv = type === 'series' || type === 'tv';
+  const queryTitle = (req.query.title || '').trim();
+  const queryYear = (req.query.year || '').trim();
+  const queryImdb = (req.query.imdb || '').trim();
+
+  const cacheKey = `${type}_${id}_${queryTitle.toLowerCase()}`;
+  if (TRAILER_CACHE.has(cacheKey)) {
+    return res.json({ status: 'success', cached: true, ...TRAILER_CACHE.get(cacheKey) });
+  }
+
+  let item = catalogData.find(x => x.id === id || x.imdbId === id || String(x.tmdbId) === String(id));
+  const title = (item && item.title) || queryTitle || id;
+  const year = (item && item.year) || queryYear || '';
+  const imdbId = (item && item.imdbId) || (queryImdb.startsWith('tt') ? queryImdb : null) || (String(id).startsWith('tt') ? id : null);
+
+  let trailers = [];
+
+  // A. Check if item has explicit trailer in catalog
+  if (item && item.trailer && typeof item.trailer === 'string') {
+    const ytMatch = item.trailer.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=))([\w-]{11})/);
+    if (ytMatch) {
+      trailers.push({ id: ytMatch[1], title: 'Official Trailer' });
+    }
+  }
+
+  // B. Check Cinemeta metadata for official trailer streams
+  if (imdbId && trailers.length === 0) {
+    try {
+      const cRes = await fetch(`https://v3-cinemeta.strem.io/meta/${isTv ? 'series' : 'movie'}/${imdbId}.json`, { signal: AbortSignal.timeout(4000) });
+      if (cRes.ok) {
+        const cData = await cRes.json();
+        const meta = cData.meta;
+        if (meta && Array.isArray(meta.trailerStreams) && meta.trailerStreams.length > 0) {
+          meta.trailerStreams.forEach(ts => {
+            if (ts.ytId && ts.ytId.length === 11) {
+              trailers.push({ id: ts.ytId, title: ts.title || 'Official Trailer' });
+            }
+          });
+        }
+        if (meta && Array.isArray(meta.trailers) && trailers.length === 0) {
+          meta.trailers.forEach(t => {
+            if (t.source && t.source.length === 11) {
+              trailers.push({ id: t.source, title: t.type || 'Official Trailer' });
+            }
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('[Trailer] Cinemeta lookup warning:', e.message);
+    }
+  }
+
+  // C. Fallback: Search YouTube directly for genuine official trailer video IDs
+  if (trailers.length === 0 && title) {
+    try {
+      const cleanTitle = title.replace(/\s*\(Multi-Audio\)|\s*\(Classic\)|\s*\(VIP\)/gi, '').trim();
+      const searchQuery = `${cleanTitle} official trailer ${year}`.trim();
+      const ytRes = await fetch(`https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`, {
+        signal: AbortSignal.timeout(4500),
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept-Language': 'en-US,en;q=0.9'
+        }
+      });
+      if (ytRes.ok) {
+        const html = await ytRes.text();
+        const matches = [...html.matchAll(/\/watch\?v=([a-zA-Z0-9_-]{11})/g)].map(m => m[1]);
+        const uniqueIds = [...new Set(matches)].slice(0, 4);
+        uniqueIds.forEach((vid, i) => {
+          trailers.push({
+            id: vid,
+            title: i === 0 ? 'Official Trailer' : `Trailer ${i + 1}`
+          });
+        });
+      }
+    } catch (e) {
+      console.warn('[Trailer] YouTube search fallback warning:', e.message);
+    }
+  }
+
+  if (trailers.length > 0) {
+    const primary = trailers[0];
+    const payload = {
+      title,
+      videoId: primary.id,
+      trailers,
+      embedUrl: `https://www.youtube-nocookie.com/embed/${primary.id}?autoplay=1&rel=0&modestbranding=1`,
+      youtubeUrl: `https://www.youtube.com/watch?v=${primary.id}`
+    };
+    TRAILER_CACHE.set(cacheKey, payload);
+    return res.json({ status: 'success', ...payload });
+  }
+
+  const fallbackSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(title + ' official trailer')}`;
+  res.json({
+    status: 'fallback',
+    title,
+    videoId: null,
+    trailers: [],
+    embedUrl: null,
+    youtubeUrl: fallbackSearchUrl
+  });
+});
+
 // 5. Stream Sources Endpoint
 app.get('/api/sources/:type/:id', async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');

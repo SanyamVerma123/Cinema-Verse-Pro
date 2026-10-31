@@ -2154,22 +2154,96 @@ function handleModalBackdropClick(e) {
 // TRAILER PREVIEW & SHARE SYSTEM
 // ========================================================
 
-function openTrailerModal(item = currentItem) {
+let currentTrailerData = null;
+
+async function openTrailerModal(item = currentItem) {
   if (!item) return;
   const modal = document.getElementById('trailer-modal');
   const iframe = document.getElementById('trailer-iframe');
   const title = document.getElementById('trailer-modal-title');
+  const extBtn = document.getElementById('trailer-external-btn');
+  const spinner = document.getElementById('trailer-spinner');
+  const altsBar = document.getElementById('trailer-alts-bar');
 
-  title.innerHTML = `<i class="fa-brands fa-youtube text-red"></i> ${item.title} — Official Trailer`;
-  const query = encodeURIComponent(`${item.title} official trailer ${item.year || ''}`);
-  iframe.src = `https://www.youtube.com/embed?listType=search&list=${query}&autoplay=1`;
+  if (!modal) return;
   modal.style.display = 'flex';
+
+  if (title) title.innerHTML = `<i class="fa-brands fa-youtube text-red"></i> ${item.title} — Official Trailer`;
+  if (iframe) iframe.src = '';
+  if (spinner) spinner.style.display = 'flex';
+  if (altsBar) altsBar.style.display = 'none';
+  if (extBtn) extBtn.style.display = 'none';
+
+  try {
+    const type = item.type || 'movie';
+    const id = item.id || item.imdbId || item.tmdbId || 'media';
+    const query = new URLSearchParams({
+      title: item.title || '',
+      year: item.year || '',
+      imdb: item.imdbId || ''
+    });
+
+    const res = await fetch(`/api/trailer/${type}/${id}?${query.toString()}`);
+    const data = await res.json();
+    currentTrailerData = data;
+
+    if (spinner) spinner.style.display = 'none';
+
+    if (data.status === 'success' && data.embedUrl) {
+      if (iframe) iframe.src = data.embedUrl;
+      if (extBtn) {
+        extBtn.href = data.youtubeUrl || `https://www.youtube.com/watch?v=${data.videoId}`;
+        extBtn.style.display = 'inline-flex';
+      }
+
+      // Render alternative trailer pills if multiple exist
+      if (altsBar && data.trailers && data.trailers.length > 1) {
+        altsBar.innerHTML = '';
+        data.trailers.forEach((t, idx) => {
+          const pill = document.createElement('button');
+          pill.type = 'button';
+          pill.className = `trailer-alt-pill ${idx === 0 ? 'active' : ''}`;
+          pill.innerHTML = `<i class="fa-brands fa-youtube"></i> ${t.title || `Trailer ${idx + 1}`}`;
+          pill.onclick = () => {
+            document.querySelectorAll('.trailer-alt-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            if (iframe) iframe.src = `https://www.youtube-nocookie.com/embed/${t.id}?autoplay=1&rel=0&modestbranding=1`;
+            if (extBtn) extBtn.href = `https://www.youtube.com/watch?v=${t.id}`;
+          };
+          altsBar.appendChild(pill);
+        });
+        altsBar.style.display = 'flex';
+      }
+    } else {
+      // Fallback: direct YouTube search link
+      const fallbackUrl = (data && data.youtubeUrl) ? data.youtubeUrl : `https://www.youtube.com/results?search_query=${encodeURIComponent((item.title || '') + ' official trailer')}`;
+      if (extBtn) {
+        extBtn.href = fallbackUrl;
+        extBtn.style.display = 'inline-flex';
+      }
+      if (iframe) {
+        iframe.src = `https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent((item.title || '') + ' official trailer')}`;
+      }
+    }
+  } catch (err) {
+    console.error('Failed to load trailer:', err);
+    if (spinner) spinner.style.display = 'none';
+    const fallbackUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent((item.title || '') + ' official trailer')}`;
+    if (extBtn) {
+      extBtn.href = fallbackUrl;
+      extBtn.style.display = 'inline-flex';
+    }
+  }
 }
 
 function closeTrailerModal() {
   const modal = document.getElementById('trailer-modal');
   const iframe = document.getElementById('trailer-iframe');
+  const spinner = document.getElementById('trailer-spinner');
+  const altsBar = document.getElementById('trailer-alts-bar');
   if (iframe) iframe.src = '';
+  if (spinner) spinner.style.display = 'none';
+  if (altsBar) altsBar.style.display = 'none';
   if (modal) modal.style.display = 'none';
 }
 
