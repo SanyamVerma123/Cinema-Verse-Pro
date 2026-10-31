@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CinemaVerse — Universal Multi-OTT Streaming</title>
+  <meta name="referrer" content="no-referrer">
   <meta name="description" content="Watch Netflix, Prime Video, Disney+, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
   <!-- PWA & Mobile Web App Meta -->
   <link rel="manifest" href="/manifest.json">
@@ -26,11 +27,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <script>
-    // Robust early image fallback handler to prevent any uncaught TypeError before app.js evaluates
+    // Robust universal image fallback handler for TV browsers and all devices
     window.handleImgError = function(img, fallback) {
       if (!img) return;
       img.onerror = null;
-      img.src = fallback || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="28">CINEMAVERSE</text></svg>';
+      img.src = fallback || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='750' viewBox='0 0 500 750'%3E%3Crect width='500' height='750' fill='%23111827'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e50914' font-family='Arial,sans-serif' font-weight='900' font-size='28'%3ECINEMAVERSE%3C/text%3E%3C/svg%3E";
     };
   </script>
 </head>

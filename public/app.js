@@ -1,3 +1,16 @@
+// Polyfill for Promise.allSettled on Smart TVs & legacy browsers
+if (!Promise.allSettled) {
+  Promise.allSettled = function (promises) {
+    return Promise.all(
+      promises.map(function (p) {
+        return Promise.resolve(p).then(
+          function (value) { return { status: 'fulfilled', value: value }; },
+          function (reason) { return { status: 'rejected', reason: reason }; }
+        );
+      })
+    );
+  };
+}
 /* ========================================================
    CINEMAVERSE PRO — COMPLETE CLIENT APPLICATION
    Universal Multi-OTT Hub, 10 Mirror Servers, Zero Redirects, Zero Sandbox Errors
@@ -251,8 +264,8 @@ async function handleDeepLinkPlayback(watchId, season = 1, episode = 1) {
         fetch(`https://v3-cinemeta.strem.io/meta/series/${watchId}.json`).then(r => r.json()),
         fetch(`https://v3-cinemeta.strem.io/meta/movie/${watchId}.json`).then(r => r.json())
       ]);
-      const seriesMeta = seriesRes.status === 'fulfilled' && seriesRes.value?.meta;
-      const movieMeta = movieRes.status === 'fulfilled' && movieRes.value?.meta;
+      const seriesMeta = seriesRes.status === 'fulfilled' && seriesRes.value && seriesRes.value.meta;
+      const movieMeta = movieRes.status === 'fulfilled' && movieRes.value && movieRes.value.meta;
       const meta = seriesMeta || movieMeta;
 
       if (meta) {
@@ -269,7 +282,7 @@ async function handleDeepLinkPlayback(watchId, season = 1, episode = 1) {
           matchRate: '99% Match',
           maturity: '16+',
           duration: seriesMeta ? `${meta.videos ? meta.videos.length : 1} Episodes` : '2h 05m',
-          seasons: seriesMeta?.videos ? [{
+          seasons: (seriesMeta && seriesMeta.videos) ? [{
             season: season || 1,
             episodes: meta.videos.filter(v => v.season === (season || 1)).map(v => ({
               episode: v.episode || v.number,
@@ -875,7 +888,7 @@ function renderTop10List(containerId, items) {
   items.forEach((item, idx) => {
     const rankNum = idx + 1;
     const cardWrap = document.createElement('div');
-    const hasDub = item.languages?.length > 1 || item.audio?.includes('Dub') || item.audio?.includes('Hindi');
+    const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
     const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
 
     cardWrap.className = 'top10-card';
@@ -883,7 +896,7 @@ function renderTop10List(containerId, items) {
       <div class="top10-rank-num">${rankNum}</div>
       <div class="movie-card">
         <div class="card-poster-wrap">
-          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)" loading="lazy">
+          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
           <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
           ${dubBadgeHtml}
           <div class="card-play-hover">
@@ -912,14 +925,14 @@ function renderHorizontalList(containerId, items) {
   container.innerHTML = '';
 
   items.forEach(item => {
-    const hasDub = item.languages?.length > 1 || item.audio?.includes('Dub') || item.audio?.includes('Hindi');
+    const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
     const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
 
     const card = document.createElement('div');
     card.className = 'movie-card';
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)" loading="lazy">
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
         ${dubBadgeHtml}
         <div class="card-play-hover">
@@ -1466,12 +1479,12 @@ function renderCategoryGrid(items) {
   sorted.forEach(item => {
     const card = document.createElement('div');
     card.className = 'movie-card';
-    const hasDub = item.languages?.length > 1 || item.audio?.includes('Dub') || item.audio?.includes('Hindi');
+    const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
     const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
 
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)" loading="lazy">
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
         ${dubBadgeHtml}
         <div class="card-play-hover">
@@ -1735,7 +1748,7 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
     }
 
     results.forEach(item => {
-      const hasDub = item.languages?.length > 1 || item.audio?.includes('Dub') || item.audio?.includes('Hindi');
+      const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
       const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
 
       const card = document.createElement('div');
@@ -2507,7 +2520,7 @@ async function openPlayer(item, season = null, episode = null, serverIndex = nul
     audioSelect.value = selectedDubLanguage || 'en';
   }
   document.querySelectorAll('#settings-audio-pills .setting-pill').forEach(btn => {
-    btn.classList.toggle('active', btn.getAttribute('onclick')?.includes(`'${selectedDubLanguage}'`));
+    const attrClick = btn.getAttribute('onclick'); btn.classList.toggle('active', !!(attrClick && attrClick.includes(`'${selectedDubLanguage}'`)));
   });
 
   const titleDisplay = item.type === 'series' 
@@ -2699,7 +2712,7 @@ function loadServerStream(serverIdx) {
                          .replace(/-/g, '/');
   }
   // Inject IMDb ID parameter into AutoEmbed so OpenSubtitles language search works seamlessly
-  if (streamUrl && streamUrl.includes('player.autoembed.co') && currentItem?.imdbId && !streamUrl.includes('imdb=')) {
+  if (streamUrl && streamUrl.includes('player.autoembed.co') && currentItem && currentItem.imdbId && !streamUrl.includes('imdb=')) {
     const sep = streamUrl.includes('?') ? '&' : '?';
     streamUrl = `${streamUrl}${sep}imdb=${encodeURIComponent(currentItem.imdbId)}`;
   }
@@ -2723,7 +2736,7 @@ function loadServerStream(serverIdx) {
   iframe.src = streamUrl;
 
   if (currentResumeTime > 5) {
-    const epStr = currentItem?.type === 'series' ? `S${currentSeason}:E${currentEpisode}` : 'Movie';
+    const epStr = (currentItem && currentItem.type === 'series') ? `S${currentSeason}:E${currentEpisode}` : 'Movie';
     showToast(`Resuming from ${formatTimeSeconds(currentResumeTime)} • ${epStr}`, 'info');
   }
 
@@ -2790,10 +2803,10 @@ function changeDubLanguage(langCode, btnElement) {
 
   // Sync settings pills
   document.querySelectorAll('#settings-audio-pills .setting-pill').forEach(btn => {
-    btn.classList.toggle('active', btn.getAttribute('onclick')?.includes(`'${langCode}'`));
+    const langAttr = btn.getAttribute('onclick'); btn.classList.toggle('active', !!(langAttr && langAttr.includes(`'${langCode}'`)));
   });
 
-  const isAnime = currentItem && (currentItem.platformId === 'animeworld' || currentItem.platformId === 'crunchyroll' || currentItem.genres?.includes('Animation'));
+  const isAnime = currentItem && (currentItem.platformId === 'animeworld' || currentItem.platformId === 'crunchyroll' || (currentItem.genres && currentItem.genres.includes('Animation')));
 
   // If anime and Japanese requested, route to AnimeWorld
   if (langCode === 'ja' && isAnime) {
@@ -3561,10 +3574,25 @@ function setupKeyboardShortcuts() {
       if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
       e.preventDefault();
       togglePlayPause();
-    } else if (e.key === 'ArrowLeft' && playerOpen) {
-      seekRelative(-10);
-    } else if (e.key === 'ArrowRight' && playerOpen) {
-      seekRelative(10);
+    } else if (e.key === 'ArrowLeft') {
+      if (playerOpen) {
+        seekRelative(-10);
+      } else if (!modalOpen && typeof prevDiscSlide === 'function') {
+        prevDiscSlide();
+      }
+    } else if (e.key === 'ArrowRight') {
+      if (playerOpen) {
+        seekRelative(10);
+      } else if (!modalOpen && typeof nextDiscSlide === 'function') {
+        nextDiscSlide();
+      }
+    } else if ((e.key === 'Enter' || e.key === 'Select') && !playerOpen && !modalOpen) {
+      const activeEl = document.activeElement;
+      if (!activeEl || (activeEl.tagName !== 'INPUT' && activeEl.tagName !== 'TEXTAREA' && activeEl.tagName !== 'BUTTON')) {
+        if (typeof playDiscByIndex === 'function' && typeof currentDiscIndex !== 'undefined') {
+          playDiscByIndex(currentDiscIndex);
+        }
+      }
     } else if (e.key === 'f' || e.key === 'F') {
       if (playerOpen) toggleFullscreen();
     } else if (e.key === 'm' || e.key === 'M') {
@@ -4728,7 +4756,8 @@ window.filterByCategory = filterCategory;
   // - Press '1', '2', or '3': instantly switch to the 100% ad-free servers
   window.addEventListener('keydown', function(e) {
     if (isPlayerActive()) {
-      if (!['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+      const activeElTag = (document.activeElement && document.activeElement.tagName) ? document.activeElement.tagName : '';
+    if (!['INPUT', 'TEXTAREA', 'SELECT'].includes(activeElTag)) {
         if (e.key === 'z' || e.key === 'Z') {
           e.preventDefault();
           if (typeof zapAdOverlays === 'function') {
@@ -4793,7 +4822,7 @@ function setupDiscCascade(items) {
       <div class="cd-disc-surface">
         <!-- Smooth Continuous 360-Degree Disc Rotator -->
         <div class="cd-disc-rotator">
-          <img src="${posterUrl}" alt="${cleanTitle}" class="cd-disc-artwork" draggable="false" />
+          <img src="${posterUrl}" alt="${cleanTitle}" class="cd-disc-artwork" draggable="false" onerror="window.handleImgError(this)" />
           <div class="cd-grooves-overlay"></div>
           <div class="cd-sheen-overlay"></div>
           
@@ -4804,12 +4833,12 @@ function setupDiscCascade(items) {
               <path id="rim-side-path-${index}" d="M 70,250 A 135,135 0 0,1 110,85" fill="none" />
             </defs>
             <text fill="#ffffff" style="font-family: 'Oswald', 'Inter', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: 4px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.9));">
-              <textPath href="#rim-top-path-${index}" startOffset="50%" text-anchor="middle">
+              <textPath href="#rim-top-path-${index}" xlink:href="#rim-top-path-${index}" startOffset="50%" text-anchor="middle">
                 ${cleanTitle}
               </textPath>
             </text>
             <text fill="rgba(255,255,255,0.75)" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 9px; letter-spacing: 2px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9));">
-              <textPath href="#rim-side-path-${index}">
+              <textPath href="#rim-side-path-${index}" xlink:href="#rim-side-path-${index}">
                 SIDE A · YEAR ${yearStr} · ${durationStr}
               </textPath>
             </text>
