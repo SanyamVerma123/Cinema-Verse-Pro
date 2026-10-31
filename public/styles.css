@@ -9308,3 +9308,433 @@ body {
   opacity: 1 !important;
   pointer-events: all !important;
 }
+
+
+/* ========================================================
+   DISC CASCADE CAROUSEL — 3D VINYL CD SHOWCASE
+   ======================================================== */
+.disc-cascade-showcase-section {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 2.5rem auto 3.5rem auto;
+  padding: 2.5rem 2.5rem 2rem;
+  background: radial-gradient(120% 90% at 50% 40%, #1d1d21, #0b0b0d);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  user-select: none;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #ecebe7;
+}
+
+.disc-cascade-ambient {
+  position: absolute;
+  top: -20%;
+  left: 30%;
+  width: 40%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(50px);
+}
+
+.disc-stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  z-index: 30;
+  gap: 1.5rem;
+}
+
+.disc-stage-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #a3a3a3;
+  margin-bottom: 0.25rem;
+}
+
+.disc-stage-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1.05;
+  color: #ffffff;
+  margin: 0.25rem 0 0.85rem;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  max-width: 320px;
+}
+
+.disc-stage-credits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 240px;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.disc-credit-line {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 3px;
+}
+
+.disc-credit-value {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.disc-stage-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+.disc-stage-brand {
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.disc-stage-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.disc-stage-nav span {
+  cursor: pointer;
+  transition: color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.disc-stage-nav span:hover {
+  color: #ffffff;
+}
+
+.disc-stage-nav span.active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.disc-stage-nav span.active .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  margin-top: 3px;
+}
+
+.btn-disc-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #000000;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.55rem 1.25rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
+}
+
+.btn-disc-play:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: scale(1.04);
+}
+
+.btn-disc-play:active {
+  transform: scale(0.96);
+}
+
+/* Center Stage Viewport */
+.disc-stage-viewport {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  touch-action: pan-y;
+}
+
+.disc-stage-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CD Disc Item */
+.cd-disc-item {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  will-change: transform, opacity;
+  transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  .cd-disc-item {
+    width: 270px;
+    height: 270px;
+  }
+  .disc-stage-viewport {
+    height: 320px;
+  }
+  .disc-stage-title {
+    font-size: 1.75rem;
+  }
+}
+
+.cd-disc-surface {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #111113;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.cd-disc-artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.7s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.cd-disc-item:hover .cd-disc-artwork {
+  transform: scale(1.05);
+}
+
+.cd-grooves-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: repeating-radial-gradient(circle at center, transparent 0, transparent 3px, rgba(255, 255, 255, 0.035) 4px, transparent 5px);
+}
+
+.cd-sheen-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  background: conic-gradient(from 45deg at 50% 50%, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.4) 45deg, rgba(255,100,100,0.2) 90deg, rgba(100,255,100,0.2) 135deg, rgba(100,150,255,0.3) 180deg, rgba(255,255,255,0.4) 225deg, rgba(255,255,255,0) 360deg);
+}
+
+.cd-curved-title-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.cd-center-hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 34%;
+  height: 34%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(200,200,200,0.3) 65%, rgba(160,160,160,0.5) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 5px rgba(255,255,255,0.4);
+  backdrop-filter: blur(2px);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.cd-mirror-ring {
+  position: relative;
+  width: 72%;
+  height: 72%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #d1d5db 0deg, #f9fafb 45deg, #9ca3af 90deg, #e5e7eb 180deg, #9ca3af 270deg, #d1d5db 360deg);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.4);
+}
+
+.cd-hub-brand {
+  position: absolute;
+  top: 8%;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: rgba(0,0,0,0.7);
+  text-transform: uppercase;
+}
+
+.cd-inner-ring {
+  width: 62%;
+  height: 62%;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.1);
+}
+
+.cd-spindle-hole {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: #111113;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.9), 0 0 0 1.5px rgba(255,255,255,0.4);
+}
+
+.cd-rim-bevel {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+/* Footer & Reviews */
+.disc-stage-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 30;
+  gap: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+.disc-stage-hint {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.disc-stage-reviews {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  text-align: center;
+}
+
+.disc-review-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 200px;
+}
+
+.disc-stars {
+  color: #f59e0b;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  margin-bottom: 2px;
+}
+
+.disc-review-source {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.disc-review-quote {
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.disc-stage-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.disc-nav-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.disc-nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.05);
+}
+
+.disc-nav-arrow:active {
+  transform: scale(0.95);
+}
+
+.disc-counter {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.9);
+}

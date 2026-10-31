@@ -798,6 +798,7 @@ function focusPlatformRow(platformId) {
 // ========================================================
 
 function renderAllRows(items, activeCategory = 'all') {
+  setupDiscCascade(items);
   // 1. Top 10 Movies Today
   const top10Movies = items.filter(x => x.type === 'movie' && x.rank).sort((a, b) => a.rank - b.rank).slice(0, 10);
   renderTop10List('top10-movies-list', top10Movies);
@@ -4402,3 +4403,244 @@ window.filterByCategory = filterCategory;
     }
   });
 })();
+
+
+// ========================================================
+// DISC CASCADE CAROUSEL — 3D VINYL CD SHOWCASE IMPLEMENTATION
+// ========================================================
+let discCatalogItems = [];
+let currentDiscIndex = 0;
+let discTimer = null;
+let isDiscDragging = false;
+let discStartX = 0;
+let discDragDelta = 0;
+
+function setupDiscCascade(items) {
+  if (!items || !items.length) return;
+  const container = document.getElementById('disc-stage-track');
+  if (!container) return;
+
+  // Pick top 10 movies / series with high quality posters
+  discCatalogItems = items.filter(x => x.poster || x.backdrop).slice(0, 10);
+  if (!discCatalogItems.length) return;
+
+  container.innerHTML = '';
+
+  discCatalogItems.forEach((item, index) => {
+    const discEl = document.createElement('div');
+    discEl.className = 'cd-disc-item';
+    discEl.id = 'cd-disc-' + index;
+    discEl.onclick = () => {
+      if (currentDiscIndex === index) {
+        playActiveDisc();
+      } else {
+        goToDisc(index);
+      }
+    };
+
+    const posterUrl = item.poster || item.backdrop || item.fallbackPoster || (typeof FALLBACK_POSTER !== 'undefined' ? FALLBACK_POSTER : '');
+    const titleUpper = (item.title || 'CINEMAVERSE').toUpperCase();
+    const cleanTitle = titleUpper.replace(/[<>&"]/g, '');
+    const yearStr = item.year || '2024';
+    const durationStr = item.duration || '45 MIN';
+    const sideStr = (item.platform || 'NETFLIX').toUpperCase();
+
+    discEl.innerHTML = `
+      <div class="cd-disc-surface">
+        <img src="${posterUrl}" alt="${cleanTitle}" class="cd-disc-artwork" draggable="false" />
+        <div class="cd-grooves-overlay"></div>
+        <div class="cd-sheen-overlay"></div>
+        
+        <!-- Curved Arched Typography via SVG textPath -->
+        <svg viewBox="0 0 400 400" class="cd-curved-title-svg">
+          <defs>
+            <path id="rim-top-path-${index}" d="M 60,200 A 140,140 0 0,1 340,200" fill="none" />
+            <path id="rim-side-path-${index}" d="M 70,250 A 135,135 0 0,1 110,85" fill="none" />
+          </defs>
+          <text fill="#ffffff" style="font-family: 'Oswald', 'Inter', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: 4px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.9));">
+            <textPath href="#rim-top-path-${index}" startOffset="50%" text-anchor="middle">
+              ${cleanTitle}
+            </textPath>
+          </text>
+          <text fill="rgba(255,255,255,0.75)" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 9px; letter-spacing: 2px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9));">
+            <textPath href="#rim-side-path-${index}">
+              SIDE A · YEAR ${yearStr} · ${durationStr}
+            </textPath>
+          </text>
+        </svg>
+
+        <!-- CD Center Hub & Spindle Hole -->
+        <div class="cd-center-hub">
+          <div class="cd-mirror-ring">
+            <span class="cd-hub-brand">side/b</span>
+            <div class="cd-inner-ring">
+              <div class="cd-spindle-hole"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cd-rim-bevel"></div>
+      </div>
+    `;
+
+    container.appendChild(discEl);
+  });
+
+  // Setup Drag/Touch handlers on viewport
+  const viewport = document.getElementById('disc-stage-viewport');
+  if (viewport && !viewport.hasAttribute('data-drag-bound')) {
+    viewport.setAttribute('data-drag-bound', 'true');
+
+    const onStart = (clientX) => {
+      isDiscDragging = true;
+      discStartX = clientX;
+      discDragDelta = 0;
+      clearInterval(discTimer);
+    };
+
+    const onMove = (clientX) => {
+      if (!isDiscDragging) return;
+      discDragDelta = clientX - discStartX;
+      renderDiscCascadePositions(discDragDelta);
+    };
+
+    const onEnd = () => {
+      if (!isDiscDragging) return;
+      isDiscDragging = false;
+      const threshold = 60;
+      if (discDragDelta < -threshold) {
+        nextDiscSlide();
+      } else if (discDragDelta > threshold) {
+        prevDiscSlide();
+      } else {
+        renderDiscCascadePositions(0);
+      }
+      discDragDelta = 0;
+      resetDiscTimer();
+    };
+
+    viewport.addEventListener('mousedown', (e) => onStart(e.clientX));
+    window.addEventListener('mousemove', (e) => onMove(e.clientX));
+    window.addEventListener('mouseup', onEnd);
+
+    viewport.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length) onStart(e.touches[0].clientX);
+    }, { passive: true });
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length) onMove(e.touches[0].clientX);
+    }, { passive: true });
+    window.addEventListener('touchend', onEnd);
+  }
+
+  currentDiscIndex = 0;
+  updateDiscActiveInfo();
+  renderDiscCascadePositions(0);
+  resetDiscTimer();
+}
+
+function updateDiscActiveInfo() {
+  if (!discCatalogItems.length) return;
+  const item = discCatalogItems[currentDiscIndex];
+  if (!item) return;
+
+  const titleEl = document.getElementById('disc-active-title');
+  const sideEl = document.getElementById('disc-credit-side');
+  const yearEl = document.getElementById('disc-credit-year');
+  const lengthEl = document.getElementById('disc-credit-length');
+  const counterEl = document.getElementById('disc-counter');
+
+  if (titleEl) titleEl.textContent = item.title;
+  if (sideEl) sideEl.textContent = (item.platform || 'NETFLIX').toUpperCase();
+  if (yearEl) yearEl.textContent = item.year || '2024';
+  if (lengthEl) lengthEl.textContent = item.duration || '45 min';
+  if (counterEl) {
+    const pad = (n) => String(n).padStart(2, '0');
+    counterEl.textContent = pad(currentDiscIndex + 1) + ' / ' + pad(discCatalogItems.length);
+  }
+
+  // Dynamic Critic Reviews
+  const q1 = document.getElementById('disc-quote-1');
+  const q2 = document.getElementById('disc-quote-2');
+  const quotesList = [
+    ['“CLIMBS AND NEVER STOPS”', '“A RECORD FOR WINDOWS”'],
+    ['“PINK NOISE, PERFECTED”', '“SOFT AS APRIL, VIVID AS LIFE”'],
+    ['“FIZZES FROM THE FIRST BAR”', '“BRIGHT, SWEET, IMMERSIVE 4K”'],
+    ['“SHADE AND MOTION COMBINED”', '“MADE FOR THE LONG WAY HOME”'],
+    ['“THE VIEW DOES THE TALKING”', '“GENTLE VELOCITY & MASTERFUL EDITING”'],
+    ['“SALT AIR ON TAPE”', '“WIDE OPEN, WIND-BLOWN MASTERWORK”']
+  ];
+  const q = quotesList[currentDiscIndex % quotesList.length];
+  if (q1) q1.textContent = q[0];
+  if (q2) q2.textContent = q[1];
+}
+
+function renderDiscCascadePositions(dragOffset = 0) {
+  const n = discCatalogItems.length;
+  if (!n) return;
+
+  const isMobile = window.innerWidth < 768;
+  const spacing = isMobile ? 160 : 255;
+
+  for (let i = 0; i < n; i++) {
+    const discEl = document.getElementById('cd-disc-' + i);
+    if (!discEl) continue;
+
+    let offset = i - currentDiscIndex;
+    if (offset > n / 2) offset -= n;
+    if (offset < -n / 2) offset += n;
+
+    // Show discs within +/- 2 positions
+    if (Math.abs(offset) <= 2) {
+      discEl.style.display = 'block';
+      const isCenter = offset === 0;
+      const translateX = offset * spacing + dragOffset * 0.45;
+      const translateY = Math.abs(offset) * (isMobile ? 22 : 36);
+      const rotate = offset * 20;
+      const scale = isCenter ? 1.05 : Math.max(0.68, 1 - Math.abs(offset) * 0.17);
+      const zIndex = 20 - Math.abs(offset) * 5;
+      const opacity = Math.max(0.35, 1 - Math.abs(offset) * 0.25);
+
+      discEl.style.transform = 'translate3d(' + translateX + 'px, ' + translateY + 'px, 0) scale(' + scale + ') rotate(' + rotate + 'deg)';
+      discEl.style.zIndex = zIndex;
+      discEl.style.opacity = opacity;
+    } else {
+      discEl.style.display = 'none';
+      discEl.style.opacity = '0';
+    }
+  }
+}
+
+function goToDisc(index) {
+  const n = discCatalogItems.length;
+  if (!n) return;
+  currentDiscIndex = (index + n) % n;
+  updateDiscActiveInfo();
+  renderDiscCascadePositions(0);
+  resetDiscTimer();
+}
+
+function nextDiscSlide() {
+  goToDisc(currentDiscIndex + 1);
+}
+
+function prevDiscSlide() {
+  goToDisc(currentDiscIndex - 1);
+}
+
+function resetDiscTimer() {
+  clearInterval(discTimer);
+  discTimer = setInterval(() => {
+    nextDiscSlide();
+  }, 4000);
+}
+
+function playActiveDisc() {
+  if (!discCatalogItems.length) return;
+  const item = discCatalogItems[currentDiscIndex];
+  if (!item) return;
+  if (typeof openWatchModal === 'function') {
+    openWatchModal(item.id);
+  } else if (typeof openDetailsModal === 'function') {
+    openDetailsModal(item.id);
+  }
+}

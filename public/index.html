@@ -78,9 +78,6 @@
         <a href="#browse-ott" class="nav-item text-gold" onclick="toggleOttHub()">
           <i class="fa-solid fa-layer-group"></i> Multi-OTT Hub
         </a>
-        <a href="/carousel" class="nav-item" style="color: #fbbf24;" title="3D Liquid Glass Interactive Banner">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 3D Liquid Glass
-        </a>
       </nav>
     </div>
 
@@ -258,9 +255,6 @@
           <button class="btn-round" id="hero-watchlist-btn" title="Add to My List">
             <i class="fa-solid fa-plus"></i>
           </button>
-          <a href="/carousel" class="netflix-btn btn-glass-mode" id="hero-glass-mode-btn" title="Experience 3D Liquid Glass Animation" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.25); color: #fff; text-decoration: none; font-weight: 600; padding: 0.65rem 1.1rem; border-radius: 4px; transition: all 0.25s ease;">
-            <i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> 3D Liquid Glass
-          </a>
         </div>
       </div>
 
@@ -519,6 +513,88 @@
     </section>
 
     <!-- ======================================================== -->
+    
+    <!-- ======================================================== -->
+    <!-- 3D DISC CASCADE CAROUSEL SHOWCASE (CD POSTER VINYL FORMAT)-->
+    <!-- ======================================================== -->
+    <section class="disc-cascade-showcase-section" id="disc-cascade-showcase">
+      <div class="disc-cascade-ambient"></div>
+      
+      <!-- Top Stage Bar -->
+      <div class="disc-stage-header">
+        <div class="disc-stage-info">
+          <span class="disc-stage-tag"><i class="fa-solid fa-compact-disc fa-spin text-red"></i> 4K MASTER DISC CATALOGUE</span>
+          <h2 class="disc-stage-title" id="disc-active-title">Stranger Things</h2>
+          <div class="disc-stage-credits">
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">SIDE A</span>
+              <span class="disc-credit-value" id="disc-credit-side">NETFLIX</span>
+            </div>
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">YEAR</span>
+              <span class="disc-credit-value" id="disc-credit-year">2024</span>
+            </div>
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">LENGTH</span>
+              <span class="disc-credit-value" id="disc-credit-length">4 Seasons</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="disc-stage-brand-wrap">
+          <span class="disc-stage-brand">side/b</span>
+          <div class="disc-stage-nav">
+            <span class="active">Records <span class="dot"></span></span>
+            <span>Sessions</span>
+            <span>Catalogue ▾</span>
+          </div>
+        </div>
+
+        <div class="disc-stage-action">
+          <button type="button" class="btn-disc-play" id="btn-disc-play" onclick="playActiveDisc()" title="Play Title in 4K">
+            <i class="fa-solid fa-play"></i> <span>Play Disc</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Center Disc Stage Viewport -->
+      <div class="disc-stage-viewport" id="disc-stage-viewport">
+        <div class="disc-stage-track" id="disc-stage-track">
+          <!-- CD discs dynamically injected here -->
+        </div>
+      </div>
+
+      <!-- Bottom Stage Controls & Reviews -->
+      <div class="disc-stage-footer">
+        <div class="disc-stage-hint">
+          <span>DRAG · ← →</span>
+        </div>
+
+        <div class="disc-stage-reviews" id="disc-stage-reviews">
+          <div class="disc-review-item">
+            <div class="disc-stars">★★★★★</div>
+            <span class="disc-review-source">THE WAX</span>
+            <span class="disc-review-quote" id="disc-quote-1">“CLIMBS AND NEVER STOPS”</span>
+          </div>
+          <div class="disc-review-item">
+            <div class="disc-stars">★★★★★</div>
+            <span class="disc-review-source">GROOVE NOTES</span>
+            <span class="disc-review-quote" id="disc-quote-2">“A RECORD FOR WINDOWS”</span>
+          </div>
+        </div>
+
+        <div class="disc-stage-controls">
+          <button type="button" class="disc-nav-arrow" onclick="prevDiscSlide()" aria-label="Previous Disc">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="disc-counter" id="disc-counter">01 / 10</span>
+          <button type="button" class="disc-nav-arrow" onclick="nextDiscSlide()" aria-label="Next Disc">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- ROW 1: TOP 10 MOVIES TODAY (WITH GIANT NETFLIX NUMBERS!) -->
     <!-- ======================================================== -->
     <section class="netflix-row-wrap" id="section-top10-movies">
