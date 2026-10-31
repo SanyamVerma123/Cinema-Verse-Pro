@@ -291,88 +291,91 @@ export function DiscCascadeCarousel({
             >
               {/* CD DISC SURFACE */}
               <div className="relative w-full h-full rounded-full overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.18)] bg-neutral-900">
-                {/* 1. Poster / Disc Face Artwork */}
-                <img
-                  src={item.src}
-                  alt={item.title}
-                  draggable={false}
-                  className="w-full h-full object-cover rounded-full pointer-events-none group-hover:scale-105 transition-transform duration-700"
-                />
+                {/* Smooth Continuous 360-Degree Disc Rotator */}
+                <div className="absolute inset-0 rounded-full animate-[spin_20s_linear_infinite] origin-center">
+                  {/* 1. Poster / Disc Face Artwork */}
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    draggable={false}
+                    className="w-full h-full object-cover rounded-full pointer-events-none"
+                  />
 
-                {/* 2. Concentric Vinyl Grooves Overlay */}
-                <div
-                  className="absolute inset-0 rounded-full pointer-events-none"
-                  style={{
-                    background:
-                      "repeating-radial-gradient(circle at center, transparent 0, transparent 3px, rgba(255,255,255,0.035) 4px, transparent 5px)",
-                  }}
-                />
-
-                {/* 3. Holographic Rainbow CD Specular Sheen */}
-                <div
-                  className="absolute inset-0 rounded-full pointer-events-none mix-blend-screen opacity-35"
-                  style={{
-                    background:
-                      "conic-gradient(from 45deg at 50% 50%, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.4) 45deg, rgba(255,100,100,0.2) 90deg, rgba(100,255,100,0.2) 135deg, rgba(100,150,255,0.3) 180deg, rgba(255,255,255,0.4) 225deg, rgba(255,255,255,0) 360deg)",
-                  }}
-                />
-
-                {/* 4. Arched Curved Title & Metadata via SVG TextPath */}
-                <svg
-                  viewBox="0 0 400 400"
-                  className="absolute inset-0 w-full h-full pointer-events-none z-10"
-                >
-                  <defs>
-                    <path
-                      id={`rim-top-${index}`}
-                      d="M 60,200 A 140,140 0 0,1 340,200"
-                      fill="none"
-                    />
-                    <path
-                      id={`rim-side-${index}`}
-                      d="M 70,250 A 135,135 0 0,1 110,85"
-                      fill="none"
-                    />
-                  </defs>
-
-                  {/* Arched Bold Title */}
-                  <text
-                    fill="#ffffff"
+                  {/* 2. Concentric Vinyl Grooves Overlay */}
+                  <div
+                    className="absolute inset-0 rounded-full pointer-events-none"
                     style={{
-                      fontFamily: "'Oswald', 'Inter', sans-serif",
-                      fontWeight: 800,
-                      fontSize: "30px",
-                      letterSpacing: "4px",
-                      filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.85))",
+                      background:
+                        "repeating-radial-gradient(circle at center, transparent 0, transparent 3px, rgba(255,255,255,0.035) 4px, transparent 5px)",
                     }}
-                  >
-                    <textPath href={`#rim-top-${index}`} startOffset="50%" textAnchor="middle">
-                      {item.title.toUpperCase()}
-                    </textPath>
-                  </text>
+                  />
 
-                  {/* Rim Metadata */}
-                  <text
-                    fill="rgba(255,255,255,0.75)"
+                  {/* 3. Holographic Rainbow CD Specular Sheen */}
+                  <div
+                    className="absolute inset-0 rounded-full pointer-events-none mix-blend-screen opacity-35"
                     style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontWeight: 600,
-                      fontSize: "9px",
-                      letterSpacing: "2.5px",
-                      filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.9))",
+                      background:
+                        "conic-gradient(from 45deg at 50% 50%, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.4) 45deg, rgba(255,100,100,0.2) 90deg, rgba(100,255,100,0.2) 135deg, rgba(100,150,255,0.3) 180deg, rgba(255,255,255,0.4) 225deg, rgba(255,255,255,0.36) 360deg)",
                     }}
-                  >
-                    <textPath href={`#rim-side-${index}`}>
-                      {`SIDE A · YEAR ${item.year || "2024"} · ${item.length || "45 MIN"}`}
-                    </textPath>
-                  </text>
-                </svg>
+                  />
 
-                {/* 5. Authentic CD Center Hub & Spindle Hole */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                  {/* 4. Arched Curved Title & Metadata via SVG TextPath */}
+                  <svg
+                    viewBox="0 0 400 400"
+                    className="absolute inset-0 w-full h-full pointer-events-none z-10"
+                  >
+                    <defs>
+                      <path
+                        id={`rim-top-${index}`}
+                        d="M 60,200 A 140,140 0 0,1 340,200"
+                        fill="none"
+                      />
+                      <path
+                        id={`rim-side-${index}`}
+                        d="M 70,250 A 135,135 0 0,1 110,85"
+                        fill="none"
+                      />
+                    </defs>
+
+                    {/* Arched Bold Title */}
+                    <text
+                      fill="#ffffff"
+                      style={{
+                        fontFamily: "'Oswald', 'Inter', sans-serif",
+                        fontWeight: 800,
+                        fontSize: "30px",
+                        letterSpacing: "4px",
+                        filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.85))",
+                      }}
+                    >
+                      <textPath href={`#rim-top-${index}`} startOffset="50%" textAnchor="middle">
+                        {item.title.toUpperCase()}
+                      </textPath>
+                    </text>
+
+                    {/* Rim Metadata */}
+                    <text
+                      fill="rgba(255,255,255,0.75)"
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontWeight: 600,
+                        fontSize: "9px",
+                        letterSpacing: "2.5px",
+                        filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.9))",
+                      }}
+                    >
+                      <textPath href={`#rim-side-${index}`}>
+                        {`SIDE A · YEAR ${item.year || "2024"} · ${item.length || "45 MIN"}`}
+                      </textPath>
+                    </text>
+                  </svg>
+                </div>
+
+                {/* 5. Authentic CD Center Hub & Glowing Triangle Play Button */}
+                <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                   {/* Clear Clamping Plastic Zone */}
                   <div
-                    className="w-[34%] h-[34%] rounded-full relative flex items-center justify-center border border-white/30 backdrop-blur-[2px]"
+                    className="w-[36%] h-[36%] rounded-full relative flex items-center justify-center border border-white/30 backdrop-blur-[2px]"
                     style={{
                       background:
                         "radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(200,200,200,0.3) 65%, rgba(160,160,160,0.5) 100%)",
@@ -387,18 +390,21 @@ export function DiscCascadeCarousel({
                           "conic-gradient(from 0deg, #d1d5db 0deg, #f9fafb 45deg, #9ca3af 90deg, #e5e7eb 180deg, #9ca3af 270deg, #d1d5db 360deg)",
                       }}
                     >
-                      {/* Brand Stamp on Hub */}
-                      <span className="absolute top-[8%] text-[8px] font-black tracking-widest text-black/70 uppercase">
-                        {brand}
-                      </span>
-
                       {/* Inner Plastic Grooved Ring */}
-                      <div className="w-[62%] h-[62%] rounded-full border border-black/30 flex items-center justify-center bg-black/10">
-                        {/* Spindle Center Hole */}
-                        <div
-                          className="w-[50%] h-[50%] rounded-full bg-[#111113] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9),0_0_0_1.5px_rgba(255,255,255,0.4)]"
-                        />
-                      </div>
+                      <div className="w-[66%] h-[66%] rounded-full border border-black/30 flex items-center justify-center bg-black/10" />
+                    </div>
+
+                    {/* Glowing Triangle Play Button in Center */}
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onItemClick?.(item, index);
+                        onPlay?.(item);
+                      }}
+                      className="pointer-events-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-red-600/95 hover:bg-red-500 border-2 border-white/90 shadow-[0_0_20px_rgba(229,9,20,0.8),inset_0_0_6px_rgba(255,255,255,0.4)] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-115 active:scale-95 z-30"
+                      title={`Play ${item.title}`}
+                    >
+                      <Play className="w-5 h-5 fill-white text-white ml-0.5" />
                     </div>
                   </div>
                 </div>

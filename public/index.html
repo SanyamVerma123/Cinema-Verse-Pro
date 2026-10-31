@@ -209,65 +209,82 @@
     <!-- ======================================================== -->
     <!-- NETFLIX BILLBOARD HERO FEATURED SPOTLIGHT                -->
     <!-- ======================================================== -->
-    <section class="netflix-billboard" id="hero-banner">
-      <div class="billboard-backdrop" id="hero-backdrop"></div>
-      <div class="billboard-gradient-left"></div>
-      <div class="billboard-gradient-bottom"></div>
-
-      <!-- Left / Right Carousel Buttons -->
-      <button class="hero-arrow arrow-left" onclick="prevHeroSlide()"><i class="fa-solid fa-chevron-left"></i></button>
-      <button class="hero-arrow arrow-right" onclick="nextHeroSlide()"><i class="fa-solid fa-chevron-right"></i></button>
-
-      <div class="billboard-content">
-        <div class="billboard-badges">
-          <span class="badge-ott" id="hero-platform-badge">NETFLIX</span>
-          <span class="badge-top10" id="hero-badge-tag"><i class="fa-solid fa-fire text-red"></i> #1 in TV Shows Today</span>
+    <section class="disc-cascade-showcase-section" id="disc-cascade-showcase">
+      <div class="disc-cascade-ambient"></div>
+      
+      <!-- Top Stage Bar -->
+      <div class="disc-stage-header">
+        <div class="disc-stage-info">
+          <span class="disc-stage-tag"><i class="fa-solid fa-compact-disc fa-spin text-red"></i> 4K MASTER DISC CATALOGUE</span>
+          <h2 class="disc-stage-title" id="disc-active-title">Stranger Things</h2>
+          <div class="disc-stage-credits">
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">SIDE A</span>
+              <span class="disc-credit-value" id="disc-credit-side">NETFLIX</span>
+            </div>
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">YEAR</span>
+              <span class="disc-credit-value" id="disc-credit-year">2024</span>
+            </div>
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">LENGTH</span>
+              <span class="disc-credit-value" id="disc-credit-length">4 Seasons</span>
+            </div>
+          </div>
         </div>
 
-        <h1 class="billboard-title" id="hero-title">Stranger Things</h1>
-
-        <div class="billboard-meta" id="hero-meta">
-          <span class="meta-match text-green font-bold" id="hero-match">99% Match</span>
-          <span class="meta-year" id="hero-year">2024</span>
-          <span class="badge-maturity" id="hero-maturity">16+</span>
-          <span class="meta-duration" id="hero-duration">4 Seasons</span>
-          <span class="badge-quality" id="hero-quality">4K Ultra HD</span>
-          <span class="badge-audio" id="hero-audio">Dolby Atmos</span>
+        <div class="disc-stage-brand-wrap">
+          <span class="disc-stage-brand">side/b</span>
+          <div class="disc-stage-nav">
+            <span class="active">Records <span class="dot"></span></span>
+            <span>Sessions</span>
+            <span>Catalogue ▾</span>
+          </div>
         </div>
 
-        <p class="billboard-desc" id="hero-desc">
-          When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.
-        </p>
-
-        <div class="billboard-actions">
-          <button class="netflix-btn btn-white" id="hero-play-btn">
-            <i class="fa-solid fa-play"></i> Play
-          </button>
-          <button class="netflix-btn btn-grey" id="hero-info-btn">
-            <i class="fa-solid fa-circle-info"></i> More Info
-          </button>
-          <button class="netflix-btn btn-download-hero" id="hero-download-btn" onclick="openDownloadModalForHero()" title="Download for Offline Viewing">
-            <i class="fa-solid fa-arrow-down-to-bracket"></i> Download
-          </button>
-          <button class="btn-round" id="hero-share-btn" onclick="shareHeroMovie()" title="Share Title">
-            <i class="fa-solid fa-share-nodes"></i>
-          </button>
-          <button class="btn-round" id="hero-watchlist-btn" title="Add to My List">
-            <i class="fa-solid fa-plus"></i>
+        <div class="disc-stage-action">
+          <button type="button" class="btn-disc-play" id="btn-disc-play" onclick="playActiveDisc()" title="Play Title in 4K">
+            <i class="fa-solid fa-play"></i> <span>Play Disc</span>
           </button>
         </div>
       </div>
 
-      <!-- Right Billboard Maturity Tag & Audio Toggle -->
-      <div class="billboard-right-meta">
-        <button class="btn-audio-toggle" id="hero-audio-btn" onclick="toggleHeroAudio()" title="Mute/Unmute Preview">
-          <i class="fa-solid fa-volume-high" id="hero-audio-icon"></i>
-        </button>
-        <span class="billboard-age-rating" id="hero-age-rating">16+</span>
+      <!-- Center Disc Stage Viewport -->
+      <div class="disc-stage-viewport" id="disc-stage-viewport">
+        <div class="disc-stage-track" id="disc-stage-track">
+          <!-- CD discs dynamically injected here -->
+        </div>
       </div>
 
-      <!-- Slide Indicator Dots -->
-      <div class="billboard-dots" id="hero-dots"></div>
+      <!-- Bottom Stage Controls & Reviews -->
+      <div class="disc-stage-footer">
+        <div class="disc-stage-hint">
+          <span>DRAG · ← →</span>
+        </div>
+
+        <div class="disc-stage-reviews" id="disc-stage-reviews">
+          <div class="disc-review-item">
+            <div class="disc-stars">★★★★★</div>
+            <span class="disc-review-source">THE WAX</span>
+            <span class="disc-review-quote" id="disc-quote-1">“CLIMBS AND NEVER STOPS”</span>
+          </div>
+          <div class="disc-review-item">
+            <div class="disc-stars">★★★★★</div>
+            <span class="disc-review-source">GROOVE NOTES</span>
+            <span class="disc-review-quote" id="disc-quote-2">“A RECORD FOR WINDOWS”</span>
+          </div>
+        </div>
+
+        <div class="disc-stage-controls">
+          <button type="button" class="disc-nav-arrow" onclick="prevDiscSlide()" aria-label="Previous Disc">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="disc-counter" id="disc-counter">01 / 10</span>
+          <button type="button" class="disc-nav-arrow" onclick="nextDiscSlide()" aria-label="Next Disc">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- ======================================================== -->
@@ -517,83 +534,7 @@
     <!-- ======================================================== -->
     <!-- 3D DISC CASCADE CAROUSEL SHOWCASE (CD POSTER VINYL FORMAT)-->
     <!-- ======================================================== -->
-    <section class="disc-cascade-showcase-section" id="disc-cascade-showcase">
-      <div class="disc-cascade-ambient"></div>
-      
-      <!-- Top Stage Bar -->
-      <div class="disc-stage-header">
-        <div class="disc-stage-info">
-          <span class="disc-stage-tag"><i class="fa-solid fa-compact-disc fa-spin text-red"></i> 4K MASTER DISC CATALOGUE</span>
-          <h2 class="disc-stage-title" id="disc-active-title">Stranger Things</h2>
-          <div class="disc-stage-credits">
-            <div class="disc-credit-line">
-              <span class="disc-credit-label">SIDE A</span>
-              <span class="disc-credit-value" id="disc-credit-side">NETFLIX</span>
-            </div>
-            <div class="disc-credit-line">
-              <span class="disc-credit-label">YEAR</span>
-              <span class="disc-credit-value" id="disc-credit-year">2024</span>
-            </div>
-            <div class="disc-credit-line">
-              <span class="disc-credit-label">LENGTH</span>
-              <span class="disc-credit-value" id="disc-credit-length">4 Seasons</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="disc-stage-brand-wrap">
-          <span class="disc-stage-brand">side/b</span>
-          <div class="disc-stage-nav">
-            <span class="active">Records <span class="dot"></span></span>
-            <span>Sessions</span>
-            <span>Catalogue ▾</span>
-          </div>
-        </div>
-
-        <div class="disc-stage-action">
-          <button type="button" class="btn-disc-play" id="btn-disc-play" onclick="playActiveDisc()" title="Play Title in 4K">
-            <i class="fa-solid fa-play"></i> <span>Play Disc</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Center Disc Stage Viewport -->
-      <div class="disc-stage-viewport" id="disc-stage-viewport">
-        <div class="disc-stage-track" id="disc-stage-track">
-          <!-- CD discs dynamically injected here -->
-        </div>
-      </div>
-
-      <!-- Bottom Stage Controls & Reviews -->
-      <div class="disc-stage-footer">
-        <div class="disc-stage-hint">
-          <span>DRAG · ← →</span>
-        </div>
-
-        <div class="disc-stage-reviews" id="disc-stage-reviews">
-          <div class="disc-review-item">
-            <div class="disc-stars">★★★★★</div>
-            <span class="disc-review-source">THE WAX</span>
-            <span class="disc-review-quote" id="disc-quote-1">“CLIMBS AND NEVER STOPS”</span>
-          </div>
-          <div class="disc-review-item">
-            <div class="disc-stars">★★★★★</div>
-            <span class="disc-review-source">GROOVE NOTES</span>
-            <span class="disc-review-quote" id="disc-quote-2">“A RECORD FOR WINDOWS”</span>
-          </div>
-        </div>
-
-        <div class="disc-stage-controls">
-          <button type="button" class="disc-nav-arrow" onclick="prevDiscSlide()" aria-label="Previous Disc">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <span class="disc-counter" id="disc-counter">01 / 10</span>
-          <button type="button" class="disc-nav-arrow" onclick="nextDiscSlide()" aria-label="Next Disc">
-            <i class="fa-solid fa-chevron-right"></i>
-          </button>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- ROW 1: TOP 10 MOVIES TODAY (WITH GIANT NETFLIX NUMBERS!) -->
     <!-- ======================================================== -->

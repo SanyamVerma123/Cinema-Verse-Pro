@@ -9310,34 +9310,52 @@ body {
 }
 
 
+
 /* ========================================================
-   DISC CASCADE CAROUSEL — 3D VINYL CD SHOWCASE
+   DISC CASCADE CAROUSEL — 3D VINYL CD SHOWCASE (HERO POSITION)
    ======================================================== */
+@keyframes spinDisc {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .disc-cascade-showcase-section {
   position: relative;
   width: 100%;
-  max-width: 1400px;
-  margin: 2.5rem auto 3.5rem auto;
-  padding: 2.5rem 2.5rem 2rem;
-  background: radial-gradient(120% 90% at 50% 40%, #1d1d21, #0b0b0d);
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  max-width: 100%;
+  margin: 70px 0 2.5rem 0;
+  padding: 3rem 3rem 2.5rem;
+  background: radial-gradient(120% 90% at 50% 35%, #1d1d23 0%, #111115 50%, #0a0a0c 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85);
   overflow: hidden;
   user-select: none;
   font-family: 'Inter', -apple-system, sans-serif;
   color: #ecebe7;
+  min-height: 700px;
+}
+
+@media (max-width: 768px) {
+  .disc-cascade-showcase-section {
+    margin-top: 60px;
+    padding: 1.5rem 1.25rem 2rem;
+    min-height: 560px;
+  }
 }
 
 .disc-cascade-ambient {
   position: absolute;
-  top: -20%;
-  left: 30%;
-  width: 40%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(229, 9, 20, 0.12) 0%, transparent 70%);
+  top: -15%;
+  left: 25%;
+  width: 50%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.16) 0%, rgba(245, 158, 11, 0.08) 40%, transparent 70%);
   pointer-events: none;
-  filter: blur(50px);
+  filter: blur(60px);
 }
 
 .disc-stage-header {
@@ -9352,36 +9370,36 @@ body {
 .disc-stage-tag {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.7rem;
+  gap: 8px;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #a3a3a3;
-  margin-bottom: 0.25rem;
+  color: #e50914;
+  margin-bottom: 0.35rem;
 }
 
 .disc-stage-title {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 400;
   line-height: 1.05;
   color: #ffffff;
-  margin: 0.25rem 0 0.85rem;
+  margin: 0.2rem 0 0.85rem;
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-  max-width: 320px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  max-width: 380px;
 }
 
 .disc-stage-credits {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  width: 240px;
-  font-size: 0.72rem;
+  gap: 0.4rem;
+  width: 250px;
+  font-size: 0.75rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .disc-credit-line {
@@ -9392,7 +9410,7 @@ body {
 }
 
 .disc-credit-value {
-  font-weight: 600;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.95);
 }
 
@@ -9406,15 +9424,16 @@ body {
 }
 
 .disc-stage-brand {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 900;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   background: rgba(255, 255, 255, 0.1);
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   color: #ffffff;
+  backdrop-filter: blur(8px);
 }
 
 .disc-stage-nav {
@@ -9453,34 +9472,35 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  color: #000000;
+  background: #e50914;
+  color: #ffffff;
   font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 1px;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 0.55rem 1.25rem;
+  padding: 0.65rem 1.4rem;
   border-radius: 9999px;
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(229, 9, 20, 0.4);
 }
 
 .btn-disc-play:hover {
-  background: rgba(255, 255, 255, 0.85);
-  transform: scale(1.04);
+  background: #ff1e27;
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(229, 9, 20, 0.6);
 }
 
 .btn-disc-play:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
 }
 
 /* Center Stage Viewport */
 .disc-stage-viewport {
   position: relative;
   width: 100%;
-  height: 440px;
+  height: 460px;
   margin: 1.5rem 0;
   display: flex;
   align-items: center;
@@ -9501,8 +9521,8 @@ body {
 /* CD Disc Item */
 .cd-disc-item {
   position: absolute;
-  width: 380px;
-  height: 380px;
+  width: 410px;
+  height: 410px;
   border-radius: 50%;
   cursor: pointer;
   user-select: none;
@@ -9512,14 +9532,14 @@ body {
 
 @media (max-width: 768px) {
   .cd-disc-item {
-    width: 270px;
-    height: 270px;
+    width: 280px;
+    height: 280px;
   }
   .disc-stage-viewport {
-    height: 320px;
+    height: 330px;
   }
   .disc-stage-title {
-    font-size: 1.75rem;
+    font-size: 1.85rem;
   }
 }
 
@@ -9530,7 +9550,17 @@ body {
   border-radius: 50%;
   overflow: hidden;
   background: #111113;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.18);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Continuous Disc Rotation Animation */
+.cd-disc-rotator {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: spinDisc 20s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .cd-disc-artwork {
@@ -9539,11 +9569,6 @@ body {
   object-fit: cover;
   border-radius: 50%;
   pointer-events: none;
-  transition: transform 0.7s cubic-bezier(0.2, 0, 0.2, 1);
-}
-
-.cd-disc-item:hover .cd-disc-artwork {
-  transform: scale(1.05);
 }
 
 .cd-grooves-overlay {
@@ -9551,7 +9576,7 @@ body {
   inset: 0;
   border-radius: 50%;
   pointer-events: none;
-  background: repeating-radial-gradient(circle at center, transparent 0, transparent 3px, rgba(255, 255, 255, 0.035) 4px, transparent 5px);
+  background: repeating-radial-gradient(circle at center, transparent 0, transparent 3px, rgba(255, 255, 255, 0.04) 4px, transparent 5px);
 }
 
 .cd-sheen-overlay {
@@ -9560,8 +9585,8 @@ body {
   border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: screen;
-  opacity: 0.35;
-  background: conic-gradient(from 45deg at 50% 50%, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.4) 45deg, rgba(255,100,100,0.2) 90deg, rgba(100,255,100,0.2) 135deg, rgba(100,150,255,0.3) 180deg, rgba(255,255,255,0.4) 225deg, rgba(255,255,255,0) 360deg);
+  opacity: 0.38;
+  background: conic-gradient(from 45deg at 50% 50%, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.45) 45deg, rgba(255,100,100,0.25) 90deg, rgba(100,255,100,0.25) 135deg, rgba(100,150,255,0.35) 180deg, rgba(255,255,255,0.45) 225deg, rgba(255,255,255,0) 360deg);
 }
 
 .cd-curved-title-svg {
@@ -9573,23 +9598,23 @@ body {
   z-index: 10;
 }
 
+/* Center Hub */
 .cd-center-hub {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 34%;
-  height: 34%;
+  width: 36%;
+  height: 36%;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(200,200,200,0.3) 65%, rgba(160,160,160,0.5) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 5px rgba(255,255,255,0.4);
-  backdrop-filter: blur(2px);
+  background: radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(200,200,200,0.35) 65%, rgba(160,160,160,0.55) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 0 12px rgba(0,0,0,0.6), 0 0 8px rgba(255,255,255,0.4);
+  backdrop-filter: blur(3px);
   z-index: 20;
-  pointer-events: none;
 }
 
 .cd-mirror-ring {
@@ -9605,19 +9630,9 @@ body {
   box-shadow: inset 0 0 4px rgba(0,0,0,0.4);
 }
 
-.cd-hub-brand {
-  position: absolute;
-  top: 8%;
-  font-size: 7px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  color: rgba(0,0,0,0.7);
-  text-transform: uppercase;
-}
-
 .cd-inner-ring {
-  width: 62%;
-  height: 62%;
+  width: 66%;
+  height: 66%;
   border-radius: 50%;
   border: 1px solid rgba(0,0,0,0.3);
   display: flex;
@@ -9626,19 +9641,67 @@ body {
   background: rgba(0,0,0,0.1);
 }
 
-.cd-spindle-hole {
-  width: 50%;
-  height: 50%;
+/* Center Triangle Play Button */
+.cd-center-play-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  background: #111113;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.9), 0 0 0 1.5px rgba(255,255,255,0.4);
+  background: rgba(229, 9, 20, 0.95);
+  border: 2.5px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.8), 0 4px 15px rgba(0,0,0,0.7), inset 0 0 8px rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 30;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1), background 0.2s ease, box-shadow 0.25s ease;
+}
+
+@media (max-width: 768px) {
+  .cd-center-play-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.cd-center-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.18);
+  background: #ff1e27;
+  box-shadow: 0 0 35px rgba(229, 9, 20, 1), 0 0 50px rgba(229, 9, 20, 0.6);
+}
+
+.cd-center-play-btn:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.cd-play-triangle {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 17px solid #ffffff;
+  margin-left: 4px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 768px) {
+  .cd-play-triangle {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 13px solid #ffffff;
+    margin-left: 3px;
+  }
 }
 
 .cd-rim-bevel {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.22);
   pointer-events: none;
 }
 
@@ -9708,8 +9771,8 @@ body {
 }
 
 .disc-nav-arrow {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -9723,8 +9786,8 @@ body {
 }
 
 .disc-nav-arrow:hover {
-  background: rgba(255, 255, 255, 0.22);
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
 }
 
 .disc-nav-arrow:active {
@@ -9732,7 +9795,7 @@ body {
 }
 
 .disc-counter {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 2px;
   font-variant-numeric: tabular-nums;

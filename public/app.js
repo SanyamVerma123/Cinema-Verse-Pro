@@ -514,8 +514,9 @@ function updateOttHubDynamicCounts() {
 // ========================================================
 
 function setupHeroCarousel() {
-  if (!heroItems.length) return;
   const dotsContainer = document.getElementById('hero-dots');
+  if (!dotsContainer) return;
+  if (!heroItems.length) return;
   dotsContainer.innerHTML = '';
 
   heroItems.forEach((_, idx) => {
@@ -563,6 +564,7 @@ function prevHeroSlide() {
 function renderHero(item) {
   if (!item) return;
   const backdrop = document.getElementById('hero-backdrop');
+  if (!backdrop) return;
   backdrop.style.backgroundImage = `url('${item.backdrop || item.fallbackBackdrop || FALLBACK_BACKDROP}')`;
 
   document.getElementById('hero-title').textContent = item.title;
@@ -948,24 +950,67 @@ function getContinueWatching() {
   }
 }
 
-function saveContinueWatching(item, season = 1, episode = 1) {
-  let list = getContinueWatching().filter(x => x.id !== item.id);
+// ========================================================
+// ADVANCED ACCURATE CONTINUE WATCHING & PLAYBACK RESUME ENGINE
+// ========================================================
+let currentResumeTime = 0;
+let watchProgressTimer = null;
+let currentWatchSeconds = 0;
+let currentDurationSeconds = 0;
+
+function formatTimeSeconds(sec) {
+  if (!sec || sec <= 0) return '00:00';
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  if (m >= 60) {
+    const h = Math.floor(m / 60);
+    const remM = m % 60;
+    return `${h}h ${remM}m`;
+  }
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function getContinueWatching() {
+  try {
+    const raw = localStorage.getItem(STORAGE_CONTINUE_WATCHING);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function getContinueWatchingItem(itemId) {
+  const list = getContinueWatching();
+  return list.find(x => String(x.id) === String(itemId)) || null;
+}
+
+function saveContinueWatching(item, season = 1, episode = 1, currentTime = 0, durationSec = 0) {
+  if (!item) return;
+  const list = getContinueWatching().filter(x => String(x.id) !== String(item.id));
+  const curTime = Math.max(0, Math.floor(currentTime || 0));
+  const totalSec = Math.max(curTime + 60, Math.floor(durationSec || (item.type === 'series' ? 2700 : 6600)));
+  const progressPercent = Math.min(99, Math.max(5, Math.round((curTime / totalSec) * 100)));
+
   list.unshift({
     id: item.id,
     title: item.title,
-    poster: item.poster,
+    poster: item.poster || item.backdrop,
     platform: item.platform,
     platformId: item.platformId,
     type: item.type,
     year: item.year,
     duration: item.duration,
-    season,
-    episode,
-    progress: Math.floor(Math.random() * 40) + 35,
+    season: parseInt(season, 10) || 1,
+    episode: parseInt(episode, 10) || 1,
+    currentTime: curTime,
+    durationSec: totalSec,
+    progress: progressPercent,
     timestamp: Date.now()
   });
-  list = list.slice(0, 10);
-  localStorage.setItem(STORAGE_CONTINUE_WATCHING, JSON.stringify(list));
+
+  try {
+    localStorage.setItem(STORAGE_CONTINUE_WATCHING, JSON.stringify(list.slice(0, 15)));
+  } catch (e) {}
   renderContinueWatching();
 }
 
@@ -978,6 +1023,8 @@ function clearContinueWatching() {
 function renderContinueWatching() {
   const container = document.getElementById('continue-watching-list');
   const section = document.getElementById('continue-watching-section');
+  if (!container || !section) return;
+
   const items = getContinueWatching();
 
   if (!items.length) {
@@ -989,12 +1036,16 @@ function renderContinueWatching() {
   container.innerHTML = '';
 
   items.forEach(c => {
-    const rawItem = currentCatalog.find(x => x.id === c.id) || c;
+    const rawItem = currentCatalog.find(x => String(x.id) === String(c.id)) || c;
     const card = document.createElement('div');
-    card.className = 'movie-card';
+    card.className = 'movie-card continue-watching-card';
+    const isSeries = c.type === 'series';
+    const epLabel = isSeries ? `S${c.season}:E${c.episode}` : 'Movie';
+    const timeFormatted = formatTimeSeconds(c.currentTime);
+
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${c.poster}" alt="${c.title}" onerror="window.handleImgError(this)">
+        <img class="card-poster" src="${c.poster || (typeof FALLBACK_POSTER !== 'undefined' ? FALLBACK_POSTER : '')}" alt="${c.title}" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${c.platformId || 'nflx'}">${c.platform || 'STREAM'}</div>
         <div class="card-play-hover">
           <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -1003,21 +1054,20 @@ function renderContinueWatching() {
       <div class="card-info">
         <h4 class="card-title">${c.title}</h4>
         <div class="card-meta">
-          <span>${c.type === 'series' ? `S${c.season}:E${c.episode}` : 'Movie'}</span>
-          <span>Resume</span>
+          <span class="text-gold font-bold">${epLabel}</span>
+          <span class="text-white/80"><i class="fa-solid fa-clock"></i> ${timeFormatted}</span>
         </div>
         <div class="card-progress-bar">
-          <div class="card-progress-fill" style="width: ${c.progress}%;"></div>
+          <div class="card-progress-fill" style="width: ${c.progress || 10}%;"></div>
         </div>
       </div>
     `;
 
-    card.onclick = () => openPlayer(rawItem, c.season, c.episode);
+    card.onclick = () => openPlayer(rawItem, c.season, c.episode, null, c.currentTime);
     container.appendChild(card);
   });
 }
 
-// Watchlist (My List)
 function getWatchlist() {
   try {
     const raw = localStorage.getItem(STORAGE_WATCHLIST) || localStorage.getItem('netflixmirror_watchlist');
@@ -2198,7 +2248,52 @@ function handlePlayerClick(e) {
   handlePlayerMouseMove();
 }
 
-async function openPlayer(item, season = 1, episode = 1, serverIndex = null) {
+async function openPlayer(item, season = null, episode = null, serverIndex = null, resumeTime = null) {
+
+  closeDetailsModal();
+  currentItem = item;
+
+  // Resolve Season & Episode: Check Continue Watching if not explicitly specified
+  if (season !== null && season !== undefined) {
+    currentSeason = parseInt(season, 10) || 1;
+  } else {
+    const saved = getContinueWatchingItem(item.id);
+    currentSeason = (saved && saved.season) ? parseInt(saved.season, 10) : 1;
+  }
+
+  if (episode !== null && episode !== undefined) {
+    currentEpisode = parseInt(episode, 10) || 1;
+  } else {
+    const saved = getContinueWatchingItem(item.id);
+    currentEpisode = (saved && saved.episode) ? parseInt(saved.episode, 10) : 1;
+  }
+
+  // Resolve Resume Time: Exact seconds from saved history
+  if (resumeTime !== null && resumeTime !== undefined) {
+    currentResumeTime = Math.floor(resumeTime);
+  } else {
+    const saved = getContinueWatchingItem(item.id);
+    if (saved && (item.type !== 'series' || (saved.season === currentSeason && saved.episode === currentEpisode))) {
+      currentResumeTime = Math.floor(saved.currentTime || 0);
+    } else {
+      currentResumeTime = 0;
+    }
+  }
+
+  currentWatchSeconds = currentResumeTime;
+  currentDurationSeconds = (item.type === 'series' ? 2700 : 6600);
+
+  // Active continuous progress tracker (updates every 3s)
+  clearInterval(watchProgressTimer);
+  watchProgressTimer = setInterval(() => {
+    if (!isPlayerActive()) {
+      clearInterval(watchProgressTimer);
+      return;
+    }
+    currentWatchSeconds += 3;
+    saveContinueWatching(currentItem, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
+  }, 3000);
+
   closeDetailsModal();
   currentItem = item;
   currentSeason = parseInt(season, 10);
@@ -2409,7 +2504,17 @@ function loadServerStream(serverIdx) {
       streamUrl = `${streamUrl}&autoplay=true`;
     }
   }
+  
+  // Append resume timestamp parameters for providers
+  if (currentResumeTime > 5 && streamUrl) {
+    const sep = streamUrl.includes('?') ? '&' : '?';
+    streamUrl = streamUrl + sep + 'start=' + Math.floor(currentResumeTime) + '#t=' + Math.floor(currentResumeTime);
+  }
   iframe.src = streamUrl;
+  if (currentResumeTime > 5) {
+    showToast('Resuming from ' + formatTimeSeconds(currentResumeTime) + ' • ' + (currentItem?.type === 'series' ? 'S' + currentSeason + ':E' + currentEpisode : 'Movie'), 'info');
+  }
+
 
   // 3. Instant & Smooth Dismissal of Buffering Overlay (Never get stuck buffering)
   let dismissed = false;
@@ -4405,8 +4510,10 @@ window.filterByCategory = filterCategory;
 })();
 
 
+
+
 // ========================================================
-// DISC CASCADE CAROUSEL — 3D VINYL CD SHOWCASE IMPLEMENTATION
+// DISC CASCADE CAROUSEL — 3D VINYL CD SHOWCASE (HERO COMPONENT)
 // ========================================================
 let discCatalogItems = [];
 let currentDiscIndex = 0;
@@ -4432,7 +4539,7 @@ function setupDiscCascade(items) {
     discEl.id = 'cd-disc-' + index;
     discEl.onclick = () => {
       if (currentDiscIndex === index) {
-        playActiveDisc();
+        playDiscByIndex(index);
       } else {
         goToDisc(index);
       }
@@ -4447,35 +4554,39 @@ function setupDiscCascade(items) {
 
     discEl.innerHTML = `
       <div class="cd-disc-surface">
-        <img src="${posterUrl}" alt="${cleanTitle}" class="cd-disc-artwork" draggable="false" />
-        <div class="cd-grooves-overlay"></div>
-        <div class="cd-sheen-overlay"></div>
-        
-        <!-- Curved Arched Typography via SVG textPath -->
-        <svg viewBox="0 0 400 400" class="cd-curved-title-svg">
-          <defs>
-            <path id="rim-top-path-${index}" d="M 60,200 A 140,140 0 0,1 340,200" fill="none" />
-            <path id="rim-side-path-${index}" d="M 70,250 A 135,135 0 0,1 110,85" fill="none" />
-          </defs>
-          <text fill="#ffffff" style="font-family: 'Oswald', 'Inter', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: 4px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.9));">
-            <textPath href="#rim-top-path-${index}" startOffset="50%" text-anchor="middle">
-              ${cleanTitle}
-            </textPath>
-          </text>
-          <text fill="rgba(255,255,255,0.75)" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 9px; letter-spacing: 2px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9));">
-            <textPath href="#rim-side-path-${index}">
-              SIDE A · YEAR ${yearStr} · ${durationStr}
-            </textPath>
-          </text>
-        </svg>
+        <!-- Smooth Continuous 360-Degree Disc Rotator -->
+        <div class="cd-disc-rotator">
+          <img src="${posterUrl}" alt="${cleanTitle}" class="cd-disc-artwork" draggable="false" />
+          <div class="cd-grooves-overlay"></div>
+          <div class="cd-sheen-overlay"></div>
+          
+          <!-- Curved Arched Typography via SVG textPath -->
+          <svg viewBox="0 0 400 400" class="cd-curved-title-svg">
+            <defs>
+              <path id="rim-top-path-${index}" d="M 60,200 A 140,140 0 0,1 340,200" fill="none" />
+              <path id="rim-side-path-${index}" d="M 70,250 A 135,135 0 0,1 110,85" fill="none" />
+            </defs>
+            <text fill="#ffffff" style="font-family: 'Oswald', 'Inter', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: 4px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.9));">
+              <textPath href="#rim-top-path-${index}" startOffset="50%" text-anchor="middle">
+                ${cleanTitle}
+              </textPath>
+            </text>
+            <text fill="rgba(255,255,255,0.75)" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 9px; letter-spacing: 2px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9));">
+              <textPath href="#rim-side-path-${index}">
+                SIDE A · YEAR ${yearStr} · ${durationStr}
+              </textPath>
+            </text>
+          </svg>
+        </div>
 
-        <!-- CD Center Hub & Spindle Hole -->
+        <!-- CD Center Hub & Glowing Triangle Play Button -->
         <div class="cd-center-hub">
           <div class="cd-mirror-ring">
-            <span class="cd-hub-brand">side/b</span>
-            <div class="cd-inner-ring">
-              <div class="cd-spindle-hole"></div>
-            </div>
+            <div class="cd-inner-ring"></div>
+          </div>
+          <!-- Triangle Play Button in Center -->
+          <div class="cd-center-play-btn" onclick="event.stopPropagation(); playDiscByIndex(${index})" title="Play ${cleanTitle} in 4K">
+            <div class="cd-play-triangle"></div>
           </div>
         </div>
 
@@ -4579,7 +4690,7 @@ function renderDiscCascadePositions(dragOffset = 0) {
   if (!n) return;
 
   const isMobile = window.innerWidth < 768;
-  const spacing = isMobile ? 160 : 255;
+  const spacing = isMobile ? 170 : 270;
 
   for (let i = 0; i < n; i++) {
     const discEl = document.getElementById('cd-disc-' + i);
@@ -4596,7 +4707,7 @@ function renderDiscCascadePositions(dragOffset = 0) {
       const translateX = offset * spacing + dragOffset * 0.45;
       const translateY = Math.abs(offset) * (isMobile ? 22 : 36);
       const rotate = offset * 20;
-      const scale = isCenter ? 1.05 : Math.max(0.68, 1 - Math.abs(offset) * 0.17);
+      const scale = isCenter ? 1.06 : Math.max(0.68, 1 - Math.abs(offset) * 0.17);
       const zIndex = 20 - Math.abs(offset) * 5;
       const opacity = Math.max(0.35, 1 - Math.abs(offset) * 0.25);
 
@@ -4631,16 +4742,19 @@ function resetDiscTimer() {
   clearInterval(discTimer);
   discTimer = setInterval(() => {
     nextDiscSlide();
-  }, 4000);
+  }, 4500);
 }
 
 function playActiveDisc() {
+  playDiscByIndex(currentDiscIndex);
+}
+
+function playDiscByIndex(index) {
   if (!discCatalogItems.length) return;
-  const item = discCatalogItems[currentDiscIndex];
+  const item = discCatalogItems[index];
   if (!item) return;
-  if (typeof openWatchModal === 'function') {
-    openWatchModal(item.id);
-  } else if (typeof openDetailsModal === 'function') {
-    openDetailsModal(item.id);
-  }
+  currentDiscIndex = index;
+  updateDiscActiveInfo();
+  renderDiscCascadePositions(0);
+  openPlayer(item);
 }
