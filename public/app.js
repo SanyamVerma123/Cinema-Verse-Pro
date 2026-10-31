@@ -1823,8 +1823,15 @@ async function openDetailsModal(item) {
   document.getElementById('modal-desc').textContent = item.description || 'Watch now in Ultra HD.';
   
   const backdropImg = document.getElementById('modal-backdrop-img');
-  backdropImg.src = item.backdrop || item.poster || FALLBACK_BACKDROP;
-  backdropImg.onerror = () => handleImgError(backdropImg, FALLBACK_BACKDROP);
+  const targetBackdrop = item.backdrop || item.poster || FALLBACK_BACKDROP;
+  backdropImg.src = targetBackdrop;
+  backdropImg.onerror = () => {
+    if (item.poster && backdropImg.src !== item.poster) {
+      backdropImg.src = item.poster;
+    } else {
+      handleImgError(backdropImg, FALLBACK_BACKDROP);
+    }
+  };
 
   // Platform Tag
   const chip = document.getElementById('modal-platform-chip');
@@ -1864,14 +1871,33 @@ async function openDetailsModal(item) {
   const langStatus = document.getElementById('modal-selected-language-label');
   if (langContainer) {
     langContainer.innerHTML = '';
-    const langs = item.languages || [
+    const rawLangs = (item.languages && item.languages.length > 0) ? item.languages : [
       { code: 'en', name: 'English (Original)', flag: '🌐', defaultServer: 0 },
       { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
-      { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 8 },
+      { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 5 },
       { code: 'ta', name: 'Tamil Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
       { code: 'te', name: 'Telugu Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
       { code: 'es', name: 'Spanish Dubbed', flag: '🇪🇸', isDub: true, defaultServer: 0 }
     ];
+
+    const LANG_CHIP_DICT = {
+      en: { code: 'en', name: 'English (Original)', flag: '🌐', defaultServer: 0 },
+      ja: { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 5 },
+      hi: { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      ta: { code: 'ta', name: 'Tamil Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      te: { code: 'te', name: 'Telugu Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      es: { code: 'es', name: 'Spanish Dubbed', flag: '🇪🇸', isDub: true, defaultServer: 0 },
+      fr: { code: 'fr', name: 'French Dubbed', flag: '🇫🇷', isDub: true, defaultServer: 0 },
+      de: { code: 'de', name: 'German Dubbed', flag: '🇩🇪', isDub: true, defaultServer: 0 },
+      ko: { code: 'ko', name: 'Korean Audio', flag: '🇰🇷', defaultServer: 0 }
+    };
+
+    const langs = rawLangs.map(l => {
+      if (!l) return null;
+      if (typeof l === 'object' && l.name) return l;
+      const code = (typeof l === 'string' ? l : (l.code || '')).toLowerCase().trim();
+      return LANG_CHIP_DICT[code] || { code, name: code.toUpperCase() + ' Dub', flag: '🌐', defaultServer: 0 };
+    }).filter(Boolean);
     langs.forEach(l => {
       const chip = document.createElement('button');
       chip.className = `modal-lang-chip ${selectedDubLanguage === l.code ? 'active' : ''}`;
@@ -2422,6 +2448,14 @@ async function openPlayer(item, season = null, episode = null, serverIndex = nul
     const res = await fetch(`/api/sources/${item.type}/${item.id}?s=${currentSeason}&e=${currentEpisode}`);
     const data = await res.json();
     availableServers = data.servers || [];
+    if (data.tmdb) {
+      item.tmdbId = data.tmdb;
+      if (currentItem) currentItem.tmdbId = data.tmdb;
+    }
+    if (data.imdb) {
+      item.imdbId = data.imdb;
+      if (currentItem) currentItem.imdbId = data.imdb;
+    }
 
     const select = document.getElementById('server-select');
     select.innerHTML = '';
@@ -4887,3 +4921,326 @@ function playDiscByIndex(index) {
   renderDiscCascadePositions(0);
   openPlayer(item);
 }
+
+
+// ========================================================
+// SUPABASE WATCH HISTORY MERGE ENGINE
+// ========================================================
+function mergeSupabaseContinueWatching(remoteHistory) {
+  if (!Array.isArray(remoteHistory) || !remoteHistory.length) return;
+  const localList = getContinueWatching();
+  const map = new Map();
+
+  // Local items first
+  localList.forEach(item => map.set(String(item.id), item));
+
+  // Merge remote items
+  remoteHistory.forEach(r => {
+    const id = String(r.media_id);
+    if (!map.has(id)) {
+      map.set(id, {
+        id: id,
+        title: r.title,
+        type: r.type,
+        season: r.season || 1,
+        episode: r.episode || 1,
+        currentTime: r.progress_seconds || 0,
+        durationSec: r.duration_seconds || 3600,
+        progress: Math.min(99, Math.max(5, Math.round(((r.progress_seconds || 0) / (r.duration_seconds || 3600)) * 100))),
+        poster: r.poster,
+        backdrop: r.backdrop,
+        platform: r.platform,
+        platformId: r.platform_id || 'netflix',
+        timestamp: new Date(r.last_watched || Date.now()).getTime(),
+        episodeProgress: {}
+      });
+    }
+  });
+
+  const merged = Array.from(map.values())
+    .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
+    .slice(0, 20);
+
+  localStorage.setItem(STORAGE_CONTINUE_WATCHING, JSON.stringify(merged));
+  renderContinueWatchingRow();
+}
+window.mergeSupabaseContinueWatching = mergeSupabaseContinueWatching;
+
+
+// ========================================================
+// SUPABASE UI MODAL CONTROLS & AUTH HANDLERS
+// ========================================================
+
+function openAuthModal(tab = 'login') {
+  const modal = document.getElementById('supabase-auth-modal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  switchAuthTab(tab);
+  updateAuthUIState();
+}
+window.openAuthModal = openAuthModal;
+
+function closeAuthModal() {
+  const modal = document.getElementById('supabase-auth-modal');
+  if (modal) modal.style.display = 'none';
+}
+window.closeAuthModal = closeAuthModal;
+
+function handleAuthModalBackdropClick(e) {
+  if (e.target.id === 'supabase-auth-modal') {
+    closeAuthModal();
+  }
+}
+window.handleAuthModalBackdropClick = handleAuthModalBackdropClick;
+
+function switchAuthTab(tabName) {
+  const tabs = ['login', 'sessions', 'history', 'config'];
+  tabs.forEach(t => {
+    const pane = document.getElementById('auth-pane-' + t);
+    const btn = document.getElementById('tab-btn-' + t);
+    if (pane) pane.style.display = (t === tabName) ? 'block' : 'none';
+    if (btn) btn.classList.toggle('active', t === tabName);
+  });
+
+  if (tabName === 'sessions') {
+    renderSessionLogs();
+  } else if (tabName === 'history') {
+    renderWatchHistoryList();
+  } else if (tabName === 'config') {
+    loadSupabaseSettingsInputs();
+  }
+}
+window.switchAuthTab = switchAuthTab;
+
+function updateAuthUIState() {
+  const user = window.CinemaVerseAuth ? window.CinemaVerseAuth.getCurrentUser() : null;
+  const loggedOutView = document.getElementById('auth-logged-out-view');
+  const loggedInView = document.getElementById('auth-logged-in-view');
+  const statusPill = document.getElementById('auth-status-indicator');
+  const navStatus = document.getElementById('nav-auth-status-text');
+  const navLogout = document.getElementById('nav-logout-btn');
+
+  const { url } = window.CinemaVerseAuth ? window.CinemaVerseAuth.getStoredConfig() : { url: '' };
+
+  if (statusPill) {
+    if (url) {
+      statusPill.className = 'auth-status-pill connected';
+      statusPill.innerHTML = '<i class="fa-solid fa-circle"></i> Supabase Connected';
+    } else {
+      statusPill.className = 'auth-status-pill';
+      statusPill.innerHTML = '<i class="fa-solid fa-circle"></i> Local Storage Mode';
+    }
+  }
+
+  if (user) {
+    if (loggedOutView) loggedOutView.style.display = 'none';
+    if (loggedInView) loggedInView.style.display = 'block';
+
+    const displayEmail = document.getElementById('auth-display-email');
+    if (displayEmail) displayEmail.textContent = user.email || 'Active User';
+
+    const loginTimeEl = document.getElementById('auth-current-login-time');
+    const storedLogin = window.CinemaVerseAuth ? window.CinemaVerseAuth.getLoginTime() : null;
+    if (loginTimeEl && storedLogin) {
+      loginTimeEl.textContent = new Date(storedLogin).toLocaleString();
+    }
+
+    const sessIdEl = document.getElementById('auth-current-session-id');
+    const sessId = window.CinemaVerseAuth ? window.CinemaVerseAuth.getSessionId() : null;
+    if (sessIdEl && sessId) {
+      sessIdEl.textContent = sessId.slice(0, 16) + '...';
+    }
+
+    if (navStatus) navStatus.textContent = 'Account: ' + (user.email.split('@')[0] || 'User');
+    if (navLogout) navLogout.style.display = 'block';
+  } else {
+    if (loggedOutView) loggedOutView.style.display = 'block';
+    if (loggedInView) loggedInView.style.display = 'none';
+    if (navStatus) navStatus.textContent = 'Supabase Cloud Sync & Login';
+    if (navLogout) navLogout.style.display = 'none';
+  }
+}
+
+async function handleAuthLogin() {
+  const email = (document.getElementById('auth-email-input').value || '').trim();
+  const pass = (document.getElementById('auth-password-input').value || '').trim();
+
+  if (!email || !pass) {
+    showToast('Please enter both email and password', 'error');
+    return;
+  }
+
+  try {
+    showToast('Signing in to Supabase...', 'info');
+    await window.CinemaVerseAuth.signIn(email, pass);
+    updateAuthUIState();
+    showToast('Signed in successfully! Cloud watch history synced.', 'success');
+  } catch (err) {
+    showToast(err.message || 'Login failed', 'error');
+  }
+}
+window.handleAuthLogin = handleAuthLogin;
+
+async function handleAuthSignUp() {
+  const email = (document.getElementById('auth-email-input').value || '').trim();
+  const pass = (document.getElementById('auth-password-input').value || '').trim();
+
+  if (!email || !pass) {
+    showToast('Please enter email and password to create an account', 'error');
+    return;
+  }
+
+  try {
+    showToast('Creating Supabase account...', 'info');
+    await window.CinemaVerseAuth.signUp(email, pass);
+    updateAuthUIState();
+    showToast('Account created and signed in! Cloud sync enabled.', 'success');
+  } catch (err) {
+    showToast(err.message || 'Signup failed', 'error');
+  }
+}
+window.handleAuthSignUp = handleAuthSignUp;
+
+async function handleGuestLogin() {
+  try {
+    await window.CinemaVerseAuth.guestLogin();
+    updateAuthUIState();
+    showToast('Signed in as Guest! Login time recorded.', 'success');
+  } catch (err) {
+    showToast('Guest login error: ' + err.message, 'error');
+  }
+}
+window.handleGuestLogin = handleGuestLogin;
+
+async function handleSupabaseLogout() {
+  try {
+    showToast('Logging out and recording session duration...', 'info');
+    await window.CinemaVerseAuth.signOut();
+    updateAuthUIState();
+    showToast('Logged out cleanly. Logout timestamp recorded.', 'success');
+  } catch (err) {
+    showToast('Logout error: ' + err.message, 'error');
+  }
+}
+window.handleSupabaseLogout = handleSupabaseLogout;
+
+async function renderSessionLogs() {
+  const container = document.getElementById('sessions-history-list');
+  if (!container) return;
+
+  container.innerHTML = '<div style="text-align: center; padding: 20px; color: #888;"><i class="fa-solid fa-spinner fa-spin"></i> Loading session audit logs...</div>';
+
+  try {
+    const sessions = await window.CinemaVerseAuth.getSessions();
+    if (!sessions || !sessions.length) {
+      container.innerHTML = '<div style="text-align: center; padding: 30px; color: #888;">No session records yet. Log in to start tracking sessions.</div>';
+      return;
+    }
+
+    container.innerHTML = sessions.map(s => {
+      const loginStr = s.login_time ? new Date(s.login_time).toLocaleString() : 'Unknown';
+      const logoutStr = s.logout_time ? new Date(s.logout_time).toLocaleString() : (s.is_active ? 'Active Now' : 'Session Ended');
+      const isCurrentActive = s.is_active && !s.logout_time;
+      const statusBadge = isCurrentActive 
+        ? '<span class="session-status-badge active"><i class="fa-solid fa-circle"></i> Active Now</span>'
+        : '<span class="session-status-badge ended">Completed</span>';
+
+      let durationText = s.session_duration_seconds ? `${Math.round(s.session_duration_seconds / 60)} min` : (isCurrentActive ? 'In Progress' : '—');
+
+      return `
+        <div class="session-card">
+          <div class="session-card-top">
+            <span class="session-device"><i class="fa-solid fa-laptop"></i> ${s.device_info || 'Web Browser'}</span>
+            ${statusBadge}
+          </div>
+          <div class="session-times-grid">
+            <div class="session-time-item">
+              <span>Login Timestamp</span>
+              <strong>${loginStr}</strong>
+            </div>
+            <div class="session-time-item">
+              <span>Logout Timestamp</span>
+              <strong>${logoutStr}</strong>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch (err) {
+    container.innerHTML = '<div style="text-align: center; padding: 20px; color: #ef4444;">Failed to load session logs.</div>';
+  }
+}
+window.renderSessionLogs = renderSessionLogs;
+
+async function renderWatchHistoryList() {
+  const container = document.getElementById('supabase-watch-history-list');
+  if (!container) return;
+
+  container.innerHTML = '<div style="text-align: center; padding: 20px; color: #888;"><i class="fa-solid fa-spinner fa-spin"></i> Loading saved watch history...</div>';
+
+  try {
+    const list = await window.CinemaVerseAuth.getWatchHistory();
+    if (!list || !list.length) {
+      container.innerHTML = '<div style="text-align: center; padding: 30px; color: #888;">No cloud watch history found yet. Watch any title to auto-save!</div>';
+      return;
+    }
+
+    container.innerHTML = list.map(item => {
+      const prog = item.duration_seconds > 0 ? Math.min(100, Math.round((item.progress_seconds / item.duration_seconds) * 100)) : 20;
+      const lastWatchedStr = item.last_watched ? new Date(item.last_watched).toLocaleDateString() : '';
+      const subInfo = item.type === 'series' ? `Season ${item.season || 1}, Episode ${item.episode || 1} • ${lastWatchedStr}` : lastWatchedStr;
+
+      return `
+        <div class="history-item-row" onclick="openDetailsModal({ id: '${item.media_id}', title: '${item.title.replace(/'/g, "\\'")}', type: '${item.type}' })">
+          <img class="history-thumb" src="${item.poster || FALLBACK_POSTER}" alt="${item.title}">
+          <div class="history-meta">
+            <div class="history-title">${item.title}</div>
+            <div class="history-sub">${subInfo}</div>
+            <div class="history-progress-wrap">
+              <div class="history-progress-fill" style="width: ${prog}%;"></div>
+            </div>
+          </div>
+          <i class="fa-solid fa-circle-play text-red" style="font-size: 20px;"></i>
+        </div>
+      `;
+    }).join('');
+  } catch (err) {
+    container.innerHTML = '<div style="text-align: center; padding: 20px; color: #ef4444;">Failed to load watch history.</div>';
+  }
+}
+window.renderWatchHistoryList = renderWatchHistoryList;
+
+async function handleSyncWatchHistory() {
+  showToast('Syncing cloud watch history with local Continue Watching...', 'info');
+  const user = window.CinemaVerseAuth ? window.CinemaVerseAuth.getCurrentUser() : null;
+  if (user && user.id) {
+    await window.CinemaVerseAuth.syncDownWatchHistory(user.id);
+  }
+  showToast('Continue Watching row synced successfully!', 'success');
+}
+window.handleSyncWatchHistory = handleSyncWatchHistory;
+
+function loadSupabaseSettingsInputs() {
+  const { url, key } = window.CinemaVerseAuth ? window.CinemaVerseAuth.getStoredConfig() : { url: '', key: '' };
+  const urlIn = document.getElementById('sb-url-input');
+  const keyIn = document.getElementById('sb-key-input');
+  if (urlIn) urlIn.value = url;
+  if (keyIn) keyIn.value = key;
+}
+
+function saveSupabaseSettings() {
+  const url = (document.getElementById('sb-url-input').value || '').trim();
+  const key = (document.getElementById('sb-key-input').value || '').trim();
+
+  if (window.CinemaVerseAuth) {
+    window.CinemaVerseAuth.setStoredConfig(url, key);
+  }
+  updateAuthUIState();
+  showToast('Supabase settings updated and saved!', 'success');
+}
+window.saveSupabaseSettings = saveSupabaseSettings;
+
+// Hook initial auth state update on DOM load
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(updateAuthUIState, 500);
+});

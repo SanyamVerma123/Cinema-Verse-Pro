@@ -139,6 +139,9 @@
           <div class="profile-menu-divider"></div>
 
           <ul class="profile-dropdown-list">
+            <li onclick="openAuthModal('login')"><i class="fa-solid fa-cloud-arrow-up text-cyan"></i> <span id="nav-auth-status-text">Supabase Cloud Sync & Login</span></li>
+            <li onclick="openAuthModal('sessions')"><i class="fa-solid fa-clock-rotate-left text-gold"></i> <span>Login & Logout History</span></li>
+            <li onclick="openAuthModal('history')"><i class="fa-solid fa-clock text-green"></i> <span>Cloud Watch History</span></li>
             <li onclick="handleProfileOption(event, 'profile')"><i class="fa-solid fa-user-gear text-red"></i> <span>Manage Profile & Name</span></li>
             <li onclick="handleProfileOption(event, 'downloads')"><i class="fa-solid fa-arrow-down-to-bracket text-red"></i> <span>My Offline Downloads</span></li>
             <li onclick="handleProfileOption(event, 'settings', 'install')"><i class="fa-solid fa-download text-gold"></i> <span>Download & Install App</span> <span class="menu-pill-new">PWA</span></li>
@@ -1343,6 +1346,169 @@
   </div>
 
   <!-- ======================================================== -->
+  <!-- SUPABASE AUTH, SESSION AUDIT & CLOUD HISTORY MODAL       -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="supabase-auth-modal" style="display: none;" onclick="handleAuthModalBackdropClick(event)">
+    <div class="netflix-modal-card auth-modal-card">
+      <button class="modal-close-btn" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="auth-modal-header">
+        <div class="auth-header-title">
+          <h3><i class="fa-solid fa-bolt text-cyan"></i> Supabase Cloud Sync</h3>
+          <span class="auth-status-pill" id="auth-status-indicator"><i class="fa-solid fa-circle"></i> Local Storage Mode</span>
+        </div>
+        <p class="auth-modal-sub">Secure user login, automatic watch history saving, and detailed login/logout audit logs.</p>
+        
+        <!-- Auth Tabs Navigation -->
+        <div class="auth-tabs-nav">
+          <button class="auth-tab-btn active" id="tab-btn-login" onclick="switchAuthTab('login')"><i class="fa-solid fa-user-lock"></i> Account</button>
+          <button class="auth-tab-btn" id="tab-btn-sessions" onclick="switchAuthTab('sessions')"><i class="fa-solid fa-clock-rotate-left"></i> Login & Logout Times</button>
+          <button class="auth-tab-btn" id="tab-btn-history" onclick="switchAuthTab('history')"><i class="fa-solid fa-clock"></i> Watch History</button>
+          <button class="auth-tab-btn" id="tab-btn-config" onclick="switchAuthTab('config')"><i class="fa-solid fa-gear"></i> Settings</button>
+        </div>
+      </div>
+
+      <div class="auth-modal-body">
+        <!-- TAB 1: ACCOUNT (LOGIN / REGISTER / LOGGED-IN STATE) -->
+        <div class="auth-tab-pane" id="auth-pane-login">
+          <!-- State A: Not Logged In -->
+          <div id="auth-logged-out-view">
+            <div class="auth-form-card">
+              <div class="auth-input-group">
+                <label for="auth-email-input"><i class="fa-solid fa-envelope text-red"></i> Email Address:</label>
+                <div class="auth-input-box">
+                  <i class="fa-solid fa-at"></i>
+                  <input type="email" id="auth-email-input" placeholder="user@example.com" autocomplete="email">
+                </div>
+              </div>
+
+              <div class="auth-input-group">
+                <label for="auth-password-input"><i class="fa-solid fa-key text-gold"></i> Password:</label>
+                <div class="auth-input-box">
+                  <i class="fa-solid fa-lock"></i>
+                  <input type="password" id="auth-password-input" placeholder="••••••••" autocomplete="current-password">
+                </div>
+              </div>
+
+              <div class="auth-actions-row">
+                <button type="button" class="btn-auth-primary" onclick="handleAuthLogin()">
+                  <i class="fa-solid fa-right-to-bracket"></i> Sign In
+                </button>
+                <button type="button" class="btn-auth-secondary" onclick="handleAuthSignUp()">
+                  <i class="fa-solid fa-user-plus"></i> Create Account
+                </button>
+                <button type="button" class="btn-auth-ghost" onclick="handleGuestLogin()">
+                  <i class="fa-solid fa-user-ninja"></i> Fast Guest Mode
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- State B: Logged In -->
+          <div id="auth-logged-in-view" style="display: none;">
+            <div class="auth-user-card">
+              <div class="auth-user-header">
+                <div class="auth-avatar-circle" id="auth-display-avatar">👤</div>
+                <div class="auth-user-meta">
+                  <h4 id="auth-display-email">user@example.com</h4>
+                  <span class="auth-user-badge"><i class="fa-solid fa-shield-check text-green"></i> Authenticated Session</span>
+                </div>
+              </div>
+
+              <div class="auth-session-details">
+                <div class="auth-detail-item">
+                  <span class="detail-label"><i class="fa-solid fa-right-to-bracket text-green"></i> Current Login Time:</span>
+                  <span class="detail-val" id="auth-current-login-time">Just now</span>
+                </div>
+                <div class="auth-detail-item">
+                  <span class="detail-label"><i class="fa-solid fa-fingerprint text-cyan"></i> Session ID:</span>
+                  <span class="detail-val" id="auth-current-session-id">Active</span>
+                </div>
+                <div class="auth-detail-item">
+                  <span class="detail-label"><i class="fa-solid fa-database text-gold"></i> Cloud Sync:</span>
+                  <span class="detail-val text-green">Auto-saving Watch History & Timestamps</span>
+                </div>
+              </div>
+
+              <div class="auth-logged-in-actions">
+                <button type="button" class="btn-auth-danger" onclick="handleSupabaseLogout()">
+                  <i class="fa-solid fa-right-from-bracket"></i> Log Out (Record Logout Timestamp)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: LOGIN & LOGOUT AUDIT LOGS -->
+        <div class="auth-tab-pane" id="auth-pane-sessions" style="display: none;">
+          <div class="sessions-header">
+            <h4><i class="fa-solid fa-timeline text-gold"></i> Login & Logout Session History</h4>
+            <span class="sessions-subtitle">Detailed record of every login, logout time, and session duration.</span>
+          </div>
+          <div class="sessions-list" id="sessions-history-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- TAB 3: WATCH HISTORY SAVED IN SUPABASE -->
+        <div class="auth-tab-pane" id="auth-pane-history" style="display: none;">
+          <div class="watch-history-header">
+            <div>
+              <h4><i class="fa-solid fa-clapperboard text-red"></i> Saved Watch History</h4>
+              <span class="sessions-subtitle">Cloud synced movie and series progress across all devices.</span>
+            </div>
+            <button class="btn-sync-action" onclick="handleSyncWatchHistory()"><i class="fa-solid fa-arrows-rotate"></i> Sync to Continue Watching</button>
+          </div>
+          <div class="watch-history-list" id="supabase-watch-history-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- TAB 4: SUPABASE CONFIGURATION -->
+        <div class="auth-tab-pane" id="auth-pane-config" style="display: none;">
+          <div class="config-header">
+            <h4><i class="fa-solid fa-plug text-cyan"></i> Supabase Project Settings</h4>
+            <p class="sessions-subtitle">Connect your Supabase project to enable multi-device cloud authentication and database persistence.</p>
+          </div>
+
+          <div class="config-fields">
+            <div class="auth-input-group">
+              <label for="sb-url-input"><i class="fa-solid fa-link text-cyan"></i> Supabase Project URL:</label>
+              <div class="auth-input-box">
+                <i class="fa-solid fa-globe"></i>
+                <input type="text" id="sb-url-input" placeholder="https://your-project.supabase.co">
+              </div>
+            </div>
+
+            <div class="auth-input-group">
+              <label for="sb-key-input"><i class="fa-solid fa-key text-gold"></i> Supabase Anon Key (Public):</label>
+              <div class="auth-input-box">
+                <i class="fa-solid fa-shield"></i>
+                <input type="password" id="sb-key-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+              </div>
+            </div>
+
+            <div class="config-actions">
+              <button type="button" class="btn-auth-primary" onclick="saveSupabaseSettings()">
+                <i class="fa-solid fa-floppy-disk"></i> Save & Connect Project
+              </button>
+            </div>
+
+            <div class="config-instructions">
+              <h5><i class="fa-solid fa-info-circle text-gold"></i> Database Tables Quick Setup:</h5>
+              <p>Run the SQL script provided in <code>supabase/schema.sql</code> in your Supabase SQL Editor to create the <code>user_sessions</code> and <code>watch_history</code> tables with Row Level Security (RLS) automatically enabled.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-modal-footer">
+        <button class="btn-netflix-secondary" onclick="closeAuthModal()">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ======================================================== -->
   <!-- DEEP APP SETTINGS & PWA DOWNLOAD MODAL                     -->
   <!-- ======================================================== -->
   <div class="netflix-modal-backdrop" id="app-settings-modal" style="display: none;" onclick="handleSettingsBackdropClick(event)">
@@ -1853,6 +2019,8 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

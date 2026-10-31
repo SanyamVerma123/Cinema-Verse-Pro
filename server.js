@@ -1,3 +1,4 @@
+const supabaseLib = require('./lib/supabase');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -39,6 +40,89 @@ const OTT_PLATFORMS = [
   { id: 'animeworld', name: 'Anime World', icon: 'fa-solid fa-fire', color: '#F59E0B', badge: 'ANIME WORLD', description: 'Anime World Hindi/Eng/Jap Multi-Audio Hub' }
 ];
 
+// Master Verified Media Dictionary (Guarantees zero collisions, correct titles, and 0 404s)
+const MASTER_VERIFIED_LOOKUP = {
+  'tokyo revengers': { tmdbId: 105009, imdbId: 'tt13196080', backdrop: 'https://images.metahub.space/background/medium/tt13196080/img' },
+  'frieren: beyond journey\'s end': { tmdbId: 209867, imdbId: 'tt22248376', backdrop: 'https://images.metahub.space/background/medium/tt22248376/img' },
+  'fullmetal alchemist: brotherhood': { tmdbId: 31911, imdbId: 'tt1355642', backdrop: 'https://images.metahub.space/background/medium/tt1355642/img' },
+  'steins;gate': { tmdbId: 42509, imdbId: 'tt1910272', backdrop: 'https://images.metahub.space/background/medium/tt1910272/img' },
+  'code geass: lelouch of the rebellion': { tmdbId: 31724, imdbId: 'tt0994314', backdrop: 'https://images.metahub.space/background/medium/tt0994314/img' },
+  'code geass': { tmdbId: 31724, imdbId: 'tt0994314', backdrop: 'https://images.metahub.space/background/medium/tt0994314/img' },
+  'vinland saga': { tmdbId: 88803, imdbId: 'tt10233448', backdrop: 'https://images.metahub.space/background/medium/tt10233448/img' },
+  'kaiju no. 8': { tmdbId: 207468, imdbId: 'tt21975436', backdrop: 'https://images.metahub.space/background/medium/tt21975436/img' },
+  'hell\'s paradise': { tmdbId: 117465, imdbId: 'tt13911284', backdrop: 'https://images.metahub.space/background/medium/tt13911284/img' },
+  'blue lock': { tmdbId: 131041, imdbId: 'tt15222080', backdrop: 'https://images.metahub.space/background/medium/tt15222080/img' },
+  'dandadan': { tmdbId: 240411, imdbId: 'tt30217403', backdrop: 'https://images.metahub.space/background/medium/tt30217403/img' },
+  'mashle: magic and muscles': { tmdbId: 204832, imdbId: 'tt21209804', backdrop: 'https://images.metahub.space/background/medium/tt21209804/img' },
+  'classroom of the elite': { tmdbId: 72517, imdbId: 'tt7263328', backdrop: 'https://images.metahub.space/background/medium/tt7263328/img' },
+  'classroom of the elite iii': { tmdbId: 72517, imdbId: 'tt7263328', backdrop: 'https://images.metahub.space/background/medium/tt7263328/img' },
+  'overlord': { tmdbId: 64196, imdbId: 'tt4869896', backdrop: 'https://images.metahub.space/background/medium/tt4869896/img' },
+  'overlord iv': { tmdbId: 64196, imdbId: 'tt4869896', backdrop: 'https://images.metahub.space/background/medium/tt4869896/img' },
+  'tokyo ghoul': { tmdbId: 61374, imdbId: 'tt3741634', backdrop: 'https://images.metahub.space/background/medium/tt3741634/img' },
+  'cowboy bebop': { tmdbId: 30991, imdbId: 'tt0213338', backdrop: 'https://images.metahub.space/background/medium/tt0213338/img' },
+  'sword art online': { tmdbId: 45782, imdbId: 'tt2250192', backdrop: 'https://images.metahub.space/background/medium/tt2250192/img' },
+  'sword art online: alicization': { tmdbId: 45782, imdbId: 'tt2250192', backdrop: 'https://images.metahub.space/background/medium/tt2250192/img' },
+  'neon genesis evangelion': { tmdbId: 890, imdbId: 'tt0112159', backdrop: 'https://images.metahub.space/background/medium/tt0112159/img' },
+  'weathering with you': { tmdbId: 568160, imdbId: 'tt9426210', backdrop: 'https://images.metahub.space/background/medium/tt9426210/img' },
+  'a silent voice': { tmdbId: 378064, imdbId: 'tt5323662', backdrop: 'https://images.metahub.space/background/medium/tt5323662/img' },
+  'rurouni kenshin': { tmdbId: 210879, imdbId: 'tt22249034', backdrop: 'https://images.metahub.space/background/medium/tt22249034/img' },
+  'inuyasha': { tmdbId: 35610, imdbId: 'tt0290223', backdrop: 'https://images.metahub.space/background/medium/tt0290223/img' },
+  'death parade': { tmdbId: 61901, imdbId: 'tt4279012', backdrop: 'https://images.metahub.space/background/medium/tt4279012/img' },
+  'psycho-pass': { tmdbId: 43865, imdbId: 'tt2379308', backdrop: 'https://images.metahub.space/background/medium/tt2379308/img' },
+  'parasyte -the maxim-': { tmdbId: 61459, imdbId: 'tt3358020', backdrop: 'https://images.metahub.space/background/medium/tt3358020/img' },
+  'erased': { tmdbId: 65249, imdbId: 'tt5249462', backdrop: 'https://images.metahub.space/background/medium/tt5249462/img' },
+  'the promised neverland': { tmdbId: 83097, imdbId: 'tt8788458', backdrop: 'https://images.metahub.space/background/medium/tt8788458/img' },
+  'dororo': { tmdbId: 83100, imdbId: 'tt9458304', backdrop: 'https://images.metahub.space/background/medium/tt9458304/img' },
+  'samurai champloo': { tmdbId: 1063, imdbId: 'tt0423731', backdrop: 'https://images.metahub.space/background/medium/tt0423731/img' },
+  'trigun stampede': { tmdbId: 204266, imdbId: 'tt21216104', backdrop: 'https://images.metahub.space/background/medium/tt21216104/img' },
+  'gintama': { tmdbId: 57041, imdbId: 'tt0988818', backdrop: 'https://images.metahub.space/background/medium/tt0988818/img' },
+  'black lagoon': { tmdbId: 12598, imdbId: 'tt0962826', backdrop: 'https://images.metahub.space/background/medium/tt0962826/img' },
+  'fate/zero': { tmdbId: 45845, imdbId: 'tt2051178', backdrop: 'https://images.metahub.space/background/medium/tt2051178/img' },
+  'fate/stay night: unlimited blade works': { tmdbId: 61415, imdbId: 'tt3621796', backdrop: 'https://images.metahub.space/background/medium/tt3621796/img' },
+  'bungo stray dogs': { tmdbId: 65931, imdbId: 'tt5679720', backdrop: 'https://images.metahub.space/background/medium/tt5679720/img' },
+  'fire force': { tmdbId: 88046, imdbId: 'tt9307686', backdrop: 'https://images.metahub.space/background/medium/tt9307686/img' },
+  'soul eater': { tmdbId: 37305, imdbId: 'tt1214085', backdrop: 'https://images.metahub.space/background/medium/tt1214085/img' },
+  'noragami': { tmdbId: 64710, imdbId: 'tt3225270', backdrop: 'https://images.metahub.space/background/medium/tt3225270/img' },
+  'akame ga kill!': { tmdbId: 61223, imdbId: 'tt3742982', backdrop: 'https://images.metahub.space/background/medium/tt3742982/img' },
+  'high school dxd': { tmdbId: 45950, imdbId: 'tt2230051', backdrop: 'https://images.metahub.space/background/medium/tt2230051/img' },
+  'that time i got reincarnated as a slime': { tmdbId: 82684, imdbId: 'tt9054364', backdrop: 'https://images.metahub.space/background/medium/tt9054364/img' },
+  'the rising of the shield hero': { tmdbId: 83095, imdbId: 'tt9529546', backdrop: 'https://images.metahub.space/background/medium/tt9529546/img' },
+  'kaguya-sama: love is war': { tmdbId: 83121, imdbId: 'tt9522300', backdrop: 'https://images.metahub.space/background/medium/tt9522300/img' },
+  'horimiya': { tmdbId: 110070, imdbId: 'tt13103134', backdrop: 'https://images.metahub.space/background/medium/tt13103134/img' },
+  'toradora!': { tmdbId: 42916, imdbId: 'tt1279024', backdrop: 'https://images.metahub.space/background/medium/tt1279024/img' },
+  'your lie in april': { tmdbId: 61663, imdbId: 'tt3895150', backdrop: 'https://images.metahub.space/background/medium/tt3895150/img' },
+  'anohana: the flower we saw that day': { tmdbId: 39434, imdbId: 'tt1913273', backdrop: 'https://images.metahub.space/background/medium/tt1913273/img' },
+  'clannad': { tmdbId: 24835, imdbId: 'tt1118804', backdrop: 'https://images.metahub.space/background/medium/tt1118804/img' },
+  'clannad: after story': { tmdbId: 24835, imdbId: 'tt1118804', backdrop: 'https://images.metahub.space/background/medium/tt1118804/img' },
+  'violet evergarden': { tmdbId: 75214, imdbId: 'tt7078180', backdrop: 'https://images.metahub.space/background/medium/tt7078180/img' },
+  'my neighbor totoro': { tmdbId: 8392, imdbId: 'tt0096283', backdrop: 'https://images.metahub.space/background/medium/tt0096283/img' },
+  'akira': { tmdbId: 149, imdbId: 'tt0094625', backdrop: 'https://images.metahub.space/background/medium/tt0094625/img' },
+  'ghost in the shell': { tmdbId: 9323, imdbId: 'tt0113568', backdrop: 'https://images.metahub.space/background/medium/tt0113568/img' },
+  'paprika': { tmdbId: 4977, imdbId: 'tt0851578', backdrop: 'https://images.metahub.space/background/medium/tt0851578/img' },
+  'initial d': { tmdbId: 70864, imdbId: 'tt0385426', backdrop: 'https://images.metahub.space/background/medium/tt0385426/img' },
+  'initial d: first stage': { tmdbId: 70864, imdbId: 'tt0385426', backdrop: 'https://images.metahub.space/background/medium/tt0385426/img' },
+  'dragon ball': { tmdbId: 12609, imdbId: 'tt0088509', backdrop: 'https://images.metahub.space/background/medium/tt0088509/img' },
+  'the umbrella academy': { tmdbId: 75006, imdbId: 'tt7614662', backdrop: 'https://images.metahub.space/background/medium/tt7614662/img' },
+  'the boys': { tmdbId: 76479, imdbId: 'tt1190634', backdrop: 'https://images.metahub.space/background/medium/tt1190634/img' },
+  'reacher': { tmdbId: 108978, imdbId: 'tt9288030', backdrop: 'https://images.metahub.space/background/medium/tt9288030/img' },
+  'upload': { tmdbId: 86326, imdbId: 'tt7826376', backdrop: 'https://images.metahub.space/background/medium/tt7826376/img' },
+  'overflow': { tmdbId: 95897, imdbId: 'tt14962432', backdrop: 'https://live.metahub.space/background/medium/tt14962432/img' }
+};
+
+// Check if TMDB ID looks synthetic, chopped from IMDb ID, or invalid (>2M)
+function isBogusTmdbId(tmdbId, imdbId) {
+  if (!tmdbId) return true;
+  const num = Number(tmdbId);
+  if (isNaN(num) || num <= 0) return true;
+  if (num > 2000000) return true;
+  if (imdbId && typeof imdbId === 'string' && imdbId.startsWith('tt')) {
+    const imdbNum = imdbId.replace(/\D/g, '');
+    const tmdbStr = String(tmdbId);
+    if (imdbNum.startsWith(tmdbStr) && imdbNum.length > tmdbStr.length) return true;
+  }
+  return false;
+}
+
 // In-Memory Dynamic TMDb Resolver Cache (Eliminates Stranger Things fallback)
 const TMDB_RESOLVER_CACHE = new Map();
 
@@ -74,18 +158,32 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   let imdb = item ? item.imdbId : (String(id).startsWith('tt') ? id : null);
   let tmdb = item ? item.tmdbId : (!String(id).startsWith('tt') ? id : null);
 
-  // If TMDB ID is missing and we have an IMDb ID, resolve it dynamically
-  if (!tmdb && imdb) {
+  // Check verified master dictionary
+  if (item && item.title) {
+    const cleanTitle = item.title
+      .replace(/\s*\(Multi-Audio\)\s*/i, '')
+      .replace(/\s*\(Classic\)\s*/i, '')
+      .trim()
+      .toLowerCase();
+    if (MASTER_VERIFIED_LOOKUP[cleanTitle]) {
+      tmdb = MASTER_VERIFIED_LOOKUP[cleanTitle].tmdbId;
+      imdb = MASTER_VERIFIED_LOOKUP[cleanTitle].imdbId;
+    }
+  }
+
+  // If TMDB ID is missing, bogus, or chopped, resolve dynamically
+  if ((!tmdb || isBogusTmdbId(tmdb, imdb)) && imdb) {
     if (TMDB_RESOLVER_CACHE.has(imdb)) {
       tmdb = TMDB_RESOLVER_CACHE.get(imdb);
     } else {
-      tmdb = await resolveTmdbId(imdb, isTv);
+      const resolved = await resolveTmdbId(imdb, isTv);
+      if (resolved) tmdb = resolved;
     }
   }
 
   const tmdbOrImdb = tmdb || imdb || id;
 
-  return serverRegistry.buildStreamServers({
+  const servers = serverRegistry.buildStreamServers({
     type,
     id,
     tmdb: tmdb || tmdbOrImdb,
@@ -93,6 +191,12 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     season: s,
     episode: e
   });
+
+  return {
+    servers,
+    tmdb: tmdb || tmdbOrImdb,
+    imdb
+  };
 }
 
 // 1. Platforms Endpoint
@@ -216,17 +320,31 @@ app.get('/api/search', async (req, res) => {
   // Live universal search fallback using Cinemeta open API
   let liveResults = [];
   try {
-    const encodedQ = encodeURIComponent(q);
+    const cleanQ = q.replace(/[^a-zA-Z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    const curQuery = cleanQ || q;
+    const encodedQ = encodeURIComponent(curQuery.toLowerCase());
     const fetchPromises = [];
-    if (type === 'all' || type === 'movie') {
-      fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/catalog/movie/top/search=${encodedQ}.json`, { signal: AbortSignal.timeout(8000) }));
+
+    // Direct IMDb ID search support
+    if (q.toLowerCase().startsWith('tt')) {
+      const cleanId = q.toLowerCase();
+      if (type === 'all' || type === 'movie') {
+        fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/meta/movie/${cleanId}.json`, { signal: AbortSignal.timeout(6000) }));
+      }
+      if (type === 'all' || type === 'series') {
+        fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/meta/series/${cleanId}.json`, { signal: AbortSignal.timeout(6000) }));
+      }
     } else {
-      fetchPromises.push(Promise.resolve(null));
-    }
-    if (type === 'all' || type === 'series') {
-      fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/catalog/series/top/search=${encodedQ}.json`, { signal: AbortSignal.timeout(8000) }));
-    } else {
-      fetchPromises.push(Promise.resolve(null));
+      if (type === 'all' || type === 'movie') {
+        fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/catalog/movie/top/search=${encodedQ}.json`, { signal: AbortSignal.timeout(8000) }));
+      } else {
+        fetchPromises.push(Promise.resolve(null));
+      }
+      if (type === 'all' || type === 'series') {
+        fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/catalog/series/top/search=${encodedQ}.json`, { signal: AbortSignal.timeout(8000) }));
+      } else {
+        fetchPromises.push(Promise.resolve(null));
+      }
     }
 
     const [mRes, sRes] = await Promise.allSettled(fetchPromises);
@@ -236,13 +354,31 @@ app.get('/api/search', async (req, res) => {
       try {
         const mData = await mRes.value.json();
         if (mData && mData.metas) metas.push(...mData.metas.map(x => ({ ...x, detectedType: 'movie' })));
+        else if (mData && mData.meta) metas.push({ ...mData.meta, detectedType: 'movie' });
       } catch (err) {}
     }
     if (sRes.status === 'fulfilled' && sRes.value && sRes.value.ok) {
       try {
         const sData = await sRes.value.json();
         if (sData && sData.metas) metas.push(...sData.metas.map(x => ({ ...x, detectedType: 'series' })));
+        else if (sData && sData.meta) metas.push({ ...sData.meta, detectedType: 'series' });
       } catch (err) {}
+    }
+
+    // Secondary fallback for multi-word queries returning 0 results
+    if (metas.length === 0 && !q.toLowerCase().startsWith('tt') && curQuery.includes(' ')) {
+      const words = curQuery.split(' ');
+      const baseWord = words[0];
+      if (baseWord && baseWord.length > 2) {
+        try {
+          const fbEnc = encodeURIComponent(baseWord.toLowerCase());
+          const fbRes = await fetch(`https://v3-cinemeta.strem.io/catalog/movie/top/search=${fbEnc}.json`, { signal: AbortSignal.timeout(4000) });
+          if (fbRes.ok) {
+            const fbData = await fbRes.json();
+            if (fbData && fbData.metas) metas.push(...fbData.metas.slice(0, 10).map(x => ({ ...x, detectedType: 'movie' })));
+          }
+        } catch (e) {}
+      }
     }
 
     const existingImdbs = new Set(localResults.map(x => x.imdbId).filter(Boolean));
@@ -487,7 +623,7 @@ app.get('/api/sources/:type/:id', async (req, res) => {
   const { type, id } = req.params;
   const season = req.query.s || 1;
   const episode = req.query.e || 1;
-  const servers = await getStreamServers(type, id, season, episode);
+  const result = await getStreamServers(type, id, season, episode);
 
   res.json({
     status: 'success',
@@ -495,7 +631,9 @@ app.get('/api/sources/:type/:id', async (req, res) => {
     id,
     season,
     episode,
-    servers
+    tmdb: result.tmdb,
+    imdb: result.imdb,
+    servers: result.servers
   });
 });
 
@@ -844,6 +982,136 @@ app.get('/api/top10', (req, res) => {
 app.get('/api/health', (req, res) => {
   res.json({ status: 'healthy', servers: 10, platforms: 14, timestamp: new Date().toISOString() });
 });
+
+
+// ========================================================
+// SUPABASE AUTH, SESSION AUDIT & WATCH HISTORY API
+// ========================================================
+
+const LOCAL_SESSION_STORE = new Map();
+const LOCAL_HISTORY_STORE = new Map();
+
+// 1. Supabase Config Info (Never exposes secret service role keys)
+app.get('/api/auth/config', (req, res) => {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || null;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || null;
+  res.json({
+    status: 'success',
+    configured: !!(url && anonKey),
+    supabaseUrl: url,
+    supabaseAnonKey: anonKey
+  });
+});
+
+// 2. Login Session Recording (Records exact login_time in Supabase)
+app.post('/api/auth/session/login', async (req, res) => {
+  const { userId, email, userAgent, ipAddress } = req.body || {};
+  if (!userId) return res.status(400).json({ error: 'userId is required' });
+
+  const supabase = supabaseLib.getSupabaseClient();
+  let sessionRecord = null;
+
+  if (supabase) {
+    sessionRecord = await supabaseLib.recordLoginSession(supabase, { id: userId, email }, userAgent, ipAddress || req.ip);
+  }
+
+  if (!sessionRecord) {
+    const sessionId = 'sess_' + Date.now();
+    sessionRecord = {
+      id: sessionId,
+      user_id: userId,
+      user_email: email,
+      login_time: new Date().toISOString(),
+      logout_time: null,
+      device_info: userAgent || 'Browser',
+      is_active: true
+    };
+    if (!LOCAL_SESSION_STORE.has(userId)) LOCAL_SESSION_STORE.set(userId, []);
+    LOCAL_SESSION_STORE.get(userId).unshift(sessionRecord);
+  }
+
+  res.json({ status: 'success', session: sessionRecord });
+});
+
+// 3. Logout Session Recording (Records exact logout_time in Supabase)
+app.post('/api/auth/session/logout', async (req, res) => {
+  const { sessionId, userId } = req.body || {};
+  const supabase = supabaseLib.getSupabaseClient();
+
+  if (supabase && sessionId && !sessionId.startsWith('sess_')) {
+    await supabaseLib.recordLogoutSession(supabase, sessionId);
+  }
+
+  if (userId && LOCAL_SESSION_STORE.has(userId)) {
+    const sessions = LOCAL_SESSION_STORE.get(userId);
+    const s = sessions.find(x => x.id === sessionId) || sessions[0];
+    if (s) {
+      s.logout_time = new Date().toISOString();
+      s.is_active = false;
+      if (s.login_time) {
+        s.session_duration_seconds = Math.round((new Date(s.logout_time).getTime() - new Date(s.login_time).getTime()) / 1000);
+      }
+    }
+  }
+
+  res.json({ status: 'success', message: 'Logged out successfully' });
+});
+
+// 4. Session History List (Audits login and logout timestamps)
+app.get('/api/auth/sessions', async (req, res) => {
+  const userId = req.query.userId;
+  if (!userId) return res.json({ status: 'success', sessions: [] });
+
+  const supabase = supabaseLib.getSupabaseClient();
+  if (supabase) {
+    const sessions = await supabaseLib.getUserSessions(supabase, userId);
+    if (sessions && sessions.length > 0) {
+      return res.json({ status: 'success', sessions });
+    }
+  }
+
+  const localSessions = LOCAL_SESSION_STORE.get(userId) || [];
+  res.json({ status: 'success', sessions: localSessions });
+});
+
+// 5. Watch History Sync (Saves continue watching to Supabase)
+app.post('/api/auth/history', async (req, res) => {
+  const { userId, item } = req.body || {};
+  if (!userId || !item) return res.status(400).json({ error: 'userId and item required' });
+
+  const supabase = supabaseLib.getSupabaseClient();
+  let saved = null;
+  if (supabase) {
+    saved = await supabaseLib.saveWatchHistory(supabase, userId, item);
+  }
+
+  if (!LOCAL_HISTORY_STORE.has(userId)) LOCAL_HISTORY_STORE.set(userId, []);
+  const list = LOCAL_HISTORY_STORE.get(userId);
+  const idx = list.findIndex(x => String(x.media_id) === String(item.media_id));
+  const record = { ...item, updated_at: new Date().toISOString() };
+  if (idx >= 0) list.splice(idx, 1);
+  list.unshift(record);
+
+  res.json({ status: 'success', data: saved || record });
+});
+
+// 6. Get Watch History
+app.get('/api/auth/history', async (req, res) => {
+  const userId = req.query.userId;
+  if (!userId) return res.json({ status: 'success', history: [] });
+
+  const supabase = supabaseLib.getSupabaseClient();
+  if (supabase) {
+    const history = await supabaseLib.getUserWatchHistory(supabase, userId);
+    if (history && history.length > 0) {
+      return res.json({ status: 'success', history });
+    }
+  }
+
+  const localHistory = LOCAL_HISTORY_STORE.get(userId) || [];
+  res.json({ status: 'success', history: localHistory });
+});
+
 
 if (require.main === module) {
   app.listen(PORT, '0.0.0.0', () => {

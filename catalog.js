@@ -1,10 +1,4 @@
-/* ========================================================
-   CINEMAVERSE PRO — EXPANDED MULTI-OTT CATALOG
-   Total Titles: 1300 across 13 OTT Platforms
-   Real IMDb IDs, Metahub 4K CDN, Full Seasons & Multi-Audio
-   ======================================================== */
-
-const catalog = [
+module.exports = [
   {
     "id": "nflx-1",
     "imdbId": "tt4574334",
@@ -2529,10 +2523,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2570,10 +2588,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2610,10 +2652,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2649,10 +2715,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2689,10 +2779,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2730,10 +2844,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2771,10 +2909,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2812,10 +2974,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2853,10 +3039,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2893,10 +3103,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2934,10 +3168,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -2975,10 +3233,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3016,10 +3298,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3057,10 +3363,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3098,10 +3428,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3138,10 +3492,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3179,10 +3557,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3220,10 +3622,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3260,10 +3686,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3301,10 +3751,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3342,16 +3816,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "netflix-1022",
-    "imdbId": "tt7975244",
-    "tmdbId": 76479,
+    "imdbId": "tt7614662",
+    "tmdbId": 75006,
     "type": "series",
     "title": "The Umbrella Academy",
     "year": 2024,
@@ -3371,8 +3869,8 @@ const catalog = [
     "platformId": "netflix",
     "platformBadge": "NETFLIX",
     "platformColor": "#E50914",
-    "poster": "https://images.metahub.space/poster/medium/tt7975244/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt7975244/img",
+    "poster": "https://images.metahub.space/poster/small/tt7614662/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt7614662/img",
     "description": "Estranged adopted superhero siblings reunite to uncover secrets behind their father's sudden death.",
     "cast": [
       "Elliot Page",
@@ -3383,10 +3881,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3424,10 +3946,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3465,10 +4011,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3504,10 +4074,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3545,10 +4139,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3586,10 +4204,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3627,10 +4269,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3667,10 +4333,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3707,10 +4397,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3749,10 +4463,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3789,10 +4527,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3830,10 +4592,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3869,10 +4655,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3910,10 +4720,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3951,10 +4785,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -3992,10 +4850,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -4033,10 +4915,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -4074,10 +4980,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -4343,7 +5273,7 @@ const catalog = [
   {
     "id": "netflix-57",
     "imdbId": "tt35934755",
-    "tmdbId": 3593475,
+    "tmdbId": 285322,
     "type": "series",
     "title": "Below",
     "year": 2026,
@@ -4604,7 +5534,7 @@ const catalog = [
   {
     "id": "netflix-59",
     "imdbId": "tt23148340",
-    "tmdbId": 2314834,
+    "tmdbId": 213562,
     "type": "series",
     "title": "Crystal Lake",
     "year": 2026,
@@ -4865,7 +5795,7 @@ const catalog = [
   {
     "id": "netflix-61",
     "imdbId": "tt21097264",
-    "tmdbId": 2109726,
+    "tmdbId": 258165,
     "type": "series",
     "title": "East of Eden",
     "year": 2026,
@@ -5124,7 +6054,7 @@ const catalog = [
   {
     "id": "netflix-63",
     "imdbId": "tt23112594",
-    "tmdbId": 2311259,
+    "tmdbId": 213375,
     "type": "series",
     "title": "VisionQuest",
     "year": 2026,
@@ -5645,7 +6575,7 @@ const catalog = [
   {
     "id": "netflix-67",
     "imdbId": "tt31510819",
-    "tmdbId": 3151081,
+    "tmdbId": 247718,
     "type": "series",
     "title": "MobLand",
     "year": 2025,
@@ -5905,7 +6835,7 @@ const catalog = [
   {
     "id": "netflix-69",
     "imdbId": "tt37972251",
-    "tmdbId": 3797225,
+    "tmdbId": 298852,
     "type": "series",
     "title": "War",
     "year": 2025,
@@ -6164,7 +7094,7 @@ const catalog = [
   {
     "id": "netflix-71",
     "imdbId": "tt26545992",
-    "tmdbId": 2654599,
+    "tmdbId": 95350,
     "type": "series",
     "title": "Lanterns",
     "year": 2026,
@@ -6946,7 +7876,7 @@ const catalog = [
   {
     "id": "netflix-77",
     "imdbId": "tt35854736",
-    "tmdbId": 3585473,
+    "tmdbId": 284833,
     "type": "series",
     "title": "Avatar: Seven Havens",
     "year": 2026,
@@ -7467,7 +8397,7 @@ const catalog = [
   {
     "id": "netflix-81",
     "imdbId": "tt33332385",
-    "tmdbId": 3333238,
+    "tmdbId": 270476,
     "type": "series",
     "title": "Widow's Bay",
     "year": 2026,
@@ -7728,7 +8658,7 @@ const catalog = [
   {
     "id": "netflix-83",
     "imdbId": "tt33539520",
-    "tmdbId": 3353952,
+    "tmdbId": 273207,
     "type": "series",
     "title": "Neagley",
     "year": 2026,
@@ -7989,7 +8919,7 @@ const catalog = [
   {
     "id": "netflix-85",
     "imdbId": "tt7587890",
-    "tmdbId": 7587890,
+    "tmdbId": 79744,
     "type": "series",
     "title": "The Rookie",
     "year": 2018,
@@ -8510,7 +9440,7 @@ const catalog = [
   {
     "id": "netflix-89",
     "imdbId": "tt33270224",
-    "tmdbId": 3327022,
+    "tmdbId": 303630,
     "type": "series",
     "title": "Cupertino",
     "year": 2026,
@@ -8769,7 +9699,7 @@ const catalog = [
   {
     "id": "netflix-91",
     "imdbId": "tt31289994",
-    "tmdbId": 3128999,
+    "tmdbId": 273247,
     "type": "series",
     "title": "The Lowdown",
     "year": 2025,
@@ -9030,7 +9960,7 @@ const catalog = [
   {
     "id": "netflix-93",
     "imdbId": "tt6151526",
-    "tmdbId": 6151526,
+    "tmdbId": 256711,
     "type": "series",
     "title": "The Rainmaker",
     "year": 2025,
@@ -9551,7 +10481,7 @@ const catalog = [
   {
     "id": "netflix-97",
     "imdbId": "tt32499579",
-    "tmdbId": 3249957,
+    "tmdbId": 255752,
     "type": "series",
     "title": "Haunted Hotel",
     "year": 2025,
@@ -10856,7 +11786,7 @@ const catalog = [
   {
     "id": "netflix-107",
     "imdbId": "tt31938062",
-    "tmdbId": 3193806,
+    "tmdbId": 250307,
     "type": "series",
     "title": "The Pitt",
     "year": 2025,
@@ -11115,7 +12045,7 @@ const catalog = [
   {
     "id": "netflix-109",
     "imdbId": "tt6773088",
-    "tmdbId": 6773088,
+    "tmdbId": 250203,
     "type": "series",
     "title": "Brothers",
     "year": 2026,
@@ -11374,7 +12304,7 @@ const catalog = [
   {
     "id": "netflix-111",
     "imdbId": "tt36885662",
-    "tmdbId": 3688566,
+    "tmdbId": 291084,
     "type": "series",
     "title": "Best Medicine",
     "year": 2026,
@@ -12154,7 +13084,7 @@ const catalog = [
   {
     "id": "netflix-86",
     "imdbId": "tt29666911",
-    "tmdbId": 2966691,
+    "tmdbId": 316830,
     "type": "series",
     "title": "Seeking Persephone",
     "year": 2023,
@@ -12413,7 +13343,7 @@ const catalog = [
   {
     "id": "netflix-87",
     "imdbId": "tt4378376",
-    "tmdbId": 4378376,
+    "tmdbId": 66980,
     "type": "series",
     "title": "Babylon Berlin",
     "year": 2017,
@@ -13718,7 +14648,7 @@ const catalog = [
   {
     "id": "netflix-92",
     "imdbId": "tt4655480",
-    "tmdbId": 4655480,
+    "tmdbId": 62650,
     "type": "series",
     "title": "Chicago Med",
     "year": 2015,
@@ -13977,7 +14907,7 @@ const catalog = [
   {
     "id": "netflix-93",
     "imdbId": "tt3322312",
-    "tmdbId": 3322312,
+    "tmdbId": 61889,
     "type": "series",
     "title": "Daredevil",
     "year": 2015,
@@ -14238,7 +15168,7 @@ const catalog = [
   {
     "id": "netflix-94",
     "imdbId": "tt38218082",
-    "tmdbId": 3821808,
+    "tmdbId": 300507,
     "type": "series",
     "title": "Crew Girl",
     "year": 2026,
@@ -14498,7 +15428,7 @@ const catalog = [
   {
     "id": "netflix-95",
     "imdbId": "tt30459041",
-    "tmdbId": 3045904,
+    "tmdbId": 241609,
     "type": "series",
     "title": "Your Friends & Neighbors",
     "year": 2025,
@@ -14758,7 +15688,7 @@ const catalog = [
   {
     "id": "netflix-96",
     "imdbId": "tt5622316",
-    "tmdbId": 5622316,
+    "tmdbId": 85077,
     "type": "series",
     "title": "The Chosen",
     "year": 2017,
@@ -15019,7 +15949,7 @@ const catalog = [
   {
     "id": "netflix-97",
     "imdbId": "tt30796986",
-    "tmdbId": 3079698,
+    "tmdbId": 243006,
     "type": "series",
     "title": "NCIS: Origins",
     "year": 2024,
@@ -15279,7 +16209,7 @@ const catalog = [
   {
     "id": "netflix-98",
     "imdbId": "tt35051210",
-    "tmdbId": 3505121,
+    "tmdbId": 335536,
     "type": "series",
     "title": "Untitled Mike Tyson Documentary Series",
     "year": 2026,
@@ -15796,7 +16726,7 @@ const catalog = [
   {
     "id": "netflix-100",
     "imdbId": "tt34866681",
-    "tmdbId": 3486668,
+    "tmdbId": 278624,
     "type": "series",
     "title": "Lucky",
     "year": 2026,
@@ -17437,7 +18367,7 @@ const catalog = [
   {
     "id": "ind-kgf2",
     "imdbId": "tt10698680",
-    "tmdbId": 588228,
+    "tmdbId": 587412,
     "type": "movie",
     "title": "K.G.F: Chapter 2",
     "year": 2022,
@@ -17542,10 +18472,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17583,16 +18537,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "prime-1042",
-    "imdbId": "tt11691774",
-    "tmdbId": 115003,
+    "imdbId": "tt11685912",
+    "tmdbId": 113985,
     "type": "series",
     "title": "Outer Range",
     "year": 2024,
@@ -17624,10 +18602,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17665,10 +18667,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17706,10 +18732,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17747,10 +18797,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17787,10 +18861,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17827,10 +18925,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17868,10 +18990,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17909,10 +19055,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -17949,16 +19119,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "prime-1051",
     "imdbId": "tt0489974",
-    "tmdbId": 90040,
+    "tmdbId": 90027,
     "type": "series",
     "title": "Carnival Row",
     "year": 2023,
@@ -17990,10 +19184,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18030,10 +19248,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18071,10 +19313,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18111,10 +19377,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18152,10 +19442,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18193,10 +19507,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18234,15 +19572,39 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "prime-1058",
-    "imdbId": "tt9777644",
+    "imdbId": "tt9777666",
     "tmdbId": 588228,
     "type": "movie",
     "title": "The Tomorrow War",
@@ -18275,10 +19637,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18315,10 +19701,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18356,10 +19766,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18397,10 +19831,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18436,10 +19894,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18476,16 +19958,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "prime-5005",
-    "imdbId": "tt14999558",
-    "tmdbId": 211029,
+    "imdbId": "tt14961048",
+    "tmdbId": 220116,
     "type": "series",
     "title": "Swarm",
     "year": 2023,
@@ -18517,16 +20023,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "prime-5006",
     "imdbId": "tt13361448",
-    "tmdbId": 123891,
+    "tmdbId": 111894,
     "type": "series",
     "title": "Night Sky",
     "year": 2022,
@@ -18558,10 +20088,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18598,10 +20152,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18638,10 +20216,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18677,10 +20279,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18716,10 +20342,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18755,10 +20405,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18794,10 +20468,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -18835,16 +20533,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "prime-42",
     "imdbId": "tt35949226",
-    "tmdbId": 3594922,
+    "tmdbId": 285418,
     "type": "series",
     "title": "Youth",
     "year": 2026,
@@ -19103,7 +20825,7 @@ const catalog = [
   {
     "id": "prime-44",
     "imdbId": "tt6037988",
-    "tmdbId": 6037988,
+    "tmdbId": 258230,
     "type": "series",
     "title": "Last Seen",
     "year": 2026,
@@ -20403,7 +22125,7 @@ const catalog = [
   {
     "id": "prime-54",
     "imdbId": "tt36849871",
-    "tmdbId": 3684987,
+    "tmdbId": 290856,
     "type": "series",
     "title": "Marshals",
     "year": 2026,
@@ -20925,7 +22647,7 @@ const catalog = [
   {
     "id": "prime-58",
     "imdbId": "tt36303968",
-    "tmdbId": 3630396,
+    "tmdbId": 287238,
     "type": "series",
     "title": "Furious",
     "year": 2026,
@@ -21186,7 +22908,7 @@ const catalog = [
   {
     "id": "prime-60",
     "imdbId": "tt27846061",
-    "tmdbId": 2784606,
+    "tmdbId": 243360,
     "type": "series",
     "title": "Ludwig",
     "year": 2024,
@@ -21707,7 +23429,7 @@ const catalog = [
   {
     "id": "prime-64",
     "imdbId": "tt36064406",
-    "tmdbId": 3606440,
+    "tmdbId": 298505,
     "type": "series",
     "title": "Coven Academy",
     "year": 2023,
@@ -21968,7 +23690,7 @@ const catalog = [
   {
     "id": "prime-66",
     "imdbId": "tt33043892",
-    "tmdbId": 3304389,
+    "tmdbId": 259909,
     "type": "series",
     "title": "Dexter: Resurrection",
     "year": 2025,
@@ -22229,7 +23951,7 @@ const catalog = [
   {
     "id": "prime-68",
     "imdbId": "tt33078239",
-    "tmdbId": 3307823,
+    "tmdbId": 313630,
     "type": "series",
     "title": "Eternally Yours",
     "year": 2026,
@@ -22489,7 +24211,7 @@ const catalog = [
   {
     "id": "prime-70",
     "imdbId": "tt26591110",
-    "tmdbId": 2659111,
+    "tmdbId": 226285,
     "type": "series",
     "title": "Elsbeth",
     "year": 2024,
@@ -23011,7 +24733,7 @@ const catalog = [
   {
     "id": "prime-74",
     "imdbId": "tt9813792",
-    "tmdbId": 9813792,
+    "tmdbId": 124364,
     "type": "series",
     "title": "From",
     "year": 2022,
@@ -23533,7 +25255,7 @@ const catalog = [
   {
     "id": "prime-78",
     "imdbId": "tt5607616",
-    "tmdbId": 5607616,
+    "tmdbId": 65942,
     "type": "series",
     "title": "Re: Zero - Starting Life in Another World",
     "year": 2016,
@@ -23794,7 +25516,7 @@ const catalog = [
   {
     "id": "prime-80",
     "imdbId": "tt39365612",
-    "tmdbId": 3936561,
+    "tmdbId": 321958,
     "type": "series",
     "title": "Line of Fire",
     "year": 2026,
@@ -24316,7 +26038,7 @@ const catalog = [
   {
     "id": "prime-84",
     "imdbId": "tt2085059",
-    "tmdbId": 2085059,
+    "tmdbId": 42009,
     "type": "series",
     "title": "Black Mirror",
     "year": 2011,
@@ -24577,7 +26299,7 @@ const catalog = [
   {
     "id": "prime-86",
     "imdbId": "tt33546863",
-    "tmdbId": 3354686,
+    "tmdbId": 273240,
     "type": "series",
     "title": "Off Campus",
     "year": 2026,
@@ -25099,7 +26821,7 @@ const catalog = [
   {
     "id": "prime-90",
     "imdbId": "tt35726020",
-    "tmdbId": 3572602,
+    "tmdbId": 284558,
     "type": "series",
     "title": "Kill Jackie",
     "year": 2026,
@@ -25621,7 +27343,7 @@ const catalog = [
   {
     "id": "prime-94",
     "imdbId": "tt32268630",
-    "tmdbId": 3226863,
+    "tmdbId": 253391,
     "type": "series",
     "title": "Sheriff Country",
     "year": 2025,
@@ -25881,7 +27603,7 @@ const catalog = [
   {
     "id": "prime-96",
     "imdbId": "tt7660850",
-    "tmdbId": 7660850,
+    "tmdbId": 76331,
     "type": "series",
     "title": "Succession",
     "year": 2018,
@@ -26921,7 +28643,7 @@ const catalog = [
   {
     "id": "prime-104",
     "imdbId": "tt38504111",
-    "tmdbId": 3850411,
+    "tmdbId": 312693,
     "type": "series",
     "title": "Small Prophets",
     "year": 2026,
@@ -27182,7 +28904,7 @@ const catalog = [
   {
     "id": "prime-106",
     "imdbId": "tt35617054",
-    "tmdbId": 3561705,
+    "tmdbId": 283319,
     "type": "series",
     "title": "Marble Hall Murders",
     "year": 2026,
@@ -27443,7 +29165,7 @@ const catalog = [
   {
     "id": "prime-108",
     "imdbId": "tt7235466",
-    "tmdbId": 7235466,
+    "tmdbId": 75219,
     "type": "series",
     "title": "9-1-1",
     "year": 2018,
@@ -27964,7 +29686,7 @@ const catalog = [
   {
     "id": "prime-112",
     "imdbId": "tt39395275",
-    "tmdbId": 3939527,
+    "tmdbId": 312359,
     "type": "series",
     "title": "Dragon Ball Super: Beerus",
     "year": 2026,
@@ -28744,7 +30466,7 @@ const catalog = [
   {
     "id": "prime-118",
     "imdbId": "tt2861424",
-    "tmdbId": 2861424,
+    "tmdbId": 60625,
     "type": "series",
     "title": "Rick and Morty",
     "year": 2013,
@@ -29005,7 +30727,7 @@ const catalog = [
   {
     "id": "prime-120",
     "imdbId": "tt33081352",
-    "tmdbId": 3308135,
+    "tmdbId": 305357,
     "type": "series",
     "title": "A Different World",
     "year": 2026,
@@ -29265,7 +30987,7 @@ const catalog = [
   {
     "id": "prime-122",
     "imdbId": "tt6473344",
-    "tmdbId": 6473344,
+    "tmdbId": 71789,
     "type": "series",
     "title": "SEAL Team",
     "year": 2017,
@@ -29526,7 +31248,7 @@ const catalog = [
   {
     "id": "prime-124",
     "imdbId": "tt40197357",
-    "tmdbId": 4019735,
+    "tmdbId": 295778,
     "type": "series",
     "title": "Scrubs",
     "year": 2026,
@@ -30045,7 +31767,7 @@ const catalog = [
   {
     "id": "prime-128",
     "imdbId": "tt30051064",
-    "tmdbId": 3005106,
+    "tmdbId": 239618,
     "type": "series",
     "title": "American Hostage",
     "year": 2026,
@@ -30565,7 +32287,7 @@ const catalog = [
   {
     "id": "prime-87",
     "imdbId": "tt7671070",
-    "tmdbId": 7671070,
+    "tmdbId": 90812,
     "type": "series",
     "title": "Industry",
     "year": 2020,
@@ -30825,7 +32547,7 @@ const catalog = [
   {
     "id": "prime-88",
     "imdbId": "tt5071412",
-    "tmdbId": 5071412,
+    "tmdbId": 69740,
     "type": "series",
     "title": "Ozark",
     "year": 2017,
@@ -31086,7 +32808,7 @@ const catalog = [
   {
     "id": "prime-89",
     "imdbId": "tt2699128",
-    "tmdbId": 2699128,
+    "tmdbId": 54344,
     "type": "series",
     "title": "The Leftovers",
     "year": 2014,
@@ -31347,7 +33069,7 @@ const catalog = [
   {
     "id": "prime-90",
     "imdbId": "tt4786824",
-    "tmdbId": 4786824,
+    "tmdbId": 65494,
     "type": "series",
     "title": "The Crown",
     "year": 2016,
@@ -31608,7 +33330,7 @@ const catalog = [
   {
     "id": "prime-91",
     "imdbId": "tt33049767",
-    "tmdbId": 3304976,
+    "tmdbId": 260458,
     "type": "series",
     "title": "Adults",
     "year": 2025,
@@ -32647,7 +34369,7 @@ const catalog = [
   {
     "id": "prime-95",
     "imdbId": "tt30460310",
-    "tmdbId": 3046031,
+    "tmdbId": 220102,
     "type": "series",
     "title": "Spider-Noir",
     "year": 2026,
@@ -32908,7 +34630,7 @@ const catalog = [
   {
     "id": "prime-96",
     "imdbId": "tt33265765",
-    "tmdbId": 3326576,
+    "tmdbId": 262280,
     "type": "series",
     "title": "Legends",
     "year": 2026,
@@ -33169,7 +34891,7 @@ const catalog = [
   {
     "id": "prime-97",
     "imdbId": "tt26656917",
-    "tmdbId": 2665691,
+    "tmdbId": 219971,
     "type": "series",
     "title": "The Agency",
     "year": 2024,
@@ -33689,7 +35411,7 @@ const catalog = [
   {
     "id": "prime-99",
     "imdbId": "tt2531336",
-    "tmdbId": 2531336,
+    "tmdbId": 96677,
     "type": "series",
     "title": "Lupin",
     "year": 2023,
@@ -35089,10 +36811,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35130,10 +36876,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35171,10 +36941,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35212,10 +37006,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35253,10 +37071,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35294,10 +37136,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35335,10 +37201,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35376,10 +37266,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35417,10 +37331,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35458,10 +37396,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35499,10 +37461,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35540,10 +37526,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35581,10 +37591,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35622,10 +37656,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35663,10 +37721,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35704,10 +37786,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35745,10 +37851,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35786,10 +37916,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35827,10 +37981,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35868,10 +38046,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35909,10 +38111,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35950,10 +38176,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -35991,10 +38241,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -36032,10 +38306,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -36073,10 +38371,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -36114,10 +38436,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -36155,10 +38501,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -36196,10 +38566,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -36237,10 +38631,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -36278,10 +38696,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -36319,16 +38761,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "disney-38",
     "imdbId": "tt26591147",
-    "tmdbId": 2659114,
+    "tmdbId": 226174,
     "type": "series",
     "title": "Matlock",
     "year": 2024,
@@ -36848,7 +39314,7 @@ const catalog = [
   {
     "id": "disney-42",
     "imdbId": "tt33248156",
-    "tmdbId": 3324815,
+    "tmdbId": 291431,
     "type": "series",
     "title": "The Celebrity Traitors UK",
     "year": 2025,
@@ -37369,7 +39835,7 @@ const catalog = [
   {
     "id": "disney-46",
     "imdbId": "tt35618070",
-    "tmdbId": 3561807,
+    "tmdbId": 283297,
     "type": "series",
     "title": "Sterling Point",
     "year": 2026,
@@ -37629,7 +40095,7 @@ const catalog = [
   {
     "id": "disney-48",
     "imdbId": "tt37063558",
-    "tmdbId": 3706355,
+    "tmdbId": 302074,
     "type": "series",
     "title": "R.J. Decker",
     "year": 2026,
@@ -38411,7 +40877,7 @@ const catalog = [
   {
     "id": "disney-54",
     "imdbId": "tt36832679",
-    "tmdbId": 3683267,
+    "tmdbId": 290720,
     "type": "series",
     "title": "The Final Problem",
     "year": 2026,
@@ -39454,7 +41920,7 @@ const catalog = [
   {
     "id": "disney-62",
     "imdbId": "tt27444205",
-    "tmdbId": 2744420,
+    "tmdbId": 245927,
     "type": "series",
     "title": "Paradise",
     "year": 2025,
@@ -39975,7 +42441,7 @@ const catalog = [
   {
     "id": "disney-66",
     "imdbId": "tt4565380",
-    "tmdbId": 4565380,
+    "tmdbId": 69557,
     "type": "series",
     "title": "Fauda",
     "year": 2015,
@@ -40236,7 +42702,7 @@ const catalog = [
   {
     "id": "disney-68",
     "imdbId": "tt39101592",
-    "tmdbId": 3910159,
+    "tmdbId": 321532,
     "type": "series",
     "title": "Winter",
     "year": 2026,
@@ -40497,7 +42963,7 @@ const catalog = [
   {
     "id": "disney-70",
     "imdbId": "tt22202452",
-    "tmdbId": 2220245,
+    "tmdbId": 225171,
     "type": "series",
     "title": "Pluribus",
     "year": 2025,
@@ -41017,7 +43483,7 @@ const catalog = [
   {
     "id": "disney-74",
     "imdbId": "tt9140560",
-    "tmdbId": 9140560,
+    "tmdbId": 85271,
     "type": "series",
     "title": "WandaVision",
     "year": 2021,
@@ -41539,7 +44005,7 @@ const catalog = [
   {
     "id": "disney-78",
     "imdbId": "tt2442560",
-    "tmdbId": 2442560,
+    "tmdbId": 60574,
     "type": "series",
     "title": "Peaky Blinders",
     "year": 2013,
@@ -41799,7 +44265,7 @@ const catalog = [
   {
     "id": "disney-80",
     "imdbId": "tt41814550",
-    "tmdbId": 4181455,
+    "tmdbId": 319800,
     "type": "series",
     "title": "NCIS: New York",
     "year": 2026,
@@ -42060,7 +44526,7 @@ const catalog = [
   {
     "id": "disney-82",
     "imdbId": "tt7631058",
-    "tmdbId": 7631058,
+    "tmdbId": 84773,
     "type": "series",
     "title": "The Lord of the Rings: The Rings of Power",
     "year": 2022,
@@ -42582,7 +45048,7 @@ const catalog = [
   {
     "id": "disney-86",
     "imdbId": "tt2741602",
-    "tmdbId": 2741602,
+    "tmdbId": 46952,
     "type": "series",
     "title": "The Blacklist",
     "year": 2013,
@@ -42843,7 +45309,7 @@ const catalog = [
   {
     "id": "disney-88",
     "imdbId": "tt8772296",
-    "tmdbId": 8772296,
+    "tmdbId": 85552,
     "type": "series",
     "title": "Euphoria",
     "year": 2019,
@@ -43102,7 +45568,7 @@ const catalog = [
   {
     "id": "disney-90",
     "imdbId": "tt35826715",
-    "tmdbId": 3582671,
+    "tmdbId": 284736,
     "type": "series",
     "title": "Boston Blue",
     "year": 2025,
@@ -43362,7 +45828,7 @@ const catalog = [
   {
     "id": "disney-92",
     "imdbId": "tt36857537",
-    "tmdbId": 3685753,
+    "tmdbId": 319851,
     "type": "series",
     "title": "The Blame",
     "year": 2026,
@@ -43883,7 +46349,7 @@ const catalog = [
   {
     "id": "disney-96",
     "imdbId": "tt2805096",
-    "tmdbId": 2805096,
+    "tmdbId": 58841,
     "type": "series",
     "title": "Chicago P.D.",
     "year": 2014,
@@ -44144,7 +46610,7 @@ const catalog = [
   {
     "id": "disney-98",
     "imdbId": "tt7366338",
-    "tmdbId": 7366338,
+    "tmdbId": 87108,
     "type": "series",
     "title": "Chernobyl",
     "year": 2019,
@@ -44405,7 +46871,7 @@ const catalog = [
   {
     "id": "disney-100",
     "imdbId": "tt2017109",
-    "tmdbId": 2017109,
+    "tmdbId": 41727,
     "type": "series",
     "title": "Banshee",
     "year": 2013,
@@ -44666,7 +47132,7 @@ const catalog = [
   {
     "id": "disney-102",
     "imdbId": "tt26933824",
-    "tmdbId": 2693382,
+    "tmdbId": 250923,
     "type": "series",
     "title": "Nobody Wants This",
     "year": 2024,
@@ -44927,7 +47393,7 @@ const catalog = [
   {
     "id": "disney-104",
     "imdbId": "tt3006802",
-    "tmdbId": 3006802,
+    "tmdbId": 56570,
     "type": "series",
     "title": "Outlander",
     "year": 2014,
@@ -45449,7 +47915,7 @@ const catalog = [
   {
     "id": "disney-108",
     "imdbId": "tt34771210",
-    "tmdbId": 3477121,
+    "tmdbId": 278178,
     "type": "series",
     "title": "I Will Find You",
     "year": 2026,
@@ -45710,7 +48176,7 @@ const catalog = [
   {
     "id": "disney-110",
     "imdbId": "tt31974367",
-    "tmdbId": 3197436,
+    "tmdbId": 250504,
     "type": "series",
     "title": "The Beast in Me",
     "year": 2025,
@@ -45971,7 +48437,7 @@ const catalog = [
   {
     "id": "disney-112",
     "imdbId": "tt34991493",
-    "tmdbId": 3499149,
+    "tmdbId": 299167,
     "type": "series",
     "title": "Dutton Ranch",
     "year": 2026,
@@ -46231,7 +48697,7 @@ const catalog = [
   {
     "id": "disney-114",
     "imdbId": "tt37439410",
-    "tmdbId": 3743941,
+    "tmdbId": 325755,
     "type": "series",
     "title": "The Perfect Lie",
     "year": 2026,
@@ -46491,7 +48957,7 @@ const catalog = [
   {
     "id": "disney-116",
     "imdbId": "tt2149175",
-    "tmdbId": 2149175,
+    "tmdbId": 46533,
     "type": "series",
     "title": "The Americans",
     "year": 2013,
@@ -46752,7 +49218,7 @@ const catalog = [
   {
     "id": "disney-118",
     "imdbId": "tt37737331",
-    "tmdbId": 3773733,
+    "tmdbId": 289423,
     "type": "series",
     "title": "Take Charge of My Heart",
     "year": 2026,
@@ -47534,7 +50000,7 @@ const catalog = [
   {
     "id": "disney-124",
     "imdbId": "tt9253284",
-    "tmdbId": 9253284,
+    "tmdbId": 83867,
     "type": "series",
     "title": "Andor",
     "year": 2022,
@@ -47795,7 +50261,7 @@ const catalog = [
   {
     "id": "disney-126",
     "imdbId": "tt26748321",
-    "tmdbId": 2674832,
+    "tmdbId": 255055,
     "type": "series",
     "title": "Doc",
     "year": 2025,
@@ -48315,7 +50781,7 @@ const catalog = [
   {
     "id": "disney-130",
     "imdbId": "tt5180504",
-    "tmdbId": 5180504,
+    "tmdbId": 71912,
     "type": "series",
     "title": "The Witcher",
     "year": 2019,
@@ -48576,7 +51042,7 @@ const catalog = [
   {
     "id": "disney-132",
     "imdbId": "tt27497448",
-    "tmdbId": 2749744,
+    "tmdbId": 224372,
     "type": "series",
     "title": "A Knight of the Seven Kingdoms",
     "year": 2026,
@@ -48837,7 +51303,7 @@ const catalog = [
   {
     "id": "disney-86",
     "imdbId": "tt24053860",
-    "tmdbId": 2405386,
+    "tmdbId": 222766,
     "type": "series",
     "title": "The Day of the Jackal",
     "year": 2024,
@@ -49098,7 +51564,7 @@ const catalog = [
   {
     "id": "disney-87",
     "imdbId": "tt7335184",
-    "tmdbId": 7335184,
+    "tmdbId": 78191,
     "type": "series",
     "title": "You",
     "year": 2018,
@@ -49359,7 +51825,7 @@ const catalog = [
   {
     "id": "disney-88",
     "imdbId": "tt35768911",
-    "tmdbId": 3576891,
+    "tmdbId": 286617,
     "type": "series",
     "title": "Tip Toe",
     "year": 2026,
@@ -49879,7 +52345,7 @@ const catalog = [
   {
     "id": "disney-90",
     "imdbId": "tt33204276",
-    "tmdbId": 3320427,
+    "tmdbId": 225891,
     "type": "series",
     "title": "The Madison",
     "year": 2026,
@@ -50398,7 +52864,7 @@ const catalog = [
   {
     "id": "disney-92",
     "imdbId": "tt9319668",
-    "tmdbId": 9319668,
+    "tmdbId": 90669,
     "type": "series",
     "title": "1899",
     "year": 2022,
@@ -50659,7 +53125,7 @@ const catalog = [
   {
     "id": "disney-93",
     "imdbId": "tt35495073",
-    "tmdbId": 3549507,
+    "tmdbId": 301507,
     "type": "series",
     "title": "Heated Rivalry",
     "year": 2025,
@@ -51441,7 +53907,7 @@ const catalog = [
   {
     "id": "disney-96",
     "imdbId": "tt31710249",
-    "tmdbId": 3171024,
+    "tmdbId": 248830,
     "type": "series",
     "title": "Stick",
     "year": 2025,
@@ -52221,7 +54687,7 @@ const catalog = [
   {
     "id": "disney-99",
     "imdbId": "tt34675596",
-    "tmdbId": 3467559,
+    "tmdbId": 277439,
     "type": "series",
     "title": "Cape Fear",
     "year": 2026,
@@ -52482,7 +54948,7 @@ const catalog = [
   {
     "id": "disney-100",
     "imdbId": "tt2708480",
-    "tmdbId": 2708480,
+    "tmdbId": 75191,
     "type": "series",
     "title": "The Terror",
     "year": 2018,
@@ -53945,10 +56411,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -53985,10 +56475,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54025,10 +56539,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54066,16 +56604,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "hbo-1080",
     "imdbId": "tt13406094",
-    "tmdbId": 110492,
+    "tmdbId": 111803,
     "type": "series",
     "title": "The White Lotus",
     "year": 2023,
@@ -54106,10 +56668,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54147,10 +56733,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54188,10 +56798,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54229,10 +56863,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54270,10 +56928,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54311,10 +56993,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54351,10 +57057,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54392,10 +57122,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54433,10 +57187,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54474,10 +57252,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54515,10 +57317,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54556,10 +57382,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54597,10 +57447,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54637,10 +57511,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54678,10 +57576,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54719,10 +57641,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54760,10 +57706,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54801,10 +57771,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54840,10 +57834,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54879,10 +57897,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54920,10 +57962,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -54961,10 +58027,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -55002,10 +58092,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -55043,10 +58157,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -55084,16 +58222,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "hbo-35",
     "imdbId": "tt2261391",
-    "tmdbId": 2261391,
+    "tmdbId": 44006,
     "type": "series",
     "title": "Chicago Fire",
     "year": 2012,
@@ -55614,7 +58776,7 @@ const catalog = [
   {
     "id": "hbo-39",
     "imdbId": "tt36210894",
-    "tmdbId": 3621089,
+    "tmdbId": 304842,
     "type": "series",
     "title": "Untitled Snowfall Spinoff",
     "year": 2026,
@@ -55873,7 +59035,7 @@ const catalog = [
   {
     "id": "hbo-41",
     "imdbId": "tt7491982",
-    "tmdbId": 7491982,
+    "tmdbId": 80748,
     "type": "series",
     "title": "FBI",
     "year": 2018,
@@ -56394,7 +59556,7 @@ const catalog = [
   {
     "id": "hbo-45",
     "imdbId": "tt2306299",
-    "tmdbId": 2306299,
+    "tmdbId": 44217,
     "type": "series",
     "title": "Vikings",
     "year": 2013,
@@ -56655,7 +59817,7 @@ const catalog = [
   {
     "id": "hbo-47",
     "imdbId": "tt2359704",
-    "tmdbId": 2359704,
+    "tmdbId": 45790,
     "type": "series",
     "title": "JoJo's Bizarre Adventure",
     "year": 2012,
@@ -57176,7 +60338,7 @@ const catalog = [
   {
     "id": "hbo-51",
     "imdbId": "tt31491435",
-    "tmdbId": 3149143,
+    "tmdbId": 247522,
     "type": "series",
     "title": "Tires",
     "year": 2024,
@@ -57435,7 +60597,7 @@ const catalog = [
   {
     "id": "hbo-53",
     "imdbId": "tt5675620",
-    "tmdbId": 5675620,
+    "tmdbId": 67178,
     "type": "series",
     "title": "The Punisher",
     "year": 2017,
@@ -58218,7 +61380,7 @@ const catalog = [
   {
     "id": "hbo-59",
     "imdbId": "tt35515227",
-    "tmdbId": 3551522,
+    "tmdbId": 289560,
     "type": "series",
     "title": "CIA",
     "year": 2026,
@@ -58740,7 +61902,7 @@ const catalog = [
   {
     "id": "hbo-63",
     "imdbId": "tt31589662",
-    "tmdbId": 3158966,
+    "tmdbId": 243875,
     "type": "series",
     "title": "Georgie & Mandy's First Marriage",
     "year": 2024,
@@ -58999,7 +62161,7 @@ const catalog = [
   {
     "id": "hbo-65",
     "imdbId": "tt27497393",
-    "tmdbId": 2749739,
+    "tmdbId": 287620,
     "type": "series",
     "title": "Stuart Fails to Save the Universe",
     "year": 2026,
@@ -59260,7 +62422,7 @@ const catalog = [
   {
     "id": "hbo-67",
     "imdbId": "tt4406178",
-    "tmdbId": 4406178,
+    "tmdbId": 81723,
     "type": "series",
     "title": "The Gilded Age",
     "year": 2022,
@@ -60302,7 +63464,7 @@ const catalog = [
   {
     "id": "hbo-75",
     "imdbId": "tt36937503",
-    "tmdbId": 3693750,
+    "tmdbId": 291350,
     "type": "series",
     "title": "Anna Pigeon",
     "year": 2026,
@@ -60562,7 +63724,7 @@ const catalog = [
   {
     "id": "hbo-77",
     "imdbId": "tt27543562",
-    "tmdbId": 2754356,
+    "tmdbId": 298168,
     "type": "series",
     "title": "The Shards",
     "year": 2026,
@@ -61084,7 +64246,7 @@ const catalog = [
   {
     "id": "hbo-81",
     "imdbId": "tt22091076",
-    "tmdbId": 2209107,
+    "tmdbId": 226637,
     "type": "series",
     "title": "High Potential",
     "year": 2024,
@@ -61345,7 +64507,7 @@ const catalog = [
   {
     "id": "hbo-83",
     "imdbId": "tt6226232",
-    "tmdbId": 6226232,
+    "tmdbId": 71728,
     "type": "series",
     "title": "Young Sheldon",
     "year": 2017,
@@ -61865,7 +65027,7 @@ const catalog = [
   {
     "id": "hbo-87",
     "imdbId": "tt20221678",
-    "tmdbId": 2022167,
+    "tmdbId": 201836,
     "type": "series",
     "title": "The Way Home",
     "year": 2023,
@@ -62905,7 +66067,7 @@ const catalog = [
   {
     "id": "hbo-95",
     "imdbId": "tt4158110",
-    "tmdbId": 4158110,
+    "tmdbId": 62560,
     "type": "series",
     "title": "Mr. Robot",
     "year": 2015,
@@ -63166,7 +66328,7 @@ const catalog = [
   {
     "id": "hbo-97",
     "imdbId": "tt3718778",
-    "tmdbId": 3718778,
+    "tmdbId": 61617,
     "type": "series",
     "title": "Over the Garden Wall",
     "year": 2014,
@@ -63688,7 +66850,7 @@ const catalog = [
   {
     "id": "hbo-101",
     "imdbId": "tt26743760",
-    "tmdbId": 2674376,
+    "tmdbId": 220542,
     "type": "series",
     "title": "The Apothecary Diaries",
     "year": 2023,
@@ -63949,7 +67111,7 @@ const catalog = [
   {
     "id": "hbo-103",
     "imdbId": "tt1355642",
-    "tmdbId": 1355642,
+    "tmdbId": 31911,
     "type": "series",
     "title": "Fullmetal Alchemist: Brotherhood",
     "year": 2009,
@@ -65253,7 +68415,7 @@ const catalog = [
   {
     "id": "hbo-113",
     "imdbId": "tt22248376",
-    "tmdbId": 2224837,
+    "tmdbId": 209867,
     "type": "series",
     "title": "Frieren: Beyond Journey's End",
     "year": 2023,
@@ -66819,7 +69981,7 @@ const catalog = [
   {
     "id": "hbo-125",
     "imdbId": "tt37692332",
-    "tmdbId": 3769233,
+    "tmdbId": 296756,
     "type": "series",
     "title": "President Curtis",
     "year": 2026,
@@ -68644,7 +71806,7 @@ const catalog = [
   {
     "id": "hbo-87",
     "imdbId": "tt27557289",
-    "tmdbId": 2755728,
+    "tmdbId": 224941,
     "type": "series",
     "title": "The Boroughs",
     "year": 2026,
@@ -69426,7 +72588,7 @@ const catalog = [
   {
     "id": "hbo-90",
     "imdbId": "tt31038430",
-    "tmdbId": 3103843,
+    "tmdbId": 244447,
     "type": "series",
     "title": "The Hunting Wives",
     "year": 2025,
@@ -70208,7 +73370,7 @@ const catalog = [
   {
     "id": "hbo-93",
     "imdbId": "tt31449991",
-    "tmdbId": 3144999,
+    "tmdbId": 247168,
     "type": "series",
     "title": "Chad Powers",
     "year": 2025,
@@ -70990,7 +74152,7 @@ const catalog = [
   {
     "id": "hbo-96",
     "imdbId": "tt7767422",
-    "tmdbId": 7767422,
+    "tmdbId": 81356,
     "type": "series",
     "title": "Sex Education",
     "year": 2019,
@@ -71772,7 +74934,7 @@ const catalog = [
   {
     "id": "hbo-99",
     "imdbId": "tt37332908",
-    "tmdbId": 3733290,
+    "tmdbId": 318312,
     "type": "series",
     "title": "Tommy & Tuppence",
     "year": 2025,
@@ -73202,10 +76364,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73242,10 +76428,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73281,10 +76491,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73321,16 +76555,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "apple-2005",
     "imdbId": "tt17677860",
-    "tmdbId": 157080,
+    "tmdbId": 156933,
     "type": "series",
     "title": "Presumed Innocent",
     "year": 2024,
@@ -73362,16 +76620,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "apple-2006",
-    "imdbId": "tt17220704",
-    "tmdbId": 157080,
+    "imdbId": "tt17220216",
+    "tmdbId": 202411,
     "type": "series",
     "title": "Monarch: Legacy of Monsters",
     "year": 2023,
@@ -73403,10 +76685,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73444,10 +76750,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73485,10 +76815,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73526,10 +76880,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73566,10 +76944,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73607,10 +77009,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73648,10 +77074,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73688,10 +77138,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73729,10 +77203,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73770,10 +77268,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73811,10 +77333,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73852,10 +77398,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -73893,10 +77463,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -74424,7 +78018,7 @@ const catalog = [
   {
     "id": "apple-27",
     "imdbId": "tt2364582",
-    "tmdbId": 2364582,
+    "tmdbId": 1403,
     "type": "series",
     "title": "Agents of S.H.I.E.L.D.",
     "year": 2013,
@@ -74685,7 +78279,7 @@ const catalog = [
   {
     "id": "apple-29",
     "imdbId": "tt2234222",
-    "tmdbId": 2234222,
+    "tmdbId": 56296,
     "type": "series",
     "title": "Orphan Black",
     "year": 2013,
@@ -75206,7 +78800,7 @@ const catalog = [
   {
     "id": "apple-33",
     "imdbId": "tt7949218",
-    "tmdbId": 7949218,
+    "tmdbId": 80752,
     "type": "series",
     "title": "See",
     "year": 2019,
@@ -75467,7 +79061,7 @@ const catalog = [
   {
     "id": "apple-35",
     "imdbId": "tt8421350",
-    "tmdbId": 8421350,
+    "tmdbId": 79696,
     "type": "series",
     "title": "Manifest",
     "year": 2018,
@@ -75728,7 +79322,7 @@ const catalog = [
   {
     "id": "apple-37",
     "imdbId": "tt2402207",
-    "tmdbId": 2402207,
+    "tmdbId": 60802,
     "type": "series",
     "title": "The Last Ship",
     "year": 2014,
@@ -76250,7 +79844,7 @@ const catalog = [
   {
     "id": "apple-41",
     "imdbId": "tt5691552",
-    "tmdbId": 5691552,
+    "tmdbId": 71738,
     "type": "series",
     "title": "The Orville",
     "year": 2017,
@@ -76511,7 +80105,7 @@ const catalog = [
   {
     "id": "apple-43",
     "imdbId": "tt3743822",
-    "tmdbId": 3743822,
+    "tmdbId": 62286,
     "type": "series",
     "title": "Fear the Walking Dead",
     "year": 2015,
@@ -76772,7 +80366,7 @@ const catalog = [
   {
     "id": "apple-45",
     "imdbId": "tt5114356",
-    "tmdbId": 5114356,
+    "tmdbId": 67195,
     "type": "series",
     "title": "Legion",
     "year": 2017,
@@ -77294,7 +80888,7 @@ const catalog = [
   {
     "id": "apple-49",
     "imdbId": "tt32596156",
-    "tmdbId": 3259615,
+    "tmdbId": 256624,
     "type": "series",
     "title": "Talamasca: The Secret Order",
     "year": 2025,
@@ -77555,7 +81149,7 @@ const catalog = [
   {
     "id": "apple-51",
     "imdbId": "tt4643084",
-    "tmdbId": 4643084,
+    "tmdbId": 63646,
     "type": "series",
     "title": "Counterpart",
     "year": 2017,
@@ -77816,7 +81410,7 @@ const catalog = [
   {
     "id": "apple-53",
     "imdbId": "tt32140872",
-    "tmdbId": 3214087,
+    "tmdbId": 252107,
     "type": "series",
     "title": "Star City",
     "year": 2026,
@@ -78076,7 +81670,7 @@ const catalog = [
   {
     "id": "apple-55",
     "imdbId": "tt8291284",
-    "tmdbId": 8291284,
+    "tmdbId": 95403,
     "type": "series",
     "title": "The Peripheral",
     "year": 2022,
@@ -78337,7 +81931,7 @@ const catalog = [
   {
     "id": "apple-57",
     "imdbId": "tt9737326",
-    "tmdbId": 9737326,
+    "tmdbId": 127235,
     "type": "series",
     "title": "Invasion",
     "year": 2021,
@@ -78859,7 +82453,7 @@ const catalog = [
   {
     "id": "apple-61",
     "imdbId": "tt5580146",
-    "tmdbId": 5580146,
+    "tmdbId": 73411,
     "type": "series",
     "title": "Maniac",
     "year": 2018,
@@ -79120,7 +82714,7 @@ const catalog = [
   {
     "id": "apple-63",
     "imdbId": "tt8134186",
-    "tmdbId": 8134186,
+    "tmdbId": 81349,
     "type": "series",
     "title": "Devs",
     "year": 2020,
@@ -79381,7 +82975,7 @@ const catalog = [
   {
     "id": "apple-65",
     "imdbId": "tt6156584",
-    "tmdbId": 6156584,
+    "tmdbId": 79680,
     "type": "series",
     "title": "Snowpiercer",
     "year": 2020,
@@ -79642,7 +83236,7 @@ const catalog = [
   {
     "id": "apple-67",
     "imdbId": "tt2431438",
-    "tmdbId": 2431438,
+    "tmdbId": 61664,
     "type": "series",
     "title": "Sense8",
     "year": 2015,
@@ -80164,7 +83758,7 @@ const catalog = [
   {
     "id": "apple-71",
     "imdbId": "tt37788031",
-    "tmdbId": 3778803,
+    "tmdbId": 292108,
     "type": "series",
     "title": "Ann Droid",
     "year": 2026,
@@ -80424,7 +84018,7 @@ const catalog = [
   {
     "id": "apple-73",
     "imdbId": "tt8466564",
-    "tmdbId": 8466564,
+    "tmdbId": 92830,
     "type": "series",
     "title": "Obi-Wan Kenobi",
     "year": 2022,
@@ -80685,7 +84279,7 @@ const catalog = [
   {
     "id": "apple-75",
     "imdbId": "tt5651844",
-    "tmdbId": 5651844,
+    "tmdbId": 67683,
     "type": "series",
     "title": "Travelers",
     "year": 2016,
@@ -80946,7 +84540,7 @@ const catalog = [
   {
     "id": "apple-77",
     "imdbId": "tt36517689",
-    "tmdbId": 3651768,
+    "tmdbId": 255358,
     "type": "series",
     "title": "The Ghost in the Shell",
     "year": 2026,
@@ -81468,7 +85062,7 @@ const catalog = [
   {
     "id": "apple-81",
     "imdbId": "tt8694364",
-    "tmdbId": 8694364,
+    "tmdbId": 87104,
     "type": "series",
     "title": "Years and Years",
     "year": 2019,
@@ -81728,7 +85322,7 @@ const catalog = [
   {
     "id": "apple-83",
     "imdbId": "tt4122068",
-    "tmdbId": 4122068,
+    "tmdbId": 62822,
     "type": "series",
     "title": "Humans",
     "year": 2015,
@@ -81988,7 +85582,7 @@ const catalog = [
   {
     "id": "apple-85",
     "imdbId": "tt36988358",
-    "tmdbId": 3698835,
+    "tmdbId": 284445,
     "type": "series",
     "title": "Takopi's Original Sin",
     "year": 2025,
@@ -82249,7 +85843,7 @@ const catalog = [
   {
     "id": "apple-87",
     "imdbId": "tt34384900",
-    "tmdbId": 3438490,
+    "tmdbId": 1381078,
     "type": "movie",
     "title": "Love of Your Life",
     "year": 2026,
@@ -82324,7 +85918,7 @@ const catalog = [
   {
     "id": "apple-89",
     "imdbId": "tt6262770",
-    "tmdbId": 6262770,
+    "tmdbId": 1288069,
     "type": "movie",
     "title": "Tenzing",
     "year": 2026,
@@ -82400,7 +85994,7 @@ const catalog = [
   {
     "id": "apple-91",
     "imdbId": "tt27369017",
-    "tmdbId": 2736901,
+    "tmdbId": 1058424,
     "type": "movie",
     "title": "Hope",
     "year": 2026,
@@ -82476,7 +86070,7 @@ const catalog = [
   {
     "id": "apple-93",
     "imdbId": "tt22084616",
-    "tmdbId": 2208461,
+    "tmdbId": 969681,
     "type": "movie",
     "title": "Spider-Man: Brand New Day",
     "year": 2026,
@@ -82551,7 +86145,7 @@ const catalog = [
   {
     "id": "apple-95",
     "imdbId": "tt37281055",
-    "tmdbId": 3728105,
+    "tmdbId": 1514026,
     "type": "movie",
     "title": "Buddy",
     "year": 2026,
@@ -82701,7 +86295,7 @@ const catalog = [
   {
     "id": "apple-99",
     "imdbId": "tt37287335",
-    "tmdbId": 3728733,
+    "tmdbId": 1339713,
     "type": "movie",
     "title": "Obsession",
     "year": 2026,
@@ -82776,7 +86370,7 @@ const catalog = [
   {
     "id": "apple-101",
     "imdbId": "tt26657236",
-    "tmdbId": 2665723,
+    "tmdbId": 1083381,
     "type": "movie",
     "title": "Backrooms",
     "year": 2026,
@@ -82852,7 +86446,7 @@ const catalog = [
   {
     "id": "apple-103",
     "imdbId": "tt6933238",
-    "tmdbId": 6933238,
+    "tmdbId": 1492640,
     "type": "movie",
     "title": "Unabomber",
     "year": 2026,
@@ -82928,7 +86522,7 @@ const catalog = [
   {
     "id": "apple-105",
     "imdbId": "tt32588798",
-    "tmdbId": 3258879,
+    "tmdbId": 1302904,
     "type": "movie",
     "title": "Practical Magic 2",
     "year": 2026,
@@ -83004,7 +86598,7 @@ const catalog = [
   {
     "id": "apple-107",
     "imdbId": "tt32273171",
-    "tmdbId": 3227317,
+    "tmdbId": 1284465,
     "type": "movie",
     "title": "The Death of Robin Hood",
     "year": 2026,
@@ -83080,7 +86674,7 @@ const catalog = [
   {
     "id": "apple-109",
     "imdbId": "tt31349844",
-    "tmdbId": 3134984,
+    "tmdbId": 1377237,
     "type": "movie",
     "title": "Runner",
     "year": 2026,
@@ -83156,7 +86750,7 @@ const catalog = [
   {
     "id": "apple-111",
     "imdbId": "tt27543632",
-    "tmdbId": 2754363,
+    "tmdbId": 1368166,
     "type": "movie",
     "title": "The Housemaid",
     "year": 2025,
@@ -83306,7 +86900,7 @@ const catalog = [
   {
     "id": "apple-115",
     "imdbId": "tt37969426",
-    "tmdbId": 3796942,
+    "tmdbId": 1548113,
     "type": "movie",
     "title": "The Muppet Show",
     "year": 2026,
@@ -83610,7 +87204,7 @@ const catalog = [
   {
     "id": "apple-123",
     "imdbId": "tt31170389",
-    "tmdbId": 3117038,
+    "tmdbId": 1212763,
     "type": "movie",
     "title": "Evil Dead Burn",
     "year": 2026,
@@ -83684,7 +87278,7 @@ const catalog = [
   {
     "id": "apple-125",
     "imdbId": "tt36983905",
-    "tmdbId": 3698390,
+    "tmdbId": 977942,
     "type": "movie",
     "title": "The Uprising",
     "year": 2026,
@@ -83836,7 +87430,7 @@ const catalog = [
   {
     "id": "apple-129",
     "imdbId": "tt22526100",
-    "tmdbId": 2252610,
+    "tmdbId": 1032863,
     "type": "movie",
     "title": "The Love Hypothesis",
     "year": 2026,
@@ -83911,7 +87505,7 @@ const catalog = [
   {
     "id": "apple-131",
     "imdbId": "tt27165187",
-    "tmdbId": 2716518,
+    "tmdbId": 1101383,
     "type": "movie",
     "title": "The End of Oak Street",
     "year": 2026,
@@ -84139,7 +87733,7 @@ const catalog = [
   {
     "id": "apple-137",
     "imdbId": "tt37027309",
-    "tmdbId": 3702730,
+    "tmdbId": 1487317,
     "type": "movie",
     "title": "Lo dejamos acá",
     "year": 2026,
@@ -84289,7 +87883,7 @@ const catalog = [
   {
     "id": "apple-141",
     "imdbId": "tt28014327",
-    "tmdbId": 2801432,
+    "tmdbId": 1137844,
     "type": "movie",
     "title": "Mayday",
     "year": 2026,
@@ -84439,7 +88033,7 @@ const catalog = [
   {
     "id": "apple-145",
     "imdbId": "tt35672862",
-    "tmdbId": 3567286,
+    "tmdbId": 1430077,
     "type": "movie",
     "title": "Hokum",
     "year": 2026,
@@ -84514,7 +88108,7 @@ const catalog = [
   {
     "id": "apple-147",
     "imdbId": "tt32393988",
-    "tmdbId": 3239398,
+    "tmdbId": 1291595,
     "type": "movie",
     "title": "Insidious: Out of the Further",
     "year": 2026,
@@ -84590,7 +88184,7 @@ const catalog = [
   {
     "id": "apple-86",
     "imdbId": "tt9018736",
-    "tmdbId": 9018736,
+    "tmdbId": 82452,
     "type": "series",
     "title": "Avatar: The Last Airbender",
     "year": 2024,
@@ -84851,7 +88445,7 @@ const catalog = [
   {
     "id": "apple-87",
     "imdbId": "tt27995113",
-    "tmdbId": 2799511,
+    "tmdbId": 225385,
     "type": "series",
     "title": "Black Doves",
     "year": 2024,
@@ -85112,7 +88706,7 @@ const catalog = [
   {
     "id": "apple-88",
     "imdbId": "tt27995114",
-    "tmdbId": 2799511,
+    "tmdbId": 245703,
     "type": "series",
     "title": "Dept. Q",
     "year": 2025,
@@ -85634,7 +89228,7 @@ const catalog = [
   {
     "id": "apple-90",
     "imdbId": "tt20883126",
-    "tmdbId": 2088312,
+    "tmdbId": 203667,
     "type": "series",
     "title": "Red Queen",
     "year": 2024,
@@ -86156,7 +89750,7 @@ const catalog = [
   {
     "id": "apple-92",
     "imdbId": "tt3920596",
-    "tmdbId": 3920596,
+    "tmdbId": 66292,
     "type": "series",
     "title": "Big Little Lies",
     "year": 2017,
@@ -86417,7 +90011,7 @@ const catalog = [
   {
     "id": "apple-93",
     "imdbId": "tt5687612",
-    "tmdbId": 5687612,
+    "tmdbId": 67070,
     "type": "series",
     "title": "Fleabag",
     "year": 2016,
@@ -87982,7 +91576,7 @@ const catalog = [
   {
     "id": "apple-99",
     "imdbId": "tt2401256",
-    "tmdbId": 2401256,
+    "tmdbId": 66276,
     "type": "series",
     "title": "The Night Of",
     "year": 2016,
@@ -88243,7 +91837,7 @@ const catalog = [
   {
     "id": "apple-100",
     "imdbId": "tt4179452",
-    "tmdbId": 4179452,
+    "tmdbId": 63333,
     "type": "series",
     "title": "The Last Kingdom",
     "year": 2015,
@@ -90320,15 +93914,39 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-1095",
-    "imdbId": "tt22285148",
+    "imdbId": "tt22248376",
     "tmdbId": 209867,
     "type": "series",
     "title": "Frieren: Beyond Journey's End",
@@ -90349,8 +93967,8 @@ const catalog = [
     "platformId": "crunchyroll",
     "platformBadge": "CRUNCHYROLL",
     "platformColor": "#F47521",
-    "poster": "https://images.metahub.space/poster/medium/tt22285148/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt22285148/img",
+    "poster": "https://images.metahub.space/poster/small/tt22248376/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt22248376/img",
     "description": "An immortal elf wizard journeys across a peaceful world, honoring her mortal companions' memories.",
     "cast": [
       "Atsumi Tanezaki",
@@ -90361,16 +93979,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-1097",
-    "imdbId": "tt21654360",
-    "tmdbId": 216543,
+    "imdbId": "tt21975436",
+    "tmdbId": 207468,
     "type": "series",
     "title": "Kaiju No. 8",
     "year": 2024,
@@ -90390,8 +94032,8 @@ const catalog = [
     "platformId": "crunchyroll",
     "platformBadge": "CRUNCHYROLL",
     "platformColor": "#F47521",
-    "poster": "https://images.metahub.space/poster/medium/tt21654360/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt21654360/img",
+    "poster": "https://images.metahub.space/poster/small/tt21975436/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt21975436/img",
     "description": "A 32-year-old monster corpse disposal worker absorbs a parasite that lets him transform into a humanoid Kaiju.",
     "cast": [
       "Masaya Fukunishi",
@@ -90402,16 +94044,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-1099",
-    "imdbId": "tt13917952",
-    "tmdbId": 153723,
+    "imdbId": "tt13911284",
+    "tmdbId": 117465,
     "type": "series",
     "title": "Hell's Paradise",
     "year": 2023,
@@ -90431,8 +94097,8 @@ const catalog = [
     "platformId": "crunchyroll",
     "platformBadge": "CRUNCHYROLL",
     "platformColor": "#F47521",
-    "poster": "https://images.metahub.space/poster/medium/tt13917952/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt13917952/img",
+    "poster": "https://images.metahub.space/poster/small/tt13911284/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt13911284/img",
     "description": "Gabimaru the Hollow sails with death row criminals to an island of immortal horrors in search of divine elixir.",
     "cast": [
       "Chiaki Kobayashi",
@@ -90443,16 +94109,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-1101",
     "imdbId": "tt10233448",
-    "tmdbId": 86326,
+    "tmdbId": 88803,
     "type": "series",
     "title": "Vinland Saga",
     "year": 2023,
@@ -90484,10 +94174,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90525,10 +94239,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90566,10 +94304,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90607,15 +94369,39 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-1109",
-    "imdbId": "tt1389072",
+    "imdbId": "tt1355642",
     "tmdbId": 31911,
     "type": "series",
     "title": "Fullmetal Alchemist: Brotherhood",
@@ -90636,8 +94422,8 @@ const catalog = [
     "platformId": "crunchyroll",
     "platformBadge": "CRUNCHYROLL",
     "platformColor": "#F47521",
-    "poster": "https://images.metahub.space/poster/medium/tt1389072/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt1389072/img",
+    "poster": "https://images.metahub.space/poster/small/tt1355642/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt1355642/img",
     "description": "Edward and Alphonse Elric seek the Philosopher's Stone to reverse a tragic human transmutation.",
     "cast": [
       "Romi Park",
@@ -90648,16 +94434,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-1111",
-    "imdbId": "tt15220302",
-    "tmdbId": 205562,
+    "imdbId": "tt15222080",
+    "tmdbId": 131041,
     "type": "series",
     "title": "Blue Lock",
     "year": 2024,
@@ -90677,8 +94487,8 @@ const catalog = [
     "platformId": "crunchyroll",
     "platformBadge": "CRUNCHYROLL",
     "platformColor": "#F47521",
-    "poster": "https://images.metahub.space/poster/medium/tt15220302/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt15220302/img",
+    "poster": "https://images.metahub.space/poster/small/tt15222080/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt15222080/img",
     "description": "Three hundred strikers fight in a prison training facility to forge Japan's ultimate egoist football striker.",
     "cast": [
       "Kazuki Ura",
@@ -90689,10 +94499,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90730,10 +94564,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90771,10 +94629,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90812,10 +94694,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90853,10 +94759,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90894,10 +94824,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90935,10 +94889,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -90976,10 +94954,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -91017,10 +95019,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -91058,16 +95084,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-8009",
     "imdbId": "tt1910272",
-    "tmdbId": 37854,
+    "tmdbId": 42509,
     "type": "series",
     "title": "Steins;Gate",
     "year": 2011,
@@ -91099,16 +95149,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-8011",
     "imdbId": "tt0994314",
-    "tmdbId": 31910,
+    "tmdbId": 31724,
     "type": "series",
     "title": "Code Geass: Lelouch of the Rebellion",
     "year": 2008,
@@ -91140,10 +95214,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -91181,16 +95279,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-8015",
     "imdbId": "tt13196080",
-    "tmdbId": 108978,
+    "tmdbId": 105009,
     "type": "series",
     "title": "Tokyo Revengers",
     "year": 2023,
@@ -91222,10 +95344,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -91263,10 +95409,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -91304,10 +95474,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -91345,10 +95539,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -91386,16 +95604,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "crunchyroll-32",
     "imdbId": "tt26581740",
-    "tmdbId": 2658174,
+    "tmdbId": 1078605,
     "type": "movie",
     "title": "Weapons",
     "year": 2025,
@@ -91470,7 +95712,7 @@ const catalog = [
   {
     "id": "crunchyroll-34",
     "imdbId": "tt35298123",
-    "tmdbId": 3529812,
+    "tmdbId": 1240889,
     "type": "movie",
     "title": "Teenage Sex and Death at Camp Miasma",
     "year": 2026,
@@ -91546,7 +95788,7 @@ const catalog = [
   {
     "id": "crunchyroll-36",
     "imdbId": "tt31434030",
-    "tmdbId": 3143403,
+    "tmdbId": 1246049,
     "type": "movie",
     "title": "Dracula",
     "year": 2026,
@@ -91622,7 +95864,7 @@ const catalog = [
   {
     "id": "crunchyroll-38",
     "imdbId": "tt34385135",
-    "tmdbId": 3438513,
+    "tmdbId": 1375646,
     "type": "movie",
     "title": "Colony",
     "year": 2026,
@@ -91774,7 +96016,7 @@ const catalog = [
   {
     "id": "crunchyroll-42",
     "imdbId": "tt27681354",
-    "tmdbId": 2768135,
+    "tmdbId": 1122573,
     "type": "movie",
     "title": "In the Grey",
     "year": 2026,
@@ -91850,7 +96092,7 @@ const catalog = [
   {
     "id": "crunchyroll-44",
     "imdbId": "tt37853455",
-    "tmdbId": 3785345,
+    "tmdbId": 1433367,
     "type": "movie",
     "title": "One Night Only",
     "year": 2026,
@@ -91926,7 +96168,7 @@ const catalog = [
   {
     "id": "crunchyroll-46",
     "imdbId": "tt33296751",
-    "tmdbId": 3329675,
+    "tmdbId": 1340206,
     "type": "movie",
     "title": "Tuner",
     "year": 2026,
@@ -92002,7 +96244,7 @@ const catalog = [
   {
     "id": "crunchyroll-48",
     "imdbId": "tt32547691",
-    "tmdbId": 3254769,
+    "tmdbId": 1318413,
     "type": "movie",
     "title": "Pressure",
     "year": 2026,
@@ -92078,7 +96320,7 @@ const catalog = [
   {
     "id": "crunchyroll-50",
     "imdbId": "tt29355505",
-    "tmdbId": 2935550,
+    "tmdbId": 1084244,
     "type": "movie",
     "title": "Toy Story 5",
     "year": 2026,
@@ -92229,7 +96471,7 @@ const catalog = [
   {
     "id": "crunchyroll-54",
     "imdbId": "tt31193180",
-    "tmdbId": 3119318,
+    "tmdbId": 1233413,
     "type": "movie",
     "title": "Sinners",
     "year": 2025,
@@ -92379,7 +96621,7 @@ const catalog = [
   {
     "id": "crunchyroll-58",
     "imdbId": "tt32565993",
-    "tmdbId": 3256599,
+    "tmdbId": 1301421,
     "type": "movie",
     "title": "The Sheep Detectives",
     "year": 2026,
@@ -93137,7 +97379,7 @@ const catalog = [
   {
     "id": "crunchyroll-78",
     "imdbId": "tt36429458",
-    "tmdbId": 3642945,
+    "tmdbId": 1458857,
     "type": "movie",
     "title": "Doing Life",
     "year": 2026,
@@ -93211,7 +97453,7 @@ const catalog = [
   {
     "id": "crunchyroll-80",
     "imdbId": "tt7784604",
-    "tmdbId": 7784604,
+    "tmdbId": 493922,
     "type": "movie",
     "title": "Hereditary",
     "year": 2018,
@@ -93439,7 +97681,7 @@ const catalog = [
   {
     "id": "crunchyroll-86",
     "imdbId": "tt8367814",
-    "tmdbId": 8367814,
+    "tmdbId": 522627,
     "type": "movie",
     "title": "The Gentlemen",
     "year": 2020,
@@ -93515,7 +97757,7 @@ const catalog = [
   {
     "id": "crunchyroll-88",
     "imdbId": "tt5177120",
-    "tmdbId": 5177120,
+    "tmdbId": 799583,
     "type": "movie",
     "title": "The Ministry of Ungentlemanly Warfare",
     "year": 2024,
@@ -93591,7 +97833,7 @@ const catalog = [
   {
     "id": "crunchyroll-90",
     "imdbId": "tt33071426",
-    "tmdbId": 3307142,
+    "tmdbId": 1325734,
     "type": "movie",
     "title": "The Drama",
     "year": 2026,
@@ -93893,7 +98135,7 @@ const catalog = [
   {
     "id": "crunchyroll-98",
     "imdbId": "tt8772262",
-    "tmdbId": 8772262,
+    "tmdbId": 530385,
     "type": "movie",
     "title": "Midsommar",
     "year": 2019,
@@ -94045,7 +98287,7 @@ const catalog = [
   {
     "id": "crunchyroll-102",
     "imdbId": "tt30825738",
-    "tmdbId": 3082573,
+    "tmdbId": 1228710,
     "type": "movie",
     "title": "Star Wars: The Mandalorian and Grogu",
     "year": 2026,
@@ -94197,7 +98439,7 @@ const catalog = [
   {
     "id": "crunchyroll-106",
     "imdbId": "tt7131622",
-    "tmdbId": 7131622,
+    "tmdbId": 466272,
     "type": "movie",
     "title": "Once Upon a Time in... Hollywood",
     "year": 2019,
@@ -94348,7 +98590,7 @@ const catalog = [
   {
     "id": "crunchyroll-110",
     "imdbId": "tt33095251",
-    "tmdbId": 3309525,
+    "tmdbId": 1329016,
     "type": "movie",
     "title": "Tony",
     "year": 2026,
@@ -94728,7 +98970,7 @@ const catalog = [
   {
     "id": "crunchyroll-120",
     "imdbId": "tt31514146",
-    "tmdbId": 3151414,
+    "tmdbId": 1317149,
     "type": "movie",
     "title": "I Swear",
     "year": 2026,
@@ -94803,7 +99045,7 @@ const catalog = [
   {
     "id": "crunchyroll-122",
     "imdbId": "tt33100314",
-    "tmdbId": 3310031,
+    "tmdbId": 1330021,
     "type": "movie",
     "title": "Remarkably Bright Creatures",
     "year": 2026,
@@ -95104,7 +99346,7 @@ const catalog = [
   {
     "id": "crunchyroll-130",
     "imdbId": "tt30144839",
-    "tmdbId": 3014483,
+    "tmdbId": 1054867,
     "type": "movie",
     "title": "One Battle After Another",
     "year": 2025,
@@ -95254,7 +99496,7 @@ const catalog = [
   {
     "id": "crunchyroll-134",
     "imdbId": "tt28015403",
-    "tmdbId": 2801540,
+    "tmdbId": 1138194,
     "type": "movie",
     "title": "Heretic",
     "year": 2024,
@@ -95481,7 +99723,7 @@ const catalog = [
   {
     "id": "crunchyroll-86",
     "imdbId": "tt23734948",
-    "tmdbId": 2373494,
+    "tmdbId": 235685,
     "type": "series",
     "title": "The Pendragon Cycle: Rise of the Merlin",
     "year": 2026,
@@ -96262,7 +100504,7 @@ const catalog = [
   {
     "id": "crunchyroll-89",
     "imdbId": "tt5574490",
-    "tmdbId": 5574490,
+    "tmdbId": 66025,
     "type": "series",
     "title": "Animal Kingdom",
     "year": 2016,
@@ -96782,7 +101024,7 @@ const catalog = [
   {
     "id": "crunchyroll-91",
     "imdbId": "tt7472896",
-    "tmdbId": 7472896,
+    "tmdbId": 81358,
     "type": "series",
     "title": "Mr Inbetween",
     "year": 2018,
@@ -97043,7 +101285,7 @@ const catalog = [
   {
     "id": "crunchyroll-92",
     "imdbId": "tt3107288",
-    "tmdbId": 3107288,
+    "tmdbId": 60735,
     "type": "series",
     "title": "The Flash",
     "year": 2014,
@@ -97304,7 +101546,7 @@ const catalog = [
   {
     "id": "crunchyroll-93",
     "imdbId": "tt21906238",
-    "tmdbId": 2190623,
+    "tmdbId": 208921,
     "type": "series",
     "title": "Rivals",
     "year": 2024,
@@ -97564,7 +101806,7 @@ const catalog = [
   {
     "id": "crunchyroll-94",
     "imdbId": "tt32159809",
-    "tmdbId": 3215980,
+    "tmdbId": 253941,
     "type": "series",
     "title": "The Paper",
     "year": 2025,
@@ -97824,7 +102066,7 @@ const catalog = [
   {
     "id": "crunchyroll-95",
     "imdbId": "tt38553367",
-    "tmdbId": 3855336,
+    "tmdbId": 303351,
     "type": "series",
     "title": "Blood Sacrifice",
     "year": 2026,
@@ -98346,7 +102588,7 @@ const catalog = [
   {
     "id": "crunchyroll-97",
     "imdbId": "tt37352716",
-    "tmdbId": 3735271,
+    "tmdbId": 309798,
     "type": "series",
     "title": "My Brilliant Career",
     "year": 2026,
@@ -100440,10 +104682,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100481,10 +104747,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100522,10 +104812,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100563,10 +104877,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100604,10 +104942,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100645,10 +105007,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100686,10 +105072,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100727,10 +105137,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100768,10 +105202,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100809,10 +105267,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100850,10 +105332,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -100891,10 +105397,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -101124,7 +105654,7 @@ const catalog = [
   {
     "id": "paramount-24",
     "imdbId": "tt8036976",
-    "tmdbId": 8036976,
+    "tmdbId": 1198994,
     "type": "movie",
     "title": "Send Help",
     "year": 2026,
@@ -101200,7 +105730,7 @@ const catalog = [
   {
     "id": "paramount-26",
     "imdbId": "tt5606664",
-    "tmdbId": 5606664,
+    "tmdbId": 501170,
     "type": "movie",
     "title": "Doctor Sleep",
     "year": 2019,
@@ -101502,7 +106032,7 @@ const catalog = [
   {
     "id": "paramount-34",
     "imdbId": "tt32897959",
-    "tmdbId": 3289795,
+    "tmdbId": 1316092,
     "type": "movie",
     "title": "Wuthering Heights",
     "year": 2026,
@@ -101726,7 +106256,7 @@ const catalog = [
   {
     "id": "paramount-40",
     "imdbId": "tt6751668",
-    "tmdbId": 6751668,
+    "tmdbId": 496243,
     "type": "movie",
     "title": "Parasite",
     "year": 2019,
@@ -101953,7 +106483,7 @@ const catalog = [
   {
     "id": "paramount-46",
     "imdbId": "tt28607951",
-    "tmdbId": 2860795,
+    "tmdbId": 1064213,
     "type": "movie",
     "title": "Anora",
     "year": 2024,
@@ -102029,7 +106559,7 @@ const catalog = [
   {
     "id": "paramount-48",
     "imdbId": "tt2267998",
-    "tmdbId": 2267998,
+    "tmdbId": 210577,
     "type": "movie",
     "title": "Gone Girl",
     "year": 2014,
@@ -102181,7 +106711,7 @@ const catalog = [
   {
     "id": "paramount-52",
     "imdbId": "tt5040012",
-    "tmdbId": 5040012,
+    "tmdbId": 426063,
     "type": "movie",
     "title": "Nosferatu",
     "year": 2024,
@@ -102257,7 +106787,7 @@ const catalog = [
   {
     "id": "paramount-54",
     "imdbId": "tt5950044",
-    "tmdbId": 5950044,
+    "tmdbId": 800788,
     "type": "movie",
     "title": "Superman",
     "year": 2025,
@@ -102635,7 +107165,7 @@ const catalog = [
   {
     "id": "paramount-64",
     "imdbId": "tt32141377",
-    "tmdbId": 3214137,
+    "tmdbId": 1272837,
     "type": "movie",
     "title": "28 Years Later: The Bone Temple",
     "year": 2026,
@@ -102711,7 +107241,7 @@ const catalog = [
   {
     "id": "paramount-66",
     "imdbId": "tt5052448",
-    "tmdbId": 5052448,
+    "tmdbId": 419430,
     "type": "movie",
     "title": "Get Out",
     "year": 2017,
@@ -102787,7 +107317,7 @@ const catalog = [
   {
     "id": "paramount-68",
     "imdbId": "tt4550098",
-    "tmdbId": 4550098,
+    "tmdbId": 340666,
     "type": "movie",
     "title": "Nocturnal Animals",
     "year": 2016,
@@ -102862,7 +107392,7 @@ const catalog = [
   {
     "id": "paramount-70",
     "imdbId": "tt44822485",
-    "tmdbId": 4482248,
+    "tmdbId": 1620918,
     "type": "movie",
     "title": "Norm: The Tale of Norm MacDonald",
     "year": 2026,
@@ -102935,7 +107465,7 @@ const catalog = [
   {
     "id": "paramount-72",
     "imdbId": "tt2582802",
-    "tmdbId": 2582802,
+    "tmdbId": 244786,
     "type": "movie",
     "title": "Whiplash",
     "year": 2014,
@@ -103083,7 +107613,7 @@ const catalog = [
   {
     "id": "paramount-76",
     "imdbId": "tt32642706",
-    "tmdbId": 3264270,
+    "tmdbId": 1306368,
     "type": "movie",
     "title": "The Rip",
     "year": 2026,
@@ -103537,7 +108067,7 @@ const catalog = [
   {
     "id": "paramount-88",
     "imdbId": "tt20969586",
-    "tmdbId": 2096958,
+    "tmdbId": 986056,
     "type": "movie",
     "title": "Thunderbolts*",
     "year": 2025,
@@ -104068,7 +108598,7 @@ const catalog = [
   {
     "id": "paramount-102",
     "imdbId": "tt32612507",
-    "tmdbId": 3261250,
+    "tmdbId": 1304313,
     "type": "movie",
     "title": "Lee Cronin's The Mummy",
     "year": 2026,
@@ -104294,7 +108824,7 @@ const catalog = [
   {
     "id": "paramount-108",
     "imdbId": "tt32430579",
-    "tmdbId": 3243057,
+    "tmdbId": 1171145,
     "type": "movie",
     "title": "Crime 101",
     "year": 2026,
@@ -104370,7 +108900,7 @@ const catalog = [
   {
     "id": "paramount-110",
     "imdbId": "tt33612209",
-    "tmdbId": 3361220,
+    "tmdbId": 1314481,
     "type": "movie",
     "title": "The Devil Wears Prada 2",
     "year": 2026,
@@ -104445,7 +108975,7 @@ const catalog = [
   {
     "id": "paramount-112",
     "imdbId": "tt31195136",
-    "tmdbId": 3119513,
+    "tmdbId": 1242332,
     "type": "movie",
     "title": "Normal",
     "year": 2026,
@@ -104672,7 +109202,7 @@ const catalog = [
   {
     "id": "paramount-118",
     "imdbId": "tt9620292",
-    "tmdbId": 9620292,
+    "tmdbId": 582014,
     "type": "movie",
     "title": "Promising Young Woman",
     "year": 2020,
@@ -104899,7 +109429,7 @@ const catalog = [
   {
     "id": "paramount-124",
     "imdbId": "tt33978029",
-    "tmdbId": 3397802,
+    "tmdbId": 1266127,
     "type": "movie",
     "title": "Ready or Not 2: Here I Come",
     "year": 2026,
@@ -105202,7 +109732,7 @@ const catalog = [
   {
     "id": "paramount-132",
     "imdbId": "tt8879928",
-    "tmdbId": 8879928,
+    "tmdbId": 696393,
     "type": "movie",
     "title": "Cold Storage",
     "year": 2026,
@@ -105278,7 +109808,7 @@ const catalog = [
   {
     "id": "paramount-134",
     "imdbId": "tt26584495",
-    "tmdbId": 2658449,
+    "tmdbId": 1084199,
     "type": "movie",
     "title": "Companion",
     "year": 2025,
@@ -105429,7 +109959,7 @@ const catalog = [
   {
     "id": "paramount-138",
     "imdbId": "tt2395427",
-    "tmdbId": 2395427,
+    "tmdbId": 99861,
     "type": "movie",
     "title": "Avengers: Age of Ultron",
     "year": 2015,
@@ -105505,7 +110035,7 @@ const catalog = [
   {
     "id": "paramount-140",
     "imdbId": "tt5022702",
-    "tmdbId": 5022702,
+    "tmdbId": 376570,
     "type": "movie",
     "title": "Hush",
     "year": 2016,
@@ -105807,7 +110337,7 @@ const catalog = [
   {
     "id": "paramount-148",
     "imdbId": "tt2388715",
-    "tmdbId": 2388715,
+    "tmdbId": 157547,
     "type": "movie",
     "title": "Oculus",
     "year": 2014,
@@ -106035,7 +110565,7 @@ const catalog = [
   {
     "id": "paramount-86",
     "imdbId": "tt2303687",
-    "tmdbId": 2303687,
+    "tmdbId": 43982,
     "type": "series",
     "title": "Line of Duty",
     "year": 2012,
@@ -106296,7 +110826,7 @@ const catalog = [
   {
     "id": "paramount-87",
     "imdbId": "tt2583620",
-    "tmdbId": 2583620,
+    "tmdbId": 83135,
     "type": "series",
     "title": "The Twilight Zone",
     "year": 2019,
@@ -106557,7 +111087,7 @@ const catalog = [
   {
     "id": "paramount-88",
     "imdbId": "tt28013708",
-    "tmdbId": 2801370,
+    "tmdbId": 228305,
     "type": "series",
     "title": "Task",
     "year": 2025,
@@ -106818,7 +111348,7 @@ const catalog = [
   {
     "id": "paramount-89",
     "imdbId": "tt6111130",
-    "tmdbId": 6111130,
+    "tmdbId": 71790,
     "type": "series",
     "title": "S.W.A.T.",
     "year": 2017,
@@ -107079,7 +111609,7 @@ const catalog = [
   {
     "id": "paramount-90",
     "imdbId": "tt5024912",
-    "tmdbId": 5024912,
+    "tmdbId": 67883,
     "type": "series",
     "title": "Insecure",
     "year": 2016,
@@ -107600,7 +112130,7 @@ const catalog = [
   {
     "id": "paramount-92",
     "imdbId": "tt2661044",
-    "tmdbId": 2661044,
+    "tmdbId": 48866,
     "type": "series",
     "title": "The 100",
     "year": 2014,
@@ -107861,7 +112391,7 @@ const catalog = [
   {
     "id": "paramount-93",
     "imdbId": "tt5555260",
-    "tmdbId": 5555260,
+    "tmdbId": 67136,
     "type": "series",
     "title": "This Is Us",
     "year": 2016,
@@ -108383,7 +112913,7 @@ const catalog = [
   {
     "id": "paramount-95",
     "imdbId": "tt34385331",
-    "tmdbId": 3438533,
+    "tmdbId": 206828,
     "type": "series",
     "title": "DTF St. Louis",
     "year": 2026,
@@ -108903,7 +113433,7 @@ const catalog = [
   {
     "id": "paramount-97",
     "imdbId": "tt2249364",
-    "tmdbId": 2249364,
+    "tmdbId": 266398,
     "type": "series",
     "title": "Broadchurch",
     "year": 2013,
@@ -109425,7 +113955,7 @@ const catalog = [
   {
     "id": "paramount-99",
     "imdbId": "tt33035373",
-    "tmdbId": 3303537,
+    "tmdbId": 259731,
     "type": "series",
     "title": "His & Hers",
     "year": 2026,
@@ -110723,7 +115253,7 @@ const catalog = [
     "platformId": "hulu",
     "platformBadge": "HULU",
     "platformColor": "#1CE783",
-    "poster": "https://m.media-amazon.com/images/M/MV5BMWIxMzk4NmItZmM1YS00ODUyLWFlNjgtZDQ4MzljZTZmZDQ5XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt5834204/img",
     "backdrop": "https://images.metahub.space/background/medium/tt5834204/img",
     "description": "Set in a dystopian future, a woman is forced to live as a concubine under a fundamentalist theocratic dictatorship.",
     "cast": [
@@ -111317,10 +115847,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111358,10 +115912,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111397,16 +115975,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "hulu-2034",
     "imdbId": "tt13623580",
-    "tmdbId": 115003,
+    "tmdbId": 95215,
     "type": "series",
     "title": "Reservation Dogs",
     "year": 2023,
@@ -111438,10 +116040,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111479,10 +116105,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111520,10 +116170,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111561,10 +116235,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111602,10 +116300,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111643,10 +116365,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111684,10 +116430,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111724,10 +116494,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111765,10 +116559,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -111805,16 +116623,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "hulu-19",
     "imdbId": "tt3397884",
-    "tmdbId": 3397884,
+    "tmdbId": 273481,
     "type": "movie",
     "title": "Sicario",
     "year": 2015,
@@ -111965,7 +116807,7 @@ const catalog = [
   {
     "id": "hulu-23",
     "imdbId": "tt39143902",
-    "tmdbId": 3914390,
+    "tmdbId": 1564614,
     "type": "movie",
     "title": "Leviticus",
     "year": 2026,
@@ -112343,7 +117185,7 @@ const catalog = [
   {
     "id": "hulu-33",
     "imdbId": "tt2250912",
-    "tmdbId": 2250912,
+    "tmdbId": 315635,
     "type": "movie",
     "title": "Spider-Man: Homecoming",
     "year": 2017,
@@ -112495,7 +117337,7 @@ const catalog = [
   {
     "id": "hulu-37",
     "imdbId": "tt2866360",
-    "tmdbId": 2866360,
+    "tmdbId": 220289,
     "type": "movie",
     "title": "Coherence",
     "year": 2014,
@@ -112571,7 +117413,7 @@ const catalog = [
   {
     "id": "hulu-39",
     "imdbId": "tt7798634",
-    "tmdbId": 7798634,
+    "tmdbId": 567609,
     "type": "movie",
     "title": "Ready or Not",
     "year": 2019,
@@ -112873,7 +117715,7 @@ const catalog = [
   {
     "id": "hulu-47",
     "imdbId": "tt32916440",
-    "tmdbId": 3291644,
+    "tmdbId": 1317288,
     "type": "movie",
     "title": "Marty Supreme",
     "year": 2025,
@@ -113176,7 +118018,7 @@ const catalog = [
   {
     "id": "hulu-55",
     "imdbId": "tt29567915",
-    "tmdbId": 2956791,
+    "tmdbId": 1214931,
     "type": "movie",
     "title": "Nuremberg",
     "year": 2025,
@@ -113554,7 +118396,7 @@ const catalog = [
   {
     "id": "hulu-65",
     "imdbId": "tt4263482",
-    "tmdbId": 4263482,
+    "tmdbId": 310131,
     "type": "movie",
     "title": "The Witch",
     "year": 2016,
@@ -114085,7 +118927,7 @@ const catalog = [
   {
     "id": "hulu-79",
     "imdbId": "tt32890033",
-    "tmdbId": 3289003,
+    "tmdbId": 1315772,
     "type": "movie",
     "title": "Minions & Monsters",
     "year": 2026,
@@ -114161,7 +119003,7 @@ const catalog = [
   {
     "id": "hulu-81",
     "imdbId": "tt28650488",
-    "tmdbId": 2865048,
+    "tmdbId": 1226863,
     "type": "movie",
     "title": "The Super Mario Galaxy Movie",
     "year": 2026,
@@ -114313,7 +119155,7 @@ const catalog = [
   {
     "id": "hulu-85",
     "imdbId": "tt9362722",
-    "tmdbId": 9362722,
+    "tmdbId": 569094,
     "type": "movie",
     "title": "Spider-Man: Across the Spider-Verse",
     "year": 2023,
@@ -114389,7 +119231,7 @@ const catalog = [
   {
     "id": "hulu-87",
     "imdbId": "tt4633694",
-    "tmdbId": 4633694,
+    "tmdbId": 324857,
     "type": "movie",
     "title": "Spider-Man: Into the Spider-Verse",
     "year": 2018,
@@ -114541,7 +119383,7 @@ const catalog = [
   {
     "id": "hulu-91",
     "imdbId": "tt32820897",
-    "tmdbId": 3282089,
+    "tmdbId": 1311031,
     "type": "movie",
     "title": "Demon Slayer: Kimetsu No Yaiba Infinity Castle",
     "year": 2025,
@@ -114617,7 +119459,7 @@ const catalog = [
   {
     "id": "hulu-93",
     "imdbId": "tt26443616",
-    "tmdbId": 2644361,
+    "tmdbId": 1327819,
     "type": "movie",
     "title": "Hoppers",
     "year": 2026,
@@ -114769,7 +119611,7 @@ const catalog = [
   {
     "id": "hulu-97",
     "imdbId": "tt32333324",
-    "tmdbId": 3233332,
+    "tmdbId": 1560520,
     "type": "movie",
     "title": "Batman: Knightfall - Part 1: Knightfall",
     "year": 2026,
@@ -114997,7 +119839,7 @@ const catalog = [
   {
     "id": "hulu-103",
     "imdbId": "tt29623480",
-    "tmdbId": 2962348,
+    "tmdbId": 1184918,
     "type": "movie",
     "title": "The Wild Robot",
     "year": 2024,
@@ -115149,7 +119991,7 @@ const catalog = [
   {
     "id": "hulu-107",
     "imdbId": "tt26443597",
-    "tmdbId": 2644359,
+    "tmdbId": 1084242,
     "type": "movie",
     "title": "Zootopia 2",
     "year": 2025,
@@ -115301,7 +120143,7 @@ const catalog = [
   {
     "id": "hulu-111",
     "imdbId": "tt29356163",
-    "tmdbId": 2935616,
+    "tmdbId": 1185806,
     "type": "movie",
     "title": "PAW Patrol: The Dino Movie",
     "year": 2026,
@@ -115985,7 +120827,7 @@ const catalog = [
   {
     "id": "hulu-129",
     "imdbId": "tt27613895",
-    "tmdbId": 2761389,
+    "tmdbId": 1297842,
     "type": "movie",
     "title": "GOAT",
     "year": 2026,
@@ -116213,7 +121055,7 @@ const catalog = [
   {
     "id": "hulu-135",
     "imdbId": "tt8864596",
-    "tmdbId": 8864596,
+    "tmdbId": 698687,
     "type": "movie",
     "title": "Transformers One",
     "year": 2024,
@@ -116365,7 +121207,7 @@ const catalog = [
   {
     "id": "hulu-139",
     "imdbId": "tt33175825",
-    "tmdbId": 3317582,
+    "tmdbId": 1333100,
     "type": "movie",
     "title": "Attack on Titan: The Last Attack",
     "year": 2024,
@@ -116745,7 +121587,7 @@ const catalog = [
   {
     "id": "hulu-149",
     "imdbId": "tt2096673",
-    "tmdbId": 2096673,
+    "tmdbId": 150540,
     "type": "movie",
     "title": "Inside Out",
     "year": 2015,
@@ -116821,7 +121663,7 @@ const catalog = [
   {
     "id": "hulu-151",
     "imdbId": "tt3915174",
-    "tmdbId": 3915174,
+    "tmdbId": 315162,
     "type": "movie",
     "title": "Puss in Boots: The Last Wish",
     "year": 2022,
@@ -117156,7 +121998,7 @@ const catalog = [
   {
     "id": "hulu-87",
     "imdbId": "tt2193021",
-    "tmdbId": 2193021,
+    "tmdbId": 1412,
     "type": "series",
     "title": "Arrow",
     "year": 2012,
@@ -117938,7 +122780,7 @@ const catalog = [
   {
     "id": "hulu-90",
     "imdbId": "tt30494226",
-    "tmdbId": 3049422,
+    "tmdbId": 241882,
     "type": "series",
     "title": "Ride or Die",
     "year": 2026,
@@ -118199,7 +123041,7 @@ const catalog = [
   {
     "id": "hulu-91",
     "imdbId": "tt3960394",
-    "tmdbId": 3960394,
+    "tmdbId": 128098,
     "type": "series",
     "title": "Interview with the Vampire",
     "year": 2022,
@@ -118460,7 +123302,7 @@ const catalog = [
   {
     "id": "hulu-92",
     "imdbId": "tt3526078",
-    "tmdbId": 3526078,
+    "tmdbId": 61662,
     "type": "series",
     "title": "Schitt's Creek",
     "year": 2015,
@@ -118980,7 +123822,7 @@ const catalog = [
   {
     "id": "hulu-94",
     "imdbId": "tt2707408",
-    "tmdbId": 2707408,
+    "tmdbId": 63351,
     "type": "series",
     "title": "Narcos",
     "year": 2015,
@@ -119241,7 +124083,7 @@ const catalog = [
   {
     "id": "hulu-95",
     "imdbId": "tt39368345",
-    "tmdbId": 3936834,
+    "tmdbId": 305644,
     "type": "series",
     "title": "Four Hands, Two Sonatas",
     "year": 2026,
@@ -119501,7 +124343,7 @@ const catalog = [
   {
     "id": "hulu-96",
     "imdbId": "tt8550800",
-    "tmdbId": 8550800,
+    "tmdbId": 84661,
     "type": "series",
     "title": "The Outsider",
     "year": 2020,
@@ -119762,7 +124604,7 @@ const catalog = [
   {
     "id": "hulu-97",
     "imdbId": "tt38856763",
-    "tmdbId": 3885676,
+    "tmdbId": 296520,
     "type": "series",
     "title": "Cooper & Fry",
     "year": 2025,
@@ -120282,7 +125124,7 @@ const catalog = [
   {
     "id": "hulu-99",
     "imdbId": "tt3914054",
-    "tmdbId": 3914054,
+    "tmdbId": 215522,
     "type": "series",
     "title": "We Were Liars",
     "year": 2025,
@@ -122438,7 +127280,7 @@ const catalog = [
     "platformId": "peacock",
     "platformBadge": "PEACOCK",
     "platformColor": "#F7A800",
-    "poster": "https://m.media-amazon.com/images/M/MV5BNDA1NDVjNGMtZjFiZS00YjNiLWEwNTUtNTcyMGIxMTE1ZGY3XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt14261112/img",
     "backdrop": "https://images.metahub.space/background/medium/tt14261112/img",
     "description": "A motor-mouthed outsider with no memory of his past is offered a chance at a better life, but only if he can successfully deliver a mysterious parcel across a post-apocalyptic wasteland.",
     "cast": [
@@ -122687,10 +127529,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -122728,10 +127594,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -122768,10 +127658,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -122808,10 +127722,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -122847,10 +127785,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -122887,10 +127849,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -122928,10 +127914,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -122969,10 +127979,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -123010,16 +128044,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "peacock-8031",
     "imdbId": "tt14824792",
-    "tmdbId": 157080,
+    "tmdbId": 201834,
     "type": "series",
     "title": "Ted",
     "year": 2024,
@@ -123049,10 +128107,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -123090,10 +128172,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -123131,10 +128237,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -123171,10 +128301,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -123211,10 +128365,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "es",
-      "fr",
-      "de"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "de",
+        "name": "German Dubbed",
+        "flag": "🇩🇪",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -123252,10 +128430,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -124246,7 +129448,7 @@ const catalog = [
   {
     "id": "peacock-46",
     "imdbId": "tt2543164",
-    "tmdbId": 2543164,
+    "tmdbId": 329865,
     "type": "movie",
     "title": "Arrival",
     "year": 2016,
@@ -125004,7 +130206,7 @@ const catalog = [
   {
     "id": "peacock-66",
     "imdbId": "tt6644200",
-    "tmdbId": 6644200,
+    "tmdbId": 447332,
     "type": "movie",
     "title": "A Quiet Place",
     "year": 2018,
@@ -125340,8 +130542,8 @@ const catalog = [
   },
   {
     "id": "peacock-45",
-    "imdbId": "tt12920674",
-    "tmdbId": 1292067,
+    "imdbId": "tt12878838",
+    "tmdbId": 107365,
     "type": "series",
     "title": "Bel-Air",
     "year": 2024,
@@ -126378,8 +131580,8 @@ const catalog = [
   },
   {
     "id": "peacock-49",
-    "imdbId": "tt11680326",
-    "tmdbId": 1168032,
+    "imdbId": "tt11621710",
+    "tmdbId": 107314,
     "type": "series",
     "title": "MacGruber",
     "year": 2021,
@@ -126638,7 +131840,7 @@ const catalog = [
   {
     "id": "peacock-50",
     "imdbId": "tt15679400",
-    "tmdbId": 1567940,
+    "tmdbId": 631842,
     "type": "movie",
     "title": "Knock at the Cabin",
     "year": 2023,
@@ -126713,7 +131915,7 @@ const catalog = [
   {
     "id": "peacock-51",
     "imdbId": "tt11358390",
-    "tmdbId": 1135839,
+    "tmdbId": 649609,
     "type": "movie",
     "title": "Renfield",
     "year": 2023,
@@ -127010,7 +132212,7 @@ const catalog = [
   {
     "id": "peacock-55",
     "imdbId": "tt21692408",
-    "tmdbId": 2169240,
+    "tmdbId": 1011985,
     "type": "movie",
     "title": "Kung Fu Panda 4",
     "year": 2024,
@@ -127085,7 +132287,7 @@ const catalog = [
   {
     "id": "peacock-56",
     "imdbId": "tt7510222",
-    "tmdbId": 7510222,
+    "tmdbId": 519182,
     "type": "movie",
     "title": "Despicable Me 4",
     "year": 2024,
@@ -127235,7 +132437,7 @@ const catalog = [
   {
     "id": "peacock-58",
     "imdbId": "tt27489557",
-    "tmdbId": 2748955,
+    "tmdbId": 1111873,
     "type": "movie",
     "title": "Abigail",
     "year": 2024,
@@ -127309,7 +132511,7 @@ const catalog = [
   {
     "id": "peacock-59",
     "imdbId": "tt9214772",
-    "tmdbId": 9214772,
+    "tmdbId": 560016,
     "type": "movie",
     "title": "Monkey Man",
     "year": 2024,
@@ -127458,7 +132660,7 @@ const catalog = [
   {
     "id": "peacock-61",
     "imdbId": "tt32246771",
-    "tmdbId": 3224677,
+    "tmdbId": 1151031,
     "type": "movie",
     "title": "Bring Her Back",
     "year": 2025,
@@ -127760,7 +132962,7 @@ const catalog = [
   {
     "id": "peacock-65",
     "imdbId": "tt2935510",
-    "tmdbId": 2935510,
+    "tmdbId": 419704,
     "type": "movie",
     "title": "Ad Astra",
     "year": 2019,
@@ -128097,7 +133299,7 @@ const catalog = [
   {
     "id": "peacock-67",
     "imdbId": "tt32420734",
-    "tmdbId": 3242073,
+    "tmdbId": 254953,
     "type": "series",
     "title": "Rooster",
     "year": 2026,
@@ -128878,7 +134080,7 @@ const catalog = [
   {
     "id": "peacock-70",
     "imdbId": "tt27950663",
-    "tmdbId": 2795066,
+    "tmdbId": 228079,
     "type": "series",
     "title": "The Marlow Murder Club",
     "year": 2024,
@@ -129920,7 +135122,7 @@ const catalog = [
   {
     "id": "peacock-74",
     "imdbId": "tt32937780",
-    "tmdbId": 3293778,
+    "tmdbId": 259265,
     "type": "series",
     "title": "Something Very Bad Is Going to Happen",
     "year": 2026,
@@ -130181,7 +135383,7 @@ const catalog = [
   {
     "id": "peacock-75",
     "imdbId": "tt8201186",
-    "tmdbId": 8201186,
+    "tmdbId": 93166,
     "type": "series",
     "title": "The Capture",
     "year": 2019,
@@ -130964,7 +136166,7 @@ const catalog = [
   {
     "id": "peacock-78",
     "imdbId": "tt31137273",
-    "tmdbId": 3113727,
+    "tmdbId": 245318,
     "type": "series",
     "title": "Margo's Got Money Troubles",
     "year": 2026,
@@ -132266,7 +137468,7 @@ const catalog = [
   {
     "id": "peacock-83",
     "imdbId": "tt37022512",
-    "tmdbId": 3702251,
+    "tmdbId": 273866,
     "type": "series",
     "title": "The Other Bennet Sister",
     "year": 2026,
@@ -132526,7 +137728,7 @@ const catalog = [
   {
     "id": "peacock-84",
     "imdbId": "tt2632424",
-    "tmdbId": 2632424,
+    "tmdbId": 46896,
     "type": "series",
     "title": "The Originals",
     "year": 2013,
@@ -132787,7 +137989,7 @@ const catalog = [
   {
     "id": "peacock-85",
     "imdbId": "tt35946742",
-    "tmdbId": 3594674,
+    "tmdbId": 285404,
     "type": "series",
     "title": "Maximum Pleasure Guaranteed",
     "year": 2026,
@@ -133570,7 +138772,7 @@ const catalog = [
   {
     "id": "peacock-88",
     "imdbId": "tt9698442",
-    "tmdbId": 9698442,
+    "tmdbId": 97173,
     "type": "series",
     "title": "Behind Her Eyes",
     "year": 2021,
@@ -133831,7 +139033,7 @@ const catalog = [
   {
     "id": "peacock-89",
     "imdbId": "tt5420376",
-    "tmdbId": 5420376,
+    "tmdbId": 69050,
     "type": "series",
     "title": "Riverdale",
     "year": 2017,
@@ -134092,7 +139294,7 @@ const catalog = [
   {
     "id": "peacock-90",
     "imdbId": "tt35587659",
-    "tmdbId": 3558765,
+    "tmdbId": 283151,
     "type": "series",
     "title": "The Five-Star Weekend",
     "year": 2026,
@@ -134351,7 +139553,7 @@ const catalog = [
   {
     "id": "peacock-91",
     "imdbId": "tt4955642",
-    "tmdbId": 4955642,
+    "tmdbId": 66573,
     "type": "series",
     "title": "The Good Place",
     "year": 2016,
@@ -135133,7 +140335,7 @@ const catalog = [
   {
     "id": "peacock-94",
     "imdbId": "tt26576161",
-    "tmdbId": 2657616,
+    "tmdbId": 219760,
     "type": "series",
     "title": "The Terminal List: Dark Wolf",
     "year": 2025,
@@ -135394,7 +140596,7 @@ const catalog = [
   {
     "id": "peacock-95",
     "imdbId": "tt31314751",
-    "tmdbId": 3131475,
+    "tmdbId": 246386,
     "type": "series",
     "title": "All Her Fault",
     "year": 2025,
@@ -135916,7 +141118,7 @@ const catalog = [
   {
     "id": "peacock-97",
     "imdbId": "tt8690918",
-    "tmdbId": 8690918,
+    "tmdbId": 96580,
     "type": "series",
     "title": "Resident Alien",
     "year": 2021,
@@ -136436,7 +141638,7 @@ const catalog = [
   {
     "id": "peacock-99",
     "imdbId": "tt31806037",
-    "tmdbId": 3180603,
+    "tmdbId": 249042,
     "type": "series",
     "title": "Adolescence",
     "year": 2025,
@@ -137293,7 +142495,7 @@ const catalog = [
   {
     "id": "sony-3",
     "imdbId": "tt10530900",
-    "tmdbId": 90040,
+    "tmdbId": 90966,
     "type": "series",
     "title": "Gullak",
     "year": 2024,
@@ -137541,7 +142743,7 @@ const catalog = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://m.media-amazon.com/images/M/MV5BNGYxNGQ2OTMtNDM4Yi00OGVmLTliOTktNjNhMmUyODhmOGQ0XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt14420552/img",
     "backdrop": "https://images.metahub.space/background/medium/tt14420552/img",
     "description": "An illiterate homemaker is thrust into the turbulent political arena of Bihar when she is unexpectedly named the Chief Minister.",
     "cast": [
@@ -137819,10 +143021,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -137860,10 +143086,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -137901,10 +143151,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -137942,10 +143216,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -137983,10 +143281,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138023,10 +143345,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138064,10 +143410,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138105,10 +143475,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138144,10 +143538,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138185,16 +143603,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "sonyliv-5046",
-    "imdbId": "tt9071068",
-    "tmdbId": 89012,
+    "imdbId": "tt8809646",
+    "tmdbId": 84150,
     "type": "series",
     "title": "College Romance",
     "year": 2023,
@@ -138226,10 +143668,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138267,10 +143733,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138308,10 +143798,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138349,10 +143863,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -138390,10 +143928,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -139957,8 +145519,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-26",
-    "imdbId": "tt10344442",
-    "tmdbId": 1034444,
+    "imdbId": "tt7441984",
+    "tmdbId": 108681,
     "type": "series",
     "title": "JL50",
     "year": 2020,
@@ -140477,8 +146039,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-28",
-    "imdbId": "tt14389034",
-    "tmdbId": 1438903,
+    "imdbId": "tt30422566",
+    "tmdbId": 234590,
     "type": "series",
     "title": "Kathmandu Connection",
     "year": 2022,
@@ -140996,8 +146558,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-30",
-    "imdbId": "tt8978184",
-    "tmdbId": 8978184,
+    "imdbId": "tt8809646",
+    "tmdbId": 84150,
     "type": "series",
     "title": "College Romance",
     "year": 2023,
@@ -141514,8 +147076,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-32",
-    "imdbId": "tt23871650",
-    "tmdbId": 2387165,
+    "imdbId": "tt15232564",
+    "tmdbId": 131142,
     "type": "series",
     "title": "Faadu: A Love Story",
     "year": 2022,
@@ -141773,8 +147335,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-33",
-    "imdbId": "tt26233488",
-    "tmdbId": 2623348,
+    "imdbId": "tt0479846",
+    "tmdbId": 45789,
     "type": "series",
     "title": "Jehanabad - Of Love & War",
     "year": 2023,
@@ -142033,8 +147595,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-34",
-    "imdbId": "tt22783852",
-    "tmdbId": 2278385,
+    "imdbId": "tt21916016",
+    "tmdbId": 204074,
     "type": "series",
     "title": "Tanaav",
     "year": 2024,
@@ -142553,8 +148115,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-36",
-    "imdbId": "tt30030018",
-    "tmdbId": 3003001,
+    "imdbId": "tt28184392",
+    "tmdbId": 240518,
     "type": "series",
     "title": "Chamak",
     "year": 2023,
@@ -142888,8 +148450,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-38",
-    "imdbId": "tt27552528",
-    "tmdbId": 2755252,
+    "imdbId": "tt27542289",
+    "tmdbId": 1115239,
     "type": "movie",
     "title": "Por Thozhil",
     "year": 2023,
@@ -143114,8 +148676,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-41",
-    "imdbId": "tt23899214",
-    "tmdbId": 2389921,
+    "imdbId": "tt0965427",
+    "tmdbId": 379693,
     "type": "movie",
     "title": "2018: Everyone is a Hero",
     "year": 2023,
@@ -143339,8 +148901,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-44",
-    "imdbId": "tt28706438",
-    "tmdbId": 2870643,
+    "imdbId": "tt27431598",
+    "tmdbId": 1166133,
     "type": "movie",
     "title": "Bramayugam",
     "year": 2024,
@@ -143490,8 +149052,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-46",
-    "imdbId": "tt31003780",
-    "tmdbId": 3100378,
+    "imdbId": "tt27510257",
+    "tmdbId": 1112108,
     "type": "movie",
     "title": "Thalavan",
     "year": 2024,
@@ -143715,8 +149277,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-49",
-    "imdbId": "tt22783850",
-    "tmdbId": 2278385,
+    "imdbId": "tt22078754",
+    "tmdbId": 1016263,
     "type": "movie",
     "title": "Kadina Kadoramee Andakadaham",
     "year": 2023,
@@ -143938,8 +149500,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-52",
-    "imdbId": "tt16428258",
-    "tmdbId": 1642825,
+    "imdbId": "tt11394308",
+    "tmdbId": 653759,
     "type": "movie",
     "title": "Saudi Vellakka",
     "year": 2022,
@@ -144011,8 +149573,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-53",
-    "imdbId": "tt21062970",
-    "tmdbId": 2106297,
+    "imdbId": "tt0090329",
+    "tmdbId": 9281,
     "type": "movie",
     "title": "Witness",
     "year": 2022,
@@ -144379,8 +149941,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-58",
-    "imdbId": "tt3355556",
-    "tmdbId": 3355556,
+    "imdbId": "tt3506970",
+    "tmdbId": 253535,
     "type": "movie",
     "title": "1983",
     "year": 2014,
@@ -144454,8 +150016,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-59",
-    "imdbId": "tt4840804",
-    "tmdbId": 4840804,
+    "imdbId": "tt5320514",
+    "tmdbId": 381374,
     "type": "movie",
     "title": "Action Hero Biju",
     "year": 2016,
@@ -144679,8 +150241,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-62",
-    "imdbId": "tt13783772",
-    "tmdbId": 1378377,
+    "imdbId": "tt13990280",
+    "tmdbId": 803391,
     "type": "movie",
     "title": "Bhramam",
     "year": 2021,
@@ -144754,8 +150316,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-63",
-    "imdbId": "tt29618177",
-    "tmdbId": 2961817,
+    "imdbId": "tt1860353",
+    "tmdbId": 77950,
     "type": "movie",
     "title": "Turbo",
     "year": 2024,
@@ -144828,8 +150390,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-64",
-    "imdbId": "tt4365518",
-    "tmdbId": 4365518,
+    "imdbId": "tt0068814",
+    "tmdbId": 66565,
     "type": "movie",
     "title": "Aadujeevitham: The Goat Life",
     "year": 2024,
@@ -144903,8 +150465,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-65",
-    "imdbId": "tt28532450",
-    "tmdbId": 2853245,
+    "imdbId": "tt28288786",
+    "tmdbId": 1149791,
     "type": "movie",
     "title": "Premalu",
     "year": 2024,
@@ -145052,8 +150614,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-67",
-    "imdbId": "tt26904634",
-    "tmdbId": 2690463,
+    "imdbId": "tt26660021",
+    "tmdbId": 1084812,
     "type": "movie",
     "title": "Aavesham",
     "year": 2024,
@@ -145126,8 +150688,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-68",
-    "imdbId": "tt28328100",
-    "tmdbId": 2832810,
+    "imdbId": "tt28364355",
+    "tmdbId": 1151560,
     "type": "movie",
     "title": "Varshangalkku Shesham",
     "year": 2024,
@@ -145273,8 +150835,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-70",
-    "imdbId": "tt32876542",
-    "tmdbId": 3287654,
+    "imdbId": "tt15980138",
+    "tmdbId": 1025125,
     "type": "movie",
     "title": "Kishkindha Kaandam",
     "year": 2024,
@@ -145347,8 +150909,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-71",
-    "imdbId": "tt21619370",
-    "tmdbId": 2161937,
+    "imdbId": "tt11531182",
+    "tmdbId": 890138,
     "type": "movie",
     "title": "ARM: Ajayante Randam Moshanam",
     "year": 2024,
@@ -145422,8 +150984,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-72",
-    "imdbId": "tt28073862",
-    "tmdbId": 2807386,
+    "imdbId": "tt25400540",
+    "tmdbId": 1068394,
     "type": "movie",
     "title": "Guruvayoor Ambalanadayil",
     "year": 2024,
@@ -145495,8 +151057,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-73",
-    "imdbId": "tt27710380",
-    "tmdbId": 2771038,
+    "imdbId": "tt27816710",
+    "tmdbId": 1184247,
     "type": "movie",
     "title": "Abraham Ozler",
     "year": 2024,
@@ -145570,8 +151132,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-74",
-    "imdbId": "tt14081090",
-    "tmdbId": 1408109,
+    "imdbId": "tt13885428",
+    "tmdbId": 834664,
     "type": "movie",
     "title": "Anweshippin Kandethum",
     "year": 2024,
@@ -145720,8 +151282,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-76",
-    "imdbId": "tt28706430",
-    "tmdbId": 2870643,
+    "imdbId": "tt28358950",
+    "tmdbId": 1164370,
     "type": "movie",
     "title": "Neru",
     "year": 2023,
@@ -145794,8 +151356,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-77",
-    "imdbId": "tt22783858",
-    "tmdbId": 2278385,
+    "imdbId": "tt22818604",
+    "tmdbId": 1029947,
     "type": "movie",
     "title": "Kaathal - The Core",
     "year": 2023,
@@ -145867,8 +151429,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-78",
-    "imdbId": "tt23899212",
-    "tmdbId": 2389921,
+    "imdbId": "tt25274786",
+    "tmdbId": 1065918,
     "type": "movie",
     "title": "Kannur Squad",
     "year": 2023,
@@ -145942,8 +151504,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-79",
-    "imdbId": "tt21868350",
-    "tmdbId": 2186835,
+    "imdbId": "tt24517458",
+    "tmdbId": 997391,
     "type": "movie",
     "title": "RDX: Robert Dony Xavier",
     "year": 2023,
@@ -146460,8 +152022,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-86",
-    "imdbId": "tt11400320",
-    "tmdbId": 1140032,
+    "imdbId": "tt11375428",
+    "tmdbId": 653221,
     "type": "movie",
     "title": "Hridayam",
     "year": 2022,
@@ -146535,8 +152097,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-87",
-    "imdbId": "tt14890252",
-    "tmdbId": 1489025,
+    "imdbId": "tt14875116",
+    "tmdbId": 842275,
     "type": "movie",
     "title": "Bro Daddy",
     "year": 2022,
@@ -146685,8 +152247,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-89",
-    "imdbId": "tt9476710",
-    "tmdbId": 9476710,
+    "imdbId": "tt7026666",
+    "tmdbId": 785585,
     "type": "movie",
     "title": "Kurup",
     "year": 2021,
@@ -146835,8 +152397,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-91",
-    "imdbId": "tt13243534",
-    "tmdbId": 1324353,
+    "imdbId": "tt13206926",
+    "tmdbId": 791779,
     "type": "movie",
     "title": "Joji",
     "year": 2021,
@@ -146984,8 +152546,8 @@ const catalog = [
   },
   {
     "id": "sonyliv-93",
-    "imdbId": "tt13292066",
-    "tmdbId": 1329206,
+    "imdbId": "tt13299890",
+    "tmdbId": 786064,
     "type": "movie",
     "title": "The Great Indian Kitchen",
     "year": 2021,
@@ -147133,7 +152695,7 @@ const catalog = [
   {
     "id": "sonyliv-95",
     "imdbId": "tt8594324",
-    "tmdbId": 8594324,
+    "tmdbId": 17174,
     "type": "series",
     "title": "Ghosts",
     "year": 2019,
@@ -147654,7 +153216,7 @@ const catalog = [
   {
     "id": "sonyliv-97",
     "imdbId": "tt8599532",
-    "tmdbId": 8599532,
+    "tmdbId": 255661,
     "type": "series",
     "title": "Young Sherlock",
     "year": 2026,
@@ -148783,7 +154345,7 @@ const catalog = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://m.media-amazon.com/images/M/MV5BYzMzMTY2NDktYjJkNC00MzQ3LWJlZWYtNzRiYzc1NTJkYTI1XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt24485052/img",
     "backdrop": "https://images.metahub.space/background/medium/tt24485052/img",
     "description": "An ordinary sessions court lawyer fights an extraordinary solo battle for five years to bring justice to a minor girl assaulted by a powerful godman.",
     "cast": [
@@ -148850,7 +154412,7 @@ const catalog = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://m.media-amazon.com/images/M/MV5BNjMyZWE3YzctNTA5ZC00NGM5LTk1OWYtNjUzOGEzOTlmYTA2XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt15752618/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15752618/img",
     "description": "Follows Emperor Akbar as he looks for a worthy successor to his Mughal throne, sparking a bloody and deceitful battle between his sons.",
     "cast": [
@@ -149203,7 +154765,7 @@ const catalog = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://m.media-amazon.com/images/M/MV5BODJkYjUzODctYmE0NS00NmJiLTljZGMtYmMxYzUxOTliZGY1XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt15441054/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15441054/img",
     "description": "During the Indo-Pakistani War of 1971, Tara Singh returns to Pakistan to rescue his imprisoned son Jeete.",
     "cast": [
@@ -149281,10 +154843,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149322,10 +154908,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149362,10 +154972,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149403,10 +155037,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149444,10 +155102,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149485,10 +155167,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149526,10 +155232,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149566,10 +155296,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149607,10 +155361,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149648,10 +155426,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149687,10 +155489,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149728,10 +155554,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -149769,16 +155619,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "zee5-19",
-    "imdbId": "tt26425988",
-    "tmdbId": 2642598,
+    "imdbId": "tt0482855",
+    "tmdbId": 19849,
     "type": "series",
     "title": "Taj: Divided by Blood",
     "year": 2023,
@@ -150555,8 +156429,8 @@ const catalog = [
   },
   {
     "id": "zee5-22",
-    "imdbId": "tt21217036",
-    "tmdbId": 2121703,
+    "imdbId": "tt27442834",
+    "tmdbId": 224654,
     "type": "series",
     "title": "Saas Bahu Achaar Pvt. Ltd.",
     "year": 2022,
@@ -150813,8 +156687,8 @@ const catalog = [
   },
   {
     "id": "zee5-23",
-    "imdbId": "tt6062758",
-    "tmdbId": 6062758,
+    "imdbId": "tt6005644",
+    "tmdbId": 69710,
     "type": "series",
     "title": "Tripling",
     "year": 2022,
@@ -151332,8 +157206,8 @@ const catalog = [
   },
   {
     "id": "zee5-25",
-    "imdbId": "tt20242270",
-    "tmdbId": 2024227,
+    "imdbId": "tt0479827",
+    "tmdbId": 2769,
     "type": "series",
     "title": "The Broken News",
     "year": 2024,
@@ -152442,8 +158316,8 @@ const catalog = [
   },
   {
     "id": "zee5-30",
-    "imdbId": "tt13783770",
-    "tmdbId": 1378377,
+    "imdbId": "tt13698928",
+    "tmdbId": 804005,
     "type": "movie",
     "title": "Silence... Can You Hear It?",
     "year": 2021,
@@ -152517,8 +158391,8 @@ const catalog = [
   },
   {
     "id": "zee5-31",
-    "imdbId": "tt31908298",
-    "tmdbId": 3190829,
+    "imdbId": "tt28500558",
+    "tmdbId": 1266109,
     "type": "movie",
     "title": "Silence 2: The Night Owl Bar Shootout",
     "year": 2024,
@@ -152593,8 +158467,8 @@ const catalog = [
   },
   {
     "id": "zee5-32",
-    "imdbId": "tt14725350",
-    "tmdbId": 1472535,
+    "imdbId": "tt10786774",
+    "tmdbId": 814215,
     "type": "movie",
     "title": "Sam Bahadur",
     "year": 2023,
@@ -152742,8 +158616,8 @@ const catalog = [
   },
   {
     "id": "zee5-34",
-    "imdbId": "tt21868352",
-    "tmdbId": 2186835,
+    "imdbId": "tt22188452",
+    "tmdbId": 1063633,
     "type": "movie",
     "title": "Haddi",
     "year": 2023,
@@ -152967,8 +158841,8 @@ const catalog = [
   },
   {
     "id": "zee5-37",
-    "imdbId": "tt15560930",
-    "tmdbId": 1556093,
+    "imdbId": "tt15309708",
+    "tmdbId": 1009432,
     "type": "movie",
     "title": "Uunchai",
     "year": 2022,
@@ -153041,8 +158915,8 @@ const catalog = [
   },
   {
     "id": "zee5-38",
-    "imdbId": "tt10819468",
-    "tmdbId": 1081946,
+    "imdbId": "tt10811166",
+    "tmdbId": 900783,
     "type": "movie",
     "title": "The Kashmir Files",
     "year": 2022,
@@ -153189,8 +159063,8 @@ const catalog = [
   },
   {
     "id": "zee5-40",
-    "imdbId": "tt15420110",
-    "tmdbId": 1542011,
+    "imdbId": "tt15433956",
+    "tmdbId": 869760,
     "type": "movie",
     "title": "Hanu-Man",
     "year": 2024,
@@ -153264,8 +159138,8 @@ const catalog = [
   },
   {
     "id": "zee5-41",
-    "imdbId": "tt21066770",
-    "tmdbId": 2106677,
+    "imdbId": "tt22170036",
+    "tmdbId": 962074,
     "type": "movie",
     "title": "Captain Miller",
     "year": 2024,
@@ -153488,8 +159362,8 @@ const catalog = [
   },
   {
     "id": "zee5-44",
-    "imdbId": "tt26252990",
-    "tmdbId": 2625299,
+    "imdbId": "tt15717242",
+    "tmdbId": 1099677,
     "type": "movie",
     "title": "Kanjoos Makhichoos",
     "year": 2023,
@@ -153562,8 +159436,8 @@ const catalog = [
   },
   {
     "id": "zee5-45",
-    "imdbId": "tt14389030",
-    "tmdbId": 1438903,
+    "imdbId": "tt14339846",
+    "tmdbId": 915865,
     "type": "movie",
     "title": "Mrs Undercover",
     "year": 2023,
@@ -153637,8 +159511,8 @@ const catalog = [
   },
   {
     "id": "zee5-46",
-    "imdbId": "tt21062972",
-    "tmdbId": 2106297,
+    "imdbId": "tt25134642",
+    "tmdbId": 1066714,
     "type": "movie",
     "title": "Main Atal Hoon",
     "year": 2024,
@@ -153711,8 +159585,8 @@ const catalog = [
   },
   {
     "id": "zee5-47",
-    "imdbId": "tt22783854",
-    "tmdbId": 2278385,
+    "imdbId": "tt7985704",
+    "tmdbId": 739405,
     "type": "movie",
     "title": "Operation Valentine",
     "year": 2024,
@@ -153935,8 +159809,8 @@ const catalog = [
   },
   {
     "id": "zee5-50",
-    "imdbId": "tt15679402",
-    "tmdbId": 1567940,
+    "imdbId": "tt15441054",
+    "tmdbId": 885331,
     "type": "movie",
     "title": "Gadar 2",
     "year": 2023,
@@ -155351,8 +161225,8 @@ const catalog = [
   },
   {
     "id": "zee5-69",
-    "imdbId": "tt11680320",
-    "tmdbId": 1168032,
+    "imdbId": "tt11691696",
+    "tmdbId": 672520,
     "type": "movie",
     "title": "Shukranu",
     "year": 2020,
@@ -156909,8 +162783,8 @@ const catalog = [
   },
   {
     "id": "zee5-80",
-    "imdbId": "tt13243530",
-    "tmdbId": 1324353,
+    "imdbId": "tt5433600",
+    "tmdbId": 68681,
     "type": "series",
     "title": "Black Widows",
     "year": 2020,
@@ -158726,8 +164600,8 @@ const catalog = [
   },
   {
     "id": "zee5-87",
-    "imdbId": "tt28469328",
-    "tmdbId": 2846932,
+    "imdbId": "tt28289518",
+    "tmdbId": 232136,
     "type": "series",
     "title": "Abar Proloy",
     "year": 2023,
@@ -159763,8 +165637,8 @@ const catalog = [
   },
   {
     "id": "zee5-91",
-    "imdbId": "tt31908294",
-    "tmdbId": 3190829,
+    "imdbId": "tt26915338",
+    "tmdbId": 259688,
     "type": "series",
     "title": "Gyaarah Gyaarah",
     "year": 2024,
@@ -161834,7 +167708,7 @@ const catalog = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://m.media-amazon.com/images/M/MV5BMDZkOGQzMjItNTliOC00NTIxLTg4ODEtNTMxZWY1OTk5ZWM0XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt11912196/img",
     "backdrop": "https://images.metahub.space/background/medium/tt11912196/img",
     "description": "A unique psychological thriller that pits two opposing worlds against each other: the less explored, intricate world of forensic science and the deep mysticism of ancient Indian mythology.",
     "cast": [
@@ -162024,7 +167898,7 @@ const catalog = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://m.media-amazon.com/images/M/MV5BMTA1NmUxYzItZmVmNy00YmQxLTk4Y2UtZjVkMWUwMWQ5N2IxXkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt27510174/img",
     "backdrop": "https://images.metahub.space/background/medium/tt27510174/img",
     "description": "After the events of Stree, the town of Chanderi is being haunted again. This time, women are mysteriously abducted by a headless entity named Sarkata. Vicky and his friends must save their town.",
     "cast": [
@@ -162091,7 +167965,7 @@ const catalog = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://m.media-amazon.com/images/M/MV5BNTFlMzkyOTgtMTU0OS00MzkwLWIzMGQtMmI3ZTU2OGJjYWVjXkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt27501039/img",
     "backdrop": "https://images.metahub.space/background/medium/tt27501039/img",
     "description": "An alcoholic, fatigued cop must rescue his kidnapped son from a ruthless drug lord in a sprawling luxury hotel over one bloody night in Gurugram.",
     "cast": [
@@ -162223,7 +168097,7 @@ const catalog = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://m.media-amazon.com/images/M/MV5BZmM5MDExYTYtZjgyNi00YjQzLWE5MWEtM2Q0MWE2ZWI2MjQ4XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt22531848/img",
     "backdrop": "https://images.metahub.space/background/medium/tt22531848/img",
     "description": "The inspiring story of transgender activist Gauri Sawant and her fight for the recognition of the third gender in India.",
     "cast": [
@@ -162351,10 +168225,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -162392,10 +168290,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -162432,10 +168354,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -162473,16 +168419,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "jiocinema-5059",
     "imdbId": "tt13818368",
-    "tmdbId": 890123,
+    "tmdbId": 784651,
     "type": "movie",
     "title": "Fighter",
     "year": 2024,
@@ -162514,10 +168484,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -162554,10 +168548,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -162594,10 +168612,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -162634,10 +168676,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -162675,10 +168741,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -162716,16 +168806,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "jiocinema-5065",
-    "imdbId": "tt30822606",
-    "tmdbId": 123891,
+    "imdbId": "tt0092379",
+    "tmdbId": 3476,
     "type": "series",
     "title": "Inspector Rishi",
     "year": 2024,
@@ -162757,10 +168871,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "en",
-      "hi",
-      "es",
-      "fr"
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "fr",
+        "name": "French Dubbed",
+        "flag": "🇫🇷",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -163026,8 +169164,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-18",
-    "imdbId": "tt21066772",
-    "tmdbId": 2106677,
+    "imdbId": "tt22014226",
+    "tmdbId": 203832,
     "type": "series",
     "title": "Taaza Khabar",
     "year": 2024,
@@ -164847,8 +170985,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-25",
-    "imdbId": "tt28073860",
-    "tmdbId": 2807386,
+    "imdbId": "tt4775200",
+    "tmdbId": 64127,
     "type": "series",
     "title": "Ishq Next Door",
     "year": 2023,
@@ -165106,8 +171244,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-26",
-    "imdbId": "tt28469320",
-    "tmdbId": 2846932,
+    "imdbId": "tt0369179",
+    "tmdbId": 2691,
     "type": "series",
     "title": "Half CA",
     "year": 2023,
@@ -166918,8 +173056,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-33",
-    "imdbId": "tt14081092",
-    "tmdbId": 1408109,
+    "imdbId": "tt14099334",
+    "tmdbId": 799177,
     "type": "movie",
     "title": "Bhediya",
     "year": 2022,
@@ -167067,8 +173205,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-35",
-    "imdbId": "tt16358380",
-    "tmdbId": 1635838,
+    "imdbId": "tt27501039",
+    "tmdbId": 1014390,
     "type": "movie",
     "title": "Bloody Daddy",
     "year": 2023,
@@ -167515,8 +173653,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-41",
-    "imdbId": "tt28328108",
-    "tmdbId": 2832810,
+    "imdbId": "tt27510174",
+    "tmdbId": 1112426,
     "type": "movie",
     "title": "Stree 2",
     "year": 2024,
@@ -167589,8 +173727,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-42",
-    "imdbId": "tt30897070",
-    "tmdbId": 3089707,
+    "imdbId": "tt27744786",
+    "tmdbId": 1187619,
     "type": "movie",
     "title": "Shaitaan",
     "year": 2024,
@@ -167664,8 +173802,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-43",
-    "imdbId": "tt31908292",
-    "tmdbId": 3190829,
+    "imdbId": "tt27995594",
+    "tmdbId": 1187058,
     "type": "movie",
     "title": "Munjya",
     "year": 2024,
@@ -167888,8 +174026,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-46",
-    "imdbId": "tt28469326",
-    "tmdbId": 2846932,
+    "imdbId": "tt28153480",
+    "tmdbId": 1148486,
     "type": "movie",
     "title": "Vedaa",
     "year": 2024,
@@ -168036,8 +174174,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-48",
-    "imdbId": "tt16428250",
-    "tmdbId": 1642825,
+    "imdbId": "tt2382246",
+    "tmdbId": 241924,
     "type": "movie",
     "title": "Merry Christmas",
     "year": 2024,
@@ -168187,8 +174325,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-50",
-    "imdbId": "tt10819460",
-    "tmdbId": 1081946,
+    "imdbId": "tt10869778",
+    "tmdbId": 668340,
     "type": "movie",
     "title": "Maidaan",
     "year": 2024,
@@ -168338,8 +174476,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-52",
-    "imdbId": "tt27448374",
-    "tmdbId": 2744837,
+    "imdbId": "tt27459160",
+    "tmdbId": 1110390,
     "type": "movie",
     "title": "Teri Baaton Mein Aisa Uljha Jiya",
     "year": 2024,
@@ -168488,8 +174626,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-54",
-    "imdbId": "tt23899216",
-    "tmdbId": 2389921,
+    "imdbId": "tt23790740",
+    "tmdbId": 1093971,
     "type": "movie",
     "title": "Srikanth",
     "year": 2024,
@@ -168635,8 +174773,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-56",
-    "imdbId": "tt31003782",
-    "tmdbId": 3100378,
+    "imdbId": "tt27056012",
+    "tmdbId": 1241592,
     "type": "movie",
     "title": "Khel Khel Mein",
     "year": 2024,
@@ -168859,8 +174997,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-59",
-    "imdbId": "tt26233486",
-    "tmdbId": 2623348,
+    "imdbId": "tt26225118",
+    "tmdbId": 1072693,
     "type": "movie",
     "title": "Phir Aayi Hasseen Dillruba",
     "year": 2024,
@@ -169386,8 +175524,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-66",
-    "imdbId": "tt15747494",
-    "tmdbId": 1574749,
+    "imdbId": "tt15732324",
+    "tmdbId": 888710,
     "type": "movie",
     "title": "OMG 2",
     "year": 2023,
@@ -169909,8 +176047,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-73",
-    "imdbId": "tt15420114",
-    "tmdbId": 1542011,
+    "imdbId": "tt13130948",
+    "tmdbId": 884434,
     "type": "movie",
     "title": "Shehzada",
     "year": 2023,
@@ -170280,8 +176418,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-78",
-    "imdbId": "tt15039474",
-    "tmdbId": 1503947,
+    "imdbId": "tt11905536",
+    "tmdbId": 974025,
     "type": "movie",
     "title": "Gumraah",
     "year": 2023,
@@ -170506,8 +176644,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-81",
-    "imdbId": "tt13292062",
-    "tmdbId": 1329206,
+    "imdbId": "tt0110357",
+    "tmdbId": 8587,
     "type": "movie",
     "title": "800: The Muttiah Muralitharan Story",
     "year": 2023,
@@ -170803,8 +176941,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-85",
-    "imdbId": "tt12920678",
-    "tmdbId": 1292067,
+    "imdbId": "tt5470178",
+    "tmdbId": 429754,
     "type": "movie",
     "title": "Pippa",
     "year": 2023,
@@ -171029,8 +177167,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-88",
-    "imdbId": "tt21062976",
-    "tmdbId": 2106297,
+    "imdbId": "tt25134642",
+    "tmdbId": 1066714,
     "type": "movie",
     "title": "Main Atal Hoon (Jio)",
     "year": 2024,
@@ -171103,8 +177241,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-89",
-    "imdbId": "tt16428252",
-    "tmdbId": 1642825,
+    "imdbId": "tt2382246",
+    "tmdbId": 241924,
     "type": "movie",
     "title": "Merry Christmas (Jio Premier)",
     "year": 2024,
@@ -171252,8 +177390,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-91",
-    "imdbId": "tt14725354",
-    "tmdbId": 1472535,
+    "imdbId": "tt14753612",
+    "tmdbId": 957328,
     "type": "movie",
     "title": "Swatantrya Veer Savarkar",
     "year": 2024,
@@ -171327,8 +177465,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-92",
-    "imdbId": "tt21692404",
-    "tmdbId": 2169240,
+    "imdbId": "tt26745657",
+    "tmdbId": 1201015,
     "type": "movie",
     "title": "Madgaon Express",
     "year": 2024,
@@ -171624,8 +177762,8 @@ const catalog = [
   },
   {
     "id": "jiocinema-96",
-    "imdbId": "tt23899218",
-    "tmdbId": 2389921,
+    "imdbId": "tt23790740",
+    "tmdbId": 1093971,
     "type": "movie",
     "title": "Srikanth (VIP)",
     "year": 2024,
@@ -176844,7 +182982,7 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://m.media-amazon.com/images/M/MV5BMjgyM2QzMjAtOGZjOS00OGFkLTkxZGYtMDJjZGM5MzIzYmM3XkEyXkFqcGc@._V1_SX250.jpg",
+    "poster": "https://images.metahub.space/poster/small/tt14986406/img",
     "backdrop": "https://images.metahub.space/background/medium/tt14986406/img",
     "description": "The peace is suddenly broken when warning sirens blare through the Soul Society. Residents are disappearing without a trace as the Quincy King Yhwach initiates the blood war.",
     "cast": [
@@ -177991,10 +184129,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178032,15 +184194,39 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-1096",
-    "imdbId": "tt22285148",
+    "imdbId": "tt22248376",
     "tmdbId": 209867,
     "type": "series",
     "title": "Frieren: Beyond Journey's End",
@@ -178061,8 +184247,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt22285148/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt22285148/img",
+    "poster": "https://images.metahub.space/poster/small/tt22248376/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt22248376/img",
     "description": "An immortal elf wizard journeys across a peaceful world, honoring her mortal companions' memories.",
     "cast": [
       "Atsumi Tanezaki",
@@ -178073,16 +184259,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-1098",
-    "imdbId": "tt21654360",
-    "tmdbId": 216543,
+    "imdbId": "tt21975436",
+    "tmdbId": 207468,
     "type": "series",
     "title": "Kaiju No. 8",
     "year": 2024,
@@ -178102,8 +184312,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt21654360/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt21654360/img",
+    "poster": "https://images.metahub.space/poster/small/tt21975436/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt21975436/img",
     "description": "A 32-year-old monster corpse disposal worker absorbs a parasite that lets him transform into a humanoid Kaiju.",
     "cast": [
       "Masaya Fukunishi",
@@ -178114,16 +184324,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-1100",
-    "imdbId": "tt13917952",
-    "tmdbId": 153723,
+    "imdbId": "tt13911284",
+    "tmdbId": 117465,
     "type": "series",
     "title": "Hell's Paradise",
     "year": 2023,
@@ -178143,8 +184377,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt13917952/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt13917952/img",
+    "poster": "https://images.metahub.space/poster/small/tt13911284/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt13911284/img",
     "description": "Gabimaru the Hollow sails with death row criminals to an island of immortal horrors in search of divine elixir.",
     "cast": [
       "Chiaki Kobayashi",
@@ -178155,16 +184389,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-1102",
     "imdbId": "tt10233448",
-    "tmdbId": 86326,
+    "tmdbId": 88803,
     "type": "series",
     "title": "Vinland Saga",
     "year": 2023,
@@ -178196,10 +184454,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178237,10 +184519,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178278,10 +184584,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178319,15 +184649,39 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-1110",
-    "imdbId": "tt1389072",
+    "imdbId": "tt1355642",
     "tmdbId": 31911,
     "type": "series",
     "title": "Fullmetal Alchemist: Brotherhood",
@@ -178348,8 +184702,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt1389072/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt1389072/img",
+    "poster": "https://images.metahub.space/poster/small/tt1355642/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt1355642/img",
     "description": "Edward and Alphonse Elric seek the Philosopher's Stone to reverse a tragic human transmutation.",
     "cast": [
       "Romi Park",
@@ -178360,16 +184714,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-1112",
-    "imdbId": "tt15220302",
-    "tmdbId": 205562,
+    "imdbId": "tt15222080",
+    "tmdbId": 131041,
     "type": "series",
     "title": "Blue Lock",
     "year": 2024,
@@ -178389,8 +184767,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt15220302/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt15220302/img",
+    "poster": "https://images.metahub.space/poster/small/tt15222080/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt15222080/img",
     "description": "Three hundred strikers fight in a prison training facility to forge Japan's ultimate egoist football striker.",
     "cast": [
       "Kazuki Ura",
@@ -178401,10 +184779,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178442,10 +184844,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178483,10 +184909,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178524,10 +184974,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178565,10 +185039,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178606,16 +185104,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-8010",
     "imdbId": "tt1910272",
-    "tmdbId": 37854,
+    "tmdbId": 42509,
     "type": "series",
     "title": "Steins;Gate",
     "year": 2011,
@@ -178647,16 +185169,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-8012",
     "imdbId": "tt0994314",
-    "tmdbId": 31910,
+    "tmdbId": 31724,
     "type": "series",
     "title": "Code Geass: Lelouch of the Rebellion",
     "year": 2008,
@@ -178688,10 +185234,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178729,16 +185299,40 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-8016",
     "imdbId": "tt13196080",
-    "tmdbId": 108978,
+    "tmdbId": 105009,
     "type": "series",
     "title": "Tokyo Revengers",
     "year": 2023,
@@ -178770,10 +185364,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178811,10 +185429,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178852,10 +185494,34 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178893,10 +185559,34 @@ const catalog = [
     "trending": false,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
@@ -178934,16 +185624,40 @@ const catalog = [
     "trending": true,
     "trailerUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "languages": [
-      "ja",
-      "hi",
-      "en",
-      "es"
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "hi",
+        "name": "Hindi Dubbed",
+        "flag": "🇮🇳",
+        "isDub": true,
+        "defaultServer": 0
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      },
+      {
+        "code": "es",
+        "name": "Spanish Dubbed",
+        "flag": "🇪🇸",
+        "isDub": true,
+        "defaultServer": 0
+      }
     ]
   },
   {
     "id": "animeworld-36",
     "imdbId": "tt3741634",
-    "tmdbId": 3741634,
+    "tmdbId": 61374,
     "type": "series",
     "title": "Tokyo Ghoul (Multi-Audio)",
     "year": 2015,
@@ -179202,8 +185916,8 @@ const catalog = [
   },
   {
     "id": "animeworld-37",
-    "imdbId": "tt15249454",
-    "tmdbId": 1524945,
+    "imdbId": "tt15222080",
+    "tmdbId": 131041,
     "type": "series",
     "title": "Blue Lock (Multi-Audio)",
     "year": 2024,
@@ -179222,8 +185936,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt15249454/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt15249454/img",
+    "poster": "https://images.metahub.space/poster/small/tt15222080/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt15222080/img",
     "description": "Watch Blue Lock (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -179462,8 +186176,8 @@ const catalog = [
   },
   {
     "id": "animeworld-38",
-    "imdbId": "tt21619374",
-    "tmdbId": 2161937,
+    "imdbId": "tt21975436",
+    "tmdbId": 207468,
     "type": "series",
     "title": "Kaiju No. 8 (Multi-Audio)",
     "year": 2024,
@@ -179482,8 +186196,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt21619374/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt21619374/img",
+    "poster": "https://images.metahub.space/poster/small/tt21975436/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt21975436/img",
     "description": "Watch Kaiju No. 8 (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -179722,8 +186436,8 @@ const catalog = [
   },
   {
     "id": "animeworld-39",
-    "imdbId": "tt30147631",
-    "tmdbId": 3014763,
+    "imdbId": "tt30217403",
+    "tmdbId": 240411,
     "type": "series",
     "title": "Dandadan (Multi-Audio)",
     "year": 2024,
@@ -179742,8 +186456,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt30147631/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt30147631/img",
+    "poster": "https://images.metahub.space/poster/small/tt30217403/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt30217403/img",
     "description": "Watch Dandadan (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -179982,8 +186696,8 @@ const catalog = [
   },
   {
     "id": "animeworld-40",
-    "imdbId": "tt22064098",
-    "tmdbId": 2206409,
+    "imdbId": "tt22248376",
+    "tmdbId": 209867,
     "type": "series",
     "title": "Frieren: Beyond Journey's End (Multi-Audio)",
     "year": 2024,
@@ -180002,8 +186716,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt22064098/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt22064098/img",
+    "poster": "https://images.metahub.space/poster/small/tt22248376/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt22248376/img",
     "description": "Watch Frieren: Beyond Journey's End (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -180242,8 +186956,8 @@ const catalog = [
   },
   {
     "id": "animeworld-41",
-    "imdbId": "tt13918564",
-    "tmdbId": 1391856,
+    "imdbId": "tt13911284",
+    "tmdbId": 117465,
     "type": "series",
     "title": "Hell's Paradise (Multi-Audio)",
     "year": 2023,
@@ -180262,8 +186976,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt13918564/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt13918564/img",
+    "poster": "https://images.metahub.space/poster/small/tt13911284/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt13911284/img",
     "description": "Watch Hell's Paradise (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -180502,8 +187216,8 @@ const catalog = [
   },
   {
     "id": "animeworld-42",
-    "imdbId": "tt21213076",
-    "tmdbId": 2121307,
+    "imdbId": "tt21209804",
+    "tmdbId": 204832,
     "type": "series",
     "title": "Mashle: Magic and Muscles (Multi-Audio)",
     "year": 2024,
@@ -180522,8 +187236,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt21213076/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt21213076/img",
+    "poster": "https://images.metahub.space/poster/small/tt21209804/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt21209804/img",
     "description": "Watch Mashle: Magic and Muscles (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -180762,8 +187476,8 @@ const catalog = [
   },
   {
     "id": "animeworld-43",
-    "imdbId": "tt7103282",
-    "tmdbId": 7103282,
+    "imdbId": "tt7263328",
+    "tmdbId": 72517,
     "type": "series",
     "title": "Classroom of the Elite (Multi-Audio)",
     "year": 2024,
@@ -180782,8 +187496,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt7103282/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt7103282/img",
+    "poster": "https://images.metahub.space/poster/small/tt7263328/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt7263328/img",
     "description": "Watch Classroom of the Elite (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -181022,8 +187736,8 @@ const catalog = [
   },
   {
     "id": "animeworld-44",
-    "imdbId": "tt4868074",
-    "tmdbId": 4868074,
+    "imdbId": "tt4869896",
+    "tmdbId": 64196,
     "type": "series",
     "title": "Overlord (Multi-Audio)",
     "year": 2022,
@@ -181042,8 +187756,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt4868074/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt4868074/img",
+    "poster": "https://images.metahub.space/poster/small/tt4869896/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt4869896/img",
     "description": "Watch Overlord (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -181282,8 +187996,8 @@ const catalog = [
   },
   {
     "id": "animeworld-45",
-    "imdbId": "tt0877263",
-    "tmdbId": 877263,
+    "imdbId": "tt0994314",
+    "tmdbId": 31724,
     "type": "series",
     "title": "Code Geass (Multi-Audio)",
     "year": 2008,
@@ -181302,8 +188016,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt0877263/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt0877263/img",
+    "poster": "https://images.metahub.space/poster/small/tt0994314/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt0994314/img",
     "description": "Watch Code Geass (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Lead Cast",
@@ -181543,7 +188257,7 @@ const catalog = [
   {
     "id": "animeworld-46",
     "imdbId": "tt0213338",
-    "tmdbId": 213338,
+    "tmdbId": 30991,
     "type": "series",
     "title": "Cowboy Bebop (Multi-Audio)",
     "year": 1999,
@@ -181803,7 +188517,7 @@ const catalog = [
   {
     "id": "animeworld-47",
     "imdbId": "tt2250192",
-    "tmdbId": 2250192,
+    "tmdbId": 45782,
     "type": "series",
     "title": "Sword Art Online (Multi-Audio)",
     "year": 2020,
@@ -182063,7 +188777,7 @@ const catalog = [
   {
     "id": "animeworld-48",
     "imdbId": "tt0112159",
-    "tmdbId": 112159,
+    "tmdbId": 890,
     "type": "series",
     "title": "Neon Genesis Evangelion (Multi-Audio)",
     "year": 1996,
@@ -182323,7 +189037,7 @@ const catalog = [
   {
     "id": "animeworld-49",
     "imdbId": "tt9426210",
-    "tmdbId": 9426210,
+    "tmdbId": 568160,
     "type": "movie",
     "title": "Weathering with You (Multi-Audio)",
     "year": 2019,
@@ -182398,7 +189112,7 @@ const catalog = [
   {
     "id": "animeworld-50",
     "imdbId": "tt5323662",
-    "tmdbId": 5323662,
+    "tmdbId": 378064,
     "type": "movie",
     "title": "A Silent Voice (Multi-Audio)",
     "year": 2016,
@@ -182471,8 +189185,8 @@ const catalog = [
   },
   {
     "id": "animeworld-51",
-    "imdbId": "tt0115341",
-    "tmdbId": 115341,
+    "imdbId": "tt22249034",
+    "tmdbId": 210879,
     "type": "series",
     "title": "Rurouni Kenshin (Multi-Audio)",
     "year": 1998,
@@ -182493,8 +189207,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt0115341/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt0115341/img",
+    "poster": "https://images.metahub.space/poster/small/tt22249034/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt22249034/img",
     "description": "Watch Rurouni Kenshin (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -182733,8 +189447,8 @@ const catalog = [
   },
   {
     "id": "animeworld-52",
-    "imdbId": "tt0290202",
-    "tmdbId": 290202,
+    "imdbId": "tt0290223",
+    "tmdbId": 35610,
     "type": "series",
     "title": "Inuyasha (Multi-Audio)",
     "year": 2004,
@@ -182755,8 +189469,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt0290202/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt0290202/img",
+    "poster": "https://images.metahub.space/poster/small/tt0290223/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt0290223/img",
     "description": "Watch Inuyasha (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -182995,8 +189709,8 @@ const catalog = [
   },
   {
     "id": "animeworld-53",
-    "imdbId": "tt4278778",
-    "tmdbId": 4278778,
+    "imdbId": "tt4279012",
+    "tmdbId": 61901,
     "type": "series",
     "title": "Death Parade (Multi-Audio)",
     "year": 2015,
@@ -183016,8 +189730,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt4278778/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt4278778/img",
+    "poster": "https://images.metahub.space/poster/small/tt4279012/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt4279012/img",
     "description": "Watch Death Parade (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -183257,7 +189971,7 @@ const catalog = [
   {
     "id": "animeworld-54",
     "imdbId": "tt2379308",
-    "tmdbId": 2379308,
+    "tmdbId": 43865,
     "type": "series",
     "title": "Psycho-Pass (Multi-Audio)",
     "year": 2014,
@@ -183519,8 +190233,8 @@ const catalog = [
   },
   {
     "id": "animeworld-55",
-    "imdbId": "tt4015556",
-    "tmdbId": 4015556,
+    "imdbId": "tt3358020",
+    "tmdbId": 61459,
     "type": "series",
     "title": "Parasyte -the maxim- (Multi-Audio)",
     "year": 2015,
@@ -183541,8 +190255,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt4015556/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt4015556/img",
+    "poster": "https://images.metahub.space/poster/small/tt3358020/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt3358020/img",
     "description": "Watch Parasyte -the maxim- (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -183781,8 +190495,8 @@ const catalog = [
   },
   {
     "id": "animeworld-56",
-    "imdbId": "tt12517868",
-    "tmdbId": 1251786,
+    "imdbId": "tt13196080",
+    "tmdbId": 105009,
     "type": "series",
     "title": "Tokyo Revengers (Multi-Audio)",
     "year": 2023,
@@ -183802,8 +190516,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt12517868/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt12517868/img",
+    "poster": "https://images.metahub.space/poster/small/tt13196080/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt13196080/img",
     "description": "Watch Tokyo Revengers (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -184043,7 +190757,7 @@ const catalog = [
   {
     "id": "animeworld-57",
     "imdbId": "tt5249462",
-    "tmdbId": 5249462,
+    "tmdbId": 65249,
     "type": "series",
     "title": "Erased (Multi-Audio)",
     "year": 2016,
@@ -184306,7 +191020,7 @@ const catalog = [
   {
     "id": "animeworld-58",
     "imdbId": "tt8788458",
-    "tmdbId": 8788458,
+    "tmdbId": 83097,
     "type": "series",
     "title": "The Promised Neverland (Multi-Audio)",
     "year": 2021,
@@ -184571,8 +191285,8 @@ const catalog = [
   },
   {
     "id": "animeworld-59",
-    "imdbId": "tt9215088",
-    "tmdbId": 9215088,
+    "imdbId": "tt9458304",
+    "tmdbId": 83100,
     "type": "series",
     "title": "Dororo (Multi-Audio)",
     "year": 2019,
@@ -184592,8 +191306,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt9215088/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt9215088/img",
+    "poster": "https://images.metahub.space/poster/small/tt9458304/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt9458304/img",
     "description": "Watch Dororo (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -184833,7 +191547,7 @@ const catalog = [
   {
     "id": "animeworld-60",
     "imdbId": "tt0423731",
-    "tmdbId": 423731,
+    "tmdbId": 1063,
     "type": "series",
     "title": "Samurai Champloo (Multi-Audio)",
     "year": 2005,
@@ -185093,8 +191807,8 @@ const catalog = [
   },
   {
     "id": "animeworld-61",
-    "imdbId": "tt21066774",
-    "tmdbId": 2106677,
+    "imdbId": "tt21216104",
+    "tmdbId": 204266,
     "type": "series",
     "title": "Trigun Stampede (Multi-Audio)",
     "year": 2023,
@@ -185114,8 +191828,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt21066774/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt21066774/img",
+    "poster": "https://images.metahub.space/poster/small/tt21216104/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt21216104/img",
     "description": "Watch Trigun Stampede (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -185354,8 +192068,8 @@ const catalog = [
   },
   {
     "id": "animeworld-62",
-    "imdbId": "tt0988822",
-    "tmdbId": 988822,
+    "imdbId": "tt0988818",
+    "tmdbId": 57041,
     "type": "series",
     "title": "Gintama (Multi-Audio)",
     "year": 2018,
@@ -185375,8 +192089,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt0988822/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt0988822/img",
+    "poster": "https://images.metahub.space/poster/small/tt0988818/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt0988818/img",
     "description": "Watch Gintama (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -185615,8 +192329,8 @@ const catalog = [
   },
   {
     "id": "animeworld-63",
-    "imdbId": "tt0805663",
-    "tmdbId": 805663,
+    "imdbId": "tt0962826",
+    "tmdbId": 12598,
     "type": "series",
     "title": "Black Lagoon (Multi-Audio)",
     "year": 2006,
@@ -185638,8 +192352,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt0805663/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt0805663/img",
+    "poster": "https://images.metahub.space/poster/small/tt0962826/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt0962826/img",
     "description": "Watch Black Lagoon (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -185878,8 +192592,8 @@ const catalog = [
   },
   {
     "id": "animeworld-64",
-    "imdbId": "tt2078652",
-    "tmdbId": 2078652,
+    "imdbId": "tt2051178",
+    "tmdbId": 45845,
     "type": "series",
     "title": "Fate/Zero (Multi-Audio)",
     "year": 2012,
@@ -185899,8 +192613,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt2078652/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt2078652/img",
+    "poster": "https://images.metahub.space/poster/small/tt2051178/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt2051178/img",
     "description": "Watch Fate/Zero (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -186139,8 +192853,8 @@ const catalog = [
   },
   {
     "id": "animeworld-65",
-    "imdbId": "tt3492664",
-    "tmdbId": 3492664,
+    "imdbId": "tt3621796",
+    "tmdbId": 61415,
     "type": "series",
     "title": "Fate/stay night: Unlimited Blade Works (Multi-Audio)",
     "year": 2015,
@@ -186159,8 +192873,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt3492664/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt3492664/img",
+    "poster": "https://images.metahub.space/poster/small/tt3621796/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt3621796/img",
     "description": "Watch Fate/stay night: Unlimited Blade Works (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -186399,8 +193113,8 @@ const catalog = [
   },
   {
     "id": "animeworld-66",
-    "imdbId": "tt5679462",
-    "tmdbId": 5679462,
+    "imdbId": "tt5679720",
+    "tmdbId": 65931,
     "type": "series",
     "title": "Bungo Stray Dogs (Multi-Audio)",
     "year": 2023,
@@ -186420,8 +193134,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt5679462/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt5679462/img",
+    "poster": "https://images.metahub.space/poster/small/tt5679720/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt5679720/img",
     "description": "Watch Bungo Stray Dogs (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -186660,8 +193374,8 @@ const catalog = [
   },
   {
     "id": "animeworld-67",
-    "imdbId": "tt9735470",
-    "tmdbId": 9735470,
+    "imdbId": "tt9307686",
+    "tmdbId": 88046,
     "type": "series",
     "title": "Fire Force (Multi-Audio)",
     "year": 2020,
@@ -186680,8 +193394,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt9735470/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt9735470/img",
+    "poster": "https://images.metahub.space/poster/small/tt9307686/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt9307686/img",
     "description": "Watch Fire Force (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -186921,7 +193635,7 @@ const catalog = [
   {
     "id": "animeworld-68",
     "imdbId": "tt1214085",
-    "tmdbId": 1214085,
+    "tmdbId": 37305,
     "type": "series",
     "title": "Soul Eater (Multi-Audio)",
     "year": 2009,
@@ -187182,8 +193896,8 @@ const catalog = [
   },
   {
     "id": "animeworld-69",
-    "imdbId": "tt3291622",
-    "tmdbId": 3291622,
+    "imdbId": "tt3225270",
+    "tmdbId": 64710,
     "type": "series",
     "title": "Noragami (Multi-Audio)",
     "year": 2015,
@@ -187204,8 +193918,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt3291622/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt3291622/img",
+    "poster": "https://images.metahub.space/poster/small/tt3225270/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt3225270/img",
     "description": "Watch Noragami (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -187444,8 +194158,8 @@ const catalog = [
   },
   {
     "id": "animeworld-70",
-    "imdbId": "tt3788220",
-    "tmdbId": 3788220,
+    "imdbId": "tt3742982",
+    "tmdbId": 61223,
     "type": "series",
     "title": "Akame ga Kill! (Multi-Audio)",
     "year": 2014,
@@ -187465,8 +194179,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt3788220/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt3788220/img",
+    "poster": "https://images.metahub.space/poster/small/tt3742982/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt3742982/img",
     "description": "Watch Akame ga Kill! (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -187705,8 +194419,8 @@ const catalog = [
   },
   {
     "id": "animeworld-71",
-    "imdbId": "tt2169996",
-    "tmdbId": 2169996,
+    "imdbId": "tt2230051",
+    "tmdbId": 45950,
     "type": "series",
     "title": "High School DxD (Multi-Audio)",
     "year": 2018,
@@ -187727,8 +194441,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt2169996/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt2169996/img",
+    "poster": "https://images.metahub.space/poster/small/tt2230051/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt2230051/img",
     "description": "Watch High School DxD (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -187967,8 +194681,8 @@ const catalog = [
   },
   {
     "id": "animeworld-72",
-    "imdbId": "tt8944510",
-    "tmdbId": 8944510,
+    "imdbId": "tt2250192",
+    "tmdbId": 45782,
     "type": "series",
     "title": "Sword Art Online: Alicization (Multi-Audio)",
     "year": 2020,
@@ -187989,8 +194703,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt8944510/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt8944510/img",
+    "poster": "https://images.metahub.space/poster/small/tt2250192/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt2250192/img",
     "description": "Watch Sword Art Online: Alicization (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -188229,8 +194943,8 @@ const catalog = [
   },
   {
     "id": "animeworld-73",
-    "imdbId": "tt8523466",
-    "tmdbId": 8523466,
+    "imdbId": "tt9054364",
+    "tmdbId": 82684,
     "type": "series",
     "title": "That Time I Got Reincarnated as a Slime (Multi-Audio)",
     "year": 2024,
@@ -188251,8 +194965,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt8523466/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt8523466/img",
+    "poster": "https://images.metahub.space/poster/small/tt9054364/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt9054364/img",
     "description": "Watch That Time I Got Reincarnated as a Slime (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -188491,8 +195205,8 @@ const catalog = [
   },
   {
     "id": "animeworld-74",
-    "imdbId": "tt8679462",
-    "tmdbId": 8679462,
+    "imdbId": "tt9529546",
+    "tmdbId": 83095,
     "type": "series",
     "title": "The Rising of the Shield Hero (Multi-Audio)",
     "year": 2023,
@@ -188513,8 +195227,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt8679462/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt8679462/img",
+    "poster": "https://images.metahub.space/poster/small/tt9529546/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt9529546/img",
     "description": "Watch The Rising of the Shield Hero (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -188753,8 +195467,8 @@ const catalog = [
   },
   {
     "id": "animeworld-75",
-    "imdbId": "tt14674720",
-    "tmdbId": 1467472,
+    "imdbId": "tt4869896",
+    "tmdbId": 64196,
     "type": "series",
     "title": "Overlord IV (Multi-Audio)",
     "year": 2022,
@@ -188773,8 +195487,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt14674720/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14674720/img",
+    "poster": "https://images.metahub.space/poster/small/tt4869896/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt4869896/img",
     "description": "Watch Overlord IV (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -189013,8 +195727,8 @@ const catalog = [
   },
   {
     "id": "animeworld-76",
-    "imdbId": "tt18411494",
-    "tmdbId": 1841149,
+    "imdbId": "tt7263328",
+    "tmdbId": 72517,
     "type": "series",
     "title": "Classroom of the Elite III (Multi-Audio)",
     "year": 2024,
@@ -189033,8 +195747,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt18411494/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt18411494/img",
+    "poster": "https://images.metahub.space/poster/small/tt7263328/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt7263328/img",
     "description": "Watch Classroom of the Elite III (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -189273,8 +195987,8 @@ const catalog = [
   },
   {
     "id": "animeworld-77",
-    "imdbId": "tt9179430",
-    "tmdbId": 9179430,
+    "imdbId": "tt9522300",
+    "tmdbId": 83121,
     "type": "series",
     "title": "Kaguya-sama: Love Is War (Multi-Audio)",
     "year": 2023,
@@ -189293,8 +196007,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt9179430/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt9179430/img",
+    "poster": "https://images.metahub.space/poster/small/tt9522300/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt9522300/img",
     "description": "Watch Kaguya-sama: Love Is War (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -189533,8 +196247,8 @@ const catalog = [
   },
   {
     "id": "animeworld-78",
-    "imdbId": "tt13144882",
-    "tmdbId": 1314488,
+    "imdbId": "tt13103134",
+    "tmdbId": 110070,
     "type": "series",
     "title": "Horimiya (Multi-Audio)",
     "year": 2023,
@@ -189554,8 +196268,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt13144882/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt13144882/img",
+    "poster": "https://images.metahub.space/poster/small/tt13103134/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt13103134/img",
     "description": "Watch Horimiya (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -189794,8 +196508,8 @@ const catalog = [
   },
   {
     "id": "animeworld-79",
-    "imdbId": "tt13243538",
-    "tmdbId": 1324353,
+    "imdbId": "tt1279024",
+    "tmdbId": 42916,
     "type": "series",
     "title": "Toradora! (Multi-Audio)",
     "year": 2009,
@@ -189815,8 +196529,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt13243538/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt13243538/img",
+    "poster": "https://images.metahub.space/poster/small/tt1279024/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt1279024/img",
     "description": "Watch Toradora! (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -190056,7 +196770,7 @@ const catalog = [
   {
     "id": "animeworld-80",
     "imdbId": "tt3895150",
-    "tmdbId": 3895150,
+    "tmdbId": 61663,
     "type": "series",
     "title": "Your Lie in April (Multi-Audio)",
     "year": 2015,
@@ -190317,7 +197031,7 @@ const catalog = [
   {
     "id": "animeworld-81",
     "imdbId": "tt1913273",
-    "tmdbId": 1913273,
+    "tmdbId": 39434,
     "type": "series",
     "title": "Anohana: The Flower We Saw That Day (Multi-Audio)",
     "year": 2011,
@@ -190575,8 +197289,8 @@ const catalog = [
   },
   {
     "id": "animeworld-82",
-    "imdbId": "tt1307068",
-    "tmdbId": 1307068,
+    "imdbId": "tt1118804",
+    "tmdbId": 24835,
     "type": "series",
     "title": "Clannad: After Story (Multi-Audio)",
     "year": 2009,
@@ -190596,8 +197310,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt1307068/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt1307068/img",
+    "poster": "https://images.metahub.space/poster/small/tt1118804/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt1118804/img",
     "description": "Watch Clannad: After Story (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -190836,8 +197550,8 @@ const catalog = [
   },
   {
     "id": "animeworld-83",
-    "imdbId": "tt7085732",
-    "tmdbId": 7085732,
+    "imdbId": "tt7078180",
+    "tmdbId": 75214,
     "type": "series",
     "title": "Violet Evergarden (Multi-Audio)",
     "year": 2018,
@@ -190856,8 +197570,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt7085732/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt7085732/img",
+    "poster": "https://images.metahub.space/poster/small/tt7078180/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt7078180/img",
     "description": "Watch Violet Evergarden (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -191097,7 +197811,7 @@ const catalog = [
   {
     "id": "animeworld-84",
     "imdbId": "tt0096283",
-    "tmdbId": 96283,
+    "tmdbId": 8392,
     "type": "movie",
     "title": "My Neighbor Totoro (Multi-Audio)",
     "year": 1988,
@@ -191173,7 +197887,7 @@ const catalog = [
   {
     "id": "animeworld-85",
     "imdbId": "tt0094625",
-    "tmdbId": 94625,
+    "tmdbId": 149,
     "type": "movie",
     "title": "Akira (Multi-Audio)",
     "year": 1988,
@@ -191249,7 +197963,7 @@ const catalog = [
   {
     "id": "animeworld-86",
     "imdbId": "tt0113568",
-    "tmdbId": 113568,
+    "tmdbId": 9323,
     "type": "movie",
     "title": "Ghost in the Shell (Multi-Audio)",
     "year": 1995,
@@ -191328,7 +198042,7 @@ const catalog = [
   {
     "id": "animeworld-87",
     "imdbId": "tt0851578",
-    "tmdbId": 851578,
+    "tmdbId": 4977,
     "type": "movie",
     "title": "Paprika (Multi-Audio)",
     "year": 2006,
@@ -191405,8 +198119,8 @@ const catalog = [
   },
   {
     "id": "animeworld-88",
-    "imdbId": "tt0362361",
-    "tmdbId": 362361,
+    "imdbId": "tt0385426",
+    "tmdbId": 70864,
     "type": "series",
     "title": "Initial D: First Stage (Multi-Audio)",
     "year": 1998,
@@ -191425,8 +198139,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt0362361/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt0362361/img",
+    "poster": "https://images.metahub.space/poster/small/tt0385426/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt0385426/img",
     "description": "Watch Initial D: First Stage (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -191665,8 +198379,8 @@ const catalog = [
   },
   {
     "id": "animeworld-89",
-    "imdbId": "tt0090427",
-    "tmdbId": 90427,
+    "imdbId": "tt0088509",
+    "tmdbId": 12609,
     "type": "series",
     "title": "Dragon Ball (Classic) (Multi-Audio)",
     "year": 1989,
@@ -191687,8 +198401,8 @@ const catalog = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/medium/tt0090427/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt0090427/img",
+    "poster": "https://images.metahub.space/poster/small/tt0088509/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt0088509/img",
     "description": "Watch Dragon Ball (Classic) (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -194793,7 +201507,221 @@ const catalog = [
         "defaultServer": 3
       }
     ]
+  },
+  {
+    "id": "crunchyroll-overflow",
+    "title": "Overflow",
+    "type": "series",
+    "platformId": "crunchyroll",
+    "platform": "Crunchyroll",
+    "platformBadge": "CRUNCHYROLL",
+    "platformColor": "#F47521",
+    "imdbId": "tt14962432",
+    "tmdbId": 95897,
+    "year": "2020",
+    "duration": "8 Episodes",
+    "maturity": "18+",
+    "quality": "4K Ultra HD",
+    "matchRate": "98% Match",
+    "rating": "8.4",
+    "audio": "Japanese (Original) • English Sub/Dub",
+    "director": "Studio Hōkiboshi",
+    "genres": [
+      "Anime",
+      "Animation",
+      "Romance",
+      "Comedy"
+    ],
+    "poster": "https://live.metahub.space/poster/small/tt14962432/img",
+    "backdrop": "https://live.metahub.space/background/medium/tt14962432/img",
+    "description": "Kazushi Sudou is a university student whose daily life is turned upside down when his childhood friends, the Shirakawa sisters (Ayane and Kotone), visit him.",
+    "overview": "Kazushi Sudou is a university student whose daily life is turned upside down when his childhood friends, the Shirakawa sisters (Ayane and Kotone), visit him.",
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "7m",
+            "description": "Kazushi shares a bath with childhood friends Ayane and Kotone.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "7m",
+            "description": "The unexpected dynamic continues between Kazushi and the sisters.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "7m",
+            "description": "Feelings become more complicated in Kazushi's apartment.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "7m",
+            "description": "A secret is kept between Kazushi and Ayane.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "7m",
+            "description": "Tension rises as Kotone notices changes.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "7m",
+            "description": "The sisters confront their feelings.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "7m",
+            "description": "A heartfelt confession between the friends.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "7m",
+            "description": "Season finale of Overflow.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          }
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      }
+    ]
+  },
+  {
+    "id": "animeworld-overflow",
+    "title": "Overflow",
+    "type": "series",
+    "platformId": "animeworld",
+    "platform": "Anime World",
+    "platformBadge": "ANIME WORLD",
+    "platformColor": "#F59E0B",
+    "imdbId": "tt14962432",
+    "tmdbId": 95897,
+    "year": "2020",
+    "duration": "8 Episodes",
+    "maturity": "18+",
+    "quality": "4K Ultra HD",
+    "matchRate": "98% Match",
+    "rating": "8.4",
+    "audio": "Japanese (Original) • English Sub/Dub",
+    "director": "Studio Hōkiboshi",
+    "genres": [
+      "Anime",
+      "Animation",
+      "Romance",
+      "Comedy"
+    ],
+    "poster": "https://live.metahub.space/poster/small/tt14962432/img",
+    "backdrop": "https://live.metahub.space/background/medium/tt14962432/img",
+    "description": "Kazushi Sudou is a university student whose daily life is turned upside down when his childhood friends, the Shirakawa sisters (Ayane and Kotone), visit him.",
+    "overview": "Kazushi Sudou is a university student whose daily life is turned upside down when his childhood friends, the Shirakawa sisters (Ayane and Kotone), visit him.",
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "7m",
+            "description": "Kazushi shares a bath with childhood friends Ayane and Kotone.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "7m",
+            "description": "The unexpected dynamic continues between Kazushi and the sisters.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "7m",
+            "description": "Feelings become more complicated in Kazushi's apartment.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "7m",
+            "description": "A secret is kept between Kazushi and Ayane.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "7m",
+            "description": "Tension rises as Kotone notices changes.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "7m",
+            "description": "The sisters confront their feelings.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "7m",
+            "description": "A heartfelt confession between the friends.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "7m",
+            "description": "Season finale of Overflow.",
+            "thumbnail": "https://live.metahub.space/background/medium/tt14962432/img"
+          }
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "code": "ja",
+        "name": "Japanese Audio",
+        "flag": "🇯🇵",
+        "isDub": false,
+        "defaultServer": 5
+      },
+      {
+        "code": "en",
+        "name": "English (Original)",
+        "flag": "🌐",
+        "isDub": false,
+        "defaultServer": 0
+      }
+    ]
   }
 ];
-
-module.exports = catalog;
