@@ -940,19 +940,14 @@ function renderHorizontalList(containerId, items) {
   });
 }
 
-// Continue Watching
-function getContinueWatching() {
-  try {
-    const raw = localStorage.getItem(STORAGE_CONTINUE_WATCHING) || localStorage.getItem('netflixmirror_continue_watching');
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    return [];
-  }
+// Global Player Active Check (Accessible everywhere)
+function isPlayerActive() {
+  const overlay = document.getElementById('player-overlay');
+  return !!(overlay && overlay.style.display === 'flex');
 }
+window.isPlayerActive = isPlayerActive;
 
-// ========================================================
-// ADVANCED ACCURATE CONTINUE WATCHING & PLAYBACK RESUME ENGINE
-// ========================================================
+// Continue Watching Storage & State Engine
 let currentResumeTime = 0;
 let watchProgressTimer = null;
 let currentWatchSeconds = 0;
@@ -972,7 +967,7 @@ function formatTimeSeconds(sec) {
 
 function getContinueWatching() {
   try {
-    const raw = localStorage.getItem(STORAGE_CONTINUE_WATCHING);
+    const raw = localStorage.getItem(STORAGE_CONTINUE_WATCHING) || localStorage.getItem('netflixmirror_continue_watching');
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
     return [];
@@ -980,42 +975,58 @@ function getContinueWatching() {
 }
 
 function getContinueWatchingItem(itemId) {
+  if (!itemId) return null;
   const list = getContinueWatching();
   return list.find(x => String(x.id) === String(itemId)) || null;
 }
 
 function saveContinueWatching(item, season = 1, episode = 1, currentTime = 0, durationSec = 0) {
-  if (!item) return;
+  if (!item || !item.id) return;
   const list = getContinueWatching().filter(x => String(x.id) !== String(item.id));
   const curTime = Math.max(0, Math.floor(currentTime || 0));
+  const sNum = parseInt(season, 10) || 1;
+  const eNum = parseInt(episode, 10) || 1;
   const totalSec = Math.max(curTime + 60, Math.floor(durationSec || (item.type === 'series' ? 2700 : 6600)));
   const progressPercent = Math.min(99, Math.max(5, Math.round((curTime / totalSec) * 100)));
+
+  // Retrieve previous episodeProgress map if it exists
+  const existing = getContinueWatchingItem(item.id);
+  const epProgress = (existing && existing.episodeProgress) ? { ...existing.episodeProgress } : {};
+  if (item.type === 'series') {
+    epProgress[`s${sNum}e${eNum}`] = curTime;
+  }
 
   list.unshift({
     id: item.id,
     title: item.title,
     poster: item.poster || item.backdrop,
+    backdrop: item.backdrop || item.poster,
     platform: item.platform,
     platformId: item.platformId,
     type: item.type,
     year: item.year,
     duration: item.duration,
-    season: parseInt(season, 10) || 1,
-    episode: parseInt(episode, 10) || 1,
+    imdbId: item.imdbId || (existing && existing.imdbId) || '',
+    tmdbId: item.tmdbId || (existing && existing.tmdbId) || '',
+    seasons: item.seasons || (existing && existing.seasons) || [],
+    season: sNum,
+    episode: eNum,
     currentTime: curTime,
     durationSec: totalSec,
     progress: progressPercent,
+    episodeProgress: epProgress,
     timestamp: Date.now()
   });
 
   try {
-    localStorage.setItem(STORAGE_CONTINUE_WATCHING, JSON.stringify(list.slice(0, 15)));
+    localStorage.setItem(STORAGE_CONTINUE_WATCHING, JSON.stringify(list.slice(0, 20)));
   } catch (e) {}
   renderContinueWatching();
 }
 
 function clearContinueWatching() {
   localStorage.removeItem(STORAGE_CONTINUE_WATCHING);
+  localStorage.removeItem('netflixmirror_continue_watching');
   renderContinueWatching();
   showToast('Continue Watching history cleared');
 }
@@ -1063,10 +1074,48 @@ function renderContinueWatching() {
       </div>
     `;
 
-    card.onclick = () => openPlayer(rawItem, c.season, c.episode, null, c.currentTime);
+    card.onclick = () => {
+      openPlayer(rawItem, c.season, c.episode, null, c.currentTime);
+    };
     container.appendChild(card);
   });
 }
+
+// Real-time Provider Playback Progress Listener (VidLink & HTML5 Embeds)
+window.addEventListener('message', (event) => {
+  if (!isPlayerActive() || !currentItem) return;
+  try {
+    const data = event.data;
+    if (!data) return;
+
+    // 1. VidLink MEDIA_DATA event
+    if (data.type === 'MEDIA_DATA' && data.data) {
+      const mediaData = data.data;
+      const mediaKey = Object.keys(mediaData)[0];
+      const info = mediaKey ? mediaData[mediaKey] : null;
+      if (info && info.progress && typeof info.progress.watched === 'number') {
+        const watchedSec = Math.floor(info.progress.watched);
+        const durSec = Math.floor(info.progress.duration || currentDurationSeconds);
+        if (watchedSec > 0) {
+          currentWatchSeconds = watchedSec;
+          if (durSec > 60) currentDurationSeconds = durSec;
+          saveContinueWatching(currentItem, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
+        }
+      }
+    }
+
+    // 2. Standard timeupdate events
+    if (data.event === 'timeupdate' || data.type === 'timeupdate' || data.event === 'timeChange') {
+      const cur = data.currentTime || data.time || (data.data && (data.data.currentTime || data.data.time));
+      const dur = data.duration || (data.data && data.data.duration);
+      if (typeof cur === 'number' && cur > 0) {
+        currentWatchSeconds = Math.floor(cur);
+        if (typeof dur === 'number' && dur > 60) currentDurationSeconds = Math.floor(dur);
+        saveContinueWatching(currentItem, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
+      }
+    }
+  } catch (e) {}
+});
 
 function getWatchlist() {
   try {
@@ -1849,16 +1898,45 @@ async function openDetailsModal(item) {
   // Render 10 Streaming Server Chips on Movie Page
   renderMoviePageServerChips(item);
 
-  // Play Button (Uses currently selected server)
+  // Play & Resume Action with Restart Capability
   const playBtn = document.getElementById('modal-play-btn');
   const playText = document.getElementById('modal-play-text');
-  if (playText) {
-    playText.textContent = `Play (${STREAMING_SERVERS[selectedServerIndex].name.split(':')[0]})`;
+  const restartBtn = document.getElementById('modal-restart-btn');
+
+  const savedCw = getContinueWatchingItem(item.id);
+  const hasProgress = savedCw && (savedCw.currentTime > 10 || savedCw.season > 1 || savedCw.episode > 1);
+
+  if (hasProgress) {
+    const epLabel = item.type === 'series' ? `S${savedCw.season}:E${savedCw.episode} ` : '';
+    const timeLabel = formatTimeSeconds(savedCw.currentTime);
+    if (playText) {
+      playText.textContent = `Resume ${epLabel}(${timeLabel})`;
+    }
+    playBtn.onclick = () => {
+      closeDetailsModal();
+      openPlayer(item, savedCw.season, savedCw.episode, selectedServerIndex, savedCw.currentTime);
+    };
+
+    if (restartBtn) {
+      restartBtn.style.display = 'inline-flex';
+      restartBtn.onclick = () => {
+        closeDetailsModal();
+        openPlayer(item, 1, 1, selectedServerIndex, 0);
+      };
+    }
+  } else {
+    if (playText) {
+      playText.textContent = `Play (${STREAMING_SERVERS[selectedServerIndex].name.split(':')[0]})`;
+    }
+    playBtn.onclick = () => {
+      closeDetailsModal();
+      openPlayer(item, 1, 1, selectedServerIndex, 0);
+    };
+
+    if (restartBtn) {
+      restartBtn.style.display = 'none';
+    }
   }
-  playBtn.onclick = () => {
-    closeDetailsModal();
-    openPlayer(item, 1, 1, selectedServerIndex);
-  };
 
   // TV Series Episodes with High-Resolution Thumbnails
   const epSection = document.getElementById('modal-episodes-section');
@@ -1947,7 +2025,12 @@ function setupModalSeasons(item) {
     select.appendChild(opt);
   });
 
-  renderModalEpisodes(item.seasons[0].season);
+  const savedCw = getContinueWatchingItem(item.id);
+  const targetSeason = (savedCw && savedCw.season && item.seasons.some(x => x.season === savedCw.season)) 
+    ? savedCw.season 
+    : item.seasons[0].season;
+  select.value = targetSeason;
+  renderModalEpisodes(targetSeason);
 }
 
 // RENDER EPISODES WITH REAL 16:9 THUMBNAILS
@@ -1985,9 +2068,14 @@ function renderModalEpisodes(seasonNum) {
       </div>
     `;
 
+    const savedCw = getContinueWatchingItem(item.id);
+    const epKey = `s${seasonNum}e${ep.episode}`;
+    const epSavedSec = (savedCw && savedCw.episodeProgress && savedCw.episodeProgress[epKey])
+      || (savedCw && savedCw.season === parseInt(seasonNum, 10) && savedCw.episode === ep.episode ? savedCw.currentTime : 0);
+
     card.onclick = () => {
       closeDetailsModal();
-      openPlayer(item, seasonNum, ep.episode, selectedServerIndex);
+      openPlayer(item, seasonNum, ep.episode, selectedServerIndex, epSavedSec);
     };
 
     grid.appendChild(card);
@@ -2249,58 +2337,69 @@ function handlePlayerClick(e) {
 }
 
 async function openPlayer(item, season = null, episode = null, serverIndex = null, resumeTime = null) {
-
   closeDetailsModal();
   currentItem = item;
 
-  // Resolve Season & Episode: Check Continue Watching if not explicitly specified
-  if (season !== null && season !== undefined) {
-    currentSeason = parseInt(season, 10) || 1;
+  // Retrieve saved Continue Watching item if it exists
+  const saved = getContinueWatchingItem(item.id);
+
+  // 1. Resolve Season:
+  if (season !== null && season !== undefined && !isNaN(parseInt(season, 10))) {
+    currentSeason = parseInt(season, 10);
+  } else if (saved && saved.season) {
+    currentSeason = parseInt(saved.season, 10);
   } else {
-    const saved = getContinueWatchingItem(item.id);
-    currentSeason = (saved && saved.season) ? parseInt(saved.season, 10) : 1;
+    currentSeason = 1;
   }
 
-  if (episode !== null && episode !== undefined) {
-    currentEpisode = parseInt(episode, 10) || 1;
+  // 2. Resolve Episode:
+  if (episode !== null && episode !== undefined && !isNaN(parseInt(episode, 10))) {
+    currentEpisode = parseInt(episode, 10);
+  } else if (saved && saved.episode) {
+    currentEpisode = parseInt(saved.episode, 10);
   } else {
-    const saved = getContinueWatchingItem(item.id);
-    currentEpisode = (saved && saved.episode) ? parseInt(saved.episode, 10) : 1;
+    currentEpisode = 1;
   }
 
-  // Resolve Resume Time: Exact seconds from saved history
-  if (resumeTime !== null && resumeTime !== undefined) {
-    currentResumeTime = Math.floor(resumeTime);
-  } else {
-    const saved = getContinueWatchingItem(item.id);
-    if (saved && (item.type !== 'series' || (saved.season === currentSeason && saved.episode === currentEpisode))) {
-      currentResumeTime = Math.floor(saved.currentTime || 0);
+  // 3. Resolve Resume Time (Exact seconds from saved history or param):
+  if (resumeTime !== null && resumeTime !== undefined && !isNaN(parseFloat(resumeTime))) {
+    currentResumeTime = Math.max(0, Math.floor(resumeTime));
+  } else if (saved) {
+    const epKey = `s${currentSeason}e${currentEpisode}`;
+    if (item.type !== 'series') {
+      currentResumeTime = Math.max(0, Math.floor(saved.currentTime || 0));
+    } else if (saved.season === currentSeason && saved.episode === currentEpisode) {
+      currentResumeTime = Math.max(0, Math.floor(saved.currentTime || 0));
+    } else if (saved.episodeProgress && saved.episodeProgress[epKey]) {
+      currentResumeTime = Math.max(0, Math.floor(saved.episodeProgress[epKey] || 0));
     } else {
       currentResumeTime = 0;
     }
+  } else {
+    currentResumeTime = 0;
   }
 
   currentWatchSeconds = currentResumeTime;
   currentDurationSeconds = (item.type === 'series' ? 2700 : 6600);
 
+  currentServerIndex = (serverIndex !== undefined && serverIndex !== null) 
+    ? parseInt(serverIndex, 10) 
+    : (selectedServerIndex !== undefined ? selectedServerIndex : 0);
+
   // Active continuous progress tracker (updates every 3s)
-  clearInterval(watchProgressTimer);
+  if (watchProgressTimer) {
+    clearInterval(watchProgressTimer);
+    watchProgressTimer = null;
+  }
   watchProgressTimer = setInterval(() => {
     if (!isPlayerActive()) {
       clearInterval(watchProgressTimer);
+      watchProgressTimer = null;
       return;
     }
     currentWatchSeconds += 3;
     saveContinueWatching(currentItem, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
   }, 3000);
-
-  closeDetailsModal();
-  currentItem = item;
-  currentSeason = parseInt(season, 10);
-  currentEpisode = parseInt(episode, 10);
-  currentServerIndex = (serverIndex !== undefined && serverIndex !== null) 
-    ? parseInt(serverIndex, 10) 
-    : (selectedServerIndex !== undefined ? selectedServerIndex : 0);
 
   // Sync Dubbed Audio Selector in Header
   const audioSelect = document.getElementById('player-audio-select');
@@ -2352,7 +2451,9 @@ async function openPlayer(item, season = null, episode = null, serverIndex = nul
     // Load Stream with selected server
     loadServerStream(currentServerIndex);
 
-    saveContinueWatching(item, currentSeason, currentEpisode);
+    // Save initial continue watching state preserving resume position
+    saveContinueWatching(item, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
+
     const overlay = document.getElementById('player-overlay');
     overlay.style.display = 'flex';
     handlePlayerMouseMove();
@@ -2505,14 +2606,17 @@ function loadServerStream(serverIdx) {
     }
   }
   
-  // Append resume timestamp parameters for providers
+  // Append resume timestamp parameters across all provider conventions (start, startAt, t, #t)
   if (currentResumeTime > 5 && streamUrl) {
+    const sec = Math.floor(currentResumeTime);
     const sep = streamUrl.includes('?') ? '&' : '?';
-    streamUrl = streamUrl + sep + 'start=' + Math.floor(currentResumeTime) + '#t=' + Math.floor(currentResumeTime);
+    streamUrl = `${streamUrl}${sep}start=${sec}&startAt=${sec}&t=${sec}#t=${sec}`;
   }
   iframe.src = streamUrl;
+
   if (currentResumeTime > 5) {
-    showToast('Resuming from ' + formatTimeSeconds(currentResumeTime) + ' • ' + (currentItem?.type === 'series' ? 'S' + currentSeason + ':E' + currentEpisode : 'Movie'), 'info');
+    const epStr = currentItem?.type === 'series' ? `S${currentSeason}:E${currentEpisode}` : 'Movie';
+    showToast(`Resuming from ${formatTimeSeconds(currentResumeTime)} • ${epStr}`, 'info');
   }
 
 
@@ -2527,6 +2631,18 @@ function loadServerStream(serverIdx) {
 
   iframe.onload = () => {
     setTimeout(dismissBuffer, 150);
+    if (currentResumeTime > 5) {
+      setTimeout(() => {
+        try {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.postMessage({ type: 'seek', time: currentResumeTime }, '*');
+            iframe.contentWindow.postMessage({ event: 'seek', time: currentResumeTime }, '*');
+            iframe.contentWindow.postMessage({ type: 'player:seek', time: currentResumeTime }, '*');
+            iframe.contentWindow.postMessage({ method: 'seekTo', value: currentResumeTime }, '*');
+          }
+        } catch (e) {}
+      }, 1000);
+    }
   };
   setTimeout(dismissBuffer, 600); // 600ms failsafe timeout - never stuck buffering!
 
@@ -2535,6 +2651,7 @@ function loadServerStream(serverIdx) {
 
 function changeServer(val) {
   const idx = parseInt(val, 10);
+  currentResumeTime = currentWatchSeconds;
   loadServerStream(idx);
 }
 
@@ -2596,6 +2713,14 @@ function zapAdOverlays() {
 
 // Return to Movie Details on Close/Back
 function closePlayer(returnToMovie = true) {
+  if (watchProgressTimer) {
+    clearInterval(watchProgressTimer);
+    watchProgressTimer = null;
+  }
+  if (currentItem) {
+    saveContinueWatching(currentItem, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
+  }
+
   const iframe = document.getElementById('player-iframe');
   if (iframe) iframe.src = '';
   document.getElementById('player-overlay').style.display = 'none';
@@ -2636,16 +2761,18 @@ function playNextEpisode() {
   const currentSeasonData = item.seasons.find(s => s.season === currentSeason);
   if (!currentSeasonData) return;
 
+  saveContinueWatching(item, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
+
   const nextEpNum = currentEpisode + 1;
   const nextEpExists = currentSeasonData.episodes.some(e => e.episode === nextEpNum);
 
   if (nextEpExists) {
-    openPlayer(item, currentSeason, nextEpNum, currentServerIndex);
+    openPlayer(item, currentSeason, nextEpNum, currentServerIndex, 0);
     showToast(`Loaded Season ${currentSeason} Episode ${nextEpNum}`);
   } else {
     const nextSeasonData = item.seasons.find(s => s.season === currentSeason + 1);
     if (nextSeasonData && nextSeasonData.episodes.length > 0) {
-      openPlayer(item, currentSeason + 1, 1, currentServerIndex);
+      openPlayer(item, currentSeason + 1, 1, currentServerIndex, 0);
       showToast(`Loaded Season ${currentSeason + 1} Episode 1`);
     } else {
       showToast('You have reached the latest episode!');
@@ -2762,6 +2889,7 @@ function renderDrawerEpisodes(seasonNum) {
     `;
 
     itemEl.onclick = () => {
+      saveContinueWatching(currentItem, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
       toggleEpisodesDrawer();
       openPlayer(item, seasonNum, ep.episode, currentServerIndex);
     };
@@ -3001,6 +3129,7 @@ function renderTheaterEpisodes(seasonNum) {
     `;
 
     card.onclick = () => {
+      saveContinueWatching(currentItem, currentSeason, currentEpisode, currentWatchSeconds, currentDurationSeconds);
       openPlayer(item, seasonNum, ep.episode, currentServerIndex);
       renderTheaterEpisodes(seasonNum);
     };
