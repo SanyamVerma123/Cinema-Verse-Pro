@@ -1,0 +1,96 @@
+name: Build CinemaVerse Desktop Apps (Windows, Linux, macOS)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'desktop/**'
+      - '.github/workflows/build-desktop.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-desktop:
+    name: Build Desktop (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: win
+            artifact_name: CinemaVerse-Windows-Setup.exe
+            file_pattern: 'desktop/dist/*.exe'
+          - os: ubuntu-latest
+            target: linux
+            artifact_name: CinemaVerse-Linux.AppImage
+            file_pattern: 'desktop/dist/*.AppImage'
+          - os: macos-latest
+            target: mac
+            artifact_name: CinemaVerse-macOS.dmg
+            file_pattern: 'desktop/dist/*.dmg'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Desktop Dependencies
+        working-directory: desktop
+        run: npm install
+
+      - name: Build Application Package
+        working-directory: desktop
+        run: npm run dist:${{ matrix.target }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Locate and Prepare Output Artifact
+        shell: bash
+        run: |
+          mkdir -p desktop-release
+          FOUND_FILE=$(ls ${{ matrix.file_pattern }} 2>/dev/null | head -n 1)
+          if [ -f "$FOUND_FILE" ]; then
+            echo "Found $FOUND_FILE"
+            cp "$FOUND_FILE" desktop-release/${{ matrix.artifact_name }}
+            ls -lh desktop-release/
+          else
+            echo "Warning: No direct match for ${{ matrix.file_pattern }}"
+            ls -R desktop/dist/ || true
+          fi
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: desktop-release/*
+          retention-days: 90
+
+      - name: Attach to GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: success()
+        with:
+          tag_name: latest-desktop
+          name: "CinemaVerse Pro — Desktop Apps (Windows, Mac, Linux)"
+          body: |
+            ## 💻 CinemaVerse Pro Standalone Desktop Apps
+            
+            Official standalone desktop applications for **Windows, macOS, and Linux**.
+            
+            ### ✨ Features
+            - **Auto-Updating Web Shell**: Loads the live CinemaVerse platform automatically.
+            - **Hardware-Accelerated 4K Video**: Fluid streaming playback with hardware GPU acceleration.
+            - **Immersive Fullscreen**: Toggle cinema mode with F11.
+            - **Media Keys & Shortcuts**: Built-in keyboard shortcuts and media controls.
+          draft: false
+          prerelease: false
+          files: desktop-release/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

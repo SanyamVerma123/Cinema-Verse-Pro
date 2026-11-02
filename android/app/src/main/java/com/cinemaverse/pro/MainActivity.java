@@ -3,11 +3,13 @@ package com.cinemaverse.pro;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -178,6 +181,20 @@ public class MainActivity extends AppCompatActivity {
         // Client callbacks
         webView.setWebViewClient(new CinemaWebViewClient());
         webView.setWebChromeClient(new CinemaWebChromeClient());
+        webView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Starting download...", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "Download error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     /**
@@ -209,6 +226,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
+            // Handle binary downloads (.apk, .exe, .dmg, .AppImage) or download URLs by launching external browser/download manager
+            if (url.endsWith(".apk") || url.endsWith(".exe") || url.endsWith(".dmg") || 
+                url.endsWith(".AppImage") || url.endsWith(".deb") || url.contains("/download/") ||
+                url.contains("github.com/SanyamVerma123/Cinema-Verse-Pro/releases")) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Downloading file...", Toast.LENGTH_SHORT).show();
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            }
             // Keep all CinemaVerse and player mirrors inside the native WebView
             return false;
         }

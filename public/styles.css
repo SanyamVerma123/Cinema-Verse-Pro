@@ -10392,3 +10392,1063 @@ body {
   transform: scale(1.05);
   z-index: 100;
 }
+
+/* ========================================================
+   MULTI-PLATFORM APP DOWNLOAD CENTER (ANDROID, WIN, MAC, LINUX)
+   ======================================================== */
+.auto-update-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+}
+.auto-update-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.auto-update-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #ecebe7;
+}
+.auto-update-text strong {
+  color: #f59e0b;
+  margin-right: 6px;
+}
+
+.platforms-download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.platform-app-card {
+  background: #111116;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.platform-app-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.platform-app-card.recommended {
+  border-color: #10b981;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+}
+
+.platform-app-card.recommended::before {
+  content: 'RECOMMENDED FOR YOU';
+  position: absolute;
+  top: 10px;
+  right: -32px;
+  transform: rotate(45deg);
+  background: #10b981;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 2px 32px;
+  text-align: center;
+}
+
+.platform-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.platform-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.icon-android { background: rgba(16, 185, 129, 0.16); color: #10b981; }
+.icon-windows { background: rgba(6, 182, 212, 0.16); color: #06b6d4; }
+.icon-macos { background: rgba(168, 85, 247, 0.16); color: #c084fc; }
+.icon-linux { background: rgba(245, 158, 11, 0.16); color: #fbbf24; }
+.icon-pwa { background: rgba(229, 9, 20, 0.16); color: #e50914; }
+
+.platform-meta {
+  flex: 1;
+}
+.platform-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.platform-title-row h5 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+}
+.platform-tag {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #a1a1aa;
+}
+.platform-tag.tag-green {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+.platform-devices {
+  font-size: 11px;
+  color: #8e8e93;
+  margin: 2px 0 0;
+}
+
+.platform-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #d1d5db;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 10px 0;
+}
+.platform-perks span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.platform-action {
+  margin-top: 4px;
+}
+
+.btn-platform-download {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.btn-platform-download:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn-android {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+.btn-windows {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+}
+.btn-macos {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+}
+.btn-linux {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+}
+.btn-pwa {
+  background: linear-gradient(135deg, #e50914 0%, #b91c1c 100%);
+  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.35);
+}
+
+.dl-btn-label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.dl-btn-label strong {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.dl-btn-label small {
+  font-size: 10px;
+  opacity: 0.85;
+}
+
+/* ========================================================================= */
+/* 1. ALEXANDRIA DIGITAL ARCHIVE CAMOUFLAGE SYSTEM (DECOY ACADEMIC UI)       */
+/* ========================================================================= */
+.decoy-library-wrapper {
+  background: #090d16;
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  z-index: 100;
+  display: block;
+}
+
+/* Alexandria Top Navbar */
+.alex-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background: rgba(13, 17, 26, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.alex-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.alex-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+.alex-brand:hover {
+  transform: scale(1.02);
+}
+
+.alex-seal-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.alex-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+.alex-title {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #f1f5f9;
+  line-height: 1.1;
+}
+.alex-sub {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  color: #fbbf24;
+}
+
+.alex-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.alex-nav-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.alex-nav-btn:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.05);
+}
+.alex-nav-btn.active {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.25);
+}
+
+.alex-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.alex-search-wrap {
+  position: relative;
+  width: 280px;
+}
+.alex-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  font-size: 13px;
+}
+.alex-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #f8fafc;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.alex-search-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+}
+
+.btn-alex-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.15) 0%, rgba(180, 83, 9, 0.25) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: #fbbf24;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.btn-alex-login:hover {
+  background: rgba(217, 119, 6, 0.3);
+  color: #fff;
+  border-color: #fbbf24;
+  transform: translateY(-1px);
+}
+
+/* Alexandria Hero Section */
+.alex-hero {
+  position: relative;
+  padding: 70px 32px 50px;
+  background: radial-gradient(circle at 50% 10%, rgba(217, 119, 6, 0.12) 0%, rgba(9, 13, 22, 1) 70%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+.alex-hero-content {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.alex-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 20px;
+  color: #fbbf24;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-bottom: 20px;
+}
+.alex-hero-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+.alex-hero-desc {
+  font-size: 16px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alex-hero-search-row {
+  max-width: 640px;
+  margin: 0 auto 36px;
+}
+.alex-hero-input-group {
+  display: flex;
+  align-items: center;
+  background: rgba(18, 24, 38, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 6px 8px 6px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.2s ease;
+}
+.alex-hero-input-group:focus-within {
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}
+.alex-hero-input-group i {
+  color: #64748b;
+  font-size: 16px;
+  margin-right: 12px;
+}
+.alex-hero-input-group input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  font-size: 14px;
+  outline: none;
+}
+.btn-alex-search {
+  background: #d97706;
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+.btn-alex-search:hover {
+  background: #b45309;
+}
+
+/* Metric Strip */
+.alex-stats-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 30px;
+}
+.alex-stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.alex-stat-pill strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.alex-stat-pill span {
+  font-size: 11px;
+  color: #64748b;
+}
+.alex-stat-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Catalog Main Section */
+.alex-main-catalog {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+.alex-catalog-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 16px;
+}
+.alex-section-title {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 6px;
+}
+.alex-section-sub {
+  font-size: 14px;
+  color: #94a3b8;
+}
+.alex-count-badge {
+  font-size: 12px;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+/* Books Grid */
+.alex-books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.alex-book-card {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+.alex-book-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(251, 191, 36, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(217, 119, 6, 0.15);
+}
+
+.alex-book-cover-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #0f172a;
+}
+.alex-book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.alex-book-card:hover .alex-book-cover {
+  transform: scale(1.05);
+}
+.alex-book-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fbbf24;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+.alex-book-year {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #cbd5e1;
+  font-size: 10px;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.alex-book-info {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.alex-book-title {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.alex-book-author {
+  font-size: 12px;
+  color: #fbbf24;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.alex-book-desc {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+.alex-book-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #64748b;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 10px;
+  margin-bottom: 14px;
+}
+
+.alex-book-actions {
+  display: flex;
+  gap: 8px;
+}
+.btn-read-online {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px;
+  background: #d97706;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn-read-online:hover {
+  background: #b45309;
+}
+.btn-cite-text {
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #cbd5e1;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-cite-text:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Alexandria Footer */
+.alex-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: #080c14;
+  padding: 40px 32px;
+}
+.alex-footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.alex-footer-left p {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 6px;
+  max-width: 480px;
+}
+.alex-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ========================================================================= */
+/* 2. ALEXANDRIA MODALS (READER & CARDHOLDER LOGIN)                           */
+/* ========================================================================= */
+.alex-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: alexFadeIn 0.2s ease;
+}
+@keyframes alexFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Reader Dialog */
+.alex-reader-dialog {
+  background: #0f1422;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 820px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+}
+.alex-reader-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+.alex-reader-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fbbf24;
+  letter-spacing: 1px;
+}
+.alex-reader-title {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: #f8fafc;
+  margin: 2px 0;
+}
+.alex-reader-author {
+  font-size: 12px;
+  color: #94a3b8;
+}
+.alex-reader-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.alex-reader-controls button {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.alex-reader-controls button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+.alex-reader-body {
+  padding: 28px 32px;
+  overflow-y: auto;
+  flex: 1;
+  background: #0b0f19;
+  color: #e2e8f0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.alex-reader-body.theme-sepia {
+  background: #fbf0d9;
+  color: #382d21;
+}
+.alex-reader-body.theme-paper {
+  background: #fdfdfd;
+  color: #1e293b;
+}
+.alex-reader-text {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.alex-reader-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: #64748b;
+  background: rgba(255, 255, 255, 0.02);
+}
+.btn-alex-reader-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Cardholder Sign-In Dialog (Secret Door & Decoy) */
+.alex-login-dialog {
+  position: relative;
+  background: #0f1524;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 440px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 119, 6, 0.15);
+}
+.alex-login-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.alex-login-close:hover {
+  color: #f8fafc;
+}
+.alex-login-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.alex-login-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(217, 119, 6, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+.alex-login-header h3 {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: #f8fafc;
+  margin-bottom: 6px;
+}
+.alex-login-header p {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.alex-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.alex-input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-bottom: 6px;
+}
+.alex-input-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: border-color 0.2s;
+}
+.alex-input-wrap:focus-within {
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+}
+.alex-input-wrap i {
+  color: #64748b;
+  font-size: 14px;
+  margin-right: 10px;
+}
+.alex-input-wrap input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  font-size: 13px;
+  outline: none;
+}
+.alex-input-hint {
+  display: block;
+  font-size: 10px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.alex-login-status {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+}
+.alex-login-status.success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+.alex-login-status.error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.btn-alex-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px;
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.35);
+  transition: transform 0.2s, filter 0.2s;
+}
+.btn-alex-submit:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+/* ========================================================================= */
+/* 3. CINEMAVERSE LUXURY & CAMOUFLAGE OVERLAYS                               */
+/* ========================================================================= */
+/* Panic Camouflage Button in CinemaVerse Navbar */
+.nav-camouflage-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  color: #fbbf24;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 6px;
+}
+.nav-camouflage-btn:hover {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: #fbbf24;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Luxury Obsidian Radial Background */
+.netflix-body {
+  background: radial-gradient(circle at 50% 0%, #111420 0%, #07080c 60%, #040507 100%) !important;
+}
+
+/* Mobile Bottom Navigation Dock */
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 62px !important;
+    background: rgba(10, 13, 20, 0.92) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    z-index: 99999 !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6) !important;
+  }
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 6px 10px;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mobile-nav-item i {
+    font-size: 17px;
+    transition: transform 0.2s ease;
+  }
+  .mobile-nav-item.active,
+  .mobile-nav-item:hover {
+    color: #e50914;
+  }
+  .mobile-nav-item.active i {
+    transform: translateY(-2px);
+    color: #e50914;
+  }
+  /* Ensure content is not covered by bottom dock */
+  body.has-bottom-dock {
+    padding-bottom: 70px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
+/* Touch Momentum & Snapping */
+.netflix-row-slider {
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.netflix-card {
+  scroll-snap-align: start;
+}

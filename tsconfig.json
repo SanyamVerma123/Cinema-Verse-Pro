@@ -32,6 +32,9 @@
     "**/*.jsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "android",
+    "desktop",
+    ".next"
   ]
 }

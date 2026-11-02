@@ -199,8 +199,191 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   };
 }
 
-// 1. Platforms Endpoint
+// =========================================================================
+// ALEXANDRIA DIGITAL ARCHIVE CAMOUFLAGE SYSTEM & SECURITY BARRIER
+// =========================================================================
+const CINEMA_SECRET_PASSCODES = ['cinema2026', 'master', 'cinemaverse', 'quantum', 'open2026'];
+const CINEMA_AUTH_TOKEN = 'CV_SECURE_TOKEN_2026_MASTER';
+
+function isCinemaAuthorized(req) {
+  const token = req.headers['x-cinema-access'] || req.query.auth || req.query.access_token || req.headers['authorization'];
+  if (token === CINEMA_AUTH_TOKEN || (typeof token === 'string' && token.includes(CINEMA_AUTH_TOKEN))) {
+    return true;
+  }
+  const cookie = req.headers.cookie || '';
+  if (cookie.includes('cv_token=' + CINEMA_AUTH_TOKEN)) {
+    return true;
+  }
+  return false;
+}
+
+const ALEXANDRIA_COLLECTIONS = [
+  { id: 'all', name: 'All Collections', icon: 'fa-solid fa-book-bookmark', color: '#B45309', badge: 'ARCHIVES', description: 'Universal Classical Literature & Philosophy Repository' },
+  { id: 'philosophy', name: 'Classical Philosophy', icon: 'fa-solid fa-scroll', color: '#D97706', badge: 'PHILOSOPHY', description: 'Ancient Greek & Roman Philosophical Treatises' },
+  { id: 'epics', name: 'World Epics & Poetry', icon: 'fa-solid fa-feather-pointed', color: '#4B5563', badge: 'EPICS', description: 'Epic Poetry, Mythologies & Heroic Cycles' },
+  { id: 'renaissance', name: 'Renaissance & Drama', icon: 'fa-solid fa-masks-theater', color: '#7C3AED', badge: 'DRAMA', description: 'Shakespeare, Machiavelli & Early Modern Works' },
+  { id: 'classics', name: 'British & World Classics', icon: 'fa-solid fa-landmark', color: '#059669', badge: 'CLASSICS', description: '19th & 20th Century Literary Landmarks' }
+];
+
+const ALEXANDRIA_CATALOG = [
+  {
+    id: "alex-meditations",
+    title: "Meditations",
+    author: "Marcus Aurelius",
+    year: "180 AD",
+    language: "Koine Greek / English Translation",
+    category: "Classical Philosophy",
+    dewey: "188",
+    lccn: "B580 .A3 1990",
+    cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
+    description: "Private personal journals of Roman Emperor Marcus Aurelius detailing Stoic discipline, cosmic reason, human dignity, and virtue.",
+    fullText: `BOOK TWO\n\n1. When you wake up in the morning, tell yourself: The people I deal with today will be meddling, ungrateful, arrogant, dishonest, jealous, and surly. They are like this because they cannot distinguish good from evil. But I have seen the beauty of good, and the ugliness of evil, and have recognized that the wrongdoer has a nature related to my own.\n\n2. Whatever this is that I am, it is a little flesh and breath, and the ruling part. Despise the flesh: blood and bones and a network, a jumble of nerves, veins, and arteries. Consider the breath: wind, always changing, expelled and sucked back in again. The third part is the master within.\n\n3. Forget everything else. Keep a hold on these few truths: Each of us lives only now, this brief instant. The rest is either gone or not yet revealed. Short is man's life, and narrow the corner of the earth on which he dwells.`
+  },
+  {
+    id: "alex-republic",
+    title: "The Republic",
+    author: "Plato",
+    year: "375 BC",
+    language: "Ancient Greek / English Translation",
+    category: "Classical Philosophy",
+    dewey: "184",
+    lccn: "JC71 .P35",
+    cover: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80",
+    description: "A foundational dialogue on the concept of justice, the ideal commonwealth, and the allegory of the cave.",
+    fullText: `BOOK VII: THE ALLEGORY OF THE CAVE\n\nAnd now, I said, let me show in a figure how far our nature is enlightened or unenlightened: Behold! human beings living in an underground den, which has a mouth open towards the light and reaching all along the den; here they have been from their childhood, and have their legs and necks chained so that they cannot move, and can only see before them, being prevented by the chains from turning round their heads.\n\nAbove and behind them a fire is blazing at a distance, and between the fire and the prisoners there is a raised way; and you will see, if you look, a low wall built along the way, like the screen which marionette players have in front of them, over which they show the puppets.`
+  },
+  {
+    id: "alex-odyssey",
+    title: "The Odyssey",
+    author: "Homer",
+    year: "750 BC",
+    language: "Epic Greek / English Translation",
+    category: "World Epics & Poetry",
+    dewey: "883.01",
+    lccn: "PA4022 .A1",
+    cover: "https://images.unsplash.com/photo-1463320726281-696a485928c7?w=600&auto=format&fit=crop&q=80",
+    description: "The timeless epic detailing the arduous decade-long journey of Odysseus, king of Ithaca, following the Trojan War.",
+    fullText: `BOOK I\n\nSing in me, Muse, and through me tell the story\nof that man skilled in all ways of contending,\nthe wanderer, harried for years on end,\nafter he plundered the stronghold\non the proud height of Troy.\n\nHe saw the townlands and learned the minds of many distant men,\nand weathered many bitter nights and days in his deep heart at sea,\nwhile he fought only to save his life, to bring his shipmates home.\nBut not by will nor valor could he save them, for their own recklessness destroyed them all.`
+  },
+  {
+    id: "alex-hamlet",
+    title: "Hamlet, Prince of Denmark",
+    author: "William Shakespeare",
+    year: "1601",
+    language: "Early Modern English",
+    category: "Renaissance & Drama",
+    dewey: "822.33",
+    lccn: "PR2807 .A25",
+    cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&auto=format&fit=crop&q=80",
+    description: "Shakespeare's philosophical masterpiece examining existential doubt, mortality, treachery, and righteous vengeance in the Danish court.",
+    fullText: `ACT III, SCENE I\n\nHAMLET:\nTo be, or not to be, that is the question:\nWhether 'tis nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles\nAnd by opposing end them. To die—to sleep,\nNo more; and by a sleep to say we end\nThe heart-ache and the thousand natural shocks\nThat flesh is heir to: 'tis a consummation\nDevoutly to be wish'd. To die, to sleep;\nTo sleep, perchance to dream—ay, there's the rub.`
+  },
+  {
+    id: "alex-pride",
+    title: "Pride and Prejudice",
+    author: "Jane Austen",
+    year: "1813",
+    language: "English",
+    category: "British & World Classics",
+    dewey: "823.7",
+    lccn: "PR4034 .P7",
+    cover: "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?w=600&auto=format&fit=crop&q=80",
+    description: "An acute social satire capturing the tumultuous courtship between Elizabeth Bennet and Fitzwilliam Darcy.",
+    fullText: `CHAPTER I\n\nIt is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.\n\nHowever little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters.\n\n"My dear Mr. Bennet," said his lady to him one day, "have you heard that Netherfield Park is let at last?"\nMr. Bennet replied that he had not.`
+  },
+  {
+    id: "alex-artofwar",
+    title: "The Art of War",
+    author: "Sun Tzu",
+    year: "5th Century BC",
+    language: "Classical Chinese / English Translation",
+    category: "Classical Philosophy",
+    dewey: "355.02",
+    lccn: "U101 .S95",
+    cover: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=600&auto=format&fit=crop&q=80",
+    description: "Thirteen definitive chapters on warfare, strategic positioning, deception, and psychological acumen.",
+    fullText: `CHAPTER I: LAYING PLANS\n\n1. Sun Tzu said: The art of war is of vital importance to the State.\n2. It is a matter of life and death, a road either to safety or to ruin. Hence it is a subject of inquiry which can on no account be neglected.\n3. The art of war, then, is governed by five constant factors, to be taken into account in one's deliberations, when seeking to determine the conditions obtaining in the field.\n4. These are: (1) The Moral Law; (2) Heaven; (3) Earth; (4) The Commander; (5) Method and discipline.\n\nAll warfare is based on deception. Hence, when able to attack, we must seem unable; when using our forces, we must seem inactive; when we are near, we must make the enemy believe we are far away.`
+  },
+  {
+    id: "alex-prince",
+    title: "The Prince",
+    author: "Niccolò Machiavelli",
+    year: "1532",
+    language: "Italian / English Translation",
+    category: "Renaissance & Drama",
+    dewey: "320.1",
+    lccn: "JC143 .M38",
+    cover: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&auto=format&fit=crop&q=80",
+    description: "A treatise on political power, state realism, pragmatism, and ruling through fortune and virtue.",
+    fullText: `CHAPTER XVII: CONCERNING CRUELTY AND CLEMENCY, AND WHETHER IT IS BETTER TO BE LOVED THAN FEARED\n\nUpon this a question arises: whether it is better to be loved than feared, or feared than loved. It may be answered that one should wish to be both, but, because it is difficult to unite them in one person, it is much safer to be feared than loved, when, of the two, either must be dispensed with.\n\nMen have less scruple in offending one who is beloved than one who is feared, for love is preserved by the link of obligation which, owing to the baseness of men, is broken at every opportunity for their advantage; but fear preserves you by a dread of punishment which never fails.`
+  },
+  {
+    id: "alex-gatsby",
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    year: "1925",
+    language: "English",
+    category: "British & World Classics",
+    dewey: "813.52",
+    lccn: "PS3511.I9 G7",
+    cover: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=600&auto=format&fit=crop&q=80",
+    description: "An evocative portrait of the Roaring Twenties, unrequited obsession, wealth, and the illusory American Dream.",
+    fullText: `CHAPTER I\n\nIn my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since.\n\n"Whenever you feel like criticizing any one," he told me, "just remember that all the people in this world haven't had the advantages that you've had."\n\nHe didn't say any more, but we've always been unusually communicative in a reserved way, and I understood that he meant a great deal more than that. In consequence, I'm inclined to reserve all judgements.`
+  }
+];
+
+// Archival Clearance Unlock Endpoint (Passcode Decryption)
+app.post('/api/auth/unlock', (req, res) => {
+  const { passcode, username } = req.body || {};
+  const cleanPass = (passcode || '').toString().trim().toLowerCase();
+
+  if (CINEMA_SECRET_PASSCODES.includes(cleanPass)) {
+    res.setHeader('Set-Cookie', `cv_token=${CINEMA_AUTH_TOKEN}; Path=/; SameSite=Lax; Max-Age=2592000`);
+    return res.json({
+      success: true,
+      mode: 'cinemaverse',
+      token: CINEMA_AUTH_TOKEN,
+      message: 'Alexandria clearance accepted. Unlocked CinemaVerse Pro.'
+    });
+  }
+
+  // Normal library login
+  return res.json({
+    success: false,
+    mode: 'library',
+    member: username || 'Scholar',
+    message: 'Welcome to the Alexandria Digital Archive Reader Portal.'
+  });
+});
+
+// Dedicated Alexandria Library Endpoints
+app.get('/api/library/catalog', (req, res) => {
+  res.json({
+    status: 'success',
+    institution: 'Alexandria Digital Classical Repository',
+    total: ALEXANDRIA_CATALOG.length,
+    data: ALEXANDRIA_CATALOG
+  });
+});
+
+app.get('/api/library/book/:id', (req, res) => {
+  const book = ALEXANDRIA_CATALOG.find(b => b.id === req.params.id) || ALEXANDRIA_CATALOG[0];
+  res.json({
+    status: 'success',
+    book
+  });
+});
+
+// 1. Platforms Endpoint (Cloaked to Library Collections if Unauthorized)
 app.get('/api/platforms', (req, res) => {
+  if (!isCinemaAuthorized(req)) {
+    return res.json({
+      status: 'success',
+      mode: 'library',
+      data: ALEXANDRIA_COLLECTIONS
+    });
+  }
+
   const platformsWithCounts = OTT_PLATFORMS.map(p => {
     const count = p.id === 'all' 
       ? catalogData.length 
@@ -214,8 +397,31 @@ app.get('/api/platforms', (req, res) => {
   });
 });
 
-// 2. Catalog Endpoint
+// 2. Catalog Endpoint (Cloaked to Classical Literature if Unauthorized)
 app.get('/api/catalog', (req, res) => {
+  if (!isCinemaAuthorized(req)) {
+    const { category, search } = req.query;
+    let books = [...ALEXANDRIA_CATALOG];
+    if (category && category !== 'all') {
+      books = books.filter(b => b.category.toLowerCase().includes(category.toLowerCase()));
+    }
+    if (search) {
+      const q = search.toLowerCase();
+      books = books.filter(b => 
+        b.title.toLowerCase().includes(q) || 
+        b.author.toLowerCase().includes(q) || 
+        b.description.toLowerCase().includes(q)
+      );
+    }
+    return res.json({
+      status: 'success',
+      mode: 'library',
+      institution: 'Alexandria Digital Classical Repository',
+      total: books.length,
+      data: books
+    });
+  }
+
   const { type, genre, search, section, platform } = req.query;
   let results = [...catalogData];
 
@@ -261,8 +467,25 @@ app.get('/api/catalog', (req, res) => {
   });
 });
 
-// 3. Search Endpoint (Universal Search across all OTT platforms + Smart Live Global Fallback)
+// 3. Search Endpoint (Cloaked to Classical Literature if Unauthorized)
 app.get('/api/search', async (req, res) => {
+  if (!isCinemaAuthorized(req)) {
+    const q = (req.query.q || '').trim().toLowerCase();
+    const books = ALEXANDRIA_CATALOG.filter(b => 
+      !q || b.title.toLowerCase().includes(q) || 
+      b.author.toLowerCase().includes(q) || 
+      b.category.toLowerCase().includes(q) || 
+      b.description.toLowerCase().includes(q)
+    );
+    return res.json({
+      status: 'success',
+      mode: 'library',
+      query: req.query.q || '',
+      total: books.length,
+      data: books
+    });
+  }
+
   const q = (req.query.q || '').trim();
   const platform = (req.query.platform || 'all').toLowerCase();
   const type = (req.query.type || 'all').toLowerCase();
@@ -727,9 +950,17 @@ app.get('/api/trailer/:type/:id', async (req, res) => {
   });
 });
 
-// 5. Stream Sources Endpoint
+// 5. Stream Sources Endpoint (Restricted to Authorized CinemaVerse Sessions)
 app.get('/api/sources/:type/:id', async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
+  if (!isCinemaAuthorized(req)) {
+    return res.status(403).json({
+      status: 'error',
+      mode: 'restricted',
+      error: 'Alexandria Digital Archive: Scholar clearance required to access media archives.'
+    });
+  }
+
   const { type, id } = req.params;
   const season = req.query.s || 1;
   const episode = req.query.e || 1;
@@ -897,6 +1128,9 @@ app.get('/api/download/sources/:type/:id', async (req, res) => {
 
 // 6. Safe Frame (Ad-Shield Protected Stream Player)
 app.get('/api/player/safe-frame', (req, res) => {
+  if (!isCinemaAuthorized(req)) {
+    return res.status(403).send('<html><body style="background:#0b0f19;color:#e2e8f0;font-family:sans-serif;padding:40px;text-align:center;"><h2>Alexandria Digital Archive</h2><p>Institutional Scholar credentials required to access protected media.</p></body></html>');
+  }
   const targetUrl = req.query.url;
   if (!targetUrl) {
     return res.status(400).send('Missing target url');
@@ -1080,6 +1314,23 @@ app.get('/api/categories', (req, res) => {
 });
 
 app.get('/api/hero', (req, res) => {
+  if (!isCinemaAuthorized(req)) {
+    return res.json({
+      status: 'success',
+      mode: 'library',
+      data: {
+        id: 'alex-meditations',
+        title: 'Meditations of Marcus Aurelius',
+        author: 'Marcus Aurelius (Emperor of Rome)',
+        year: '180 AD',
+        genre: 'Stoic Ethics & Roman Philosophy',
+        classification: 'LCCN: B580 .A3 1990',
+        description: 'Featured Archival Manuscript: The timeless personal reflections of the philosopher emperor on discipline, humility, human duty, and reason.',
+        backdrop: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1600&auto=format&fit=crop&q=80',
+        badge: 'FEATURED ARCHIVE MANUSCRIPT'
+      }
+    });
+  }
   const heroItem = catalogData.find(x => x.title === 'Stranger Things') || catalogData[0];
   res.json({ status: 'success', data: heroItem });
 });

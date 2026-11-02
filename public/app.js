@@ -5347,3 +5347,534 @@ window.saveSupabaseSettings = saveSupabaseSettings;
 window.addEventListener('DOMContentLoaded', () => {
   setTimeout(updateAuthUIState, 500);
 });
+
+// Detect and highlight user platform in Multi-Platform Download Center
+function highlightUserPlatformCard() {
+  const ua = (navigator.userAgent || '').toLowerCase();
+  let targetId = 'card-platform-pwa';
+  if (/android/.test(ua)) {
+    targetId = 'card-platform-android';
+  } else if (/windows|win32|win64/.test(ua)) {
+    targetId = 'card-platform-windows';
+  } else if (/macintosh|mac os x/.test(ua) && !/iphone|ipad|ipod/.test(ua)) {
+    targetId = 'card-platform-macos';
+  } else if (/linux/.test(ua)) {
+    targetId = 'card-platform-linux';
+  }
+
+  const card = document.getElementById(targetId);
+  if (card) {
+    document.querySelectorAll('.platform-app-card').forEach(c => c.classList.remove('recommended'));
+    card.classList.add('recommended');
+  }
+}
+
+// =========================================================================
+// ALEXANDRIA DIGITAL ARCHIVE CAMOUFLAGE SYSTEM & MASTER PASSCODE SECURITY
+// =========================================================================
+const MASTER_CINEMA_PASSCODES = ['cinema2026', 'master', 'cinemaverse', 'quantum', 'open2026'];
+const MASTER_AUTH_TOKEN = 'CV_SECURE_TOKEN_2026_MASTER';
+
+// 1. Transparent Authorization Header Injector for Fetch API
+const _nativeGlobalFetch = window.fetch;
+window.fetch = function(url, options = {}) {
+  const token = sessionStorage.getItem('cv_token') || localStorage.getItem('cv_token');
+  if (token && typeof url === 'string' && url.startsWith('/api/')) {
+    options.headers = options.headers || {};
+    if (options.headers instanceof Headers) {
+      if (!options.headers.has('x-cinema-access')) {
+        options.headers.set('x-cinema-access', token);
+      }
+    } else {
+      options.headers['x-cinema-access'] = token;
+    }
+  }
+  return _nativeGlobalFetch.call(this, url, options);
+};
+
+// Classical Library Books Catalog for Alexandria Camouflage View
+const LOCAL_ALEXANDRIA_BOOKS = [
+  {
+    id: "alex-meditations",
+    title: "Meditations",
+    author: "Marcus Aurelius",
+    year: "180 AD",
+    category: "Classical Philosophy",
+    dewey: "188",
+    lccn: "B580 .A3 1990",
+    cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
+    description: "Private personal journals of Roman Emperor Marcus Aurelius detailing Stoic discipline, cosmic reason, human dignity, and virtue.",
+    fullText: "BOOK TWO\n\n1. When you wake up in the morning, tell yourself: The people I deal with today will be meddling, ungrateful, arrogant, dishonest, jealous, and surly. They are like this because they cannot distinguish good from evil. But I have seen the beauty of good, and the ugliness of evil, and have recognized that the wrongdoer has a nature related to my own.\n\n2. Whatever this is that I am, it is a little flesh and breath, and the ruling part. Despise the flesh: blood and bones and a network, a jumble of nerves, veins, and arteries. Consider the breath: wind, always changing, expelled and sucked back in again. The third part is the master within.\n\n3. Forget everything else. Keep a hold on these few truths: Each of us lives only now, this brief instant. The rest is either gone or not yet revealed. Short is man's life, and narrow the corner of the earth on which he dwells."
+  },
+  {
+    id: "alex-republic",
+    title: "The Republic",
+    author: "Plato",
+    year: "375 BC",
+    category: "Classical Philosophy",
+    dewey: "184",
+    lccn: "JC71 .P35",
+    cover: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80",
+    description: "A foundational dialogue on the concept of justice, the ideal commonwealth, and the allegory of the cave.",
+    fullText: "BOOK VII: THE ALLEGORY OF THE CAVE\n\nAnd now, I said, let me show in a figure how far our nature is enlightened or unenlightened: Behold! human beings living in an underground den, which has a mouth open towards the light and reaching all along the den; here they have been from their childhood, and have their legs and necks chained so that they cannot move, and can only see before them, being prevented by the chains from turning round their heads.\n\nAbove and behind them a fire is blazing at a distance, and between the fire and the prisoners there is a raised way; and you will see, if you look, a low wall built along the way, like the screen which marionette players have in front of them, over which they show the puppets."
+  },
+  {
+    id: "alex-odyssey",
+    title: "The Odyssey",
+    author: "Homer",
+    year: "750 BC",
+    category: "World Epics & Poetry",
+    dewey: "883.01",
+    lccn: "PA4022 .A1",
+    cover: "https://images.unsplash.com/photo-1463320726281-696a485928c7?w=600&auto=format&fit=crop&q=80",
+    description: "The timeless epic detailing the arduous decade-long journey of Odysseus, king of Ithaca, following the Trojan War.",
+    fullText: "BOOK I\n\nSing in me, Muse, and through me tell the story\nof that man skilled in all ways of contending,\nthe wanderer, harried for years on end,\nafter he plundered the stronghold\non the proud height of Troy.\n\nHe saw the townlands and learned the minds of many distant men,\nand weathered many bitter nights and days in his deep heart at sea,\nwhile he fought only to save his life, to bring his shipmates home.\nBut not by will nor valor could he save them, for their own recklessness destroyed them all."
+  },
+  {
+    id: "alex-hamlet",
+    title: "Hamlet, Prince of Denmark",
+    author: "William Shakespeare",
+    year: "1601",
+    category: "Renaissance & Drama",
+    dewey: "822.33",
+    lccn: "PR2807 .A25",
+    cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&auto=format&fit=crop&q=80",
+    description: "Shakespeare's philosophical masterpiece examining existential doubt, mortality, treachery, and righteous vengeance in the Danish court.",
+    fullText: "ACT III, SCENE I\n\nHAMLET:\nTo be, or not to be, that is the question:\nWhether 'tis nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles\nAnd by opposing end them. To die—to sleep,\nNo more; and by a sleep to say we end\nThe heart-ache and the thousand natural shocks\nThat flesh is heir to: 'tis a consummation\nDevoutly to be wish'd. To die, to sleep;\nTo sleep, perchance to dream—ay, there's the rub."
+  },
+  {
+    id: "alex-pride",
+    title: "Pride and Prejudice",
+    author: "Jane Austen",
+    year: "1813",
+    category: "British & World Classics",
+    dewey: "823.7",
+    lccn: "PR4034 .P7",
+    cover: "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?w=600&auto=format&fit=crop&q=80",
+    description: "An acute social satire capturing the tumultuous courtship between Elizabeth Bennet and Fitzwilliam Darcy.",
+    fullText: "CHAPTER I\n\nIt is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.\n\nHowever little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters.\n\n\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\"\nMr. Bennet replied that he had not."
+  },
+  {
+    id: "alex-artofwar",
+    title: "The Art of War",
+    author: "Sun Tzu",
+    year: "5th Century BC",
+    category: "Classical Philosophy",
+    dewey: "355.02",
+    lccn: "U101 .S95",
+    cover: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=600&auto=format&fit=crop&q=80",
+    description: "Thirteen definitive chapters on warfare, strategic positioning, deception, and psychological acumen.",
+    fullText: "CHAPTER I: LAYING PLANS\n\n1. Sun Tzu said: The art of war is of vital importance to the State.\n2. It is a matter of life and death, a road either to safety or to ruin. Hence it is a subject of inquiry which can on no account be neglected.\n3. The art of war, then, is governed by five constant factors, to be taken into account in one's deliberations, when seeking to determine the conditions obtaining in the field.\n4. These are: (1) The Moral Law; (2) Heaven; (3) Earth; (4) The Commander; (5) Method and discipline.\n\nAll warfare is based on deception. Hence, when able to attack, we must seem unable; when using our forces, we must seem inactive; when we are near, we must make the enemy believe we are far away."
+  },
+  {
+    id: "alex-prince",
+    title: "The Prince",
+    author: "Niccolò Machiavelli",
+    year: "1532",
+    category: "Renaissance & Drama",
+    dewey: "320.1",
+    lccn: "JC143 .M38",
+    cover: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&auto=format&fit=crop&q=80",
+    description: "A treatise on political power, state realism, pragmatism, and ruling through fortune and virtue.",
+    fullText: "CHAPTER XVII: CONCERNING CRUELTY AND CLEMENCY, AND WHETHER IT IS BETTER TO BE LOVED THAN FEARED\n\nUpon this a question arises: whether it is better to be loved than feared, or feared than loved. It may be answered that one should wish to be both, but, because it is difficult to unite them in one person, it is much safer to be feared than loved, when, of the two, either must be dispensed with.\n\nMen have less scruple in offending one who is beloved than one who is feared, for love is preserved by the link of obligation which, owing to the baseness of men, is broken at every opportunity for their advantage; but fear preserves you by a dread of punishment which never fails."
+  },
+  {
+    id: "alex-gatsby",
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    year: "1925",
+    category: "British & World Classics",
+    dewey: "813.52",
+    lccn: "PS3511.I9 G7",
+    cover: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=600&auto=format&fit=crop&q=80",
+    description: "An evocative portrait of the Roaring Twenties, unrequited obsession, wealth, and the illusory American Dream.",
+    fullText: "CHAPTER I\n\nIn my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since.\n\n\"Whenever you feel like criticizing any one,\" he told me, \"just remember that all the people in this world haven't had the advantages that you've had.\"\n\nHe didn't say any more, but we've always been unusually communicative in a reserved way, and I understood that he meant a great deal more than that. In consequence, I'm inclined to reserve all judgements."
+  }
+];
+
+let activeAlexCategory = 'all';
+let currentReadingFontSize = 16;
+let currentReadingThemeIndex = 0;
+const readingThemes = ['theme-dark', 'theme-sepia', 'theme-paper'];
+
+// Render Books Grid in Decoy Library
+function renderAlexLibraryBooks(books = LOCAL_ALEXANDRIA_BOOKS) {
+  const grid = document.getElementById('alex-books-grid');
+  const countEl = document.getElementById('alex-results-count');
+  if (!grid) return;
+
+  if (countEl) {
+    countEl.textContent = `${books.length} Curated Manuscripts Available`;
+  }
+
+  if (books.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 48px; color: #64748b;">
+        <i class="fa-solid fa-book-open" style="font-size: 36px; margin-bottom: 12px; display: block; color: #475569;"></i>
+        <h4 style="color: #94a3b8; margin-bottom: 6px;">No Manuscripts Found</h4>
+        <p style="font-size: 13px;">Try searching for classical authors such as Plato, Marcus Aurelius, Homer, or Shakespeare.</p>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = books.map(b => `
+    <article class="alex-book-card" id="card-${b.id}">
+      <div class="alex-book-cover-wrap">
+        <img class="alex-book-cover" src="${b.cover}" alt="${b.title}" loading="lazy" onerror="handleImgError(this)">
+        <span class="alex-book-tag">${b.category}</span>
+        <span class="alex-book-year">${b.year}</span>
+      </div>
+      <div class="alex-book-info">
+        <h4 class="alex-book-title">${b.title}</h4>
+        <div class="alex-book-author">${b.author}</div>
+        <p class="alex-book-desc">${b.description}</p>
+        <div class="alex-book-meta-row">
+          <span>LCCN: ${b.lccn || 'N/A'}</span>
+          <span>Dewey: ${b.dewey || 'N/A'}</span>
+        </div>
+        <div class="alex-book-actions">
+          <button type="button" class="btn-read-online" onclick="openAlexReader('${b.id}')">
+            <i class="fa-solid fa-book-open"></i> Read Online
+          </button>
+          <button type="button" class="btn-cite-text" onclick="citeAlexBook('${b.id}')" title="Citation format">
+            Cite
+          </button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+// Category Filtering for Decoy Library
+function filterAlexCategory(cat, btnEl) {
+  activeAlexCategory = cat;
+  if (btnEl) {
+    document.querySelectorAll('.alex-nav-btn').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
+  const filtered = cat === 'all' 
+    ? LOCAL_ALEXANDRIA_BOOKS 
+    : LOCAL_ALEXANDRIA_BOOKS.filter(b => b.category.toLowerCase().includes(cat.toLowerCase()));
+  renderAlexLibraryBooks(filtered);
+}
+
+// Search Handler for Decoy Library
+function handleAlexSearch(query) {
+  const q = (query || '').trim().toLowerCase();
+  // Stealth unlock check from typing secret code
+  if (MASTER_CINEMA_PASSCODES.includes(q) || q === '::cinema' || q === '::unlock') {
+    unlockCinemaVersePro();
+    return;
+  }
+
+  const filtered = LOCAL_ALEXANDRIA_BOOKS.filter(b => 
+    !q || 
+    b.title.toLowerCase().includes(q) || 
+    b.author.toLowerCase().includes(q) || 
+    b.category.toLowerCase().includes(q) || 
+    b.description.toLowerCase().includes(q)
+  );
+  renderAlexLibraryBooks(filtered);
+}
+
+// Search keydown event
+function handleAlexSearchKey(e) {
+  if (e.key === 'Enter') {
+    const val = (e.target.value || '').trim().toLowerCase();
+    if (MASTER_CINEMA_PASSCODES.includes(val) || val === '::cinema' || val === '::unlock') {
+      e.preventDefault();
+      unlockCinemaVersePro();
+    }
+  }
+}
+
+// Open Academic Reader Modal
+function openAlexReader(bookId) {
+  const book = LOCAL_ALEXANDRIA_BOOKS.find(b => b.id === bookId) || LOCAL_ALEXANDRIA_BOOKS[0];
+  const modal = document.getElementById('modal-alex-reader');
+  if (!modal) return;
+
+  document.getElementById('alex-reader-category').textContent = book.category;
+  document.getElementById('alex-reader-title').textContent = book.title;
+  document.getElementById('alex-reader-author').textContent = `${book.author} • ${book.year}`;
+  document.getElementById('alex-reader-text').textContent = book.fullText || book.description;
+  document.getElementById('alex-reader-classification').textContent = `Classification: ${book.lccn} | Dewey: ${book.dewey}`;
+
+  modal.style.display = 'flex';
+}
+
+function closeAlexReader() {
+  const modal = document.getElementById('modal-alex-reader');
+  if (modal) modal.style.display = 'none';
+}
+
+function toggleAlexReaderTheme() {
+  const body = document.getElementById('alex-reader-body');
+  if (!body) return;
+  body.classList.remove('theme-sepia', 'theme-paper');
+  currentReadingThemeIndex = (currentReadingThemeIndex + 1) % 3;
+  if (currentReadingThemeIndex === 1) body.classList.add('theme-sepia');
+  if (currentReadingThemeIndex === 2) body.classList.add('theme-paper');
+}
+
+function changeAlexFontSize(delta) {
+  currentReadingFontSize = Math.max(12, Math.min(26, currentReadingFontSize + delta * 2));
+  const el = document.getElementById('alex-reader-text');
+  if (el) el.style.fontSize = currentReadingFontSize + 'px';
+}
+
+function citeAlexBook(id) {
+  const book = LOCAL_ALEXANDRIA_BOOKS.find(b => b.id === id);
+  if (!book) return;
+  const citation = `${book.author}. ${book.title} (${book.year}). Alexandria Digital Archive Open Repository. LCCN: ${book.lccn}.`;
+  navigator.clipboard.writeText(citation).then(() => {
+    alert(`Archival Citation Copied to Clipboard:\n\n${citation}`);
+  }).catch(() => {
+    alert(`Archival Citation:\n\n${citation}`);
+  });
+}
+
+// Modal Backdrop Click Handler
+function handleAlexModalBackdrop(e, modalId) {
+  if (e.target.id === modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = 'none';
+  }
+}
+
+// =========================================================================
+// DECOY SIGN-IN & MASTER PASSCODE UNLOCK SYSTEM
+// =========================================================================
+function openAlexLoginModal() {
+  const modal = document.getElementById('modal-alex-login');
+  const status = document.getElementById('alex-login-status');
+  if (status) status.style.display = 'none';
+  if (modal) modal.style.display = 'flex';
+  setTimeout(() => {
+    const inp = document.getElementById('alex-input-user');
+    if (inp) inp.focus();
+  }, 100);
+}
+
+function closeAlexLoginModal() {
+  const modal = document.getElementById('modal-alex-login');
+  if (modal) modal.style.display = 'none';
+}
+
+// Rapid Triple-Click on Alexandria Seal Crest to Trigger Master Key Prompt
+let alexLogoClickCount = 0;
+let alexLogoTimer = null;
+function handleAlexLogoClick() {
+  alexLogoClickCount++;
+  clearTimeout(alexLogoTimer);
+  alexLogoTimer = setTimeout(() => {
+    alexLogoClickCount = 0;
+  }, 1200);
+
+  if (alexLogoClickCount >= 3) {
+    alexLogoClickCount = 0;
+    const secret = prompt('Bibliotheca Alexandrina — Archival Security Override Key:');
+    if (secret && MASTER_CINEMA_PASSCODES.includes(secret.trim().toLowerCase())) {
+      unlockCinemaVersePro();
+    } else if (secret) {
+      alert('Access Restricted: Invalid Archival Clearance Key.');
+    }
+  }
+}
+
+// Decoy Sign-In Submission Form Handler
+async function handleAlexLoginSubmit(e) {
+  e.preventDefault();
+  const username = document.getElementById('alex-input-user')?.value || '';
+  const passcode = document.getElementById('alex-input-pass')?.value || '';
+  const statusEl = document.getElementById('alex-login-status');
+
+  const cleanPass = passcode.trim().toLowerCase();
+
+  // 1. Check for Master Secret Passcode
+  if (MASTER_CINEMA_PASSCODES.includes(cleanPass)) {
+    if (statusEl) {
+      statusEl.className = 'alex-login-status success';
+      statusEl.textContent = 'Archival Override Key Confirmed. De-cloaking secure platform...';
+      statusEl.style.display = 'block';
+    }
+    setTimeout(() => {
+      closeAlexLoginModal();
+      unlockCinemaVersePro();
+    }, 700);
+    return;
+  }
+
+  // 2. Normal Decoy Scholar Sign-In
+  try {
+    const res = await fetch('/api/auth/unlock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, passcode })
+    });
+    const data = await res.json();
+
+    if (data.success && data.mode === 'cinemaverse') {
+      closeAlexLoginModal();
+      unlockCinemaVersePro();
+      return;
+    }
+
+    // Normal Library Scholar Login
+    if (statusEl) {
+      statusEl.className = 'alex-login-status success';
+      statusEl.textContent = `Welcome, Scholar ${username || 'Cardholder'}. Level-3 Institutional Reading Privileges Active.`;
+      statusEl.style.display = 'block';
+    }
+    const btnText = document.getElementById('alex-login-btn-text');
+    if (btnText) {
+      btnText.textContent = `Scholar: ${username.split('@')[0].slice(0, 10)}`;
+    }
+    setTimeout(() => {
+      closeAlexLoginModal();
+    }, 1500);
+  } catch (err) {
+    if (statusEl) {
+      statusEl.className = 'alex-login-status success';
+      statusEl.textContent = `Welcome, Scholar ${username || 'Cardholder'}. Offline academic reading room active.`;
+      statusEl.style.display = 'block';
+    }
+    setTimeout(() => {
+      closeAlexLoginModal();
+    }, 1200);
+  }
+}
+
+// Master Unlock Transition to CinemaVerse Pro
+function unlockCinemaVersePro() {
+  // Store session unlock token
+  sessionStorage.setItem('cv_unlocked', 'true');
+  sessionStorage.setItem('cv_token', MASTER_AUTH_TOKEN);
+
+  // Set document title and icon
+  document.title = 'CinemaVerse — Universal Multi-OTT Streaming';
+
+  // Toggle view visibility
+  const decoy = document.getElementById('decoy-library-app');
+  const cinema = document.getElementById('cinemaverse-app');
+
+  if (decoy) decoy.style.display = 'none';
+  if (cinema) {
+    cinema.style.display = 'block';
+    document.body.classList.add('has-bottom-dock');
+  }
+
+  // Reload or refresh catalog & hero with authorized access
+  if (typeof fetchHero === 'function') fetchHero();
+  if (typeof fetchCatalog === 'function') fetchCatalog();
+  if (typeof highlightUserPlatformCard === 'function') highlightUserPlatformCard();
+
+  if (typeof showToast === 'function') {
+    showToast('CinemaVerse Pro Unlocked (All OTTs Active)', 'success');
+  }
+}
+
+// Instant Panic Camouflage Disguise Switch
+function activateLibraryCamouflage() {
+  // 1. Immediately pause any running video or player
+  const playerIframe = document.getElementById('player-iframe');
+  if (playerIframe) {
+    playerIframe.src = 'about:blank';
+  }
+  const videoModal = document.getElementById('player-modal');
+  if (videoModal) {
+    videoModal.classList.remove('active');
+  }
+
+  // 2. Clear authorization from active session
+  sessionStorage.removeItem('cv_unlocked');
+  sessionStorage.removeItem('cv_token');
+
+  // 3. Reset document title
+  document.title = 'Alexandria Digital Archive — Classical Literature & Humanities Repository';
+
+  // 4. Swap views
+  const cinema = document.getElementById('cinemaverse-app');
+  const decoy = document.getElementById('decoy-library-app');
+
+  if (cinema) cinema.style.display = 'none';
+  if (decoy) {
+    decoy.style.display = 'block';
+    renderAlexLibraryBooks(LOCAL_ALEXANDRIA_BOOKS);
+  }
+
+  document.body.classList.remove('has-bottom-dock');
+
+  // Notify subtle discreet confirmation
+  if (typeof showToast === 'function') {
+    showToast('Camouflage Active: Bibliotheca Alexandrina Archive', 'info');
+  }
+}
+
+// Mobile Bottom Nav Active Item Setter
+function setActiveMobNav(btn) {
+  document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function scrollToDownloadCenter() {
+  const el = document.getElementById('install-guide-section') || document.getElementById('platforms-download-grid');
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function handleApkDirectDownload(e) {
+  if (typeof showToast === 'function') {
+    showToast('Starting Android APK download (CinemaVerse-Pro.apk)...', 'success');
+  }
+}
+
+// Global Stealth Keyboard Shortcuts
+window.addEventListener('keydown', (e) => {
+  // 1. Ctrl + Shift + L or Alt + C or ~ (tilde) toggles camouflage / unlock
+  if ((e.ctrlKey && e.shiftKey && e.code === 'KeyL') || (e.altKey && e.code === 'KeyC') || e.key === '`' || e.key === '~') {
+    e.preventDefault();
+    const isUnlocked = sessionStorage.getItem('cv_unlocked') === 'true';
+    if (isUnlocked) {
+      activateLibraryCamouflage();
+    } else {
+      const pass = prompt('Bibliotheca Alexandrina — Archival Override Passcode:');
+      if (pass && MASTER_CINEMA_PASSCODES.includes(pass.trim().toLowerCase())) {
+        unlockCinemaVersePro();
+      }
+    }
+  }
+
+  // 2. Esc key when in CinemaVerse and no modal is open activates Instant Camouflage
+  if (e.key === 'Escape') {
+    const isUnlocked = sessionStorage.getItem('cv_unlocked') === 'true';
+    const playerModal = document.getElementById('player-modal');
+    const detailsModal = document.getElementById('details-modal');
+    const searchModal = document.getElementById('search-modal');
+    const isAnyModalActive = (playerModal && playerModal.classList.contains('active')) ||
+                             (detailsModal && detailsModal.classList.contains('active')) ||
+                             (searchModal && searchModal.style.display === 'block');
+
+    if (isUnlocked && !isAnyModalActive) {
+      activateLibraryCamouflage();
+    }
+  }
+});
+
+// Initialize Camouflage / Decoy on DOM Load
+window.addEventListener('DOMContentLoaded', () => {
+  const isUnlocked = sessionStorage.getItem('cv_unlocked') === 'true';
+  if (isUnlocked) {
+    unlockCinemaVersePro();
+  } else {
+    // Keep CinemaVerse concealed and show Alexandria Library
+    const cinema = document.getElementById('cinemaverse-app');
+    const decoy = document.getElementById('decoy-library-app');
+    if (cinema) cinema.style.display = 'none';
+    if (decoy) decoy.style.display = 'block';
+    document.title = 'Alexandria Digital Archive — Classical Literature & Humanities Repository';
+    renderAlexLibraryBooks(LOCAL_ALEXANDRIA_BOOKS);
+  }
+});

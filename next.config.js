@@ -3,8 +3,46 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  async rewrites() {
+    return [
+      {
+        source: '/download/CinemaVerse-Pro.apk',
+        destination: '/CinemaVerse-Pro.apk',
+      },
+      {
+        source: '/download/CinemaMirror-Pro.apk',
+        destination: '/CinemaMirror-Pro.apk',
+      },
+    ];
+  },
   async headers() {
     return [
+      {
+        source: '/download/:file*',
+        headers: [
+          {
+            key: 'Content-Disposition',
+            value: 'attachment',
+          },
+          {
+            key: 'Content-Type',
+            value: 'application/vnd.android.package-archive',
+          },
+        ],
+      },
+      {
+        source: '/CinemaVerse-Pro.apk',
+        headers: [
+          {
+            key: 'Content-Disposition',
+            value: 'attachment; filename="CinemaVerse-Pro.apk"',
+          },
+          {
+            key: 'Content-Type',
+            value: 'application/vnd.android.package-archive',
+          },
+        ],
+      },
       {
         source: '/api/:path*',
         headers: [

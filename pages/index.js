@@ -17,10 +17,10 @@ function getPageMarkup() {
 
 export default function Home({ pageMarkup, meta }) {
   const currentMeta = meta || {
-    title: 'CinemaVerse — Universal Multi-OTT Streaming Hub (4K • Zero Ads)',
-    description: 'Watch 1,300+ blockbuster movies and TV series across Netflix, Prime Video, Disney+, HBO Max, and Apple TV+ in 4K Ultra HD. 100% Free with zero ads.',
-    image: 'https://images.metahub.space/background/medium/tt4574334/img',
-    fallbackImage: 'https://images.metahub.space/poster/medium/tt4574334/img',
+    title: 'Alexandria Digital Archive — Classical Literature & Humanities Repository',
+    description: 'Universal open-access digital research repository preserving classical philosophy, literature, and historical manuscripts for scholars and students.',
+    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&q=80',
+    fallbackImage: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200&q=80',
     type: 'website'
   };
 
@@ -35,7 +35,7 @@ export default function Home({ pageMarkup, meta }) {
 
         {/* Open Graph / WhatsApp / Facebook / Telegram */}
         <meta property="og:type" content={currentMeta.type || 'website'} key="og_type" />
-        <meta property="og:site_name" content="CinemaVerse" key="og_site_name" />
+        <meta property="og:site_name" content={currentMeta.siteName || "Alexandria Digital Archive"} key="og_site_name" />
         <meta property="og:title" content={currentMeta.title} key="og_title" />
         <meta property="og:description" content={currentMeta.description} key="og_desc" />
         {currentMeta.url && <meta property="og:url" content={currentMeta.url} key="og_url" />}
@@ -121,8 +121,11 @@ export async function getServerSideProps(context) {
     }
   }
 
+  const cookie = context.req?.headers?.cookie || '';
+  const isUnlocked = cookie.includes('cv_token=CV_SECURE_TOKEN_2026_MASTER');
+
   let meta = null;
-  if (item) {
+  if (item && isUnlocked) {
     const isTv = item.type === 'series';
     let epTitle = null;
     let epDesc = null;
@@ -164,12 +167,21 @@ export async function getServerSideProps(context) {
       type: isTv ? 'video.tv_show' : 'video.movie'
     };
   } else {
-    // Default Home Preview Card
+    // Default Camouflage Archive Preview Card
     meta = {
-      title: 'CinemaVerse — Universal Multi-OTT Streaming Hub (4K • Zero Ads)',
-      description: 'Watch 1,300+ blockbuster movies and TV series across Netflix, Prime Video, Disney+, HBO Max, and Apple TV+ in 4K Ultra HD. 100% Free with zero ads.',
-      image: 'https://images.metahub.space/background/medium/tt4574334/img',
-      fallbackImage: 'https://images.metahub.space/poster/medium/tt4574334/img',
+      title: isUnlocked 
+        ? 'CinemaVerse — Universal Multi-OTT Streaming Hub (4K • Zero Ads)'
+        : 'Alexandria Digital Archive — Classical Literature & Humanities Repository',
+      description: isUnlocked
+        ? 'Watch 1,300+ blockbuster movies and TV series across Netflix, Prime Video, Disney+, HBO Max, and Apple TV+ in 4K Ultra HD. 100% Free with zero ads.'
+        : 'Universal open-access digital research repository preserving classical philosophy, literature, and historical manuscripts for scholars and students.',
+      image: isUnlocked
+        ? 'https://images.metahub.space/background/medium/tt4574334/img'
+        : 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&q=80',
+      fallbackImage: isUnlocked
+        ? 'https://images.metahub.space/poster/medium/tt4574334/img'
+        : 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200&q=80',
+      siteName: isUnlocked ? 'CinemaVerse' : 'Alexandria Digital Archive',
       url: baseUrl,
       type: 'website'
     };

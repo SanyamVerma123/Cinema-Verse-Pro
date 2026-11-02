@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CinemaVerse — Universal Multi-OTT Streaming</title>
+  <title>Alexandria Digital Archive — Classical Literature &amp; Humanities Repository</title>
   <meta name="referrer" content="no-referrer">
   <meta name="description" content="Watch Netflix, Prime Video, Disney+, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
   <!-- PWA & Mobile Web App Meta -->
@@ -44,7 +44,207 @@
     };
   </script>
 
+    <!-- ======================================================== -->
+  <!-- ALEXANDRIA DIGITAL ARCHIVE (DECOY CAMOUFLAGE SYSTEM)      -->
   <!-- ======================================================== -->
+  <div id="decoy-library-app" class="decoy-library-wrapper">
+    <!-- Alexandria Navigation Header -->
+    <header class="alex-navbar" id="alex-navbar">
+      <div class="alex-nav-left">
+        <div class="alex-brand" onclick="handleAlexLogoClick()" title="Alexandria Digital Archive — Triple Click for Archival Override" role="button" tabindex="0">
+          <div class="alex-seal-badge" id="alex-seal-badge">
+            <i class="fa-solid fa-landmark-dome"></i>
+          </div>
+          <div class="alex-brand-text">
+            <span class="alex-title">ALEXANDRIA</span>
+            <span class="alex-sub">DIGITAL ARCHIVE</span>
+          </div>
+        </div>
+        <nav class="alex-nav-links">
+          <button type="button" class="alex-nav-btn active" onclick="filterAlexCategory('all', this)">All Manuscripts</button>
+          <button type="button" class="alex-nav-btn" onclick="filterAlexCategory('Classical Philosophy', this)">Philosophy</button>
+          <button type="button" class="alex-nav-btn" onclick="filterAlexCategory('World Epics & Poetry', this)">Epics &amp; Poetry</button>
+          <button type="button" class="alex-nav-btn" onclick="filterAlexCategory('Renaissance & Drama', this)">Renaissance</button>
+          <button type="button" class="alex-nav-btn" onclick="filterAlexCategory('British & World Classics', this)">Classics</button>
+        </nav>
+      </div>
+
+      <div class="alex-nav-right">
+        <!-- Live Academic Search Bar -->
+        <div class="alex-search-wrap">
+          <i class="fa-solid fa-magnifying-glass alex-search-icon"></i>
+          <input type="text" id="alex-search-input" class="alex-search-input" placeholder="Search classical texts, authors... (Press Enter)" oninput="handleAlexSearch(this.value)" onkeydown="handleAlexSearchKey(event)">
+        </div>
+
+        <!-- Academic Scholar / Cardholder Login Button -->
+        <button type="button" class="btn-alex-login" id="btn-alex-login" onclick="openAlexLoginModal()">
+          <i class="fa-solid fa-id-card"></i>
+          <span id="alex-login-btn-text">Scholar Sign-In</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Alexandria Academic Hero Banner -->
+    <section class="alex-hero">
+      <div class="alex-hero-overlay"></div>
+      <div class="alex-hero-content">
+        <div class="alex-hero-badge">
+          <i class="fa-solid fa-scroll text-gold"></i>
+          <span>UNIVERSAL OPEN ACCESS HUMANITIES REPOSITORY</span>
+        </div>
+        <h1 class="alex-hero-title">Preserving the Foundational Works of Human Thought</h1>
+        <p class="alex-hero-desc">
+          The Bibliotheca Alexandrina Digital Archive provides unencumbered, public-domain scholarly access to the world's most enduring literature, moral philosophy, classical dialogues, and historical treatises.
+        </p>
+
+        <!-- Academic Search & Discovery Bar -->
+        <div class="alex-hero-search-row">
+          <div class="alex-hero-input-group">
+            <i class="fa-solid fa-book-open"></i>
+            <input type="text" id="alex-hero-search" placeholder="Enter title, author, or LCCN catalog ID (e.g. 'Meditations', 'Plato', 'Shakespeare')..." oninput="handleAlexSearch(this.value)" onkeydown="handleAlexSearchKey(event)">
+            <button type="button" class="btn-alex-search" onclick="handleAlexSearch(document.getElementById('alex-hero-search').value)">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Stat Strip -->
+        <div class="alex-stats-strip">
+          <div class="alex-stat-pill">
+            <strong>45,280+</strong>
+            <span>Preserved Texts</span>
+          </div>
+          <div class="alex-stat-divider"></div>
+          <div class="alex-stat-pill">
+            <strong>100% Free</strong>
+            <span>Public Domain Access</span>
+          </div>
+          <div class="alex-stat-divider"></div>
+          <div class="alex-stat-pill">
+            <strong>140+</strong>
+            <span>University Partners</span>
+          </div>
+          <div class="alex-stat-divider"></div>
+          <div class="alex-stat-pill">
+            <strong>24 / 7</strong>
+            <span>Open Global Vault</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Classical Collections Section -->
+    <main class="alex-main-catalog" id="alex-main-catalog">
+      <div class="alex-catalog-header">
+        <div>
+          <h2 class="alex-section-title">Classical Catalog &amp; Illuminated Manuscripts</h2>
+          <p class="alex-section-sub">Peer-reviewed transcripts from the Greek, Roman, Renaissance, and Enlightenment canons.</p>
+        </div>
+        <div class="alex-view-modes">
+          <span class="alex-count-badge" id="alex-results-count">8 Curated Manuscripts Available</span>
+        </div>
+      </div>
+
+      <!-- Manuscripts Grid -->
+      <div class="alex-books-grid" id="alex-books-grid">
+        <!-- Rendered dynamically by JavaScript or populated with masterworks -->
+      </div>
+    </main>
+
+    <!-- Alexandria Academic Footer -->
+    <footer class="alex-footer">
+      <div class="alex-footer-inner">
+        <div class="alex-footer-left">
+          <div class="alex-brand">
+            <i class="fa-solid fa-landmark-dome text-gold"></i>
+            <span>Bibliotheca Alexandrina — International Digital Archive</span>
+          </div>
+          <p>Dedicated to universal scholarship, preservation of ancient heritage, and open academic inquiry.</p>
+        </div>
+        <div class="alex-footer-links">
+          <span>Dewey Decimal Classification</span>
+          <span>Library of Congress Online Catalog</span>
+          <span>Terms of Scholarly Open Access</span>
+          <span>Institutional Research Portal</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Alexandria Reader Modal -->
+  <div class="alex-modal" id="modal-alex-reader" style="display:none;" onclick="handleAlexModalBackdrop(event, 'modal-alex-reader')">
+    <div class="alex-reader-dialog">
+      <div class="alex-reader-header">
+        <div class="alex-reader-meta">
+          <span class="alex-reader-badge" id="alex-reader-category">Classical Philosophy</span>
+          <h3 class="alex-reader-title" id="alex-reader-title">Meditations</h3>
+          <p class="alex-reader-author" id="alex-reader-author">Marcus Aurelius • 180 AD</p>
+        </div>
+        <div class="alex-reader-controls">
+          <button type="button" class="btn-alex-theme" onclick="toggleAlexReaderTheme()" title="Toggle Reading Theme (Dark / Sepia / Paper)">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+          </button>
+          <button type="button" class="btn-alex-font" onclick="changeAlexFontSize(-1)" title="Decrease font size">A-</button>
+          <button type="button" class="btn-alex-font" onclick="changeAlexFontSize(1)" title="Increase font size">A+</button>
+          <button type="button" class="btn-alex-close" onclick="closeAlexReader()" title="Close reading room">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="alex-reader-body" id="alex-reader-body">
+        <pre class="alex-reader-text" id="alex-reader-text"></pre>
+      </div>
+      <div class="alex-reader-footer">
+        <span id="alex-reader-classification">Classification: LCCN B580 .A3</span>
+        <button type="button" class="btn-alex-reader-close" onclick="closeAlexReader()">Exit Reading Room</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alexandria Member Login Modal (Dual Decoy & Secret Door) -->
+  <div class="alex-modal" id="modal-alex-login" style="display:none;" onclick="handleAlexModalBackdrop(event, 'modal-alex-login')">
+    <div class="alex-login-dialog">
+      <button type="button" class="alex-login-close" onclick="closeAlexLoginModal()" title="Close dialog">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="alex-login-header">
+        <div class="alex-login-icon">
+          <i class="fa-solid fa-building-columns"></i>
+        </div>
+        <h3>Alexandria Cardholder Portal</h3>
+        <p>Sign in with your University Library ID or Research Access Passcode to access restricted archives.</p>
+      </div>
+
+      <form class="alex-login-form" id="alex-login-form" onsubmit="handleAlexLoginSubmit(event)">
+        <div class="alex-input-group">
+          <label for="alex-input-user">Cardholder ID or Institutional Email</label>
+          <div class="alex-input-wrap">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="text" id="alex-input-user" placeholder="e.g. scholar@oxford.edu or 882419" required>
+          </div>
+        </div>
+
+        <div class="alex-input-group">
+          <label for="alex-input-pass">Access Passcode / Security Key</label>
+          <div class="alex-input-wrap">
+            <i class="fa-solid fa-key"></i>
+            <input type="password" id="alex-input-pass" placeholder="Enter cardholder passcode" required>
+          </div>
+          <small class="alex-input-hint">For public domain materials, no password is required. For archival clearance, enter key.</small>
+        </div>
+
+        <div class="alex-login-status" id="alex-login-status" style="display:none;"></div>
+
+        <button type="submit" class="btn-alex-submit" id="btn-alex-submit">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Authenticate &amp; Access</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+<div id="cinemaverse-app" class="cinemaverse-main-app" style="display: none;">
+<!-- ======================================================== -->
   <!-- CINEMAVERSE TOP NAVIGATION BAR                            -->
   <!-- ======================================================== -->
   <header class="netflix-navbar" id="navbar">
@@ -96,6 +296,12 @@
 
       <!-- Kids Link (Authentic Clean Text Link) -->
       <span class="nav-kids-link" onclick="filterGenre('Animation')">Kids</span>
+
+      <!-- Instant Stealth Camouflage Disguise Button -->
+      <button type="button" class="nav-camouflage-btn" id="btn-panic-camouflage" onclick="activateLibraryCamouflage()" title="Instant Library Disguise (Esc / Ctrl+Shift+L)">
+        <i class="fa-solid fa-book-bookmark text-gold"></i>
+        <span class="camou-btn-text">Disguise</span>
+      </button>
 
       <!-- Notification Bell with Interactive Dropdown -->
       <div class="nav-bell-wrapper" id="nav-bell-wrapper">
@@ -1578,33 +1784,168 @@
               <p>Experience true full-screen, native app performance without browser address bars, ads, or interruptions.</p>
             </div>
 
-            <!-- Install CTA Card -->
-            <div class="install-cta-card">
-              <div class="install-cta-icon">
-                <i class="fa-solid fa-arrow-down-to-bracket text-red"></i>
+            <!-- Auto-Update Guarantee Banner -->
+            <div class="auto-update-banner">
+              <div class="auto-update-icon"><i class="fa-solid fa-arrows-rotate fa-spin text-gold"></i></div>
+              <div class="auto-update-text">
+                <strong>Automatic Cloud Updates Guaranteed:</strong>
+                <span>All CinemaVerse standalone apps update themselves automatically when the site updates. You never need to re-download or reinstall a new file to get new movies, servers, or features!</span>
               </div>
-              <div class="install-cta-info">
-                <h5>Download & Install Standalone App</h5>
-                <p>Choose between downloading the direct Android APK installer or adding the instant zero-storage PWA.</p>
-                <div class="install-features-row">
-                  <span><i class="fa-solid fa-check text-green"></i> 100% Real Android APK</span>
-                  <span><i class="fa-solid fa-circle-info text-cyan"></i> Provider ads may appear</span>
-                  <span><i class="fa-solid fa-check text-green"></i> In-App Downloads</span>
+            </div>
+
+            <!-- Multi-Platform Downloads Grid (Android, Windows, macOS, Linux, PWA) -->
+            <div class="platforms-download-grid" id="platforms-download-grid">
+              
+              <!-- 1. ANDROID APK (Mobile, Tablet, Android TV, Fire TV) -->
+              <div class="platform-app-card card-android" id="card-platform-android">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-android">
+                    <i class="fa-brands fa-android"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>Android App (APK)</h5>
+                      <span class="platform-tag">v1.0.0</span>
+                    </div>
+                    <p class="platform-devices">Phones • Tablets • Android TV • Fire TV</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-green"></i> TV Remote D-Pad Navigation</span>
+                  <span><i class="fa-solid fa-check text-green"></i> 4K Fullscreen Immersive</span>
+                  <span><i class="fa-solid fa-check text-green"></i> Auto-Updating Cloud Shell</span>
+                </div>
+                <div class="platform-action">
+                  <a href="/download/CinemaVerse-Pro.apk" class="btn-platform-download btn-android" id="btn-download-apk" download="CinemaVerse-Pro.apk" target="_blank" rel="noopener noreferrer" onclick="handleApkDirectDownload(event)" title="Download Android APK directly">
+                    <i class="fa-brands fa-android"></i>
+                    <div class="dl-btn-label">
+                      <strong>Download Android APK</strong>
+                      <small>Direct File • 5.6 MB • Zero Setup</small>
+                    </div>
+                  </a>
                 </div>
               </div>
-              <div class="install-actions-vertical">
-                <a href="/download/CinemaVerse-Pro.apk" download="CinemaVerse-Pro.apk" class="btn-install-apk-primary" id="btn-download-apk" title="Download Android APK File">
-                  <i class="fa-brands fa-android"></i>
-                  <div class="apk-btn-text">
-                    <strong>Download Android APK</strong>
-                    <small>Direct File • v2.4.0 • 45 KB</small>
+
+              <!-- 2. WINDOWS PC (Windows 10 & 11) -->
+              <div class="platform-app-card card-windows" id="card-platform-windows">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-windows">
+                    <i class="fa-brands fa-windows"></i>
                   </div>
-                </a>
-                <button type="button" class="btn-install-pwa-secondary" id="btn-install-pwa" onclick="triggerPwaInstall()">
-                  <i class="fa-solid fa-mobile-screen"></i>
-                  <span>Add to Home Screen (PWA)</span>
-                </button>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>Windows Desktop</h5>
+                      <span class="platform-tag">64-Bit</span>
+                    </div>
+                    <p class="platform-devices">Windows 10 &amp; Windows 11 PC / Laptops</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-cyan"></i> F11 Cinema Mode</span>
+                  <span><i class="fa-solid fa-check text-cyan"></i> Hardware GPU Acceleration</span>
+                  <span><i class="fa-solid fa-check text-cyan"></i> Media Keys &amp; Keyboard Controls</span>
+                </div>
+                <div class="platform-action">
+                  <a href="https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-desktop/CinemaVerse-Windows-Setup.exe" class="btn-platform-download btn-windows" id="btn-download-windows" target="_blank" rel="noopener noreferrer" title="Download Windows Installer">
+                    <i class="fa-brands fa-windows"></i>
+                    <div class="dl-btn-label">
+                      <strong>Download for Windows</strong>
+                      <small>Setup Installer (.exe) • 64-Bit</small>
+                    </div>
+                  </a>
+                </div>
               </div>
+
+              <!-- 3. MACOS (Apple Silicon M1/M2/M3 & Intel) -->
+              <div class="platform-app-card card-macos" id="card-platform-macos">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-macos">
+                    <i class="fa-brands fa-apple"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>macOS Desktop</h5>
+                      <span class="platform-tag">Universal</span>
+                    </div>
+                    <p class="platform-devices">MacBook, iMac, Mac mini (M1/M2/M3 &amp; Intel)</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-purple"></i> Retina 4K Display Rendering</span>
+                  <span><i class="fa-solid fa-check text-purple"></i> Native Fullscreen &amp; PiP</span>
+                  <span><i class="fa-solid fa-check text-purple"></i> Ad-Shield Preconfigured</span>
+                </div>
+                <div class="platform-action">
+                  <a href="https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-desktop/CinemaVerse-macOS.dmg" class="btn-platform-download btn-macos" id="btn-download-macos" target="_blank" rel="noopener noreferrer" title="Download Mac DMG File">
+                    <i class="fa-brands fa-apple"></i>
+                    <div class="dl-btn-label">
+                      <strong>Download for Mac</strong>
+                      <small>Disk Image (.dmg) • Universal Binary</small>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- 4. LINUX (AppImage & deb) -->
+              <div class="platform-app-card card-linux" id="card-platform-linux">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-linux">
+                    <i class="fa-brands fa-linux"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>Linux Standalone</h5>
+                      <span class="platform-tag">AppImage</span>
+                    </div>
+                    <p class="platform-devices">Ubuntu, Debian, Fedora, Arch, Manjaro</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-yellow"></i> Zero Dependency AppImage</span>
+                  <span><i class="fa-solid fa-check text-yellow"></i> Wayland &amp; X11 Compatible</span>
+                  <span><i class="fa-solid fa-check text-yellow"></i> VA-API Hardware Video Decoding</span>
+                </div>
+                <div class="platform-action">
+                  <a href="https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-desktop/CinemaVerse-Linux.AppImage" class="btn-platform-download btn-linux" id="btn-download-linux" target="_blank" rel="noopener noreferrer" title="Download Linux AppImage">
+                    <i class="fa-brands fa-linux"></i>
+                    <div class="dl-btn-label">
+                      <strong>Download for Linux</strong>
+                      <small>Portable AppImage • All Distros</small>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- 5. INSTANT WEB APP (PWA) -->
+              <div class="platform-app-card card-pwa" id="card-platform-pwa">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-pwa">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>Instant Web App (PWA)</h5>
+                      <span class="platform-tag tag-green">Zero Storage</span>
+                    </div>
+                    <p class="platform-devices">iPhone, iPad, Chrome, Edge, Safari, Brave</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-green"></i> 1-Click Install to Home Screen</span>
+                  <span><i class="fa-solid fa-check text-green"></i> Zero Disk Space Required</span>
+                  <span><i class="fa-solid fa-check text-green"></i> Offline Mode &amp; Fast Cache</span>
+                </div>
+                <div class="platform-action">
+                  <button type="button" class="btn-platform-download btn-pwa" id="btn-install-pwa" onclick="triggerPwaInstall()" title="Install CinemaVerse PWA immediately">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                    <div class="dl-btn-label">
+                      <strong>Add to Home Screen (Instant)</strong>
+                      <small>No installer needed • Browser native</small>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
             </div>
 
             <!-- Platform Specific Install Guides -->
@@ -2029,6 +2370,34 @@
       <p class="footer-copy">© 2026 CinemaVerse Pro. Universal Multi-OTT Streaming Universe.</p>
     </div>
   </footer>
+</div>
+
+  <!-- ======================================================== -->
+  <!-- MOBILE BOTTOM NAVIGATION DOCK (Luxury Glassmorphism)     -->
+  <!-- ======================================================== -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <button type="button" class="mobile-nav-item active" id="mob-nav-home" onclick="resetToHome(); setActiveMobNav(this);" title="Home">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </button>
+    <button type="button" class="mobile-nav-item" id="mob-nav-search" onclick="openSearchModal(); setActiveMobNav(this);" title="Search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search</span>
+    </button>
+    <button type="button" class="mobile-nav-item" id="mob-nav-download" onclick="scrollToDownloadCenter(); setActiveMobNav(this);" title="Install &amp; Downloads">
+      <i class="fa-solid fa-download"></i>
+      <span>Install App</span>
+    </button>
+    <button type="button" class="mobile-nav-item" id="mob-nav-camou" onclick="activateLibraryCamouflage()" title="Instant Disguise">
+      <i class="fa-solid fa-book-bookmark text-gold"></i>
+      <span>Disguise</span>
+    </button>
+    <button type="button" class="mobile-nav-item" id="mob-nav-profile" onclick="openAuthModal(); setActiveMobNav(this);" title="Profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Account</span>
+    </button>
+  </nav>
+
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js"></script>
