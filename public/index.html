@@ -147,7 +147,143 @@
 
       <!-- Manuscripts Grid -->
       <div class="alex-books-grid" id="alex-books-grid">
-        <!-- Rendered dynamically by JavaScript or populated with masterworks -->
+        <article class="alex-book-card" id="card-alex-meditations">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80" alt="Meditations" loading="lazy">
+            <span class="alex-book-tag">Classical Philosophy</span>
+            <span class="alex-book-year">180 AD</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">Meditations</h4>
+            <div class="alex-book-author">Marcus Aurelius</div>
+            <p class="alex-book-desc">Private personal journals of Roman Emperor Marcus Aurelius detailing Stoic discipline, cosmic reason, human dignity, and virtue.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: B580 .A3 1990</span>
+              <span>Dewey: 188</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-meditations')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-meditations')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-republic">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80" alt="The Republic" loading="lazy">
+            <span class="alex-book-tag">Classical Philosophy</span>
+            <span class="alex-book-year">375 BC</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">The Republic</h4>
+            <div class="alex-book-author">Plato</div>
+            <p class="alex-book-desc">A foundational dialogue on the concept of justice, the ideal commonwealth, and the allegory of the cave.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: JC71 .P35</span>
+              <span>Dewey: 184</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-republic')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-republic')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-odyssey">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1463320726281-696a485928c7?w=600&auto=format&fit=crop&q=80" alt="The Odyssey" loading="lazy">
+            <span class="alex-book-tag">World Epics & Poetry</span>
+            <span class="alex-book-year">750 BC</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">The Odyssey</h4>
+            <div class="alex-book-author">Homer</div>
+            <p class="alex-book-desc">The timeless epic detailing the arduous decade-long journey of Odysseus, king of Ithaca, following the Trojan War.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: PA4022 .A1</span>
+              <span>Dewey: 883.01</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-odyssey')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-odyssey')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-hamlet">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&auto=format&fit=crop&q=80" alt="Hamlet" loading="lazy">
+            <span class="alex-book-tag">Renaissance & Drama</span>
+            <span class="alex-book-year">1601</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">Hamlet, Prince of Denmark</h4>
+            <div class="alex-book-author">William Shakespeare</div>
+            <p class="alex-book-desc">Shakespeare's philosophical masterpiece examining existential doubt, mortality, treachery, and righteous vengeance.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: PR2807 .A25</span>
+              <span>Dewey: 822.33</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-hamlet')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-hamlet')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-pride">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1491841573634-28140fc7ced7?w=600&auto=format&fit=crop&q=80" alt="Pride and Prejudice" loading="lazy">
+            <span class="alex-book-tag">British & World Classics</span>
+            <span class="alex-book-year">1813</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">Pride and Prejudice</h4>
+            <div class="alex-book-author">Jane Austen</div>
+            <p class="alex-book-desc">An acute social satire capturing the tumultuous courtship between Elizabeth Bennet and Fitzwilliam Darcy.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: PR4034 .P7</span>
+              <span>Dewey: 823.7</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-pride')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-pride')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-artofwar">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=600&auto=format&fit=crop&q=80" alt="The Art of War" loading="lazy">
+            <span class="alex-book-tag">Classical Philosophy</span>
+            <span class="alex-book-year">5th Century BC</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">The Art of War</h4>
+            <div class="alex-book-author">Sun Tzu</div>
+            <p class="alex-book-desc">Thirteen definitive chapters on warfare, strategic positioning, deception, and psychological acumen.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: U101 .S95</span>
+              <span>Dewey: 355.02</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-artofwar')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-artofwar')">Cite</button>
+            </div>
+          </div>
+        </article>
       </div>
     </main>
 

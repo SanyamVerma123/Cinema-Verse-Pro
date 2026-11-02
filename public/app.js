@@ -5863,8 +5863,8 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-// Initialize Camouflage / Decoy on DOM Load
-window.addEventListener('DOMContentLoaded', () => {
+// Initialize Camouflage / Decoy on DOM Load or Immediate Execution
+function initCamouflageState() {
   const isUnlocked = sessionStorage.getItem('cv_unlocked') === 'true';
   if (isUnlocked) {
     unlockCinemaVersePro();
@@ -5877,4 +5877,10 @@ window.addEventListener('DOMContentLoaded', () => {
     document.title = 'Alexandria Digital Archive — Classical Literature & Humanities Repository';
     renderAlexLibraryBooks(LOCAL_ALEXANDRIA_BOOKS);
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initCamouflageState);
+} else {
+  initCamouflageState();
+}
