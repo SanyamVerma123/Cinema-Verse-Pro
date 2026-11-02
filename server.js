@@ -747,18 +747,18 @@ app.get('/api/sources/:type/:id', async (req, res) => {
   });
 });
 
-// Android APK Direct Download Endpoint
+// Android APK Direct Download Endpoint (Auto-Redirects to Latest GitHub Release APK)
 app.get(['/download/CinemaVerse-Pro.apk', '/download/CinemaMirror-Pro.apk'], (req, res) => {
   const apkPath = fs.existsSync(path.join(__dirname, 'public', 'CinemaVerse-Pro.apk'))
     ? path.join(__dirname, 'public', 'CinemaVerse-Pro.apk')
     : path.join(__dirname, 'public', 'CinemaMirror-Pro.apk');
-  if (fs.existsSync(apkPath)) {
+  if (fs.existsSync(apkPath) && fs.statSync(apkPath).size > 100000) {
     res.setHeader('Content-Type', 'application/vnd.android.package-archive');
     res.setHeader('Content-Disposition', 'attachment; filename="CinemaVerse-Pro.apk"');
-    res.sendFile(apkPath);
-  } else {
-    res.status(404).send('APK file not found');
+    return res.sendFile(apkPath);
   }
+  // Redirect to official GitHub Release direct APK download
+  res.redirect('https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-apk/CinemaVerse-Pro.apk');
 });
 
 // Real Movie & TV Video Download Sources Resolver

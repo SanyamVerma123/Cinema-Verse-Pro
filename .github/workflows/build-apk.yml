@@ -1,0 +1,108 @@
+name: Build CinemaVerse APK (Auto-Updating Web App)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'android/**'
+      - '.github/workflows/build-apk.yml'
+  workflow_dispatch:
+    inputs:
+      web_url:
+        description: 'Default Web Server URL for CinemaVerse'
+        required: false
+        default: 'https://cinema-verse-pro.vercel.app'
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Configure Web Server URL (if provided)
+        if: "${{ github.event.inputs.web_url != '' }}"
+        run: |
+          URL="${{ github.event.inputs.web_url }}"
+          echo "Overriding default_web_url with: $URL"
+          sed -i "s|<string name=\"default_web_url\">.*</string>|<string name=\"default_web_url\">$URL</string>|g" android/app/src/main/res/values/strings.xml
+
+      - name: Prepare Gradle Wrapper
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          mkdir -p gradle/wrapper
+          if [ ! -f "gradle/wrapper/gradle-wrapper.jar" ]; then
+            echo "Fetching official gradle-wrapper.jar..."
+            curl -sLo gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar || \
+            curl -sLo gradle/wrapper/gradle-wrapper.jar https://github.com/nicokaiser/gradle-wrapper/raw/master/gradle/wrapper/gradle-wrapper.jar
+          fi
+
+      - name: Build Android Debug APK
+        working-directory: android
+        run: |
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Prepare Output APK
+        run: |
+          mkdir -p release-apk
+          APK_PATH=$(find android/app/build/outputs/apk/debug -name "*.apk" | head -n 1)
+          if [ -f "$APK_PATH" ]; then
+            echo "Found APK at $APK_PATH"
+            cp "$APK_PATH" release-apk/CinemaVerse-Pro.apk
+            cp "$APK_PATH" release-apk/CinemaVerse-Pro-v1.0.apk
+            ls -lh release-apk/
+          else
+            echo "Error: APK not found!"
+            exit 1
+          fi
+
+      - name: Upload APK as Workflow Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CinemaVerse-Pro-APK
+          path: release-apk/CinemaVerse-Pro.apk
+          retention-days: 90
+
+      - name: Create / Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: success()
+        with:
+          tag_name: latest-apk
+          name: "CinemaVerse Pro — Android App (Auto-Updating)"
+          body: |
+            ## 📱 CinemaVerse Pro Android App
+            
+            This is the official native Android application for **CinemaVerse Pro**.
+            
+            ### ✨ Features
+            - **Auto-Updating**: Acts as a browser app shell. Every time you update the website or server, the app updates automatically without needing to re-download or reinstall any new APK!
+            - **Universal Support**: Runs on **Android phones, tablets, Android TV, Google TV, and Fire TV**!
+            - **Fullscreen 4K Video**: Supports immersive fullscreen video playback with hardware acceleration.
+            - **TV Remote Navigation**: Fully controllable via TV Remote D-Pad (Up, Down, Left, Right, OK/Select).
+            - **In-App Server Switcher**: Change the server URL anytime (local IP or hosted domain) by tapping the server indicator or long-pressing.
+            
+            ### ⬇️ Download
+            Download **CinemaVerse-Pro.apk** below and install it directly on your phone, tablet, or Android TV.
+          draft: false
+          prerelease: false
+          files: release-apk/CinemaVerse-Pro.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

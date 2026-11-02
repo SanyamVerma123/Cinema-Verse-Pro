@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CinemaVerse Pro</string>
+    <!-- Default URL to load. Change to your hosted domain or local network IP -->
+    <string name="default_web_url">https://cinema-verse-pro.vercel.app</string>
+    <string name="error_no_connection">Unable to Connect</string>
+    <string name="error_check_network">Please check your internet connection or verify the server address.</string>
+    <string name="btn_retry">Retry Connection</string>
+    <string name="btn_change_server">Change Server URL</string>
+    <string name="dialog_server_title">CinemaVerse Server Address</string>
+    <string name="dialog_server_desc">Enter the web address of your CinemaVerse server (e.g. http://192.168.1.50:3000 or https://your-app.vercel.app):</string>
+    <string name="dialog_save">Save &amp; Connect</string>
+    <string name="dialog_cancel">Cancel</string>
+</resources>
