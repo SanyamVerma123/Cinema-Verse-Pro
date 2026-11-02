@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showChangeServerDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_MaterialComponents_DayNight_Dialog_Alert);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.dialog_server_title);
         builder.setMessage(R.string.dialog_server_desc);
 
