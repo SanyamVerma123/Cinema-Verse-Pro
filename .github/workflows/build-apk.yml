@@ -32,10 +32,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          build-root-directory: android
 
       - name: Configure Web Server URL (if provided)
         if: "${{ github.event.inputs.web_url != '' }}"
@@ -44,20 +45,10 @@ jobs:
           echo "Overriding default_web_url with: $URL"
           sed -i "s|<string name=\"default_web_url\">.*</string>|<string name=\"default_web_url\">$URL</string>|g" android/app/src/main/res/values/strings.xml
 
-      - name: Prepare Gradle Wrapper
-        working-directory: android
-        run: |
-          chmod +x gradlew
-          mkdir -p gradle/wrapper
-          if [ ! -f "gradle/wrapper/gradle-wrapper.jar" ]; then
-            echo "Fetching official gradle-wrapper.jar..."
-            curl -sLo gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar || \
-            curl -sLo gradle/wrapper/gradle-wrapper.jar https://github.com/nicokaiser/gradle-wrapper/raw/master/gradle/wrapper/gradle-wrapper.jar
-          fi
-
       - name: Build Android Debug APK
         working-directory: android
         run: |
+          chmod +x gradlew
           ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Prepare Output APK
@@ -99,7 +90,7 @@ jobs:
             - **TV Remote Navigation**: Fully controllable via TV Remote D-Pad (Up, Down, Left, Right, OK/Select).
             - **In-App Server Switcher**: Change the server URL anytime (local IP or hosted domain) by tapping the server indicator or long-pressing.
             
-            ### ⬇️ Download
+            ### ⬇️ Direct APK Download
             Download **CinemaVerse-Pro.apk** below and install it directly on your phone, tablet, or Android TV.
           draft: false
           prerelease: false
