@@ -938,6 +938,32 @@
     </section>
 
     <!-- ======================================================== -->
+    <!-- AI NEURAL RECOMMENDATIONS ROW (MACHINE LEARNING PERSONALIZATION) -->
+    <!-- ======================================================== -->
+    <section class="netflix-row-wrap ai-recommendations-row-wrap" id="ai-recommended-section">
+      <div class="row-header">
+        <div class="row-title-ai-group">
+          <h2 class="row-title">
+            <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+            Recommended For You
+            <span class="ai-badge-chip"><i class="fa-solid fa-brain"></i> AI Personalized</span>
+          </h2>
+          <span class="row-subtitle-ai" id="ai-recom-subtitle">Neural taste model trained on what you watch &amp; enjoy</span>
+        </div>
+        <div class="ai-row-actions">
+          <button type="button" class="btn-ai-filter-quick" onclick="openSettingsModal('filters')" title="Fine-tune your Movie Filters &amp; Taste Preferences">
+            <i class="fa-solid fa-sliders"></i> Taste Filters
+          </button>
+        </div>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('ai-recommended-list', -1)" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="ai-recommended-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('ai-recommended-list', 1)" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
     
     <!-- ======================================================== -->
     <!-- 3D DISC CASCADE CAROUSEL SHOWCASE (CD POSTER VINYL FORMAT)-->
@@ -1946,6 +1972,11 @@
             <span>Download App</span>
             <span class="tab-badge-new">NEW</span>
           </button>
+          <button class="settings-tab-btn" data-tab="filters" onclick="switchSettingsTab('filters', this)">
+            <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+            <span>Movie Filters &amp; AI</span>
+            <span class="tab-badge-new" style="background: linear-gradient(135deg, #e50914, #f59e0b);">AI</span>
+          </button>
           <button class="settings-tab-btn" data-tab="streaming" onclick="switchSettingsTab('streaming', this)">
             <i class="fa-solid fa-server text-cyan"></i>
             <span>Streaming Mirrors</span>
@@ -2183,6 +2214,105 @@
                   <li>Launch directly from your Desktop or Taskbar.</li>
                 </ol>
               </div>
+            </div>
+          </div>
+
+          <!-- TAB: MOVIE FILTERS & AI TASTE PREFERENCES -->
+          <div class="settings-tab-panel" id="tab-filters">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-wand-magic-sparkles text-gold"></i> Content Filters &amp; AI Personalization</h4>
+              <p>Filter what types of movies and shows appear across CinemaVerse, and configure your Machine Learning recommendation model.</p>
+            </div>
+
+            <!-- Content Type Filter -->
+            <div class="setting-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-film text-red"></i> Primary Content Type</label>
+                <span>Filter all homepage rows and recommendations by format.</span>
+              </div>
+              <div class="filter-pills-group" id="filter-type-group">
+                <button type="button" class="filter-choice-btn active" data-type="all" onclick="selectFilterType('all', this)">All (Movies &amp; Series)</button>
+                <button type="button" class="filter-choice-btn" data-type="movie" onclick="selectFilterType('movie', this)"><i class="fa-solid fa-film"></i> Movies Only</button>
+                <button type="button" class="filter-choice-btn" data-type="series" onclick="selectFilterType('series', this)"><i class="fa-solid fa-tv"></i> TV Series Only</button>
+              </div>
+            </div>
+
+            <!-- Favorite Genres Multi-Select -->
+            <div class="setting-row filter-genres-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-tags text-cyan"></i> Preferred Genres &amp; Categories</label>
+                <span>Select genres you enjoy. CinemaVerse will prioritize these in recommendations and catalog feeds.</span>
+              </div>
+              <div class="genres-chips-grid" id="filter-genres-grid">
+                <!-- Dynamically populated toggle chips: Action, Sci-Fi, Thriller, Drama, Horror, Anime, Comedy, etc. -->
+              </div>
+            </div>
+
+            <!-- Preferred Streaming Platforms -->
+            <div class="setting-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-layer-group text-gold"></i> Preferred Streaming Platforms</label>
+                <span>Prioritize titles from specific OTT hubs.</span>
+              </div>
+              <div class="platforms-chips-grid" id="filter-platforms-grid">
+                <button type="button" class="filter-chip-pill active" data-platform="netflix" onclick="togglePlatformFilter('netflix', this)"><span class="badge-dot-nflx"></span> Netflix</button>
+                <button type="button" class="filter-chip-pill active" data-platform="prime" onclick="togglePlatformFilter('prime', this)"><span class="badge-dot-prm"></span> Prime Video</button>
+                <button type="button" class="filter-chip-pill active" data-platform="disney" onclick="togglePlatformFilter('disney', this)"><span class="badge-dot-dis"></span> Disney+ Hotstar</button>
+                <button type="button" class="filter-chip-pill active" data-platform="hbo" onclick="togglePlatformFilter('hbo', this)"><span class="badge-dot-hbo"></span> HBO Max</button>
+                <button type="button" class="filter-chip-pill active" data-platform="apple" onclick="togglePlatformFilter('apple', this)"><span class="badge-dot-app"></span> Apple TV+</button>
+                <button type="button" class="filter-chip-pill active" data-platform="crunchyroll" onclick="togglePlatformFilter('crunchyroll', this)"><span class="badge-dot-cr"></span> Crunchyroll / Anime</button>
+              </div>
+            </div>
+
+            <!-- Release Era & Age Maturity -->
+            <div class="setting-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-calendar text-yellow"></i> Release Era</label>
+                <span>Filter catalog titles by release year timeframe.</span>
+              </div>
+              <select class="settings-dropdown" id="filter-setting-era" onchange="updateEraFilter(this.value)">
+                <option value="all" selected>All Eras (Classics to 2026)</option>
+                <option value="latest">2024 - 2026 Latest Releases Only</option>
+                <option value="modern">2018 - 2023 Modern Hits</option>
+                <option value="classics">Before 2018 (Legacy Classics)</option>
+              </select>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-shield text-green"></i> Content Maturity Rating</label>
+                <span>Select family-friendly or unrestricted viewing.</span>
+              </div>
+              <select class="settings-dropdown" id="filter-setting-maturity" onchange="updateMaturityFilter(this.value)">
+                <option value="all" selected>All Ratings (Family + Mature)</option>
+                <option value="family">Family Friendly (PG, PG-13, TV-14 &amp; Below)</option>
+                <option value="mature">18+ / TV-MA / R-Rated Only</option>
+              </select>
+            </div>
+
+            <!-- Machine Learning AI Taste Inspector -->
+            <div class="ai-taste-inspector-card">
+              <div class="ai-inspector-header">
+                <div class="ai-inspector-title">
+                  <i class="fa-solid fa-brain text-gold"></i>
+                  <div>
+                    <h5>Machine Learning Taste Model (Active)</h5>
+                    <span id="ai-model-status-text">Continuously learning from your watch history, likes, and interactions.</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-reset-ai-model" onclick="resetAiModel()" title="Reset AI taste profile">
+                  <i class="fa-solid fa-arrows-rotate"></i> Reset Taste Model
+                </button>
+              </div>
+              <div class="ai-bars-container" id="ai-taste-bars-container">
+                <!-- Dynamically populated top learned genre confidence bars -->
+              </div>
+            </div>
+
+            <!-- Actions Bar -->
+            <div class="filter-actions-bar">
+              <button type="button" class="btn-netflix-secondary" onclick="resetContentFilters()"><i class="fa-solid fa-rotate-left"></i> Reset to All</button>
+              <button type="button" class="btn-netflix-primary" onclick="saveAndApplyContentFilters()"><i class="fa-solid fa-check"></i> Apply Filters &amp; Update Rows</button>
             </div>
           </div>
 

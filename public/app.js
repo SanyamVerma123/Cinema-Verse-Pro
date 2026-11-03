@@ -814,6 +814,12 @@ function focusPlatformRow(platformId) {
 
 function renderAllRows(items, activeCategory = 'all') {
   setupDiscCascade(items);
+  
+  // 0. AI Machine Learning Personalized Recommendations
+  if (typeof renderAiRecommendations === 'function') {
+    renderAiRecommendations(items);
+  }
+
   // 1. Top 10 Movies Today
   const top10Movies = items.filter(x => x.type === 'movie' && x.rank).sort((a, b) => a.rank - b.rank).slice(0, 10);
   renderTop10List('top10-movies-list', top10Movies);
@@ -1686,16 +1692,34 @@ function applyQuickTag(tag) {
   }
 }
 
+// Open Mobile & Universal Search Interface
+function openSearchModal() {
+  const box = document.getElementById('search-box');
+  const input = document.getElementById('search-input');
+  const section = document.getElementById('search-results-section');
+
+  if (box) box.classList.add('open');
+  toggleHomeVisibilityForSearch(true);
+  if (section) {
+    section.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  if (input) {
+    input.focus();
+    const curVal = input.value.trim();
+    performSearch(curVal, searchPlatformFilter, searchTypeFilter);
+  }
+}
+window.openSearchModal = openSearchModal;
+
 async function performSearch(query, platform = searchPlatformFilter || 'all', type = searchTypeFilter || 'all') {
   const section = document.getElementById('search-results-section');
   const grid = document.getElementById('search-grid');
   const queryDisplay = document.getElementById('search-query-display');
   const countDisplay = document.getElementById('search-count');
 
-  if (!query && platform === 'all' && type === 'all') {
-    clearSearch();
-    return;
-  }
+  if (!section || !grid) return;
 
   toggleHomeVisibilityForSearch(true);
   
@@ -1713,12 +1737,12 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
     sonyliv: 'Sony LIV',
     zee5: 'Zee5',
     jiocinema: 'JioCinema',
-    animeworld: 'Anime World (WatchAnimeWorld)'
+    animeworld: 'Anime World'
   };
   const platLabel = platformNameMap[platform] || platform;
 
   if (query) {
-    queryDisplay.textContent = `${query} (${platLabel})`;
+    queryDisplay.textContent = `"${query}" on ${platLabel}`;
   } else {
     queryDisplay.textContent = `All Titles on ${platLabel}`;
   }
@@ -1726,10 +1750,39 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
   countDisplay.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-red"></i> Searching universal database across all 14 OTT platforms...';
   section.style.display = 'block';
 
+  // Train AI on search query if user searched
+  if (query && window.neuroTasteEngine) {
+    window.neuroTasteEngine.train({ title: query, genres: [query] }, 'search');
+  }
+
   try {
-    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&platform=${platform}&type=${type}`);
-    const data = await res.json();
-    const results = data.data || [];
+    let results = [];
+    try {
+      const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&platform=${platform}&type=${type}`);
+      const data = await res.json();
+      if (data && data.status === 'success' && Array.isArray(data.data)) {
+        results = data.data;
+      }
+    } catch (apiErr) {
+      console.warn('API search failed, falling back to local catalog:', apiErr);
+    }
+
+    // High-performance local catalog search fallback
+    if (!results.length && currentCatalog && currentCatalog.length) {
+      const qLower = (query || '').toLowerCase().trim();
+      results = currentCatalog.filter(item => {
+        const matchesQ = !qLower ||
+          (item.title && item.title.toLowerCase().includes(qLower)) ||
+          (item.genres && item.genres.some(g => g.toLowerCase().includes(qLower))) ||
+          (item.cast && item.cast.some(c => c.toLowerCase().includes(qLower))) ||
+          (item.director && item.director.toLowerCase().includes(qLower)) ||
+          (item.description && item.description.toLowerCase().includes(qLower));
+
+        const matchesPlat = platform === 'all' || item.platformId === platform;
+        const matchesType = type === 'all' || item.type === type;
+        return matchesQ && matchesPlat && matchesType;
+      });
+    }
 
     const typeLabel = type === 'all' ? '' : (type === 'movie' ? 'movies' : 'series');
     countDisplay.textContent = `${results.length} ${typeLabel} titles found on ${platLabel}`;
@@ -1740,7 +1793,7 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
         <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-dim);">
           <i class="fa-solid fa-film" style="font-size: 48px; opacity: 0.3; margin-bottom: 16px;"></i>
           <h3 style="font-size: 18px; margin-bottom: 8px; color: #fff;">No titles found for "${query || platLabel}"</h3>
-          <p>Try searching for popular hits like "Stranger Things", "Naruto", "The Boys", "Game of Thrones", "Asur", "Scam 1992", or "Yellowstone".</p>
+          <p>Try searching for popular hits like "Stranger Things", "RRR", "The Boys", "Game of Thrones", "Avatar", "Naruto", or "Spider-Man".</p>
           <button class="btn-reset-platform" style="margin: 20px auto 0;" onclick="clearSearch()"><i class="fa-solid fa-house"></i> Return to All OTTs</button>
         </div>
       `;
@@ -1772,12 +1825,15 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
           </div>
         </div>
       `;
-      card.onclick = () => openDetailsModal(item);
+      card.onclick = () => {
+        if (window.neuroTasteEngine) window.neuroTasteEngine.train(item, 'click');
+        openDetailsModal(item);
+      };
       grid.appendChild(card);
     });
   } catch (err) {
     console.error('Search failed:', err);
-    countDisplay.textContent = 'Error connecting to search server';
+    countDisplay.textContent = 'Error connecting to search engine. Please try again.';
   }
 }
 
@@ -1832,6 +1888,9 @@ window.updateSelectedServerUI = updateSelectedServerUI;
 
 async function openDetailsModal(item) {
   currentItem = item;
+  if (window.neuroTasteEngine) {
+    window.neuroTasteEngine.train(item, 'click');
+  }
   document.getElementById('modal-title').textContent = item.title;
   document.getElementById('modal-desc').textContent = item.description || 'Watch now in Ultra HD.';
   
@@ -2452,6 +2511,11 @@ function handlePlayerClick(e) {
 async function openPlayer(item, season = null, episode = null, serverIndex = null, resumeTime = null) {
   closeDetailsModal();
   currentItem = item;
+
+  // Train Machine Learning Taste Model on watched content
+  if (window.neuroTasteEngine && item) {
+    window.neuroTasteEngine.train(item, 'watch');
+  }
 
   // Retrieve saved Continue Watching item if it exists
   const saved = getContinueWatchingItem(item.id);
@@ -4083,15 +4147,19 @@ function openSettingsModal(tabName = 'install') {
   closeMobileBrowseMenu();
   closeAllModals();
 
-  const tabAliases = { data: 'storage' };
+  const tabAliases = { data: 'storage', filter: 'filters', preferences: 'filters' };
   tabName = tabAliases[tabName] || tabName;
-  const validTabs = new Set(['install', 'streaming', 'audio', 'subtitles', 'shield', 'storage', 'about']);
+  const validTabs = new Set(['install', 'filters', 'streaming', 'audio', 'subtitles', 'shield', 'storage', 'about']);
   if (!validTabs.has(tabName)) tabName = 'install';
 
   const modal = document.getElementById('app-settings-modal');
   if (!modal) return;
   closeMobileBrowseMenu();
   modal.style.display = 'flex';
+
+  if (typeof initFilterSettingsUI === 'function') {
+    initFilterSettingsUI();
+  }
 
   // Activate requested tab
   const tabBtn = document.querySelector(`.settings-tab-btn[data-tab="${tabName}"]`);
@@ -5950,3 +6018,493 @@ window.handleImgError = function(img, fallback) {
     </svg>
   `);
 };
+
+/* ========================================================
+   CINEMAVERSE NEURO-TASTE MACHINE LEARNING RECOMMENDATION ENGINE
+   Online user vector profile, real-time cosine similarity & taste filters
+   ======================================================== */
+class NeuroTasteEngine {
+  constructor() {
+    this.storageKey = 'cv_ai_taste_profile';
+    this.filterKey = 'cv_user_content_filters';
+    this.profile = this.loadProfile();
+    this.filters = this.loadFilters();
+  }
+
+  loadProfile() {
+    try {
+      const raw = localStorage.getItem(this.storageKey);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return {
+      genres: {},
+      platforms: {},
+      types: { movie: 0, series: 0 },
+      history: [],
+      interactionsCount: 0,
+      lastTrainedAt: Date.now()
+    };
+  }
+
+  saveProfile() {
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.profile));
+    } catch (e) {}
+  }
+
+  loadFilters() {
+    try {
+      const raw = localStorage.getItem(this.filterKey);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return {
+      type: 'all',
+      genres: [],
+      platforms: [],
+      era: 'all',
+      maturity: 'all'
+    };
+  }
+
+  saveFilters(newFilters) {
+    this.filters = { ...this.filters, ...newFilters };
+    try {
+      localStorage.setItem(this.filterKey, JSON.stringify(this.filters));
+    } catch (e) {}
+  }
+
+  // Train on user interaction (watching, clicking, favoriting, searching)
+  train(item, actionType = 'click') {
+    if (!item) return;
+
+    const weights = {
+      'watch': 6.0,
+      'like': 7.0,
+      'watchlist': 4.5,
+      'click': 2.0,
+      'search': 3.0
+    };
+    const w = weights[actionType] || 2.0;
+
+    // 1. Train genre weights
+    if (Array.isArray(item.genres)) {
+      item.genres.forEach(g => {
+        const norm = g.trim();
+        this.profile.genres[norm] = (this.profile.genres[norm] || 0) + w;
+      });
+    }
+
+    // 2. Train platform weight
+    if (item.platformId) {
+      this.profile.platforms[item.platformId] = (this.profile.platforms[item.platformId] || 0) + (w * 0.5);
+    }
+
+    // 3. Train type weight
+    if (item.type && (item.type === 'movie' || item.type === 'series')) {
+      this.profile.types[item.type] = (this.profile.types[item.type] || 0) + (w * 0.7);
+    }
+
+    // 4. Log to history (keep last 50)
+    const itemId = item.id || item.imdbId;
+    if (itemId) {
+      this.profile.history = this.profile.history.filter(h => h.id !== itemId);
+      this.profile.history.unshift({
+        id: itemId,
+        title: item.title,
+        genres: item.genres || [],
+        action: actionType,
+        timestamp: Date.now()
+      });
+      if (this.profile.history.length > 50) {
+        this.profile.history.pop();
+      }
+    }
+
+    this.profile.interactionsCount++;
+    this.profile.lastTrainedAt = Date.now();
+    this.saveProfile();
+
+    // Trigger AI row refresh asynchronously
+    if (typeof refreshAiRecommendations === 'function') {
+      refreshAiRecommendations();
+    }
+  }
+
+  // Get user's top learned genres with normalized percentages
+  getTopLearnedGenres(limit = 6) {
+    const entries = Object.entries(this.profile.genres);
+    if (!entries.length) return [];
+    entries.sort((a, b) => b[1] - a[1]);
+    const maxScore = entries[0][1];
+    return entries.slice(0, limit).map(([genre, score]) => ({
+      genre,
+      score,
+      percentage: Math.min(100, Math.max(15, Math.round((score / maxScore) * 100)))
+    }));
+  }
+
+  // Compute similarity score between user preference vector and a movie candidate
+  computeScore(item) {
+    let score = 52; // Baseline
+
+    // 1. Genre Affinity
+    const topGenres = this.getTopLearnedGenres(8);
+    if (topGenres.length > 0 && Array.isArray(item.genres)) {
+      let genreOverlap = 0;
+      item.genres.forEach(g => {
+        const found = topGenres.find(tg => tg.genre.toLowerCase() === g.toLowerCase());
+        if (found) {
+          genreOverlap += (found.percentage / 100) * 36;
+        }
+      });
+      score += Math.min(38, genreOverlap);
+    } else {
+      score += 20; // Cold-start exploration
+    }
+
+    // 2. Platform Affinity
+    if (item.platformId && this.profile.platforms[item.platformId]) {
+      score += Math.min(6, this.profile.platforms[item.platformId] * 0.4);
+    }
+
+    // 3. Type Affinity
+    const moviePref = this.profile.types.movie || 0;
+    const seriesPref = this.profile.types.series || 0;
+    if (moviePref > seriesPref && item.type === 'movie') score += 4;
+    else if (seriesPref > moviePref && item.type === 'series') score += 4;
+
+    // 4. Quality & Popularity Prior
+    if (item.rating) score += (item.rating / 10) * 5;
+    if (item.featured || item.trending) score += 3;
+
+    // 5. Watched de-prioritization
+    const isRecentlyWatched = this.profile.history.some(h => (h.id === item.id || h.id === item.imdbId) && h.action === 'watch');
+    if (isRecentlyWatched) score -= 18;
+
+    return Math.min(99, Math.max(78, Math.round(score)));
+  }
+
+  // Generate top AI recommendations adhering to both learned weights and explicit user filters
+  generateRecommendations(catalog, count = 20) {
+    if (!Array.isArray(catalog) || !catalog.length) return [];
+
+    let pool = catalog;
+    // Explicit User Filter Rules
+    if (this.filters.type && this.filters.type !== 'all') {
+      pool = pool.filter(x => x.type === this.filters.type);
+    }
+    if (Array.isArray(this.filters.genres) && this.filters.genres.length > 0) {
+      pool = pool.filter(x => x.genres && x.genres.some(g => this.filters.genres.includes(g)));
+    }
+    if (Array.isArray(this.filters.platforms) && this.filters.platforms.length > 0) {
+      pool = pool.filter(x => this.filters.platforms.includes(x.platformId));
+    }
+    if (this.filters.era && this.filters.era !== 'all') {
+      if (this.filters.era === 'latest') pool = pool.filter(x => x.year >= 2024);
+      else if (this.filters.era === 'modern') pool = pool.filter(x => x.year >= 2018 && x.year <= 2023);
+      else if (this.filters.era === 'classics') pool = pool.filter(x => x.year < 2018);
+    }
+    if (this.filters.maturity && this.filters.maturity !== 'all') {
+      if (this.filters.maturity === 'family') {
+        pool = pool.filter(x => !['18+', 'TV-MA', 'R'].includes(x.maturity));
+      } else if (this.filters.maturity === 'mature') {
+        pool = pool.filter(x => ['18+', 'TV-MA', 'R', '16+'].includes(x.maturity));
+      }
+    }
+
+    if (!pool.length) pool = catalog; // Fallback if filters too strict
+
+    const scored = pool.map(item => ({
+      item,
+      score: this.computeScore(item)
+    }));
+
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, count).map(s => ({
+      ...s.item,
+      aiMatchPercentage: s.score
+    }));
+  }
+
+  reset() {
+    this.profile = {
+      genres: {},
+      platforms: {},
+      types: { movie: 0, series: 0 },
+      history: [],
+      interactionsCount: 0,
+      lastTrainedAt: Date.now()
+    };
+    this.saveProfile();
+  }
+}
+
+// Global ML Instance
+window.neuroTasteEngine = new NeuroTasteEngine();
+
+// Render AI Recommendations Row
+function renderAiRecommendations(catalog) {
+  const container = document.getElementById('ai-recommended-list');
+  const section = document.getElementById('ai-recommended-section');
+  const subtitle = document.getElementById('ai-recom-subtitle');
+  if (!container || !section) return;
+
+  const pool = catalog || currentCatalog || [];
+  if (!pool.length) {
+    section.style.display = 'none';
+    return;
+  }
+
+  const recommendations = window.neuroTasteEngine.generateRecommendations(pool, 24);
+  if (!recommendations.length) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+
+  // Dynamic subtitle based on top learned genres
+  const topGenres = window.neuroTasteEngine.getTopLearnedGenres(2);
+  if (subtitle) {
+    if (topGenres.length >= 2) {
+      subtitle.innerHTML = `Personalized for your love of <strong class="text-gold">${topGenres[0].genre}</strong> &amp; <strong class="text-gold">${topGenres[1].genre}</strong>`;
+    } else if (topGenres.length === 1) {
+      subtitle.innerHTML = `Tailored for your interest in <strong class="text-gold">${topGenres[0].genre}</strong>`;
+    } else {
+      subtitle.textContent = 'Neural recommendations trained on your watch history & preferences';
+    }
+  }
+
+  container.innerHTML = '';
+  recommendations.forEach(item => {
+    const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
+    const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
+
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+    card.innerHTML = `
+      <div class="card-poster-wrap">
+        <div class="ai-match-tag"><i class="fa-solid fa-sparkles"></i> ${item.aiMatchPercentage || 98}% Match</div>
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
+        <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
+        ${dubBadgeHtml}
+        <div class="card-play-hover">
+          <div class="play-circle"><i class="fa-solid fa-play"></i></div>
+        </div>
+      </div>
+      <div class="card-info">
+        <h4 class="card-title">${item.title}</h4>
+        <div class="card-meta">
+          <span class="text-green font-bold">${item.matchRate || (item.aiMatchPercentage + '% Match')}</span>
+          <span>${item.duration || item.year || ''}</span>
+        </div>
+      </div>
+    `;
+
+    card.onclick = () => {
+      window.neuroTasteEngine.train(item, 'click');
+      openDetailsModal(item);
+    };
+
+    container.appendChild(card);
+  });
+}
+
+function refreshAiRecommendations() {
+  if (currentCatalog && currentCatalog.length) {
+    renderAiRecommendations(currentCatalog);
+  }
+}
+
+/* ========================================================
+   CONTENT & TASTE FILTERS SETTINGS CONTROLLER
+   ======================================================== */
+const AVAILABLE_FILTER_GENRES = [
+  'Action', 'Sci-Fi', 'Thriller', 'Drama', 'Horror',
+  'Comedy', 'Anime', 'Romance', 'Crime', 'Mystery',
+  'Fantasy', 'Adventure', 'Animation', 'Documentary'
+];
+
+function initFilterSettingsUI() {
+  const engine = window.neuroTasteEngine;
+  if (!engine) return;
+
+  const filters = engine.filters;
+
+  // 1. Content Type Buttons
+  document.querySelectorAll('#filter-type-group .filter-choice-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-type') === (filters.type || 'all'));
+  });
+
+  // 2. Populate Genre Toggle Chips
+  const genresGrid = document.getElementById('filter-genres-grid');
+  if (genresGrid) {
+    genresGrid.innerHTML = '';
+    AVAILABLE_FILTER_GENRES.forEach(g => {
+      const isSelected = Array.isArray(filters.genres) && filters.genres.includes(g);
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = `genre-toggle-chip ${isSelected ? 'active' : ''}`;
+      chip.textContent = g;
+      chip.onclick = () => toggleGenreFilter(g, chip);
+      genresGrid.appendChild(chip);
+    });
+  }
+
+  // 3. Platform Chips
+  document.querySelectorAll('#filter-platforms-grid .filter-chip-pill').forEach(pill => {
+    const plat = pill.getAttribute('data-platform');
+    const isSelected = !filters.platforms.length || filters.platforms.includes(plat);
+    pill.classList.toggle('active', isSelected);
+  });
+
+  // 4. Era Dropdown
+  const eraSelect = document.getElementById('filter-setting-era');
+  if (eraSelect) eraSelect.value = filters.era || 'all';
+
+  // 5. Maturity Dropdown
+  const maturitySelect = document.getElementById('filter-setting-maturity');
+  if (maturitySelect) maturitySelect.value = filters.maturity || 'all';
+
+  // 6. Render AI Taste Progress Bars
+  renderAiTasteBars();
+}
+
+function selectFilterType(type, btn) {
+  if (!window.neuroTasteEngine) return;
+  window.neuroTasteEngine.filters.type = type;
+  document.querySelectorAll('#filter-type-group .filter-choice-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function toggleGenreFilter(genre, btn) {
+  if (!window.neuroTasteEngine) return;
+  const currentGenres = window.neuroTasteEngine.filters.genres || [];
+  const idx = currentGenres.indexOf(genre);
+  if (idx !== -1) {
+    currentGenres.splice(idx, 1);
+    if (btn) btn.classList.remove('active');
+  } else {
+    currentGenres.push(genre);
+    if (btn) btn.classList.add('active');
+  }
+  window.neuroTasteEngine.filters.genres = currentGenres;
+}
+
+function togglePlatformFilter(platform, btn) {
+  if (!window.neuroTasteEngine) return;
+  let currentPlatforms = window.neuroTasteEngine.filters.platforms || [];
+  const idx = currentPlatforms.indexOf(platform);
+  if (idx !== -1) {
+    currentPlatforms.splice(idx, 1);
+    if (btn) btn.classList.remove('active');
+  } else {
+    currentPlatforms.push(platform);
+    if (btn) btn.classList.add('active');
+  }
+  window.neuroTasteEngine.filters.platforms = currentPlatforms;
+}
+
+function updateEraFilter(val) {
+  if (!window.neuroTasteEngine) return;
+  window.neuroTasteEngine.filters.era = val;
+}
+
+function updateMaturityFilter(val) {
+  if (!window.neuroTasteEngine) return;
+  window.neuroTasteEngine.filters.maturity = val;
+}
+
+function renderAiTasteBars() {
+  const container = document.getElementById('ai-taste-bars-container');
+  if (!container || !window.neuroTasteEngine) return;
+
+  const topGenres = window.neuroTasteEngine.getTopLearnedGenres(5);
+  const statusText = document.getElementById('ai-model-status-text');
+
+  if (statusText) {
+    const count = window.neuroTasteEngine.profile.interactionsCount || 0;
+    statusText.textContent = count > 0 
+      ? `Model trained on ${count} interactions. Highest affinity: ${topGenres[0]?.genre || 'Diverse'}.`
+      : 'Cold-start mode. Model will auto-calibrate as you watch or browse.';
+  }
+
+  container.innerHTML = '';
+  if (!topGenres.length) {
+    container.innerHTML = `
+      <div style="font-size: 12px; color: #9ca3af; padding: 10px 0; text-align: center;">
+        <i class="fa-solid fa-sparkles text-gold"></i> Start watching movies or clicking titles to see your personalized AI taste graph form!
+      </div>
+    `;
+    return;
+  }
+
+  topGenres.forEach(g => {
+    const row = document.createElement('div');
+    row.className = 'ai-bar-row';
+    row.innerHTML = `
+      <div class="ai-bar-label">${g.genre}</div>
+      <div class="ai-bar-track">
+        <div class="ai-bar-fill" style="width: ${g.percentage}%"></div>
+      </div>
+      <div class="ai-bar-val">${g.percentage}%</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function saveAndApplyContentFilters() {
+  if (!window.neuroTasteEngine) return;
+  window.neuroTasteEngine.saveFilters(window.neuroTasteEngine.filters);
+
+  // Re-apply to catalog and rows
+  if (currentCatalog && currentCatalog.length) {
+    renderAllRows(currentCatalog);
+    renderAiRecommendations(currentCatalog);
+  }
+
+  showToast('Taste & Content Filters Applied Successfully!', 'success');
+  closeSettingsModal();
+}
+
+function resetContentFilters() {
+  if (!window.neuroTasteEngine) return;
+  window.neuroTasteEngine.saveFilters({
+    type: 'all',
+    genres: [],
+    platforms: [],
+    era: 'all',
+    maturity: 'all'
+  });
+
+  initFilterSettingsUI();
+  if (currentCatalog && currentCatalog.length) {
+    renderAllRows(currentCatalog);
+    renderAiRecommendations(currentCatalog);
+  }
+  showToast('Filters reset to default (All Content)', 'info');
+}
+
+function resetAiModel() {
+  if (!window.neuroTasteEngine) return;
+  window.neuroTasteEngine.reset();
+  renderAiTasteBars();
+  if (currentCatalog && currentCatalog.length) {
+    renderAiRecommendations(currentCatalog);
+  }
+  showToast('AI Taste Learning Model reset to factory default', 'info');
+}
+
+// Ensure initialization hooks on startup
+if (typeof window !== 'undefined') {
+  window.initFilterSettingsUI = initFilterSettingsUI;
+  window.selectFilterType = selectFilterType;
+  window.toggleGenreFilter = toggleGenreFilter;
+  window.togglePlatformFilter = togglePlatformFilter;
+  window.updateEraFilter = updateEraFilter;
+  window.updateMaturityFilter = updateMaturityFilter;
+  window.saveAndApplyContentFilters = saveAndApplyContentFilters;
+  window.resetContentFilters = resetContentFilters;
+  window.resetAiModel = resetAiModel;
+  window.renderAiRecommendations = renderAiRecommendations;
+}

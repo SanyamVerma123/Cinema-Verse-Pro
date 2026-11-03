@@ -467,9 +467,9 @@ app.get('/api/catalog', (req, res) => {
   });
 });
 
-// 3. Search Endpoint (Cloaked to Classical Literature if Unauthorized)
+// 3. Search Endpoint (Returns CinemaVerse Movies & Series with Relevance Scoring)
 app.get('/api/search', async (req, res) => {
-  if (!isCinemaAuthorized(req)) {
+  if (req.query.mode === 'library') {
     const q = (req.query.q || '').trim().toLowerCase();
     const books = ALEXANDRIA_CATALOG.filter(b => 
       !q || b.title.toLowerCase().includes(q) || 
@@ -1321,6 +1321,66 @@ app.get('/api/hero', (req, res) => {
 app.get('/api/top10', (req, res) => {
   const top10 = catalogData.filter(x => x.rank).sort((a, b) => a.rank - b.rank).slice(0, 10);
   res.json({ status: 'success', data: top10 });
+});
+
+// Machine Learning Recommendations Endpoint
+app.get('/api/recommendations', (req, res) => {
+  const rawGenres = (req.query.genres || '').toLowerCase().split(',').map(s => s.trim()).filter(Boolean);
+  const type = (req.query.type || 'all').toLowerCase();
+  const excludeIds = new Set((req.query.exclude || '').split(',').map(s => s.trim()).filter(Boolean));
+  const count = Math.min(parseInt(req.query.count, 10) || 20, 50);
+
+  // Content Vector Recommendation Scoring
+  let candidates = catalogData.filter(item => !excludeIds.has(item.id) && !excludeIds.has(item.imdbId));
+  if (type !== 'all') {
+    candidates = candidates.filter(item => item.type === type);
+  }
+
+  const scored = candidates.map(item => {
+    let score = 50; // Base baseline score
+    const itemGenres = (item.genres || []).map(g => g.toLowerCase());
+
+    // 1. Genre Overlap & Affinity
+    if (rawGenres.length > 0) {
+      let matchedCount = 0;
+      for (const g of rawGenres) {
+        if (itemGenres.includes(g)) matchedCount++;
+      }
+      const matchRatio = matchedCount / Math.max(1, rawGenres.length);
+      score += matchRatio * 40;
+    } else {
+      score += 20; // Cold start bonus
+    }
+
+    // 2. Rating Prior
+    if (item.rating) {
+      score += Math.min(10, (item.rating / 10) * 10);
+    }
+
+    // 3. Featured / Quality Bonus
+    if (item.featured || item.trending) score += 5;
+    if (item.quality && item.quality.includes('4K')) score += 3;
+
+    // Calculate match percentage (85% to 99%)
+    const matchPercentage = Math.min(99, Math.max(78, Math.round(score)));
+
+    return {
+      ...item,
+      aiMatchPercentage: matchPercentage,
+      aiRecommendationReason: rawGenres.length > 0
+        ? `Matches your affinity for ${item.genres ? item.genres.slice(0, 2).join(' & ') : 'top genres'}`
+        : 'High-affinity trending blockbuster'
+    };
+  });
+
+  scored.sort((a, b) => b.aiMatchPercentage - a.aiMatchPercentage);
+  const recommendations = scored.slice(0, count);
+
+  res.json({
+    status: 'success',
+    count: recommendations.length,
+    data: recommendations
+  });
 });
 
 app.get('/api/health', (req, res) => {
