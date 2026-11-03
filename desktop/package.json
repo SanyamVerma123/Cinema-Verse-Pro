@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/SanyamVerma123/Cinema-Verse-Pro.git"
   },
-  "author": "CinemaVerse",
+  "author": "CinemaVerse <support@cinemaverse.pro>",
   "license": "ISC",
   "scripts": {
     "start": "electron .",
@@ -40,6 +40,7 @@
     "linux": {
       "target": ["AppImage", "deb"],
       "category": "Video",
+      "maintainer": "CinemaVerse <support@cinemaverse.pro>",
       "icon": "icon.png"
     },
     "nsis": {
