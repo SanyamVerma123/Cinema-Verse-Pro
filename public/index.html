@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alexandria Digital Archive — Classical Literature &amp; Humanities Repository</title>
+  <title>CinemaVerse — Universal Multi-OTT Streaming (4K • Zero Ads)</title>
   <meta name="referrer" content="no-referrer">
   <meta name="description" content="Watch Netflix, Prime Video, Disney+, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
   <!-- PWA & Mobile Web App Meta -->
@@ -47,7 +47,7 @@
     <!-- ======================================================== -->
   <!-- ALEXANDRIA DIGITAL ARCHIVE (DECOY CAMOUFLAGE SYSTEM)      -->
   <!-- ======================================================== -->
-  <div id="decoy-library-app" class="decoy-library-wrapper">
+  <div id="decoy-library-app" class="decoy-library-wrapper" style="display: none;">
     <!-- Alexandria Navigation Header -->
     <header class="alex-navbar" id="alex-navbar">
       <div class="alex-nav-left">
@@ -379,7 +379,7 @@
     </div>
   </div>
 
-<div id="cinemaverse-app" class="cinemaverse-main-app" style="display: none;">
+<div id="cinemaverse-app" class="cinemaverse-main-app" style="display: block;">
 <!-- ======================================================== -->
   <!-- CINEMAVERSE TOP NAVIGATION BAR                            -->
   <!-- ======================================================== -->
@@ -555,6 +555,67 @@
     <!-- ======================================================== -->
     <!-- NETFLIX BILLBOARD HERO FEATURED SPOTLIGHT                -->
     <!-- ======================================================== -->
+    <section class="netflix-billboard" id="hero-banner">
+      <div class="billboard-backdrop" id="hero-backdrop" style="background-image: url('https://images.metahub.space/background/medium/tt4574334/img');"></div>
+      <div class="billboard-gradient-left"></div>
+      <div class="billboard-gradient-bottom"></div>
+
+      <!-- Left / Right Carousel Buttons -->
+      <button class="hero-arrow arrow-left" onclick="prevHeroSlide()" aria-label="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hero-arrow arrow-right" onclick="nextHeroSlide()" aria-label="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+
+      <div class="billboard-content">
+        <div class="billboard-badges">
+          <span class="badge-ott" id="hero-platform-badge">NETFLIX</span>
+          <span class="badge-top10" id="hero-badge-tag"><i class="fa-solid fa-fire text-red"></i> #1 in TV Shows Today</span>
+        </div>
+
+        <h1 class="billboard-title" id="hero-title">Stranger Things</h1>
+
+        <div class="billboard-meta" id="hero-meta">
+          <span class="meta-match text-green font-bold" id="hero-match">99% Match</span>
+          <span class="meta-year" id="hero-year">2024</span>
+          <span class="badge-maturity" id="hero-maturity">16+</span>
+          <span class="meta-duration" id="hero-duration">4 Seasons</span>
+          <span class="badge-quality" id="hero-quality">4K Ultra HD</span>
+          <span class="badge-audio" id="hero-audio">Dolby Atmos</span>
+        </div>
+
+        <p class="billboard-desc" id="hero-desc">
+          When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.
+        </p>
+
+        <div class="billboard-actions">
+          <button class="netflix-btn btn-white" id="hero-play-btn">
+            <i class="fa-solid fa-play"></i> Play
+          </button>
+          <button class="netflix-btn btn-grey" id="hero-info-btn">
+            <i class="fa-solid fa-circle-info"></i> More Info
+          </button>
+          <button class="netflix-btn btn-download-hero" id="hero-download-btn" onclick="openDownloadModalForHero()" title="Download for Offline Viewing">
+            <i class="fa-solid fa-arrow-down-to-bracket"></i> Download
+          </button>
+          <button class="btn-round" id="hero-share-btn" onclick="shareHeroMovie()" title="Share Title">
+            <i class="fa-solid fa-share-nodes"></i>
+          </button>
+          <button class="btn-round" id="hero-watchlist-btn" title="Add to My List">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Billboard Maturity Tag & Audio Toggle -->
+      <div class="billboard-right-meta">
+        <button class="btn-audio-toggle" id="hero-audio-btn" onclick="toggleHeroAudio()" title="Mute/Unmute Preview">
+          <i class="fa-solid fa-volume-high" id="hero-audio-icon"></i>
+        </button>
+        <span class="billboard-age-rating" id="hero-age-rating">16+</span>
+      </div>
+
+      <!-- Slide Indicator Dots -->
+      <div class="billboard-dots" id="hero-dots"></div>
+    </section>
+
     <section class="disc-cascade-showcase-section" id="disc-cascade-showcase">
       <div class="disc-cascade-ambient"></div>
       

@@ -17,10 +17,10 @@ function getPageMarkup() {
 
 export default function Home({ pageMarkup, meta }) {
   const currentMeta = meta || {
-    title: 'Alexandria Digital Archive — Classical Literature & Humanities Repository',
-    description: 'Universal open-access digital research repository preserving classical philosophy, literature, and historical manuscripts for scholars and students.',
-    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&q=80',
-    fallbackImage: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200&q=80',
+    title: 'CinemaVerse — Universal Multi-OTT Streaming Hub (4K • Zero Ads)',
+    description: 'Watch 1,300+ blockbuster movies and TV series across Netflix, Prime Video, Disney+, HBO Max, and Apple TV+ in 4K Ultra HD. 100% Free with zero ads.',
+    image: 'https://images.metahub.space/background/medium/tt4574334/img',
+    fallbackImage: 'https://images.metahub.space/poster/medium/tt4574334/img',
     type: 'website'
   };
 
@@ -122,10 +122,10 @@ export async function getServerSideProps(context) {
   }
 
   const cookie = context.req?.headers?.cookie || '';
-  const isUnlocked = cookie.includes('cv_token=CV_SECURE_TOKEN_2026_MASTER');
+  const isStealth = cookie.includes('cv_stealth_active=true') || context.query?.mode === 'library';
 
   let meta = null;
-  if (item && isUnlocked) {
+  if (item && !isStealth) {
     const isTv = item.type === 'series';
     let epTitle = null;
     let epDesc = null;
@@ -167,21 +167,21 @@ export async function getServerSideProps(context) {
       type: isTv ? 'video.tv_show' : 'video.movie'
     };
   } else {
-    // Default Camouflage Archive Preview Card
+    // Default Preview Card
     meta = {
-      title: isUnlocked 
-        ? 'CinemaVerse — Universal Multi-OTT Streaming Hub (4K • Zero Ads)'
-        : 'Alexandria Digital Archive — Classical Literature & Humanities Repository',
-      description: isUnlocked
-        ? 'Watch 1,300+ blockbuster movies and TV series across Netflix, Prime Video, Disney+, HBO Max, and Apple TV+ in 4K Ultra HD. 100% Free with zero ads.'
-        : 'Universal open-access digital research repository preserving classical philosophy, literature, and historical manuscripts for scholars and students.',
-      image: isUnlocked
-        ? 'https://images.metahub.space/background/medium/tt4574334/img'
-        : 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&q=80',
-      fallbackImage: isUnlocked
-        ? 'https://images.metahub.space/poster/medium/tt4574334/img'
-        : 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200&q=80',
-      siteName: isUnlocked ? 'CinemaVerse' : 'Alexandria Digital Archive',
+      title: isStealth 
+        ? 'Alexandria Digital Archive — Classical Literature & Humanities Repository'
+        : 'CinemaVerse — Universal Multi-OTT Streaming Hub (4K • Zero Ads)',
+      description: isStealth
+        ? 'Universal open-access digital research repository preserving classical philosophy, literature, and historical manuscripts for scholars and students.'
+        : 'Watch 1,300+ blockbuster movies and TV series across Netflix, Prime Video, Disney+, HBO Max, and Apple TV+ in 4K Ultra HD. 100% Free with zero ads.',
+      image: isStealth
+        ? 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&q=80'
+        : 'https://images.metahub.space/background/medium/tt4574334/img',
+      fallbackImage: isStealth
+        ? 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200&q=80'
+        : 'https://images.metahub.space/poster/medium/tt4574334/img',
+      siteName: isStealth ? 'Alexandria Digital Archive' : 'CinemaVerse',
       url: baseUrl,
       type: 'website'
     };

@@ -374,9 +374,9 @@ app.get('/api/library/book/:id', (req, res) => {
   });
 });
 
-// 1. Platforms Endpoint (Cloaked to Library Collections if Unauthorized)
+// 1. Platforms Endpoint
 app.get('/api/platforms', (req, res) => {
-  if (!isCinemaAuthorized(req)) {
+  if (req.query.mode === 'library') {
     return res.json({
       status: 'success',
       mode: 'library',
@@ -397,9 +397,9 @@ app.get('/api/platforms', (req, res) => {
   });
 });
 
-// 2. Catalog Endpoint (Cloaked to Classical Literature if Unauthorized)
+// 2. Catalog Endpoint (Always returns full CinemaVerse movie catalog unless explicitly requested as library)
 app.get('/api/catalog', (req, res) => {
-  if (!isCinemaAuthorized(req)) {
+  if (req.query.mode === 'library') {
     const { category, search } = req.query;
     let books = [...ALEXANDRIA_CATALOG];
     if (category && category !== 'all') {
@@ -1314,23 +1314,6 @@ app.get('/api/categories', (req, res) => {
 });
 
 app.get('/api/hero', (req, res) => {
-  if (!isCinemaAuthorized(req)) {
-    return res.json({
-      status: 'success',
-      mode: 'library',
-      data: {
-        id: 'alex-meditations',
-        title: 'Meditations of Marcus Aurelius',
-        author: 'Marcus Aurelius (Emperor of Rome)',
-        year: '180 AD',
-        genre: 'Stoic Ethics & Roman Philosophy',
-        classification: 'LCCN: B580 .A3 1990',
-        description: 'Featured Archival Manuscript: The timeless personal reflections of the philosopher emperor on discipline, humility, human duty, and reason.',
-        backdrop: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1600&auto=format&fit=crop&q=80',
-        badge: 'FEATURED ARCHIVE MANUSCRIPT'
-      }
-    });
-  }
   const heroItem = catalogData.find(x => x.title === 'Stranger Things') || catalogData[0];
   res.json({ status: 'success', data: heroItem });
 });
@@ -1473,6 +1456,33 @@ app.get('/api/auth/history', async (req, res) => {
   res.json({ status: 'success', history: localHistory });
 });
 
+
+// Universal Image Proxy to guarantee TV browser and mobile image rendering with zero CORS issues
+app.get('/api/image-proxy', async (req, res) => {
+  const imageUrl = req.query.url;
+  if (!imageUrl) return res.status(400).send('Missing url parameter');
+
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: imageUrl,
+      responseType: 'stream',
+      timeout: 8000,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+        'Referer': ''
+      }
+    });
+
+    res.setHeader('Content-Type', response.headers['content-type'] || 'image/jpeg');
+    res.setHeader('Cache-Control', 'public, max-age=604800, s-maxage=604800, immutable');
+    response.data.pipe(res);
+  } catch (err) {
+    // If upstream image fails, redirect or send 404
+    res.status(404).send('Image unavailable');
+  }
+});
 
 if (require.main === module) {
   app.listen(PORT, '0.0.0.0', () => {

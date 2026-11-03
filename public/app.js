@@ -5749,7 +5749,7 @@ async function handleAlexLoginSubmit(e) {
 // Master Unlock Transition to CinemaVerse Pro
 function unlockCinemaVersePro() {
   // Store session unlock token
-  sessionStorage.setItem('cv_unlocked', 'true');
+  sessionStorage.removeItem('cv_stealth_active'); sessionStorage.setItem('cv_unlocked', 'true');
   sessionStorage.setItem('cv_token', MASTER_AUTH_TOKEN);
 
   // Set document title and icon
@@ -5788,7 +5788,7 @@ function activateLibraryCamouflage() {
   }
 
   // 2. Clear authorization from active session
-  sessionStorage.removeItem('cv_unlocked');
+  sessionStorage.setItem('cv_stealth_active', 'true');
   sessionStorage.removeItem('cv_token');
 
   // 3. Reset document title
@@ -5826,9 +5826,27 @@ function scrollToDownloadCenter() {
 }
 
 function handleApkDirectDownload(e) {
+  if (e && e.preventDefault) {
+    // allow natural click or initiate resilient multi-source download
+  }
   if (typeof showToast === 'function') {
     showToast('Starting Android APK download (CinemaVerse-Pro.apk)...', 'success');
   }
+
+  // Trigger download with GitHub Release fallback
+  const apkUrl = '/download/CinemaVerse-Pro.apk';
+  const githubFallbackUrl = 'https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-apk/CinemaVerse-Pro.apk';
+
+  const a = document.createElement('a');
+  a.href = apkUrl;
+  a.download = 'CinemaVerse-Pro.apk';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    document.body.removeChild(a);
+  }, 100);
 }
 
 // Global Stealth Keyboard Shortcuts
@@ -5865,17 +5883,23 @@ window.addEventListener('keydown', (e) => {
 
 // Initialize Camouflage / Decoy on DOM Load or Immediate Execution
 function initCamouflageState() {
-  const isUnlocked = sessionStorage.getItem('cv_unlocked') === 'true';
-  if (isUnlocked) {
-    unlockCinemaVersePro();
-  } else {
-    // Keep CinemaVerse concealed and show Alexandria Library
-    const cinema = document.getElementById('cinemaverse-app');
-    const decoy = document.getElementById('decoy-library-app');
+  const isStealthActive = sessionStorage.getItem('cv_stealth_active') === 'true';
+  const cinema = document.getElementById('cinemaverse-app');
+  const decoy = document.getElementById('decoy-library-app');
+
+  if (isStealthActive) {
+    // User explicitly activated camouflage
     if (cinema) cinema.style.display = 'none';
     if (decoy) decoy.style.display = 'block';
     document.title = 'Alexandria Digital Archive — Classical Literature & Humanities Repository';
     renderAlexLibraryBooks(LOCAL_ALEXANDRIA_BOOKS);
+  } else {
+    // CinemaVerse Pro is active by default with full movie banners and rows
+    if (decoy) decoy.style.display = 'none';
+    if (cinema) cinema.style.display = 'block';
+    document.title = 'CinemaVerse — Universal Multi-OTT Streaming (4K • Zero Ads)';
+    document.body.classList.add('has-bottom-dock');
+    if (typeof highlightUserPlatformCard === 'function') highlightUserPlatformCard();
   }
 }
 
@@ -5884,3 +5908,45 @@ if (document.readyState === 'loading') {
 } else {
   initCamouflageState();
 }
+
+// Universal Multi-Tier Movie Poster Fallback Engine (TV & Mobile Optimized)
+window.handleImgError = function(img, fallback) {
+  if (!img) return;
+  const originalSrc = img.src || '';
+
+  // Tier 2: If images.metahub.space failed, try proxying or alternative CDN
+  if (originalSrc.includes('images.metahub.space') && !img.dataset.proxied) {
+    img.dataset.proxied = 'true';
+    img.crossOrigin = null;
+    img.referrerPolicy = 'no-referrer';
+    img.src = '/api/image-proxy?url=' + encodeURIComponent(originalSrc);
+    return;
+  }
+
+  // Tier 3: Styled High-Definition Canvas / SVG Banner Fallback with Title
+  img.onerror = null;
+  const movieTitle = (img.alt || 'CinemaVerse').replace(/['"<>&]/g, '');
+  img.src = fallback || "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750">
+      <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#141824"/>
+          <stop offset="50%" stop-color="#0b0e17"/>
+          <stop offset="100%" stop-color="#06070a"/>
+        </linearGradient>
+        <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#e50914"/>
+          <stop offset="100%" stop-color="#f59e0b"/>
+        </linearGradient>
+      </defs>
+      <rect width="500" height="750" fill="url(#bg)"/>
+      <rect x="20" y="20" width="460" height="710" rx="16" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+      <circle cx="250" cy="300" r="50" fill="rgba(229,9,20,0.15)" stroke="#e50914" stroke-width="2"/>
+      <polygon points="242,280 268,300 242,320" fill="#ffffff"/>
+      <text x="250" y="420" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="800" font-size="24" fill="#ffffff" text-anchor="middle">${movieTitle}</text>
+      <rect x="180" y="450" width="140" height="28" rx="6" fill="url(#gold)"/>
+      <text x="250" y="469" font-family="sans-serif" font-weight="900" font-size="12" fill="#ffffff" text-anchor="middle" letter-spacing="1">4K ULTRA HD</text>
+      <text x="250" y="680" font-family="sans-serif" font-weight="700" font-size="14" fill="#e50914" text-anchor="middle" letter-spacing="2">CINEMAVERSE PRO</text>
+    </svg>
+  `);
+};

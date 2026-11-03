@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "description": "CinemaVerse Pro — Standalone Auto-Updating Desktop Application",
   "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SanyamVerma123/Cinema-Verse-Pro.git"
+  },
   "author": "CinemaVerse",
   "license": "ISC",
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "dist:win": "electron-builder --win",
-    "dist:mac": "electron-builder --mac",
-    "dist:linux": "electron-builder --linux"
+    "dist": "electron-builder --publish never",
+    "dist:win": "electron-builder --win --publish never",
+    "dist:mac": "electron-builder --mac --publish never",
+    "dist:linux": "electron-builder --linux --publish never"
   },
   "devDependencies": {
     "electron": "^29.1.5",
@@ -20,6 +24,7 @@
   "build": {
     "appId": "com.cinemaverse.desktop",
     "productName": "CinemaVerse Pro",
+    "publish": null,
     "directories": {
       "output": "dist"
     },
