@@ -11380,6 +11380,14 @@ body {
   transform: translateY(-1px);
 }
 
+/* Mobile & Tablet Optimization: Hide top disguise button on mobile/tablets where bottom dock or touch is present */
+@media (max-width: 900px) {
+  .nav-camouflage-btn,
+  #btn-panic-camouflage {
+    display: none !important;
+  }
+}
+
 /* Luxury Obsidian Radial Background */
 .netflix-body {
   background: radial-gradient(circle at 50% 0%, #111420 0%, #07080c 60%, #040507 100%) !important;
