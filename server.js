@@ -467,6 +467,234 @@ app.get('/api/catalog', (req, res) => {
   });
 });
 
+/* ========================================================
+   AI NATURAL LANGUAGE SEARCH & NLU QUERY PARSER
+   ======================================================== */
+const SEARCH_GENRE_SYNONYMS = {
+  'Horror': ['horror', 'horrer', 'horor', 'scary', 'spooky', 'ghost', 'haunted', 'creepy'],
+  'Mystery': ['mystery', 'mystry', 'mistry', 'detective', 'whodunit', 'investigation', 'clue', 'clues'],
+  'Thriller': ['thriller', 'thrill', 'thriler', 'suspense', 'intense', 'psychological'],
+  'Comedy': ['comedy', 'comdy', 'funny', 'humor', 'humour', 'hilarious', 'laugh', 'comic'],
+  'Sci-Fi': ['sci-fi', 'scifi', 'sci fi', 'science fiction', 'space', 'alien', 'aliens', 'futuristic', 'cyberpunk', 'time travel'],
+  'Action': ['action', 'fight', 'fighting', 'combat', 'superhero', 'martial arts', 'stunt', 'warrior'],
+  'Romance': ['romance', 'romantic', 'love', 'dating', 'couple'],
+  'Drama': ['drama', 'emotional', 'tearjerker', 'dramatic'],
+  'Animation': ['animation', 'animated', 'anime', 'cartoon', 'pixar'],
+  'Adventure': ['adventure', 'quest', 'journey', 'expedition', 'treasure'],
+  'Crime': ['crime', 'criminal', 'mafia', 'gangster', 'cop', 'cops', 'police', 'heist', 'mob', 'underworld'],
+  'Fantasy': ['fantasy', 'magic', 'magical', 'myth', 'mythology', 'wizard', 'dragon', 'witch'],
+  'War': ['war', 'military', 'soldier', 'soldiers', 'army', 'battle', 'combat'],
+  'Documentary': ['documentary', 'doc', 'biography', 'biopic', 'real story', 'true story'],
+  'Music': ['music', 'musical', 'song', 'songs', 'concert']
+};
+
+const SEARCH_PLATFORM_SYNONYMS = {
+  'netflix': ['netflix', 'nflx'],
+  'prime': ['prime', 'amazon', 'amazon prime'],
+  'disney': ['disney', 'disney+', 'hotstar', 'disney plus'],
+  'hbo': ['hbo', 'hbo max', 'max'],
+  'apple': ['apple', 'apple tv', 'apple tv+'],
+  'crunchyroll': ['crunchyroll', 'cr'],
+  'paramount': ['paramount', 'paramount+'],
+  'hulu': ['hulu'],
+  'peacock': ['peacock'],
+  'sonyliv': ['sonyliv', 'sony', 'sony liv'],
+  'zee5': ['zee5', 'zee'],
+  'jiocinema': ['jiocinema', 'jio'],
+  'animeworld': ['animeworld', 'anime world']
+};
+
+const SEARCH_REGION_SYNONYMS = {
+  'south_indian': ['south indian', 'tollywood', 'kollywood', 'mollywood', 'sandalwood', 'telugu', 'tamil', 'malayalam', 'kannada'],
+  'bollywood': ['bollywood', 'hindi', 'indian'],
+  'korean': ['korean', 'k-drama', 'kdrama', 'korea'],
+  'anime': ['anime', 'japanese', 'japan', 'manga']
+};
+
+let KNOWN_ACTORS_MAP = null;
+let KNOWN_DIRECTORS_MAP = null;
+let ALL_SORTED_PERSONS = null;
+let KNOWN_SINGLE_NAMES_MAP = null;
+
+const PERSON_NAME_STOPWORDS = new Set([
+  'movie', 'movies', 'film', 'films', 'show', 'shows', 'series', 'season', 'watch', 'watchable',
+  'actor', 'actors', 'directors', 'director', 'starring', 'best', 'good', 'rated', 'like', 'free',
+  'online', 'full', 'cast', 'play', 'hero', 'with', 'from', 'view', 'will', 'bell', 'long', 'page',
+  'hall', 'lane', 'wood', 'ford', 'ross', 'cook', 'king', 'gray', 'grey', 'cole', 'rice', 'hunt',
+  'rose', 'shaw', 'west', 'hart', 'love', 'hope', 'ward', 'dawn', 'day', 'days', 'gold', 'moon',
+  'star', 'dark', 'wild', 'blue', 'pink', 'reed', 'rush', 'post', 'fast', 'hard', 'ring', 'song',
+  'rich', 'poor', 'high', 'park', 'hill', 'bank', 'bird', 'fall', 'wall', 'ball', 'rock', 'stone'
+]);
+
+function getKnownEntities() {
+  if (KNOWN_ACTORS_MAP && KNOWN_DIRECTORS_MAP && ALL_SORTED_PERSONS && KNOWN_SINGLE_NAMES_MAP) {
+    return {
+      actors: KNOWN_ACTORS_MAP,
+      directors: KNOWN_DIRECTORS_MAP,
+      sortedPersons: ALL_SORTED_PERSONS,
+      singleNames: KNOWN_SINGLE_NAMES_MAP
+    };
+  }
+
+  KNOWN_ACTORS_MAP = new Map();
+  KNOWN_DIRECTORS_MAP = new Map();
+  KNOWN_SINGLE_NAMES_MAP = new Map();
+  const sortedList = [];
+
+  catalogData.forEach(item => {
+    if (Array.isArray(item.cast)) {
+      item.cast.forEach(a => {
+        if (a && a.trim().length > 2) {
+          const trimmed = a.trim();
+          const lower = trimmed.toLowerCase();
+          if (!KNOWN_ACTORS_MAP.has(lower)) {
+            KNOWN_ACTORS_MAP.set(lower, trimmed);
+            sortedList.push({ lower, full: trimmed, type: 'actor', len: lower.length });
+          }
+          const parts = lower.split(/\s+/);
+          if (parts.length > 1) {
+            const lastName = parts[parts.length - 1];
+            if (lastName.length > 3 && !PERSON_NAME_STOPWORDS.has(lastName) && !KNOWN_SINGLE_NAMES_MAP.has(lastName)) {
+              KNOWN_SINGLE_NAMES_MAP.set(lastName, { name: trimmed, type: 'actor' });
+            }
+          }
+        }
+      });
+    }
+    if (item.director && item.director.trim().length > 2 && item.director !== 'Acclaimed Director') {
+      const trimmed = item.director.trim();
+      const lower = trimmed.toLowerCase();
+      if (!KNOWN_DIRECTORS_MAP.has(lower)) {
+        KNOWN_DIRECTORS_MAP.set(lower, trimmed);
+        sortedList.push({ lower, full: trimmed, type: 'director', len: lower.length });
+      }
+      const parts = lower.split(/\s+/);
+      if (parts.length > 1) {
+        const lastName = parts[parts.length - 1];
+        if (lastName.length > 3 && !PERSON_NAME_STOPWORDS.has(lastName) && !KNOWN_SINGLE_NAMES_MAP.has(lastName)) {
+          KNOWN_SINGLE_NAMES_MAP.set(lastName, { name: trimmed, type: 'director' });
+        }
+      }
+    }
+  });
+
+  // Sort longest names first to prevent partial substrings from stealing matches
+  sortedList.sort((a, b) => b.len - a.len);
+  ALL_SORTED_PERSONS = sortedList;
+
+  return {
+    actors: KNOWN_ACTORS_MAP,
+    directors: KNOWN_DIRECTORS_MAP,
+    sortedPersons: ALL_SORTED_PERSONS,
+    singleNames: KNOWN_SINGLE_NAMES_MAP
+  };
+}
+
+function parseNaturalLanguageQuery(rawQuery) {
+  if (!rawQuery || !rawQuery.trim()) {
+    return { isNaturalLanguage: false, query: '' };
+  }
+
+  let text = rawQuery.toLowerCase().replace(/[,/\\+&"']/g, ' ').replace(/\s+/g, ' ').trim();
+  const originalClean = text;
+
+  let targetType = 'all';
+  if (/\b(movie|movies|film|films|cinema)\b/.test(text)) {
+    targetType = 'movie';
+  } else if (/\b(series|shows|show|tv|seasons|season|episodes)\b/.test(text)) {
+    targetType = 'series';
+  }
+
+  let isHighRated = /\b(top rated|best|high rated|highest rated|masterpiece|hit|hits)\b/.test(text);
+  let is4k = /\b(4k|uhd|ultra hd)\b/.test(text);
+  let isLatest = /\b(latest|new|recent|2024|2025)\b/.test(text);
+  let isClassic = /\b(classic|classics|old|retro|vintage|90s|80s)\b/.test(text);
+
+  let targetPlatform = 'all';
+  for (const [pId, synonyms] of Object.entries(SEARCH_PLATFORM_SYNONYMS)) {
+    if (synonyms.some(s => new RegExp(`\\b${s}\\b`).test(text))) {
+      targetPlatform = pId;
+      break;
+    }
+  }
+
+  let detectedRegion = null;
+  for (const [reg, synonyms] of Object.entries(SEARCH_REGION_SYNONYMS)) {
+    if (synonyms.some(s => text.includes(s))) {
+      detectedRegion = reg;
+      break;
+    }
+  }
+
+  const detectedGenres = [];
+  for (const [canonicalGenre, synonyms] of Object.entries(SEARCH_GENRE_SYNONYMS)) {
+    if (synonyms.some(s => new RegExp(`\\b${s}\\b`).test(text))) {
+      detectedGenres.push(canonicalGenre);
+    }
+  }
+
+  const { actors, directors, sortedPersons, singleNames } = getKnownEntities();
+  let detectedPerson = null;
+  let personType = null; // 'actor' | 'director'
+
+  const ofMatch = text.match(/(?:movies?|films?|shows?)\s+(?:of|by|featuring)\s+([a-z\s]+)/i) ||
+                  text.match(/(?:starring|directed\s+by|director|actor)\s+([a-z\s]+)/i) ||
+                  text.match(/([a-z\s]+)\s+(?:movies?|films?)/i);
+
+  if (ofMatch && ofMatch[1]) {
+    const candidate = ofMatch[1].trim();
+    if (directors.has(candidate)) {
+      detectedPerson = directors.get(candidate);
+      personType = 'director';
+    } else if (actors.has(candidate)) {
+      detectedPerson = actors.get(candidate);
+      personType = 'actor';
+    }
+  }
+
+  // 1. Scan full names sorted longest first (exact word-boundary match)
+  if (!detectedPerson) {
+    for (const item of sortedPersons) {
+      const escaped = item.lower.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      if (new RegExp('\\b' + escaped + '\\b').test(text)) {
+        detectedPerson = item.full;
+        personType = item.type;
+        break;
+      }
+    }
+  }
+
+  // 2. Scan single unique surnames with word boundary (e.g. "Nolan", "Tarantino", "Kubrick")
+  if (!detectedPerson) {
+    for (const [lastName, meta] of singleNames.entries()) {
+      if (new RegExp('\\b' + lastName + '\\b').test(text)) {
+        detectedPerson = meta.name;
+        personType = meta.type;
+        break;
+      }
+    }
+  }
+
+  const isNaturalLanguage = detectedGenres.length > 0 || targetType !== 'all' || 
+    detectedPerson !== null || isHighRated || is4k || targetPlatform !== 'all' || detectedRegion !== null;
+
+  return {
+    raw: rawQuery,
+    clean: originalClean,
+    isNaturalLanguage,
+    targetType,
+    targetPlatform,
+    targetRegion: detectedRegion,
+    genres: detectedGenres,
+    person: detectedPerson,
+    personType,
+    isHighRated,
+    is4k,
+    isLatest,
+    isClassic
+  };
+}
+
 // 3. Search Endpoint (Returns CinemaVerse Movies & Series with Relevance Scoring)
 app.get('/api/search', async (req, res) => {
   if (req.query.mode === 'library') {
@@ -509,30 +737,131 @@ app.get('/api/search', async (req, res) => {
   }
 
   const qLower = q.toLowerCase();
+  const parsed = parseNaturalLanguageQuery(q);
+
+  const effectivePlatform = platform !== 'all' ? platform : parsed.targetPlatform;
+  const effectiveType = type !== 'all' ? type : parsed.targetType;
   
-  // Calculate relevance score for sorting
+  // Calculate precision relevance score
   const scoreItem = (item) => {
     let score = 0;
     const t = (item.title || '').toLowerCase();
-    if (t === qLower) score += 100;
-    else if (t.startsWith(qLower)) score += 60;
-    else if (t.includes(qLower)) score += 40;
+    const itemGenres = (item.genres || []).map(g => g.toLowerCase());
+    const itemCast = (item.cast || []).map(c => c.toLowerCase());
+    const itemDirector = (item.director || '').toLowerCase();
 
-    if (item.genres && item.genres.some(g => g.toLowerCase().includes(qLower))) score += 25;
-    if (item.cast && item.cast.some(c => c.toLowerCase().includes(qLower))) score += 20;
-    if (item.director && item.director.toLowerCase().includes(qLower)) score += 15;
-    if (item.platform && item.platform.toLowerCase().includes(qLower)) score += 15;
-    if (item.description && item.description.toLowerCase().includes(qLower)) score += 10;
+    // 1. Person constraint / match (Massive priority if person detected)
+    if (parsed.person) {
+      const pLower = parsed.person.toLowerCase();
+      if (parsed.personType === 'director' && itemDirector.includes(pLower)) {
+        score += 160;
+      } else if (parsed.personType === 'actor' && itemCast.some(c => c.includes(pLower))) {
+        score += 160;
+      } else if (itemCast.some(c => c.includes(pLower)) || itemDirector.includes(pLower)) {
+        score += 130;
+      } else {
+        score -= 100;
+      }
+    }
+
+    // 2. Format constraint (Movie vs Series)
+    if (effectiveType !== 'all') {
+      if (item.type === effectiveType) {
+        score += 35;
+      } else {
+        score -= 90;
+      }
+    }
+
+    // 3. Platform constraint
+    if (effectivePlatform !== 'all') {
+      if (item.platformId === effectivePlatform) {
+        score += 40;
+      } else {
+        score -= 30;
+      }
+    }
+
+    // 4. Region / Language constraint
+    if (parsed.targetRegion) {
+      const audioStr = (item.audio || '').toLowerCase();
+      const langs = Array.isArray(item.languages) ? item.languages.map(l => ((l && (l.name || l.code)) || '').toLowerCase()) : [];
+      let isRegionMatch = false;
+      if (parsed.targetRegion === 'south_indian') {
+        isRegionMatch = audioStr.includes('telugu') || audioStr.includes('tamil') || audioStr.includes('malayalam') || audioStr.includes('kannada') ||
+          langs.some(l => l.includes('te') || l.includes('ta') || l.includes('ml') || l.includes('kn') || l.includes('telugu') || l.includes('tamil'));
+      } else if (parsed.targetRegion === 'bollywood') {
+        isRegionMatch = audioStr.includes('hindi') || langs.some(l => l.includes('hi') || l.includes('hindi'));
+      } else if (parsed.targetRegion === 'korean') {
+        isRegionMatch = audioStr.includes('korean') || langs.some(l => l.includes('ko') || l.includes('korean'));
+      } else if (parsed.targetRegion === 'anime') {
+        isRegionMatch = audioStr.includes('japanese') || (item.genres && item.genres.includes('Anime'));
+      }
+      if (isRegionMatch) {
+        score += 85;
+      } else {
+        score -= 40;
+      }
+    }
+
+    // 5. Multi-Trait Genre Matching (e.g. Mystery + Thrill + Comedy)
+    if (parsed.genres.length > 0) {
+      let matchedCount = 0;
+      parsed.genres.forEach(g => {
+        if (itemGenres.includes(g.toLowerCase())) {
+          matchedCount++;
+        }
+      });
+
+      if (matchedCount > 0) {
+        score += matchedCount * 45;
+        if (matchedCount === parsed.genres.length && parsed.genres.length > 1) {
+          score += 60;
+        } else if (matchedCount >= 2) {
+          score += 25;
+        }
+      } else {
+        score -= 80;
+      }
+    }
+
+    // 6. Title / Keyword match
+    if (t === qLower) {
+      score += 120;
+    } else if (t.startsWith(qLower)) {
+      score += 80;
+    } else if (t.includes(qLower)) {
+      score += 50;
+    } else if (parsed.clean) {
+      const words = parsed.clean.split(' ').filter(w => w.length > 2 && !['movie', 'movies', 'film', 'films', 'show', 'all', 'the', 'and', 'with', 'from', 'for'].includes(w));
+      words.forEach(w => {
+        if (t.includes(w)) score += 25;
+      });
+    }
+
+    // 7. High rated / Quality prior
+    if (parsed.isHighRated && item.rating) {
+      score += (item.rating / 10) * 35;
+    } else if (item.rating) {
+      score += (item.rating / 10) * 8;
+    }
+    if (parsed.is4k && item.quality && item.quality.includes('4K')) {
+      score += 20;
+    }
+    if (item.featured || item.trending) {
+      score += 5;
+    }
+
     return score;
   };
 
   let localResults = baseItems.filter(item => scoreItem(item) > 0);
 
-  if (platform !== 'all') {
-    localResults = localResults.filter(item => item.platformId === platform);
+  if (effectivePlatform !== 'all') {
+    localResults = localResults.filter(item => item.platformId === effectivePlatform);
   }
-  if (type !== 'all') {
-    localResults = localResults.filter(item => item.type === type);
+  if (effectiveType !== 'all') {
+    localResults = localResults.filter(item => item.type === effectiveType);
   }
   if (genre !== 'all') {
     localResults = localResults.filter(item => item.genres && item.genres.some(g => g.toLowerCase() === genre));
@@ -671,6 +1000,7 @@ app.get('/api/search', async (req, res) => {
     query: q,
     platform,
     type,
+    aiParsed: parsed,
     count: combined.length,
     data: combined
   });
