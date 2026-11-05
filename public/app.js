@@ -2851,6 +2851,14 @@ async function openPlayer(item, season = null, episode = null, serverIndex = nul
   closeDetailsModal();
   currentItem = item;
 
+  // Immediately hide mobile bottom navigation dock with zero latency
+  document.body.classList.add('player-active');
+  const mobBottomNav = document.getElementById('mobile-bottom-nav');
+  if (mobBottomNav) {
+    mobBottomNav.classList.add('nav-hidden-for-player');
+    mobBottomNav.style.display = 'none';
+  }
+
   // Train Machine Learning Taste Model on watched content
   if (window.neuroTasteEngine && item) {
     window.neuroTasteEngine.train(item, 'watch');
@@ -2980,6 +2988,12 @@ async function openPlayer(item, season = null, episode = null, serverIndex = nul
 
     const overlay = document.getElementById('player-overlay');
     overlay.style.display = 'flex';
+    document.body.classList.add('player-active');
+    const mobBottomNav = document.getElementById('mobile-bottom-nav');
+    if (mobBottomNav) {
+      mobBottomNav.classList.add('nav-hidden-for-player');
+      mobBottomNav.style.display = 'none';
+    }
     handlePlayerMouseMove();
     revealPlayerTopBar();
     schedulePlayerTopBarAutoMove(7000);
@@ -2990,6 +3004,12 @@ async function openPlayer(item, season = null, episode = null, serverIndex = nul
   } catch (err) {
     console.error('Failed to resolve stream sources:', err);
     showToast('Failed to load video stream', 'error');
+    document.body.classList.remove('player-active');
+    const mobBottomNav = document.getElementById('mobile-bottom-nav');
+    if (mobBottomNav) {
+      mobBottomNav.classList.remove('nav-hidden-for-player');
+      mobBottomNav.style.display = '';
+    }
   }
 }
 
@@ -3005,6 +3025,12 @@ function resetAdAbsorber() {
 function loadServerStream(serverIdx) {
   currentServerIndex = serverIdx;
   selectedServerIndex = serverIdx;
+  document.body.classList.add('player-active');
+  const mobBottomNav = document.getElementById('mobile-bottom-nav');
+  if (mobBottomNav) {
+    mobBottomNav.classList.add('nav-hidden-for-player');
+    mobBottomNav.style.display = 'none';
+  }
   const srv = availableServers[serverIdx] || STREAMING_SERVERS[serverIdx];
   if (!srv) return;
 
@@ -3248,6 +3274,14 @@ function closePlayer(returnToMovie = true) {
   const iframe = document.getElementById('player-iframe');
   if (iframe) iframe.src = '';
   document.getElementById('player-overlay').style.display = 'none';
+
+  // Restore mobile bottom navigation dock
+  document.body.classList.remove('player-active');
+  const mobBottomNav = document.getElementById('mobile-bottom-nav');
+  if (mobBottomNav) {
+    mobBottomNav.classList.remove('nav-hidden-for-player');
+    mobBottomNav.style.display = '';
+  }
 
   const settingsPanel = document.getElementById('player-settings-panel');
   if (settingsPanel) settingsPanel.style.display = 'none';
@@ -6192,6 +6226,13 @@ function activateLibraryCamouflage() {
   const videoModal = document.getElementById('player-modal');
   if (videoModal) {
     videoModal.classList.remove('active');
+  }
+  const overlay = document.getElementById('player-overlay');
+  if (overlay) overlay.style.display = 'none';
+  document.body.classList.remove('player-active');
+  const mobBottomNav = document.getElementById('mobile-bottom-nav');
+  if (mobBottomNav) {
+    mobBottomNav.classList.remove('nav-hidden-for-player');
   }
 
   // 2. Clear authorization from active session

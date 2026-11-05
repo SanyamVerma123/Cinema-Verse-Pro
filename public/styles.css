@@ -12599,3 +12599,32 @@ body {
     padding: 16px !important;
   }
 }
+
+
+/* ========================================================================= */
+/* CINEMAVERSE PRO — HIDE MOBILE BOTTOM DOCK DURING VIDEO PLAYBACK / STREAM  */
+/* ========================================================================= */
+body.player-active .mobile-bottom-nav,
+body.has-active-player .mobile-bottom-nav,
+body.is-player-active .mobile-bottom-nav,
+.mobile-bottom-nav.nav-hidden-for-player,
+body:has(#player-overlay:not([style*="display: none"])) .mobile-bottom-nav,
+body:has(.netflix-player-overlay:not([style*="display: none"])) .mobile-bottom-nav {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  transform: translateY(100%) !important;
+  z-index: -1 !important;
+}
+
+.netflix-player-overlay {
+  z-index: 9999999 !important;
+}
+
+body.player-active {
+  padding-bottom: 0 !important;
+  overflow: hidden !important;
+}
