@@ -332,6 +332,12 @@ function handleInitialHash() {
   } else if (hash === '#downloads') {
     showDownloadsSection();
     return;
+  } else if (hash === '#install' || hash === '#download' || hash === '#app') {
+    if (typeof openSettingsModal === 'function') openSettingsModal('install');
+    return;
+  } else if (hash === '#search') {
+    if (typeof openSearchModal === 'function') openSearchModal();
+    return;
   } else if (hash.startsWith('#ott-')) {
     const ottKey = hash.replace('#ott-', '');
     if (typeof openPlatformGrid === 'function') {
@@ -6220,34 +6226,59 @@ function setActiveMobNav(btn) {
 }
 
 function scrollToDownloadCenter() {
-  const el = document.getElementById('install-guide-section') || document.getElementById('platforms-download-grid');
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (typeof openSettingsModal === 'function') {
+    openSettingsModal('install');
+  } else {
+    const el = document.getElementById('platforms-download-grid') || document.getElementById('settings-modal');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
 function handleApkDirectDownload(e) {
   if (e && e.preventDefault) {
-    // allow natural click or initiate resilient multi-source download
+    e.preventDefault();
+    e.stopPropagation();
   }
   if (typeof showToast === 'function') {
-    showToast('Starting Android APK download (CinemaVerse-Pro.apk)...', 'success');
+    showToast('Starting Android APK download (CinemaVerse-Pro.apk • 5.6 MB)...', 'success');
   }
 
-  // Trigger download with GitHub Release fallback
-  const apkUrl = '/download/CinemaVerse-Pro.apk';
-  const githubFallbackUrl = 'https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-apk/CinemaVerse-Pro.apk';
+  const directUrl = '/CinemaVerse-Pro.apk';
+  const apiUrl = '/api/download-apk';
+  const githubReleaseUrl = 'https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-apk/CinemaVerse-Pro.apk';
 
+  // Primary: Trigger direct download using anchor with download attribute
   const a = document.createElement('a');
-  a.href = apkUrl;
-  a.download = 'CinemaVerse-Pro.apk';
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
+  a.href = directUrl;
+  a.setAttribute('download', 'CinemaVerse-Pro.apk');
+  a.style.display = 'none';
   document.body.appendChild(a);
   a.click();
   setTimeout(() => {
-    document.body.removeChild(a);
-  }, 100);
+    try { document.body.removeChild(a); } catch (err) {}
+  }, 500);
+
+  // Secondary Fallback for Android WebViews / Browsers that ignore synthetic clicks
+  setTimeout(() => {
+    try {
+      const ifr = document.createElement('iframe');
+      ifr.style.display = 'none';
+      ifr.src = apiUrl;
+      document.body.appendChild(ifr);
+      setTimeout(() => {
+        try { document.body.removeChild(ifr); } catch (err) {}
+      }, 6000);
+    } catch (err) {}
+  }, 600);
+
+  // Backup toast with direct GitHub mirror link
+  setTimeout(() => {
+    if (typeof showToast === 'function') {
+      showToast('Need a direct mirror? Tap here to download from GitHub', 'info', 7000, () => {
+        window.open(githubReleaseUrl, '_blank');
+      });
+    }
+  }, 3000);
 }
 
 // Global Stealth Keyboard Shortcuts

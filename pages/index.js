@@ -27,6 +27,7 @@ export default function Home({ pageMarkup, meta }) {
   return (
     <>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" key="viewport" />
         <title>{currentMeta.title}</title>
         <meta name="description" content={currentMeta.description} key="meta_desc" />
 

@@ -396,8 +396,8 @@
         </div>
       </div>
 
-      <!-- Mobile / Tablet "Browse" Dropdown Menu Trigger -->
-      <button type="button" class="nav-mobile-browse" id="nav-mobile-browse" onclick="toggleMobileBrowseMenu(event)" aria-label="Browse Menu">
+      <!-- Mobile / Tablet "Browse" Dropdown Menu Trigger (Hidden on Phone Viewports - Bottom Dock Replaces It) -->
+      <button type="button" class="nav-mobile-browse hide-on-mobile" id="nav-mobile-browse" onclick="toggleMobileBrowseMenu(event)" aria-label="Browse Menu">
         <span>Browse</span>
         <i class="fa-solid fa-caret-down"></i>
       </button>
@@ -433,8 +433,8 @@
       <!-- Kids Link (Authentic Clean Text Link) -->
       <span class="nav-kids-link" onclick="filterGenre('Animation')">Kids</span>
 
-      <!-- Instant Stealth Camouflage Disguise Button -->
-      <button type="button" class="nav-camouflage-btn" id="btn-panic-camouflage" onclick="activateLibraryCamouflage()" title="Instant Library Disguise (Esc / Ctrl+Shift+L)">
+      <!-- Instant Stealth Camouflage Disguise Button (Desktop Only; Mobile has it on bottom dock) -->
+      <button type="button" class="nav-camouflage-btn hide-on-mobile" id="btn-panic-camouflage" onclick="activateLibraryCamouflage()" title="Instant Library Disguise (Esc / Ctrl+Shift+L)">
         <i class="fa-solid fa-book-bookmark text-gold"></i>
         <span class="camou-btn-text">Disguise</span>
       </button>
@@ -2059,12 +2059,15 @@
                   <span><i class="fa-solid fa-check text-green"></i> Auto-Updating Cloud Shell</span>
                 </div>
                 <div class="platform-action">
-                  <a href="/download/CinemaVerse-Pro.apk" class="btn-platform-download btn-android" id="btn-download-apk" download="CinemaVerse-Pro.apk" target="_blank" rel="noopener noreferrer" onclick="handleApkDirectDownload(event)" title="Download Android APK directly">
+                  <a href="/CinemaVerse-Pro.apk" class="btn-platform-download btn-android" id="btn-download-apk" download="CinemaVerse-Pro.apk" onclick="handleApkDirectDownload(event)" title="Download Android APK directly">
                     <i class="fa-brands fa-android"></i>
                     <div class="dl-btn-label">
                       <strong>Download Android APK</strong>
                       <small>Direct File • 5.6 MB • Zero Setup</small>
                     </div>
+                  </a>
+                  <a href="https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-apk/CinemaVerse-Pro.apk" class="btn-platform-mirror" target="_blank" rel="noopener noreferrer" title="Alternative GitHub Direct Mirror">
+                    <i class="fa-brands fa-github"></i> Alternative Direct Mirror (GitHub)
                   </a>
                 </div>
               </div>

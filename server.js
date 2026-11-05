@@ -1309,7 +1309,7 @@ app.get('/api/sources/:type/:id', async (req, res) => {
 });
 
 // Android APK Direct Download Endpoint (Auto-Redirects to Latest GitHub Release APK)
-app.get(['/download/CinemaVerse-Pro.apk', '/download/CinemaMirror-Pro.apk'], (req, res) => {
+app.get(['/download/CinemaVerse-Pro.apk', '/download/CinemaMirror-Pro.apk', '/api/download-apk', '/download-apk', '/CinemaVerse-Pro.apk'], (req, res) => {
   const apkPath = fs.existsSync(path.join(__dirname, 'public', 'CinemaVerse-Pro.apk'))
     ? path.join(__dirname, 'public', 'CinemaVerse-Pro.apk')
     : path.join(__dirname, 'public', 'CinemaMirror-Pro.apk');

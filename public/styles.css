@@ -11874,3 +11874,728 @@ body {
   font-size: 11px;
   font-weight: 700;
 }
+
+
+/* ========================================================================= */
+/* CINEMAVERSE PRO — PHONE / MOBILE UI LUXURY PERFECTION & NATIVE POLISH     */
+/* ========================================================================= */
+
+/* 1. Complete Header & Disguise Button Mobile Clean-Up */
+@media (max-width: 900px) {
+  .nav-camouflage-btn,
+  #btn-panic-camouflage,
+  .hide-on-mobile {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+}
+
+/* 2. Phone Screen Luxury Layout Overhaul (<= 640px) */
+@media (max-width: 640px) {
+  /* Ultra-Clean Sleek Navbar */
+  .netflix-navbar {
+    height: 56px !important;
+    min-height: 56px !important;
+    padding-inline: 12px !important;
+    background: linear-gradient(180deg, rgba(7, 8, 11, 0.96) 0%, rgba(7, 8, 11, 0.8) 75%, transparent 100%) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+  }
+  .nav-left {
+    gap: 8px !important;
+  }
+  .logo-netflix {
+    font-size: 20px !important;
+    letter-spacing: 0.5px !important;
+  }
+  .nav-right {
+    gap: 6px !important;
+  }
+  .netflix-profile-wrap {
+    gap: 4px !important;
+  }
+  .profile-avatar {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+  }
+
+  /* Luxury Hero Billboard (Uncluttered, Adaptive & Cinematic) */
+  .netflix-billboard {
+    position: relative !important;
+    min-height: clamp(520px, 80svh, 680px) !important;
+    height: auto !important;
+    padding: calc(64px + env(safe-area-inset-top, 0px)) 16px 28px !important;
+    margin-bottom: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    background-size: cover !important;
+    background-position: center top !important;
+  }
+  .billboard-backdrop {
+    background-position: center 20% !important;
+    filter: brightness(0.9) contrast(1.05) !important;
+  }
+  .billboard-gradient-left {
+    width: 100% !important;
+    background: linear-gradient(180deg, transparent 0%, rgba(9, 10, 14, 0.4) 30%, rgba(9, 10, 14, 0.95) 100%) !important;
+  }
+  .billboard-gradient-bottom {
+    height: 75% !important;
+    background: linear-gradient(180deg, transparent 0%, rgba(9, 10, 14, 0.7) 45%, #090a0e 100%) !important;
+  }
+  .billboard-content {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: auto !important;
+    z-index: 5 !important;
+  }
+  .billboard-badges {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+    flex-wrap: wrap !important;
+  }
+  .badge-ott {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 3px 9px !important;
+    border-radius: 4px !important;
+    letter-spacing: 0.8px !important;
+  }
+  .badge-top10 {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #f1f5f9 !important;
+  }
+  .billboard-title {
+    font-size: clamp(26px, 8vw, 36px) !important;
+    line-height: 1.15 !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.6px !important;
+    margin-block: 6px 10px !important;
+    text-shadow: 0 3px 18px rgba(0, 0, 0, 0.95) !important;
+    max-width: 100% !important;
+  }
+  .billboard-meta {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-bottom: 12px !important;
+    font-size: 12px !important;
+  }
+  .billboard-desc {
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
+    color: #cbd5e1 !important;
+    -webkit-line-clamp: 2 !important;
+    margin-bottom: 18px !important;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
+  }
+  .billboard-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  .billboard-actions .btn-white {
+    flex: 1 1 calc(50% - 6px) !important;
+    min-height: 44px !important;
+    justify-content: center !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.25) !important;
+  }
+  .billboard-actions .btn-grey {
+    flex: 1 1 calc(50% - 6px) !important;
+    min-height: 44px !important;
+    justify-content: center !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    background: rgba(100, 116, 139, 0.3) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  }
+  .billboard-actions .btn-download-hero {
+    flex: 1 1 100% !important;
+    min-height: 42px !important;
+    justify-content: center !important;
+    padding: 9px 16px !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    background: rgba(16, 185, 129, 0.16) !important;
+    border: 1px solid rgba(16, 185, 129, 0.45) !important;
+    color: #34d399 !important;
+    margin-top: 2px !important;
+  }
+  .billboard-actions .btn-round {
+    width: 42px !important;
+    height: 42px !important;
+    flex: 0 0 42px !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+  }
+  .billboard-right-meta {
+    bottom: 20px !important;
+    right: 16px !important;
+    gap: 8px !important;
+  }
+  .btn-audio-toggle {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  /* Compact 3D Disc Showcase on Mobile */
+  .disc-cascade-showcase-section {
+    margin: 16px 0 24px 0 !important;
+    padding: 16px 14px 20px !important;
+    min-height: 400px !important;
+    border-radius: 18px !important;
+  }
+  .disc-stage-title {
+    font-size: 1.35rem !important;
+  }
+
+  /* Touch-Optimized Poster Cards in Rows */
+  .netflix-row-wrap {
+    padding-inline: 14px !important;
+    margin-bottom: 24px !important;
+  }
+  .netflix-row-slider {
+    gap: 10px !important;
+    padding-block: 4px 10px !important;
+  }
+  .netflix-row .movie-card {
+    flex: 0 0 clamp(126px, 36vw, 155px) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+  }
+  .netflix-card {
+    border-radius: 10px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: #11141c !important;
+  }
+
+  /* Multi-Platform Install Center on Mobile (Bottom Sheet UX) */
+  .settings-modal-dialog {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: auto 0 0 0 !important;
+    border-radius: 24px 24px 0 0 !important;
+    max-height: 88vh !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  }
+  .settings-sidebar {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 6px !important;
+    padding: 10px 14px 10px !important;
+    white-space: nowrap !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .settings-sidebar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .settings-tab-btn {
+    padding: 7px 14px !important;
+    font-size: 12px !important;
+    border-radius: 9999px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #cbd5e1 !important;
+    min-height: 36px !important;
+  }
+  .settings-tab-btn.active {
+    background: #e50914 !important;
+    border-color: #e50914 !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+  .platforms-download-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 10px 0 !important;
+  }
+}
+
+/* 3. Luxury Mobile Bottom Navigation Dock */
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    min-height: 60px !important;
+    height: calc(60px + env(safe-area-inset-bottom, 0px)) !important;
+    background: rgba(8, 10, 16, 0.94) !important;
+    backdrop-filter: blur(28px) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(210%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.09) !important;
+    z-index: 999999 !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    padding-bottom: env(safe-area-inset-bottom, 2px) !important;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.75) !important;
+  }
+  .mobile-nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    padding: 6px 12px !important;
+    border-radius: 12px !important;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+  .mobile-nav-item i {
+    font-size: 18px !important;
+    transition: transform 0.2s ease, color 0.2s ease !important;
+  }
+  .mobile-nav-item.active {
+    background: rgba(229, 9, 20, 0.14) !important;
+    color: #ffffff !important;
+  }
+  .mobile-nav-item.active i {
+    transform: translateY(-2px) scale(1.08) !important;
+    color: #e50914 !important;
+    filter: drop-shadow(0 0 8px rgba(229, 9, 20, 0.65)) !important;
+  }
+  .mobile-nav-item:active {
+    transform: scale(0.92) !important;
+  }
+  #mob-nav-camou i {
+    color: #fbbf24 !important;
+  }
+  #mob-nav-camou.active {
+    background: rgba(251, 191, 36, 0.14) !important;
+    color: #fbbf24 !important;
+  }
+  #mob-nav-download i {
+    color: #10b981 !important;
+  }
+  #mob-nav-download.active {
+    background: rgba(16, 185, 129, 0.14) !important;
+    color: #34d399 !important;
+  }
+
+  body.has-bottom-dock {
+    padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* 4. Android APK VIP Highlight & Mirror Button */
+.card-android {
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  background: linear-gradient(145deg, rgba(16, 185, 129, 0.1) 0%, rgba(13, 17, 26, 0.95) 100%) !important;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15) !important;
+}
+.card-android .btn-android {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+.card-android .btn-android:hover {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.55) !important;
+}
+.btn-platform-mirror {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #94a3b8 !important;
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  margin-top: 8px !important;
+  width: 100% !important;
+}
+.btn-platform-mirror:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #fff !important;
+}
+
+
+/* 5. Mobile Layout Streamlining: Priority to Movie Rows & Clean Header */
+@media (max-width: 768px) {
+  /* Hide the 3D disc showcase on mobile so streaming rows & OTT hub take priority */
+  #disc-cascade-showcase,
+  .disc-cascade-showcase-section {
+    display: none !important;
+  }
+  
+  /* Hide redundant browse dropdown on mobile header (bottom dock covers navigation) */
+  .nav-mobile-browse {
+    display: none !important;
+  }
+  
+  /* Perfect header spacing with logo on left, icons on right */
+  .netflix-navbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-inline: 14px !important;
+  }
+  .nav-left {
+    flex: 1 0 auto !important;
+  }
+  .nav-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-left: auto !important;
+  }
+  .search-toggle-btn,
+  .nav-bell,
+  .netflix-profile-wrap {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+  
+  /* OTT Platform Hub Bar directly under Hero on Mobile */
+  .ott-hub-wrapper {
+    margin: 8px 12px 20px !important;
+    padding: 12px 12px 10px !important;
+    border-radius: 14px !important;
+  }
+}
+
+
+/* 6. Mobile 5-Column Navigation Dock Sizing (Guarantees all 5 buttons visible) */
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-height: 60px !important;
+    height: calc(60px + env(safe-area-inset-bottom, 0px)) !important;
+    background: rgba(8, 10, 16, 0.94) !important;
+    backdrop-filter: blur(28px) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(210%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.09) !important;
+    z-index: 999999 !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    padding-inline: 4px !important;
+    box-sizing: border-box !important;
+    padding-bottom: env(safe-area-inset-bottom, 2px) !important;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.75) !important;
+  }
+  .mobile-nav-item {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    padding: 6px 3px !important;
+    border-radius: 12px !important;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    -webkit-tap-highlight-color: transparent !important;
+    box-sizing: border-box !important;
+  }
+  .mobile-nav-item span {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    display: block !important;
+    text-align: center !important;
+  }
+  .mobile-nav-item i {
+    font-size: 17px !important;
+  }
+}
+
+
+/* 7. Pixel-Perfect Mobile Grid Dock & Navbar Spacing */
+@media (max-width: 768px) {
+  /* Header Navbar Elements */
+  .nav-left {
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+  }
+  .netflix-logo {
+    flex: 0 0 auto !important;
+  }
+  .logo-sub {
+    display: none !important;
+  }
+  .nav-right {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-left: auto !important;
+  }
+  .search-toggle-btn,
+  .nav-bell,
+  .netflix-profile-wrap {
+    min-width: 36px !important;
+    min-height: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+  }
+
+  /* 5-Column Grid Dock (Guarantees Home, Search, Install App, Disguise, Account are 100% visible) */
+  .mobile-bottom-nav {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 60px !important;
+    height: calc(60px + env(safe-area-inset-bottom, 0px)) !important;
+    background: rgba(8, 10, 16, 0.94) !important;
+    backdrop-filter: blur(28px) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(210%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.09) !important;
+    z-index: 999999 !important;
+    box-sizing: border-box !important;
+    padding-inline: 2px !important;
+    padding-bottom: env(safe-area-inset-bottom, 2px) !important;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.75) !important;
+  }
+  .mobile-nav-item {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    padding: 6px 2px !important;
+    box-sizing: border-box !important;
+  }
+  .mobile-nav-item span {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    display: block !important;
+    text-align: center !important;
+  }
+}
+
+
+/* ========================================================================= */
+/* CINEMAVERSE PRO — MOBILE VIEWPORT PERFECTION & OVERFLOW SHIELD            */
+/* ========================================================================= */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    -webkit-text-size-adjust: 100% !important;
+  }
+
+  /* Fixed Navigation Header Bar (Logo left, Icons right, Disguise hidden) */
+  .netflix-navbar {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    padding: 0 12px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    z-index: 9999 !important;
+  }
+
+  .nav-left {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .logo-netflix {
+    font-size: 20px !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .logo-sub,
+  .nav-mobile-browse,
+  .nav-kids-link,
+  .nav-camouflage-btn,
+  #btn-panic-camouflage,
+  .hide-on-mobile {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .nav-right {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-left: auto !important;
+  }
+
+  .search-toggle-btn,
+  .nav-bell,
+  .netflix-profile-wrap {
+    min-width: 34px !important;
+    min-height: 34px !important;
+    width: 34px !important;
+    height: 34px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .profile-avatar {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+  }
+
+  .profile-caret {
+    display: none !important;
+  }
+
+  /* 5-Column Bottom Navigation Dock (Home, Search, Install App, Disguise, Account) */
+  .mobile-bottom-nav {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 58px !important;
+    height: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
+    background: rgba(8, 10, 16, 0.94) !important;
+    backdrop-filter: blur(28px) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(210%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.09) !important;
+    z-index: 999999 !important;
+    box-sizing: border-box !important;
+    padding-inline: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.75) !important;
+  }
+
+  .mobile-nav-item {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 6px 2px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .mobile-nav-item i {
+    font-size: 16px !important;
+  }
+
+  .mobile-nav-item span {
+    font-size: 9.5px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.2px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    display: block !important;
+  }
+
+  /* Install / Settings Modal Mobile Sheet */
+  #settings-modal,
+  .settings-modal-dialog {
+    max-width: 100vw !important;
+    width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .settings-modal-content {
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    padding: 20px 14px 40px !important;
+    border-radius: 20px 20px 0 0 !important;
+  }
+
+  .platform-download-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 16px !important;
+  }
+}

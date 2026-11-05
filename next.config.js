@@ -13,6 +13,14 @@ const nextConfig = {
         source: '/download/CinemaMirror-Pro.apk',
         destination: '/CinemaMirror-Pro.apk',
       },
+      {
+        source: '/api/download-apk',
+        destination: '/CinemaVerse-Pro.apk',
+      },
+      {
+        source: '/download-apk',
+        destination: '/CinemaVerse-Pro.apk',
+      },
     ];
   },
   async headers() {
