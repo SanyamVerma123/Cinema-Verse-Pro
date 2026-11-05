@@ -6021,8 +6021,29 @@ window.handleImgError = function(img, fallback) {
 
 /* ========================================================
    CINEMAVERSE NEURO-TASTE MACHINE LEARNING RECOMMENDATION ENGINE
-   Online user vector profile, real-time cosine similarity & taste filters
+   Online user vector profile, TF-IDF genre weighting, k-NN seed similarity,
+   and dynamic movie/series classification
    ======================================================== */
+const GENRE_IDF_WEIGHTS = {
+  'Sci-Fi': 2.5,
+  'Anime': 2.5,
+  'Horror': 2.4,
+  'Fantasy': 2.3,
+  'War': 2.2,
+  'Mystery': 2.1,
+  'Crime': 2.0,
+  'Thriller': 1.9,
+  'Action': 1.6,
+  'Adventure': 1.5,
+  'Animation': 1.7,
+  'History': 1.8,
+  'Romance': 1.5,
+  'Documentary': 2.0,
+  'Music': 1.4,
+  'Comedy': 1.2,
+  'Drama': 0.85
+};
+
 class NeuroTasteEngine {
   constructor() {
     this.storageKey = 'cv_ai_taste_profile';
@@ -6034,13 +6055,31 @@ class NeuroTasteEngine {
   loadProfile() {
     try {
       const raw = localStorage.getItem(this.storageKey);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return {
+          genres: parsed.genres || {},
+          directors: parsed.directors || {},
+          actors: parsed.actors || {},
+          platforms: parsed.platforms || {},
+          types: parsed.types || { movie: 0, series: 0 },
+          seeds: Array.isArray(parsed.seeds) ? parsed.seeds : [],
+          history: Array.isArray(parsed.history) ? parsed.history : [],
+          activeRowType: parsed.activeRowType || 'all',
+          interactionsCount: parsed.interactionsCount || 0,
+          lastTrainedAt: parsed.lastTrainedAt || Date.now()
+        };
+      }
     } catch (e) {}
     return {
       genres: {},
+      directors: {},
+      actors: {},
       platforms: {},
       types: { movie: 0, series: 0 },
+      seeds: [],
       history: [],
+      activeRowType: 'all',
       interactionsCount: 0,
       lastTrainedAt: Date.now()
     };
@@ -6078,19 +6117,22 @@ class NeuroTasteEngine {
     if (!item) return;
 
     const weights = {
-      'watch': 6.0,
+      'watch': 8.0,
       'like': 7.0,
-      'watchlist': 4.5,
-      'click': 2.0,
-      'search': 3.0
+      'watchlist': 5.0,
+      'click': 3.0,
+      'search': 3.5
     };
-    const w = weights[actionType] || 2.0;
+    const w = weights[actionType] || 2.5;
 
-    // 1. Train genre weights
+    // 1. Train genre weights with IDF normalization
     if (Array.isArray(item.genres)) {
       item.genres.forEach(g => {
-        const norm = g.trim();
-        this.profile.genres[norm] = (this.profile.genres[norm] || 0) + w;
+        const norm = (g || '').trim();
+        if (norm) {
+          const idf = GENRE_IDF_WEIGHTS[norm] || 1.4;
+          this.profile.genres[norm] = (this.profile.genres[norm] || 0) + (w * (idf / 1.5));
+        }
       });
     }
 
@@ -6099,19 +6141,59 @@ class NeuroTasteEngine {
       this.profile.platforms[item.platformId] = (this.profile.platforms[item.platformId] || 0) + (w * 0.5);
     }
 
-    // 3. Train type weight
+    // 3. Train format type weight (movie vs series)
     if (item.type && (item.type === 'movie' || item.type === 'series')) {
-      this.profile.types[item.type] = (this.profile.types[item.type] || 0) + (w * 0.7);
+      this.profile.types[item.type] = (this.profile.types[item.type] || 0) + (w * 1.5);
     }
 
-    // 4. Log to history (keep last 50)
+    // 4. Train Director Affinity
+    if (item.director && typeof item.director === 'string') {
+      const dir = item.director.trim();
+      if (dir && dir !== 'N/A') {
+        this.profile.directors[dir] = (this.profile.directors[dir] || 0) + (w * 1.8);
+      }
+    }
+
+    // 5. Train Actor / Cast Affinity
+    if (Array.isArray(item.cast)) {
+      item.cast.slice(0, 3).forEach(actor => {
+        const act = (actor || '').trim();
+        if (act) {
+          this.profile.actors[act] = (this.profile.actors[act] || 0) + (w * 1.0);
+        }
+      });
+    }
+
+    // 6. Record as high-priority Seed Item for item-to-item k-NN similarity
     const itemId = item.id || item.imdbId;
     if (itemId) {
+      if (!Array.isArray(this.profile.seeds)) this.profile.seeds = [];
+      this.profile.seeds = this.profile.seeds.filter(s => s.id !== itemId);
+      this.profile.seeds.unshift({
+        id: itemId,
+        title: item.title,
+        type: item.type || 'movie',
+        genres: Array.isArray(item.genres) ? [...item.genres] : [],
+        director: item.director || '',
+        cast: Array.isArray(item.cast) ? item.cast.slice(0, 3) : [],
+        platformId: item.platformId || '',
+        year: item.year || 2024,
+        action: actionType,
+        weight: w,
+        timestamp: Date.now()
+      });
+      // Retain up to 8 most recent seeds
+      if (this.profile.seeds.length > 8) {
+        this.profile.seeds.pop();
+      }
+
+      // History log
+      if (!Array.isArray(this.profile.history)) this.profile.history = [];
       this.profile.history = this.profile.history.filter(h => h.id !== itemId);
       this.profile.history.unshift({
         id: itemId,
         title: item.title,
-        genres: item.genres || [],
+        type: item.type,
         action: actionType,
         timestamp: Date.now()
       });
@@ -6132,7 +6214,7 @@ class NeuroTasteEngine {
 
   // Get user's top learned genres with normalized percentages
   getTopLearnedGenres(limit = 6) {
-    const entries = Object.entries(this.profile.genres);
+    const entries = Object.entries(this.profile.genres || {});
     if (!entries.length) return [];
     entries.sort((a, b) => b[1] - a[1]);
     const maxScore = entries[0][1];
@@ -6143,45 +6225,156 @@ class NeuroTasteEngine {
     }));
   }
 
-  // Compute similarity score between user preference vector and a movie candidate
+  // Compute precision similarity score with TF-IDF, Jaccard overlap, director/cast matching, and k-NN seeds
   computeScore(item) {
-    let score = 52; // Baseline
+    let score = 42; // Neutral baseline
+    let bestReason = 'Recommended for you';
+    let bestReasonShort = 'Top Pick';
 
-    // 1. Genre Affinity
+    const itemType = item.type || 'movie';
+    const activeType = this.profile.activeRowType || 'all';
+
+    // Strict Filter by activeRowType pill or user filters
+    if (activeType !== 'all' && itemType !== activeType) {
+      return { score: 0, reason: '', reasonShort: '', valid: false };
+    }
+    if (this.filters.type && this.filters.type !== 'all' && itemType !== this.filters.type) {
+      return { score: 0, reason: '', reasonShort: '', valid: false };
+    }
+
+    // 1. Item-to-Item k-NN Similarity with recent seeds (Highest Precision)
+    const seeds = this.profile.seeds || [];
+    let maxSeedScore = 0;
+    let seedMatchReason = '';
+    let seedMatchReasonShort = '';
+
+    for (let i = 0; i < seeds.length; i++) {
+      const seed = seeds[i];
+      const decay = Math.pow(0.85, i); // Recency decay
+      let currentSeedScore = 0;
+
+      // A. Director match (+24)
+      if (item.director && seed.director && item.director.toLowerCase() === seed.director.toLowerCase()) {
+        const dirBonus = 24 * decay;
+        if (dirBonus > currentSeedScore) {
+          currentSeedScore = dirBonus;
+          seedMatchReason = `Directed by ${item.director}`;
+          seedMatchReasonShort = `Dir. ${item.director.split(' ').pop()}`;
+        }
+      }
+
+      // B. Cast match (+12 per actor, max 24)
+      if (Array.isArray(item.cast) && Array.isArray(seed.cast)) {
+        const sharedActors = item.cast.filter(actor => 
+          seed.cast.some(sa => sa && actor && sa.toLowerCase() === actor.toLowerCase())
+        );
+        if (sharedActors.length > 0) {
+          const castBonus = Math.min(24, sharedActors.length * 12) * decay;
+          if (castBonus > currentSeedScore) {
+            currentSeedScore = castBonus;
+            seedMatchReason = `Starring ${sharedActors[0]}`;
+            seedMatchReasonShort = sharedActors[0].split(' ').pop();
+          }
+        }
+      }
+
+      // C. Genre Jaccard intersection with specific seed (+22)
+      if (Array.isArray(item.genres) && Array.isArray(seed.genres) && item.genres.length && seed.genres.length) {
+        const itemGSet = new Set(item.genres.map(g => g.toLowerCase()));
+        const seedGSet = new Set(seed.genres.map(g => g.toLowerCase()));
+        let intersection = 0;
+        itemGSet.forEach(g => { if (seedGSet.has(g)) intersection++; });
+        const union = new Set([...itemGSet, ...seedGSet]).size;
+        const jaccard = union > 0 ? intersection / union : 0;
+
+        if (jaccard >= 0.5) {
+          const genreSeedBonus = (jaccard * 22) * decay;
+          if (genreSeedBonus > currentSeedScore) {
+            currentSeedScore = genreSeedBonus;
+            seedMatchReason = `Because you watched ${seed.title}`;
+            seedMatchReasonShort = `Like ${seed.title.length > 14 ? seed.title.slice(0, 12) + '...' : seed.title}`;
+          }
+        }
+      }
+
+      if (currentSeedScore > maxSeedScore) {
+        maxSeedScore = currentSeedScore;
+        bestReason = seedMatchReason;
+        bestReasonShort = seedMatchReasonShort;
+      }
+    }
+    score += Math.min(32, maxSeedScore);
+
+    // 2. Global Weighted Jaccard Genre Overlap with TF-IDF Weights (Up to 34 points)
     const topGenres = this.getTopLearnedGenres(8);
-    if (topGenres.length > 0 && Array.isArray(item.genres)) {
-      let genreOverlap = 0;
+    if (topGenres.length > 0 && Array.isArray(item.genres) && item.genres.length > 0) {
+      let matchedWeight = 0;
+      let candidateTotalWeight = 0;
+      let matchedGenreNames = [];
+
       item.genres.forEach(g => {
-        const found = topGenres.find(tg => tg.genre.toLowerCase() === g.toLowerCase());
-        if (found) {
-          genreOverlap += (found.percentage / 100) * 36;
+        const norm = (g || '').trim();
+        const idf = GENRE_IDF_WEIGHTS[norm] || 1.3;
+        candidateTotalWeight += idf;
+
+        const learned = topGenres.find(tg => tg.genre.toLowerCase() === norm.toLowerCase());
+        if (learned) {
+          const userStrength = (learned.percentage / 100);
+          matchedWeight += userStrength * idf;
+          matchedGenreNames.push(norm);
         }
       });
-      score += Math.min(38, genreOverlap);
+
+      // Calculate precision ratio: penalizes candidates with multiple non-matching genres
+      const precisionRatio = candidateTotalWeight > 0 ? (matchedWeight / candidateTotalWeight) : 0;
+      score += (precisionRatio * 38) + (matchedWeight * 4);
+
+      // If no seed reason was stronger, construct an explainable genre tag
+      if (!maxSeedScore && matchedGenreNames.length > 0) {
+        bestReason = `Matches your taste for ${matchedGenreNames.slice(0, 2).join(' & ')}`;
+        bestReasonShort = matchedGenreNames.slice(0, 2).join(' • ');
+      }
     } else {
-      score += 20; // Cold-start exploration
+      score += 16; // Cold-start exploration
     }
 
-    // 2. Platform Affinity
-    if (item.platformId && this.profile.platforms[item.platformId]) {
-      score += Math.min(6, this.profile.platforms[item.platformId] * 0.4);
+    // 3. Format Consistency (Movie vs Series session alignment)
+    if (activeType === 'all') {
+      const recentMovieSeeds = seeds.slice(0, 3).filter(s => s.type === 'movie').length;
+      const recentSeriesSeeds = seeds.slice(0, 3).filter(s => s.type === 'series').length;
+      if (recentMovieSeeds > recentSeriesSeeds) {
+        if (itemType === 'movie') score += 10;
+        else score -= 12; // De-prioritize TV series when user is watching movies
+      } else if (recentSeriesSeeds > recentMovieSeeds) {
+        if (itemType === 'series') score += 10;
+        else score -= 10;
+      }
     }
 
-    // 3. Type Affinity
-    const moviePref = this.profile.types.movie || 0;
-    const seriesPref = this.profile.types.series || 0;
-    if (moviePref > seriesPref && item.type === 'movie') score += 4;
-    else if (seriesPref > moviePref && item.type === 'series') score += 4;
+    // 4. Platform Affinity
+    if (item.platformId && this.profile.platforms && this.profile.platforms[item.platformId]) {
+      score += Math.min(5, this.profile.platforms[item.platformId] * 0.3);
+    }
 
-    // 4. Quality & Popularity Prior
-    if (item.rating) score += (item.rating / 10) * 5;
-    if (item.featured || item.trending) score += 3;
+    // 5. Quality & Popularity Prior (IMDb rating + 4K bonus)
+    if (item.rating) score += (item.rating / 10) * 8;
+    if (item.featured || item.trending) score += 4;
+    if (item.quality && item.quality.includes('4K')) score += 2;
 
-    // 5. Watched de-prioritization
-    const isRecentlyWatched = this.profile.history.some(h => (h.id === item.id || h.id === item.imdbId) && h.action === 'watch');
-    if (isRecentlyWatched) score -= 18;
+    // 6. Watched / Interaction Deduplication
+    const isWatched = (this.profile.history || []).some(h => (h.id === item.id || h.id === item.imdbId) && h.action === 'watch');
+    if (isWatched) score -= 22;
 
-    return Math.min(99, Math.max(78, Math.round(score)));
+    const rawScore = score;
+    const finalScore = Math.min(99, Math.max(78, Math.round(rawScore)));
+
+    return {
+      score: finalScore,
+      rawScore: rawScore,
+      reason: bestReason,
+      reasonShort: bestReasonShort,
+      valid: true
+    };
   }
 
   // Generate top AI recommendations adhering to both learned weights and explicit user filters
@@ -6189,10 +6382,15 @@ class NeuroTasteEngine {
     if (!Array.isArray(catalog) || !catalog.length) return [];
 
     let pool = catalog;
+
     // Explicit User Filter Rules
-    if (this.filters.type && this.filters.type !== 'all') {
+    const activeType = this.profile.activeRowType || 'all';
+    if (activeType !== 'all') {
+      pool = pool.filter(x => x.type === activeType);
+    } else if (this.filters.type && this.filters.type !== 'all') {
       pool = pool.filter(x => x.type === this.filters.type);
     }
+
     if (Array.isArray(this.filters.genres) && this.filters.genres.length > 0) {
       pool = pool.filter(x => x.genres && x.genres.some(g => this.filters.genres.includes(g)));
     }
@@ -6214,24 +6412,40 @@ class NeuroTasteEngine {
 
     if (!pool.length) pool = catalog; // Fallback if filters too strict
 
-    const scored = pool.map(item => ({
-      item,
-      score: this.computeScore(item)
-    }));
+    const scored = pool
+      .map(item => {
+        const res = this.computeScore(item);
+        return {
+          item,
+          score: res.score,
+          rawScore: res.rawScore,
+          reason: res.reason,
+          reasonShort: res.reasonShort,
+          valid: res.valid
+        };
+      })
+      .filter(s => s.valid);
 
-    scored.sort((a, b) => b.score - a.score);
+    scored.sort((a, b) => b.rawScore - a.rawScore);
+
     return scored.slice(0, count).map(s => ({
       ...s.item,
-      aiMatchPercentage: s.score
+      aiMatchPercentage: s.score,
+      aiReason: s.reason,
+      aiReasonShort: s.reasonShort
     }));
   }
 
   reset() {
     this.profile = {
       genres: {},
+      directors: {},
+      actors: {},
       platforms: {},
       types: { movie: 0, series: 0 },
+      seeds: [],
       history: [],
+      activeRowType: 'all',
       interactionsCount: 0,
       lastTrainedAt: Date.now()
     };
@@ -6242,7 +6456,23 @@ class NeuroTasteEngine {
 // Global ML Instance
 window.neuroTasteEngine = new NeuroTasteEngine();
 
-// Render AI Recommendations Row
+// Quick Format Classifier Pills Handler
+function setAiRowType(type, btn) {
+  if (!window.neuroTasteEngine) return;
+  window.neuroTasteEngine.profile.activeRowType = type;
+  window.neuroTasteEngine.saveProfile();
+
+  document.querySelectorAll('#ai-type-pill-selector .ai-pill-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-type') === type);
+  });
+
+  if (typeof refreshAiRecommendations === 'function') {
+    refreshAiRecommendations();
+  }
+}
+window.setAiRowType = setAiRowType;
+
+// Render AI Recommendations Row with Explainable Badges
 function renderAiRecommendations(catalog) {
   const container = document.getElementById('ai-recommended-list');
   const section = document.getElementById('ai-recommended-section');
@@ -6263,15 +6493,22 @@ function renderAiRecommendations(catalog) {
 
   section.style.display = 'block';
 
-  // Dynamic subtitle based on top learned genres
+  // Synchronize active format pill
+  const activeType = window.neuroTasteEngine.profile.activeRowType || 'all';
+  document.querySelectorAll('#ai-type-pill-selector .ai-pill-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-type') === activeType);
+  });
+
+  // Dynamic subtitle based on format classification & top learned genres
   const topGenres = window.neuroTasteEngine.getTopLearnedGenres(2);
+  const typeLabel = activeType === 'movie' ? 'Movies' : (activeType === 'series' ? 'TV Series' : 'Titles');
   if (subtitle) {
     if (topGenres.length >= 2) {
-      subtitle.innerHTML = `Personalized for your love of <strong class="text-gold">${topGenres[0].genre}</strong> &amp; <strong class="text-gold">${topGenres[1].genre}</strong>`;
+      subtitle.innerHTML = `Classifying top <strong class="text-gold">${typeLabel}</strong> for your love of <strong class="text-gold">${topGenres[0].genre}</strong> &amp; <strong class="text-gold">${topGenres[1].genre}</strong>`;
     } else if (topGenres.length === 1) {
-      subtitle.innerHTML = `Tailored for your interest in <strong class="text-gold">${topGenres[0].genre}</strong>`;
+      subtitle.innerHTML = `Top <strong class="text-gold">${typeLabel}</strong> tailored for your interest in <strong class="text-gold">${topGenres[0].genre}</strong>`;
     } else {
-      subtitle.textContent = 'Neural recommendations trained on your watch history & preferences';
+      subtitle.textContent = `Neural ${typeLabel} recommendations trained on your watch history & preferences`;
     }
   }
 
@@ -6280,11 +6517,17 @@ function renderAiRecommendations(catalog) {
     const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
     const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
 
+    const reasonText = item.aiReasonShort ? `<span class="ai-match-dot">•</span><span class="ai-match-reason">${item.aiReasonShort}</span>` : '';
+
     const card = document.createElement('div');
     card.className = 'movie-card';
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <div class="ai-match-tag"><i class="fa-solid fa-sparkles"></i> ${item.aiMatchPercentage || 98}% Match</div>
+        <div class="ai-match-tag" title="${item.aiReason || 'AI Neural Recommendation'}">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>${item.aiMatchPercentage || 98}%</span>
+          ${reasonText}
+        </div>
         <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
         ${dubBadgeHtml}
@@ -6506,5 +6749,6 @@ if (typeof window !== 'undefined') {
   window.saveAndApplyContentFilters = saveAndApplyContentFilters;
   window.resetContentFilters = resetContentFilters;
   window.resetAiModel = resetAiModel;
+  window.setAiRowType = setAiRowType;
   window.renderAiRecommendations = renderAiRecommendations;
 }

@@ -951,6 +951,17 @@
           <span class="row-subtitle-ai" id="ai-recom-subtitle">Neural taste model trained on what you watch &amp; enjoy</span>
         </div>
         <div class="ai-row-actions">
+          <div class="ai-type-pill-selector" id="ai-type-pill-selector">
+            <button type="button" class="ai-pill-btn active" data-type="all" onclick="setAiRowType('all', this)" title="Show all smart recommendations">
+              <i class="fa-solid fa-layer-group"></i> All
+            </button>
+            <button type="button" class="ai-pill-btn" data-type="movie" onclick="setAiRowType('movie', this)" title="Classify and show only Movies">
+              <i class="fa-solid fa-film"></i> Movies
+            </button>
+            <button type="button" class="ai-pill-btn" data-type="series" onclick="setAiRowType('series', this)" title="Classify and show only TV Series">
+              <i class="fa-solid fa-tv"></i> Series
+            </button>
+          </div>
           <button type="button" class="btn-ai-filter-quick" onclick="openSettingsModal('filters')" title="Fine-tune your Movie Filters &amp; Taste Preferences">
             <i class="fa-solid fa-sliders"></i> Taste Filters
           </button>

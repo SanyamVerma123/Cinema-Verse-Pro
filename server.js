@@ -1323,57 +1323,136 @@ app.get('/api/top10', (req, res) => {
   res.json({ status: 'success', data: top10 });
 });
 
-// Machine Learning Recommendations Endpoint
+// Machine Learning Recommendations Endpoint with TF-IDF, k-NN Seeds & Format Alignment
+const SERVER_GENRE_IDF = {
+  'sci-fi': 2.5, 'anime': 2.5, 'horror': 2.4, 'fantasy': 2.3,
+  'war': 2.2, 'mystery': 2.1, 'crime': 2.0, 'thriller': 1.9,
+  'action': 1.6, 'adventure': 1.5, 'animation': 1.7, 'history': 1.8,
+  'romance': 1.5, 'documentary': 2.0, 'music': 1.4, 'comedy': 1.2, 'drama': 0.85
+};
+
 app.get('/api/recommendations', (req, res) => {
   const rawGenres = (req.query.genres || '').toLowerCase().split(',').map(s => s.trim()).filter(Boolean);
   const type = (req.query.type || 'all').toLowerCase();
+  const seedQuery = (req.query.seed || '').toLowerCase().trim();
+  const directorQuery = (req.query.director || '').toLowerCase().trim();
   const excludeIds = new Set((req.query.exclude || '').split(',').map(s => s.trim()).filter(Boolean));
-  const count = Math.min(parseInt(req.query.count, 10) || 20, 50);
+  const count = Math.min(parseInt(req.query.count, 10) || 24, 60);
 
-  // Content Vector Recommendation Scoring
+  // Content Vector Recommendation Candidates
   let candidates = catalogData.filter(item => !excludeIds.has(item.id) && !excludeIds.has(item.imdbId));
   if (type !== 'all') {
     candidates = candidates.filter(item => item.type === type);
   }
 
+  // Find Seed Item if provided
+  let seedItem = null;
+  if (seedQuery) {
+    seedItem = catalogData.find(x => 
+      (x.id && x.id.toLowerCase() === seedQuery) ||
+      (x.imdbId && x.imdbId.toLowerCase() === seedQuery) ||
+      (x.title && x.title.toLowerCase().includes(seedQuery))
+    );
+  }
+
   const scored = candidates.map(item => {
-    let score = 50; // Base baseline score
+    let score = 42; // Base baseline score
+    let bestReason = 'Recommended for you';
+    let bestReasonShort = 'Top Pick';
+
     const itemGenres = (item.genres || []).map(g => g.toLowerCase());
 
-    // 1. Genre Overlap & Affinity
-    if (rawGenres.length > 0) {
-      let matchedCount = 0;
-      for (const g of rawGenres) {
-        if (itemGenres.includes(g)) matchedCount++;
+    // 1. Seed Item k-NN Content Similarity
+    if (seedItem) {
+      // Director match
+      if (item.director && seedItem.director && item.director.toLowerCase() === seedItem.director.toLowerCase()) {
+        score += 26;
+        bestReason = `Directed by ${item.director}`;
+        bestReasonShort = `Dir. ${item.director.split(' ').pop()}`;
       }
-      const matchRatio = matchedCount / Math.max(1, rawGenres.length);
-      score += matchRatio * 40;
-    } else {
-      score += 20; // Cold start bonus
+
+      // Cast overlap
+      if (Array.isArray(item.cast) && Array.isArray(seedItem.cast)) {
+        const shared = item.cast.filter(a => seedItem.cast.some(sa => sa.toLowerCase() === a.toLowerCase()));
+        if (shared.length > 0) {
+          score += Math.min(22, shared.length * 11);
+          if (!bestReason.startsWith('Directed')) {
+            bestReason = `Starring ${shared[0]}`;
+            bestReasonShort = shared[0].split(' ').pop();
+          }
+        }
+      }
+
+      // Seed genre Jaccard intersection
+      if (itemGenres.length && Array.isArray(seedItem.genres)) {
+        const seedGenres = seedItem.genres.map(g => g.toLowerCase());
+        const intersection = itemGenres.filter(g => seedGenres.includes(g)).length;
+        const union = new Set([...itemGenres, ...seedGenres]).size;
+        const jaccard = union > 0 ? intersection / union : 0;
+        if (jaccard >= 0.5) {
+          score += jaccard * 20;
+          if (bestReason === 'Recommended for you') {
+            bestReason = `Because you watched ${seedItem.title}`;
+            bestReasonShort = `Like ${seedItem.title.length > 14 ? seedItem.title.slice(0, 12) + '...' : seedItem.title}`;
+          }
+        }
+      }
     }
 
-    // 2. Rating Prior
+    // 2. Explicit Director Query
+    if (directorQuery && item.director && item.director.toLowerCase().includes(directorQuery)) {
+      score += 28;
+      bestReason = `Directed by ${item.director}`;
+      bestReasonShort = `Dir. ${item.director.split(' ').pop()}`;
+    }
+
+    // 3. TF-IDF Weighted Jaccard Genre Affinity
+    if (rawGenres.length > 0 && itemGenres.length > 0) {
+      let matchedWeight = 0;
+      let candidateTotalWeight = 0;
+      let matchedNames = [];
+
+      itemGenres.forEach(g => {
+        const idf = SERVER_GENRE_IDF[g] || 1.3;
+        candidateTotalWeight += idf;
+        if (rawGenres.includes(g)) {
+          matchedWeight += idf;
+          matchedNames.push(g.charAt(0).toUpperCase() + g.slice(1));
+        }
+      });
+
+      const precisionRatio = candidateTotalWeight > 0 ? (matchedWeight / candidateTotalWeight) : 0;
+      score += (precisionRatio * 38) + (matchedWeight * 4);
+
+      if (bestReason === 'Recommended for you' && matchedNames.length > 0) {
+        bestReason = `Matches your taste for ${matchedNames.slice(0, 2).join(' & ')}`;
+        bestReasonShort = matchedNames.slice(0, 2).join(' • ');
+      }
+    } else if (!seedItem && !directorQuery) {
+      score += 18; // Cold start exploration
+    }
+
+    // 4. Quality & Popularity Prior
     if (item.rating) {
-      score += Math.min(10, (item.rating / 10) * 10);
+      score += (item.rating / 10) * 8;
     }
+    if (item.featured || item.trending) score += 4;
+    if (item.quality && item.quality.includes('4K')) score += 2;
 
-    // 3. Featured / Quality Bonus
-    if (item.featured || item.trending) score += 5;
-    if (item.quality && item.quality.includes('4K')) score += 3;
-
-    // Calculate match percentage (85% to 99%)
-    const matchPercentage = Math.min(99, Math.max(78, Math.round(score)));
+    const rawScore = score;
+    const matchPercentage = Math.min(99, Math.max(78, Math.round(rawScore)));
 
     return {
       ...item,
+      rawScore: rawScore,
       aiMatchPercentage: matchPercentage,
-      aiRecommendationReason: rawGenres.length > 0
-        ? `Matches your affinity for ${item.genres ? item.genres.slice(0, 2).join(' & ') : 'top genres'}`
-        : 'High-affinity trending blockbuster'
+      aiReason: bestReason,
+      aiReasonShort: bestReasonShort,
+      aiRecommendationReason: bestReason
     };
   });
 
-  scored.sort((a, b) => b.aiMatchPercentage - a.aiMatchPercentage);
+  scored.sort((a, b) => b.rawScore - a.rawScore);
   const recommendations = scored.slice(0, count);
 
   res.json({
