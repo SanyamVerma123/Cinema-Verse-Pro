@@ -147,9 +147,13 @@ export default function TvPage({ initialCatalog }) {
           </div>
         </div>
 
-        {/* TV Series Episode Grid */}
+        {/* TV Series Episode Grid & Seasons */}
         <div className="tv-episodes-section" id="tv-details-episodes">
-          <h3 className="tv-row-title">Episodes — Season 1</h3>
+          <div className="tv-seasons-row" id="tv-details-seasons-row">
+            <span className="tv-server-picker-title">Seasons:</span>
+            <div className="tv-season-chips" id="tv-details-seasons" />
+          </div>
+          <h3 className="tv-row-title" id="tv-episodes-heading">Episodes</h3>
           <div className="tv-episodes-scroller" id="tv-episodes-scroller" />
         </div>
       </div>
@@ -164,10 +168,24 @@ export default function TvPage({ initialCatalog }) {
           allowFullScreen
         />
         <div className="tv-player-hud" id="tv-player-hud">
-          <span className="tv-player-hud-title" id="tv-player-hud-title">Title</span>
-          <button type="button" className="tv-player-hud-back" onClick={() => window.closeTvPlayer && window.closeTvPlayer()}>
-            <i className="fa-solid fa-arrow-left" /> Back to CinemaVerse
-          </button>
+          <div className="tv-player-hud-top">
+            <span className="tv-player-hud-title" id="tv-player-hud-title">Title</span>
+            <button type="button" className="tv-player-hud-btn" id="tv-player-btn-back" onClick={() => window.closeTvPlayer && window.closeTvPlayer()}>
+              <i className="fa-solid fa-arrow-left" /> Back to CinemaVerse (Remote Back)
+            </button>
+          </div>
+          <div className="tv-player-hud-bottom">
+            <span className="tv-player-hud-label">Switch Server:</span>
+            <div className="tv-player-server-chips" id="tv-player-server-chips" />
+            <div className="tv-player-ep-controls" id="tv-player-ep-controls" style={{ display: 'none', gap: '8px' }}>
+              <button type="button" className="tv-player-hud-btn" id="tv-player-btn-prev-ep">
+                <i className="fa-solid fa-backward-step" /> Prev Ep
+              </button>
+              <button type="button" className="tv-player-hud-btn" id="tv-player-btn-next-ep">
+                Next Ep <i className="fa-solid fa-forward-step" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

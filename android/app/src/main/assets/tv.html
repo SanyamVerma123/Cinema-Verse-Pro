@@ -139,9 +139,13 @@
       </div>
     </div>
 
-    <!-- TV Series Episode Grid -->
+    <!-- TV Series Episode Grid & Seasons -->
     <div class="tv-episodes-section" id="tv-details-episodes">
-      <h3 class="tv-row-title">Episodes — Season 1</h3>
+      <div class="tv-seasons-row" id="tv-details-seasons-row">
+        <span class="tv-server-picker-title">Seasons:</span>
+        <div class="tv-season-chips" id="tv-details-seasons"></div>
+      </div>
+      <h3 class="tv-row-title" id="tv-episodes-heading">Episodes</h3>
       <div class="tv-episodes-scroller" id="tv-episodes-scroller"></div>
     </div>
   </div>
@@ -150,10 +154,24 @@
   <div class="tv-player-overlay" id="tv-player-overlay">
     <iframe class="tv-player-iframe" id="tv-player-iframe" src="about:blank" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
     <div class="tv-player-hud" id="tv-player-hud">
-      <span class="tv-player-hud-title" id="tv-player-hud-title">Title</span>
-      <button type="button" class="tv-player-hud-back" onclick="if(window.closeTvPlayer)window.closeTvPlayer()">
-        <i class="fa-solid fa-arrow-left"></i> Back to CinemaVerse
-      </button>
+      <div class="tv-player-hud-top">
+        <span class="tv-player-hud-title" id="tv-player-hud-title">Title</span>
+        <button type="button" class="tv-player-hud-btn" id="tv-player-btn-back" onclick="if(window.closeTvPlayer)window.closeTvPlayer()">
+          <i class="fa-solid fa-arrow-left"></i> Back to CinemaVerse (Remote Back)
+        </button>
+      </div>
+      <div class="tv-player-hud-bottom">
+        <span class="tv-player-hud-label">Switch Server:</span>
+        <div class="tv-player-server-chips" id="tv-player-server-chips"></div>
+        <div class="tv-player-ep-controls" id="tv-player-ep-controls" style="display: none; gap: 8px;">
+          <button type="button" class="tv-player-hud-btn" id="tv-player-btn-prev-ep">
+            <i class="fa-solid fa-backward-step"></i> Prev Ep
+          </button>
+          <button type="button" class="tv-player-hud-btn" id="tv-player-btn-next-ep">
+            Next Ep <i class="fa-solid fa-forward-step"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 

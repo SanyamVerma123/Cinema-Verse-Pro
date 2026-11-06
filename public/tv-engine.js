@@ -14,22 +14,35 @@
   let currentSpotlightIndex = 0;
   let spotlightTimer = null;
   let currentActiveTab = 'home';
-  let activeZone = 'hero'; // 'nav', 'hero', 'rows', 'keyboard', 'results', 'modal', 'player'
+  let activeZone = 'hero'; // 'nav', 'hero', 'rows', 'search-bar', 'keyboard', 'results', 'modal', 'player'
   let currentRowIndex = 0;
   let currentColIndex = 0;
   let navIndex = 1; // 0=Search, 1=Home, 2=Movies, 3=Series, 4=OTT
   let heroBtnIndex = 0; // 0=Watch Now, 1=Info, 2=Watchlist
+  let searchBarIndex = 1; // 0=Query text, 1=Voice Search Button
   let keyboardRow = 0;
   let keyboardCol = 0;
   let searchQuery = '';
+
+  // Modal State
   let selectedModalItem = null;
   let selectedModalSeason = 1;
   let selectedModalEpisode = 1;
   let selectedModalServer = 0;
+  let modalSubZone = 'actions'; // 'servers', 'actions', 'seasons', 'episodes'
+  let modalServerIdx = 0;
+  let modalActionIdx = 0; // 0=Play, 1=Close
+  let modalSeasonIdx = 0;
+  let modalEpIdx = 0;
+
+  // Player State
   let isPlayerActive = false;
   let playerHudTimer = null;
+  let playerSubZone = 'servers'; // 'back', 'servers', 'episodes'
+  let playerServerIdx = 0;
+  let playerEpAction = 1; // 0=Prev, 1=Next
 
-  // Mirror Streaming Servers (10 High-Speed Servers)
+  // Mirror Streaming Servers (10 High-Speed Mirrors)
   const STREAM_SERVERS = [
     { id: 0, name: 'Server 1: Vidly Pro (Multi-Audio)', short: 'Vidly Pro' },
     { id: 1, name: 'Server 2: CineSrc 4K (0 Ads)', short: 'CineSrc 4K' },
@@ -44,6 +57,7 @@
   ];
 
   function getStreamUrl(serverIndex, item, season = 1, episode = 1) {
+    if (!item) return 'about:blank';
     const isTv = item.type === 'series';
     const s = season || 1;
     const e = episode || 1;
@@ -91,7 +105,7 @@
     }
   }
 
-  // Keyboard Layout
+  // Keyboard Layout (6 columns x 6 rows + action buttons)
   const KEYBOARD_KEYS = [
     ['A', 'B', 'C', 'D', 'E', 'F'],
     ['G', 'H', 'I', 'J', 'K', 'L'],
@@ -102,42 +116,99 @@
     ['SPACE', 'DELETE', 'CLEAR']
   ];
 
-  // Platforms Config
-  const OTT_PLATFORMS = [
-    { id: 'netflix', name: 'Netflix', color: '#E50914' },
-    { id: 'prime', name: 'Prime Video', color: '#00A8E1' },
-    { id: 'disney', name: 'Disney+', color: '#0063E5' },
-    { id: 'hbo', name: 'HBO Max', color: '#9933FF' },
-    { id: 'apple', name: 'Apple TV+', color: '#A3A3A3' },
-    { id: 'crunchyroll', name: 'Crunchyroll', color: '#F47521' },
-    { id: 'paramount', name: 'Paramount+', color: '#0064FF' },
-    { id: 'hulu', name: 'Hulu', color: '#1CE783' },
-    { id: 'peacock', name: 'Peacock', color: '#000000' },
-    { id: 'sonyliv', name: 'Sony LIV', color: '#0099FF' },
-    { id: 'zee5', name: 'Zee5', color: '#8230C6' },
-    { id: 'jiocinema', name: 'JioCinema', color: '#E5007D' },
-    { id: 'animeworld', name: 'Anime World', color: '#FF3366' }
-  ];
+  // Global Multi-Tier TV Image Fallback Engine
+  function createTvSvgHeroBanner(title, platform) {
+    const cleanTitle = (title || 'CinemaVerse').replace(/['"<>&]/g, '');
+    const cleanPlat = (platform || 'NETFLIX').toUpperCase();
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+        <defs>
+          <radialGradient id="amb" cx="70%" cy="30%" r="80%">
+            <stop offset="0%" stop-color="#2d1216"/>
+            <stop offset="40%" stop-color="#141824"/>
+            <stop offset="100%" stop-color="#07080b"/>
+          </radialGradient>
+          <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e50914"/>
+            <stop offset="100%" stop-color="#f59e0b"/>
+          </linearGradient>
+        </defs>
+        <rect width="1920" height="1080" fill="url(#amb)"/>
+        <circle cx="1300" cy="500" r="450" fill="rgba(229,9,20,0.12)" filter="blur(60px)"/>
+        <circle cx="1400" cy="450" r="280" fill="rgba(245,158,11,0.08)" filter="blur(50px)"/>
+        <g transform="translate(1300, 480)">
+          <circle cx="0" cy="0" r="140" fill="rgba(229,9,20,0.2)" stroke="#e50914" stroke-width="4"/>
+          <polygon points="-25,-50 55,0 -25,50" fill="#ffffff"/>
+        </g>
+        <text x="1300" y="700" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="900" font-size="34" fill="#ffffff" text-anchor="middle" letter-spacing="4">${cleanPlat}</text>
+        <text x="1300" y="745" font-family="sans-serif" font-weight="700" font-size="20" fill="#94a3b8" text-anchor="middle" letter-spacing="2">4K ULTRA HD STREAMING</text>
+      </svg>
+    `);
+  }
 
-  // Initialize TV App
+  function setHeroBackdropWithFallback(backdropEl, item) {
+    if (!backdropEl || !item) return;
+    backdropEl.onerror = null;
+
+    const candidates = [];
+    if (item.backdrop && !item.backdrop.includes('undefined')) candidates.push(item.backdrop);
+    if (item.poster && !item.poster.includes('undefined')) candidates.push(item.poster);
+
+    let idx = 0;
+    function tryNext() {
+      if (idx < candidates.length) {
+        const url = candidates[idx++];
+        backdropEl.onerror = () => {
+          if (url.includes('images.metahub.space') && !backdropEl.dataset.proxied) {
+            backdropEl.dataset.proxied = 'true';
+            backdropEl.src = '/api/image-proxy?url=' + encodeURIComponent(url);
+            return;
+          }
+          tryNext();
+        };
+        backdropEl.src = url;
+      } else {
+        backdropEl.onerror = null;
+        backdropEl.src = createTvSvgHeroBanner(item.title, item.platformBadge || item.platform);
+      }
+    }
+    tryNext();
+  }
+
+  window.handleImgError = function (img, fallback) {
+    if (!img) return;
+    const orig = img.src || '';
+    if (orig.includes('images.metahub.space') && !img.dataset.proxied) {
+      img.dataset.proxied = 'true';
+      img.src = '/api/image-proxy?url=' + encodeURIComponent(orig);
+      return;
+    }
+    img.onerror = null;
+    img.src = fallback || 'https://images.metahub.space/poster/medium/tt4574334/img';
+  };
+
+  // =========================================================================
+  // INITIALIZATION
+  // =========================================================================
   window.initTvApp = function (catalog) {
     allCatalog = Array.isArray(catalog) ? catalog : (window.__TV_CATALOG__ || []);
-    console.log(`[CinemaVerse TV] Loaded ${allCatalog.length} titles`);
+    console.log(`[CinemaVerse TV] Engine active with ${allCatalog.length} titles`);
 
     buildOnScreenKeyboard();
     renderSpotlightHero();
     renderAllContentRows();
     setupRemoteKeyEvents();
 
-    // Start with Hero Play focused
+    // Default focus: Hero Watch Now button
     activeZone = 'hero';
     heroBtnIndex = 0;
     updateFocusUI();
 
-    // Rotate Hero Spotlight every 8 seconds
+    // Hero Spotlight Carousel rotation every 8 seconds
+    if (spotlightTimer) clearInterval(spotlightTimer);
     spotlightTimer = setInterval(nextSpotlight, 8000);
 
-    // Asynchronously enrich with full 1,300+ catalog in background
+    // Asynchronously enrich with full 1,300+ catalog in background if running on web server
     setTimeout(async () => {
       try {
         const res = await fetch('/api/catalog');
@@ -147,7 +218,7 @@
           console.log(`[CinemaVerse TV] Enriched with full ${data.length} catalog in background`);
         }
       } catch (e) {
-        console.warn('Background full catalog fetch skipped:', e);
+        // Running offline in pure APK; local catalog already complete
       }
     }, 1500);
   };
@@ -156,7 +227,8 @@
   // HERO SPOTLIGHT
   // =========================================================================
   function getSpotlightItems() {
-    return allCatalog.filter(x => (x.backdrop || x.poster) && (x.featured || x.rating >= 8.0)).slice(0, 15);
+    const list = allCatalog.filter(x => (x.backdrop || x.poster) && (x.featured || x.rating >= 8.0));
+    return list.length ? list.slice(0, 15) : allCatalog.slice(0, 15);
   }
 
   function renderSpotlightHero() {
@@ -173,7 +245,7 @@
     const titleEl = document.getElementById('tv-hero-title');
     const descEl = document.getElementById('tv-hero-desc');
 
-    if (backdropEl) backdropEl.src = item.backdrop || item.poster || '';
+    if (backdropEl) setHeroBackdropWithFallback(backdropEl, item);
     if (ottEl) {
       ottEl.textContent = item.platformBadge || item.platform || 'STREAM';
       if (item.platformColor) ottEl.style.backgroundColor = item.platformColor;
@@ -259,7 +331,7 @@
       <div class="tv-card-overlay">
         <h4 class="tv-card-title">${item.title}</h4>
         <div class="tv-card-meta">
-          <span>${item.year || '2024'}</span> •
+          <span>${item.year || '2024'}</span>
           <span>${item.type === 'series' ? 'Series' : (item.duration || 'Movie')}</span>
         </div>
       </div>
@@ -270,7 +342,7 @@
   }
 
   // =========================================================================
-  // ON-SCREEN KEYBOARD & SEARCH
+  // ON-SCREEN KEYBOARD & VOICE SEARCH
   // =========================================================================
   function buildOnScreenKeyboard() {
     const gridEl = document.getElementById('tv-keyboard-grid');
@@ -280,7 +352,6 @@
     gridEl.innerHTML = '';
     actionsEl.innerHTML = '';
 
-    // Standard letters & numbers
     for (let r = 0; r < 6; r++) {
       KEYBOARD_KEYS[r].forEach((key, c) => {
         const btn = document.createElement('button');
@@ -294,19 +365,18 @@
       });
     }
 
-    // Special action keys
     const actions = [
-      { text: 'SPACE', icon: 'fa-regular fa-square', action: () => onKeyTyped(' ') },
-      { text: '⌫ DELETE', icon: 'fa-solid fa-delete-left', action: () => onDeleteKey() },
-      { text: '✕ CLEAR', icon: 'fa-solid fa-trash', action: () => onClearKey() }
+      { text: 'SPACE', icon: 'fa-regular fa-keyboard', action: () => onKeyTyped(' ') },
+      { text: 'DELETE', icon: 'fa-solid fa-delete-left', action: onDeleteKey },
+      { text: 'CLEAR ALL', icon: 'fa-solid fa-trash-can', action: onClearKey }
     ];
 
-    actions.forEach((act, idx) => {
+    actions.forEach((act, c) => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'tv-key-action';
       btn.dataset.kRow = 6;
-      btn.dataset.kCol = idx;
+      btn.dataset.kCol = c;
       btn.innerHTML = `<i class="${act.icon}"></i> ${act.text}`;
       btn.onclick = act.action;
       actionsEl.appendChild(btn);
@@ -346,14 +416,49 @@
   }
 
   function onVoiceSearch() {
+    // 1. Android TV Native Voice Bridge via remote microphone
     if (window.AndroidVoiceBridge && typeof window.AndroidVoiceBridge.startVoiceSearch === 'function') {
       window.AndroidVoiceBridge.startVoiceSearch();
-    } else {
-      alert('Press microphone button on your Smart TV Remote to speak');
+      return;
     }
+
+    // 2. Web Speech API for Chrome / Edge browsers
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      try {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        const voiceBtn = document.getElementById('tv-btn-voice');
+        if (voiceBtn) {
+          voiceBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Listening...';
+        }
+
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          window.handleVoiceFinalResult(transcript);
+        };
+
+        recognition.onerror = () => {
+          if (voiceBtn) voiceBtn.innerHTML = '<i class="fa-solid fa-microphone"></i> Voice Search';
+        };
+
+        recognition.onend = () => {
+          if (voiceBtn) voiceBtn.innerHTML = '<i class="fa-solid fa-microphone"></i> Voice Search';
+        };
+
+        recognition.start();
+        return;
+      } catch (e) {
+        console.warn('SpeechRecognition failed:', e);
+      }
+    }
+
+    alert('Voice Search: Speak movie name into your Smart TV Remote Microphone');
   }
 
-  // Voice result bridge callback
   window.handleVoiceFinalResult = function (text) {
     if (!text) return;
     searchQuery = text.trim();
@@ -387,13 +492,19 @@
   }
 
   // =========================================================================
-  // TV DETAILS MODAL
+  // TV DETAILS MODAL (Seasons, Episodes, Servers, and D-Pad Selection)
   // =========================================================================
   function openDetailsModal(item) {
     selectedModalItem = item;
     selectedModalSeason = 1;
     selectedModalEpisode = 1;
     selectedModalServer = 0;
+
+    modalSubZone = 'actions';
+    modalActionIdx = 0; // Play Stream focused by default
+    modalServerIdx = 0;
+    modalSeasonIdx = 0;
+    modalEpIdx = 0;
 
     const modal = document.getElementById('tv-details-modal');
     if (!modal) return;
@@ -424,12 +535,13 @@
       STREAM_SERVERS.forEach((srv, idx) => {
         const chip = document.createElement('button');
         chip.type = 'button';
-        chip.className = `tv-server-chip ${idx === 0 ? 'active' : ''}`;
-        chip.id = `tv-server-btn-${idx}`;
+        chip.className = `tv-server-chip ${idx === selectedModalServer ? 'active' : ''}`;
+        chip.id = `tv-modal-server-${idx}`;
         chip.dataset.serverIdx = idx;
         chip.textContent = srv.short;
         chip.onclick = () => {
           selectedModalServer = idx;
+          modalServerIdx = idx;
           document.querySelectorAll('.tv-server-chip').forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
         };
@@ -437,31 +549,12 @@
       });
     }
 
-    // Populate Episodes if Series
+    // Populate Seasons & Episodes if Series
     if (episodesSection) {
       if (item.type === 'series') {
         episodesSection.style.display = 'block';
-        const scroller = document.getElementById('tv-episodes-scroller');
-        if (scroller) {
-          scroller.innerHTML = '';
-          const epCount = (item.episodes && item.episodes.length) || 12;
-          for (let ep = 1; ep <= epCount; ep++) {
-            const epCard = document.createElement('div');
-            epCard.className = 'tv-episode-card';
-            epCard.id = `tv-ep-${ep}`;
-            epCard.dataset.epNum = ep;
-            epCard.innerHTML = `
-              <span style="font-size: 11px; color: var(--tv-text-muted);">Season 1</span>
-              <strong style="font-size: 14px; color: #fff;">Episode ${ep}</strong>
-              <span style="font-size: 11px; color: #22c55e;"><i class="fa-solid fa-play"></i> Ready</span>
-            `;
-            epCard.onclick = () => {
-              selectedModalEpisode = ep;
-              startPlayback(selectedModalItem, selectedModalSeason, selectedModalEpisode, selectedModalServer);
-            };
-            scroller.appendChild(epCard);
-          }
-        }
+        renderModalSeasons(item);
+        renderModalEpisodes(item, 1);
       } else {
         episodesSection.style.display = 'none';
       }
@@ -469,10 +562,81 @@
 
     modal.classList.add('active');
     activeZone = 'modal';
-    const playBtn = document.getElementById('tv-modal-play-btn');
-    if (playBtn) {
-      playBtn.focus();
-      playBtn.classList.add('tv-focused');
+    updateFocusUI();
+  }
+
+  function renderModalSeasons(item) {
+    const seasonsRow = document.getElementById('tv-details-seasons-row');
+    const seasonsContainer = document.getElementById('tv-details-seasons');
+    if (!seasonsRow || !seasonsContainer) return;
+
+    let seasonsList = [];
+    if (Array.isArray(item.seasons) && item.seasons.length > 0) {
+      seasonsList = item.seasons.map(s => s.season || 1);
+    } else {
+      const match = (item.duration || '').match(/(\d+)\s*Season/i);
+      const sCount = match ? parseInt(match[1]) : 1;
+      for (let s = 1; s <= sCount; s++) seasonsList.push(s);
+    }
+
+    seasonsContainer.innerHTML = '';
+    seasonsList.forEach((sNum, idx) => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = `tv-season-chip ${sNum === selectedModalSeason ? 'active' : ''}`;
+      chip.id = `tv-modal-season-${idx}`;
+      chip.dataset.seasonNum = sNum;
+      chip.dataset.seasonIdx = idx;
+      chip.textContent = `Season ${sNum}`;
+      chip.onclick = () => {
+        selectedModalSeason = sNum;
+        modalSeasonIdx = idx;
+        document.querySelectorAll('.tv-season-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        renderModalEpisodes(item, sNum);
+      };
+      seasonsContainer.appendChild(chip);
+    });
+  }
+
+  function renderModalEpisodes(item, seasonNum) {
+    const scroller = document.getElementById('tv-episodes-scroller');
+    const heading = document.getElementById('tv-episodes-heading');
+    if (!scroller) return;
+
+    if (heading) heading.textContent = `Episodes — Season ${seasonNum}`;
+    scroller.innerHTML = '';
+
+    let episodes = [];
+    if (Array.isArray(item.seasons)) {
+      const sObj = item.seasons.find(s => s.season === seasonNum);
+      if (sObj && Array.isArray(sObj.episodes)) episodes = sObj.episodes;
+    }
+
+    const epCount = episodes.length || 10;
+    for (let i = 0; i < epCount; i++) {
+      const epData = episodes[i] || {};
+      const epNum = epData.episode || (i + 1);
+      const epTitle = epData.title || `Episode ${epNum}`;
+      const epDuration = epData.duration || '48m';
+
+      const card = document.createElement('div');
+      card.className = 'tv-episode-card';
+      card.id = `tv-modal-ep-${i}`;
+      card.dataset.epIdx = i;
+      card.dataset.epNum = epNum;
+      card.innerHTML = `
+        <span style="font-size: 11px; color: var(--tv-text-muted);">Season ${seasonNum} • ${epDuration}</span>
+        <strong style="font-size: 14px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${epTitle}</strong>
+        <span style="font-size: 11px; color: #22c55e;"><i class="fa-solid fa-play"></i> Watch Episode</span>
+      `;
+
+      card.onclick = () => {
+        selectedModalEpisode = epNum;
+        startPlayback(item, selectedModalSeason, selectedModalEpisode, selectedModalServer);
+      };
+
+      scroller.appendChild(card);
     }
   }
 
@@ -484,12 +648,15 @@
   }
 
   // =========================================================================
-  // FULLSCREEN TV VIDEO PLAYER
+  // FULLSCREEN VIDEO PLAYER & IN-PLAYER REMOTE SERVER SWITCHER
   // =========================================================================
   function startPlayback(item, season = 1, episode = 1, serverIndex = 0) {
+    if (!item) return;
     closeDetailsModal();
     isPlayerActive = true;
     activeZone = 'player';
+    playerSubZone = 'servers';
+    playerServerIdx = serverIndex;
 
     const overlay = document.getElementById('tv-player-overlay');
     const iframe = document.getElementById('tv-player-iframe');
@@ -497,17 +664,85 @@
 
     if (!overlay || !iframe) return;
 
-    const streamUrl = getStreamUrl(serverIndex, item, season, episode);
-    console.log(`[CinemaVerse TV Player] Streaming from: ${streamUrl}`);
+    selectedModalItem = item;
+    selectedModalSeason = season;
+    selectedModalEpisode = episode;
+    selectedModalServer = serverIndex;
 
+    const streamUrl = getStreamUrl(serverIndex, item, season, episode);
+    console.log(`[CinemaVerse TV Player] Streaming: ${streamUrl}`);
     iframe.src = streamUrl;
+
     if (titleEl) {
       titleEl.textContent = item.type === 'series'
-        ? `${item.title} — S${season}:E${episode}`
+        ? `${item.title} — Season ${season}, Ep ${episode}`
         : item.title;
     }
 
+    // Populate In-Player Server Switcher
+    renderPlayerHudServers();
+
+    // Toggle episode controls if TV series
+    const epControls = document.getElementById('tv-player-ep-controls');
+    if (epControls) {
+      epControls.style.display = item.type === 'series' ? 'flex' : 'none';
+      const prevBtn = document.getElementById('tv-player-btn-prev-ep');
+      const nextBtn = document.getElementById('tv-player-btn-next-ep');
+      if (prevBtn) prevBtn.onclick = () => switchPlayerEpisode(-1);
+      if (nextBtn) nextBtn.onclick = () => switchPlayerEpisode(1);
+    }
+
     overlay.classList.add('active');
+    showPlayerHudBriefly();
+    updateFocusUI();
+  }
+
+  function renderPlayerHudServers() {
+    const chipsContainer = document.getElementById('tv-player-server-chips');
+    if (!chipsContainer) return;
+    chipsContainer.innerHTML = '';
+
+    STREAM_SERVERS.forEach((srv, idx) => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = `tv-player-server-chip ${idx === selectedModalServer ? 'active' : ''}`;
+      chip.id = `tv-player-server-${idx}`;
+      chip.dataset.serverIdx = idx;
+      chip.textContent = srv.short;
+      chip.onclick = () => {
+        selectedModalServer = idx;
+        playerServerIdx = idx;
+        switchPlayerServer(idx);
+      };
+      chipsContainer.appendChild(chip);
+    });
+  }
+
+  function switchPlayerServer(newServerIdx) {
+    selectedModalServer = newServerIdx;
+    playerServerIdx = newServerIdx;
+    const iframe = document.getElementById('tv-player-iframe');
+    if (iframe && selectedModalItem) {
+      iframe.src = getStreamUrl(newServerIdx, selectedModalItem, selectedModalSeason, selectedModalEpisode);
+    }
+    renderPlayerHudServers();
+    showPlayerHudBriefly();
+    updateFocusUI();
+  }
+
+  function switchPlayerEpisode(delta) {
+    if (!selectedModalItem || selectedModalItem.type !== 'series') return;
+    const nextEp = Math.max(1, selectedModalEpisode + delta);
+    selectedModalEpisode = nextEp;
+
+    const iframe = document.getElementById('tv-player-iframe');
+    const titleEl = document.getElementById('tv-player-hud-title');
+    if (iframe) {
+      iframe.src = getStreamUrl(selectedModalServer, selectedModalItem, selectedModalSeason, selectedModalEpisode);
+    }
+    if (titleEl) {
+      titleEl.textContent = `${selectedModalItem.title} — Season ${selectedModalSeason}, Ep ${selectedModalEpisode}`;
+    }
     showPlayerHudBriefly();
   }
 
@@ -529,7 +764,7 @@
     if (playerHudTimer) clearTimeout(playerHudTimer);
     playerHudTimer = setTimeout(() => {
       hud.classList.remove('visible');
-    }, 4000);
+    }, 5000);
   }
 
   // =========================================================================
@@ -548,17 +783,17 @@
       }
       if (key === 'MediaFastForward' || code === 228) {
         e.preventDefault();
-        showPlayerHudBriefly();
+        seekRelative(10);
         return;
       }
       if (key === 'MediaRewind' || code === 227) {
         e.preventDefault();
-        showPlayerHudBriefly();
+        seekRelative(-10);
         return;
       }
 
-      // Handle Back Button (Remote Back, Escape, Backspace)
-      if (key === 'Escape' || key === 'Backspace' || key === 'BrowserBack' || code === 27 || code === 8 || code === 4) {
+      // Universal TV Remote Back Key (Remote Back, Escape, Backspace, BrowserBack)
+      if (key === 'Escape' || key === 'Backspace' || key === 'BrowserBack' || code === 27 || code === 8 || code === 4 || code === 10009) {
         if (isPlayerActive) {
           e.preventDefault();
           closePlayer();
@@ -569,14 +804,14 @@
           closeDetailsModal();
           return;
         }
-        if (activeZone === 'keyboard' || activeZone === 'results') {
+        if (activeZone === 'search-bar' || activeZone === 'keyboard' || activeZone === 'results') {
           e.preventDefault();
           switchTab('home');
           return;
         }
       }
 
-      // Handle Directional D-Pad Navigation
+      // Directional D-Pad Navigation
       switch (key) {
         case 'ArrowUp':
         case 'Up':
@@ -600,9 +835,13 @@
           break;
         case 'Enter':
         case 'Select':
+        case 'Ok':
+        case 'Space':
         case ' ':
-          e.preventDefault();
-          executeCurrentSelection();
+          if (code === 13 || code === 32) {
+            e.preventDefault();
+            executeCurrentSelection();
+          }
           break;
       }
     });
@@ -611,6 +850,12 @@
   function navigateDpad(dir) {
     if (isPlayerActive) {
       showPlayerHudBriefly();
+      navigatePlayerHud(dir);
+      return;
+    }
+
+    if (activeZone === 'modal') {
+      navigateModal(dir);
       return;
     }
 
@@ -623,6 +868,7 @@
         // Leave nav rail into main content
         const rail = document.getElementById('tv-nav-rail');
         if (rail) rail.classList.remove('expanded');
+
         if (currentActiveTab === 'search') {
           activeZone = 'keyboard';
           keyboardRow = 0;
@@ -690,10 +936,28 @@
       return;
     }
 
+    if (activeZone === 'search-bar') {
+      if (dir === 'down') {
+        activeZone = 'keyboard';
+        keyboardRow = 0;
+        keyboardCol = 0;
+      } else if (dir === 'left') {
+        activeZone = 'nav';
+        const rail = document.getElementById('tv-nav-rail');
+        if (rail) rail.classList.add('expanded');
+      }
+      updateFocusUI();
+      return;
+    }
+
     if (activeZone === 'keyboard') {
       if (dir === 'up') {
         if (keyboardRow > 0) {
           keyboardRow--;
+        } else {
+          // Move up to Voice Search
+          activeZone = 'search-bar';
+          searchBarIndex = 1;
         }
       } else if (dir === 'down') {
         if (keyboardRow < 6) {
@@ -744,11 +1008,134 @@
         currentColIndex = Math.min(cards.length - 1, currentColIndex + 1);
       }
       updateFocusUI();
-      return;
     }
   }
 
+  // =========================================================================
+  // MODAL NAVIGATION (Servers, Actions, Seasons, Episodes)
+  // =========================================================================
+  function navigateModal(dir) {
+    const isSeries = selectedModalItem && selectedModalItem.type === 'series';
+    const seasonsContainer = document.getElementById('tv-details-seasons');
+    const seasonChipsCount = seasonsContainer ? seasonsContainer.children.length : 0;
+    const epScroller = document.getElementById('tv-episodes-scroller');
+    const epCardsCount = epScroller ? epScroller.children.length : 0;
+
+    if (dir === 'up') {
+      if (modalSubZone === 'episodes') {
+        modalSubZone = seasonChipsCount > 0 ? 'seasons' : 'actions';
+      } else if (modalSubZone === 'seasons') {
+        modalSubZone = 'actions';
+      } else if (modalSubZone === 'actions') {
+        modalSubZone = 'servers';
+      }
+    } else if (dir === 'down') {
+      if (modalSubZone === 'servers') {
+        modalSubZone = 'actions';
+      } else if (modalSubZone === 'actions') {
+        if (isSeries) {
+          modalSubZone = seasonChipsCount > 0 ? 'seasons' : 'episodes';
+        }
+      } else if (modalSubZone === 'seasons') {
+        if (epCardsCount > 0) modalSubZone = 'episodes';
+      }
+    } else if (dir === 'left') {
+      if (modalSubZone === 'servers') {
+        modalServerIdx = Math.max(0, modalServerIdx - 1);
+      } else if (modalSubZone === 'actions') {
+        modalActionIdx = Math.max(0, modalActionIdx - 1);
+      } else if (modalSubZone === 'seasons') {
+        modalSeasonIdx = Math.max(0, modalSeasonIdx - 1);
+      } else if (modalSubZone === 'episodes') {
+        modalEpIdx = Math.max(0, modalEpIdx - 1);
+      }
+    } else if (dir === 'right') {
+      if (modalSubZone === 'servers') {
+        modalServerIdx = Math.min(STREAM_SERVERS.length - 1, modalServerIdx + 1);
+      } else if (modalSubZone === 'actions') {
+        modalActionIdx = Math.min(1, modalActionIdx + 1);
+      } else if (modalSubZone === 'seasons') {
+        modalSeasonIdx = Math.min(seasonChipsCount - 1, modalSeasonIdx + 1);
+      } else if (modalSubZone === 'episodes') {
+        modalEpIdx = Math.min(epCardsCount - 1, modalEpIdx + 1);
+      }
+    }
+
+    updateFocusUI();
+  }
+
+  // =========================================================================
+  // PLAYER HUD NAVIGATION
+  // =========================================================================
+  function navigatePlayerHud(dir) {
+    if (dir === 'up') {
+      playerSubZone = 'back';
+    } else if (dir === 'down') {
+      playerSubZone = 'servers';
+    } else if (dir === 'left') {
+      if (playerSubZone === 'servers') {
+        playerServerIdx = Math.max(0, playerServerIdx - 1);
+      } else if (playerSubZone === 'episodes') {
+        playerEpAction = 0; // Prev Ep
+      }
+    } else if (dir === 'right') {
+      if (playerSubZone === 'servers') {
+        if (playerServerIdx < STREAM_SERVERS.length - 1) {
+          playerServerIdx++;
+        } else if (selectedModalItem && selectedModalItem.type === 'series') {
+          playerSubZone = 'episodes';
+          playerEpAction = 1; // Next Ep
+        }
+      }
+    }
+
+    updateFocusUI();
+  }
+
+  // =========================================================================
+  // EXECUTE CURRENT SELECTION (OK / ENTER)
+  // =========================================================================
   function executeCurrentSelection() {
+    if (isPlayerActive) {
+      if (playerSubZone === 'back') {
+        closePlayer();
+        return;
+      }
+      if (playerSubZone === 'servers') {
+        switchPlayerServer(playerServerIdx);
+        return;
+      }
+      if (playerSubZone === 'episodes') {
+        switchPlayerEpisode(playerEpAction === 0 ? -1 : 1);
+        return;
+      }
+      return;
+    }
+
+    if (activeZone === 'modal') {
+      if (modalSubZone === 'servers') {
+        selectedModalServer = modalServerIdx;
+        const chip = document.getElementById(`tv-modal-server-${modalServerIdx}`);
+        if (chip) {
+          document.querySelectorAll('.tv-server-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+        }
+      } else if (modalSubZone === 'actions') {
+        if (modalActionIdx === 0) {
+          startPlayback(selectedModalItem, selectedModalSeason, selectedModalEpisode, selectedModalServer);
+        } else {
+          closeDetailsModal();
+        }
+      } else if (modalSubZone === 'seasons') {
+        const seasonChip = document.getElementById(`tv-modal-season-${modalSeasonIdx}`);
+        if (seasonChip) seasonChip.click();
+      } else if (modalSubZone === 'episodes') {
+        const epCard = document.getElementById(`tv-modal-ep-${modalEpIdx}`);
+        if (epCard) epCard.click();
+      }
+      return;
+    }
+
     if (activeZone === 'nav') {
       const navItems = ['search', 'home', 'movies', 'series', 'ott'];
       switchTab(navItems[navIndex]);
@@ -761,13 +1148,10 @@
       if (!item) return;
 
       if (heroBtnIndex === 0) {
-        // Watch Now
         startPlayback(item, 1, 1, 0);
       } else if (heroBtnIndex === 1) {
-        // More Info
         openDetailsModal(item);
       } else {
-        // Watchlist
         alert(`Added ${item.title} to Watchlist`);
       }
       return;
@@ -778,6 +1162,11 @@
       if (!scroller || !scroller.children[currentColIndex]) return;
       const card = scroller.children[currentColIndex];
       card.click();
+      return;
+    }
+
+    if (activeZone === 'search-bar') {
+      onVoiceSearch();
       return;
     }
 
@@ -794,21 +1183,60 @@
       results.children[currentColIndex].click();
       return;
     }
-
-    if (activeZone === 'modal') {
-      startPlayback(selectedModalItem, selectedModalSeason, selectedModalEpisode, selectedModalServer);
-      return;
-    }
   }
 
+  // =========================================================================
+  // UPDATE VISUAL FOCUS HALO UI
+  // =========================================================================
   function updateFocusUI() {
+    // Clear all previous focus classes
     document.querySelectorAll('.tv-focused').forEach(el => el.classList.remove('tv-focused'));
+
+    if (isPlayerActive) {
+      if (playerSubZone === 'back') {
+        const backBtn = document.getElementById('tv-player-btn-back');
+        if (backBtn) backBtn.classList.add('tv-focused');
+      } else if (playerSubZone === 'servers') {
+        const chip = document.getElementById(`tv-player-server-${playerServerIdx}`);
+        if (chip) chip.classList.add('tv-focused');
+      } else if (playerSubZone === 'episodes') {
+        const btn = document.getElementById(playerEpAction === 0 ? 'tv-player-btn-prev-ep' : 'tv-player-btn-next-ep');
+        if (btn) btn.classList.add('tv-focused');
+      }
+      return;
+    }
+
+    if (activeZone === 'modal') {
+      if (modalSubZone === 'servers') {
+        const chip = document.getElementById(`tv-modal-server-${modalServerIdx}`);
+        if (chip) {
+          chip.classList.add('tv-focused');
+          chip.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } else if (modalSubZone === 'actions') {
+        const btnId = modalActionIdx === 0 ? 'tv-modal-play-btn' : 'tv-modal-close-btn';
+        const btn = document.getElementById(btnId);
+        if (btn) btn.classList.add('tv-focused');
+      } else if (modalSubZone === 'seasons') {
+        const chip = document.getElementById(`tv-modal-season-${modalSeasonIdx}`);
+        if (chip) {
+          chip.classList.add('tv-focused');
+          chip.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } else if (modalSubZone === 'episodes') {
+        const card = document.getElementById(`tv-modal-ep-${modalEpIdx}`);
+        if (card) {
+          card.classList.add('tv-focused');
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+      return;
+    }
 
     if (activeZone === 'nav') {
       const navLinks = document.querySelectorAll('.tv-nav-item');
       if (navLinks[navIndex]) {
         navLinks[navIndex].classList.add('tv-focused');
-        navLinks[navIndex].focus();
       }
       return;
     }
@@ -821,9 +1249,7 @@
       ];
       if (buttons[heroBtnIndex]) {
         buttons[heroBtnIndex].classList.add('tv-focused');
-        buttons[heroBtnIndex].focus();
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -834,17 +1260,19 @@
       const card = scroller.children[currentColIndex];
       if (card) {
         card.classList.add('tv-focused');
-        card.focus();
-
-        // Smoothly center card horizontally within row
-        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-
-        // Smoothly center row vertically on screen
-        const rowEl = document.getElementById(`tv-row-${currentRowIndex}`);
-        if (rowEl) {
-          rowEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
       }
+
+      const rowEl = document.getElementById(`tv-row-${currentRowIndex}`);
+      if (rowEl) {
+        rowEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    if (activeZone === 'search-bar') {
+      const voiceBtn = document.getElementById('tv-btn-voice');
+      if (voiceBtn) voiceBtn.classList.add('tv-focused');
       return;
     }
 
@@ -853,7 +1281,6 @@
       const btn = document.querySelector(selector);
       if (btn) {
         btn.classList.add('tv-focused');
-        btn.focus();
       }
       return;
     }
@@ -861,14 +1288,14 @@
     if (activeZone === 'results') {
       const results = document.getElementById('tv-search-results-grid');
       if (results && results.children[currentColIndex]) {
-        results.children[currentColIndex].classList.add('tv-focused');
-        results.children[currentColIndex].focus();
-        results.children[currentColIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const card = results.children[currentColIndex];
+        card.classList.add('tv-focused');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
       }
-      return;
     }
   }
 
+  // Tab Switcher
   function switchTab(tab) {
     currentActiveTab = tab;
     const rail = document.getElementById('tv-nav-rail');
@@ -906,4 +1333,5 @@
   window.startTvPlayback = startPlayback;
   window.closeTvPlayer = closePlayer;
   window.switchTvTab = switchTab;
+  window.executeCurrentSelection = executeCurrentSelection;
 })();
