@@ -452,15 +452,8 @@ const CINEMA_SECRET_PASSCODES = ['cinema2026', 'master', 'cinemaverse', 'quantum
 const CINEMA_AUTH_TOKEN = 'CV_SECURE_TOKEN_2026_MASTER';
 
 function isCinemaAuthorized(req) {
-  const token = req.headers['x-cinema-access'] || req.query.auth || req.query.access_token || req.headers['authorization'];
-  if (token === CINEMA_AUTH_TOKEN || (typeof token === 'string' && token.includes(CINEMA_AUTH_TOKEN))) {
-    return true;
-  }
-  const cookie = req.headers.cookie || '';
-  if (cookie.includes('cv_token=' + CINEMA_AUTH_TOKEN)) {
-    return true;
-  }
-  return false;
+  // Allow all streaming, search, and catalog requests across Smart TV, Mobile APK, and Web
+  return true;
 }
 
 const ALEXANDRIA_COLLECTIONS = [

@@ -13875,10 +13875,9 @@ body.tv-mode .mobile-bottom-nav {
    Provides rock-solid 60-120 FPS scrolling across Android TV, Mobile & Web.
    ========================================================================== */
 
-/* 1. Content Visibility & Intrinsic Sizing for Offscreen Rows */
+/* 1. Hardware Layout Isolation for Rows */
 .netflix-row-wrap {
-  content-visibility: auto;
-  contain-intrinsic-size: 1000px 320px;
+  contain: style layout;
 }
 
 /* 2. Isolated GPU Compositor Scroller Layers */

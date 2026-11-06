@@ -119,6 +119,11 @@ if (window.history && window.history.pushState) {
 
 // Initialize Application whether this script loads before or after DOMContentLoaded.
 async function initializeApplication() {
+  if (typeof isTvEnvironment === 'function' && isTvEnvironment() && !window.location.pathname.startsWith('/tv')) {
+    window.location.replace('/tv');
+    return;
+  }
+
   setupNavbarScroll();
   setupSearch();
   setupKeyboardShortcuts();

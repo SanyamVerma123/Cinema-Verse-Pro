@@ -93,7 +93,17 @@ public class MainActivity extends AppCompatActivity {
 
     private String getTargetUrl() {
         String defaultUrl = getString(R.string.default_web_url);
-        return preferences.getString(KEY_SERVER_URL, defaultUrl);
+        String baseUrl = preferences.getString(KEY_SERVER_URL, defaultUrl);
+        if (isTelevision()) {
+            if (!baseUrl.contains("/tv")) {
+                if (baseUrl.endsWith("/")) {
+                    return baseUrl + "tv";
+                } else {
+                    return baseUrl + "/tv";
+                }
+            }
+        }
+        return baseUrl;
     }
 
     private void saveTargetUrl(String url) {
@@ -408,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 if (webView != null) {
                     if (!webView.hasFocus()) webView.requestFocus();
-                    return super.onKeyDown(keyCode, event);
+                    return webView.dispatchKeyEvent(event);
                 }
                 break;
             case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
@@ -442,6 +452,36 @@ public class MainActivity extends AppCompatActivity {
             WebChromeClient client = new CinemaWebChromeClient();
             client.onHideCustomView();
             return;
+        }
+
+        // Smart TV Back key routing for modals, search, and TV player
+        if (isTelevision()) {
+            if (webView != null) {
+                webView.evaluateJavascript(
+                    "(function(){" +
+                    "  if (window.closeTvPlayer && document.getElementById('tv-player-overlay')?.classList.contains('active')) { window.closeTvPlayer(); return true; }" +
+                    "  if (window.closeTvDetailsModal && document.getElementById('tv-details-modal')?.classList.contains('active')) { window.closeTvDetailsModal(); return true; }" +
+                    "  if (window.switchTvTab && document.getElementById('tv-search-container')?.classList.contains('active')) { window.switchTvTab('home'); return true; }" +
+                    "  if (window.closeDetailsModal && document.getElementById('details-modal')?.style.display === 'flex') { window.closeDetailsModal(); return true; }" +
+                    "  return false;" +
+                    "})()",
+                    value -> {
+                        if ("false".equals(value) || value == null) {
+                            runOnUiThread(() -> {
+                                if (webView.canGoBack()) {
+                                    webView.goBack();
+                                } else if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                                    super.onBackPressed();
+                                } else {
+                                    Toast.makeText(this, "Press back again to exit CinemaVerse", Toast.LENGTH_SHORT).show();
+                                    backPressedTime = System.currentTimeMillis();
+                                }
+                            });
+                        }
+                    }
+                );
+                return;
+            }
         }
 
         // 2. If webView can navigate back in browsing history
