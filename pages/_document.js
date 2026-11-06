@@ -21,6 +21,11 @@ export default function Document() {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <link rel="stylesheet" href="/styles.css" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.FALLBACK_POSTER='https://images.metahub.space/poster/medium/tt4574334/img';window.handleImgError=function(img,fallback){if(!img)return;img.onerror=null;img.src=fallback||window.FALLBACK_POSTER;};`
+          }}
+        />
       </Head>
       <body className="netflix-body">
         <Main />

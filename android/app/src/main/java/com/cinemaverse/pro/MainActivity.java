@@ -200,6 +200,12 @@ public class MainActivity extends AppCompatActivity {
             settings.setNeedInitialFocus(true);
         }
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setOffscreenPreRaster(true);
+        }
+        webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        webView.setVerticalScrollBarEnabled(false);
+        webView.setHorizontalScrollBarEnabled(false);
 
         // 3. Media & Video Streaming
         settings.setMediaPlaybackRequiresUserGesture(false);

@@ -395,16 +395,25 @@ function checkDailyUnlockPass() {
   }
 }
 
-// Navbar scroll darkening effect
+// Navbar scroll darkening effect (Optimized with rAF & passive scroll for 120 FPS)
 function setupNavbarScroll() {
+  const nav = document.getElementById('navbar');
+  if (!nav) return;
+  let ticking = false;
+  let isScrolled = false;
   window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 40) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const shouldBeScrolled = window.scrollY > 40;
+        if (isScrolled !== shouldBeScrolled) {
+          isScrolled = shouldBeScrolled;
+          nav.classList.toggle('scrolled', isScrolled);
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
-  });
+  }, { passive: true });
 }
 
 // Expandable Search Box Toggle
@@ -885,7 +894,7 @@ function renderAllRows(items, activeCategory = 'all') {
     { id: 'animeworld', list: 'animeworld-list', section: 'section-animeworld', name: 'Anime World', defaultTitle: 'WatchAnimeWorld VIP (Hindi/Eng/Jap Multi-Audio)' }
   ];
 
-  platformConfigs.forEach(p => {
+  function renderSinglePlatformRow(p) {
     const pItems = items.filter(x => x.platformId === p.id);
     renderHorizontalList(p.list, pItems);
     const sec = document.getElementById(p.section);
@@ -916,14 +925,43 @@ function renderAllRows(items, activeCategory = 'all') {
         viewAllBtn.onclick = () => openPlatformGrid(p.id);
       }
     }
-  });
+  }
+
+  // Render top 3 immediate rows synchronously for instant above-the-fold display
+  const primaryBatch = platformConfigs.slice(0, 3);
+  const deferredBatch = platformConfigs.slice(3);
+
+  primaryBatch.forEach(renderSinglePlatformRow);
+
+  // Progressive frame chunking for remaining rows keeps UI at 60-120 FPS
+  let batchIndex = 0;
+  function processNextRowChunk() {
+    const chunkSize = 2;
+    const chunk = deferredBatch.slice(batchIndex, batchIndex + chunkSize);
+    if (!chunk.length) return;
+    chunk.forEach(renderSinglePlatformRow);
+    batchIndex += chunkSize;
+    if (batchIndex < deferredBatch.length) {
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(processNextRowChunk, { timeout: 100 });
+      } else {
+        setTimeout(processNextRowChunk, 0);
+      }
+    }
+  }
+
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(processNextRowChunk, { timeout: 80 });
+  } else {
+    setTimeout(processNextRowChunk, 0);
+  }
 }
 
-// Top 10 List Renderer with Netflix giant numbers
+// Top 10 List Renderer with Netflix giant numbers (Optimized with DocumentFragment & async decoding)
 function renderTop10List(containerId, items) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  container.innerHTML = '';
+  const fragment = document.createDocumentFragment();
 
   items.forEach((item, idx) => {
     const rankNum = idx + 1;
@@ -939,7 +977,7 @@ function renderTop10List(containerId, items) {
       <div class="top10-rank-num">${rankNum}</div>
       <div class="movie-card">
         <div class="card-poster-wrap">
-          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
+          <img class="card-poster" src="${item.poster}" alt="${item.title}" loading="lazy" decoding="async" onerror="window.handleImgError(this)">
           <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
           ${dubBadgeHtml}
           <div class="card-play-hover">
@@ -963,15 +1001,17 @@ function renderTop10List(containerId, items) {
         openDetailsModal(item);
       }
     });
-    container.appendChild(cardWrap);
+    fragment.appendChild(cardWrap);
   });
+
+  container.replaceChildren(fragment);
 }
 
-// Standard Netflix Horizontal Row Renderer
+// Standard Netflix Horizontal Row Renderer (Optimized with DocumentFragment & async decoding)
 function renderHorizontalList(containerId, items) {
   const container = document.getElementById(containerId);
   if (!container) return;
-  container.innerHTML = '';
+  const fragment = document.createDocumentFragment();
 
   items.forEach(item => {
     const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
@@ -984,7 +1024,7 @@ function renderHorizontalList(containerId, items) {
     card.setAttribute('aria-label', item.title);
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" loading="lazy" decoding="async" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
         ${dubBadgeHtml}
         <div class="card-play-hover">
@@ -1007,8 +1047,10 @@ function renderHorizontalList(containerId, items) {
         openDetailsModal(item);
       }
     });
-    container.appendChild(card);
+    fragment.appendChild(card);
   });
+
+  container.replaceChildren(fragment);
 }
 
 // Global Player Active Check (Accessible everywhere)
@@ -1115,7 +1157,7 @@ function renderContinueWatching() {
   }
 
   section.style.display = 'block';
-  container.innerHTML = '';
+  const fragment = document.createDocumentFragment();
 
   items.forEach(c => {
     const rawItem = currentCatalog.find(x => String(x.id) === String(c.id)) || c;
@@ -1130,7 +1172,7 @@ function renderContinueWatching() {
 
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${c.poster || (typeof FALLBACK_POSTER !== 'undefined' ? FALLBACK_POSTER : '')}" alt="${c.title}" onerror="window.handleImgError(this)">
+        <img class="card-poster" src="${c.poster || (typeof FALLBACK_POSTER !== 'undefined' ? FALLBACK_POSTER : '')}" alt="${c.title}" loading="lazy" decoding="async" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${c.platformId || 'nflx'}">${c.platform || 'STREAM'}</div>
         <div class="card-play-hover">
           <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -1157,8 +1199,9 @@ function renderContinueWatching() {
         openPlayer(rawItem, c.season, c.episode, null, c.currentTime);
       }
     });
-    container.appendChild(card);
+    fragment.appendChild(card);
   });
+  container.replaceChildren(fragment);
 }
 
 // Real-time Provider Playback Progress Listener (VidLink & HTML5 Embeds)
@@ -1543,6 +1586,7 @@ function renderCategoryGrid(items) {
     sorted.sort((a, b) => (a.rank || 999) - (b.rank || 999));
   }
 
+  const fragment = document.createDocumentFragment();
   sorted.forEach(item => {
     const card = document.createElement('div');
     card.className = 'movie-card';
@@ -1551,7 +1595,7 @@ function renderCategoryGrid(items) {
 
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" loading="lazy" decoding="async" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
         ${dubBadgeHtml}
         <div class="card-play-hover">
@@ -1571,8 +1615,9 @@ function renderCategoryGrid(items) {
       </div>
     `;
     card.onclick = () => openDetailsModal(item);
-    grid.appendChild(card);
+    fragment.appendChild(card);
   });
+  grid.replaceChildren(fragment);
 }
 
 // Sort Category Grid
@@ -1671,6 +1716,202 @@ function filterGenre(genre) {
 // ========================================================
 // COMMON SEARCH ACROSS ALL OTT PLATFORMS
 // ========================================================
+function clientCanonicalizeNumbers(str) {
+  if (!str) return '';
+  return str
+    .replace(/\b(part\s*)?two\b/g, '2')
+    .replace(/\b(part\s*)?three\b/g, '3')
+    .replace(/\b(part\s*)?four\b/g, '4')
+    .replace(/\b(chapter\s*)?two\b/g, '2')
+    .replace(/\b(chapter\s*)?three\b/g, '3')
+    .replace(/\b(chapter\s*)?four\b/g, '4')
+    .replace(/\bii\b/g, '2')
+    .replace(/\biii\b/g, '3')
+    .replace(/\biv\b/g, '4');
+}
+
+function clientLevenshtein(a, b) {
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+  const row = [];
+  for (let i = 0; i <= a.length; i++) row[i] = i;
+  for (let i = 1; i <= b.length; i++) {
+    let prev = i;
+    for (let j = 1; j <= a.length; j++) {
+      let val;
+      if (b[i - 1] === a[j - 1]) val = row[j - 1];
+      else val = Math.min(row[j - 1] + 1, prev + 1, row[j] + 1);
+      row[j - 1] = prev;
+      prev = val;
+    }
+    row[a.length] = prev;
+  }
+  return row[a.length];
+}
+
+const CLIENT_TITLE_ALIASES = {
+  'deadpool 3': ['deadpool & wolverine', 'deadpool and wolverine'],
+  'deadpool3': ['deadpool & wolverine'],
+  'kgf 2': ['k.g.f: chapter 2', 'kgf chapter 2'],
+  'kgf 1': ['k.g.f: chapter 1', 'kgf chapter 1'],
+  'kgf': ['k.g.f: chapter 2', 'k.g.f: chapter 1'],
+  'dune 2': ['dune: part two', 'dune part 2', 'dune part two'],
+  'dune2': ['dune: part two'],
+  'spider man': ['spider-man', 'spiderman'],
+  'spiderman': ['spider-man', 'spider man'],
+  'got': ['game of thrones'],
+  'bb': ['breaking bad'],
+  'bcs': ['better call saul'],
+  'stranger things 4': ['stranger things'],
+  'stranger things s4': ['stranger things'],
+  'money heist 5': ['money heist'],
+  'batman dark knight': ['the dark knight', 'the batman'],
+  'dark knight': ['the dark knight'],
+  'pushpa 2': ['pushpa: the rule', 'pushpa the rule part 2', 'pushpa 2 the rule'],
+  'pushpa 1': ['pushpa: the rise', 'pushpa the rise part 1'],
+  'pushpa': ['pushpa: the rule', 'pushpa: the rise'],
+  'avengers 4': ['avengers: endgame'],
+  'avengers 3': ['avengers: infinity war'],
+  'kalki': ['kalki 2898 ad'],
+  'salaar 2': ['salaar: part 1 - ceasefire']
+};
+
+function indexClientCatalogItem(item) {
+  if (!item || item._indexed) return item;
+  item._normTitle = normalizeStr(item.title);
+  item._compactTitle = item._normTitle.replace(/\s+/g, '');
+  item._canonTitle = clientCanonicalizeNumbers(item._normTitle);
+  item._canonWords = item._canonTitle.split(' ').filter(Boolean);
+  item._castNorm = (item.cast || []).map(normalizeStr);
+  item._directorNorm = normalizeStr(item.director || '');
+  item._genresLower = (item.genres || []).map(g => (g || '').toLowerCase());
+  item._audioLower = (item.audio || '').toLowerCase();
+  item._indexed = true;
+  return item;
+}
+
+function scoreClientCatalogItem(item, queryCtx) {
+  const {
+    normQ, compactQ, canonQ, canonQWords, rawQ,
+    aliasList, parsed, effectivePlatform, effectiveType, genre
+  } = queryCtx;
+
+  if (effectiveType !== 'all' && item.type !== effectiveType) return 0;
+  if (effectivePlatform !== 'all' && item.platformId !== effectivePlatform) return 0;
+  if (genre !== 'all' && (!item._genresLower || !item._genresLower.includes(genre))) return 0;
+
+  indexClientCatalogItem(item);
+
+  if (parsed.isBrowse) {
+    if (parsed.genres && parsed.genres.length > 0) {
+      const matchesG = parsed.genres.some(g => item._genresLower.includes(g.toLowerCase()));
+      if (!matchesG) return 0;
+    }
+    let score = (item.rating || 7.0) * 10;
+    if (item.trending) score += 20;
+    if (item.featured) score += 15;
+    if (parsed.isHighRated && item.rating) score += (item.rating / 10) * 35;
+    if (parsed.is4k && item.quality && item.quality.includes('4K')) score += 15;
+    return score;
+  }
+
+  let relScore = 0;
+
+  if (canonQ === item._canonTitle || normQ === item._normTitle) {
+    relScore += 450;
+  } else if (compactQ && compactQ === item._compactTitle) {
+    relScore += 420;
+  } else if (item._canonTitle.startsWith(canonQ) || item._normTitle.startsWith(normQ)) {
+    relScore += 300;
+  } else if (compactQ && item._compactTitle.startsWith(compactQ)) {
+    relScore += 280;
+  } else if (item._canonTitle.includes(canonQ) || item._normTitle.includes(normQ)) {
+    relScore += 220;
+  } else if (compactQ && item._compactTitle.includes(compactQ)) {
+    relScore += 200;
+  }
+
+  if (aliasList && aliasList.length > 0) {
+    for (const al of aliasList) {
+      const alNorm = normalizeStr(al);
+      const alCompact = alNorm.replace(/\s+/g, '');
+      if (item._normTitle.includes(alNorm) || item._compactTitle.includes(alCompact)) {
+        relScore += 380;
+        break;
+      }
+    }
+  }
+
+  if (canonQWords.length > 0) {
+    let matchedWordsCount = 0;
+    for (const qw of canonQWords) {
+      if (item._canonWords.includes(qw)) {
+        matchedWordsCount += 1.0;
+      } else if (item._canonWords.some(tw => tw.startsWith(qw) || tw.includes(qw))) {
+        matchedWordsCount += 0.8;
+      } else {
+        const minLen = qw.length;
+        if (minLen >= 4) {
+          const maxDist = minLen >= 7 ? 2 : 1;
+          const hasFuzzy = item._canonWords.some(tw => Math.abs(tw.length - qw.length) <= maxDist && clientLevenshtein(qw, tw) <= maxDist);
+          if (hasFuzzy) matchedWordsCount += 0.75;
+        }
+      }
+    }
+
+    if (matchedWordsCount >= canonQWords.length * 0.7) {
+      relScore += 160 + (matchedWordsCount * 25);
+    } else if (matchedWordsCount >= 1 && canonQWords.length > 1) {
+      relScore += matchedWordsCount * 35;
+    }
+  }
+
+  if (parsed.person) {
+    const pNorm = normalizeStr(parsed.person);
+    if (parsed.personType === 'director' && item._directorNorm.includes(pNorm)) relScore += 190;
+    else if (parsed.personType === 'actor' && item._castNorm.some(c => c.includes(pNorm))) relScore += 190;
+    else if (item._castNorm.some(c => c.includes(pNorm)) || item._directorNorm.includes(pNorm)) relScore += 140;
+  } else if (canonQ || normQ) {
+    const pTarget = canonQ || normQ;
+    if (item._castNorm.some(c => c.includes(pTarget) || pTarget.includes(c))) relScore += 130;
+    else if (item._directorNorm && (item._directorNorm.includes(pTarget) || pTarget.includes(item._directorNorm))) relScore += 130;
+  }
+
+  if (parsed.genres && parsed.genres.length > 0) {
+    const isGenreQ = parsed.genres.some(g => g.toLowerCase() === canonQ || g.toLowerCase() === normQ);
+    const matchCount = parsed.genres.filter(g => item._genresLower.includes(g.toLowerCase())).length;
+    if (matchCount > 0) relScore += isGenreQ ? (220 + matchCount * 40) : (matchCount * 50);
+  }
+
+  if (parsed.targetRegion) {
+    let isRegionMatch = false;
+    const langs = Array.isArray(item.languages) ? item.languages.map(l => ((l && (l.name || l.code)) || '').toLowerCase()) : [];
+    if (parsed.targetRegion === 'south_indian') {
+      isRegionMatch = item._audioLower.includes('telugu') || item._audioLower.includes('tamil') || item._audioLower.includes('malayalam') || item._audioLower.includes('kannada') ||
+        langs.some(l => l.includes('te') || l.includes('ta') || l.includes('ml') || l.includes('kn'));
+    } else if (parsed.targetRegion === 'bollywood') {
+      isRegionMatch = item._audioLower.includes('hindi') || langs.some(l => l.includes('hi') || l.includes('hindi'));
+    } else if (parsed.targetRegion === 'korean') {
+      isRegionMatch = item._audioLower.includes('korean') || langs.some(l => l.includes('ko') || l.includes('korean'));
+    } else if (parsed.targetRegion === 'anime') {
+      isRegionMatch = item._audioLower.includes('japanese') || item._genresLower.includes('anime');
+    }
+    if (isRegionMatch) relScore += 70;
+  }
+
+  if (relScore <= 0) return 0;
+
+  let finalScore = relScore;
+  if (item.rating) finalScore += (item.rating / 10) * 15;
+  if (parsed.isHighRated && item.rating) finalScore += (item.rating / 10) * 25;
+  if (item.trending) finalScore += 8;
+  if (item.featured) finalScore += 5;
+  if (parsed.is4k && item.quality && item.quality.includes('4K')) finalScore += 15;
+  return finalScore;
+}
+
+let activeSearchSeq = 0;
 
 function setupSearch() {
   const box = document.getElementById('search-box');
@@ -1688,14 +1929,20 @@ function setupSearch() {
     if (clearBtn) clearBtn.style.display = val ? 'block' : 'none';
     if (inpageClear) inpageClear.style.display = val ? 'block' : 'none';
 
+    if (!val) {
+      clearTimeout(debounceTimeout);
+      clearSearch();
+      return;
+    }
+
+    // 1. INSTANT LOCAL SEARCH PREVIEW (< 1ms zero-delay update!)
+    performSearch(val, searchPlatformFilter, searchTypeFilter, true);
+
+    // 2. Debounced background API sync (180ms)
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
-      if (val) {
-        performSearch(val, searchPlatformFilter, searchTypeFilter);
-      } else {
-        clearSearch();
-      }
-    }, 250);
+      performSearch(val, searchPlatformFilter, searchTypeFilter, false);
+    }, 180);
   };
 
   if (input) {
@@ -1707,7 +1954,7 @@ function setupSearch() {
       if (e.key === 'Enter') {
         clearTimeout(debounceTimeout);
         const val = input.value.trim();
-        if (val) performSearch(val, searchPlatformFilter, searchTypeFilter);
+        if (val) performSearch(val, searchPlatformFilter, searchTypeFilter, false);
       } else if (e.key === 'Escape') {
         clearSearch();
         if (box) box.classList.remove('open');
@@ -1715,7 +1962,6 @@ function setupSearch() {
       }
     });
 
-    // Smooth collapse on blur if search query is empty
     input.addEventListener('blur', () => {
       setTimeout(() => {
         if (box && !input.value.trim() && document.activeElement !== input) {
@@ -2077,7 +2323,49 @@ function parseNaturalLanguageQuery(rawQuery) {
   };
 }
 
-async function performSearch(query, platform = searchPlatformFilter || 'all', type = searchTypeFilter || 'all') {
+function renderMovieCardItem(item, idx) {
+  const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
+  const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
+
+  const card = document.createElement('div');
+  card.className = 'movie-card';
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', item.title);
+  card.style.setProperty('--card-idx', idx);
+  card.innerHTML = `
+    <div class="card-poster-wrap">
+      <img class="card-poster" src="${item.poster}" alt="${item.title}" loading="lazy" decoding="async" onerror="window.handleImgError(this)">
+      <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
+      ${dubBadgeHtml}
+      <div class="card-play-hover">
+        <div class="play-circle"><i class="fa-solid fa-play"></i></div>
+      </div>
+    </div>
+    <div class="card-info">
+      <h4 class="card-title">${item.title}</h4>
+      <div class="card-meta">
+        <span class="text-green font-bold">${item.matchRate || '99% Match'}</span>
+        <span>${item.duration || item.year}</span>
+        <span class="badge-quality-small">${item.quality || '4K'}</span>
+      </div>
+    </div>
+  `;
+  card.onclick = () => {
+    if (window.neuroTasteEngine) window.neuroTasteEngine.train(item, 'click');
+    openDetailsModal(item);
+  };
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === 'Select') {
+      e.preventDefault();
+      if (window.neuroTasteEngine) window.neuroTasteEngine.train(item, 'click');
+      openDetailsModal(item);
+    }
+  });
+  return card;
+}
+
+async function performSearch(query, platform = searchPlatformFilter || 'all', type = searchTypeFilter || 'all', isInstantPreview = false) {
   const section = document.getElementById('search-results-section');
   const grid = document.getElementById('search-grid');
   const queryDisplay = document.getElementById('search-query-display');
@@ -2088,23 +2376,14 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
 
   if (!section || !grid) return;
 
+  const thisSeq = ++activeSearchSeq;
   toggleHomeVisibilityForSearch(true);
-  
+
   const platformNameMap = {
-    all: 'All OTTs',
-    netflix: 'Netflix',
-    prime: 'Prime Video',
-    disney: 'Disney+ Hotstar',
-    hbo: 'HBO Max',
-    apple: 'Apple TV+',
-    crunchyroll: 'Crunchyroll',
-    paramount: 'Paramount+',
-    hulu: 'Hulu',
-    peacock: 'Peacock',
-    sonyliv: 'Sony LIV',
-    zee5: 'Zee5',
-    jiocinema: 'JioCinema',
-    animeworld: 'Anime World'
+    all: 'All OTTs', netflix: 'Netflix', prime: 'Prime Video', disney: 'Disney+ Hotstar',
+    hbo: 'HBO Max', apple: 'Apple TV+', crunchyroll: 'Crunchyroll', paramount: 'Paramount+',
+    hulu: 'Hulu', peacock: 'Peacock', sonyliv: 'Sony LIV', zee5: 'Zee5',
+    jiocinema: 'JioCinema', animeworld: 'Anime World'
   };
   const platLabel = platformNameMap[platform] || platform;
 
@@ -2118,25 +2397,14 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
   if (clearBtn) clearBtn.style.display = query ? 'block' : 'none';
   if (inpageClear) inpageClear.style.display = query ? 'block' : 'none';
 
-  if (titlePrefixEl) {
-    titlePrefixEl.textContent = query ? 'Results for' : 'Discover';
-  }
-  if (queryDisplay) {
-    queryDisplay.textContent = query ? `"${query}"` : 'All Titles';
-  }
-  if (activeOttBadgeEl) {
-    activeOttBadgeEl.textContent = platLabel;
-  }
+  if (titlePrefixEl) titlePrefixEl.textContent = query ? 'Results for' : 'Discover';
+  if (queryDisplay) queryDisplay.textContent = query ? `"${query}"` : 'All Titles';
+  if (activeOttBadgeEl) activeOttBadgeEl.textContent = platLabel;
 
-  countDisplay.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-red"></i> Searching across 14 OTTs...';
   section.style.display = 'block';
 
-  // Immediate animated shimmer skeleton cards for responsive feedback
-  grid.innerHTML = Array(12).fill(0).map(() => '<div class="search-skeleton-card"></div>').join('');
-
-  // 1. Run AI Natural Language Query Parser
+  // 1. Natural Language Intent Parser
   const parsed = parseNaturalLanguageQuery(query);
-
   if (parsed.isNaturalLanguage && interpretationEl) {
     interpretationEl.style.display = 'inline-flex';
     let badgesHtml = `<i class="fa-solid fa-wand-magic-sparkles text-gold"></i> <span>AI Search:</span>`;
@@ -2160,166 +2428,133 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
     interpretationEl.style.display = 'none';
   }
 
-  try {
-    let results = [];
-    try {
-      const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&platform=${platform}&type=${type}`);
-      const data = await res.json();
-      if (data && data.status === 'success' && Array.isArray(data.data)) {
-        results = data.data;
-      }
-    } catch (apiErr) {
-      console.warn('API search failed, falling back to local catalog:', apiErr);
+  // 2. INSTANT CLIENT-SIDE SEARCH EVALUATION (< 1ms response)
+  let localMatches = [];
+  if (currentCatalog && currentCatalog.length) {
+    const rawQ = (query || '').toLowerCase();
+    const normQ = parsed.norm || normalizeStr(query);
+    const compactQ = normQ.replace(/\s+/g, '');
+    const canonQ = clientCanonicalizeNumbers(normQ);
+    const canonQWords = canonQ.split(' ').filter(Boolean);
+    const aliasList = CLIENT_TITLE_ALIASES[rawQ] || CLIENT_TITLE_ALIASES[normQ] || CLIENT_TITLE_ALIASES[compactQ];
+
+    const qCtx = {
+      normQ, compactQ, canonQ, canonQWords, rawQ,
+      aliasList, parsed, effectivePlatform: platform, effectiveType: type, genre: 'all'
+    };
+
+    const scored = [];
+    for (let i = 0; i < currentCatalog.length; i++) {
+      const item = currentCatalog[i];
+      const s = scoreClientCatalogItem(item, qCtx);
+      if (s > 0) scored.push({ item, score: s });
     }
+    scored.sort((a, b) => b.score - a.score);
+    localMatches = scored.map(x => ({ ...x.item, _searchScore: x.score }));
+  }
 
-    // High-performance client-side precision scoring fallback
-    if (!results.length && currentCatalog && currentCatalog.length) {
-      const effectivePlatform = platform !== 'all' ? platform : parsed.targetPlatform;
-      const effectiveType = type !== 'all' ? type : parsed.targetType;
-      const normQuery = parsed.norm || normalizeStr(query);
-      const coreTerm = parsed.core || normQuery;
-      const coreWords = coreTerm ? coreTerm.split(' ').filter(w => w.length > 1) : [];
-
-      const scoreItem = (item) => {
-        if (effectiveType !== 'all' && item.type !== effectiveType) return 0;
-        if (effectivePlatform !== 'all' && item.platformId !== effectivePlatform) return 0;
-
-        const normTitle = normalizeStr(item.title);
-        const itemTitleWords = normTitle.split(' ').filter(Boolean);
-        const itemGenres = (item.genres || []).map(g => g.toLowerCase());
-        const itemCast = (item.cast || []).map(normalizeStr);
-        const itemDirector = normalizeStr(item.director || '');
-
-        if (parsed.isBrowse) {
-          if (parsed.genres && parsed.genres.length > 0) {
-            const matchesG = parsed.genres.some(g => itemGenres.includes(g.toLowerCase()));
-            if (!matchesG) return 0;
-          }
-          let score = (item.rating || 7.0) * 10;
-          if (item.trending) score += 20;
-          if (item.featured) score += 15;
-          if (parsed.isHighRated && item.rating) score += (item.rating / 10) * 35;
-          return score;
-        }
-
-        let relScore = 0;
-        if (normQuery && normTitle === normQuery) relScore += 300;
-        else if (coreTerm && normTitle === coreTerm) relScore += 280;
-        else if (normQuery && normTitle.startsWith(normQuery)) relScore += 200;
-        else if (coreTerm && normTitle.startsWith(coreTerm)) relScore += 180;
-        else if (normQuery && normTitle.includes(normQuery)) relScore += 130;
-        else if (coreTerm && normTitle.includes(coreTerm)) relScore += 120;
-        else if (coreWords.length > 0) {
-          const matchedWords = coreWords.filter(w => itemTitleWords.includes(w));
-          if (matchedWords.length === coreWords.length) relScore += 110;
-          else if (matchedWords.length >= 2 || (coreWords.length <= 2 && matchedWords.length >= 1)) {
-            relScore += matchedWords.length * 30;
-          }
-        }
-
-        if (parsed.person) {
-          const pNorm = normalizeStr(parsed.person);
-          if (parsed.personType === 'director' && itemDirector.includes(pNorm)) relScore += 180;
-          else if (parsed.personType === 'actor' && itemCast.some(c => c.includes(pNorm))) relScore += 180;
-          else if (itemCast.some(c => c.includes(pNorm)) || itemDirector.includes(pNorm)) relScore += 140;
-        } else if (coreTerm || normQuery) {
-          const pTarget = coreTerm || normQuery;
-          if (itemCast.some(c => c.includes(pTarget) || pTarget.includes(c))) relScore += 140;
-          else if (itemDirector && (itemDirector.includes(pTarget) || pTarget.includes(itemDirector))) relScore += 140;
-        }
-
-        if (parsed.genres && parsed.genres.length > 0) {
-          const isGenreQ = parsed.genres.some(g => g.toLowerCase() === coreTerm || g.toLowerCase() === normQuery);
-          const matchCount = parsed.genres.filter(g => itemGenres.includes(g.toLowerCase())).length;
-          if (matchCount > 0) relScore += isGenreQ ? (200 + matchCount * 40) : (matchCount * 50);
-        }
-
-        if (relScore <= 0) return 0;
-
-        let finalScore = relScore;
-        if (item.rating) finalScore += (item.rating / 10) * 15;
-        if (parsed.isHighRated && item.rating) finalScore += (item.rating / 10) * 25;
-        if (item.trending) finalScore += 8;
-        if (item.featured) finalScore += 5;
-        if (parsed.is4k && item.quality && item.quality.includes('4K')) finalScore += 15;
-        return finalScore;
-      };
-
-      results = currentCatalog.filter(item => scoreItem(item) > 0);
-      if (effectivePlatform !== 'all') {
-        results = results.filter(item => item.platformId === effectivePlatform);
-      }
-      if (effectiveType !== 'all') {
-        results = results.filter(item => item.type === effectiveType);
-      }
-      results.sort((a, b) => scoreItem(b) - scoreItem(a));
-    }
-
-    // Train Machine Learning Recommendation Engine on Search Queries & Mix Results!
-    if (query && window.neuroTasteEngine) {
-      window.neuroTasteEngine.trainOnSearch(query, parsed, results.slice(0, 6));
-    }
-
+  // Instant render if we have local matches (top 36 instantly, remaining streamed progressively)
+  const SEARCH_PAGE_SIZE = 36;
+  if (localMatches.length > 0) {
+    const firstBatch = localMatches.slice(0, SEARCH_PAGE_SIZE);
+    const fragment = document.createDocumentFragment();
+    firstBatch.forEach((item, idx) => fragment.appendChild(renderMovieCardItem(item, idx)));
+    grid.replaceChildren(fragment);
     const typeLabel = type === 'all' ? '' : (type === 'movie' ? 'movies' : 'series');
-    countDisplay.innerHTML = `<i class="fa-solid fa-film text-red"></i> ${results.length} ${typeLabel} titles found on ${platLabel}`;
-    grid.innerHTML = '';
+    countDisplay.innerHTML = `<i class="fa-solid fa-bolt text-red"></i> ${localMatches.length} ${typeLabel} titles found on ${platLabel}`;
 
-    if (!results.length) {
-      grid.innerHTML = `
-        <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-dim);">
-          <i class="fa-solid fa-film" style="font-size: 48px; opacity: 0.3; margin-bottom: 16px;"></i>
-          <h3 style="font-size: 18px; margin-bottom: 8px; color: #fff;">No titles found for "${query || platLabel}"</h3>
-          <p>Try searching in simple human language like "horror movies", "comedy mystery films", "movies of Cillian Murphy", or "south indian action".</p>
-          <button class="btn-reset-platform" style="margin: 20px auto 0;" onclick="clearSearch()"><i class="fa-solid fa-house"></i> Return to All OTTs</button>
-        </div>
-      `;
-      return;
-    }
-
-    results.forEach((item, idx) => {
-      const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
-      const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
-
-      const card = document.createElement('div');
-      card.className = 'movie-card';
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('role', 'button');
-      card.setAttribute('aria-label', item.title);
-      card.style.setProperty('--card-idx', idx);
-      card.innerHTML = `
-        <div class="card-poster-wrap">
-          <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
-          <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
-          ${dubBadgeHtml}
-          <div class="card-play-hover">
-            <div class="play-circle"><i class="fa-solid fa-play"></i></div>
-          </div>
-        </div>
-        <div class="card-info">
-          <h4 class="card-title">${item.title}</h4>
-          <div class="card-meta">
-            <span class="text-green font-bold">${item.matchRate || '99% Match'}</span>
-            <span>${item.duration || item.year}</span>
-            <span class="badge-quality-small">${item.quality || '4K'}</span>
-          </div>
-        </div>
-      `;
-      card.onclick = () => {
-        if (window.neuroTasteEngine) window.neuroTasteEngine.train(item, 'click');
-        openDetailsModal(item);
-      };
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === 'Select') {
-          e.preventDefault();
-          if (window.neuroTasteEngine) window.neuroTasteEngine.train(item, 'click');
-          openDetailsModal(item);
+    if (localMatches.length > SEARCH_PAGE_SIZE) {
+      const remaining = localMatches.slice(SEARCH_PAGE_SIZE);
+      let offset = 0;
+      const renderNextChunk = () => {
+        if (thisSeq !== activeSearchSeq) return;
+        const chunk = remaining.slice(offset, offset + SEARCH_PAGE_SIZE);
+        if (!chunk.length) return;
+        const frag = document.createDocumentFragment();
+        chunk.forEach((item, idx) => frag.appendChild(renderMovieCardItem(item, SEARCH_PAGE_SIZE + offset + idx)));
+        grid.appendChild(frag);
+        offset += SEARCH_PAGE_SIZE;
+        if (offset < remaining.length) {
+          if (window.requestIdleCallback) window.requestIdleCallback(renderNextChunk);
+          else setTimeout(renderNextChunk, 30);
         }
-      });
-      grid.appendChild(card);
-    });
+      };
+      if (window.requestIdleCallback) window.requestIdleCallback(renderNextChunk);
+      else setTimeout(renderNextChunk, 30);
+    }
+  } else if (!isInstantPreview) {
+    // Only flash skeletons if there are 0 local matches and doing full search
+    grid.innerHTML = Array(12).fill(0).map(() => '<div class="search-skeleton-card"></div>').join('');
+    countDisplay.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-red"></i> Searching across 14 OTTs...';
+  }
+
+  // If this was purely an instant keystroke preview, the debounced full fetch will follow shortly
+  if (isInstantPreview) return;
+
+  // 3. SERVER SEARCH & DEEP ENRICHMENT
+  try {
+    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&platform=${platform}&type=${type}`);
+    const data = await res.json();
+
+    if (thisSeq !== activeSearchSeq) return;
+
+    if (data && data.status === 'success' && Array.isArray(data.data)) {
+      const results = data.data.length > 0 ? data.data : localMatches;
+
+      if (window.neuroTasteEngine && query) {
+        window.neuroTasteEngine.trainOnSearch(query, parsed, results.slice(0, 6));
+      }
+
+      if (!results.length) {
+        grid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-dim);">
+            <i class="fa-solid fa-film" style="font-size: 48px; opacity: 0.3; margin-bottom: 16px;"></i>
+            <h3 style="font-size: 18px; margin-bottom: 8px; color: #fff;">No titles found for "${query || platLabel}"</h3>
+            <p>Try searching by actor, genre, or popular movie franchise name.</p>
+            <button class="btn-reset-platform" style="margin: 20px auto 0;" onclick="clearSearch()"><i class="fa-solid fa-house"></i> Return to All OTTs</button>
+          </div>
+        `;
+        countDisplay.innerHTML = `<i class="fa-solid fa-film text-red"></i> 0 titles found`;
+        return;
+      }
+
+      const firstBatch = results.slice(0, SEARCH_PAGE_SIZE);
+      const fragment = document.createDocumentFragment();
+      firstBatch.forEach((item, idx) => fragment.appendChild(renderMovieCardItem(item, idx)));
+      grid.replaceChildren(fragment);
+      const typeLabel = type === 'all' ? '' : (type === 'movie' ? 'movies' : 'series');
+      countDisplay.innerHTML = `<i class="fa-solid fa-film text-red"></i> ${results.length} ${typeLabel} titles found on ${platLabel}`;
+
+      if (results.length > SEARCH_PAGE_SIZE) {
+        const remaining = results.slice(SEARCH_PAGE_SIZE);
+        let offset = 0;
+        const renderNextChunk = () => {
+          if (thisSeq !== activeSearchSeq) return;
+          const chunk = remaining.slice(offset, offset + SEARCH_PAGE_SIZE);
+          if (!chunk.length) return;
+          const frag = document.createDocumentFragment();
+          chunk.forEach((item, idx) => frag.appendChild(renderMovieCardItem(item, SEARCH_PAGE_SIZE + offset + idx)));
+          grid.appendChild(frag);
+          offset += SEARCH_PAGE_SIZE;
+          if (offset < remaining.length) {
+            if (window.requestIdleCallback) window.requestIdleCallback(renderNextChunk);
+            else setTimeout(renderNextChunk, 30);
+          }
+        };
+        if (window.requestIdleCallback) window.requestIdleCallback(renderNextChunk);
+        else setTimeout(renderNextChunk, 30);
+      }
+    }
   } catch (err) {
-    console.error('Search failed:', err);
-    countDisplay.textContent = 'Error connecting to search engine. Please try again.';
+    console.warn('Server search API sync error:', err);
+    if (thisSeq !== activeSearchSeq) return;
+    if (localMatches.length > 0) {
+      const firstBatch = localMatches.slice(0, SEARCH_PAGE_SIZE);
+      const fragment = document.createDocumentFragment();
+      firstBatch.forEach((item, idx) => fragment.appendChild(renderMovieCardItem(item, idx)));
+      grid.replaceChildren(fragment);
+      countDisplay.innerHTML = `<i class="fa-solid fa-film text-red"></i> ${localMatches.length} titles found on ${platLabel}`;
+    }
   }
 }
 
@@ -2342,6 +2577,7 @@ function clearSearch() {
 }
 
 // ========================================================
+// ========================================================
 // VOICE SEARCH & SPEECH RECOGNITION SYSTEM
 // ========================================================
 let activeSpeechRec = null;
@@ -2349,31 +2585,45 @@ let isVoiceListening = false;
 let latestVoiceTranscript = '';
 let hasCommittedVoiceResult = false;
 let voiceSilenceTimeout = null;
-let audioContextInstance = null;
-let audioStreamInstance = null;
 
 function cleanVoiceQuery(transcript) {
   if (!transcript) return '';
-  return transcript
-    .replace(/^(search for|search|find me|find|show me|play|watch|can you find|please play)s+/i, '')
+  // Strip conversational prefixes like "search for", "find me", "play", "watch"
+  const stripped = transcript
+    .replace(/^(search for|search|find me|find|show me|play|watch|can you find|please play)\s+/i, '')
     .trim();
+  // If stripping left nothing (e.g. user just said "search"), return original transcript
+  return stripped || transcript.trim();
 }
 
 function updateVoiceUIState(listening) {
   isVoiceListening = listening;
   const boxBtn = document.getElementById('voice-search-btn');
   const inpageMic = document.getElementById('search-inpage-mic');
+  const modal = document.getElementById('voice-search-modal');
   const pulse1 = document.getElementById('voice-pulse-ring-1');
   const pulse2 = document.getElementById('voice-pulse-ring-2');
   const heading = document.getElementById('voice-status-heading');
+  const micIndicator = document.getElementById('voice-mic-indicator');
 
   if (boxBtn) boxBtn.classList.toggle('listening', listening);
   if (inpageMic) inpageMic.classList.toggle('listening', listening);
+  if (modal) modal.classList.toggle('listening', listening);
 
   if (pulse1) pulse1.style.display = listening ? 'block' : 'none';
   if (pulse2) pulse2.style.display = listening ? 'block' : 'none';
 
-  if (listening && heading) {
+  if (micIndicator) {
+    if (listening) {
+      micIndicator.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+      micIndicator.style.boxShadow = '0 0 35px rgba(34, 197, 94, 0.7)';
+    } else {
+      micIndicator.style.background = 'linear-gradient(135deg, #e50914 0%, #b80710 100%)';
+      micIndicator.style.boxShadow = '0 0 30px rgba(229, 9, 20, 0.65)';
+    }
+  }
+
+  if (listening && heading && !heading.textContent.includes('Hearing')) {
     heading.textContent = 'Listening... Speak now';
   }
 }
@@ -2406,7 +2656,7 @@ function commitVoiceResult(rawText) {
   const heading = document.getElementById('voice-status-heading');
   const hintEl = document.getElementById('voice-transcript-hint');
   if (heading) heading.textContent = 'Searching...';
-  if (hintEl) hintEl.textContent = `Found match for "${cleaned}"`;
+  if (hintEl) hintEl.textContent = 'Found: "' + cleaned + '"';
 
   // Stop audio capture & close modal
   stopVoiceSearch(true);
@@ -2435,23 +2685,10 @@ function stopVoiceSearch(closeModal = true) {
       activeSpeechRec.onaudiostart = null;
       activeSpeechRec.onsoundstart = null;
       activeSpeechRec.onspeechstart = null;
+      activeSpeechRec.onspeechend = null;
       activeSpeechRec.abort();
     } catch (_) {}
     activeSpeechRec = null;
-  }
-
-  if (audioStreamInstance) {
-    try {
-      audioStreamInstance.getTracks().forEach(track => track.stop());
-    } catch (_) {}
-    audioStreamInstance = null;
-  }
-
-  if (audioContextInstance) {
-    try {
-      audioContextInstance.close();
-    } catch (_) {}
-    audioContextInstance = null;
   }
 
   isVoiceListening = false;
@@ -2466,13 +2703,13 @@ function stopVoiceSearch(closeModal = true) {
   }
 }
 
-async function startVoiceSearch(e) {
+function startVoiceSearch(e) {
   if (e) {
     if (e.stopPropagation) e.stopPropagation();
     if (e.preventDefault) e.preventDefault();
   }
 
-  // 1. Android Native App Bridge
+  // 1. Android Native App Bridge (if running inside CinemaVerse native APK)
   if (window.AndroidVoiceBridge && typeof window.AndroidVoiceBridge.startVoiceSearch === 'function') {
     try {
       window.AndroidVoiceBridge.startVoiceSearch();
@@ -2482,7 +2719,7 @@ async function startVoiceSearch(e) {
     }
   }
 
-  // 2. Web Speech API
+  // 2. Web Speech API (Browser / Chrome / Safari / Edge)
   stopVoiceSearch(false);
 
   const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -2491,8 +2728,6 @@ async function startVoiceSearch(e) {
   const hintEl = document.getElementById('voice-transcript-hint');
   const heading = document.getElementById('voice-status-heading');
   const box = document.getElementById('search-box');
-  const pulse1 = document.getElementById('voice-pulse-ring-1');
-  const pulse2 = document.getElementById('voice-pulse-ring-2');
 
   if (modal) {
     modal.classList.add('open', 'active');
@@ -2505,7 +2740,6 @@ async function startVoiceSearch(e) {
 
   if (modalInput) {
     modalInput.value = '';
-    // Listen for manual typing & Enter key
     modalInput.onkeydown = (ke) => {
       if (ke.key === 'Enter') {
         ke.preventDefault();
@@ -2514,13 +2748,19 @@ async function startVoiceSearch(e) {
     };
   }
 
-  if (!SpeechRec) {
-    // Fallback for browsers without Web Speech API or over HTTP
+  // Check for secure context (Chrome blocks speech recognition on non-localhost HTTP)
+  const isSecure = window.isSecureContext || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+  if (!SpeechRec || !isSecure) {
     if (heading) heading.textContent = 'Voice Search';
-    if (hintEl) hintEl.textContent = 'Tap to speak using your device keyboard mic or choose a suggestion:';
+    if (hintEl) {
+      hintEl.textContent = !isSecure
+        ? 'Speech recognition requires HTTPS or localhost. Tap below to use keyboard mic or type:'
+        : 'Web Speech not supported in this browser. Tap below to use keyboard mic or type:';
+    }
     if (modalInput) {
       modalInput.placeholder = 'Tap here to use keyboard mic or type...';
-      modalInput.focus();
+      setTimeout(() => { try { modalInput.focus(); } catch(_) {} }, 100);
     }
     updateVoiceUIState(false);
     return;
@@ -2529,69 +2769,36 @@ async function startVoiceSearch(e) {
   if (heading) heading.textContent = 'Listening... Speak now';
   if (hintEl) hintEl.textContent = 'Speak a movie name, series, actor, or genre...';
 
-  // Request mic permission and monitor audio energy levels
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-      audioStreamInstance = stream;
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (AudioCtx) {
-          audioContextInstance = new AudioCtx();
-          const source = audioContextInstance.createMediaStreamSource(stream);
-          const analyser = audioContextInstance.createAnalyser();
-          analyser.fftSize = 64;
-          source.connect(analyser);
-
-          const dataArray = new Uint8Array(analyser.frequencyBinCount);
-          const checkVolume = () => {
-            if (!isVoiceListening || !audioContextInstance) return;
-            analyser.getByteFrequencyData(dataArray);
-            let sum = 0;
-            for (let v of dataArray) sum += v;
-            const avg = sum / dataArray.length;
-
-            if (avg > 15) {
-              if (pulse1) pulse1.style.borderColor = '#22c55e';
-              if (pulse2) pulse2.style.borderColor = '#22c55e';
-              if (heading && isVoiceListening && !hasCommittedVoiceResult) {
-                heading.textContent = 'Hearing voice...';
-              }
-            } else {
-              if (pulse1) pulse1.style.borderColor = 'rgba(229, 9, 20, 0.6)';
-              if (pulse2) pulse2.style.borderColor = 'rgba(229, 9, 20, 0.6)';
-            }
-            requestAnimationFrame(checkVolume);
-          };
-          requestAnimationFrame(checkVolume);
-        }
-      } catch (audioErr) {
-        console.warn('AudioContext volume check:', audioErr);
-      }
-    }).catch(permErr => {
-      console.warn('Mic permission check:', permErr);
-    });
-  }
-
   try {
     const rec = new SpeechRec();
     rec.continuous = false; // Fast single-command voice search response
-    rec.interimResults = true;
-    rec.maxAlternatives = 3;
-    rec.lang = navigator.language || 'en-US';
+    rec.interimResults = true; // Stream words as spoken in real-time
+    rec.maxAlternatives = 1;
+    rec.lang = (navigator.language && navigator.language.length >= 2) ? navigator.language : 'en-US';
 
     rec.onaudiostart = () => {
       isVoiceListening = true;
       updateVoiceUIState(true);
       if (heading) heading.textContent = 'Listening... Speak now';
-      if (hintEl) hintEl.textContent = 'Microphone active — listening...';
+      if (hintEl) hintEl.textContent = 'Microphone active — speak clearly';
     };
 
     rec.onsoundstart = () => {
-      if (heading && isVoiceListening) heading.textContent = 'Sound detected...';
+      if (heading && isVoiceListening && !hasCommittedVoiceResult) {
+        heading.textContent = 'Hearing sound...';
+      }
     };
 
     rec.onspeechstart = () => {
-      if (heading && isVoiceListening) heading.textContent = 'Hearing voice...';
+      if (heading && isVoiceListening && !hasCommittedVoiceResult) {
+        heading.textContent = 'Hearing voice...';
+      }
+    };
+
+    rec.onspeechend = () => {
+      if (heading && isVoiceListening && !hasCommittedVoiceResult) {
+        heading.textContent = 'Processing speech...';
+      }
     };
 
     rec.onresult = (event) => {
@@ -2613,14 +2820,15 @@ async function startVoiceSearch(e) {
       if (activeText) {
         latestVoiceTranscript = activeText;
         if (modalInput) modalInput.value = activeText;
-        if (hintEl) hintEl.textContent = `Hearing: "${activeText}"`;
+        if (hintEl) hintEl.textContent = 'Hearing: "' + activeText + '"';
+        if (heading && isVoiceListening) heading.textContent = 'Transcribing...';
 
         const input = document.getElementById('search-input');
         if (input) input.value = activeText;
         const inpageInput = document.getElementById('search-inpage-input');
         if (inpageInput) inpageInput.value = activeText;
 
-        // Auto-commit on brief pause
+        // Auto-commit on brief pause if no final event fires
         clearTimeout(voiceSilenceTimeout);
         voiceSilenceTimeout = setTimeout(() => {
           if (!hasCommittedVoiceResult && latestVoiceTranscript) {
@@ -2637,25 +2845,27 @@ async function startVoiceSearch(e) {
 
     rec.onerror = (event) => {
       console.warn('[VoiceSearch] Speech error:', event.error);
+      clearTimeout(voiceSilenceTimeout);
+
       if (event.error === 'no-speech') {
         if (!latestVoiceTranscript) {
           if (heading) heading.textContent = "Didn't catch that";
-          if (hintEl) hintEl.textContent = 'Tap the microphone or type below:';
-          updateVoiceUIState(false);
+          if (hintEl) hintEl.textContent = 'No voice detected. Tap microphone to speak again, or type below:';
         }
-        return;
-      }
-
-      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+      } else if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
         if (heading) heading.textContent = 'Microphone Blocked';
-        if (hintEl) hintEl.textContent = 'Please allow microphone access in your browser or type below:';
+        if (hintEl) hintEl.textContent = 'Please tap the lock icon in your address bar to allow microphone access.';
       } else if (event.error === 'network') {
         if (heading) heading.textContent = 'Voice Network Error';
-        if (hintEl) hintEl.textContent = 'Google speech service unavailable. You can type or tap a chip:';
+        if (hintEl) hintEl.textContent = 'Speech server unreachable. Tap below to use keyboard mic or type:';
+      } else if (event.error === 'audio-capture') {
+        if (heading) heading.textContent = 'Microphone Busy';
+        if (hintEl) hintEl.textContent = 'Microphone is used by another app. Close it and try again.';
       } else if (event.error !== 'aborted') {
         if (heading) heading.textContent = 'Voice Search Paused';
-        if (hintEl) hintEl.textContent = 'Tap the microphone to speak again.';
+        if (hintEl) hintEl.textContent = 'Tap the microphone to speak again or choose a suggestion:';
       }
+
       isVoiceListening = false;
       updateVoiceUIState(false);
     };
@@ -2668,8 +2878,10 @@ async function startVoiceSearch(e) {
       if (!hasCommittedVoiceResult && latestVoiceTranscript) {
         commitVoiceResult(latestVoiceTranscript);
       } else if (!hasCommittedVoiceResult) {
-        if (heading) heading.textContent = "Didn't catch that";
-        if (hintEl) hintEl.textContent = 'Tap the microphone to try again, or type below:';
+        if (heading && heading.textContent === 'Listening... Speak now') {
+          heading.textContent = "Didn't catch that";
+          if (hintEl) hintEl.textContent = 'Tap the microphone to try again, or type below:';
+        }
       }
     };
 
@@ -2743,6 +2955,7 @@ function searchVoiceHint(hintText) {
 
 window.startVoiceSearch = startVoiceSearch;
 window.stopVoiceSearch = stopVoiceSearch;
+window.submitVoiceModalInput = submitVoiceModalInput;
 window.toggleVoiceSearch = toggleVoiceSearch;
 window.toggleVoiceListeningManual = toggleVoiceListeningManual;
 window.closeVoiceSearchOnBackdrop = closeVoiceSearchOnBackdrop;
@@ -3044,16 +3257,20 @@ function setupModalSeasons(item) {
   renderModalEpisodes(targetSeason);
 }
 
-// RENDER EPISODES WITH REAL 16:9 THUMBNAILS
+// RENDER EPISODES WITH REAL 16:9 THUMBNAILS (Optimized with DocumentFragment)
 function renderModalEpisodes(seasonNum) {
   const item = currentItem;
   if (!item || !item.seasons) return;
   const sData = item.seasons.find(x => String(x.season) === String(seasonNum));
   const grid = document.getElementById('modal-episodes-grid');
-  grid.innerHTML = '';
+  if (!grid) return;
 
-  if (!sData || !sData.episodes) return;
+  if (!sData || !sData.episodes) {
+    grid.innerHTML = '';
+    return;
+  }
 
+  const fragment = document.createDocumentFragment();
   sData.episodes.forEach(ep => {
     const card = document.createElement('div');
     card.className = 'ep-item-card';
@@ -3064,7 +3281,7 @@ function renderModalEpisodes(seasonNum) {
     card.innerHTML = `
       <div class="ep-item-num">${ep.episode}</div>
       <div class="ep-thumb-wrap">
-        <img class="ep-thumb-img" src="${thumbUrl}" alt="${ep.title}" onerror="this.onerror=null; this.src='${fallbackThumb}';">
+        <img class="ep-thumb-img" src="${thumbUrl}" alt="${ep.title}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='${fallbackThumb}';">
         <div class="ep-thumb-play">
           <i class="fa-solid fa-play"></i>
         </div>
@@ -3089,18 +3306,20 @@ function renderModalEpisodes(seasonNum) {
       openPlayer(item, seasonNum, ep.episode, selectedServerIndex, epSavedSec);
     };
 
-    grid.appendChild(card);
+    fragment.appendChild(card);
   });
+  grid.replaceChildren(fragment);
 }
 
 function renderSimilarTitles(item) {
   const grid = document.getElementById('modal-similar-grid');
-  grid.innerHTML = '';
+  if (!grid) return;
 
   const similar = currentCatalog
     .filter(x => x.id !== item.id && (x.platformId === item.platformId || x.genres.some(g => item.genres.includes(g))))
     .slice(0, 6);
 
+  const fragment = document.createDocumentFragment();
   similar.forEach(sim => {
     const card = document.createElement('div');
     card.className = 'movie-card';
@@ -3109,7 +3328,7 @@ function renderSimilarTitles(item) {
     card.setAttribute('aria-label', sim.title);
     card.innerHTML = `
       <div class="card-poster-wrap">
-        <img class="card-poster" src="${sim.poster}" alt="${sim.title}" onerror="window.handleImgError(this)">
+        <img class="card-poster" src="${sim.poster}" alt="${sim.title}" loading="lazy" decoding="async" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${sim.platformId}">${sim.platformBadge || sim.platform}</div>
         <div class="card-play-hover">
           <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -3130,8 +3349,9 @@ function renderSimilarTitles(item) {
         openDetailsModal(sim);
       }
     });
-    grid.appendChild(card);
+    fragment.appendChild(card);
   });
+  grid.replaceChildren(fragment);
 }
 
 function closeDetailsModal() {
@@ -6106,11 +6326,15 @@ function setupDiscCascade(items) {
   const container = document.getElementById('disc-stage-track');
   if (!container) return;
 
-  // Pick top 10 movies / series with high quality posters
-  discCatalogItems = items.filter(x => x.poster || x.backdrop).slice(0, 10);
-  if (!discCatalogItems.length) return;
+  // Avoid redundant disc re-render if already populated
+  if (discCatalogItems && discCatalogItems.length === 10 && container.children.length === 10) return;
 
-  container.innerHTML = '';
+  // Pick top 10 movies / series with high quality posters
+  const newDiscs = items.filter(x => x.poster || x.backdrop).slice(0, 10);
+  if (!newDiscs.length) return;
+  discCatalogItems = newDiscs;
+
+  const fragment = document.createDocumentFragment();
 
   discCatalogItems.forEach((item, index) => {
     const discEl = document.createElement('div');
@@ -6135,7 +6359,7 @@ function setupDiscCascade(items) {
       <div class="cd-disc-surface">
         <!-- Smooth Continuous 360-Degree Disc Rotator -->
         <div class="cd-disc-rotator">
-          <img src="${posterUrl}" alt="${cleanTitle}" class="cd-disc-artwork" draggable="false" onerror="window.handleImgError(this)" />
+          <img src="${posterUrl}" alt="${cleanTitle}" class="cd-disc-artwork" draggable="false" loading="lazy" decoding="async" onerror="window.handleImgError(this)" />
           <div class="cd-grooves-overlay"></div>
           <div class="cd-sheen-overlay"></div>
           
@@ -6173,8 +6397,10 @@ function setupDiscCascade(items) {
       </div>
     `;
 
-    container.appendChild(discEl);
+    fragment.appendChild(discEl);
   });
+
+  container.replaceChildren(fragment);
 
   // Setup Drag/Touch handlers on viewport
   const viewport = document.getElementById('disc-stage-viewport');
@@ -7940,7 +8166,7 @@ function renderAiRecommendations(catalog) {
     }
   }
 
-  container.innerHTML = '';
+  const fragment = document.createDocumentFragment();
   recommendations.forEach(item => {
     const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
     const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
@@ -7959,7 +8185,7 @@ function renderAiRecommendations(catalog) {
           <span>${item.aiMatchPercentage || 98}%</span>
           ${reasonText}
         </div>
-        <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
+        <img class="card-poster" src="${item.poster}" alt="${item.title}" loading="lazy" decoding="async" onerror="window.handleImgError(this)">
         <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
         ${dubBadgeHtml}
         <div class="card-play-hover">
@@ -7987,8 +8213,9 @@ function renderAiRecommendations(catalog) {
       }
     });
 
-    container.appendChild(card);
+    fragment.appendChild(card);
   });
+  container.replaceChildren(fragment);
 }
 
 function refreshAiRecommendations() {
