@@ -1,23 +1,29 @@
 package com.cinemaverse.pro;
 
 import android.annotation.SuppressLint;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
+import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "cinemaverse_app_prefs";
     private static final String KEY_SERVER_URL = "server_url";
+    private static final int REQUEST_CODE_VOICE_SEARCH = 2001;
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 2002;
 
     private WebView webView;
     private SwipeRefreshLayout swipeRefresh;
@@ -104,7 +112,27 @@ public class MainActivity extends AppCompatActivity {
         webView.loadUrl(url);
     }
 
+    public boolean isTelevision() {
+        try {
+            UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+            if (uiModeManager != null && uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
+                return true;
+            }
+        } catch (Exception ignored) {}
+        try {
+            if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_LEANBACK)) {
+                return true;
+            }
+        } catch (Exception ignored) {}
+        return false;
+    }
+
     private void setupSwipeRefresh() {
+        if (isTelevision()) {
+            // Disable swipe pull-to-refresh on Smart TV to prevent D-pad directional focus traps
+            swipeRefresh.setEnabled(false);
+            return;
+        }
         swipeRefresh.setColorSchemeResources(R.color.brand_red);
         swipeRefresh.setProgressBackgroundColorSchemeResource(R.color.bg_surface);
         swipeRefresh.setOnRefreshListener(() -> {
@@ -164,6 +192,15 @@ public class MainActivity extends AppCompatActivity {
         settings.setSupportZoom(false);
         settings.setBuiltInZoomControls(false);
 
+        // Smart TV Focus & Spatial Navigation
+        webView.setFocusable(true);
+        webView.setFocusableInTouchMode(true);
+        webView.requestFocus();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            settings.setNeedInitialFocus(true);
+        }
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+
         // 3. Media & Video Streaming
         settings.setMediaPlaybackRequiresUserGesture(false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -174,13 +211,15 @@ public class MainActivity extends AppCompatActivity {
         // 4. Cache & Auto-Update
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        // 5. Append Custom User Agent Identifier
+        // 5. Append Custom User Agent Identifier (Detects Smart TV / Leanback)
         String originalUa = settings.getUserAgentString();
-        settings.setUserAgentString(originalUa + " CinemaVerse-Android/1.0 (Auto-Updating Shell)");
+        String tvTag = isTelevision() ? " SmartTV AndroidTV/1.0 Leanback" : " Mobile";
+        settings.setUserAgentString(originalUa + " CinemaVerse-Android/1.0" + tvTag);
 
         // Client callbacks
         webView.setWebViewClient(new CinemaWebViewClient());
         webView.setWebChromeClient(new CinemaWebChromeClient());
+        webView.addJavascriptInterface(new AndroidVoiceBridge(), "AndroidVoiceBridge");
         webView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
@@ -259,6 +298,17 @@ public class MainActivity extends AppCompatActivity {
     private class CinemaWebChromeClient extends WebChromeClient {
 
         @Override
+        public void onPermissionRequest(PermissionRequest request) {
+            request.grant(request.getResources());
+        }
+
+        @Override
+        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+            Log.d("CinemaVerseJS", consoleMessage.message() + " [" + consoleMessage.sourceId() + ":" + consoleMessage.lineNumber() + "]");
+            return true;
+        }
+
+        @Override
         public void onProgressChanged(WebView view, int newProgress) {
             progressBar.setProgress(newProgress);
             if (newProgress == 100) {
@@ -322,12 +372,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (event.getKeyCode()) {
+                case KeyEvent.KEYCODE_DPAD_UP:
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                case KeyEvent.KEYCODE_ENTER:
+                    if (webView != null && !webView.hasFocus()) {
+                        webView.requestFocus();
+                    }
+                    break;
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Smart TV D-Pad Remote Navigation Support
+        // Forward Smart TV D-Pad & Remote Navigation directly into WebView
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_CENTER:
             case KeyEvent.KEYCODE_ENTER:
-                if (webView != null && webView.hasFocus()) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                if (webView != null) {
+                    if (!webView.hasFocus()) webView.requestFocus();
                     return super.onKeyDown(keyCode, event);
                 }
                 break;
@@ -336,6 +410,18 @@ public class MainActivity extends AppCompatActivity {
             case KeyEvent.KEYCODE_MEDIA_PAUSE:
                 if (webView != null) {
                     webView.evaluateJavascript("if (typeof togglePlayPause === 'function') togglePlayPause();", null);
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
+                if (webView != null) {
+                    webView.evaluateJavascript("if (typeof seekRelative === 'function') seekRelative(10);", null);
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_MEDIA_REWIND:
+                if (webView != null) {
+                    webView.evaluateJavascript("if (typeof seekRelative === 'function') seekRelative(-10);", null);
                     return true;
                 }
                 break;
@@ -380,6 +466,62 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         if (webView != null) {
             webView.onPause();
+        }
+    }
+
+    public class AndroidVoiceBridge {
+        @android.webkit.JavascriptInterface
+        public void startVoiceSearch() {
+            runOnUiThread(() -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO_PERMISSION);
+                        return;
+                    }
+                }
+                launchVoiceSearchDialog();
+            });
+        }
+
+        @android.webkit.JavascriptInterface
+        public boolean isAvailable() {
+            return true;
+        }
+    }
+
+    private void launchVoiceSearchDialog() {
+        try {
+            Intent intent = new Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            intent.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL, android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            intent.putExtra(android.speech.RecognizerIntent.EXTRA_PROMPT, "Say a movie name, series, actor, or genre...");
+            startActivityForResult(intent, REQUEST_CODE_VOICE_SEARCH);
+        } catch (Exception e) {
+            Log.w("CinemaVerse", "Native voice recognition not available", e);
+            Toast.makeText(this, "Voice recognition not available on this device", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                launchVoiceSearchDialog();
+            } else {
+                Toast.makeText(this, "Microphone permission required for voice search", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_VOICE_SEARCH && resultCode == RESULT_OK && data != null) {
+            java.util.ArrayList<String> matches = data.getStringArrayListExtra(android.speech.RecognizerIntent.EXTRA_RESULTS);
+            if (matches != null && !matches.isEmpty()) {
+                String spokenText = matches.get(0).replace("'", "\'");
+                webView.evaluateJavascript("window.handleVoiceFinalResult && window.handleVoiceFinalResult('" + spokenText + "');", null);
+            }
         }
     }
 

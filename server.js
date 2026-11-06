@@ -590,11 +590,22 @@ function getKnownEntities() {
   };
 }
 
+function normalizeStr(str) {
+  if (!str) return '';
+  return str.toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/['’"“”]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function parseNaturalLanguageQuery(rawQuery) {
   if (!rawQuery || !rawQuery.trim()) {
-    return { isNaturalLanguage: false, query: '' };
+    return { isNaturalLanguage: false, query: '', norm: '', core: '', isBrowse: false, targetType: 'all', targetPlatform: 'all', targetRegion: null, genres: [], person: null, personType: null };
   }
 
+  const norm = normalizeStr(rawQuery);
   let text = rawQuery.toLowerCase().replace(/[,/\\+&"']/g, ' ').replace(/\s+/g, ' ').trim();
   const originalClean = text;
 
@@ -675,12 +686,24 @@ function parseNaturalLanguageQuery(rawQuery) {
     }
   }
 
+  // Core term: strip filler words, voice search prefixes, and format words
+  const core = norm
+    .replace(/\b(search for|search|find me|find|show me|play|watch|can you find|please play)\b/g, '')
+    .replace(/\b(movies?|films?|cinema|series|shows?|tv|season|episode|online|free|hd|4k)\b/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const isBrowse = !norm || (!core && (targetType !== 'all' || detectedGenres.length > 0 || isHighRated));
+
   const isNaturalLanguage = detectedGenres.length > 0 || targetType !== 'all' || 
-    detectedPerson !== null || isHighRated || is4k || targetPlatform !== 'all' || detectedRegion !== null;
+    detectedPerson !== null || isHighRated || is4k || targetPlatform !== 'all' || detectedRegion !== null || isBrowse;
 
   return {
     raw: rawQuery,
     clean: originalClean,
+    norm,
+    core,
+    isBrowse,
     isNaturalLanguage,
     targetType,
     targetPlatform,
@@ -741,44 +764,85 @@ app.get('/api/search', async (req, res) => {
 
   const effectivePlatform = platform !== 'all' ? platform : parsed.targetPlatform;
   const effectiveType = type !== 'all' ? type : parsed.targetType;
+  const normQuery = parsed.norm;
+  const coreTerm = parsed.core;
+  const coreWords = coreTerm ? coreTerm.split(' ').filter(w => w.length > 1) : [];
   
   // Calculate precision relevance score
   const scoreItem = (item) => {
-    let score = 0;
-    const t = (item.title || '').toLowerCase();
+    if (effectiveType !== 'all' && item.type !== effectiveType) return 0;
+    if (effectivePlatform !== 'all' && item.platformId !== effectivePlatform) return 0;
+    if (genre !== 'all' && (!item.genres || !item.genres.some(g => g.toLowerCase() === genre.toLowerCase()))) return 0;
+
+    const normTitle = normalizeStr(item.title);
+    const itemTitleWords = normTitle.split(' ').filter(Boolean);
     const itemGenres = (item.genres || []).map(g => g.toLowerCase());
-    const itemCast = (item.cast || []).map(c => c.toLowerCase());
-    const itemDirector = (item.director || '').toLowerCase();
+    const itemCast = (item.cast || []).map(normalizeStr);
+    const itemDirector = normalizeStr(item.director || '');
 
-    // 1. Person constraint / match (Massive priority if person detected)
+    // Pure browse mode (e.g. user typed "movies", "horror movies", or filtered type/genre)
+    if (parsed.isBrowse) {
+      if (parsed.genres.length > 0) {
+        const matchesGenre = parsed.genres.some(g => itemGenres.includes(g.toLowerCase()));
+        if (!matchesGenre) return 0;
+      }
+      let score = (item.rating || 7.0) * 10;
+      if (item.trending) score += 20;
+      if (item.featured) score += 15;
+      if (parsed.isHighRated && item.rating) score += (item.rating / 10) * 35;
+      if (parsed.is4k && item.quality && item.quality.includes('4K')) score += 15;
+      return score;
+    }
+
+    let relScore = 0;
+
+    // 1. Direct Title Match (Precision scoring)
+    if (normQuery && normTitle === normQuery) {
+      relScore += 300;
+    } else if (coreTerm && normTitle === coreTerm) {
+      relScore += 280;
+    } else if (normQuery && normTitle.startsWith(normQuery)) {
+      relScore += 200;
+    } else if (coreTerm && normTitle.startsWith(coreTerm)) {
+      relScore += 180;
+    } else if (normQuery && normTitle.includes(normQuery)) {
+      relScore += 130;
+    } else if (coreTerm && normTitle.includes(coreTerm)) {
+      relScore += 120;
+    } else if (coreWords.length > 0) {
+      const matchedWords = coreWords.filter(w => itemTitleWords.includes(w));
+      if (matchedWords.length === coreWords.length) {
+        relScore += 110;
+      } else if (matchedWords.length >= 2 || (coreWords.length <= 2 && matchedWords.length >= 1)) {
+        relScore += matchedWords.length * 30;
+      }
+    }
+
+    // 2. Person constraint / match (Director / Actor)
     if (parsed.person) {
-      const pLower = parsed.person.toLowerCase();
-      if (parsed.personType === 'director' && itemDirector.includes(pLower)) {
-        score += 160;
-      } else if (parsed.personType === 'actor' && itemCast.some(c => c.includes(pLower))) {
-        score += 160;
-      } else if (itemCast.some(c => c.includes(pLower)) || itemDirector.includes(pLower)) {
-        score += 130;
-      } else {
-        score -= 100;
+      const pNorm = normalizeStr(parsed.person);
+      if (parsed.personType === 'director' && itemDirector.includes(pNorm)) {
+        relScore += 180;
+      } else if (parsed.personType === 'actor' && itemCast.some(c => c.includes(pNorm))) {
+        relScore += 180;
+      } else if (itemCast.some(c => c.includes(pNorm)) || itemDirector.includes(pNorm)) {
+        relScore += 140;
+      }
+    } else if (coreTerm || normQuery) {
+      const pTarget = coreTerm || normQuery;
+      if (itemCast.some(c => c.includes(pTarget) || pTarget.includes(c))) {
+        relScore += 140;
+      } else if (itemDirector && (itemDirector.includes(pTarget) || pTarget.includes(itemDirector))) {
+        relScore += 140;
       }
     }
 
-    // 2. Format constraint (Movie vs Series)
-    if (effectiveType !== 'all') {
-      if (item.type === effectiveType) {
-        score += 35;
-      } else {
-        score -= 90;
-      }
-    }
-
-    // 3. Platform constraint
-    if (effectivePlatform !== 'all') {
-      if (item.platformId === effectivePlatform) {
-        score += 40;
-      } else {
-        score -= 30;
+    // 3. Genre Matching
+    if (parsed.genres.length > 0) {
+      const isGenreQuery = parsed.genres.some(g => g.toLowerCase() === coreTerm || g.toLowerCase() === normQuery);
+      const matchedCount = parsed.genres.filter(g => itemGenres.includes(g.toLowerCase())).length;
+      if (matchedCount > 0) {
+        relScore += isGenreQuery ? (200 + matchedCount * 40) : (matchedCount * 50);
       }
     }
 
@@ -795,64 +859,25 @@ app.get('/api/search', async (req, res) => {
       } else if (parsed.targetRegion === 'korean') {
         isRegionMatch = audioStr.includes('korean') || langs.some(l => l.includes('ko') || l.includes('korean'));
       } else if (parsed.targetRegion === 'anime') {
-        isRegionMatch = audioStr.includes('japanese') || (item.genres && item.genres.includes('Anime'));
+        isRegionMatch = audioStr.includes('japanese') || itemGenres.includes('anime');
       }
       if (isRegionMatch) {
-        score += 85;
-      } else {
-        score -= 40;
+        relScore += 70;
       }
     }
 
-    // 5. Multi-Trait Genre Matching (e.g. Mystery + Thrill + Comedy)
-    if (parsed.genres.length > 0) {
-      let matchedCount = 0;
-      parsed.genres.forEach(g => {
-        if (itemGenres.includes(g.toLowerCase())) {
-          matchedCount++;
-        }
-      });
+    // CRITICAL: Non-browse search requires at least one relevance match!
+    if (relScore <= 0) return 0;
 
-      if (matchedCount > 0) {
-        score += matchedCount * 45;
-        if (matchedCount === parsed.genres.length && parsed.genres.length > 1) {
-          score += 60;
-        } else if (matchedCount >= 2) {
-          score += 25;
-        }
-      } else {
-        score -= 80;
-      }
-    }
+    // Quality, rating & popularity bonuses (ONLY for genuine query matches)
+    let finalScore = relScore;
+    if (item.rating) finalScore += (item.rating / 10) * 15;
+    if (parsed.isHighRated && item.rating) finalScore += (item.rating / 10) * 25;
+    if (item.trending) finalScore += 8;
+    if (item.featured) finalScore += 5;
+    if (parsed.is4k && item.quality && item.quality.includes('4K')) finalScore += 15;
 
-    // 6. Title / Keyword match
-    if (t === qLower) {
-      score += 120;
-    } else if (t.startsWith(qLower)) {
-      score += 80;
-    } else if (t.includes(qLower)) {
-      score += 50;
-    } else if (parsed.clean) {
-      const words = parsed.clean.split(' ').filter(w => w.length > 2 && !['movie', 'movies', 'film', 'films', 'show', 'all', 'the', 'and', 'with', 'from', 'for'].includes(w));
-      words.forEach(w => {
-        if (t.includes(w)) score += 25;
-      });
-    }
-
-    // 7. High rated / Quality prior
-    if (parsed.isHighRated && item.rating) {
-      score += (item.rating / 10) * 35;
-    } else if (item.rating) {
-      score += (item.rating / 10) * 8;
-    }
-    if (parsed.is4k && item.quality && item.quality.includes('4K')) {
-      score += 20;
-    }
-    if (item.featured || item.trending) {
-      score += 5;
-    }
-
-    return score;
+    return finalScore;
   };
 
   let localResults = baseItems.filter(item => scoreItem(item) > 0);
@@ -871,129 +896,142 @@ app.get('/api/search', async (req, res) => {
 
   // Live universal search fallback using Cinemeta open API
   let liveResults = [];
-  try {
-    const cleanQ = q.replace(/[^a-zA-Z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
-    const curQuery = cleanQ || q;
-    const encodedQ = encodeURIComponent(curQuery.toLowerCase());
-    const fetchPromises = [];
+  if (!parsed.isBrowse && (coreTerm || normQuery)) {
+    try {
+      const fetchTerms = new Set();
+      if (coreTerm && coreTerm.length >= 2) fetchTerms.add(coreTerm);
+      if (normQuery && normQuery.length >= 2) fetchTerms.add(normQuery);
+      if (q && q.toLowerCase().startsWith('tt')) fetchTerms.add(q.toLowerCase());
 
-    // Direct IMDb ID search support
-    if (q.toLowerCase().startsWith('tt')) {
-      const cleanId = q.toLowerCase();
-      if (type === 'all' || type === 'movie') {
-        fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/meta/movie/${cleanId}.json`, { signal: AbortSignal.timeout(6000) }));
-      }
-      if (type === 'all' || type === 'series') {
-        fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/meta/series/${cleanId}.json`, { signal: AbortSignal.timeout(6000) }));
-      }
-    } else {
-      if (type === 'all' || type === 'movie') {
-        fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/catalog/movie/top/search=${encodedQ}.json`, { signal: AbortSignal.timeout(8000) }));
-      } else {
-        fetchPromises.push(Promise.resolve(null));
-      }
-      if (type === 'all' || type === 'series') {
-        fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/catalog/series/top/search=${encodedQ}.json`, { signal: AbortSignal.timeout(8000) }));
-      } else {
-        fetchPromises.push(Promise.resolve(null));
-      }
-    }
-
-    const [mRes, sRes] = await Promise.allSettled(fetchPromises);
-
-    let metas = [];
-    if (mRes.status === 'fulfilled' && mRes.value && mRes.value.ok) {
-      try {
-        const mData = await mRes.value.json();
-        if (mData && mData.metas) metas.push(...mData.metas.map(x => ({ ...x, detectedType: 'movie' })));
-        else if (mData && mData.meta) metas.push({ ...mData.meta, detectedType: 'movie' });
-      } catch (err) {}
-    }
-    if (sRes.status === 'fulfilled' && sRes.value && sRes.value.ok) {
-      try {
-        const sData = await sRes.value.json();
-        if (sData && sData.metas) metas.push(...sData.metas.map(x => ({ ...x, detectedType: 'series' })));
-        else if (sData && sData.meta) metas.push({ ...sData.meta, detectedType: 'series' });
-      } catch (err) {}
-    }
-
-    // Secondary fallback for multi-word queries returning 0 results
-    if (metas.length === 0 && !q.toLowerCase().startsWith('tt') && curQuery.includes(' ')) {
-      const words = curQuery.split(' ');
-      const baseWord = words[0];
-      if (baseWord && baseWord.length > 2) {
-        try {
-          const fbEnc = encodeURIComponent(baseWord.toLowerCase());
-          const fbRes = await fetch(`https://v3-cinemeta.strem.io/catalog/movie/top/search=${fbEnc}.json`, { signal: AbortSignal.timeout(4000) });
-          if (fbRes.ok) {
-            const fbData = await fbRes.json();
-            if (fbData && fbData.metas) metas.push(...fbData.metas.slice(0, 10).map(x => ({ ...x, detectedType: 'movie' })));
+      const fetchPromises = [];
+      for (const st of fetchTerms) {
+        if (st.startsWith('tt')) {
+          if (effectiveType === 'all' || effectiveType === 'movie') {
+            fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/meta/movie/${st}.json`, { signal: AbortSignal.timeout(6000) }));
           }
-        } catch (e) {}
-      }
-    }
-
-    const existingImdbs = new Set(localResults.map(x => x.imdbId).filter(Boolean));
-    const allPlatformsList = ['netflix', 'prime', 'disney', 'hbo', 'apple', 'crunchyroll', 'paramount', 'hulu', 'peacock', 'sonyliv', 'zee5', 'jiocinema', 'animeworld'];
-
-    metas.forEach(m => {
-      const imdb = m.imdb_id || m.id;
-      if (!imdb || existingImdbs.has(imdb)) return;
-      existingImdbs.add(imdb);
-
-      const isSeries = m.type === 'series' || m.detectedType === 'series';
-      const hash = Math.abs(imdb.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0));
-      
-      // Smart platform detection
-      let targetPlatformId = platform !== 'all' ? platform : null;
-      if (!targetPlatformId) {
-        const mGenres = (m.genres || []).map(g => g.toLowerCase());
-        const mName = (m.name || '').toLowerCase();
-        if (mGenres.includes('anime') || mGenres.includes('animation') || mName.includes('naruto') || mName.includes('dragon ball') || mName.includes('bleach')) {
-          targetPlatformId = hash % 2 === 0 ? 'animeworld' : 'crunchyroll';
-        } else if (mGenres.includes('bollywood') || mGenres.includes('hindi') || hash % 10 === 0) {
-          targetPlatformId = 'jiocinema';
+          if (effectiveType === 'all' || effectiveType === 'series') {
+            fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/meta/series/${st}.json`, { signal: AbortSignal.timeout(6000) }));
+          }
         } else {
-          targetPlatformId = allPlatformsList[hash % allPlatformsList.length];
+          const enc = encodeURIComponent(st);
+          if (effectiveType === 'all' || effectiveType === 'movie') {
+            fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/catalog/movie/top/search=${enc}.json`, { signal: AbortSignal.timeout(6000) }));
+          }
+          if (effectiveType === 'all' || effectiveType === 'series') {
+            fetchPromises.push(fetch(`https://v3-cinemeta.strem.io/catalog/series/top/search=${enc}.json`, { signal: AbortSignal.timeout(6000) }));
+          }
         }
       }
 
-      const targetOtt = OTT_PLATFORMS.find(p => p.id === targetPlatformId) || OTT_PLATFORMS.find(p => p.id === 'netflix');
-      const tmdbResolved = m.moviedb_id || m.tmdb_id || null;
-      if (tmdbResolved && imdb) {
-        TMDB_RESOLVER_CACHE.set(imdb, String(tmdbResolved));
+      const settled = await Promise.allSettled(fetchPromises);
+      let metas = [];
+      for (const res of settled) {
+        if (res.status === 'fulfilled' && res.value && res.value.ok) {
+          try {
+            const data = await res.value.json();
+            if (data && data.metas) metas.push(...data.metas);
+            else if (data && data.meta) metas.push(data.meta);
+          } catch (err) {}
+        }
       }
 
-      liveResults.push({
-        id: imdb,
-        imdbId: imdb,
-        tmdbId: tmdbResolved,
-        type: isSeries ? 'series' : 'movie',
-        title: m.name,
-        year: parseInt(m.releaseInfo, 10) || 2023,
-        rating: m.imdbRating ? parseFloat(m.imdbRating) : 7.6,
-        matchRate: `${Math.floor(88 + (hash % 11))}% Match`,
-        maturity: isSeries ? 'TV-14' : 'PG-13',
-        duration: isSeries ? 'Series' : (m.runtime || '2h 10m'),
-        quality: '4K Ultra HD',
-        audio: targetPlatformId === 'animeworld' ? 'Hindi Dub / Eng / Jap' : 'Dolby Atmos',
-        genres: m.genres || (m.genre ? [m.genre] : ['Action', 'Drama']),
-        platform: targetOtt.name,
-        platformId: targetOtt.id,
-        platformBadge: targetOtt.badge,
-        platformColor: targetOtt.color,
-        poster: m.poster || 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80',
-        backdrop: m.background || m.poster || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1600&q=80',
-        description: m.description || `Watch ${m.name} in 4K Ultra HD with multi-audio and subtitles across all 10 high-speed streaming servers.`,
-        cast: m.cast || ['Global Ensemble Cast'],
-        director: m.director ? (Array.isArray(m.director) ? m.director.join(', ') : m.director) : 'Acclaimed Director'
+      const existingImdbs = new Set(localResults.map(x => x.imdbId || x.id).filter(Boolean));
+      const allPlatformsList = ['netflix', 'prime', 'disney', 'hbo', 'apple', 'crunchyroll', 'paramount', 'hulu', 'peacock', 'sonyliv', 'zee5', 'jiocinema', 'animeworld'];
+
+      metas.forEach(m => {
+        const imdb = m.imdb_id || m.id;
+        if (!imdb || existingImdbs.has(imdb)) return;
+        existingImdbs.add(imdb);
+
+        const isSeries = m.type === 'series' || m.detectedType === 'series';
+        if (effectiveType !== 'all') {
+          if (effectiveType === 'movie' && isSeries) return;
+          if (effectiveType === 'series' && !isSeries) return;
+        }
+
+        const mTitleNorm = normalizeStr(m.name);
+        const mWords = mTitleNorm.split(' ').filter(Boolean);
+        let mRelScore = 0;
+
+        if (normQuery && mTitleNorm === normQuery) mRelScore += 290;
+        else if (coreTerm && mTitleNorm === coreTerm) mRelScore += 270;
+        else if (normQuery && mTitleNorm.startsWith(normQuery)) mRelScore += 190;
+        else if (coreTerm && mTitleNorm.startsWith(coreTerm)) mRelScore += 170;
+        else if (normQuery && mTitleNorm.includes(normQuery)) mRelScore += 120;
+        else if (coreTerm && mTitleNorm.includes(coreTerm)) mRelScore += 110;
+        else if (coreWords.length > 0) {
+          const matched = coreWords.filter(w => mWords.includes(w));
+          if (matched.length === coreWords.length) mRelScore += 100;
+          else if (matched.length >= 2 || (coreWords.length <= 2 && matched.length >= 1)) {
+            mRelScore += matched.length * 25;
+          }
+        }
+
+        if (mRelScore <= 0) return;
+
+        const hash = Math.abs(imdb.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0));
+        let targetPlatformId = platform !== 'all' ? platform : null;
+        if (!targetPlatformId) {
+          const mGenres = (m.genres || []).map(g => g.toLowerCase());
+          const mName = (m.name || '').toLowerCase();
+          if (mGenres.includes('anime') || mGenres.includes('animation') || mName.includes('naruto') || mName.includes('dragon ball') || mName.includes('bleach')) {
+            targetPlatformId = hash % 2 === 0 ? 'animeworld' : 'crunchyroll';
+          } else if (mGenres.includes('bollywood') || mGenres.includes('hindi') || hash % 10 === 0) {
+            targetPlatformId = 'jiocinema';
+          } else {
+            targetPlatformId = allPlatformsList[hash % allPlatformsList.length];
+          }
+        }
+
+        if (effectivePlatform !== 'all' && targetPlatformId !== effectivePlatform) return;
+
+        const targetOtt = OTT_PLATFORMS.find(p => p.id === targetPlatformId) || OTT_PLATFORMS.find(p => p.id === 'netflix');
+        const tmdbResolved = m.moviedb_id || m.tmdb_id || null;
+        if (tmdbResolved && imdb) {
+          TMDB_RESOLVER_CACHE.set(imdb, String(tmdbResolved));
+        }
+
+        const rating = m.imdbRating ? parseFloat(m.imdbRating) : 7.6;
+        let totalScore = mRelScore + (rating / 10) * 15;
+
+        liveResults.push({
+          id: imdb,
+          imdbId: imdb,
+          tmdbId: tmdbResolved,
+          type: isSeries ? 'series' : 'movie',
+          title: m.name,
+          year: parseInt(m.releaseInfo, 10) || 2023,
+          rating,
+          matchRate: `${Math.floor(88 + (hash % 11))}% Match`,
+          maturity: isSeries ? 'TV-14' : 'PG-13',
+          duration: isSeries ? 'Series' : (m.runtime || '2h 10m'),
+          quality: '4K Ultra HD',
+          audio: targetPlatformId === 'animeworld' ? 'Hindi Dub / Eng / Jap' : 'Dolby Atmos',
+          genres: m.genres || (m.genre ? [m.genre] : ['Action', 'Drama']),
+          platform: targetOtt.name,
+          platformId: targetOtt.id,
+          platformBadge: targetOtt.badge,
+          platformColor: targetOtt.color,
+          poster: m.poster || 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80',
+          backdrop: m.background || m.poster || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1600&q=80',
+          description: m.description || `Watch ${m.name} in 4K Ultra HD with multi-audio and subtitles across all 10 high-speed streaming servers.`,
+          cast: m.cast || ['Global Ensemble Cast'],
+          director: m.director ? (Array.isArray(m.director) ? m.director.join(', ') : m.director) : 'Acclaimed Director',
+          _searchScore: totalScore
+        });
       });
-    });
-  } catch (err) {
-    console.warn('[Search] Cinemeta live search fallback failed or timed out:', err.message);
+    } catch (err) {
+      console.warn('[Search] Cinemeta live search fallback failed or timed out:', err.message);
+    }
   }
 
+  // Combine and sort ALL results by relevance score descending
   const combined = [...localResults, ...liveResults];
+  combined.sort((a, b) => {
+    const scoreA = a._searchScore !== undefined ? a._searchScore : scoreItem(a);
+    const scoreB = b._searchScore !== undefined ? b._searchScore : scoreItem(b);
+    return scoreB - scoreA;
+  });
 
   res.json({
     status: 'success',

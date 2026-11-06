@@ -425,8 +425,11 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
         <input type="text" id="search-input" placeholder="Titles, people, genres, OTTs..." autocomplete="off">
-        <button class="clear-search-btn" id="clear-search" onclick="clearSearch()" style="display: none;">
+        <button class="clear-search-btn" id="clear-search" onclick="clearSearch()" style="display: none;" title="Clear search">
           <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button type="button" class="voice-search-btn" id="voice-search-btn" onclick="toggleVoiceSearch(event)" onmousedown="event.preventDefault()" ontouchstart="event.stopPropagation()" title="Search with Voice">
+          <i class="fa-solid fa-microphone"></i>
         </button>
       </div>
 
@@ -504,56 +507,87 @@
   <!-- MAIN APP CONTAINER -->
   <main class="netflix-main" id="main-content">
 
-    <!-- COMMON SEARCH RESULTS OVERLAY -->
+    <!-- COMMON SEARCH RESULTS OVERLAY (AESTHETIC & ANIMATED) -->
     <section class="section search-results-section" id="search-results-section" style="display: none;">
-      <div class="search-header-container">
-        <div>
-          <h2 class="section-title"><i class="fa-solid fa-magnifying-glass text-red"></i> Search in Common across All OTTs: "<span id="search-query-display"></span>"</h2>
-          <div class="search-meta-row" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 4px;">
-            <span class="section-count" id="search-count">0 titles found</span>
-            <div class="ai-search-interpretation" id="ai-search-interpretation" style="display: none;"></div>
+      <div class="search-hero-glass-panel">
+        <div class="search-top-status-row">
+          <div class="search-eyebrow">
+            <span class="search-pulse-dot"></span>
+            <span class="search-eyebrow-text">EXPLORE TITLES</span>
+            <span class="search-ott-tag" id="search-active-ott-badge">All 14 OTTs</span>
+          </div>
+
+          <!-- Quick Type Segmented Glass Pill -->
+          <div class="search-type-segmented" id="search-type-segmented">
+            <button type="button" class="type-pill active" onclick="filterSearchType('all', this)"><i class="fa-solid fa-layer-group"></i> All</button>
+            <button type="button" class="type-pill" onclick="filterSearchType('movie', this)"><i class="fa-solid fa-film"></i> Movies</button>
+            <button type="button" class="type-pill" onclick="filterSearchType('series', this)"><i class="fa-solid fa-tv"></i> Series</button>
           </div>
         </div>
 
-        <!-- OTT Search Filter Chips -->
-        <div class="search-filter-pills" id="search-filter-pills">
-          <button class="search-pill active" onclick="filterSearchPlatform('all', this)">All</button>
-          <button class="search-pill pill-nflx" onclick="filterSearchPlatform('netflix', this)">Netflix</button>
-          <button class="search-pill pill-prm" onclick="filterSearchPlatform('prime', this)">Prime</button>
-          <button class="search-pill pill-dis" onclick="filterSearchPlatform('disney', this)">Disney+</button>
-          <button class="search-pill pill-hbo" onclick="filterSearchPlatform('hbo', this)">HBO Max</button>
-          <button class="search-pill pill-app" onclick="filterSearchPlatform('apple', this)">Apple TV+</button>
-          <button class="search-pill pill-cr" onclick="filterSearchPlatform('crunchyroll', this)">Crunchyroll</button>
-          <button class="search-pill pill-par" onclick="filterSearchPlatform('paramount', this)">Paramount+</button>
-          <button class="search-pill pill-hulu" onclick="filterSearchPlatform('hulu', this)">Hulu</button>
-          <button class="search-pill pill-pea" onclick="filterSearchPlatform('peacock', this)">Peacock</button>
-          <button class="search-pill pill-sony" onclick="filterSearchPlatform('sonyliv', this)">Sony LIV</button>
-          <button class="search-pill pill-zee" onclick="filterSearchPlatform('zee5', this)">Zee5</button>
-          <button class="search-pill pill-jio" onclick="filterSearchPlatform('jiocinema', this)">JioCinema</button>
-          <button class="search-pill pill-aw" onclick="filterSearchPlatform('animeworld', this)">Anime World</button>
+        <!-- In-Page Integrated Glass Search Bar with Live Sync & Voice Mic -->
+        <div class="search-inpage-bar-container">
+          <div class="search-inpage-bar" id="search-inpage-bar">
+            <i class="fa-solid fa-magnifying-glass search-inpage-mag"></i>
+            <input type="text" id="search-inpage-input" placeholder="Search 1,300+ movies, series, actors, genres..." autocomplete="off">
+            <button type="button" class="search-inpage-clear" id="search-inpage-clear" onclick="clearSearch()" style="display: none;" title="Clear">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button type="button" class="search-inpage-mic" id="search-inpage-mic" onclick="toggleVoiceSearch(event)" onmousedown="event.preventDefault()" ontouchstart="event.stopPropagation()" title="Voice Search (Speak)">
+              <i class="fa-solid fa-microphone"></i>
+            </button>
+          </div>
         </div>
 
-        <!-- Content Type & Quick Tags Filter Bar -->
-        <div class="search-secondary-bar" id="search-secondary-bar">
-          <div class="search-type-group">
-            <span class="filter-label"><i class="fa-solid fa-filter text-red"></i> Type:</span>
-            <button class="type-pill active" onclick="filterSearchType('all', this)">All</button>
-            <button class="type-pill" onclick="filterSearchType('movie', this)"><i class="fa-solid fa-film"></i> Movies</button>
-            <button class="type-pill" onclick="filterSearchType('series', this)"><i class="fa-solid fa-tv"></i> TV Series</button>
+        <div class="search-heading-meta-row">
+          <div class="search-heading-group">
+            <h2 class="search-clean-heading">
+              <span class="search-prefix-text" id="search-title-prefix">Showing</span>
+              <span class="search-query-badge" id="search-query-display">All Titles</span>
+            </h2>
+            <span class="search-count-chip" id="search-count"><i class="fa-solid fa-film text-red"></i> 0 titles</span>
           </div>
+          <div class="ai-search-interpretation" id="ai-search-interpretation" style="display: none;"></div>
+        </div>
+
+        <!-- OTT Platform Glass Carousel Track -->
+        <div class="search-ott-carousel-wrap">
+          <div class="search-filter-pills" id="search-filter-pills">
+            <button type="button" class="search-pill active" onclick="filterSearchPlatform('all', this)"><i class="fa-solid fa-layer-group"></i> All OTTs</button>
+            <button type="button" class="search-pill pill-nflx" onclick="filterSearchPlatform('netflix', this)"><i class="fa-solid fa-play text-red"></i> Netflix</button>
+            <button type="button" class="search-pill pill-prm" onclick="filterSearchPlatform('prime', this)"><i class="fa-solid fa-circle-play text-blue"></i> Prime Video</button>
+            <button type="button" class="search-pill pill-dis" onclick="filterSearchPlatform('disney', this)"><i class="fa-solid fa-sparkles text-blue"></i> Disney+</button>
+            <button type="button" class="search-pill pill-hbo" onclick="filterSearchPlatform('hbo', this)"><i class="fa-solid fa-crown text-purple"></i> HBO Max</button>
+            <button type="button" class="search-pill pill-app" onclick="filterSearchPlatform('apple', this)"><i class="fa-brands fa-apple"></i> Apple TV+</button>
+            <button type="button" class="search-pill pill-cr" onclick="filterSearchPlatform('crunchyroll', this)"><i class="fa-solid fa-dragon text-orange"></i> Crunchyroll</button>
+            <button type="button" class="search-pill pill-par" onclick="filterSearchPlatform('paramount', this)"><i class="fa-solid fa-mountain"></i> Paramount+</button>
+            <button type="button" class="search-pill pill-hulu" onclick="filterSearchPlatform('hulu', this)"><i class="fa-solid fa-tv text-green"></i> Hulu</button>
+            <button type="button" class="search-pill pill-pea" onclick="filterSearchPlatform('peacock', this)"><i class="fa-solid fa-feather text-gold"></i> Peacock</button>
+            <button type="button" class="search-pill pill-sony" onclick="filterSearchPlatform('sonyliv', this)"><i class="fa-solid fa-film text-red"></i> Sony LIV</button>
+            <button type="button" class="search-pill pill-zee" onclick="filterSearchPlatform('zee5', this)"><i class="fa-solid fa-star text-purple"></i> Zee5</button>
+            <button type="button" class="search-pill pill-jio" onclick="filterSearchPlatform('jiocinema', this)"><i class="fa-solid fa-clapperboard text-red"></i> JioCinema</button>
+            <button type="button" class="search-pill pill-aw" onclick="filterSearchPlatform('animeworld', this)"><i class="fa-solid fa-fire text-gold"></i> Anime World</button>
+          </div>
+        </div>
+
+        <!-- Quick Aesthetic Genre & Mood Tags -->
+        <div class="search-quick-tags-wrap">
+          <span class="quick-tags-label"><i class="fa-solid fa-bolt text-gold"></i> Quick Picks:</span>
           <div class="search-quick-tags">
-            <span class="filter-label"><i class="fa-solid fa-bolt text-gold"></i> Quick:</span>
-            <button class="tag-pill" onclick="applyQuickTag('Trending')">Trending Hits</button>
-            <button class="tag-pill" onclick="applyQuickTag('Action')">Action</button>
-            <button class="tag-pill" onclick="applyQuickTag('Anime')">Anime Multi-Audio</button>
-            <button class="tag-pill" onclick="applyQuickTag('Hindi')">Bollywood / Hindi</button>
-            <button class="tag-pill" onclick="applyQuickTag('Sci-Fi')">Sci-Fi 4K</button>
-            <button class="tag-pill" onclick="applyQuickTag('Comedy')">Comedy</button>
-            <button class="tag-pill" onclick="applyQuickTag('Horror')">Horror & Thriller</button>
+            <button type="button" class="tag-pill voice-tag-pill" onclick="toggleVoiceSearch(event)"><i class="fa-solid fa-microphone text-red"></i> Voice Search</button>
+            <button type="button" class="tag-pill" onclick="applyQuickTag('Trending')">🔥 Trending Hits</button>
+            <button type="button" class="tag-pill" onclick="applyQuickTag('Action')">💥 Action</button>
+            <button type="button" class="tag-pill" onclick="applyQuickTag('Anime')">⚡ Anime Multi-Audio</button>
+            <button type="button" class="tag-pill" onclick="applyQuickTag('Hindi')">🇮🇳 Bollywood / Hindi</button>
+            <button type="button" class="tag-pill" onclick="applyQuickTag('Sci-Fi')">🚀 Sci-Fi 4K</button>
+            <button type="button" class="tag-pill" onclick="applyQuickTag('Comedy')">😂 Comedy</button>
+            <button type="button" class="tag-pill" onclick="applyQuickTag('Horror')">👻 Horror &amp; Thriller</button>
           </div>
         </div>
       </div>
-      <div class="netflix-grid" id="search-grid"></div>
+
+      <!-- Animated Search Grid -->
+      <div class="netflix-grid search-animated-grid" id="search-grid"></div>
     </section>
 
     <!-- ======================================================== -->
@@ -2693,6 +2727,48 @@
     </div>
   </div>
 
+  <!-- VOICE SEARCH HUD MODAL -->
+  <div class="voice-search-modal" id="voice-search-modal" style="display: none;" onclick="closeVoiceSearchOnBackdrop(event)">
+    <div class="voice-modal-card" onclick="event.stopPropagation()">
+      <button type="button" class="voice-modal-close" onclick="stopVoiceSearch(true)" aria-label="Close voice search">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="voice-mic-container">
+        <div class="voice-pulse-ring" id="voice-pulse-ring-1"></div>
+        <div class="voice-pulse-ring delay-1" id="voice-pulse-ring-2"></div>
+        <div class="voice-mic-circle" id="voice-mic-indicator" onclick="toggleVoiceListeningManual()" title="Tap to Toggle Listening">
+          <i class="fa-solid fa-microphone voice-mic-icon"></i>
+        </div>
+      </div>
+
+      <h3 class="voice-status-heading" id="voice-status-heading">Listening... Speak now</h3>
+      
+      <!-- Live Real-Time Voice Input & Transcription Row -->
+      <div class="voice-input-row" id="voice-input-row">
+        <input type="text" class="voice-modal-input" id="voice-modal-input" placeholder="Listening for speech or type here..." autocomplete="off">
+        <button type="button" class="btn-voice-modal-go" id="btn-voice-modal-go" onclick="submitVoiceModalInput()" title="Search">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+      <p class="voice-transcript-hint" id="voice-transcript-hint">Say any movie name, series, actor, or genre...</p>
+
+      <div class="voice-suggestions">
+        <span class="voice-suggestions-label">Try saying:</span>
+        <div class="voice-chips-row">
+          <button type="button" class="voice-chip" onclick="searchVoiceHint('Inception movie')"><i class="fa-solid fa-film"></i> Inception movie</button>
+          <button type="button" class="voice-chip" onclick="searchVoiceHint('Deadpool and Wolverine')"><i class="fa-solid fa-masks-theater"></i> Deadpool &amp; Wolverine</button>
+          <button type="button" class="voice-chip" onclick="searchVoiceHint('Horror movies')"><i class="fa-solid fa-ghost"></i> Horror movies</button>
+          <button type="button" class="voice-chip" onclick="searchVoiceHint('Christopher Nolan')"><i class="fa-solid fa-star"></i> Christopher Nolan</button>
+        </div>
+      </div>
+
+      <div class="voice-modal-footer">
+        <button type="button" class="btn-voice-cancel" onclick="stopVoiceSearch(true)">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION -->
   <div class="toast" id="toast">
     <i class="fa-solid fa-circle-check" id="toast-icon"></i>
@@ -2744,6 +2820,7 @@
   </nav>
 
 
+  <script src="/initial_catalog.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js"></script>
   <script src="app.js"></script>

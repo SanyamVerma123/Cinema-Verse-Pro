@@ -16,32 +16,32 @@ if (!Promise.allSettled) {
    Universal Multi-OTT Hub, 10 Mirror Servers, Zero Redirects, Zero Sandbox Errors
    ======================================================== */
 
-// Global State
-let currentCatalog = [];
-let heroItems = [];
-let currentHeroIndex = 0;
-let heroTimer = null;
-let currentItem = null;
-let currentServerIndex = 0; // Default: Server 1 (Vidly Pro VIP)
-let currentSeason = 1;
-let currentEpisode = 1;
-let availableServers = [];
-let isScreenLocked = false;
-let isMuted = false;
-let previousVolume = 1.0;
-let activePlatformFilter = 'all';
-let searchPlatformFilter = 'all';
-let isHeroMuted = true;
-let isShieldActive = true;
-let isTheaterMode = false;
-let currentVideoZoom = 'fit';
-let currentQuality = '4k';
-let currentSpeed = 1.0;
+// Global State (Using var to allow safe evaluation across environments)
+var currentCatalog = window.currentCatalog || [];
+var heroItems = window.heroItems || [];
+var currentHeroIndex = window.currentHeroIndex || 0;
+var heroTimer = window.heroTimer || null;
+var currentItem = window.currentItem || null;
+var currentServerIndex = window.currentServerIndex || 0; // Default: Server 1 (Vidly Pro VIP)
+var currentSeason = window.currentSeason || 1;
+var currentEpisode = window.currentEpisode || 1;
+var availableServers = window.availableServers || [];
+var isScreenLocked = false;
+var isMuted = false;
+var previousVolume = 1.0;
+var activePlatformFilter = 'all';
+var searchPlatformFilter = 'all';
+var isHeroMuted = true;
+var isShieldActive = true;
+var isTheaterMode = false;
+var currentVideoZoom = 'fit';
+var currentQuality = '4k';
+var currentSpeed = 1.0;
 
 // Storage Keys (CinemaVerse Pro Universe)
-const STORAGE_WATCHLIST = 'cinemaverse_watchlist';
-const STORAGE_CONTINUE_WATCHING = 'cinemaverse_continue_watching';
-const STORAGE_DAILY_PASS = 'cinemaverse_daily_pass';
+var STORAGE_WATCHLIST = 'cinemaverse_watchlist';
+var STORAGE_CONTINUE_WATCHING = 'cinemaverse_continue_watching';
+var STORAGE_DAILY_PASS = 'cinemaverse_daily_pass';
 
 // Fallback high-res assets (clean cinema themed SVGs instead of sailboat photos)
 const FALLBACK_POSTER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="34">CINEMAVERSE</text><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="Arial,sans-serif" font-weight="600" font-size="16">ULTRA HD 4K</text></svg>';
@@ -127,7 +127,27 @@ async function initializeApplication() {
   initSettings();
   initPwaInstall();
   initPlayerTopBarAutoMove();
+
+  // Instant 0ms Render using Bootstrap Catalog Snapshot (Prevents TV freeze & blank row hang)
+  const initialPool = (typeof window !== 'undefined' && window.INITIAL_BOOTSTRAP_CATALOG && Array.isArray(window.INITIAL_BOOTSTRAP_CATALOG) && window.INITIAL_BOOTSTRAP_CATALOG.length)
+    ? window.INITIAL_BOOTSTRAP_CATALOG
+    : null;
+
+  if (initialPool && (!currentCatalog || !currentCatalog.length)) {
+    currentCatalog = initialPool;
+    heroItems = currentCatalog.filter(x => x.featured || x.trending).slice(0, 6);
+    if (!heroItems.length) heroItems = currentCatalog.slice(0, 6);
+    try { setupHeroCarousel(); } catch (e) { console.warn('setupHeroCarousel bootstrap:', e); }
+    try { renderAllRows(currentCatalog); } catch (e) { console.warn('renderAllRows bootstrap:', e); }
+    try { updateOttHubDynamicCounts(); } catch (e) { console.warn('updateOttHubDynamicCounts bootstrap:', e); }
+  }
+
+  // Initialize Smart TV Remote D-Pad Navigation Engine
+  initSmartTvNavigation();
+
+  // Asynchronously load full 5MB catalog with automatic retry
   await loadCatalog();
+
   try { renderContinueWatching(); } catch (e) { console.warn('renderContinueWatching:', e); }
   try { renderNotifications(); } catch (e) { console.warn('renderNotifications:', e); }
 
@@ -469,16 +489,22 @@ function resetToHome() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Load Catalog API
-async function loadCatalog() {
+// Load Catalog API with resilient timeout and automatic retry
+async function loadCatalog(retryCount = 0) {
   try {
-    const res = await fetch('/api/catalog');
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 9000);
+    const res = await fetch('/api/catalog', { signal: controller.signal });
+    clearTimeout(timeoutId);
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    if (data.status === 'success') {
+    if (data.status === 'success' && Array.isArray(data.data) && data.data.length > 0) {
       currentCatalog = data.data;
 
       // Extract Billboard Hero items
       heroItems = currentCatalog.filter(x => x.featured || x.trending).slice(0, 6);
+      if (!heroItems.length) heroItems = currentCatalog.slice(0, 6);
       setupHeroCarousel();
 
       // Render All Netflix Rows
@@ -488,8 +514,10 @@ async function loadCatalog() {
       updateOttHubDynamicCounts();
     }
   } catch (err) {
-    console.error('Failed to load catalog:', err);
-    showToast('Failed to connect to streaming catalog', 'error');
+    console.warn(`[Catalog] Fetch attempt ${retryCount + 1} notice:`, err.message || err);
+    if (retryCount < 2) {
+      setTimeout(() => loadCatalog(retryCount + 1), 1500);
+    }
   }
 }
 
@@ -904,6 +932,9 @@ function renderTop10List(containerId, items) {
     const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
 
     cardWrap.className = 'top10-card';
+    cardWrap.setAttribute('tabindex', '0');
+    cardWrap.setAttribute('role', 'button');
+    cardWrap.setAttribute('aria-label', `${rankNum}. ${item.title}`);
     cardWrap.innerHTML = `
       <div class="top10-rank-num">${rankNum}</div>
       <div class="movie-card">
@@ -926,6 +957,12 @@ function renderTop10List(containerId, items) {
     `;
 
     cardWrap.onclick = () => openDetailsModal(item);
+    cardWrap.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Select') {
+        e.preventDefault();
+        openDetailsModal(item);
+      }
+    });
     container.appendChild(cardWrap);
   });
 }
@@ -942,6 +979,9 @@ function renderHorizontalList(containerId, items) {
 
     const card = document.createElement('div');
     card.className = 'movie-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', item.title);
     card.innerHTML = `
       <div class="card-poster-wrap">
         <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
@@ -961,6 +1001,12 @@ function renderHorizontalList(containerId, items) {
     `;
 
     card.onclick = () => openDetailsModal(item);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Select') {
+        e.preventDefault();
+        openDetailsModal(item);
+      }
+    });
     container.appendChild(card);
   });
 }
@@ -1075,6 +1121,9 @@ function renderContinueWatching() {
     const rawItem = currentCatalog.find(x => String(x.id) === String(c.id)) || c;
     const card = document.createElement('div');
     card.className = 'movie-card continue-watching-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `Continue Watching ${c.title}`);
     const isSeries = c.type === 'series';
     const epLabel = isSeries ? `S${c.season}:E${c.episode}` : 'Movie';
     const timeFormatted = formatTimeSeconds(c.currentTime);
@@ -1102,6 +1151,12 @@ function renderContinueWatching() {
     card.onclick = () => {
       openPlayer(rawItem, c.season, c.episode, null, c.currentTime);
     };
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Select') {
+        e.preventDefault();
+        openPlayer(rawItem, c.season, c.episode, null, c.currentTime);
+      }
+    });
     container.appendChild(card);
   });
 }
@@ -1581,6 +1636,9 @@ function filterGenre(genre) {
   filtered.forEach(item => {
     const card = document.createElement('div');
     card.className = 'movie-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', item.title);
     card.innerHTML = `
       <div class="card-poster-wrap">
         <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
@@ -1598,6 +1656,12 @@ function filterGenre(genre) {
       </div>
     `;
     card.onclick = () => openDetailsModal(item);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Select') {
+        e.preventDefault();
+        openDetailsModal(item);
+      }
+    });
     grid.appendChild(card);
   });
 
@@ -1612,44 +1676,76 @@ function setupSearch() {
   const box = document.getElementById('search-box');
   const input = document.getElementById('search-input');
   const clearBtn = document.getElementById('clear-search');
-  if (!input) return;
+  const inpageInput = document.getElementById('search-inpage-input');
+  const inpageClear = document.getElementById('search-inpage-clear');
+
   let debounceTimeout = null;
 
-  input.addEventListener('input', () => {
-    const val = input.value.trim();
+  const onSearchQueryChange = (val, source) => {
+    if (source !== 'nav' && input && input.value !== val) input.value = val;
+    if (source !== 'inpage' && inpageInput && inpageInput.value !== val) inpageInput.value = val;
+
     if (clearBtn) clearBtn.style.display = val ? 'block' : 'none';
+    if (inpageClear) inpageClear.style.display = val ? 'block' : 'none';
 
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
       if (val) {
-        performSearch(val, searchPlatformFilter);
+        performSearch(val, searchPlatformFilter, searchTypeFilter);
       } else {
         clearSearch();
       }
     }, 250);
-  });
+  };
 
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      clearSearch();
-      if (box) box.classList.remove('open');
-      input.blur();
-    }
-  });
+  if (input) {
+    input.addEventListener('input', () => {
+      onSearchQueryChange(input.value.trim(), 'nav');
+    });
 
-  // Smooth collapse on blur if search query is empty
-  input.addEventListener('blur', () => {
-    setTimeout(() => {
-      if (box && !input.value.trim() && document.activeElement !== input) {
-        box.classList.remove('open');
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        clearTimeout(debounceTimeout);
+        const val = input.value.trim();
+        if (val) performSearch(val, searchPlatformFilter, searchTypeFilter);
+      } else if (e.key === 'Escape') {
+        clearSearch();
+        if (box) box.classList.remove('open');
+        input.blur();
       }
-    }, 220);
-  });
+    });
+
+    // Smooth collapse on blur if search query is empty
+    input.addEventListener('blur', () => {
+      setTimeout(() => {
+        if (box && !input.value.trim() && document.activeElement !== input) {
+          box.classList.remove('open');
+        }
+      }, 220);
+    });
+  }
+
+  if (inpageInput) {
+    inpageInput.addEventListener('input', () => {
+      onSearchQueryChange(inpageInput.value.trim(), 'inpage');
+    });
+
+    inpageInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        clearTimeout(debounceTimeout);
+        const val = inpageInput.value.trim();
+        if (val) performSearch(val, searchPlatformFilter, searchTypeFilter);
+      } else if (e.key === 'Escape') {
+        clearSearch();
+        inpageInput.blur();
+      }
+    });
+  }
 
   // Smooth collapse when clicking anywhere outside if search is empty
   document.addEventListener('click', (e) => {
     if (!box || !box.classList.contains('open')) return;
-    if (!box.contains(e.target) && !input.value.trim()) {
+    if (input && !box.contains(e.target) && !input.value.trim()) {
       box.classList.remove('open');
     }
   });
@@ -1662,7 +1758,9 @@ function filterSearchPlatform(platformId, btnElement) {
   document.querySelectorAll('.search-pill').forEach(b => b.classList.remove('active'));
   if (btnElement) btnElement.classList.add('active');
 
-  const val = document.getElementById('search-input').value.trim();
+  const inpageInput = document.getElementById('search-inpage-input');
+  const input = document.getElementById('search-input');
+  const val = (inpageInput?.value || input?.value || '').trim();
   performSearch(val, searchPlatformFilter, searchTypeFilter);
 }
 
@@ -1671,37 +1769,45 @@ function filterSearchType(type, btnElement) {
   document.querySelectorAll('.type-pill').forEach(b => b.classList.remove('active'));
   if (btnElement) btnElement.classList.add('active');
 
-  const val = document.getElementById('search-input').value.trim();
+  const inpageInput = document.getElementById('search-inpage-input');
+  const input = document.getElementById('search-input');
+  const val = (inpageInput?.value || input?.value || '').trim();
   performSearch(val, searchPlatformFilter, searchTypeFilter);
 }
 
 function applyQuickTag(tag) {
   const input = document.getElementById('search-input');
+  const inpageInput = document.getElementById('search-inpage-input');
   const box = document.getElementById('search-box');
   const clearBtn = document.getElementById('clear-search');
+  const inpageClear = document.getElementById('search-inpage-clear');
   if (box) box.classList.add('open');
-  if (input) {
-    if (tag === 'Trending') {
-      input.value = '';
-      searchPlatformFilter = 'all';
-      searchTypeFilter = 'all';
-      document.querySelectorAll('.search-pill').forEach(b => b.classList.toggle('active', b.textContent === 'All'));
-      document.querySelectorAll('.type-pill').forEach(b => b.classList.toggle('active', b.textContent.includes('All')));
-      clearSearch();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    input.value = tag;
-    if (clearBtn) clearBtn.style.display = 'block';
-    input.focus();
-    performSearch(tag, searchPlatformFilter, searchTypeFilter);
+
+  if (tag === 'Trending') {
+    if (input) input.value = '';
+    if (inpageInput) inpageInput.value = '';
+    if (clearBtn) clearBtn.style.display = 'none';
+    if (inpageClear) inpageClear.style.display = 'none';
+    searchPlatformFilter = 'all';
+    searchTypeFilter = 'all';
+    document.querySelectorAll('.search-pill').forEach(b => b.classList.toggle('active', b.textContent.includes('All OTTs') || b.textContent.trim() === 'All'));
+    document.querySelectorAll('.type-pill').forEach(b => b.classList.toggle('active', b.textContent.includes('All')));
+    performSearch('', 'all', 'all');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
   }
+  if (input) input.value = tag;
+  if (inpageInput) inpageInput.value = tag;
+  if (clearBtn) clearBtn.style.display = 'block';
+  if (inpageClear) inpageClear.style.display = 'block';
+  performSearch(tag, searchPlatformFilter, searchTypeFilter);
 }
 
 // Open Mobile & Universal Search Interface
 function openSearchModal() {
   const box = document.getElementById('search-box');
   const input = document.getElementById('search-input');
+  const inpageInput = document.getElementById('search-inpage-input');
   const section = document.getElementById('search-results-section');
 
   if (box) box.classList.add('open');
@@ -1711,11 +1817,13 @@ function openSearchModal() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  if (input) {
+  const curVal = (inpageInput?.value || input?.value || '').trim();
+  if (inpageInput) {
+    inpageInput.focus();
+  } else if (input) {
     input.focus();
-    const curVal = input.value.trim();
-    performSearch(curVal, searchPlatformFilter, searchTypeFilter);
   }
+  performSearch(curVal, searchPlatformFilter, searchTypeFilter);
 }
 window.openSearchModal = openSearchModal;
 
@@ -1841,11 +1949,22 @@ function getClientKnownEntities() {
   };
 }
 
+function normalizeStr(str) {
+  if (!str) return '';
+  return str.toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/['’"“”]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function parseNaturalLanguageQuery(rawQuery) {
   if (!rawQuery || !rawQuery.trim()) {
-    return { isNaturalLanguage: false, query: '' };
+    return { isNaturalLanguage: false, query: '', norm: '', core: '', isBrowse: false, targetType: 'all', targetPlatform: 'all', targetRegion: null, genres: [], person: null, personType: null };
   }
 
+  const norm = normalizeStr(rawQuery);
   let text = rawQuery.toLowerCase().replace(/[,/\\+&"']/g, ' ').replace(/\s+/g, ' ').trim();
   const originalClean = text;
 
@@ -1926,12 +2045,24 @@ function parseNaturalLanguageQuery(rawQuery) {
     }
   }
 
+  // Core search term: strip command/voice prefixes and format words
+  const core = norm
+    .replace(/\b(search for|search|find me|find|show me|play|watch|can you find|please play)\b/g, '')
+    .replace(/\b(movies?|films?|cinema|series|shows?|tv|season|episode|online|free|hd|4k)\b/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const isBrowse = !norm || (!core && (targetType !== 'all' || detectedGenres.length > 0 || isHighRated));
+
   const isNaturalLanguage = detectedGenres.length > 0 || targetType !== 'all' || 
-    detectedPerson !== null || isHighRated || is4k || targetPlatform !== 'all' || detectedRegion !== null;
+    detectedPerson !== null || isHighRated || is4k || targetPlatform !== 'all' || detectedRegion !== null || isBrowse;
 
   return {
     raw: rawQuery,
     clean: originalClean,
+    norm,
+    core,
+    isBrowse,
     isNaturalLanguage,
     targetType,
     targetPlatform,
@@ -1952,13 +2083,15 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
   const queryDisplay = document.getElementById('search-query-display');
   const countDisplay = document.getElementById('search-count');
   const interpretationEl = document.getElementById('ai-search-interpretation');
+  const titlePrefixEl = document.getElementById('search-title-prefix');
+  const activeOttBadgeEl = document.getElementById('search-active-ott-badge');
 
   if (!section || !grid) return;
 
   toggleHomeVisibilityForSearch(true);
   
   const platformNameMap = {
-    all: 'All OTT Platforms',
+    all: 'All OTTs',
     netflix: 'Netflix',
     prime: 'Prime Video',
     disney: 'Disney+ Hotstar',
@@ -1975,14 +2108,31 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
   };
   const platLabel = platformNameMap[platform] || platform;
 
-  if (query) {
-    queryDisplay.textContent = `"${query}" on ${platLabel}`;
-  } else {
-    queryDisplay.textContent = `All Titles on ${platLabel}`;
+  const navInput = document.getElementById('search-input');
+  const inpageInput = document.getElementById('search-inpage-input');
+  const clearBtn = document.getElementById('clear-search');
+  const inpageClear = document.getElementById('search-inpage-clear');
+
+  if (navInput && navInput.value !== (query || '')) navInput.value = query || '';
+  if (inpageInput && inpageInput.value !== (query || '')) inpageInput.value = query || '';
+  if (clearBtn) clearBtn.style.display = query ? 'block' : 'none';
+  if (inpageClear) inpageClear.style.display = query ? 'block' : 'none';
+
+  if (titlePrefixEl) {
+    titlePrefixEl.textContent = query ? 'Results for' : 'Discover';
+  }
+  if (queryDisplay) {
+    queryDisplay.textContent = query ? `"${query}"` : 'All Titles';
+  }
+  if (activeOttBadgeEl) {
+    activeOttBadgeEl.textContent = platLabel;
   }
 
-  countDisplay.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-red"></i> Searching universal database across all 14 OTT platforms...';
+  countDisplay.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-red"></i> Searching across 14 OTTs...';
   section.style.display = 'block';
+
+  // Immediate animated shimmer skeleton cards for responsive feedback
+  grid.innerHTML = Array(12).fill(0).map(() => '<div class="search-skeleton-card"></div>').join('');
 
   // 1. Run AI Natural Language Query Parser
   const parsed = parseNaturalLanguageQuery(query);
@@ -2022,90 +2172,77 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
       console.warn('API search failed, falling back to local catalog:', apiErr);
     }
 
-    // High-performance client-side semantic Multi-Trait scoring fallback
+    // High-performance client-side precision scoring fallback
     if (!results.length && currentCatalog && currentCatalog.length) {
       const effectivePlatform = platform !== 'all' ? platform : parsed.targetPlatform;
       const effectiveType = type !== 'all' ? type : parsed.targetType;
-      const qLower = (query || '').toLowerCase().trim();
+      const normQuery = parsed.norm || normalizeStr(query);
+      const coreTerm = parsed.core || normQuery;
+      const coreWords = coreTerm ? coreTerm.split(' ').filter(w => w.length > 1) : [];
 
       const scoreItem = (item) => {
-        let score = 0;
-        const t = (item.title || '').toLowerCase();
+        if (effectiveType !== 'all' && item.type !== effectiveType) return 0;
+        if (effectivePlatform !== 'all' && item.platformId !== effectivePlatform) return 0;
+
+        const normTitle = normalizeStr(item.title);
+        const itemTitleWords = normTitle.split(' ').filter(Boolean);
         const itemGenres = (item.genres || []).map(g => g.toLowerCase());
-        const itemCast = (item.cast || []).map(c => c.toLowerCase());
-        const itemDirector = (item.director || '').toLowerCase();
+        const itemCast = (item.cast || []).map(normalizeStr);
+        const itemDirector = normalizeStr(item.director || '');
+
+        if (parsed.isBrowse) {
+          if (parsed.genres && parsed.genres.length > 0) {
+            const matchesG = parsed.genres.some(g => itemGenres.includes(g.toLowerCase()));
+            if (!matchesG) return 0;
+          }
+          let score = (item.rating || 7.0) * 10;
+          if (item.trending) score += 20;
+          if (item.featured) score += 15;
+          if (parsed.isHighRated && item.rating) score += (item.rating / 10) * 35;
+          return score;
+        }
+
+        let relScore = 0;
+        if (normQuery && normTitle === normQuery) relScore += 300;
+        else if (coreTerm && normTitle === coreTerm) relScore += 280;
+        else if (normQuery && normTitle.startsWith(normQuery)) relScore += 200;
+        else if (coreTerm && normTitle.startsWith(coreTerm)) relScore += 180;
+        else if (normQuery && normTitle.includes(normQuery)) relScore += 130;
+        else if (coreTerm && normTitle.includes(coreTerm)) relScore += 120;
+        else if (coreWords.length > 0) {
+          const matchedWords = coreWords.filter(w => itemTitleWords.includes(w));
+          if (matchedWords.length === coreWords.length) relScore += 110;
+          else if (matchedWords.length >= 2 || (coreWords.length <= 2 && matchedWords.length >= 1)) {
+            relScore += matchedWords.length * 30;
+          }
+        }
 
         if (parsed.person) {
-          const pLower = parsed.person.toLowerCase();
-          if (parsed.personType === 'director' && itemDirector.includes(pLower)) {
-            score += 160;
-          } else if (parsed.personType === 'actor' && itemCast.some(c => c.includes(pLower))) {
-            score += 160;
-          } else if (itemCast.some(c => c.includes(pLower)) || itemDirector.includes(pLower)) {
-            score += 130;
-          } else {
-            score -= 100;
-          }
+          const pNorm = normalizeStr(parsed.person);
+          if (parsed.personType === 'director' && itemDirector.includes(pNorm)) relScore += 180;
+          else if (parsed.personType === 'actor' && itemCast.some(c => c.includes(pNorm))) relScore += 180;
+          else if (itemCast.some(c => c.includes(pNorm)) || itemDirector.includes(pNorm)) relScore += 140;
+        } else if (coreTerm || normQuery) {
+          const pTarget = coreTerm || normQuery;
+          if (itemCast.some(c => c.includes(pTarget) || pTarget.includes(c))) relScore += 140;
+          else if (itemDirector && (itemDirector.includes(pTarget) || pTarget.includes(itemDirector))) relScore += 140;
         }
 
-        if (effectiveType !== 'all') {
-          if (item.type === effectiveType) score += 35;
-          else score -= 90;
+        if (parsed.genres && parsed.genres.length > 0) {
+          const isGenreQ = parsed.genres.some(g => g.toLowerCase() === coreTerm || g.toLowerCase() === normQuery);
+          const matchCount = parsed.genres.filter(g => itemGenres.includes(g.toLowerCase())).length;
+          if (matchCount > 0) relScore += isGenreQ ? (200 + matchCount * 40) : (matchCount * 50);
         }
 
-        if (effectivePlatform !== 'all') {
-          if (item.platformId === effectivePlatform) score += 40;
-          else score -= 30;
-        }
+        if (relScore <= 0) return 0;
 
-        if (parsed.targetRegion) {
-          const audioStr = (item.audio || '').toLowerCase();
-          const langs = Array.isArray(item.languages) ? item.languages.map(l => ((l && (l.name || l.code)) || '').toLowerCase()) : [];
-          let isRegionMatch = false;
-          if (parsed.targetRegion === 'south_indian') {
-            isRegionMatch = audioStr.includes('telugu') || audioStr.includes('tamil') || audioStr.includes('malayalam') || audioStr.includes('kannada') ||
-              langs.some(l => l.includes('te') || l.includes('ta') || l.includes('ml') || l.includes('kn') || l.includes('telugu') || l.includes('tamil'));
-          } else if (parsed.targetRegion === 'bollywood') {
-            isRegionMatch = audioStr.includes('hindi') || langs.some(l => l.includes('hi') || l.includes('hindi'));
-          } else if (parsed.targetRegion === 'korean') {
-            isRegionMatch = audioStr.includes('korean') || langs.some(l => l.includes('ko') || l.includes('korean'));
-          } else if (parsed.targetRegion === 'anime') {
-            isRegionMatch = audioStr.includes('japanese') || (item.genres && item.genres.includes('Anime'));
-          }
-          if (isRegionMatch) score += 85;
-          else score -= 40;
-        }
-
-        if (parsed.genres.length > 0) {
-          let matchedCount = 0;
-          parsed.genres.forEach(g => {
-            if (itemGenres.includes(g.toLowerCase())) matchedCount++;
-          });
-          if (matchedCount > 0) {
-            score += matchedCount * 45;
-            if (matchedCount === parsed.genres.length && parsed.genres.length > 1) score += 60;
-            else if (matchedCount >= 2) score += 25;
-          } else {
-            score -= 80;
-          }
-        }
-
-        if (t === qLower) score += 120;
-        else if (t.startsWith(qLower)) score += 80;
-        else if (t.includes(qLower)) score += 50;
-        else if (parsed.clean) {
-          const words = parsed.clean.split(' ').filter(w => w.length > 2 && !['movie', 'movies', 'film', 'films', 'show', 'all', 'the', 'and', 'with', 'from', 'for'].includes(w));
-          words.forEach(w => {
-            if (t.includes(w)) score += 25;
-          });
-        }
-
-        if (parsed.isHighRated && item.rating) score += (item.rating / 10) * 35;
-        else if (item.rating) score += (item.rating / 10) * 8;
-        if (parsed.is4k && item.quality && item.quality.includes('4K')) score += 20;
-        if (item.featured || item.trending) score += 5;
-
-        return score;
+        let finalScore = relScore;
+        if (item.rating) finalScore += (item.rating / 10) * 15;
+        if (parsed.isHighRated && item.rating) finalScore += (item.rating / 10) * 25;
+        if (item.trending) finalScore += 8;
+        if (item.featured) finalScore += 5;
+        if (parsed.is4k && item.quality && item.quality.includes('4K')) finalScore += 15;
+        return finalScore;
       };
 
       results = currentCatalog.filter(item => scoreItem(item) > 0);
@@ -2124,7 +2261,7 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
     }
 
     const typeLabel = type === 'all' ? '' : (type === 'movie' ? 'movies' : 'series');
-    countDisplay.textContent = `${results.length} ${typeLabel} titles found on ${platLabel}`;
+    countDisplay.innerHTML = `<i class="fa-solid fa-film text-red"></i> ${results.length} ${typeLabel} titles found on ${platLabel}`;
     grid.innerHTML = '';
 
     if (!results.length) {
@@ -2139,17 +2276,20 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
       return;
     }
 
-    results.forEach(item => {
+    results.forEach((item, idx) => {
       const hasDub = (item.languages && item.languages.length > 1) || (item.audio && (item.audio.includes('Dub') || item.audio.includes('Hindi')));
       const dubBadgeHtml = hasDub ? `<div class="badge-dub-indicator"><i class="fa-solid fa-volume-high"></i> Multi-Audio</div>` : '';
 
       const card = document.createElement('div');
       card.className = 'movie-card';
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', item.title);
+      card.style.setProperty('--card-idx', idx);
       card.innerHTML = `
         <div class="card-poster-wrap">
           <img class="card-poster" src="${item.poster}" alt="${item.title}" onerror="window.handleImgError(this)">
           <div class="card-ott-badge badge-${item.platformId}">${item.platformBadge || item.platform}</div>
-          <div class="card-type-badge">${item.type === 'series' ? 'SERIES' : 'MOVIE'}</div>
           ${dubBadgeHtml}
           <div class="card-play-hover">
             <div class="play-circle"><i class="fa-solid fa-play"></i></div>
@@ -2168,6 +2308,13 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
         if (window.neuroTasteEngine) window.neuroTasteEngine.train(item, 'click');
         openDetailsModal(item);
       };
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === 'Select') {
+          e.preventDefault();
+          if (window.neuroTasteEngine) window.neuroTasteEngine.train(item, 'click');
+          openDetailsModal(item);
+        }
+      });
       grid.appendChild(card);
     });
   } catch (err) {
@@ -2179,16 +2326,429 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
 function clearSearch() {
   const input = document.getElementById('search-input');
   if (input) input.value = '';
+  const inpageInput = document.getElementById('search-inpage-input');
+  if (inpageInput) inpageInput.value = '';
   const clearBtn = document.getElementById('clear-search');
   if (clearBtn) clearBtn.style.display = 'none';
+  const inpageClear = document.getElementById('search-inpage-clear');
+  if (inpageClear) inpageClear.style.display = 'none';
   const section = document.getElementById('search-results-section');
   if (section) section.style.display = 'none';
   searchPlatformFilter = 'all';
   searchTypeFilter = 'all';
-  document.querySelectorAll('.search-pill').forEach(b => b.classList.toggle('active', b.textContent === 'All'));
+  document.querySelectorAll('.search-pill').forEach(b => b.classList.toggle('active', b.textContent.includes('All OTTs') || b.textContent.trim() === 'All'));
   document.querySelectorAll('.type-pill').forEach(b => b.classList.toggle('active', b.textContent.includes('All')));
   toggleHomeVisibilityForSearch(false);
 }
+
+// ========================================================
+// VOICE SEARCH & SPEECH RECOGNITION SYSTEM
+// ========================================================
+let activeSpeechRec = null;
+let isVoiceListening = false;
+let latestVoiceTranscript = '';
+let hasCommittedVoiceResult = false;
+let voiceSilenceTimeout = null;
+let audioContextInstance = null;
+let audioStreamInstance = null;
+
+function cleanVoiceQuery(transcript) {
+  if (!transcript) return '';
+  return transcript
+    .replace(/^(search for|search|find me|find|show me|play|watch|can you find|please play)s+/i, '')
+    .trim();
+}
+
+function updateVoiceUIState(listening) {
+  isVoiceListening = listening;
+  const boxBtn = document.getElementById('voice-search-btn');
+  const inpageMic = document.getElementById('search-inpage-mic');
+  const pulse1 = document.getElementById('voice-pulse-ring-1');
+  const pulse2 = document.getElementById('voice-pulse-ring-2');
+  const heading = document.getElementById('voice-status-heading');
+
+  if (boxBtn) boxBtn.classList.toggle('listening', listening);
+  if (inpageMic) inpageMic.classList.toggle('listening', listening);
+
+  if (pulse1) pulse1.style.display = listening ? 'block' : 'none';
+  if (pulse2) pulse2.style.display = listening ? 'block' : 'none';
+
+  if (listening && heading) {
+    heading.textContent = 'Listening... Speak now';
+  }
+}
+
+function commitVoiceResult(rawText) {
+  if (hasCommittedVoiceResult) return;
+  hasCommittedVoiceResult = true;
+  clearTimeout(voiceSilenceTimeout);
+
+  const cleaned = cleanVoiceQuery(rawText);
+  if (!cleaned) {
+    hasCommittedVoiceResult = false;
+    return;
+  }
+
+  const input = document.getElementById('search-input');
+  const inpageInput = document.getElementById('search-inpage-input');
+  const modalInput = document.getElementById('voice-modal-input');
+  const clearBtn = document.getElementById('clear-search');
+  const inpageClear = document.getElementById('search-inpage-clear');
+  const box = document.getElementById('search-box');
+
+  if (input) input.value = cleaned;
+  if (inpageInput) inpageInput.value = cleaned;
+  if (modalInput) modalInput.value = cleaned;
+  if (clearBtn) clearBtn.style.display = 'block';
+  if (inpageClear) inpageClear.style.display = 'block';
+  if (box) box.classList.add('open');
+
+  const heading = document.getElementById('voice-status-heading');
+  const hintEl = document.getElementById('voice-transcript-hint');
+  if (heading) heading.textContent = 'Searching...';
+  if (hintEl) hintEl.textContent = `Found match for "${cleaned}"`;
+
+  // Stop audio capture & close modal
+  stopVoiceSearch(true);
+
+  setTimeout(() => {
+    performSearch(cleaned, searchPlatformFilter, searchTypeFilter);
+    const searchSection = document.getElementById('search-results-section');
+    if (searchSection) {
+      searchSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 350);
+}
+
+function handleVoiceFinalResult(rawText) {
+  commitVoiceResult(rawText);
+}
+
+function stopVoiceSearch(closeModal = true) {
+  clearTimeout(voiceSilenceTimeout);
+
+  if (activeSpeechRec) {
+    try {
+      activeSpeechRec.onend = null;
+      activeSpeechRec.onerror = null;
+      activeSpeechRec.onresult = null;
+      activeSpeechRec.onaudiostart = null;
+      activeSpeechRec.onsoundstart = null;
+      activeSpeechRec.onspeechstart = null;
+      activeSpeechRec.abort();
+    } catch (_) {}
+    activeSpeechRec = null;
+  }
+
+  if (audioStreamInstance) {
+    try {
+      audioStreamInstance.getTracks().forEach(track => track.stop());
+    } catch (_) {}
+    audioStreamInstance = null;
+  }
+
+  if (audioContextInstance) {
+    try {
+      audioContextInstance.close();
+    } catch (_) {}
+    audioContextInstance = null;
+  }
+
+  isVoiceListening = false;
+  updateVoiceUIState(false);
+
+  if (closeModal) {
+    const modal = document.getElementById('voice-search-modal');
+    if (modal) {
+      modal.classList.remove('open', 'active');
+      modal.style.setProperty('display', 'none', 'important');
+    }
+  }
+}
+
+async function startVoiceSearch(e) {
+  if (e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
+  }
+
+  // 1. Android Native App Bridge
+  if (window.AndroidVoiceBridge && typeof window.AndroidVoiceBridge.startVoiceSearch === 'function') {
+    try {
+      window.AndroidVoiceBridge.startVoiceSearch();
+      return;
+    } catch (err) {
+      console.warn('AndroidVoiceBridge invocation error:', err);
+    }
+  }
+
+  // 2. Web Speech API
+  stopVoiceSearch(false);
+
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const modal = document.getElementById('voice-search-modal');
+  const modalInput = document.getElementById('voice-modal-input');
+  const hintEl = document.getElementById('voice-transcript-hint');
+  const heading = document.getElementById('voice-status-heading');
+  const box = document.getElementById('search-box');
+  const pulse1 = document.getElementById('voice-pulse-ring-1');
+  const pulse2 = document.getElementById('voice-pulse-ring-2');
+
+  if (modal) {
+    modal.classList.add('open', 'active');
+    modal.style.setProperty('display', 'flex', 'important');
+  }
+  if (box) box.classList.add('open');
+
+  hasCommittedVoiceResult = false;
+  latestVoiceTranscript = '';
+
+  if (modalInput) {
+    modalInput.value = '';
+    // Listen for manual typing & Enter key
+    modalInput.onkeydown = (ke) => {
+      if (ke.key === 'Enter') {
+        ke.preventDefault();
+        submitVoiceModalInput();
+      }
+    };
+  }
+
+  if (!SpeechRec) {
+    // Fallback for browsers without Web Speech API or over HTTP
+    if (heading) heading.textContent = 'Voice Search';
+    if (hintEl) hintEl.textContent = 'Tap to speak using your device keyboard mic or choose a suggestion:';
+    if (modalInput) {
+      modalInput.placeholder = 'Tap here to use keyboard mic or type...';
+      modalInput.focus();
+    }
+    updateVoiceUIState(false);
+    return;
+  }
+
+  if (heading) heading.textContent = 'Listening... Speak now';
+  if (hintEl) hintEl.textContent = 'Speak a movie name, series, actor, or genre...';
+
+  // Request mic permission and monitor audio energy levels
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      audioStreamInstance = stream;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          audioContextInstance = new AudioCtx();
+          const source = audioContextInstance.createMediaStreamSource(stream);
+          const analyser = audioContextInstance.createAnalyser();
+          analyser.fftSize = 64;
+          source.connect(analyser);
+
+          const dataArray = new Uint8Array(analyser.frequencyBinCount);
+          const checkVolume = () => {
+            if (!isVoiceListening || !audioContextInstance) return;
+            analyser.getByteFrequencyData(dataArray);
+            let sum = 0;
+            for (let v of dataArray) sum += v;
+            const avg = sum / dataArray.length;
+
+            if (avg > 15) {
+              if (pulse1) pulse1.style.borderColor = '#22c55e';
+              if (pulse2) pulse2.style.borderColor = '#22c55e';
+              if (heading && isVoiceListening && !hasCommittedVoiceResult) {
+                heading.textContent = 'Hearing voice...';
+              }
+            } else {
+              if (pulse1) pulse1.style.borderColor = 'rgba(229, 9, 20, 0.6)';
+              if (pulse2) pulse2.style.borderColor = 'rgba(229, 9, 20, 0.6)';
+            }
+            requestAnimationFrame(checkVolume);
+          };
+          requestAnimationFrame(checkVolume);
+        }
+      } catch (audioErr) {
+        console.warn('AudioContext volume check:', audioErr);
+      }
+    }).catch(permErr => {
+      console.warn('Mic permission check:', permErr);
+    });
+  }
+
+  try {
+    const rec = new SpeechRec();
+    rec.continuous = false; // Fast single-command voice search response
+    rec.interimResults = true;
+    rec.maxAlternatives = 3;
+    rec.lang = navigator.language || 'en-US';
+
+    rec.onaudiostart = () => {
+      isVoiceListening = true;
+      updateVoiceUIState(true);
+      if (heading) heading.textContent = 'Listening... Speak now';
+      if (hintEl) hintEl.textContent = 'Microphone active — listening...';
+    };
+
+    rec.onsoundstart = () => {
+      if (heading && isVoiceListening) heading.textContent = 'Sound detected...';
+    };
+
+    rec.onspeechstart = () => {
+      if (heading && isVoiceListening) heading.textContent = 'Hearing voice...';
+    };
+
+    rec.onresult = (event) => {
+      let accumulatedFinal = '';
+      let accumulatedInterim = '';
+
+      for (let i = 0; i < event.results.length; ++i) {
+        const item = event.results[i];
+        if (item && item[0] && item[0].transcript) {
+          if (item.isFinal) {
+            accumulatedFinal += item[0].transcript;
+          } else {
+            accumulatedInterim += item[0].transcript;
+          }
+        }
+      }
+
+      const activeText = (accumulatedFinal || accumulatedInterim || '').trim();
+      if (activeText) {
+        latestVoiceTranscript = activeText;
+        if (modalInput) modalInput.value = activeText;
+        if (hintEl) hintEl.textContent = `Hearing: "${activeText}"`;
+
+        const input = document.getElementById('search-input');
+        if (input) input.value = activeText;
+        const inpageInput = document.getElementById('search-inpage-input');
+        if (inpageInput) inpageInput.value = activeText;
+
+        // Auto-commit on brief pause
+        clearTimeout(voiceSilenceTimeout);
+        voiceSilenceTimeout = setTimeout(() => {
+          if (!hasCommittedVoiceResult && latestVoiceTranscript) {
+            commitVoiceResult(latestVoiceTranscript);
+          }
+        }, 1200);
+      }
+
+      if (accumulatedFinal) {
+        clearTimeout(voiceSilenceTimeout);
+        commitVoiceResult(accumulatedFinal);
+      }
+    };
+
+    rec.onerror = (event) => {
+      console.warn('[VoiceSearch] Speech error:', event.error);
+      if (event.error === 'no-speech') {
+        if (!latestVoiceTranscript) {
+          if (heading) heading.textContent = "Didn't catch that";
+          if (hintEl) hintEl.textContent = 'Tap the microphone or type below:';
+          updateVoiceUIState(false);
+        }
+        return;
+      }
+
+      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+        if (heading) heading.textContent = 'Microphone Blocked';
+        if (hintEl) hintEl.textContent = 'Please allow microphone access in your browser or type below:';
+      } else if (event.error === 'network') {
+        if (heading) heading.textContent = 'Voice Network Error';
+        if (hintEl) hintEl.textContent = 'Google speech service unavailable. You can type or tap a chip:';
+      } else if (event.error !== 'aborted') {
+        if (heading) heading.textContent = 'Voice Search Paused';
+        if (hintEl) hintEl.textContent = 'Tap the microphone to speak again.';
+      }
+      isVoiceListening = false;
+      updateVoiceUIState(false);
+    };
+
+    rec.onend = () => {
+      isVoiceListening = false;
+      updateVoiceUIState(false);
+      clearTimeout(voiceSilenceTimeout);
+
+      if (!hasCommittedVoiceResult && latestVoiceTranscript) {
+        commitVoiceResult(latestVoiceTranscript);
+      } else if (!hasCommittedVoiceResult) {
+        if (heading) heading.textContent = "Didn't catch that";
+        if (hintEl) hintEl.textContent = 'Tap the microphone to try again, or type below:';
+      }
+    };
+
+    activeSpeechRec = rec;
+    rec.start();
+  } catch (err) {
+    console.error('Failed to start speech recognition:', err);
+    isVoiceListening = false;
+    updateVoiceUIState(false);
+    if (heading) heading.textContent = "Didn't catch that";
+    if (hintEl) hintEl.textContent = 'Tap the microphone to try again or type below:';
+  }
+}
+
+function submitVoiceModalInput() {
+  const modalInput = document.getElementById('voice-modal-input');
+  const val = (modalInput ? modalInput.value : '').trim();
+  if (val) {
+    commitVoiceResult(val);
+  }
+}
+
+function toggleVoiceSearch(e) {
+  if (isVoiceListening) {
+    stopVoiceSearch(true);
+  } else {
+    startVoiceSearch(e);
+  }
+}
+
+function toggleVoiceListeningManual() {
+  if (isVoiceListening) {
+    stopVoiceSearch(false);
+    const heading = document.getElementById('voice-status-heading');
+    const hintEl = document.getElementById('voice-transcript-hint');
+    if (heading) heading.textContent = 'Paused';
+    if (hintEl) hintEl.textContent = 'Tap the microphone to speak again.';
+  } else {
+    startVoiceSearch();
+  }
+}
+
+function closeVoiceSearchOnBackdrop(e) {
+  if (e.target && (e.target.id === 'voice-search-modal' || e.target.classList.contains('voice-search-modal'))) {
+    stopVoiceSearch(true);
+  }
+}
+
+function searchVoiceHint(hintText) {
+  stopVoiceSearch(true);
+  const input = document.getElementById('search-input');
+  const inpageInput = document.getElementById('search-inpage-input');
+  const modalInput = document.getElementById('voice-modal-input');
+  const clearBtn = document.getElementById('clear-search');
+  const inpageClear = document.getElementById('search-inpage-clear');
+  const box = document.getElementById('search-box');
+
+  if (box) box.classList.add('open');
+  if (input) input.value = hintText;
+  if (inpageInput) inpageInput.value = hintText;
+  if (modalInput) modalInput.value = hintText;
+  if (clearBtn) clearBtn.style.display = 'block';
+  if (inpageClear) inpageClear.style.display = 'block';
+
+  performSearch(hintText, searchPlatformFilter, searchTypeFilter);
+  const searchSection = document.getElementById('search-results-section');
+  if (searchSection) {
+    searchSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+window.startVoiceSearch = startVoiceSearch;
+window.stopVoiceSearch = stopVoiceSearch;
+window.toggleVoiceSearch = toggleVoiceSearch;
+window.toggleVoiceListeningManual = toggleVoiceListeningManual;
+window.closeVoiceSearchOnBackdrop = closeVoiceSearchOnBackdrop;
+window.searchVoiceHint = searchVoiceHint;
+window.handleVoiceFinalResult = handleVoiceFinalResult;
+window.submitVoiceModalInput = submitVoiceModalInput;
 
 // ========================================================
 // Streaming Server Definitions
@@ -2230,6 +2790,17 @@ async function openDetailsModal(item) {
   if (window.neuroTasteEngine) {
     window.neuroTasteEngine.train(item, 'click');
   }
+
+  // Immediately display modal for instant 0ms visual feedback
+  const modalEl = document.getElementById('details-modal');
+  if (modalEl) modalEl.style.display = 'flex';
+  if (tvModeActive) {
+    setTimeout(() => {
+      const modalPlay = document.getElementById('modal-play-btn');
+      if (modalPlay) setTvFocus(modalPlay);
+    }, 50);
+  }
+
   document.getElementById('modal-title').textContent = item.title;
   document.getElementById('modal-desc').textContent = item.description || 'Watch now in Ultra HD.';
   
@@ -2405,8 +2976,11 @@ async function openDetailsModal(item) {
   // More Like This
   renderSimilarTitles(item);
 
-  // Show Modal
-  document.getElementById('details-modal').style.display = 'flex';
+  // Focus modal play button if not already focused
+  if (tvModeActive) {
+    const modalPlay = document.getElementById('modal-play-btn');
+    if (modalPlay && document.activeElement !== modalPlay) setTvFocus(modalPlay);
+  }
 }
 
 function renderMoviePageServerChips(item) {
@@ -2530,6 +3104,9 @@ function renderSimilarTitles(item) {
   similar.forEach(sim => {
     const card = document.createElement('div');
     card.className = 'movie-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', sim.title);
     card.innerHTML = `
       <div class="card-poster-wrap">
         <img class="card-poster" src="${sim.poster}" alt="${sim.title}" onerror="window.handleImgError(this)">
@@ -2547,12 +3124,21 @@ function renderSimilarTitles(item) {
       </div>
     `;
     card.onclick = () => openDetailsModal(sim);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Select') {
+        e.preventDefault();
+        openDetailsModal(sim);
+      }
+    });
     grid.appendChild(card);
   });
 }
 
 function closeDetailsModal() {
   document.getElementById('details-modal').style.display = 'none';
+  if (tvModeActive && lastFocusedTvElement) {
+    setTvFocus(lastFocusedTvElement);
+  }
 }
 
 function handleModalBackdropClick(e) {
@@ -3708,6 +4294,9 @@ function renderTheaterSimilar(item) {
   similar.forEach(sim => {
     const card = document.createElement('div');
     card.className = 'movie-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', sim.title);
     card.innerHTML = `
       <div class="card-poster-wrap">
         <img class="card-poster" src="${sim.poster}" alt="${sim.title}" onerror="window.handleImgError(this)">
@@ -3727,6 +4316,12 @@ function renderTheaterSimilar(item) {
     card.onclick = () => {
       openPlayer(sim, 1, 1, currentServerIndex);
     };
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Select') {
+        e.preventDefault();
+        openPlayer(sim, 1, 1, currentServerIndex);
+      }
+    });
     grid.appendChild(card);
   });
 }
@@ -3990,13 +4585,245 @@ function showToast(message, type = 'info') {
   }, 3500);
 }
 
-// Keyboard Shortcuts
+// ========================================================
+// SMART TV D-PAD SPATIAL NAVIGATION & REMOTE CONTROL ENGINE
+// ========================================================
+
+let tvModeActive = false;
+let lastFocusedTvElement = null;
+
+function isTvEnvironment() {
+  const ua = (navigator.userAgent || '').toLowerCase();
+  return (
+    ua.includes('smarttv') ||
+    ua.includes('androidtv') ||
+    ua.includes('leanback') ||
+    ua.includes('large screen') ||
+    ua.includes('crkey') ||
+    ua.includes('aft') ||
+    ua.includes('googletv') ||
+    ua.includes('tizen') ||
+    ua.includes('webos') ||
+    ua.includes('appletv')
+  );
+}
+
+function enableTvMode() {
+  if (tvModeActive) return;
+  tvModeActive = true;
+  document.body.classList.add('tv-mode');
+  console.log('[CinemaVerse TV] Smart TV Spatial Navigation Mode Activated');
+
+  // Ensure all interactive elements have tabindex="0"
+  document.querySelectorAll('.ott-card, .movie-card, .top10-card, .ai-pill-btn, .btn-ai-filter-quick, .netflix-nav-link, .server-chip-pill, .modal-lang-chip').forEach(el => {
+    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+  });
+
+  // Provide initial focus to hero play button if nothing is focused
+  setTimeout(() => {
+    if (!document.activeElement || document.activeElement === document.body) {
+      const heroPlay = document.getElementById('hero-play-btn');
+      if (heroPlay) setTvFocus(heroPlay);
+    }
+  }, 350);
+}
+
+function initSmartTvNavigation() {
+  if (isTvEnvironment()) {
+    enableTvMode();
+  }
+
+  // Detect first remote D-Pad keypress on any platform to activate TV mode
+  window.addEventListener('keydown', (e) => {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      if (!tvModeActive && window.innerWidth >= 768) {
+        enableTvMode();
+      }
+    }
+  }, { passive: true });
+
+  // Clear TV focus ring if user clicks or touches screen
+  window.addEventListener('pointerdown', () => {
+    document.querySelectorAll('.tv-focused').forEach(el => el.classList.remove('tv-focused'));
+  }, { passive: true });
+}
+
+function setTvFocus(element) {
+  if (!element) return;
+  if (!element.hasAttribute('tabindex') && !['BUTTON', 'A', 'INPUT', 'SELECT', 'TEXTAREA'].includes(element.tagName)) {
+    element.setAttribute('tabindex', '0');
+  }
+  document.querySelectorAll('.tv-focused').forEach(el => el.classList.remove('tv-focused'));
+  element.classList.add('tv-focused');
+  lastFocusedTvElement = element;
+
+  try {
+    element.focus({ preventScroll: true });
+  } catch (e) {
+    element.focus();
+  }
+
+  // Smoothly center the focused element on the TV screen
+  try {
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center'
+    });
+  } catch (e) {
+    element.scrollIntoView();
+  }
+}
+
+function handleSpatialNavigation(direction) {
+  enableTvMode();
+
+  const player = document.getElementById('player-overlay');
+  const playerOpen = player && (player.style.display === 'flex' || player.classList.contains('active'));
+  const modal = document.getElementById('details-modal');
+  const modalOpen = modal && (modal.style.display === 'flex' || modal.classList.contains('show'));
+
+  // Container scope: modal > player > document
+  let scopeRoot = document;
+  if (modalOpen) {
+    scopeRoot = modal;
+  } else if (playerOpen) {
+    scopeRoot = player;
+  }
+
+  // Query all visible candidate elements
+  const selector = 'button:not([disabled]), a[href]:not([disabled]), input:not([disabled]), ' +
+                   '[tabindex="0"], [tabindex]:not([tabindex="-1"]), .movie-card, .top10-card, ' +
+                   '.hero-arrow, .netflix-btn, .btn-round, .ott-card, .ott-card-chip, ' +
+                   '.ai-pill-btn, .btn-ai-filter-quick, .cat-filter-btn, .filter-chip, ' +
+                   '.server-pill, .server-chip-pill, .episode-item, ' +
+                   '.netflix-nav-link, .row-view-all-btn, .modal-lang-chip';
+
+  const rawCandidates = Array.from(scopeRoot.querySelectorAll(selector));
+  const candidates = rawCandidates.filter(el => {
+    if (el.offsetWidth === 0 && el.offsetHeight === 0) return false;
+    const style = window.getComputedStyle(el);
+    if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') return false;
+    if (el.closest('[style*="display: none"], [style*="display:none"], .hidden')) return false;
+    return true;
+  });
+
+  if (!candidates.length) return false;
+
+  let current = document.activeElement;
+  // If current element is valid, ensure it is in candidates list so it can navigate relative to itself
+  if (current && current !== document.body && scopeRoot.contains(current)) {
+    if (!candidates.includes(current)) {
+      candidates.push(current);
+    }
+  } else {
+    // If we have a remembered element still valid in this scope
+    if (lastFocusedTvElement && candidates.includes(lastFocusedTvElement)) {
+      setTvFocus(lastFocusedTvElement);
+      return true;
+    }
+    // Default focus target: Play button
+    let defaultEl = scopeRoot.querySelector('#hero-play-btn, #modal-play-btn, #btn-modal-play, .btn-modal-play, #btn-play-pause') || candidates[0];
+    setTvFocus(defaultEl);
+    return true;
+  }
+
+  const curRect = current.getBoundingClientRect();
+  const curCenter = { x: curRect.left + curRect.width / 2, y: curRect.top + curRect.height / 2 };
+
+  let bestCand = null;
+  let bestScore = Infinity;
+
+  for (const cand of candidates) {
+    if (cand === current) continue;
+    const candRect = cand.getBoundingClientRect();
+    const candCenter = { x: candRect.left + candRect.width / 2, y: candRect.top + candRect.height / 2 };
+
+    const dx = candCenter.x - curCenter.x;
+    const dy = candCenter.y - curCenter.y;
+
+    let valid = false;
+    let primary = 0;
+    let secondary = 0;
+
+    if (direction === 'right') {
+      if (dx > 8) {
+        valid = true;
+        primary = dx;
+        secondary = Math.abs(dy);
+      }
+    } else if (direction === 'left') {
+      if (dx < -8) {
+        valid = true;
+        primary = -dx;
+        secondary = Math.abs(dy);
+      }
+    } else if (direction === 'down') {
+      if (dy > 8) {
+        valid = true;
+        primary = dy;
+        secondary = Math.abs(dx);
+      }
+    } else if (direction === 'up') {
+      if (dy < -8) {
+        valid = true;
+        primary = -dy;
+        secondary = Math.abs(dx);
+      }
+    }
+
+    if (valid) {
+      const score = primary * 1.0 + secondary * 2.2;
+      if (score < bestScore) {
+        bestScore = score;
+        bestCand = cand;
+      }
+    }
+  }
+
+  if (bestCand) {
+    setTvFocus(bestCand);
+    return true;
+  }
+
+  // Row jumping fallback: If moving DOWN/UP and no aligned neighbor, jump to nearest element in adjacent row
+  if (direction === 'down') {
+    const below = candidates.filter(c => c.getBoundingClientRect().top > curRect.bottom - 4);
+    if (below.length) {
+      below.sort((a, b) => {
+        const da = Math.abs(a.getBoundingClientRect().top - curRect.bottom) * 2 + Math.abs(a.getBoundingClientRect().left - curRect.left);
+        const db = Math.abs(b.getBoundingClientRect().top - curRect.bottom) * 2 + Math.abs(b.getBoundingClientRect().left - curRect.left);
+        return da - db;
+      });
+      setTvFocus(below[0]);
+      return true;
+    }
+  } else if (direction === 'up') {
+    const above = candidates.filter(c => c.getBoundingClientRect().bottom < curRect.top + 4);
+    if (above.length) {
+      above.sort((a, b) => {
+        const da = Math.abs(curRect.top - a.getBoundingClientRect().bottom) * 2 + Math.abs(a.getBoundingClientRect().left - curRect.left);
+        const db = Math.abs(curRect.top - b.getBoundingClientRect().bottom) * 2 + Math.abs(b.getBoundingClientRect().left - curRect.left);
+        return da - db;
+      });
+      setTvFocus(above[0]);
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// Global Keyboard & Remote Control Shortcuts
 function setupKeyboardShortcuts() {
   window.addEventListener('keydown', (e) => {
-    const playerOpen = document.getElementById('player-overlay').style.display === 'flex';
-    const modalOpen = document.getElementById('details-modal').style.display === 'flex';
+    const player = document.getElementById('player-overlay');
+    const playerOpen = player && (player.style.display === 'flex' || player.classList.contains('active'));
+    const modal = document.getElementById('details-modal');
+    const modalOpen = modal && (modal.style.display === 'flex' || modal.classList.contains('show'));
 
-    if (e.key === 'Escape') {
+    // 1. Back / Escape Navigation
+    if (e.key === 'Escape' || e.key === 'GoBack' || e.key === 'Back' || e.keyCode === 27 || e.keyCode === 4) {
       const settingsPanel = document.getElementById('player-settings-panel');
       if (settingsPanel && settingsPanel.style.display !== 'none') {
         togglePlayerSettings(false);
@@ -4005,32 +4832,77 @@ function setupKeyboardShortcuts() {
       } else if (modalOpen) {
         closeDetailsModal();
       } else {
-        closeAuditModal();
+        const searchBox = document.getElementById('search-box');
+        if (searchBox && searchBox.classList.contains('open')) {
+          toggleSearchBox();
+        } else {
+          // TV Remote back press returns focus to Hero Play
+          const heroPlay = document.getElementById('hero-play-btn');
+          if (heroPlay) setTvFocus(heroPlay);
+        }
       }
-    } else if (e.key === ' ' && playerOpen) {
+      return;
+    }
+
+    // 2. Play / Pause Spacebar
+    if (e.key === ' ' && playerOpen) {
       if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
       e.preventDefault();
       togglePlayPause();
-    } else if (e.key === 'ArrowLeft') {
+      return;
+    }
+
+    // 3. Directional Navigation (Smart TV D-Pad & Keyboard Arrows)
+    if (e.key === 'ArrowLeft') {
       if (playerOpen) {
         seekRelative(-10);
-      } else if (!modalOpen && typeof prevDiscSlide === 'function') {
-        prevDiscSlide();
+      } else {
+        e.preventDefault();
+        handleSpatialNavigation('left');
       }
+      return;
     } else if (e.key === 'ArrowRight') {
       if (playerOpen) {
         seekRelative(10);
-      } else if (!modalOpen && typeof nextDiscSlide === 'function') {
-        nextDiscSlide();
+      } else {
+        e.preventDefault();
+        handleSpatialNavigation('right');
       }
-    } else if ((e.key === 'Enter' || e.key === 'Select') && !playerOpen && !modalOpen) {
+      return;
+    } else if (e.key === 'ArrowDown') {
+      if (!playerOpen || modalOpen) {
+        e.preventDefault();
+        handleSpatialNavigation('down');
+      }
+      return;
+    } else if (e.key === 'ArrowUp') {
+      if (!playerOpen || modalOpen) {
+        e.preventDefault();
+        handleSpatialNavigation('up');
+      }
+      return;
+    }
+
+    // 4. Remote OK / Center / Select / Enter
+    if (e.key === 'Enter' || e.key === 'Select' || e.keyCode === 13) {
       const activeEl = document.activeElement;
-      if (!activeEl || (activeEl.tagName !== 'INPUT' && activeEl.tagName !== 'TEXTAREA' && activeEl.tagName !== 'BUTTON')) {
-        if (typeof playDiscByIndex === 'function' && typeof currentDiscIndex !== 'undefined') {
-          playDiscByIndex(currentDiscIndex);
+      if (activeEl && activeEl !== document.body) {
+        if (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA') return;
+        e.preventDefault();
+        activeEl.click();
+        return;
+      } else if (!playerOpen && !modalOpen) {
+        const heroPlay = document.getElementById('hero-play-btn');
+        if (heroPlay) {
+          setTvFocus(heroPlay);
+          heroPlay.click();
         }
+        return;
       }
-    } else if (e.key === 'f' || e.key === 'F') {
+    }
+
+    // 5. Player Media Shortcuts
+    if (e.key === 'f' || e.key === 'F') {
       if (playerOpen) toggleFullscreen();
     } else if (e.key === 'm' || e.key === 'M') {
       if (playerOpen) toggleMute();
@@ -4045,11 +4917,11 @@ function setupKeyboardShortcuts() {
     } else if (e.key === '/' || (e.ctrlKey && e.key === 'k')) {
       e.preventDefault();
       const input = document.getElementById('search-input');
-      document.getElementById('search-box').classList.add('open');
-      input.focus();
+      const box = document.getElementById('search-box');
+      if (box) box.classList.add('open');
+      if (input) input.focus();
     }
   });
-
 }
 
 // ========================================================
@@ -7077,6 +7949,9 @@ function renderAiRecommendations(catalog) {
 
     const card = document.createElement('div');
     card.className = 'movie-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `Recommended ${item.title}`);
     card.innerHTML = `
       <div class="card-poster-wrap">
         <div class="ai-match-tag" title="${item.aiReason || 'AI Neural Recommendation'}">
@@ -7104,6 +7979,13 @@ function renderAiRecommendations(catalog) {
       window.neuroTasteEngine.train(item, 'click');
       openDetailsModal(item);
     };
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Select') {
+        e.preventDefault();
+        window.neuroTasteEngine.train(item, 'click');
+        openDetailsModal(item);
+      }
+    });
 
     container.appendChild(card);
   });

@@ -11,7 +11,7 @@ function getPageMarkup() {
   if (!body) throw new Error('The legacy page markup is missing its body element.');
 
   return body
-    .replace(/<script\b[^>]*src=["']app\.js["'][^>]*><\/script>/i, '')
+    .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, '')
     .trim();
 }
 
@@ -61,8 +61,11 @@ export default function Home({ pageMarkup, meta }) {
         {currentMeta.image && <meta name="twitter:image" content={currentMeta.image} key="tw_image" />}
         {currentMeta.image && <meta name="twitter:image:alt" content={currentMeta.title} key="tw_image_alt" />}
       </Head>
+      <Script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" strategy="beforeInteractive" />
+      <Script src="/supabase-client.js" strategy="beforeInteractive" />
+      <Script src="/initial_catalog.js" strategy="beforeInteractive" />
+      <Script src="/app.js" strategy="beforeInteractive" />
       <div dangerouslySetInnerHTML={{ __html: pageMarkup }} />
-      <Script src="/app.js" strategy="afterInteractive" />
     </>
   );
 }

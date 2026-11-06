@@ -2630,68 +2630,439 @@ input[type=range][orient=vertical] {
 }
 
 /* Netflix Universal Search Grid & Header */
+/* ========================================================
+   CINEMATIC AESTHETIC & ANIMATED SEARCH EXPERIENCE
+   ======================================================== */
 .search-results-section {
-  padding: 90px 4% 60px 4%;
-  min-height: 85vh;
-  background-color: #141414;
+  padding: 95px 4% 80px 4%;
+  min-height: 90vh;
+  background: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.08) 0%, rgba(13, 16, 23, 0.96) 40%, #07080c 100%);
+  position: relative;
+  transition: opacity 0.3s ease;
 }
-.search-header-container {
+
+/* Glassmorphic Search Hero Panel */
+.search-hero-glass-panel {
+  position: relative;
+  background: rgba(18, 22, 32, 0.65);
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 22px;
+  padding: 24px 28px;
+  margin-bottom: 32px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 28px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 20px;
+  gap: 18px;
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  animation: searchPanelSlideDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.search-header-container .section-title {
-  font-size: 26px;
-  font-weight: 800;
-  color: #fff;
+
+.search-hero-glass-panel::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 25%;
+  width: 380px;
+  height: 160px;
+  background: radial-gradient(ellipse, rgba(229, 9, 20, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(35px);
+}
+
+@keyframes searchPanelSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Top Status Row */
+.search-top-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.search-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.search-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e, 0 0 3px #22c55e;
+  animation: searchPulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes searchPulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+    box-shadow: 0 0 18px #22c55e, 0 0 6px #22c55e;
+  }
+}
+
+.search-ott-tag {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+/* Segmented Control (All / Movies / Series) */
+.search-type-segmented {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(8, 10, 15, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 24px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.search-type-segmented .type-pill {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-type-segmented .type-pill:hover {
+  color: #ffffff;
+}
+
+.search-type-segmented .type-pill.active {
+  background: linear-gradient(135deg, #e50914 0%, #b80710 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.45);
+  transform: scale(1.02);
+}
+
+/* Integrated In-Page Glass Search Bar */
+.search-inpage-bar-container {
+  width: 100%;
+}
+
+.search-inpage-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(7, 9, 14, 0.58);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 7px 14px 7px 18px;
+  gap: 12px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 8px 24px -6px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-inpage-bar:focus-within {
+  border-color: rgba(229, 9, 20, 0.85);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 24px rgba(229, 9, 20, 0.35);
+  background: rgba(11, 14, 22, 0.88);
+}
+
+.search-inpage-mag {
+  font-size: 17px;
+  color: #e50914;
+  opacity: 0.9;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.search-inpage-bar:focus-within .search-inpage-mag {
+  transform: scale(1.12);
+  color: #ff3344;
+}
+
+#search-inpage-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 15.5px;
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+#search-inpage-input::placeholder {
+  color: #64748b;
+  font-weight: 400;
+}
+
+.search-inpage-clear {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: #cbd5e1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+}
+
+.search-inpage-clear:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.search-inpage-mic {
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.2), rgba(229, 9, 20, 0.45));
+  border: 1px solid rgba(229, 9, 20, 0.55);
+  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
+}
+
+.search-inpage-mic:hover {
+  background: #e50914;
+  transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(229, 9, 20, 0.65);
+}
+
+.search-inpage-mic.listening {
+  background: #e50914;
+  animation: inpageMicPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes inpageMicPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(229, 9, 20, 0.9);
+    transform: scale(1.1);
+  }
+}
+
+/* Heading & Results Count Row */
+.search-heading-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.search-heading-group {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.search-clean-heading {
+  font-size: 21px;
+  font-weight: 700;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.search-prefix-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+.search-query-badge {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 2px 10px;
+  border-radius: 8px;
+}
+
+.search-count-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: #94a3b8;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Horizontal OTT Platform Carousel */
+.search-ott-carousel-wrap {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0;
+}
+
+.search-ott-carousel-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.search-ott-carousel-wrap .search-filter-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  min-width: min-content;
+}
+
+.search-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 8px 16px;
+  border-radius: 22px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-pill:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.search-pill.active {
+  background: #e50914;
+  color: #ffffff;
+  border-color: #e50914;
+  box-shadow: 0 4px 16px rgba(229, 9, 20, 0.5);
+  transform: translateY(-1px);
+}
+
+.search-pill.pill-nflx.active { background: #e50914; border-color: #e50914; box-shadow: 0 4px 16px rgba(229, 9, 20, 0.5); }
+.search-pill.pill-prm.active { background: #00A8E1; border-color: #00A8E1; box-shadow: 0 4px 16px rgba(0, 168, 225, 0.5); }
+.search-pill.pill-dis.active { background: #113CCF; border-color: #113CCF; box-shadow: 0 4px 16px rgba(17, 60, 207, 0.5); }
+.search-pill.pill-hbo.active { background: #9933FF; border-color: #9933FF; box-shadow: 0 4px 16px rgba(153, 51, 255, 0.5); }
+.search-pill.pill-app.active { background: #ffffff; color: #000; border-color: #ffffff; box-shadow: 0 4px 16px rgba(255, 255, 255, 0.4); }
+.search-pill.pill-cr.active { background: #F47521; border-color: #F47521; box-shadow: 0 4px 16px rgba(244, 117, 33, 0.5); }
+.search-pill.pill-par.active { background: #0064FF; border-color: #0064FF; box-shadow: 0 4px 16px rgba(0, 100, 255, 0.5); }
+.search-pill.pill-hulu.active { background: #1CE783; color: #07090e; border-color: #1CE783; box-shadow: 0 4px 16px rgba(28, 231, 131, 0.5); }
+.search-pill.pill-pea.active { background: #000000; color: #ffffff; border-color: #00f0ff; box-shadow: 0 4px 16px rgba(0, 240, 255, 0.4); }
+.search-pill.pill-sony.active { background: #000000; border-color: #ff0055; box-shadow: 0 4px 16px rgba(255, 0, 85, 0.4); }
+.search-pill.pill-zee.active { background: #9333ea; border-color: #9333ea; box-shadow: 0 4px 16px rgba(147, 51, 234, 0.5); }
+.search-pill.pill-jio.active { background: #e11d48; border-color: #e11d48; box-shadow: 0 4px 16px rgba(225, 29, 72, 0.5); }
+.search-pill.pill-aw.active { background: #f59e0b; color: #07090e; border-color: #f59e0b; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.5); }
+
+/* Quick Mood & Genre Tags */
+.search-quick-tags-wrap {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-.search-header-container .section-count {
-  font-size: 14px;
-  color: #a3a3a3;
-  margin-top: 4px;
-  display: block;
-}
-.search-filter-pills {
-  display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
+  padding-top: 4px;
 }
-.search-pill {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #e5e5e5;
-  padding: 7px 16px;
-  border-radius: 20px;
-  font-size: 13px;
+
+.quick-tags-label {
+  color: #94a3b8;
+  font-size: 12.5px;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.search-quick-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tag-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 5px 13px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
-.search-pill:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.4);
-}
-.search-pill.active {
-  background: #e50914;
-  color: #fff;
-  border-color: #e50914;
-  box-shadow: 0 0 14px rgba(229, 9, 20, 0.5);
-}
-.search-pill.pill-nflx.active { background: #e50914; border-color: #e50914; }
-.search-pill.pill-prm.active { background: #00A8E1; border-color: #00A8E1; }
-.search-pill.pill-dis.active { background: #113CCF; border-color: #113CCF; }
-.search-pill.pill-hbo.active { background: #9933FF; border-color: #9933FF; }
-.search-pill.pill-app.active { background: #ffffff; color: #000; border-color: #ffffff; }
-.search-pill.pill-cr.active { background: #F47521; border-color: #F47521; }
 
+.tag-pill:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.voice-tag-pill {
+  border-color: rgba(229, 9, 20, 0.45);
+  background: rgba(229, 9, 20, 0.12);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.voice-tag-pill:hover {
+  background: rgba(229, 9, 20, 0.28);
+  border-color: #e50914;
+}
+
+/* Netflix Grid & Staggered Search Animation */
 .netflix-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
@@ -2700,6 +3071,412 @@ input[type=range][orient=vertical] {
 .netflix-grid .movie-card {
   flex: none;
   width: 100%;
+}
+
+.search-animated-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 26px 18px;
+  min-height: 240px;
+}
+
+@keyframes searchCardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.95);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.search-animated-grid .movie-card {
+  animation: searchCardEntrance 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--card-idx, 0) * 35ms);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-animated-grid .movie-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.25);
+  z-index: 10;
+}
+
+/* Skeleton Loading Cards */
+@keyframes searchShimmerWave {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.search-skeleton-card {
+  aspect-ratio: 2 / 3;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: searchShimmerWave 1.4s infinite;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Remove unwanted block capital badges */
+.card-type-badge {
+  display: none !important;
+}
+
+/* ========================================================
+   MOBILE ULTRA-COMPACT YET ACCESSIBLE & CLICKABLE UI
+   ======================================================== */
+@media (max-width: 768px) {
+  /* Expandable Navbar Search Bar on Mobile */
+  .netflix-search-box {
+    height: 34px !important;
+    min-height: 34px !important;
+  }
+  .netflix-search-box:not(.open) {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+  }
+  .netflix-search-box:not(.open) .search-toggle-btn {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 13px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation !important;
+  }
+  .netflix-search-box.open {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 4px 0 2px !important;
+    border-radius: 18px !important;
+  }
+  .netflix-search-box.open input {
+    font-size: 12px !important;
+    padding: 2px 6px !important;
+  }
+  .netflix-search-box .clear-search-btn {
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    font-size: 11px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation !important;
+    color: #cbd5e1 !important;
+  }
+  .netflix-search-box .voice-search-btn {
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    font-size: 12px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation !important;
+    color: #e50914 !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+  }
+  .netflix-search-box .voice-search-btn:active {
+    transform: scale(0.9) !important;
+    background: rgba(229, 9, 20, 0.25) !important;
+  }
+
+  /* Search Section Backdrop */
+  .search-results-section {
+    padding: 68px 3% 40px 3% !important;
+    min-height: 80vh !important;
+  }
+
+  /* Compact Frosted Glass Search Panel */
+  .search-hero-glass-panel {
+    padding: 12px 12px 10px 12px !important;
+    gap: 10px !important;
+    border-radius: 14px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Status Row */
+  .search-top-status-row {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .search-eyebrow {
+    font-size: 9.5px !important;
+    letter-spacing: 0.8px !important;
+    gap: 6px !important;
+  }
+
+  .search-pulse-dot {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .search-ott-tag {
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Segmented Type Selector: small visual, generous touch hit area */
+  .search-type-segmented {
+    padding: 2px !important;
+    border-radius: 16px !important;
+    gap: 2px !important;
+    background: rgba(7, 9, 14, 0.75) !important;
+  }
+
+  .search-type-segmented .type-pill {
+    padding: 4px 9px !important;
+    font-size: 10.5px !important;
+    border-radius: 13px !important;
+    min-height: 28px !important;
+    gap: 4px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .search-type-segmented .type-pill:active {
+    transform: scale(0.94) !important;
+  }
+
+  /* In-Page Search Bar: Sleek, compact with easy-to-tap mic */
+  .search-inpage-bar {
+    height: 38px !important;
+    padding: 0 6px 0 12px !important;
+    border-radius: 12px !important;
+    gap: 8px !important;
+  }
+
+  .search-inpage-mag {
+    font-size: 13px !important;
+  }
+
+  #search-inpage-input {
+    font-size: 13px !important;
+    padding: 0 !important;
+  }
+
+  #search-inpage-input::placeholder {
+    font-size: 11.5px !important;
+  }
+
+  .search-inpage-clear {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    font-size: 11px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .search-inpage-mic {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .search-inpage-mic:active {
+    transform: scale(0.92) !important;
+  }
+
+  /* Clean Heading & Count */
+  .search-heading-meta-row {
+    gap: 6px !important;
+  }
+
+  .search-clean-heading {
+    font-size: 14px !important;
+    gap: 5px !important;
+  }
+
+  .search-prefix-text {
+    font-size: 12px !important;
+  }
+
+  .search-query-badge {
+    font-size: 12px !important;
+    padding: 1px 6px !important;
+    border-radius: 6px !important;
+  }
+
+  .search-count-chip {
+    font-size: 10.5px !important;
+    padding: 2px 7px !important;
+    border-radius: 6px !important;
+  }
+
+  /* OTT Platform Carousel: Smooth kinetic swipe, small visual, easy tap */
+  .search-ott-carousel-wrap {
+    padding: 2px 0 !important;
+  }
+
+  .search-ott-carousel-wrap .search-filter-pills {
+    gap: 6px !important;
+  }
+
+  .search-pill {
+    padding: 4px 10px !important;
+    font-size: 10.5px !important;
+    border-radius: 14px !important;
+    min-height: 28px !important;
+    gap: 5px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .search-pill i {
+    font-size: 10px !important;
+  }
+
+  .search-pill:active {
+    transform: scale(0.93) !important;
+  }
+
+  /* Quick Picks Tags */
+  .search-quick-tags-wrap {
+    gap: 6px !important;
+    padding-top: 0 !important;
+  }
+
+  .quick-tags-label {
+    font-size: 10.5px !important;
+    gap: 4px !important;
+  }
+
+  .search-quick-tags {
+    gap: 5px !important;
+  }
+
+  .tag-pill {
+    padding: 3px 8px !important;
+    font-size: 10px !important;
+    border-radius: 12px !important;
+    min-height: 25px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .tag-pill:active {
+    transform: scale(0.93) !important;
+  }
+
+  .voice-tag-pill {
+    padding: 3px 8px !important;
+    font-size: 10px !important;
+    min-height: 25px !important;
+  }
+
+  /* Movie Cards Grid: 3-column layout on phones for native streaming app feel */
+  .search-animated-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px 7px !important;
+  }
+
+  .search-animated-grid .movie-card {
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .search-animated-grid .movie-card:active {
+    transform: scale(0.96) !important;
+  }
+
+  .card-poster-wrap {
+    border-radius: 6px !important;
+  }
+
+  .card-ott-badge {
+    font-size: 7.5px !important;
+    padding: 1.5px 4.5px !important;
+    border-radius: 3px !important;
+    top: 3px !important;
+    left: 3px !important;
+  }
+
+  .badge-dub-indicator {
+    font-size: 7.5px !important;
+    padding: 1.5px 4.5px !important;
+    border-radius: 3px !important;
+    top: 3px !important;
+    right: 3px !important;
+  }
+
+  .search-animated-grid .card-info {
+    padding: 4px 1px 0 1px !important;
+  }
+
+  .search-animated-grid .card-title {
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 2px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .search-animated-grid .card-meta {
+    font-size: 9px !important;
+    gap: 4px !important;
+  }
+
+  .search-animated-grid .card-meta span {
+    font-size: 9px !important;
+  }
+
+  .search-animated-grid .badge-quality-small {
+    font-size: 8px !important;
+    padding: 1px 3px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra compact for smaller smartphones */
+  .search-animated-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px 6px !important;
+  }
+
+  .search-hero-glass-panel {
+    padding: 10px 10px 8px 10px !important;
+    gap: 8px !important;
+  }
+
+  .search-type-segmented .type-pill {
+    padding: 3px 7px !important;
+    font-size: 10px !important;
+    min-height: 26px !important;
+  }
+
+  .search-pill {
+    padding: 3.5px 8px !important;
+    font-size: 10px !important;
+    min-height: 26px !important;
+  }
 }
 
 /* Netflix Billboard Hero */
@@ -7262,27 +8039,35 @@ h1, h2, h3, h4, h5, h6,
   backdrop-filter: blur(16px) !important;
 }
 
-.netflix-search-box:not(.open) {
-  width: 38px !important;
+.netflix-search-box {
+  width: clamp(210px, 20vw, 290px) !important;
   height: 38px !important;
-  justify-content: center !important;
-  padding: 0 !important;
+  padding: 2px 8px 2px 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  background: rgba(18, 20, 27, 0.94) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
 }
 
-.netflix-search-box:not(.open) input {
-  width: 0 !important;
-  max-width: 0 !important;
-  opacity: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  pointer-events: none !important;
+.netflix-search-box input {
+  width: 100% !important;
+  opacity: 1 !important;
+  padding: 4px 8px !important;
+  pointer-events: auto !important;
+  font-size: 13.5px !important;
+  background: transparent !important;
   border: none !important;
-  overflow: hidden !important;
+  outline: none !important;
+  color: #fff !important;
 }
 
-.netflix-search-box:not(.open) .clear-search-btn {
-  display: none !important;
+.netflix-search-box .voice-search-btn {
+  display: inline-flex !important;
 }
+
+.netflix-search-box:not(.open) .clear-search-btn, 
 
 .netflix-search-box.open {
   background: rgba(18, 20, 27, 0.96) !important;
@@ -12627,4 +13412,464 @@ body:has(.netflix-player-overlay:not([style*="display: none"])) .mobile-bottom-n
 body.player-active {
   padding-bottom: 0 !important;
   overflow: hidden !important;
+}
+
+/* ========================================================================= */
+/* CINEMAVERSE PRO — SMART TV 10-FOOT UI & SPATIAL FOCUS NAVIGATION          */
+/* ========================================================================= */
+
+/* High-Contrast Luminous Focus Ring for Smart TV Remote Navigation */
+.tv-focused,
+body.tv-mode :focus-visible,
+body.tv-mode .movie-card:focus,
+body.tv-mode .top10-card:focus,
+body.tv-mode .netflix-btn:focus,
+body.tv-mode .btn-round:focus,
+body.tv-mode .ott-card-chip:focus,
+body.tv-mode .server-pill:focus,
+body.tv-mode .episode-card:focus,
+body.tv-mode .episode-item:focus {
+  outline: 3.5px solid #e50914 !important;
+  outline-offset: 4px !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 0 28px rgba(229, 9, 20, 0.9), 0 12px 35px rgba(0, 0, 0, 0.95) !important;
+  z-index: 100 !important;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), outline 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+/* TV Billboard: balanced height so rows are immediately visible above the fold */
+body.tv-mode .netflix-billboard {
+  height: clamp(480px, 58vh, 600px) !important;
+  min-height: 480px !important;
+  max-height: 600px !important;
+  padding-bottom: 24px !important;
+}
+
+/* On TV, hide the decorative vinyl disc showcase so movie rows sit right beneath billboard */
+body.tv-mode .disc-cascade-showcase-section {
+  display: none !important;
+}
+
+/* On TV, hide the mobile bottom navigation dock completely */
+body.tv-mode .mobile-bottom-nav {
+  display: none !important;
+}
+
+/* Ensure focusable movie cards have proper pointer cursor and transitions */
+.movie-card, .top10-card {
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+/* Ensure horizontal rows don't clip focus halo */
+.row-slider-container, .netflix-row {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-top: 14px;
+  padding-bottom: 18px;
+  margin-top: -14px;
+  margin-bottom: -18px;
+}
+
+
+/* ========================================================================= */
+/* CINEMAVERSE PRO — INTEGRATED VOICE SEARCH & MICROPHONE SYSTEM             */
+/* ========================================================================= */
+.voice-search-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #e50914 !important;
+  cursor: pointer !important;
+  padding: 4px 6px !important;
+  font-size: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border-radius: 50% !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  flex-shrink: 0 !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.voice-search-btn:hover {
+  color: #ffffff !important;
+  background: rgba(229, 9, 20, 0.25) !important;
+  transform: scale(1.15) !important;
+}
+
+.voice-search-btn:active {
+  transform: scale(0.92) !important;
+  background: rgba(229, 9, 20, 0.4) !important;
+}
+
+.voice-search-btn.listening {
+  background: #e50914 !important;
+  color: #ffffff !important;
+  border-color: #ff334b !important;
+  animation: voiceMicPulseAnim 1.4s infinite ease-in-out !important;
+}
+
+@keyframes voiceMicPulseAnim {
+  0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7); }
+  70% { box-shadow: 0 0 0 12px rgba(229, 9, 20, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+}
+
+.voice-tag-pill {
+  border-color: rgba(229, 9, 20, 0.5) !important;
+  background: rgba(229, 9, 20, 0.12) !important;
+  color: #fff !important;
+}
+
+.voice-tag-pill:hover {
+  background: rgba(229, 9, 20, 0.28) !important;
+  border-color: #e50914 !important;
+}
+
+/* Voice Search Modal Container */
+.voice-search-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px !important;
+}
+
+.voice-search-modal.open,
+.voice-search-modal.active {
+  display: flex !important;
+  animation: voiceModalFadeIn 0.25s ease-out !important;
+}
+
+@keyframes voiceModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.voice-modal-card {
+  position: relative !important;
+  background: rgba(18, 20, 28, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(229, 9, 20, 0.25) !important;
+  border-radius: 24px !important;
+  padding: 34px 28px 26px !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  animation: voiceCardScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes voiceCardScaleUp {
+  from { transform: scale(0.92) translateY(12px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.voice-modal-close {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: none !important;
+  color: #ccc !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+  touch-action: manipulation !important;
+  z-index: 20 !important;
+  pointer-events: auto !important;
+}
+
+.voice-modal-close:hover {
+  background: rgba(229, 9, 20, 0.8) !important;
+  color: #fff !important;
+}
+
+.voice-mic-container {
+  position: relative !important;
+  width: 110px !important;
+  height: 110px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 6px !important;
+}
+
+.voice-pulse-ring {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  border: 2px solid rgba(229, 9, 20, 0.6) !important;
+  animation: voicePulseRings 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite !important;
+  pointer-events: none !important;
+}
+
+.voice-pulse-ring.delay-1 {
+  animation-delay: 0.65s !important;
+}
+
+@keyframes voicePulseRings {
+  0% { transform: scale(0.7); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.voice-mic-circle {
+  width: 74px !important;
+  height: 74px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #e50914 0%, #b80710 100%) !important;
+  box-shadow: 0 0 30px rgba(229, 9, 20, 0.65) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #fff !important;
+  font-size: 26px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 2 !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  touch-action: manipulation !important;
+}
+
+.voice-mic-circle:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 0 40px rgba(229, 9, 20, 0.9) !important;
+}
+
+.voice-mic-circle:active {
+  transform: scale(0.95) !important;
+}
+
+.voice-status-heading {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  margin: 16px 0 6px !important;
+  letter-spacing: -0.2px !important;
+}
+
+.voice-transcript-preview {
+  font-size: 13.5px !important;
+  color: #cbd5e1 !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  padding: 8px 14px !important;
+  width: 100% !important;
+  min-height: 40px !important;
+  max-height: 60px !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 16px !important;
+  font-style: italic !important;
+}
+
+.voice-input-row {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 14px !important;
+  padding: 4px 6px 4px 14px !important;
+  gap: 8px !important;
+  margin: 12px 0 6px !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+  transition: all 0.25s ease !important;
+}
+
+.voice-input-row:focus-within {
+  border-color: rgba(229, 9, 20, 0.8) !important;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.35), inset 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+  background: rgba(10, 12, 18, 0.85) !important;
+}
+
+.voice-modal-input {
+  flex: 1 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  font-size: 14.5px !important;
+  color: #ffffff !important;
+  font-family: inherit !important;
+  font-weight: 500 !important;
+  text-align: left !important;
+}
+
+.voice-modal-input::placeholder {
+  color: #64748b !important;
+  font-size: 12.5px !important;
+  font-weight: 400 !important;
+}
+
+.btn-voice-modal-go {
+  background: #e50914 !important;
+  border: none !important;
+  color: #ffffff !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  font-size: 13px !important;
+  transition: all 0.2s ease !important;
+  touch-action: manipulation !important;
+  flex-shrink: 0 !important;
+}
+
+.btn-voice-modal-go:hover {
+  background: #ff1a26 !important;
+  transform: scale(1.05) !important;
+}
+
+.btn-voice-modal-go:active {
+  transform: scale(0.92) !important;
+}
+
+.voice-transcript-hint {
+  font-size: 11.5px !important;
+  color: #94a3b8 !important;
+  margin: 0 0 16px 0 !important;
+  min-height: 18px !important;
+  transition: color 0.2s ease !important;
+}
+
+.voice-suggestions {
+  width: 100% !important;
+  margin-bottom: 20px !important;
+}
+
+.voice-suggestions-label {
+  display: block !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  color: #888 !important;
+  margin-bottom: 8px !important;
+}
+
+.voice-chips-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  justify-content: center !important;
+}
+
+.voice-chip {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #e2e8f0 !important;
+  padding: 5px 12px !important;
+  border-radius: 16px !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  touch-action: manipulation !important;
+}
+
+.voice-chip:hover {
+  background: rgba(229, 9, 20, 0.2) !important;
+  border-color: rgba(229, 9, 20, 0.6) !important;
+  color: #fff !important;
+}
+
+.voice-chip:active {
+  transform: scale(0.94) !important;
+}
+
+.voice-modal-footer {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.btn-voice-cancel {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ccc !important;
+  padding: 8px 24px !important;
+  border-radius: 20px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  touch-action: manipulation !important;
+}
+
+.btn-voice-cancel:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  color: #fff !important;
+}
+
+.btn-voice-cancel:active {
+  transform: scale(0.94) !important;
+}
+
+@media (max-width: 600px) {
+  .voice-modal-card {
+    padding: 22px 16px 18px !important;
+    border-radius: 18px !important;
+    max-width: 90vw !important;
+  }
+  .voice-mic-container {
+    width: 90px !important;
+    height: 90px !important;
+  }
+  .voice-mic-circle {
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 22px !important;
+  }
+  .voice-status-heading {
+    font-size: 15px !important;
+    margin: 12px 0 4px !important;
+  }
+  .voice-transcript-preview {
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+    min-height: 34px !important;
+    max-height: 48px !important;
+    margin-bottom: 12px !important;
+  }
+  .voice-chip {
+    font-size: 10px !important;
+    padding: 4px 9px !important;
+    min-height: 26px !important;
+  }
+  .btn-voice-cancel {
+    font-size: 11.5px !important;
+    padding: 6px 20px !important;
+    min-height: 28px !important;
+  }
 }
