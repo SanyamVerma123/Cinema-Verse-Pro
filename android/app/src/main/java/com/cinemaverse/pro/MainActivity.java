@@ -27,9 +27,11 @@ import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import androidx.webkit.WebViewAssetLoader;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     private long backPressedTime = 0;
     private SharedPreferences preferences;
+    private WebViewAssetLoader assetLoader;
 
     @Override
     @SuppressLint("SetJavaScriptEnabled")
@@ -92,18 +95,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String getTargetUrl() {
-        String defaultUrl = getString(R.string.default_web_url);
-        String baseUrl = preferences.getString(KEY_SERVER_URL, defaultUrl);
-        if (isTelevision()) {
-            if (!baseUrl.contains("/tv")) {
-                if (baseUrl.endsWith("/")) {
-                    return baseUrl + "tv";
-                } else {
-                    return baseUrl + "/tv";
-                }
-            }
+        String saved = preferences.getString(KEY_SERVER_URL, null);
+        if (saved != null && !saved.trim().isEmpty()) {
+            return saved.trim();
         }
-        return baseUrl;
+        // Default to pure self-contained offline APK assets (Zero external web server needed!)
+        return "https://appassets.androidplatform.net/assets/tv.html";
     }
 
     private void saveTargetUrl(String url) {
@@ -187,6 +184,10 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void setupWebView() {
+        assetLoader = new WebViewAssetLoader.Builder()
+            .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
+            .build();
+
         WebSettings settings = webView.getSettings();
 
         // 1. JavaScript & Storage
@@ -256,6 +257,17 @@ public class MainActivity extends AppCompatActivity {
      * Enhanced WebViewClient for auto-updates, loading states, and offline handling
      */
     private class CinemaWebViewClient extends WebViewClient {
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            if (assetLoader != null) {
+                WebResourceResponse response = assetLoader.shouldInterceptRequest(request.getUrl());
+                if (response != null) {
+                    return response;
+                }
+            }
+            return super.shouldInterceptRequest(view, request);
+        }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
