@@ -1877,7 +1877,17 @@
           <i class="fa-solid fa-spinner fa-spin text-red"></i>
           <span>Loading official trailer...</span>
         </div>
-        <iframe id="trailer-iframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        <iframe id="trailer-iframe" src="" allowfullscreen="true" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div class="trailer-stage-fallback" id="trailer-stage-fallback" style="display: none;">
+          <div class="trailer-fallback-content">
+            <i class="fa-brands fa-youtube trailer-fallback-icon text-red"></i>
+            <h4>Watch Official Trailer</h4>
+            <p>Direct studio playback available on YouTube.</p>
+            <a id="trailer-fallback-link" href="#" target="_blank" rel="noopener noreferrer" class="netflix-btn btn-white">
+              <i class="fa-solid fa-play text-red"></i> Play on YouTube
+            </a>
+          </div>
+        </div>
       </div>
       <div class="trailer-alts-bar" id="trailer-alts-bar" style="display: none;"></div>
     </div>

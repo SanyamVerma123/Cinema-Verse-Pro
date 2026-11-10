@@ -1787,7 +1787,7 @@ app.get('/api/trailer/:type/:id', async (req, res) => {
       title,
       videoId: primary.id,
       trailers,
-      embedUrl: `https://www.youtube-nocookie.com/embed/${primary.id}?autoplay=1&rel=0&modestbranding=1`,
+      embedUrl: `https://www.youtube.com/embed/${primary.id}?autoplay=1&mute=0&enablejsapi=1&playsinline=1&rel=0`,
       youtubeUrl: `https://www.youtube.com/watch?v=${primary.id}`
     };
     TRAILER_CACHE.set(cacheKey, payload);

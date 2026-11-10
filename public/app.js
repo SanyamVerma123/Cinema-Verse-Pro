@@ -2515,20 +2515,38 @@ function playTrailerByEmbed(embedUrl, videoTitle) {
   const extBtn = document.getElementById('trailer-external-btn');
   const spinner = document.getElementById('trailer-spinner');
   const altsBar = document.getElementById('trailer-alts-bar');
+  const fallbackStage = document.getElementById('trailer-stage-fallback');
+  const fallbackLink = document.getElementById('trailer-fallback-link');
+
   if (!modal) return;
   modal.style.display = 'flex';
+
+  let videoId = '';
+  if (typeof embedUrl === 'string') {
+    const m = embedUrl.match(/(?:embed\/|v\/|watch\?v=|youtu\.be\/)([\w-]{11})/);
+    if (m) videoId = m[1];
+  }
+
+  const cleanEmbed = videoId 
+    ? 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&mute=0&enablejsapi=1&playsinline=1&rel=0'
+    : embedUrl;
+  const ytWatchUrl = videoId ? 'https://www.youtube.com/watch?v=' + videoId : '#';
+
   if (title) title.innerHTML = `<i class="fa-brands fa-youtube text-red"></i> ${videoTitle || 'Official Video Clip'}`;
   if (spinner) spinner.style.display = 'none';
   if (altsBar) altsBar.style.display = 'none';
-  if (iframe) iframe.src = embedUrl;
+  if (fallbackStage) fallbackStage.style.display = 'none';
+
   if (extBtn) {
-    const keyMatch = embedUrl.match(/embed\/([^?&]+)/);
-    if (keyMatch) {
-      extBtn.href = `https://www.youtube.com/watch?v=${keyMatch[1]}`;
-      extBtn.style.display = 'inline-flex';
-    } else {
-      extBtn.style.display = 'none';
-    }
+    extBtn.href = ytWatchUrl;
+    extBtn.style.display = 'inline-flex';
+  }
+  if (fallbackLink) {
+    fallbackLink.href = ytWatchUrl;
+  }
+
+  if (iframe) {
+    iframe.src = cleanEmbed;
   }
 }
 window.playTrailerByEmbed = playTrailerByEmbed;
@@ -3620,7 +3638,7 @@ async function openDetailsModal(item) {
   // Cast Chips
   const castContainer = document.getElementById('modal-cast');
   castContainer.innerHTML = '';
-  (item.cast || []).forEach(name => {
+  (item.cast || []).slice(0, 5).forEach(name => {
     const chipEl = document.createElement('span');
     chipEl.className = 'cast-chip';
     chipEl.textContent = name;
@@ -4059,7 +4077,7 @@ async function openTrailerModal(item = currentItem) {
           pill.onclick = () => {
             document.querySelectorAll('.trailer-alt-pill').forEach(p => p.classList.remove('active'));
             pill.classList.add('active');
-            if (iframe) iframe.src = `https://www.youtube-nocookie.com/embed/${t.id}?autoplay=1&rel=0&modestbranding=1`;
+            if (iframe) iframe.src = `https://www.youtube.com/embed/${t.id}?autoplay=1&mute=0&enablejsapi=1&playsinline=1&rel=0`;
             if (extBtn) extBtn.href = `https://www.youtube.com/watch?v=${t.id}`;
           };
           altsBar.appendChild(pill);

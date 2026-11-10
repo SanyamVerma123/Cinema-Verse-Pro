@@ -14784,3 +14784,187 @@ body.tv-mode .mobile-bottom-nav {
 
 
 
+
+
+/* ======================================================== */
+/* TRAILER MODAL FIXES & MULTI-SCREEN PERFECTION           */
+/* ======================================================== */
+#trailer-modal {
+  z-index: 25000 !important;
+  overflow-x: hidden !important;
+}
+.modal-trailer-card {
+  max-width: 780px !important;
+  width: 94% !important;
+  background: #0f121a !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95) !important;
+  overflow: hidden !important;
+}
+.trailer-video-stage {
+  position: relative !important;
+  width: 100% !important;
+  padding-bottom: 56.25% !important;
+  height: 0 !important;
+  background: #000 !important;
+  overflow: hidden !important;
+}
+.trailer-video-stage iframe {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  z-index: 2 !important;
+}
+.trailer-stage-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: rgba(10, 14, 23, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+.trailer-fallback-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 360px;
+}
+.trailer-fallback-icon {
+  font-size: 48px;
+}
+.trailer-fallback-content h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+.trailer-fallback-content p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ======================================================== */
+/* MOVIE DETAILS MODAL: COMPACT, NEAT & INSIDE THE BOX      */
+/* ======================================================== */
+#details-modal {
+  overflow-x: hidden !important;
+}
+#details-modal .netflix-modal-card {
+  width: 94% !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+.modal-content-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  padding: 16px 20px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+@media (min-width: 960px) {
+  .modal-content-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr) !important;
+    gap: 22px !important;
+    padding: 20px 26px !important;
+  }
+}
+.modal-left-col,
+.modal-right-col {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+.modal-right-col {
+  background: rgba(15, 23, 42, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  backdrop-filter: blur(12px) !important;
+}
+.modal-info-item {
+  font-size: 12px !important;
+  margin-bottom: 7px !important;
+  line-height: 1.35 !important;
+}
+.info-label {
+  color: #94a3b8 !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.4px !important;
+  margin-right: 5px !important;
+}
+.info-value {
+  color: #f1f5f9 !important;
+  font-size: 12px !important;
+}
+.modal-cast-chips {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+  margin-top: 4px !important;
+}
+.modal-cast-chips .cast-chip {
+  font-size: 11px !important;
+  padding: 2px 7px !important;
+  border-radius: 4px !important;
+}
+.modal-synopsis {
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  color: #cbd5e1 !important;
+  margin-bottom: 12px !important;
+  max-height: 85px !important;
+  overflow-y: auto !important;
+  scrollbar-width: thin !important;
+}
+.modal-meta-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 6px 10px !important;
+  font-size: 12px !important;
+  margin-bottom: 12px !important;
+}
+.modal-hero-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  max-width: 100% !important;
+}
+.modal-hero-info {
+  left: 20px !important;
+  right: 20px !important;
+  bottom: 18px !important;
+  max-width: calc(100% - 40px) !important;
+  box-sizing: border-box !important;
+}
+.modal-hero-title {
+  font-size: clamp(20px, 5vw, 32px) !important;
+  margin-bottom: 8px !important;
+  word-break: break-word !important;
+}
+.modal-hero-wrap {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
