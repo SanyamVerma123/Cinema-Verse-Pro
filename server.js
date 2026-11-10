@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 const axios = require('axios');
 let catalogData = require('./catalog');
 
@@ -878,10 +879,28 @@ app.get('/api/catalog', (req, res) => {
     );
   }
 
+  // Optimize poster and backdrop URLs to route through unblocked server proxy
+  function optimizeCatalogMediaUrl(u) {
+    if (!u || typeof u !== 'string') return u;
+    if (u.includes('image.tmdb.org/t/p/')) {
+      return u.replace(/^https?:\/\/image\.tmdb\.org\/t\/p\//, '/api/tmdb-image/');
+    }
+    if (u.includes('images.metahub.space/')) {
+      return u.replace(/^https?:\/\/images\.metahub\.space\//, '/api/metahub-image/');
+    }
+    return u;
+  }
+
+  const optimizedResults = results.map(item => ({
+    ...item,
+    poster: optimizeCatalogMediaUrl(item.poster),
+    backdrop: optimizeCatalogMediaUrl(item.backdrop)
+  }));
+
   res.json({
     status: 'success',
-    total: results.length,
-    data: results
+    total: optimizedResults.length,
+    data: optimizedResults
   });
 });
 
@@ -2274,17 +2293,52 @@ app.get('/api/auth/history', async (req, res) => {
 });
 
 
-// Universal Image Proxy to guarantee TV browser and mobile image rendering with zero CORS issues
-app.get(['/api/image-proxy', '/image-proxy'], async (req, res) => {
-  const imageUrl = req.query.url;
-  if (!imageUrl) return res.status(400).send('Missing url parameter');
+// ========================================================
+// HIGH-PERFORMANCE UNIVERSAL IMAGE PROXY & CACHING ENGINE
+// Guarantees zero CORS, zero ISP DNS blocks (India Jio/Airtel unblocked),
+// and ultra-fast disk-cached image delivery for TV, Mobile & Web
+// ========================================================
+const IMAGE_CACHE_DIR = path.join(__dirname, '.cache', 'images');
+try {
+  if (!fs.existsSync(IMAGE_CACHE_DIR)) {
+    fs.mkdirSync(IMAGE_CACHE_DIR, { recursive: true });
+  }
+} catch (e) {}
 
+async function serveProxiedImage(targetUrl, res) {
+  if (!targetUrl || typeof targetUrl !== 'string') {
+    return res.status(400).send('Missing url parameter');
+  }
+
+  // Ensure valid protocol
+  if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+    targetUrl = 'https://' + targetUrl.replace(/^\/+/, '');
+  }
+
+  const hash = crypto.createHash('sha256').update(targetUrl).digest('hex');
+  const cachePath = path.join(IMAGE_CACHE_DIR, hash + '.bin');
+  const metaPath = path.join(IMAGE_CACHE_DIR, hash + '.json');
+
+  // 1. Instant Cache HIT from Local NVMe/Disk Cache
+  if (fs.existsSync(cachePath) && fs.existsSync(metaPath)) {
+    try {
+      const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+      res.setHeader('Content-Type', meta.contentType || 'image/jpeg');
+      res.setHeader('Cache-Control', 'public, max-age=604800, s-maxage=604800, immutable');
+      res.setHeader('X-Proxy-Cache', 'HIT');
+      return fs.createReadStream(cachePath).pipe(res);
+    } catch (e) {
+      // Fall through to upstream fetch if corrupted
+    }
+  }
+
+  // 2. Fetch from Upstream
   try {
     const response = await axios({
       method: 'GET',
-      url: imageUrl,
+      url: targetUrl,
       responseType: 'stream',
-      timeout: 8000,
+      timeout: 9000,
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
@@ -2292,13 +2346,43 @@ app.get(['/api/image-proxy', '/image-proxy'], async (req, res) => {
       }
     });
 
-    res.setHeader('Content-Type', response.headers['content-type'] || 'image/jpeg');
+    const contentType = response.headers['content-type'] || 'image/jpeg';
+    res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=604800, s-maxage=604800, immutable');
+    res.setHeader('X-Proxy-Cache', 'MISS');
+
+    const ws = fs.createWriteStream(cachePath);
+    response.data.pipe(ws);
     response.data.pipe(res);
+
+    ws.on('finish', () => {
+      try {
+        fs.writeFileSync(metaPath, JSON.stringify({ contentType }));
+      } catch (e) {}
+    });
+
+    ws.on('error', () => {
+      try { if (fs.existsSync(cachePath)) fs.unlinkSync(cachePath); } catch (e) {}
+    });
   } catch (err) {
-    // If upstream image fails, redirect or send 404
     res.status(404).send('Image unavailable');
   }
+}
+
+app.use('/api/tmdb-image', (req, res) => {
+  const subPath = req.url.replace(/^\/+/, '');
+  serveProxiedImage(`https://image.tmdb.org/t/p/${subPath}`, res);
+});
+
+app.use('/api/metahub-image', (req, res) => {
+  const subPath = req.url.replace(/^\/+/, '');
+  serveProxiedImage(`https://images.metahub.space/${subPath}`, res);
+});
+
+app.get(['/api/image-proxy', '/image-proxy'], (req, res) => {
+  const imageUrl = req.query.url;
+  if (!imageUrl) return res.status(400).send('Missing url parameter');
+  serveProxiedImage(imageUrl, res);
 });
 
 if (require.main === module) {

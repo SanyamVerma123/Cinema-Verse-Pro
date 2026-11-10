@@ -284,10 +284,19 @@
   window.handleImgError = function (img, fallback) {
     if (!img) return;
     const orig = img.src || '';
-    if (orig.includes('images.metahub.space') && !img.dataset.proxied && typeof window !== 'undefined' && window.location && window.location.protocol.startsWith('http')) {
-      img.dataset.proxied = 'true';
-      img.src = '/api/image-proxy?url=' + encodeURIComponent(orig);
-      return;
+    if (!img.dataset.proxied && typeof window !== 'undefined' && window.location && window.location.protocol.startsWith('http')) {
+      if (orig.includes('image.tmdb.org/t/p/')) {
+        img.dataset.proxied = 'true';
+        img.src = orig.replace(/^https?:\/\/image\.tmdb\.org\/t\/p\//, '/api/tmdb-image/');
+        return;
+      } else if (orig.includes('images.metahub.space/')) {
+        img.dataset.proxied = 'true';
+        img.src = orig.replace(/^https?:\/\/images\.metahub\.space\//, '/api/metahub-image/');
+      } else if (orig.includes('metahub.space') || orig.includes('tmdb.org')) {
+        img.dataset.proxied = 'true';
+        img.src = '/api/image-proxy?url=' + encodeURIComponent(orig);
+        return;
+      }
     }
     img.onerror = null;
     const title = img.getAttribute('alt') || 'CinemaVerse';

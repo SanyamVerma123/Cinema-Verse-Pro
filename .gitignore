@@ -13,4 +13,6 @@ Thumbs.db
 
 # Scratch and REA forensics cache
 scratch/
+scratch_*
+.cache/
 extracted_netmirror/

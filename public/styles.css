@@ -14040,4 +14040,110 @@ body.tv-mode .mobile-bottom-nav {
   box-shadow: 0 0 25px -4px rgba(229, 9, 20, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
 }
 
+/* ========================================================
+   6. 21ST.DEV MOBILE CARD POSTER CLARITY & MODERN REFINEMENT
+   - Removes any dark transparent veil / sticky hover on mobile touchscreens
+   - Guarantees 100% vibrant, crisp poster visibility on all mobile devices
+   - 21st.dev micro-borders, luminous glass badges, and responsive tactile elevation
+   ======================================================== */
+@media (max-width: 768px), (hover: none) {
+  /* Complete removal of dark hover overlay on mobile touchscreens */
+  .card-play-hover,
+  .movie-card:hover .card-play-hover,
+  .movie-card:active .card-play-hover,
+  .movie-card:focus .card-play-hover,
+  .top10-card:hover .card-play-hover {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    background: transparent !important;
+  }
+
+  /* Vibrant, crystal-clear poster image */
+  .card-poster {
+    filter: none !important;
+    -webkit-filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .card-poster-wrap::before,
+  .card-poster-wrap::after,
+  .movie-card::before,
+  .movie-card::after {
+    display: none !important;
+  }
+
+  /* 21st.dev Mobile Card Shape & Elevation */
+  .movie-card {
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: #0d111a !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease !important;
+  }
+
+  .movie-card:hover {
+    transform: none !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  /* Tactile feedback on touch */
+  .movie-card:active {
+    transform: scale(0.96) !important;
+    border-color: rgba(229, 9, 20, 0.6) !important;
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.3) !important;
+  }
+
+  /* 21st.dev Glass Badges on Mobile */
+  .card-ott-badge {
+    top: 6px !important;
+    left: 6px !important;
+    font-size: 8.5px !important;
+    padding: 2.5px 6.5px !important;
+    border-radius: 5px !important;
+    letter-spacing: 0.04em !important;
+    font-weight: 800 !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  /* Multi-Audio Dub Indicator Badge on Mobile */
+  .badge-dub-indicator {
+    bottom: 6px !important;
+    left: 6px !important;
+    font-size: 8.5px !important;
+    padding: 2px 6px !important;
+    border-radius: 5px !important;
+    background: rgba(10, 14, 23, 0.9) !important;
+    border: 1px solid rgba(245, 158, 11, 0.4) !important;
+    color: #fbbf24 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+  }
+
+  /* Clean Typography for Mobile Cards */
+  .card-info {
+    padding: 8px 6px !important;
+  }
+
+  .card-title {
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    color: #f1f5f9 !important;
+  }
+
+  .card-meta {
+    font-size: 11px !important;
+    gap: 6px !important;
+    margin-top: 3px !important;
+  }
+}
+
+
 

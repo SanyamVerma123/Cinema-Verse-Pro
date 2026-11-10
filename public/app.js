@@ -47,7 +47,23 @@ var STORAGE_DAILY_PASS = 'cinemaverse_daily_pass';
 const FALLBACK_POSTER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="34">CINEMAVERSE</text><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="Arial,sans-serif" font-weight="600" font-size="16">ULTRA HD 4K</text></svg>';
 const FALLBACK_BACKDROP = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><rect width="1280" height="720" fill="%230b0f19"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="48">CINEMAVERSE PRO</text></svg>';
 
-// Global image error handler with dynamic platform-branded SVG generator
+// Universal image URL optimizer to prevent ISP blocks (India Jio/Airtel) and guarantee instant disk cache hits
+function resolvePosterUrl(url) {
+  if (!url || typeof url !== 'string') return '';
+  if (url.startsWith('/api/')) return url;
+  if (url.includes('image.tmdb.org/t/p/')) {
+    return url.replace(/^https?:\/\/image\.tmdb\.org\/t\/p\//, '/api/tmdb-image/');
+  }
+  if (url.includes('images.metahub.space/')) {
+    return url.replace(/^https?:\/\/images\.metahub\.space\//, '/api/metahub-image/');
+  }
+  if (url.includes('live.metahub.space/')) {
+    return '/api/image-proxy?url=' + encodeURIComponent(url);
+  }
+  return url;
+}
+
+// Global image error handler with dynamic platform-branded SVG generator (21st.dev inspired)
 function createDynamicSvgPoster(title, platform) {
   const cleanTitle = (title || 'CinemaVerse').replace(/['"<>&]/g, '');
   const plat = (platform || 'STREAM').toUpperCase();
@@ -70,30 +86,60 @@ function createDynamicSvgPoster(title, platform) {
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750">
       <defs>
-        <radialGradient id="g" cx="50%" cy="35%" r="65%">
-          <stop offset="0%" stop-color="${accent}" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#090a0e" stop-opacity="1"/>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#141824"/>
+          <stop offset="50%" stop-color="#0b0e17"/>
+          <stop offset="100%" stop-color="#05070a"/>
+        </linearGradient>
+        <radialGradient id="glow" cx="50%" cy="15%" r="60%">
+          <stop offset="0%" stop-color="${accent}" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
         </radialGradient>
       </defs>
-      <rect width="500" height="750" fill="#090a0e"/>
-      <rect width="500" height="750" fill="url(#g)"/>
-      <rect x="20" y="20" width="460" height="710" rx="16" fill="none" stroke="${accent}" stroke-width="2" stroke-opacity="0.25"/>
-      <rect x="36" y="36" width="130" height="32" rx="8" fill="${accent}"/>
-      <text x="101" y="57" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="900" font-size="13" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${plat}</text>
-      <text x="250" y="380" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="800" font-size="28" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${cleanTitle}</text>
-      <rect x="175" y="650" width="150" height="38" rx="19" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-      <text x="250" y="674" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="700" font-size="14" fill="#f59e0b" text-anchor="middle" dominant-baseline="middle">4K ULTRA HD</text>
+      <rect width="500" height="750" fill="url(#bg)"/>
+      <rect width="500" height="750" fill="url(#glow)"/>
+      <!-- Luminous 21st.dev Glass Border -->
+      <rect x="12" y="12" width="476" height="726" rx="20" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+      <!-- Platform Pill Header -->
+      <g transform="translate(28, 28)">
+        <rect width="130" height="34" rx="10" fill="${accent}" fill-opacity="0.95"/>
+        <text x="65" y="22" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="900" font-size="12" fill="#ffffff" text-anchor="middle" letter-spacing="1">${plat}</text>
+      </g>
+      <!-- Center Film Slate Icon -->
+      <g transform="translate(225, 290)" fill="${accent}" opacity="0.85">
+        <path d="M40 0H10C4.5 0 0 4.5 0 10v30c0 5.5 4.5 10 10 10h30c5.5 0 10-4.5 10-10V10c0-5.5-4.5-10-10-10zm-5 32l-15 9V19l15 9z"/>
+      </g>
+      <!-- Title -->
+      <text x="250" y="410" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="800" font-size="28" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${cleanTitle}</text>
+      <!-- Quality Badge -->
+      <g transform="translate(170, 660)">
+        <rect width="160" height="40" rx="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <text x="80" y="25" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="800" font-size="13" fill="#f59e0b" text-anchor="middle" letter-spacing="1">★ 4K ULTRA HD</text>
+      </g>
     </svg>
   `);
 }
 
 window.handleImgError = function(img, fallback = null) {
+  if (!img) return;
+  const currentSrc = img.src || '';
+  const rawSrc = img.getAttribute('data-raw-src') || '';
+
+  // 1. Auto-retry via proxy if image was direct TMDB/Metahub and failed on client
+  if (!img.dataset.proxyRetried && (currentSrc.includes('tmdb.org') || currentSrc.includes('metahub.space') || currentSrc.includes('live.metahub.space') || rawSrc.includes('tmdb.org') || rawSrc.includes('metahub.space'))) {
+    img.dataset.proxyRetried = 'true';
+    const target = rawSrc || currentSrc;
+    img.src = resolvePosterUrl(target);
+    return;
+  }
+
+  // 2. SVG Fallback
   img.onerror = null;
   const title = img.getAttribute('alt') || 'CinemaVerse';
   const card = img.closest('.movie-card, .top10-card, .cinema-search-card');
   const platBadge = card ? card.querySelector('.card-ott-badge, .tv-card-ott') : null;
   const platName = platBadge ? platBadge.textContent : 'STREAM';
-  img.src = createDynamicSvgPoster(title, platName);
+  img.src = fallback || createDynamicSvgPoster(title, platName);
 };
 
 const TRUSTED_EXTERNAL_HOSTS = new Set([
@@ -557,7 +603,11 @@ async function loadCatalog(retryCount = 0) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     if (data.status === 'success' && Array.isArray(data.data) && data.data.length > 0) {
-      currentCatalog = data.data;
+      currentCatalog = data.data.map(item => {
+        if (item.poster) item.poster = resolvePosterUrl(item.poster);
+        if (item.backdrop) item.backdrop = resolvePosterUrl(item.backdrop);
+        return item;
+      });
 
       // Extract Billboard Hero items
       heroItems = currentCatalog.filter(x => x.featured || x.trending).slice(0, 6);

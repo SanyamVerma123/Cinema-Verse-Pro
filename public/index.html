@@ -27,11 +27,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <script>
-    // Robust universal image fallback handler for TV browsers and all devices
+    // Robust universal image fallback & proxy retry handler for TV, Mobile & Web
     window.handleImgError = function(img, fallback) {
       if (!img) return;
+      const src = img.src || '';
+      if (!img.dataset.proxied && (src.includes('image.tmdb.org') || src.includes('images.metahub.space') || src.includes('live.metahub.space'))) {
+        img.dataset.proxied = 'true';
+        if (src.includes('image.tmdb.org/t/p/')) {
+          img.src = src.replace(/^https?:\/\/image\.tmdb\.org\/t\/p\//, '/api/tmdb-image/');
+        } else if (src.includes('images.metahub.space/')) {
+          img.src = src.replace(/^https?:\/\/images\.metahub\.space\//, '/api/metahub-image/');
+        } else {
+          img.src = '/api/image-proxy?url=' + encodeURIComponent(src);
+        }
+        return;
+      }
       img.onerror = null;
-      img.src = fallback || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='750' viewBox='0 0 500 750'%3E%3Crect width='500' height='750' fill='%23111827'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e50914' font-family='Arial,sans-serif' font-weight='900' font-size='28'%3ECINEMAVERSE%3C/text%3E%3C/svg%3E";
+      img.src = fallback || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='750' viewBox='0 0 500 750'%3E%3Crect width='500' height='750' fill='%230f172a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e50914' font-family='Arial,sans-serif' font-weight='900' font-size='28'%3ECINEMAVERSE%3C/text%3E%3C/svg%3E";
     };
   </script>
 </head>
@@ -39,8 +51,20 @@
   <script id="early-img-error">
     window.handleImgError = function(img, fallback) {
       if (!img) return;
+      const src = img.src || '';
+      if (!img.dataset.proxied && (src.includes('image.tmdb.org') || src.includes('images.metahub.space') || src.includes('live.metahub.space'))) {
+        img.dataset.proxied = 'true';
+        if (src.includes('image.tmdb.org/t/p/')) {
+          img.src = src.replace(/^https?:\/\/image\.tmdb\.org\/t\/p\//, '/api/tmdb-image/');
+        } else if (src.includes('images.metahub.space/')) {
+          img.src = src.replace(/^https?:\/\/images\.metahub\.space\//, '/api/metahub-image/');
+        } else {
+          img.src = '/api/image-proxy?url=' + encodeURIComponent(src);
+        }
+        return;
+      }
       img.onerror = null;
-      img.src = fallback || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="28">CINEMAVERSE</text></svg>';
+      img.src = fallback || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%230f172a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="28">CINEMAVERSE</text></svg>';
     };
   </script>
 
