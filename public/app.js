@@ -228,7 +228,11 @@ async function initializeApplication() {
     : null;
 
   if (initialPool && (!currentCatalog || !currentCatalog.length)) {
-    currentCatalog = initialPool;
+    currentCatalog = initialPool.map(item => ({
+      ...item,
+      poster: resolvePosterUrl(item.poster),
+      backdrop: resolvePosterUrl(item.backdrop)
+    }));
     heroItems = currentCatalog.filter(x => x.featured || x.trending).slice(0, 6);
     if (!heroItems.length) heroItems = currentCatalog.slice(0, 6);
     try { setupHeroCarousel(); } catch (e) { console.warn('setupHeroCarousel bootstrap:', e); }
