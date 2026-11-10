@@ -53,7 +53,7 @@
     <main class="tv-main-content">
       <!-- Spotlight Hero Section -->
       <section class="tv-hero-spotlight" id="tv-hero-spotlight">
-        <img class="tv-hero-backdrop" id="tv-hero-backdrop" src="" alt="Hero Backdrop">
+        <img class="tv-hero-backdrop" id="tv-hero-backdrop" src="" alt="Hero Backdrop" referrerpolicy="no-referrer" crossorigin="anonymous">
         <div class="tv-hero-gradient"></div>
 
         <div class="tv-hero-details">
@@ -175,22 +175,27 @@
     </div>
   </div>
 
-  <!-- Dynamic Catalog Loader -->
+  <!-- Instant Synchronous Bootstrap Catalog -->
+  <script src="/initial_catalog.js"></script>
+
+  <!-- Dynamic Catalog Loader & Enrichment -->
   <script>
+    if (window.INITIAL_BOOTSTRAP_CATALOG && Array.isArray(window.INITIAL_BOOTSTRAP_CATALOG)) {
+      window.__TV_CATALOG__ = window.INITIAL_BOOTSTRAP_CATALOG;
+    }
     fetch('/api/catalog')
       .then(res => res.json())
       .then(payload => {
         const cat = Array.isArray(payload) ? payload : (payload.data || []);
-        window.__TV_CATALOG__ = cat;
-        if (window.initTvApp) {
-          window.initTvApp(cat);
+        if (cat.length > (window.__TV_CATALOG__?.length || 0)) {
+          window.__TV_CATALOG__ = cat;
+          if (window.initTvApp) {
+            window.initTvApp(cat);
+          }
         }
       })
       .catch(err => {
-        console.warn('API catalog fetch failed, loading local catalog:', err);
-        if (window.CATALOG_ITEMS && window.initTvApp) {
-          window.initTvApp(window.CATALOG_ITEMS);
-        }
+        console.warn('API catalog fetch failed, running on bootstrap catalog:', err);
       });
   </script>
   <script src="/tv-engine.js"></script>

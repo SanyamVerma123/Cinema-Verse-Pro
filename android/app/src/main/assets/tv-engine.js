@@ -1509,4 +1509,17 @@
   window.closeTvPlayer = closePlayer;
   window.switchTvTab = switchTab;
   window.executeCurrentSelection = executeCurrentSelection;
+
+  // Auto-boot immediately if catalog was loaded synchronously or pre-fetched
+  try {
+    if (window.__TV_CATALOG__ && Array.isArray(window.__TV_CATALOG__) && window.__TV_CATALOG__.length > 0) {
+      window.initTvApp(window.__TV_CATALOG__);
+    } else if (window.INITIAL_BOOTSTRAP_CATALOG && Array.isArray(window.INITIAL_BOOTSTRAP_CATALOG) && window.INITIAL_BOOTSTRAP_CATALOG.length > 0) {
+      window.initTvApp(window.INITIAL_BOOTSTRAP_CATALOG);
+    } else if (window.CATALOG_ITEMS && Array.isArray(window.CATALOG_ITEMS) && window.CATALOG_ITEMS.length > 0) {
+      window.initTvApp(window.CATALOG_ITEMS);
+    }
+  } catch (e) {
+    console.warn('[CinemaVerse TV] Auto-boot deferred:', e.message);
+  }
 })();
