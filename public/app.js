@@ -237,13 +237,13 @@ async function initializeApplication() {
     if (!heroItems.length) heroItems = currentCatalog.slice(0, 6);
     try { setupHeroCarousel(); } catch (e) { console.warn('setupHeroCarousel bootstrap:', e); }
     try { renderAllRows(currentCatalog); } catch (e) { console.warn('renderAllRows bootstrap:', e); }
-    try { initMonlexView(currentCatalog); } catch (e) { console.warn('initMonlexView bootstrap:', e); }
-    try { updateOttHubDynamicCounts();
-      try { initMonlexView(currentCatalog); } catch(e) { console.warn("initMonlexView error:", e); } } catch (e) { console.warn('updateOttHubDynamicCounts bootstrap:', e); }
+    try { updateOttHubDynamicCounts(); } catch (e) { console.warn('updateOttHubDynamicCounts bootstrap:', e); }
   }
 
   // Initialize Smart TV Remote D-Pad Navigation Engine
   initSmartTvNavigation();
+  try { setupAutocomplete(); } catch (e) { console.warn("setupAutocomplete:", e); }
+  try { loadTmdbTrending(); } catch (e) { console.warn("loadTmdbTrending:", e); }
 
   // Asynchronously load full 5MB catalog with automatic retry
   await loadCatalog();
@@ -834,8 +834,6 @@ function filterPlatform(platformId, element) {
     const gridSec = document.getElementById('category-grid-section');
     if (gridSec) gridSec.style.display = 'none';
     showAllSections();
-    const mSpotlight = document.getElementById('monlex-spotlight-row'); if (mSpotlight) mSpotlight.style.display = 'flex';
-    const mShelves = document.getElementById('monlex-shelves-container'); if (mShelves) mShelves.style.display = 'flex';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
     openPlatformGrid(pid);
@@ -1788,8 +1786,6 @@ function toggleHomeVisibilityForSearch(isSearching) {
     if (cw) cw.style.display = 'none';
     if (watchlist) watchlist.style.display = 'none';
     if (downloads) downloads.style.display = 'none';
-    const mSpotlight = document.getElementById('monlex-spotlight-row'); if (mSpotlight) mSpotlight.style.display = 'none';
-    const mShelves = document.getElementById('monlex-shelves-container'); if (mShelves) mShelves.style.display = 'none';
     rows.forEach(r => r.style.display = 'none');
   } else {
     if (hero) hero.style.display = 'flex';
@@ -9120,258 +9116,350 @@ if (typeof window !== 'undefined') {
 
 
 // ========================================================
-// MONLEX.NET CONTROLLER & LANDSCAPE SHELF RENDERER
+// TMDB REAL-TIME TRENDING CONTROLLER
 // ========================================================
-let currentMonlexHeroItem = null;
-let currentMonlexCategory = 'movie';
+let currentTrendingType = 'all';
 
-function initMonlexView(catalog = currentCatalog) {
-  if (!catalog || !catalog.length) return;
+async function loadTmdbTrending(filterType = 'all', timeWindow = 'day') {
+  currentTrendingType = filterType;
+  const listEl = document.getElementById('tmdb-trending-list');
+  const sectionEl = document.getElementById('tmdb-trending-section');
+  if (!listEl) return;
 
-  // 1. Setup Hero Item (Murder Mystery by default)
-  let hero = catalog.find(x => x.id === 'netflix_murder_mystery');
-  if (!hero) {
-    hero = catalog.find(x => x.title && x.title.toLowerCase().includes('murder mystery'));
-  }
-  if (!hero) {
-    hero = catalog.find(x => x.featured || x.trending) || catalog[0];
-  }
-  renderMonlexHero(hero);
+  try {
+    const endpoint = filterType === 'all' 
+      ? `/api/tmdb/trending/all/${timeWindow}`
+      : `/api/tmdb/trending/${filterType}/${timeWindow}`;
+    
+    const res = await fetch(endpoint);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
 
-  // 2. Setup Recent Movies Panel (Blood Hounds, My Name, Invitation To a Murder)
-  renderMonlexRecent(catalog);
-
-  // 3. Setup Shelves
-  renderMonlexShelves(catalog);
-}
-
-function renderMonlexHero(item) {
-  if (!item) return;
-  currentMonlexHeroItem = item;
-
-  const bgEl = document.getElementById('monlex-hero-bg');
-  const titleEl = document.getElementById('monlex-hero-title');
-  const viewsEl = document.getElementById('monlex-hero-views-count');
-  const watermarkEl = document.getElementById('monlex-hero-watermark');
-  const followBtn = document.getElementById('monlex-hero-follow-btn');
-
-  if (bgEl) {
-    const bgUrl = item.backdrop || item.poster || FALLBACK_BACKDROP;
-    bgEl.style.backgroundImage = 'url("' + bgUrl + '")';
-  }
-  if (titleEl) {
-    titleEl.textContent = item.title;
-  }
-  if (viewsEl) {
-    viewsEl.textContent = item.views || '82,642,242';
-  }
-  if (watermarkEl) {
-    watermarkEl.textContent = item.platformBadge || (item.platform ? item.platform.toUpperCase() : 'NETFLIX');
-    if (item.platformColor) {
-      watermarkEl.style.color = item.platformColor;
+    if (json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+      if (sectionEl) sectionEl.style.display = 'block';
+      renderTrendingCards(json.data);
+    } else {
+      // Fallback: use top items from currentCatalog
+      const fallbackItems = (currentCatalog || []).slice(0, 15);
+      renderTrendingCards(fallbackItems);
     }
-  }
-  if (followBtn) {
-    const watchlist = (typeof getWatchlist === 'function') ? getWatchlist() : [];
-    const isFollowing = watchlist.some(w => w.id === item.id);
-    followBtn.innerHTML = isFollowing 
-      ? '<i class="fa-solid fa-check"></i> <span>Following</span>' 
-      : '<i class="fa-solid fa-plus"></i> <span>Follow</span>';
-    followBtn.classList.toggle('active', isFollowing);
+  } catch (err) {
+    console.warn('[TMDb Trending Feed Warning]', err.message);
+    const fallbackItems = (currentCatalog || []).slice(0, 15);
+    renderTrendingCards(fallbackItems);
   }
 }
 
-function playMonlexHero() {
-  if (currentMonlexHeroItem && typeof openPlayer === 'function') {
-    openPlayer(currentMonlexHeroItem);
-  }
+function renderTrendingCards(items) {
+  const listEl = document.getElementById('tmdb-trending-list');
+  if (!listEl || !items) return;
+
+  listEl.innerHTML = items.map((item, idx) => {
+    const posterUrl = item.poster || item.backdrop || FALLBACK_POSTER;
+    const title = item.title || item.name || 'Untitled';
+    const rating = item.rating ? Number(item.rating).toFixed(1) : '8.0';
+    const year = item.year || (item.release_date || '2024').slice(0, 4);
+    const typeLabel = item.type === 'series' ? 'TV' : 'Movie';
+    const itemId = item.id || `tmdb_${item.tmdbId || idx}`;
+
+    return `
+      <div class="netflix-card" data-id="${itemId}" onclick="handleTrendingCardClick('${itemId}')" role="button" tabindex="0">
+        <div class="trending-card-flame">
+          <i class="fa-solid fa-fire text-gold"></i> #${idx + 1}
+        </div>
+        <img class="card-poster" src="${posterUrl}" alt="${title}" loading="lazy" onerror="handleImgError(this)">
+        <div class="card-meta">
+          <h4 class="card-title">${title}</h4>
+          <div class="card-badges">
+            <span class="badge-rating"><i class="fa-solid fa-star text-gold"></i> ${rating}</span>
+            <span class="badge-type">${typeLabel}</span>
+            <span class="badge-year">${year}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
-function toggleMonlexHeroFollow() {
-  if (!currentMonlexHeroItem) return;
-  if (typeof toggleWatchlist === 'function') {
-    toggleWatchlist(currentMonlexHeroItem);
-    renderMonlexHero(currentMonlexHeroItem);
+function handleTrendingCardClick(itemId) {
+  // If item exists in currentCatalog, open directly
+  let found = (currentCatalog || []).find(x => String(x.id) === String(itemId) || String(x.tmdbId) === String(itemId));
+  if (found) {
+    openDetailsModal(found);
+    return;
   }
+  // Otherwise resolve via TMDb ID
+  const cleanId = itemId.replace('tmdb_', '');
+  fetch(`/api/tmdb/movie/${cleanId}`)
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.title) {
+        openDetailsModal(data);
+      } else {
+        return fetch(`/api/tmdb/tv/${cleanId}`).then(r => r.json()).then(tvData => {
+          if (tvData) openDetailsModal(tvData);
+        });
+      }
+    })
+    .catch(() => {
+      if (currentCatalog && currentCatalog.length) openDetailsModal(currentCatalog[0]);
+    });
 }
 
-function renderMonlexRecent(catalog) {
-  const container = document.getElementById('monlex-recent-list');
-  if (!container || !catalog) return;
+function switchTrendingFilter(type, btn) {
+  document.querySelectorAll('.trending-pill-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  loadTmdbTrending(type, 'day');
+}
 
-  const targetIds = ['netflix_bloodhounds', 'netflix_my_name', 'movie_invitation_to_a_murder'];
-  let recentItems = [];
-  targetIds.forEach(id => {
-    const found = catalog.find(x => x.id === id);
-    if (found) recentItems.push(found);
+// ========================================================
+// LIVE SEARCH AUTOCOMPLETE ENGINE
+// ========================================================
+let activeAcIndex = -1;
+let currentAcItems = [];
+let acDebounceTimer = null;
+
+function setupAutocomplete() {
+  const navInput = document.getElementById('search-input');
+  const inpageInput = document.getElementById('search-inpage-input');
+
+  [
+    { input: navInput, dropdownId: 'search-autocomplete' },
+    { input: inpageInput, dropdownId: 'search-inpage-autocomplete' }
+  ].forEach(({ input, dropdownId }) => {
+    if (!input) return;
+    const dropdown = document.getElementById(dropdownId);
+    if (!dropdown) return;
+
+    input.addEventListener('input', (e) => {
+      const q = (e.target.value || '').trim();
+      handleAutocompleteInput(q, dropdown, input);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      handleAutocompleteKeydown(e, dropdown, input);
+    });
+
+    input.addEventListener('focus', (e) => {
+      const q = (e.target.value || '').trim();
+      if (q.length >= 1) handleAutocompleteInput(q, dropdown, input);
+    });
   });
 
-  if (recentItems.length < 3) {
-    const extras = catalog.filter(x => !recentItems.some(r => r.id === x.id)).slice(0, 3 - recentItems.length);
-    recentItems = recentItems.concat(extras);
-  }
+  // Global dismissal on outside click
+  document.addEventListener('click', (e) => {
+    const navDropdown = document.getElementById('search-autocomplete');
+    const inpageDropdown = document.getElementById('search-inpage-autocomplete');
+    const navBox = document.getElementById('search-box');
+    const inpageBox = document.getElementById('search-inpage-bar');
 
-  container.innerHTML = recentItems.map(item => {
-    const starCount = item.stars || (item.rating ? Math.round(item.rating / 2) : 4);
-    let starsHtml = '';
-    for (let i = 1; i <= 5; i++) {
-      starsHtml += i <= starCount ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+    if (navDropdown && !navBox?.contains(e.target)) {
+      navDropdown.style.display = 'none';
     }
-    const genre = (item.genres && item.genres.length) ? item.genres[0] : 'Action Movie';
-    const maturity = item.maturity || 'PG-12';
-    const thumb = item.poster || item.backdrop || FALLBACK_POSTER;
-
-    return '<div class="monlex-recent-item" onclick="openDetailsModalById(\'' + item.id + '\')" role="button" tabindex="0">' +
-      '<img src="' + thumb + '" alt="' + item.title + '" class="monlex-recent-thumb" onerror="handleImgError(this)">' +
-      '<div class="monlex-recent-info">' +
-        '<div class="monlex-recent-name">' + item.title + '</div>' +
-        '<div class="monlex-recent-genre">' + genre + '</div>' +
-        '<div class="monlex-recent-stars">' + starsHtml + '</div>' +
-      '</div>' +
-      '<span class="monlex-recent-badge">' + maturity + '</span>' +
-    '</div>';
-  }).join('');
+    if (inpageDropdown && !inpageBox?.contains(e.target)) {
+      inpageDropdown.style.display = 'none';
+    }
+  });
 }
 
-function renderMonlexShelves(catalog) {
-  if (!catalog) return;
+function highlightMatch(text, query) {
+  if (!text || !query) return text || '';
+  const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return text;
+  const before = text.slice(0, idx);
+  const match = text.slice(idx, idx + query.length);
+  const after = text.slice(idx + query.length);
+  return `${before}<span class="ac-hl">${match}</span>${after}`;
+}
 
-  // 1. Popular Movies
-  const movieGrid = document.getElementById('monlex-popular-grid');
-  if (movieGrid) {
-    const targetMovieIds = ['movie_smite_movie', 'warner_evil_dead_rise', 'movie_invitation_to_a_murder', 'movie_shailene_woodley'];
-    let popularMovies = [];
-    targetMovieIds.forEach(id => {
-      const found = catalog.find(x => x.id === id);
-      if (found) popularMovies.push(found);
+function handleAutocompleteInput(q, dropdown, inputEl) {
+  if (!dropdown) return;
+  if (!q || q.length < 1) {
+    dropdown.style.display = 'none';
+    dropdown.innerHTML = '';
+    currentAcItems = [];
+    activeAcIndex = -1;
+    return;
+  }
+
+  // 1. Instant (<1ms) Local Suggestions
+  const qLower = q.toLowerCase();
+  const localTitles = (currentCatalog || [])
+    .filter(x => x.title && x.title.toLowerCase().includes(qLower))
+    .slice(0, 5);
+
+  const localGenres = ['Action', 'Thriller', 'Comedy', 'Sci-Fi', 'Horror', 'Drama', 'Crime', 'Animation', 'Romance']
+    .filter(g => g.toLowerCase().includes(qLower))
+    .slice(0, 3);
+
+  // Render immediate local matches
+  renderAutocompleteDropdown(dropdown, q, localTitles, [], localGenres);
+
+  // 2. Debounced API Enrichment (140ms)
+  clearTimeout(acDebounceTimer);
+  acDebounceTimer = setTimeout(async () => {
+    try {
+      const res = await fetch(`/api/search/autocomplete?q=${encodeURIComponent(q)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data && data.status === 'success') {
+        renderAutocompleteDropdown(dropdown, q, data.titles || localTitles, data.artists || [], data.genres || localGenres);
+      }
+    } catch (e) {
+      // Keep local results on network hiccup
+    }
+  }, 140);
+}
+
+function renderAutocompleteDropdown(dropdown, query, titles = [], artists = [], genres = []) {
+  if (!dropdown) return;
+  if (!titles.length && !artists.length && !genres.length) {
+    dropdown.style.display = 'none';
+    dropdown.innerHTML = '';
+    currentAcItems = [];
+    return;
+  }
+
+  currentAcItems = [];
+  activeAcIndex = -1;
+  let html = '';
+
+  // 1. Titles Section
+  if (titles.length) {
+    html += `<div class="ac-group"><div class="ac-group-label"><i class="fa-solid fa-film text-red"></i> Movies &amp; Series</div>`;
+    titles.forEach(item => {
+      const itemIdx = currentAcItems.length;
+      currentAcItems.push({ type: 'title', data: item });
+      const thumb = item.poster || item.backdrop || FALLBACK_POSTER;
+      const titleHl = highlightMatch(item.title, query);
+      const rating = item.rating ? Number(item.rating).toFixed(1) : '8.5';
+      const year = item.year || '2024';
+      const badge = item.platformBadge || (item.type === 'series' ? 'SERIES' : 'MOVIE');
+      const badgeClass = item.platformId === 'netflix' ? 'nflx' : (item.platformId === 'prime' ? 'prm' : '');
+
+      html += `
+        <div class="ac-item" data-index="${itemIdx}" onclick="selectAcItem(${itemIdx})">
+          <img src="${thumb}" alt="" class="ac-item-thumb" onerror="handleImgError(this)">
+          <div class="ac-item-info">
+            <div class="ac-item-title">${titleHl}</div>
+            <div class="ac-item-sub">
+              <span class="ac-item-badge ${badgeClass}">${badge}</span>
+              <span><i class="fa-solid fa-star text-gold"></i> ${rating}</span>
+              <span>• ${year}</span>
+            </div>
+          </div>
+        </div>
+      `;
     });
-    if (popularMovies.length < 4) {
-      const more = catalog.filter(x => x.type === 'movie' && !popularMovies.some(p => p.id === x.id)).slice(0, 4 - popularMovies.length);
-      popularMovies = popularMovies.concat(more);
-    }
-    renderMonlexLandscapeShelf(movieGrid, popularMovies);
+    html += `</div>`;
   }
 
-  // 2. Trending TV Shows
-  const tvGrid = document.getElementById('monlex-tv-grid');
-  if (tvGrid) {
-    const targetTvIds = ['netflix_bloodhounds', 'netflix_my_name', 'nflx-1', 'nflx-2'];
-    let tvShows = [];
-    targetTvIds.forEach(id => {
-      const found = catalog.find(x => x.id === id);
-      if (found) tvShows.push(found);
+  // 2. Artists & Cast Section
+  if (artists.length) {
+    html += `<div class="ac-group"><div class="ac-group-label"><i class="fa-solid fa-user text-gold"></i> Artists &amp; Cast</div>`;
+    artists.forEach(artist => {
+      const itemIdx = currentAcItems.length;
+      currentAcItems.push({ type: 'artist', data: artist });
+      const avatar = artist.profile_path || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80';
+      const nameHl = highlightMatch(artist.name, query);
+      const knownFor = artist.known_for ? `Known for: ${artist.known_for}` : 'Actor • TMDb Spotlight';
+
+      html += `
+        <div class="ac-item" data-index="${itemIdx}" onclick="selectAcItem(${itemIdx})">
+          <img src="${avatar}" alt="" class="ac-item-avatar" onerror="handleImgError(this)">
+          <div class="ac-item-info">
+            <div class="ac-item-title">${nameHl}</div>
+            <div class="ac-item-sub">
+              <span class="ac-item-badge"><i class="fa-solid fa-clapperboard"></i> Actor</span>
+              <span>${knownFor}</span>
+            </div>
+          </div>
+        </div>
+      `;
     });
-    if (tvShows.length < 4) {
-      const more = catalog.filter(x => x.type === 'series' && !tvShows.some(p => p.id === x.id)).slice(0, 4 - tvShows.length);
-      tvShows = tvShows.concat(more);
-    }
-    renderMonlexLandscapeShelf(tvGrid, tvShows);
+    html += `</div>`;
   }
 
-  // 3. Top Anime
-  const animeGrid = document.getElementById('monlex-anime-grid');
-  if (animeGrid) {
-    const animeItems = catalog.filter(x => 
-      (x.genres && x.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) ||
-      x.platformId === 'crunchyroll' || x.platformId === 'animeworld'
-    ).slice(0, 4);
-    renderMonlexLandscapeShelf(animeGrid, animeItems.length ? animeItems : catalog.slice(0, 4));
+  // 3. Quick Genres
+  if (genres.length) {
+    html += `<div class="ac-group"><div class="ac-group-label"><i class="fa-solid fa-tags text-blue"></i> Categories</div><div class="ac-genres-row">`;
+    genres.forEach(genre => {
+      html += `<button type="button" class="ac-genre-chip" onclick="selectAcGenre('${genre}')">${genre}</button>`;
+    });
+    html += `</div></div>`;
   }
+
+  dropdown.innerHTML = html;
+  dropdown.style.display = 'flex';
 }
 
-function renderMonlexLandscapeShelf(container, items) {
-  if (!container || !items) return;
-  container.innerHTML = items.map(item => {
-    const backdrop = item.backdrop || item.poster || FALLBACK_BACKDROP;
-    const subtitle = (item.genres && item.genres.length) ? item.genres.slice(0, 2).join(' • ') : 'The Action Movie';
+function handleAutocompleteKeydown(e, dropdown, inputEl) {
+  if (!dropdown || dropdown.style.display === 'none' || !currentAcItems.length) return;
 
-    return '<div class="monlex-landscape-card" onclick="openDetailsModalById(\'' + item.id + '\')" role="button" tabindex="0">' +
-      '<div class="monlex-card-media-wrap">' +
-        '<img src="' + backdrop + '" alt="' + item.title + '" class="monlex-card-img" onerror="handleImgError(this)">' +
-        '<div class="monlex-card-play-center" onclick="event.stopPropagation(); openPlayerById(\'' + item.id + '\')" title="Play Now">' +
-          '<i class="fa-solid fa-play"></i>' +
-        '</div>' +
-      '</div>' +
-      '<div class="monlex-card-title">' + item.title + '</div>' +
-      '<div class="monlex-card-subtitle">' + subtitle + '</div>' +
-    '</div>';
-  }).join('');
-}
-
-function switchMonlexCategory(cat, btn) {
-  currentMonlexCategory = cat;
-  document.querySelectorAll('.monlex-cat-tab').forEach(t => t.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-
-  const popularTitle = document.getElementById('monlex-shelf-popular-title');
-  const popularGrid = document.getElementById('monlex-popular-grid');
-
-  if (cat === 'movie') {
-    if (popularTitle) popularTitle.textContent = 'Popular Movies';
-    let hero = currentCatalog.find(x => x.id === 'netflix_murder_mystery') || currentCatalog.find(x => x.type === 'movie');
-    renderMonlexHero(hero);
-    renderMonlexShelves(currentCatalog);
-  } else if (cat === 'series') {
-    if (popularTitle) popularTitle.textContent = 'Popular TV Shows';
-    let hero = currentCatalog.find(x => x.id === 'netflix_bloodhounds') || currentCatalog.find(x => x.type === 'series');
-    renderMonlexHero(hero);
-    if (popularGrid) {
-      const seriesList = currentCatalog.filter(x => x.type === 'series').slice(0, 8);
-      renderMonlexLandscapeShelf(popularGrid, seriesList.slice(0, 4));
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    activeAcIndex = (activeAcIndex + 1) % currentAcItems.length;
+    updateAcSelection(dropdown);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    activeAcIndex = (activeAcIndex - 1 + currentAcItems.length) % currentAcItems.length;
+    updateAcSelection(dropdown);
+  } else if (e.key === 'Enter') {
+    if (activeAcIndex >= 0 && activeAcIndex < currentAcItems.length) {
+      e.preventDefault();
+      selectAcItem(activeAcIndex);
     }
-  } else if (cat === 'anime') {
-    if (popularTitle) popularTitle.textContent = 'Popular Anime';
-    const animes = currentCatalog.filter(x => 
-      (x.genres && x.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) ||
-      x.platformId === 'crunchyroll' || x.platformId === 'animeworld'
-    );
-    if (animes.length) {
-      renderMonlexHero(animes[0]);
-      if (popularGrid) renderMonlexLandscapeShelf(popularGrid, animes.slice(0, 4));
-    }
+  } else if (e.key === 'Escape') {
+    dropdown.style.display = 'none';
   }
 }
 
-function handleMonlexNav(section, link) {
-  document.querySelectorAll('.monlex-nav-item').forEach(i => i.classList.remove('active'));
-  if (link) link.classList.add('active');
-
-  if (section === 'home') {
-    if (typeof resetToHome === 'function') resetToHome();
-  } else if (section === 'trending') {
-    const popularShelf = document.getElementById('monlex-shelf-popular');
-    if (popularShelf) {
-      popularShelf.scrollIntoView({ behavior: 'smooth' });
+function updateAcSelection(dropdown) {
+  const items = dropdown.querySelectorAll('.ac-item');
+  items.forEach((el, idx) => {
+    el.classList.toggle('selected', idx === activeAcIndex);
+    if (idx === activeAcIndex) {
+      el.scrollIntoView({ block: 'nearest' });
     }
-  } else if (section === 'following') {
-    if (typeof showWatchlist === 'function') showWatchlist();
-  } else if (section === 'videos') {
-    if (typeof showDownloadsSection === 'function') showDownloadsSection();
-  } else if (section === 'playlist') {
-    if (typeof showWatchlist === 'function') showWatchlist();
+  });
+}
+
+function selectAcItem(idx) {
+  const selected = currentAcItems[idx];
+  if (!selected) return;
+
+  const navDropdown = document.getElementById('search-autocomplete');
+  const inpageDropdown = document.getElementById('search-inpage-autocomplete');
+  if (navDropdown) navDropdown.style.display = 'none';
+  if (inpageDropdown) inpageDropdown.style.display = 'none';
+
+  if (selected.type === 'title') {
+    const item = selected.data;
+    let found = (currentCatalog || []).find(x => x.id === item.id || (item.tmdbId && x.tmdbId === item.tmdbId));
+    if (found) {
+      openDetailsModal(found);
+    } else {
+      openDetailsModal(item);
+    }
+  } else if (selected.type === 'artist') {
+    const artist = selected.data;
+    if (artist.id && typeof openArtistSpotlightModal === 'function') {
+      openArtistSpotlightModal(artist.id, artist.name);
+    } else {
+      performSearch(artist.name);
+    }
   }
 }
 
-function handleMonlexSearchInput(value) {
-  const q = (value || '').trim();
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) searchInput.value = q;
+function selectAcGenre(genre) {
+  const navDropdown = document.getElementById('search-autocomplete');
+  const inpageDropdown = document.getElementById('search-inpage-autocomplete');
+  if (navDropdown) navDropdown.style.display = 'none';
+  if (inpageDropdown) inpageDropdown.style.display = 'none';
 
-  if (q.length > 0) {
-    if (typeof performSearch === 'function') performSearch(q);
+  if (typeof filterGenre === 'function') {
+    filterGenre(genre);
   } else {
-    if (typeof clearSearch === 'function') clearSearch();
+    performSearch(genre);
   }
-}
-
-function openDetailsModalById(id) {
-  if (!currentCatalog) return;
-  const item = currentCatalog.find(x => x.id === id);
-  if (item && typeof openDetailsModal === 'function') openDetailsModal(item);
-}
-
-function openPlayerById(id) {
-  if (!currentCatalog) return;
-  const item = currentCatalog.find(x => x.id === id);
-  if (item && typeof openPlayer === 'function') openPlayer(item);
 }

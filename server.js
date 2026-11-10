@@ -833,11 +833,108 @@ app.get('/api/tmdb/tv/:id/season/:seasonNumber', async (req, res) => {
   }
 });
 
-app.get(['/api/tmdb/trending', '/api/tmdb/trending/:timeWindow'], async (req, res) => {
+app.get(['/api/tmdb/trending', '/api/tmdb/trending/:param1', '/api/tmdb/trending/:param1/:param2'], async (req, res) => {
   try {
-    const { timeWindow } = req.params;
-    const data = await tmdb.getTrending(timeWindow || 'week');
+    let mediaType = 'all';
+    let timeWindow = 'day';
+    const { param1, param2 } = req.params;
+    if (param1 && !param2) {
+      if (['day', 'week'].includes(param1)) {
+        timeWindow = param1;
+      } else {
+        mediaType = param1;
+      }
+    } else if (param1 && param2) {
+      mediaType = param1;
+      timeWindow = param2;
+    }
+    const data = await tmdb.getTrending(mediaType, timeWindow);
     res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+// Autocomplete instant suggestions endpoint
+app.get('/api/search/autocomplete', async (req, res) => {
+  try {
+    const q = (req.query.q || '').trim().toLowerCase();
+    if (!q || q.length < 1) {
+      return res.json({ status: 'success', query: '', titles: [], artists: [], genres: [] });
+    }
+
+    // 1. Match titles from local catalog (ultra fast)
+    const titleMatches = [];
+    const seenTitles = new Set();
+    for (const item of (catalogData || [])) {
+      const titleLower = (item.title || '').toLowerCase();
+      if (titleLower.includes(q)) {
+        if (!seenTitles.has(titleLower)) {
+          seenTitles.add(titleLower);
+          titleMatches.push({
+            id: item.id,
+            tmdbId: item.tmdbId,
+            imdbId: item.imdbId,
+            title: item.title,
+            year: item.year,
+            type: item.type,
+            rating: item.rating,
+            poster: item.poster,
+            backdrop: item.backdrop,
+            platformBadge: item.platformBadge,
+            quality: item.quality
+          });
+        }
+      }
+      if (titleMatches.length >= 6) break;
+    }
+
+    // 2. Match artists via TMDb searchPerson
+    let artistMatches = [];
+    try {
+      const personData = await tmdb.searchPerson(q);
+      const list = personData?.data || personData?.results || [];
+      if (Array.isArray(list)) {
+        artistMatches = list.slice(0, 3).map(p => ({
+          id: p.id,
+          name: p.name,
+          profile_path: p.photo || (p.profile_path ? `/api/tmdb-image/w185${p.profile_path}` : null),
+          known_for_department: p.known_for_department || 'Acting',
+          known_for: (p.known_for || []).map(k => k.title || k.name).filter(Boolean).slice(0, 2).join(', ')
+        }));
+      }
+    } catch (e) {
+      // Fallback search cast in catalog
+      const seenActors = new Set();
+      for (const item of (catalogData || [])) {
+        if (Array.isArray(item.cast)) {
+          for (const actor of item.cast) {
+            if (actor.toLowerCase().includes(q) && !seenActors.has(actor.toLowerCase())) {
+              seenActors.add(actor.toLowerCase());
+              artistMatches.push({
+                name: actor,
+                known_for_department: 'Acting',
+                known_for: item.title
+              });
+              if (artistMatches.length >= 3) break;
+            }
+          }
+        }
+        if (artistMatches.length >= 3) break;
+      }
+    }
+
+    // 3. Match genres
+    const allGenres = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'Sci-Fi', 'TV Movie', 'Thriller', 'War', 'Western', 'Anime', 'K-Drama'];
+    const genreMatches = allGenres.filter(g => g.toLowerCase().includes(q)).slice(0, 4);
+
+    return res.json({
+      status: 'success',
+      query: q,
+      titles: titleMatches,
+      artists: artistMatches,
+      genres: genreMatches
+    });
   } catch (err) {
     res.status(500).json({ status: 'error', error: err.message });
   }
