@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1.0, user-scalable=no">
+  <title>CinemaVerse Pro TV — 4K Ultra HD Universal Streaming Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/tv.css">
+</head>
+<body class="tv-body">
+  <div class="tv-ambient-glow"></div>
+
+  <div class="tv-app-container">
+    <!-- Left Navigation Rail -->
+    <nav class="tv-nav-rail" id="tv-nav-rail">
+      <div class="tv-nav-logo">
+        <div class="tv-nav-logo-icon">C</div>
+        <span class="tv-nav-logo-text">CINEMAVERSE</span>
+      </div>
+
+      <div class="tv-nav-items">
+        <button type="button" class="tv-nav-item" data-tab="search" id="tv-nav-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Search</span>
+        </button>
+        <button type="button" class="tv-nav-item active" data-tab="home" id="tv-nav-home">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </button>
+        <button type="button" class="tv-nav-item" data-tab="movies" id="tv-nav-movies">
+          <i class="fa-solid fa-film"></i>
+          <span>Movies</span>
+        </button>
+        <button type="button" class="tv-nav-item" data-tab="series" id="tv-nav-series">
+          <i class="fa-solid fa-tv"></i>
+          <span>TV Series</span>
+        </button>
+        <button type="button" class="tv-nav-item" data-tab="ott" id="tv-nav-ott">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>OTT Hub</span>
+        </button>
+      </div>
+
+      <div class="tv-nav-bottom">
+        <div class="tv-nav-item" style="opacity: 0.6;">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Ad-Free 4K VIP</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="tv-main-content">
+      <!-- Spotlight Hero Section -->
+      <section class="tv-hero-spotlight" id="tv-hero-spotlight">
+        <img class="tv-hero-backdrop" id="tv-hero-backdrop" src="" alt="Hero Backdrop">
+        <div class="tv-hero-gradient"></div>
+
+        <div class="tv-hero-details">
+          <div class="tv-hero-badge-row">
+            <span class="tv-ott-badge" id="tv-hero-ott">NETFLIX</span>
+            <span class="tv-pill-meta text-gold" id="tv-hero-rating"><i class="fa-solid fa-star"></i> 9.1</span>
+            <span class="tv-pill-meta text-green" id="tv-hero-match">99% Match</span>
+            <span class="tv-pill-meta" id="tv-hero-year">2024</span>
+            <span class="tv-pill-meta" id="tv-hero-quality">4K Ultra HD</span>
+          </div>
+
+          <h1 class="tv-hero-title" id="tv-hero-title">CinemaVerse</h1>
+          <p class="tv-hero-desc" id="tv-hero-desc">
+            Stream over 1,300+ blockbuster movies and TV series across Netflix, Prime Video, Disney+, HBO Max, and Apple TV+ in 4K with zero ads.
+          </p>
+
+          <div class="tv-hero-actions">
+            <button type="button" class="tv-btn tv-btn-primary" id="tv-hero-btn-play">
+              <i class="fa-solid fa-play"></i> Watch Now
+            </button>
+            <button type="button" class="tv-btn tv-btn-secondary" id="tv-hero-btn-info">
+              <i class="fa-solid fa-circle-info"></i> More Info
+            </button>
+            <button type="button" class="tv-btn tv-btn-secondary" id="tv-hero-btn-list">
+              <i class="fa-solid fa-plus"></i> Watchlist
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Continuous TV Content Rows Container -->
+      <section class="tv-rows-section" id="tv-rows-section">
+        <div id="tv-rows-container"></div>
+      </section>
+
+      <!-- On-Screen Keyboard Search View -->
+      <section class="tv-search-container" id="tv-search-container">
+        <div class="tv-search-header">
+          <div class="tv-search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="tv-search-query-text" id="tv-search-query-text">Search movies, TV shows, actors, or genres...</span>
+            <span class="tv-search-cursor"></span>
+          </div>
+
+          <button type="button" class="tv-btn-voice" id="tv-btn-voice">
+            <i class="fa-solid fa-microphone"></i> Voice Search
+          </button>
+        </div>
+
+        <!-- Virtual Leanback Keyboard Grid -->
+        <div class="tv-keyboard-grid" id="tv-keyboard-grid"></div>
+        <div class="tv-keyboard-actions" id="tv-keyboard-actions"></div>
+
+        <!-- Live Search Results -->
+        <div class="tv-search-results-grid" id="tv-search-results-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- TV Details Modal -->
+  <div class="tv-details-modal" id="tv-details-modal">
+    <div class="tv-details-hero">
+      <img class="tv-details-poster" id="tv-details-poster" src="" alt="Poster">
+      <div class="tv-details-info">
+        <h2 class="tv-details-title" id="tv-details-title">Movie Title</h2>
+        <div class="tv-details-meta" id="tv-details-meta"></div>
+        <p class="tv-details-desc" id="tv-details-desc"></p>
+
+        <!-- Server Selector -->
+        <div class="tv-server-picker-row">
+          <span class="tv-server-picker-title">Streaming Mirror Servers (10 High-Speed Mirrors):</span>
+          <div class="tv-server-chips" id="tv-details-servers"></div>
+        </div>
+
+        <div style="display: flex; gap: 14px; margin-top: 14px;">
+          <button type="button" class="tv-btn tv-btn-primary" id="tv-modal-play-btn" onclick="if(window.executeCurrentSelection)window.executeCurrentSelection()">
+            <i class="fa-solid fa-play"></i> Play Stream (OK)
+          </button>
+          <button type="button" class="tv-btn tv-btn-secondary" id="tv-modal-close-btn" onclick="if(window.closeTvDetailsModal)window.closeTvDetailsModal()">
+            <i class="fa-solid fa-xmark"></i> Close (Back)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TV Series Episode Grid & Seasons -->
+    <div class="tv-episodes-section" id="tv-details-episodes">
+      <div class="tv-seasons-row" id="tv-details-seasons-row">
+        <span class="tv-server-picker-title">Seasons:</span>
+        <div class="tv-season-chips" id="tv-details-seasons"></div>
+      </div>
+      <h3 class="tv-row-title" id="tv-episodes-heading">Episodes</h3>
+      <div class="tv-episodes-scroller" id="tv-episodes-scroller"></div>
+    </div>
+  </div>
+
+  <!-- Fullscreen TV Video Player Overlay -->
+  <div class="tv-player-overlay" id="tv-player-overlay">
+    <iframe class="tv-player-iframe" id="tv-player-iframe" src="about:blank" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
+    <div class="tv-player-hud" id="tv-player-hud">
+      <div class="tv-player-hud-top">
+        <span class="tv-player-hud-title" id="tv-player-hud-title">Title</span>
+        <button type="button" class="tv-player-hud-btn" id="tv-player-btn-back" onclick="if(window.closeTvPlayer)window.closeTvPlayer()">
+          <i class="fa-solid fa-arrow-left"></i> Back to CinemaVerse (Remote Back)
+        </button>
+      </div>
+      <div class="tv-player-hud-bottom">
+        <span class="tv-player-hud-label">Switch Server:</span>
+        <div class="tv-player-server-chips" id="tv-player-server-chips"></div>
+        <div class="tv-player-ep-controls" id="tv-player-ep-controls" style="display: none; gap: 8px;">
+          <button type="button" class="tv-player-hud-btn" id="tv-player-btn-prev-ep">
+            <i class="fa-solid fa-backward-step"></i> Prev Ep
+          </button>
+          <button type="button" class="tv-player-hud-btn" id="tv-player-btn-next-ep">
+            Next Ep <i class="fa-solid fa-forward-step"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Catalog Loader -->
+  <script>
+    fetch('/api/catalog')
+      .then(res => res.json())
+      .then(payload => {
+        const cat = Array.isArray(payload) ? payload : (payload.data || []);
+        window.__TV_CATALOG__ = cat;
+        if (window.initTvApp) {
+          window.initTvApp(cat);
+        }
+      })
+      .catch(err => {
+        console.warn('API catalog fetch failed, loading local catalog:', err);
+        if (window.CATALOG_ITEMS && window.initTvApp) {
+          window.initTvApp(window.CATALOG_ITEMS);
+        }
+      });
+  </script>
+  <script src="/tv-engine.js"></script>
+</body>
+</html>

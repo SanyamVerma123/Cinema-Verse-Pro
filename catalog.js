@@ -2428,6 +2428,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 3
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Baki Hanma Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13357140/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Baki Hanma Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13357140/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Baki Hanma Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13357140/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Baki Hanma Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13357140/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Baki Hanma Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13357140/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Baki Hanma Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13357140/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Baki Hanma Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13357140/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Baki Hanma Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13357140/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -2551,6 +2614,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Dark Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5753856/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Dark Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5753856/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Dark Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5753856/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Dark Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5753856/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Dark Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5753856/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Dark Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5753856/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Dark Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5753856/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Dark Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5753856/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -2616,6 +2742,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Mindhunter Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5290382/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Mindhunter Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5290382/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Mindhunter Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5290382/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Mindhunter Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5290382/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Mindhunter Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5290382/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Mindhunter Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5290382/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Mindhunter Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5290382/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Mindhunter Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5290382/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -2680,6 +2869,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Beef Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14403178/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Beef Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14403178/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Beef Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14403178/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Beef Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14403178/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Beef Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14403178/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Beef Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14403178/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Beef Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14403178/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Beef Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14403178/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -2742,6 +2994,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Queen's Gambit Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10048342/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Queen's Gambit Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10048342/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Queen's Gambit Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10048342/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Queen's Gambit Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10048342/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Queen's Gambit Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10048342/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Queen's Gambit Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10048342/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Queen's Gambit Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10048342/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Queen's Gambit Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10048342/img"
+          }
+        ]
       }
     ]
   },
@@ -2806,6 +3121,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Better Call Saul Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3032476/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Better Call Saul Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3032476/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Better Call Saul Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3032476/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Better Call Saul Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3032476/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Better Call Saul Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3032476/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Better Call Saul Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3032476/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Better Call Saul Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3032476/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Better Call Saul Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3032476/img"
+          }
+        ]
       }
     ]
   },
@@ -2872,6 +3250,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Arcane Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11126994/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Arcane Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11126994/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Arcane Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11126994/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Arcane Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11126994/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Arcane Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11126994/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Arcane Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11126994/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Arcane Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11126994/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Arcane Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11126994/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -2936,6 +3377,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "One Piece Live Action Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11737520/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "One Piece Live Action Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11737520/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "One Piece Live Action Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11737520/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "One Piece Live Action Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11737520/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "One Piece Live Action Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11737520/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "One Piece Live Action Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11737520/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "One Piece Live Action Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11737520/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "One Piece Live Action Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11737520/img"
+          }
+        ]
       }
     ]
   },
@@ -3002,6 +3506,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Cobra Kai Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7221388/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Cobra Kai Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7221388/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Cobra Kai Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7221388/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Cobra Kai Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7221388/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Cobra Kai Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7221388/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Cobra Kai Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7221388/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Cobra Kai Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7221388/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Cobra Kai Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7221388/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3067,6 +3634,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Lucifer Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4052886/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Lucifer Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4052886/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Lucifer Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4052886/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Lucifer Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4052886/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Lucifer Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4052886/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Lucifer Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4052886/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Lucifer Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4052886/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Lucifer Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4052886/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3130,6 +3760,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Bridgerton Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8740790/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Bridgerton Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8740790/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Bridgerton Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8740790/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Bridgerton Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8740790/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Bridgerton Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8740790/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Bridgerton Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8740790/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Bridgerton Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8740790/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Bridgerton Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8740790/img"
+          }
+        ]
       }
     ]
   },
@@ -3196,6 +3889,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Haunting of Hill House Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6763664/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Haunting of Hill House Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6763664/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Haunting of Hill House Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6763664/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Haunting of Hill House Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6763664/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Haunting of Hill House Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6763664/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Haunting of Hill House Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6763664/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Haunting of Hill House Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6763664/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Haunting of Hill House Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6763664/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3260,6 +4016,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Cyberpunk: Edgerunners Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12590266/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Cyberpunk: Edgerunners Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12590266/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Cyberpunk: Edgerunners Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12590266/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Cyberpunk: Edgerunners Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12590266/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Cyberpunk: Edgerunners Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12590266/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Cyberpunk: Edgerunners Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12590266/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Cyberpunk: Edgerunners Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12590266/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Cyberpunk: Edgerunners Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12590266/img"
+          }
+        ]
       }
     ]
   },
@@ -3326,6 +4145,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Alice in Borderland Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10795658/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Alice in Borderland Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10795658/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Alice in Borderland Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10795658/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Alice in Borderland Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10795658/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Alice in Borderland Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10795658/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Alice in Borderland Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10795658/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Alice in Borderland Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10795658/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Alice in Borderland Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10795658/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3390,6 +4272,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "3 Body Problem Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13016388/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "3 Body Problem Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13016388/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "3 Body Problem Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13016388/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "3 Body Problem Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13016388/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "3 Body Problem Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13016388/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "3 Body Problem Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13016388/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "3 Body Problem Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13016388/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "3 Body Problem Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13016388/img"
+          }
+        ]
       }
     ]
   },
@@ -3456,6 +4401,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Gentlemen Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16066092/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Gentlemen Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16066092/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Gentlemen Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16066092/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Gentlemen Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16066092/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Gentlemen Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16066092/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Gentlemen Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16066092/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Gentlemen Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16066092/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Gentlemen Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16066092/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3519,6 +4527,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Baby Reindeer Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27534307/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Baby Reindeer Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27534307/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Baby Reindeer Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27534307/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Baby Reindeer Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27534307/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Baby Reindeer Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27534307/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Baby Reindeer Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27534307/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Baby Reindeer Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27534307/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Baby Reindeer Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27534307/img"
+          }
+        ]
       }
     ]
   },
@@ -3585,6 +4656,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "All of Us Are Dead Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12470992/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "All of Us Are Dead Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12470992/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "All of Us Are Dead Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12470992/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "All of Us Are Dead Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12470992/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "All of Us Are Dead Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12470992/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "All of Us Are Dead Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12470992/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "All of Us Are Dead Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12470992/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "All of Us Are Dead Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12470992/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3650,6 +4784,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Sweet Home Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11612120/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Sweet Home Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11612120/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Sweet Home Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11612120/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Sweet Home Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11612120/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Sweet Home Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11612120/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Sweet Home Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11612120/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Sweet Home Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11612120/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Sweet Home Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11612120/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3713,6 +4910,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Narcos: Mexico Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8714904/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Narcos: Mexico Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8714904/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Narcos: Mexico Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8714904/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Narcos: Mexico Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8714904/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Narcos: Mexico Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8714904/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Narcos: Mexico Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8714904/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Narcos: Mexico Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8714904/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Narcos: Mexico Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8714904/img"
+          }
+        ]
       }
     ]
   },
@@ -3779,6 +5039,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Bodyguard Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7493974/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Bodyguard Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7493974/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Bodyguard Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7493974/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Bodyguard Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7493974/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Bodyguard Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7493974/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Bodyguard Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7493974/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Bodyguard Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7493974/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Bodyguard Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7493974/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3843,6 +5166,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "You Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3503414/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "You Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3503414/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "You Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3503414/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "You Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3503414/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "You Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3503414/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "You Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3503414/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "You Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3503414/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "You Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3503414/img"
+          }
+        ]
       }
     ]
   },
@@ -3909,6 +5295,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Umbrella Academy Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7614662/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Umbrella Academy Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7614662/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Umbrella Academy Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7614662/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Umbrella Academy Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7614662/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Umbrella Academy Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7614662/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Umbrella Academy Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7614662/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Umbrella Academy Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7614662/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Umbrella Academy Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7614662/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -3973,6 +5422,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Sandman Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1755564/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Sandman Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1755564/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Sandman Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1755564/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Sandman Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1755564/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Sandman Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1755564/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Sandman Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1755564/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Sandman Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1755564/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Sandman Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1755564/img"
+          }
+        ]
       }
     ]
   },
@@ -4039,6 +5551,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Altered Carbon Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2261227/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Altered Carbon Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2261227/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Altered Carbon Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2261227/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Altered Carbon Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2261227/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Altered Carbon Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2261227/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Altered Carbon Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2261227/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Altered Carbon Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2261227/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Altered Carbon Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2261227/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -4101,6 +5676,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Maid Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11337862/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Maid Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11337862/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Maid Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11337862/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Maid Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11337862/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Maid Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11337862/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Maid Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11337862/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Maid Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11337862/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Maid Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11337862/img"
+          }
+        ]
       }
     ]
   },
@@ -4167,6 +5805,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Ripley Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10147590/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Ripley Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10147590/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Ripley Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10147590/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Ripley Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10147590/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Ripley Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10147590/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Ripley Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10147590/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Ripley Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10147590/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Ripley Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10147590/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -4232,6 +5933,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "BoJack Horseman Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398228/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "BoJack Horseman Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398228/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "BoJack Horseman Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398228/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "BoJack Horseman Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398228/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "BoJack Horseman Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398228/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "BoJack Horseman Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398228/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "BoJack Horseman Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398228/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "BoJack Horseman Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398228/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -4296,6 +6060,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Love, Death & Robots Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9561862/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Love, Death & Robots Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9561862/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Love, Death & Robots Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9561862/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Love, Death & Robots Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9561862/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Love, Death & Robots Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9561862/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Love, Death & Robots Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9561862/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Love, Death & Robots Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9561862/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Love, Death & Robots Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9561862/img"
+          }
+        ]
       }
     ]
   },
@@ -18500,6 +20327,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Good Omens Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1869454/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Good Omens Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1869454/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Good Omens Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1869454/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Good Omens Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1869454/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Good Omens Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1869454/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Good Omens Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1869454/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Good Omens Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1869454/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Good Omens Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1869454/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -18564,6 +20454,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Upload Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7826376/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Upload Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7826376/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Upload Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7826376/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Upload Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7826376/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Upload Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7826376/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Upload Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7826376/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Upload Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7826376/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Upload Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7826376/img"
+          }
+        ]
       }
     ]
   },
@@ -18630,6 +20583,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Outer Range Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11691774/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Outer Range Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11691774/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Outer Range Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11691774/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Outer Range Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11691774/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Outer Range Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11691774/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Outer Range Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11691774/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Outer Range Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11691774/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Outer Range Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11691774/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -18694,6 +20710,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Terminal List Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11743610/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Terminal List Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11743610/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Terminal List Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11743610/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Terminal List Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11743610/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Terminal List Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11743610/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Terminal List Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11743610/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Terminal List Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11743610/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Terminal List Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11743610/img"
+          }
+        ]
       }
     ]
   },
@@ -18760,6 +20839,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Mr. & Mrs. Smith Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14044212/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Mr. & Mrs. Smith Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14044212/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Mr. & Mrs. Smith Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14044212/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Mr. & Mrs. Smith Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14044212/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Mr. & Mrs. Smith Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14044212/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Mr. & Mrs. Smith Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14044212/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Mr. & Mrs. Smith Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14044212/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Mr. & Mrs. Smith Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14044212/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -18825,6 +20967,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Expanse Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3230854/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Expanse Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3230854/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Expanse Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3230854/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Expanse Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3230854/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Expanse Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3230854/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Expanse Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3230854/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Expanse Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3230854/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Expanse Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3230854/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -18889,6 +21094,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Clarkson's Farm Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10541088/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Clarkson's Farm Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10541088/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Clarkson's Farm Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10541088/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Clarkson's Farm Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10541088/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Clarkson's Farm Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10541088/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Clarkson's Farm Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10541088/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Clarkson's Farm Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10541088/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Clarkson's Farm Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10541088/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -18952,6 +21220,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Daisy Jones & The Six Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8749198/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Daisy Jones & The Six Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8749198/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Daisy Jones & The Six Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8749198/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Daisy Jones & The Six Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8749198/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Daisy Jones & The Six Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8749198/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Daisy Jones & The Six Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8749198/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Daisy Jones & The Six Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8749198/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Daisy Jones & The Six Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8749198/img"
+          }
+        ]
       }
     ]
   },
@@ -19018,6 +21349,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Man in the High Castle Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1740299/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Man in the High Castle Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1740299/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Man in the High Castle Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1740299/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Man in the High Castle Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1740299/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Man in the High Castle Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1740299/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Man in the High Castle Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1740299/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Man in the High Castle Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1740299/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Man in the High Castle Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1740299/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -19083,6 +21477,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Bosch Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3502248/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Bosch Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3502248/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Bosch Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3502248/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Bosch Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3502248/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Bosch Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3502248/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Bosch Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3502248/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Bosch Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3502248/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Bosch Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3502248/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -19146,6 +21603,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Bosch: Legacy Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14167664/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Bosch: Legacy Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14167664/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Bosch: Legacy Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14167664/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Bosch: Legacy Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14167664/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Bosch: Legacy Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14167664/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Bosch: Legacy Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14167664/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Bosch: Legacy Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14167664/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Bosch: Legacy Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14167664/img"
+          }
+        ]
       }
     ]
   },
@@ -19211,6 +21731,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Carnival Row Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0489974/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Carnival Row Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0489974/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Carnival Row Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0489974/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Carnival Row Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0489974/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Carnival Row Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0489974/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Carnival Row Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0489974/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Carnival Row Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0489974/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Carnival Row Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0489974/img"
+          }
+        ]
       }
     ]
   },
@@ -19794,6 +22377,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Invincible S2 Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6741278/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Invincible S2 Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6741278/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Invincible S2 Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6741278/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Invincible S2 Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6741278/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Invincible S2 Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6741278/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Invincible S2 Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6741278/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Invincible S2 Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6741278/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Invincible S2 Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6741278/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -19859,6 +22505,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Wheel of Time S2 Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7462410/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Wheel of Time S2 Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7462410/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Wheel of Time S2 Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7462410/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Wheel of Time S2 Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7462410/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Wheel of Time S2 Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7462410/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Wheel of Time S2 Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7462410/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Wheel of Time S2 Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7462410/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Wheel of Time S2 Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7462410/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -19921,6 +22630,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Goliath Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4687880/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Goliath Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4687880/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Goliath Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4687880/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Goliath Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4687880/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Goliath Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4687880/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Goliath Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4687880/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Goliath Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4687880/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Goliath Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4687880/img"
+          }
+        ]
       }
     ]
   },
@@ -19985,6 +22757,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Sneaky Pete Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5011816/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Sneaky Pete Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5011816/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Sneaky Pete Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5011816/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Sneaky Pete Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5011816/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Sneaky Pete Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5011816/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Sneaky Pete Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5011816/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Sneaky Pete Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5011816/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Sneaky Pete Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5011816/img"
+          }
+        ]
       }
     ]
   },
@@ -20051,6 +22886,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Swarm Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14999558/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Swarm Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14999558/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Swarm Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14999558/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Swarm Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14999558/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Swarm Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14999558/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Swarm Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14999558/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Swarm Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14999558/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Swarm Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14999558/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -20115,6 +23013,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Night Sky Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13361448/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Night Sky Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13361448/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Night Sky Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13361448/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Night Sky Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13361448/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Night Sky Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13361448/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Night Sky Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13361448/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Night Sky Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13361448/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Night Sky Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13361448/img"
+          }
+        ]
       }
     ]
   },
@@ -36839,6 +39800,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Moon Knight Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10234724/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Moon Knight Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10234724/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Moon Knight Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10234724/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Moon Knight Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10234724/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Moon Knight Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10234724/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Moon Knight Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10234724/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Moon Knight Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10234724/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Moon Knight Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10234724/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -36903,6 +39927,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Ahsoka Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622776/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Ahsoka Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622776/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Ahsoka Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622776/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Ahsoka Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622776/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Ahsoka Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622776/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Ahsoka Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622776/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Ahsoka Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622776/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Ahsoka Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622776/img"
+          }
+        ]
       }
     ]
   },
@@ -36969,6 +40056,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "X-Men '97 Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16026746/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "X-Men '97 Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16026746/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "X-Men '97 Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16026746/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "X-Men '97 Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16026746/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "X-Men '97 Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16026746/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "X-Men '97 Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16026746/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "X-Men '97 Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16026746/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "X-Men '97 Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt16026746/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -37033,6 +40183,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Percy Jackson and the Olympians Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12324366/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Percy Jackson and the Olympians Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12324366/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Percy Jackson and the Olympians Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12324366/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Percy Jackson and the Olympians Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12324366/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Percy Jackson and the Olympians Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12324366/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Percy Jackson and the Olympians Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12324366/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Percy Jackson and the Olympians Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12324366/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Percy Jackson and the Olympians Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12324366/img"
+          }
+        ]
       }
     ]
   },
@@ -37099,6 +40312,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Hawkeye Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10160804/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Hawkeye Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10160804/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Hawkeye Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10160804/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Hawkeye Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10160804/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Hawkeye Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10160804/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Hawkeye Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10160804/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Hawkeye Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10160804/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Hawkeye Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10160804/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -37163,6 +40439,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Falcon and the Winter Soldier Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9278064/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Falcon and the Winter Soldier Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9278064/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Falcon and the Winter Soldier Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9278064/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Falcon and the Winter Soldier Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9278064/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Falcon and the Winter Soldier Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9278064/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Falcon and the Winter Soldier Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9278064/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Falcon and the Winter Soldier Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9278064/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Falcon and the Winter Soldier Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9278064/img"
+          }
+        ]
       }
     ]
   },
@@ -37229,6 +40568,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Star Wars: The Bad Batch Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12708542/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Star Wars: The Bad Batch Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12708542/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Star Wars: The Bad Batch Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12708542/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Star Wars: The Bad Batch Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12708542/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Star Wars: The Bad Batch Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12708542/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Star Wars: The Bad Batch Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12708542/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Star Wars: The Bad Batch Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12708542/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Star Wars: The Bad Batch Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12708542/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -37293,6 +40695,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Obi-Wan Kenobi Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8479574/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Obi-Wan Kenobi Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8479574/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Obi-Wan Kenobi Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8479574/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Obi-Wan Kenobi Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8479574/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Obi-Wan Kenobi Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8479574/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Obi-Wan Kenobi Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8479574/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Obi-Wan Kenobi Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8479574/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Obi-Wan Kenobi Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8479574/img"
+          }
+        ]
       }
     ]
   },
@@ -37879,6 +41344,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Secret Invasion Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13157618/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Secret Invasion Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13157618/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Secret Invasion Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13157618/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Secret Invasion Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13157618/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Secret Invasion Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13157618/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Secret Invasion Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13157618/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Secret Invasion Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13157618/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Secret Invasion Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13157618/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -37943,6 +41471,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Ms. Marvel Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857164/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Ms. Marvel Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857164/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Ms. Marvel Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857164/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Ms. Marvel Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857164/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Ms. Marvel Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857164/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Ms. Marvel Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857164/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Ms. Marvel Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857164/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Ms. Marvel Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857164/img"
+          }
+        ]
       }
     ]
   },
@@ -38009,6 +41600,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "She-Hulk: Attorney at Law Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857160/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "She-Hulk: Attorney at Law Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857160/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "She-Hulk: Attorney at Law Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857160/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "She-Hulk: Attorney at Law Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857160/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "She-Hulk: Attorney at Law Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857160/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "She-Hulk: Attorney at Law Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857160/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "She-Hulk: Attorney at Law Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857160/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "She-Hulk: Attorney at Law Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10857160/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -38073,6 +41727,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Book of Boba Fett Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13668894/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Book of Boba Fett Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13668894/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Book of Boba Fett Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13668894/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Book of Boba Fett Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13668894/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Book of Boba Fett Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13668894/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Book of Boba Fett Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13668894/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Book of Boba Fett Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13668894/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Book of Boba Fett Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13668894/img"
+          }
+        ]
       }
     ]
   },
@@ -38139,6 +41856,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Star Wars: Visions Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622782/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Star Wars: Visions Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622782/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Star Wars: Visions Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622782/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Star Wars: Visions Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622782/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Star Wars: Visions Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622782/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Star Wars: Visions Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622782/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Star Wars: Visions Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622782/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Star Wars: Visions Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13622782/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -38204,6 +41984,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Star Wars: The Clone Wars Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0458290/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Star Wars: The Clone Wars Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0458290/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Star Wars: The Clone Wars Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0458290/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Star Wars: The Clone Wars Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0458290/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Star Wars: The Clone Wars Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0458290/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Star Wars: The Clone Wars Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0458290/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Star Wars: The Clone Wars Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0458290/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Star Wars: The Clone Wars Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0458290/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -38268,6 +42111,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Star Wars: Rebels Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2930604/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Star Wars: Rebels Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2930604/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Star Wars: Rebels Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2930604/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Star Wars: Rebels Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2930604/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Star Wars: Rebels Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2930604/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Star Wars: Rebels Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2930604/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Star Wars: Rebels Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2930604/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Star Wars: Rebels Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2930604/img"
+          }
+        ]
       }
     ]
   },
@@ -56439,6 +60345,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Wire Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0306414/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Wire Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0306414/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Wire Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0306414/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Wire Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0306414/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Wire Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0306414/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Wire Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0306414/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Wire Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0306414/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Wire Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0306414/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -56503,6 +60472,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Sopranos Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0141842/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Sopranos Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0141842/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Sopranos Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0141842/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Sopranos Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0141842/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Sopranos Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0141842/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Sopranos Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0141842/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Sopranos Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0141842/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Sopranos Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0141842/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -56566,6 +60598,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Penguin Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15474916/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Penguin Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15474916/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Penguin Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15474916/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Penguin Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15474916/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Penguin Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15474916/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Penguin Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15474916/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Penguin Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15474916/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Penguin Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15474916/img"
+          }
+        ]
       }
     ]
   },
@@ -56632,6 +60727,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "True Detective Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2356777/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "True Detective Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2356777/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "True Detective Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2356777/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "True Detective Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2356777/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "True Detective Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2356777/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "True Detective Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2356777/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "True Detective Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2356777/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "True Detective Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2356777/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -56695,6 +60853,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The White Lotus Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13406094/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The White Lotus Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13406094/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The White Lotus Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13406094/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The White Lotus Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13406094/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The White Lotus Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13406094/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The White Lotus Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13406094/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The White Lotus Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13406094/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The White Lotus Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13406094/img"
+          }
+        ]
       }
     ]
   },
@@ -56761,6 +60982,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Band of Brothers Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0185906/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Band of Brothers Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0185906/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Band of Brothers Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0185906/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Band of Brothers Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0185906/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Band of Brothers Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0185906/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Band of Brothers Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0185906/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Band of Brothers Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0185906/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Band of Brothers Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0185906/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -56826,6 +61110,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Peacemaker Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13146488/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Peacemaker Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13146488/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Peacemaker Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13146488/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Peacemaker Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13146488/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Peacemaker Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13146488/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Peacemaker Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13146488/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Peacemaker Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13146488/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Peacemaker Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13146488/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -56890,6 +61237,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Watchmen Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7049682/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Watchmen Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7049682/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Watchmen Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7049682/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Watchmen Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7049682/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Watchmen Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7049682/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Watchmen Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7049682/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Watchmen Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7049682/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Watchmen Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7049682/img"
+          }
+        ]
       }
     ]
   },
@@ -57475,6 +61885,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Deadwood Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0357336/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Deadwood Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0357336/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Deadwood Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0357336/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Deadwood Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0357336/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Deadwood Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0357336/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Deadwood Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0357336/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Deadwood Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0357336/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Deadwood Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0357336/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -57538,6 +62011,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Six Feet Under Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0248654/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Six Feet Under Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0248654/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Six Feet Under Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0248654/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Six Feet Under Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0248654/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Six Feet Under Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0248654/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Six Feet Under Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0248654/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Six Feet Under Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0248654/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Six Feet Under Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0248654/img"
+          }
+        ]
       }
     ]
   },
@@ -57604,6 +62140,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Rome Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0384766/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Rome Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0384766/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Rome Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0384766/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Rome Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0384766/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Rome Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0384766/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Rome Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0384766/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Rome Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0384766/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Rome Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0384766/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -57668,6 +62267,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Westworld Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0475784/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Westworld Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0475784/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Westworld Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0475784/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Westworld Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0475784/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Westworld Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0475784/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Westworld Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0475784/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Westworld Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0475784/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Westworld Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0475784/img"
+          }
+        ]
       }
     ]
   },
@@ -57734,6 +62396,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Station Eleven Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10574236/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Station Eleven Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10574236/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Station Eleven Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10574236/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Station Eleven Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10574236/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Station Eleven Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10574236/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Station Eleven Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10574236/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Station Eleven Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10574236/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Station Eleven Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10574236/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -57799,6 +62524,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Tokyo Vice Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2887954/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Tokyo Vice Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2887954/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Tokyo Vice Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2887954/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Tokyo Vice Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2887954/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Tokyo Vice Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2887954/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Tokyo Vice Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2887954/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Tokyo Vice Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2887954/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Tokyo Vice Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2887954/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -57862,6 +62650,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Silicon Valley Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2575988/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Silicon Valley Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2575988/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Silicon Valley Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2575988/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Silicon Valley Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2575988/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Silicon Valley Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2575988/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Silicon Valley Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2575988/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Silicon Valley Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2575988/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Silicon Valley Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2575988/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -57924,6 +62775,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Curb Your Enthusiasm Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0264235/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Curb Your Enthusiasm Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0264235/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Curb Your Enthusiasm Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0264235/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Curb Your Enthusiasm Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0264235/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Curb Your Enthusiasm Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0264235/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Curb Your Enthusiasm Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0264235/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Curb Your Enthusiasm Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0264235/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Curb Your Enthusiasm Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0264235/img"
+          }
+        ]
       }
     ]
   },
@@ -76392,6 +81306,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Slow Horses Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5875444/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Slow Horses Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5875444/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Slow Horses Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5875444/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Slow Horses Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5875444/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Slow Horses Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5875444/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Slow Horses Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5875444/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Slow Horses Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5875444/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Slow Horses Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5875444/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -76456,6 +81433,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Foundation Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0885509/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Foundation Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0885509/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Foundation Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0885509/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Foundation Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0885509/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Foundation Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0885509/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Foundation Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0885509/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Foundation Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0885509/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Foundation Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0885509/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -76518,6 +81558,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Morning Show Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7203552/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Morning Show Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7203552/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Morning Show Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7203552/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Morning Show Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7203552/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Morning Show Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7203552/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Morning Show Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7203552/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Morning Show Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7203552/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Morning Show Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7203552/img"
+          }
+        ]
       }
     ]
   },
@@ -76582,6 +81685,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "For All Mankind Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7772588/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "For All Mankind Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7772588/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "For All Mankind Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7772588/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "For All Mankind Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7772588/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "For All Mankind Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7772588/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "For All Mankind Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7772588/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "For All Mankind Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7772588/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "For All Mankind Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7772588/img"
+          }
+        ]
       }
     ]
   },
@@ -76648,6 +81814,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Presumed Innocent Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17677860/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Presumed Innocent Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17677860/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Presumed Innocent Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17677860/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Presumed Innocent Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17677860/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Presumed Innocent Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17677860/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Presumed Innocent Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17677860/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Presumed Innocent Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17677860/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Presumed Innocent Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17677860/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -76712,6 +81941,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Monarch: Legacy of Monsters Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17220704/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Monarch: Legacy of Monsters Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17220704/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Monarch: Legacy of Monsters Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17220704/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Monarch: Legacy of Monsters Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17220704/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Monarch: Legacy of Monsters Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17220704/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Monarch: Legacy of Monsters Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17220704/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Monarch: Legacy of Monsters Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17220704/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Monarch: Legacy of Monsters Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt17220704/img"
+          }
+        ]
       }
     ]
   },
@@ -76778,6 +82070,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Dark Matter Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19231492/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Dark Matter Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19231492/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Dark Matter Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19231492/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Dark Matter Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19231492/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Dark Matter Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19231492/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Dark Matter Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19231492/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Dark Matter Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19231492/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Dark Matter Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19231492/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -76842,6 +82197,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Sugar Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20876540/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Sugar Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20876540/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Sugar Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20876540/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Sugar Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20876540/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Sugar Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20876540/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Sugar Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20876540/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Sugar Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20876540/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Sugar Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20876540/img"
+          }
+        ]
       }
     ]
   },
@@ -76908,6 +82326,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Black Bird Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4301160/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Black Bird Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4301160/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Black Bird Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4301160/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Black Bird Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4301160/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Black Bird Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4301160/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Black Bird Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4301160/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Black Bird Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4301160/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Black Bird Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4301160/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -76971,6 +82452,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Hijack Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19854668/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Hijack Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19854668/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Hijack Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19854668/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Hijack Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19854668/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Hijack Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19854668/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Hijack Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19854668/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Hijack Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19854668/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Hijack Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt19854668/img"
+          }
+        ]
       }
     ]
   },
@@ -77037,6 +82581,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Masters of the Air Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2640044/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Masters of the Air Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2640044/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Masters of the Air Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2640044/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Masters of the Air Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2640044/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Masters of the Air Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2640044/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Masters of the Air Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2640044/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Masters of the Air Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2640044/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Masters of the Air Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2640044/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -77102,6 +82709,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Bad Sisters Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15469618/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Bad Sisters Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15469618/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Bad Sisters Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15469618/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Bad Sisters Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15469618/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Bad Sisters Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15469618/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Bad Sisters Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15469618/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Bad Sisters Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15469618/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Bad Sisters Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15469618/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -77165,6 +82835,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Shrinking Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15677150/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Shrinking Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15677150/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Shrinking Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15677150/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Shrinking Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15677150/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Shrinking Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15677150/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Shrinking Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15677150/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Shrinking Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15677150/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Shrinking Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15677150/img"
+          }
+        ]
       }
     ]
   },
@@ -93942,6 +99675,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -94006,6 +99802,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          }
+        ]
       }
     ]
   },
@@ -94072,6 +99931,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -94136,6 +100058,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          }
+        ]
       }
     ]
   },
@@ -94202,6 +100187,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -94266,6 +100314,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          }
+        ]
       }
     ]
   },
@@ -94332,6 +100443,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -94396,6 +100570,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          }
+        ]
       }
     ]
   },
@@ -94462,6 +100699,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -94487,7 +100787,7 @@ module.exports = [
     "platformId": "crunchyroll",
     "platformBadge": "CRUNCHYROLL",
     "platformColor": "#F47521",
-    "poster": "https://images.metahub.space/poster/small/tt15222080/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15222080/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15222080/img",
     "description": "Three hundred strikers fight in a prison training facility to forge Japan's ultimate egoist football striker.",
     "cast": [
@@ -94526,6 +100826,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          }
+        ]
       }
     ]
   },
@@ -94852,6 +101215,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -94916,6 +101342,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          }
+        ]
       }
     ]
   },
@@ -94982,6 +101471,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Dragon Ball Z Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0121220/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Dragon Ball Z Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0121220/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Dragon Ball Z Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0121220/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Dragon Ball Z Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0121220/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Dragon Ball Z Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0121220/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Dragon Ball Z Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0121220/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Dragon Ball Z Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0121220/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Dragon Ball Z Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0121220/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -95046,6 +101598,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          }
+        ]
       }
     ]
   },
@@ -95112,6 +101727,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Hunter x Hunter Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2098220/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Hunter x Hunter Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2098220/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Hunter x Hunter Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2098220/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Hunter x Hunter Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2098220/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Hunter x Hunter Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2098220/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Hunter x Hunter Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2098220/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Hunter x Hunter Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2098220/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Hunter x Hunter Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2098220/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -95176,6 +101854,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          }
+        ]
       }
     ]
   },
@@ -95242,6 +101983,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -95306,6 +102110,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          }
+        ]
       }
     ]
   },
@@ -95372,6 +102239,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -95437,6 +102367,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -95501,6 +102494,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          }
+        ]
       }
     ]
   },
@@ -104710,6 +111766,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Mayor of Kingstown Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11712058/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Mayor of Kingstown Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11712058/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Mayor of Kingstown Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11712058/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Mayor of Kingstown Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11712058/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Mayor of Kingstown Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11712058/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Mayor of Kingstown Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11712058/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Mayor of Kingstown Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11712058/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Mayor of Kingstown Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt11712058/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -104774,6 +111893,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Special Ops: Lioness Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13111078/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Special Ops: Lioness Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13111078/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Special Ops: Lioness Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13111078/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Special Ops: Lioness Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13111078/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Special Ops: Lioness Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13111078/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Special Ops: Lioness Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13111078/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Special Ops: Lioness Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13111078/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Special Ops: Lioness Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13111078/img"
+          }
+        ]
       }
     ]
   },
@@ -104840,6 +112022,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Star Trek: Strange New Worlds Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12327578/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Star Trek: Strange New Worlds Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12327578/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Star Trek: Strange New Worlds Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12327578/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Star Trek: Strange New Worlds Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12327578/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Star Trek: Strange New Worlds Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12327578/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Star Trek: Strange New Worlds Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12327578/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Star Trek: Strange New Worlds Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12327578/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Star Trek: Strange New Worlds Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12327578/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -104904,6 +112149,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Halo Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2934286/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Halo Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2934286/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Halo Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2934286/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Halo Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2934286/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Halo Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2934286/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Halo Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2934286/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Halo Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2934286/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Halo Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2934286/img"
+          }
+        ]
       }
     ]
   },
@@ -104970,6 +112278,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Evil Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9055008/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Evil Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9055008/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Evil Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9055008/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Evil Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9055008/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Evil Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9055008/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Evil Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9055008/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Evil Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9055008/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Evil Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9055008/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -105035,6 +112406,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Lawmen: Bass Reeves Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15392248/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Lawmen: Bass Reeves Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15392248/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Lawmen: Bass Reeves Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15392248/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Lawmen: Bass Reeves Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15392248/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Lawmen: Bass Reeves Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15392248/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Lawmen: Bass Reeves Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15392248/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Lawmen: Bass Reeves Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15392248/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Lawmen: Bass Reeves Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15392248/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -105099,6 +112533,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "SEAL Team Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6466032/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "SEAL Team Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6466032/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "SEAL Team Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6466032/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "SEAL Team Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6466032/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "SEAL Team Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6466032/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "SEAL Team Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6466032/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "SEAL Team Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6466032/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "SEAL Team Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6466032/img"
+          }
+        ]
       }
     ]
   },
@@ -115875,6 +123372,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Shogun Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2788316/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Shogun Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2788316/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Shogun Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2788316/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Shogun Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2788316/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Shogun Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2788316/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Shogun Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2788316/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Shogun Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2788316/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Shogun Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2788316/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -115940,6 +123500,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Fargo Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2802850/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Fargo Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2802850/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Fargo Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2802850/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Fargo Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2802850/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Fargo Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2802850/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Fargo Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2802850/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Fargo Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2802850/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Fargo Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2802850/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -116002,6 +123625,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Dopesick Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12562266/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Dopesick Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12562266/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Dopesick Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12562266/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Dopesick Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12562266/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Dopesick Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12562266/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Dopesick Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12562266/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Dopesick Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12562266/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Dopesick Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12562266/img"
+          }
+        ]
       }
     ]
   },
@@ -116068,6 +123754,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Reservation Dogs Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13623580/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Reservation Dogs Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13623580/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Reservation Dogs Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13623580/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Reservation Dogs Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13623580/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Reservation Dogs Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13623580/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Reservation Dogs Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13623580/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Reservation Dogs Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13623580/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Reservation Dogs Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13623580/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -116132,6 +123881,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "What We Do in the Shadows Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7908628/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "What We Do in the Shadows Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7908628/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "What We Do in the Shadows Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7908628/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "What We Do in the Shadows Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7908628/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "What We Do in the Shadows Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7908628/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "What We Do in the Shadows Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7908628/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "What We Do in the Shadows Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7908628/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "What We Do in the Shadows Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7908628/img"
+          }
+        ]
       }
     ]
   },
@@ -116328,6 +124140,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "American Horror Story Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1844624/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "American Horror Story Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1844624/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "American Horror Story Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1844624/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "American Horror Story Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1844624/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "American Horror Story Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1844624/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "American Horror Story Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1844624/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "American Horror Story Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1844624/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "American Horror Story Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1844624/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -116392,6 +124267,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Great Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2235759/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Great Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2235759/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Great Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2235759/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Great Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2235759/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Great Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2235759/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Great Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2235759/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Great Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2235759/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Great Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2235759/img"
+          }
+        ]
       }
     ]
   },
@@ -116458,6 +124396,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Under the Banner of Heaven Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1998372/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Under the Banner of Heaven Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1998372/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Under the Banner of Heaven Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1998372/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Under the Banner of Heaven Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1998372/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Under the Banner of Heaven Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1998372/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Under the Banner of Heaven Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1998372/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Under the Banner of Heaven Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1998372/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Under the Banner of Heaven Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1998372/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -116521,6 +124522,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Normal People Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9059760/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Normal People Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9059760/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Normal People Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9059760/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Normal People Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9059760/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Normal People Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9059760/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Normal People Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9059760/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Normal People Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9059760/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Normal People Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9059760/img"
+          }
+        ]
       }
     ]
   },
@@ -127557,6 +135621,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "The Office Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0386676/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "The Office Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0386676/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "The Office Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0386676/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "The Office Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0386676/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "The Office Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0386676/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "The Office Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0386676/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "The Office Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0386676/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "The Office Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0386676/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -127622,6 +135749,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Poker Face Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14264470/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Poker Face Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14264470/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Poker Face Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14264470/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Poker Face Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14264470/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Poker Face Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14264470/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Poker Face Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14264470/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Poker Face Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14264470/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Poker Face Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14264470/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -127685,6 +135875,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Brooklyn Nine-Nine Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2467372/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Brooklyn Nine-Nine Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2467372/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Brooklyn Nine-Nine Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2467372/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Brooklyn Nine-Nine Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2467372/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Brooklyn Nine-Nine Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2467372/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Brooklyn Nine-Nine Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2467372/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Brooklyn Nine-Nine Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2467372/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Brooklyn Nine-Nine Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt2467372/img"
+          }
+        ]
       }
     ]
   },
@@ -127750,6 +136003,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Suits Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1632701/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Suits Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1632701/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Suits Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1632701/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Suits Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1632701/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Suits Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1632701/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Suits Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1632701/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Suits Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1632701/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Suits Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1632701/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -127812,6 +136128,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Parks and Recreation Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1266020/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Parks and Recreation Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1266020/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Parks and Recreation Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1266020/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Parks and Recreation Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1266020/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Parks and Recreation Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1266020/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Parks and Recreation Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1266020/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Parks and Recreation Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1266020/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Parks and Recreation Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1266020/img"
+          }
+        ]
       }
     ]
   },
@@ -127876,6 +136255,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Yellowstone Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4236770/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Yellowstone Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4236770/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Yellowstone Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4236770/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Yellowstone Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4236770/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Yellowstone Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4236770/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Yellowstone Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4236770/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Yellowstone Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4236770/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Yellowstone Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4236770/img"
+          }
+        ]
       }
     ]
   },
@@ -128135,6 +136577,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Ted Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14824792/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Ted Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14824792/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Ted Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14824792/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Ted Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14824792/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Ted Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14824792/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Ted Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14824792/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Ted Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14824792/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Ted Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14824792/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -128199,6 +136704,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Monk Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0314979/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Monk Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0314979/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Monk Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0314979/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Monk Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0314979/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Monk Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0314979/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Monk Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0314979/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Monk Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0314979/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Monk Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0314979/img"
+          }
+        ]
       }
     ]
   },
@@ -128265,6 +136833,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Psych Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0491738/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Psych Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0491738/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Psych Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0491738/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Psych Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0491738/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Psych Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0491738/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Psych Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0491738/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Psych Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0491738/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Psych Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0491738/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -128329,12 +136960,75 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "House M.D. Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0412142/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "House M.D. Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0412142/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "House M.D. Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0412142/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "House M.D. Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0412142/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "House M.D. Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0412142/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "House M.D. Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0412142/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "House M.D. Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0412142/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "House M.D. Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0412142/img"
+          }
+        ]
+      }
     ]
   },
   {
     "id": "peacock-8035",
     "imdbId": "tt14397368",
-    "tmdbId": 18347,
+    "tmdbId": 126938,
     "type": "series",
     "title": "Community",
     "year": 2015,
@@ -128392,6 +137086,69 @@ module.exports = [
         "flag": "🇩🇪",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Community Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Community Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Community Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Community Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Community Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Community Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Community Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Community Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          }
+        ]
       }
     ]
   },
@@ -142160,7 +150917,7 @@ module.exports = [
   {
     "id": "sony-1",
     "imdbId": "tt12392504",
-    "tmdbId": 110952,
+    "tmdbId": 111188,
     "type": "series",
     "title": "Scam 1992: The Harshad Mehta Story",
     "year": 2020,
@@ -142304,7 +151061,7 @@ module.exports = [
   {
     "id": "sony-2",
     "imdbId": "tt13868972",
-    "tmdbId": 156157,
+    "tmdbId": 138211,
     "type": "series",
     "title": "Rocket Boys",
     "year": 2023,
@@ -142724,7 +151481,7 @@ module.exports = [
   {
     "id": "sony-4",
     "imdbId": "tt14420552",
-    "tmdbId": 125950,
+    "tmdbId": 126098,
     "type": "series",
     "title": "Maharani",
     "year": 2024,
@@ -143049,6 +151806,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Scam 2003: The Telgi Story Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt26900224/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Scam 2003: The Telgi Story Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt26900224/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Scam 2003: The Telgi Story Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt26900224/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Scam 2003: The Telgi Story Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt26900224/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Scam 2003: The Telgi Story Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt26900224/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Scam 2003: The Telgi Story Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt26900224/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Scam 2003: The Telgi Story Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt26900224/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Scam 2003: The Telgi Story Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt26900224/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -143113,6 +151933,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Tabbar Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15410104/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Tabbar Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15410104/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Tabbar Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15410104/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Tabbar Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15410104/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Tabbar Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15410104/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Tabbar Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15410104/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Tabbar Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15410104/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Tabbar Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15410104/img"
+          }
+        ]
       }
     ]
   },
@@ -143179,12 +152062,75 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Undekhi Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12662998/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Undekhi Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12662998/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Undekhi Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12662998/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Undekhi Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12662998/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Undekhi Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12662998/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Undekhi Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12662998/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Undekhi Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12662998/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Undekhi Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12662998/img"
+          }
+        ]
+      }
     ]
   },
   {
     "id": "sonyliv-2050",
     "imdbId": "tt27995166",
-    "tmdbId": 1047041,
+    "tmdbId": 1166133,
     "type": "movie",
     "title": "Bramayugam",
     "year": 2024,
@@ -143438,6 +152384,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "JL50 Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10228392/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "JL50 Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10228392/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "JL50 Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10228392/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "JL50 Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10228392/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "JL50 Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10228392/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "JL50 Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10228392/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "JL50 Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10228392/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "JL50 Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10228392/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -143503,6 +152512,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Kathmandu Connection Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14418654/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Kathmandu Connection Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14418654/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Kathmandu Connection Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14418654/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Kathmandu Connection Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14418654/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Kathmandu Connection Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14418654/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Kathmandu Connection Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14418654/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Kathmandu Connection Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14418654/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Kathmandu Connection Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14418654/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -143565,6 +152637,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Garmi Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27447472/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Garmi Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27447472/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Garmi Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27447472/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Garmi Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27447472/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Garmi Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27447472/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Garmi Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27447472/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Garmi Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27447472/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Garmi Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt27447472/img"
+          }
+        ]
       }
     ]
   },
@@ -143631,6 +152766,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Avrodh: The Siege Within Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12450378/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Avrodh: The Siege Within Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12450378/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Avrodh: The Siege Within Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12450378/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Avrodh: The Siege Within Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12450378/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Avrodh: The Siege Within Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12450378/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Avrodh: The Siege Within Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12450378/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Avrodh: The Siege Within Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12450378/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Avrodh: The Siege Within Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt12450378/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -143657,7 +152855,7 @@ module.exports = [
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
     "poster": "https://images.metahub.space/poster/medium/tt9071068/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt9071068/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt8809646/img",
     "description": "Three close college friends navigate love, friendships, and crazy campus adventures together.",
     "cast": [
       "Apoorva Arora",
@@ -143695,6 +152893,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "College Romance Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8809646/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "College Romance Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8809646/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "College Romance Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8809646/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "College Romance Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8809646/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "College Romance Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8809646/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "College Romance Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8809646/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "College Romance Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8809646/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "College Romance Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt8809646/img"
+          }
+        ]
       }
     ]
   },
@@ -143960,8 +153221,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-20",
-    "imdbId": "tt12392890",
-    "tmdbId": 1239289,
+    "imdbId": "tt12392504",
+    "tmdbId": 111188,
     "type": "series",
     "title": "Scam 1992: The Harshad Mehta Story",
     "year": 2020,
@@ -143980,8 +153241,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt12392890/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt12392890/img",
+    "poster": "https://images.metahub.space/poster/medium/tt12392504/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt12392504/img",
     "description": "Watch Scam 1992: The Harshad Mehta Story in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Pratik Gandhi",
@@ -144220,8 +153481,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-21",
-    "imdbId": "tt14170564",
-    "tmdbId": 1417056,
+    "imdbId": "tt26900224",
+    "tmdbId": 233777,
     "type": "series",
     "title": "Scam 2003: The Telgi Story",
     "year": 2023,
@@ -144240,8 +153501,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt14170564/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14170564/img",
+    "poster": "https://images.metahub.space/poster/medium/tt26900224/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt26900224/img",
     "description": "Watch Scam 2003: The Telgi Story in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Gagan Dev Riar",
@@ -144480,8 +153741,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-22",
-    "imdbId": "tt14890250",
-    "tmdbId": 1489025,
+    "imdbId": "tt13868972",
+    "tmdbId": 138211,
     "type": "series",
     "title": "Rocket Boys",
     "year": 2023,
@@ -144500,8 +153761,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt14890250/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14890250/img",
+    "poster": "https://images.metahub.space/poster/medium/tt13868972/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt13868972/img",
     "description": "Watch Rocket Boys in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Jim Sarbh",
@@ -144740,8 +154001,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-23",
-    "imdbId": "tt10433294",
-    "tmdbId": 1043329,
+    "imdbId": "tt10530900",
+    "tmdbId": 90966,
     "type": "series",
     "title": "Gullak",
     "year": 2024,
@@ -144760,8 +154021,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt10433294/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt10433294/img",
+    "poster": "https://images.metahub.space/poster/medium/tt10530900/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt10530900/img",
     "description": "Watch Gullak in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Jameel Khan",
@@ -145000,8 +154261,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-24",
-    "imdbId": "tt14418652",
-    "tmdbId": 1441865,
+    "imdbId": "tt14420552",
+    "tmdbId": 126098,
     "type": "series",
     "title": "Maharani",
     "year": 2024,
@@ -145019,8 +154280,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt14418652/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14418652/img",
+    "poster": "https://images.metahub.space/poster/small/tt14420552/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt14420552/img",
     "description": "Watch Maharani in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Huma Qureshi",
@@ -145259,8 +154520,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-25",
-    "imdbId": "tt15367626",
-    "tmdbId": 1536762,
+    "imdbId": "tt15410104",
+    "tmdbId": 135890,
     "type": "series",
     "title": "Tabbar",
     "year": 2021,
@@ -145279,8 +154540,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt15367626/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt15367626/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15410104/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt15410104/img",
     "description": "Watch Tabbar in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Pavan Malhotra",
@@ -145519,8 +154780,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-26",
-    "imdbId": "tt7441984",
-    "tmdbId": 108681,
+    "imdbId": "tt10228392",
+    "tmdbId": 108912,
     "type": "series",
     "title": "JL50",
     "year": 2020,
@@ -145539,8 +154800,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt10344442/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt10344442/img",
+    "poster": "https://images.metahub.space/poster/medium/tt10228392/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt10228392/img",
     "description": "Watch JL50 in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Abhay Deol",
@@ -145779,8 +155040,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-27",
-    "imdbId": "tt12613582",
-    "tmdbId": 1261358,
+    "imdbId": "tt12662998",
+    "tmdbId": 106090,
     "type": "series",
     "title": "Undekhi",
     "year": 2024,
@@ -145799,8 +155060,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt12613582/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt12613582/img",
+    "poster": "https://images.metahub.space/poster/medium/tt12662998/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt12662998/img",
     "description": "Watch Undekhi in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Harsh Chhaya",
@@ -146039,8 +155300,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-28",
-    "imdbId": "tt30422566",
-    "tmdbId": 234590,
+    "imdbId": "tt14418654",
+    "tmdbId": 120981,
     "type": "series",
     "title": "Kathmandu Connection",
     "year": 2022,
@@ -146058,8 +155319,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt14389034/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14389034/img",
+    "poster": "https://images.metahub.space/poster/medium/tt14418654/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt14418654/img",
     "description": "Watch Kathmandu Connection in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Amit Sial",
@@ -146298,8 +155559,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-29",
-    "imdbId": "tt12693892",
-    "tmdbId": 1269389,
+    "imdbId": "tt12450378",
+    "tmdbId": 110982,
     "type": "series",
     "title": "Avrodh: The Siege Within",
     "year": 2022,
@@ -146318,8 +155579,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt12693892/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt12693892/img",
+    "poster": "https://images.metahub.space/poster/medium/tt12450378/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt12450378/img",
     "description": "Watch Avrodh: The Siege Within in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Amit Sadh",
@@ -146578,8 +155839,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt8978184/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt8978184/img",
+    "poster": "https://images.metahub.space/poster/medium/tt9071068/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt8809646/img",
     "description": "Watch College Romance in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Gagan Arora",
@@ -147095,7 +156356,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt23871650/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15232564/img",
     "backdrop": "https://images.metahub.space/background/medium/tt23871650/img",
     "description": "Watch Faadu: A Love Story in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -147855,8 +157116,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-35",
-    "imdbId": "tt27448378",
-    "tmdbId": 2744837,
+    "imdbId": "tt27447472",
+    "tmdbId": 211098,
     "type": "series",
     "title": "Garmi",
     "year": 2023,
@@ -147875,8 +157136,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt27448378/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt27448378/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27447472/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt27447472/img",
     "description": "Watch Garmi in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Vyom Yadav",
@@ -148376,8 +157637,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-37",
-    "imdbId": "tt21262070",
-    "tmdbId": 2126207,
+    "imdbId": "tt18274078",
+    "tmdbId": 1001928,
     "type": "movie",
     "title": "Gargi",
     "year": 2022,
@@ -148395,8 +157656,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt21262070/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt21262070/img",
+    "poster": "https://images.metahub.space/poster/medium/tt18274078/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt18274078/img",
     "description": "Watch Gargi in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Sai Pallavi",
@@ -148450,8 +157711,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-38",
-    "imdbId": "tt27542289",
-    "tmdbId": 1115239,
+    "imdbId": "tt27542918",
+    "tmdbId": 1098192,
     "type": "movie",
     "title": "Por Thozhil",
     "year": 2023,
@@ -148471,8 +157732,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt27552528/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt27552528/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27542918/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt27542918/img",
     "description": "Watch Por Thozhil in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "R. Sarathkumar",
@@ -148676,8 +157937,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-41",
-    "imdbId": "tt0965427",
-    "tmdbId": 379693,
+    "imdbId": "tt22073994",
+    "tmdbId": 1045672,
     "type": "movie",
     "title": "2018: Everyone is a Hero",
     "year": 2023,
@@ -148696,8 +157957,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt23899214/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt23899214/img",
+    "poster": "https://images.metahub.space/poster/medium/tt22073994/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt22073994/img",
     "description": "Watch 2018: Everyone is a Hero in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Tovino Thomas",
@@ -148751,8 +158012,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-42",
-    "imdbId": "tt14674728",
-    "tmdbId": 1467472,
+    "imdbId": "tt11559816",
+    "tmdbId": 811902,
     "type": "movie",
     "title": "Salute",
     "year": 2022,
@@ -148771,8 +158032,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt14674728/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14674728/img",
+    "poster": "https://images.metahub.space/poster/medium/tt11559816/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt11559816/img",
     "description": "Watch Salute in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Dulquer Salmaan",
@@ -148826,8 +158087,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-43",
-    "imdbId": "tt16952864",
-    "tmdbId": 1695286,
+    "imdbId": "tt16422718",
+    "tmdbId": 921098,
     "type": "movie",
     "title": "Bhoothakaalam",
     "year": 2022,
@@ -148846,8 +158107,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt16952864/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt16952864/img",
+    "poster": "https://images.metahub.space/poster/medium/tt16422718/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt16422718/img",
     "description": "Watch Bhoothakaalam in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Shane Nigam",
@@ -148901,7 +158162,7 @@ module.exports = [
   },
   {
     "id": "sonyliv-44",
-    "imdbId": "tt27431598",
+    "imdbId": "tt27995166",
     "tmdbId": 1166133,
     "type": "movie",
     "title": "Bramayugam",
@@ -148922,8 +158183,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt28706438/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt28706438/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27995166/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt27995166/img",
     "description": "Watch Bramayugam in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Mammootty",
@@ -149072,7 +158333,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt31003780/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27510257/img",
     "backdrop": "https://images.metahub.space/background/medium/tt31003780/img",
     "description": "Watch Thalavan in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -149295,7 +158556,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt22783850/img",
+    "poster": "https://images.metahub.space/poster/medium/tt22078754/img",
     "backdrop": "https://images.metahub.space/background/medium/tt22783850/img",
     "description": "Watch Kadina Kadoramee Andakadaham in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -149591,7 +158852,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt21062970/img",
+    "poster": "https://images.metahub.space/poster/medium/tt0090329/img",
     "backdrop": "https://images.metahub.space/background/medium/tt21062970/img",
     "description": "Watch Witness in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -149720,8 +158981,8 @@ module.exports = [
   },
   {
     "id": "sonyliv-55",
-    "imdbId": "tt12543940",
-    "tmdbId": 1254394,
+    "imdbId": "tt11782298",
+    "tmdbId": 840912,
     "type": "movie",
     "title": "Churuli",
     "year": 2021,
@@ -149739,8 +159000,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt12543940/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt12543940/img",
+    "poster": "https://images.metahub.space/poster/medium/tt11782298/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt11782298/img",
     "description": "Watch Churuli in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Chemban Vinod Jose",
@@ -150484,7 +159745,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt28532450/img",
+    "poster": "https://images.metahub.space/poster/medium/tt28288786/img",
     "backdrop": "https://images.metahub.space/background/medium/tt28532450/img",
     "description": "Watch Premalu in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -150707,7 +159968,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt28328100/img",
+    "poster": "https://images.metahub.space/poster/medium/tt28364355/img",
     "backdrop": "https://images.metahub.space/background/medium/tt28328100/img",
     "description": "Watch Varshangalkku Shesham in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -150929,7 +160190,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt21619370/img",
+    "poster": "https://images.metahub.space/poster/medium/tt11531182/img",
     "backdrop": "https://images.metahub.space/background/medium/tt21619370/img",
     "description": "Watch ARM: Ajayante Randam Moshanam in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -151077,7 +160338,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt27710380/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27816710/img",
     "backdrop": "https://images.metahub.space/background/medium/tt27710380/img",
     "description": "Watch Abraham Ozler in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -151152,7 +160413,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt14081090/img",
+    "poster": "https://images.metahub.space/poster/medium/tt13885428/img",
     "backdrop": "https://images.metahub.space/background/medium/tt14081090/img",
     "description": "Watch Anweshippin Kandethum in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -151301,7 +160562,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt28706430/img",
+    "poster": "https://images.metahub.space/poster/medium/tt28358950/img",
     "backdrop": "https://images.metahub.space/background/medium/tt28706430/img",
     "description": "Watch Neru in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -151523,7 +160784,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt21868350/img",
+    "poster": "https://images.metahub.space/poster/medium/tt24517458/img",
     "backdrop": "https://images.metahub.space/background/medium/tt21868350/img",
     "description": "Watch RDX: Robert Dony Xavier in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -152042,7 +161303,7 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt11400320/img",
+    "poster": "https://images.metahub.space/poster/medium/tt11375428/img",
     "backdrop": "https://images.metahub.space/background/medium/tt11400320/img",
     "description": "Watch Hridayam in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -152172,7 +161433,7 @@ module.exports = [
   {
     "id": "sonyliv-88",
     "imdbId": "tt10701074",
-    "tmdbId": 1070107,
+    "tmdbId": 660046,
     "type": "movie",
     "title": "Minnal Murali",
     "year": 2021,
@@ -152620,7 +161881,7 @@ module.exports = [
   {
     "id": "sonyliv-94",
     "imdbId": "tt12361178",
-    "tmdbId": 1236117,
+    "tmdbId": 706872,
     "type": "movie",
     "title": "Drishyam 2",
     "year": 2021,
@@ -152955,7 +162216,7 @@ module.exports = [
   {
     "id": "sonyliv-96",
     "imdbId": "tt0106145",
-    "tmdbId": 106145,
+    "tmdbId": 580,
     "type": "series",
     "title": "Star Trek: Deep Space Nine",
     "year": 1993,
@@ -153477,7 +162738,7 @@ module.exports = [
   {
     "id": "sonyliv-98",
     "imdbId": "tt17543592",
-    "tmdbId": 1754359,
+    "tmdbId": 208569,
     "type": "series",
     "title": "Will Trent",
     "year": 2023,
@@ -153737,7 +162998,7 @@ module.exports = [
   {
     "id": "sonyliv-99",
     "imdbId": "tt0348914",
-    "tmdbId": 348914,
+    "tmdbId": 1406,
     "type": "series",
     "title": "Deadwood",
     "year": 2004,
@@ -153998,7 +163259,7 @@ module.exports = [
   {
     "id": "sonyliv-100",
     "imdbId": "tt0286486",
-    "tmdbId": 286486,
+    "tmdbId": 1414,
     "type": "series",
     "title": "The Shield",
     "year": 2002,
@@ -154345,7 +163606,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/small/tt24485052/img",
+    "poster": "https://images.metahub.space/poster/medium/tt24485052/img",
     "backdrop": "https://images.metahub.space/background/medium/tt24485052/img",
     "description": "An ordinary sessions court lawyer fights an extraordinary solo battle for five years to bring justice to a minor girl assaulted by a powerful godman.",
     "cast": [
@@ -154412,7 +163673,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/small/tt15752618/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15752618/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15752618/img",
     "description": "Follows Emperor Akbar as he looks for a worthy successor to his Mughal throne, sparking a bloody and deceitful battle between his sons.",
     "cast": [
@@ -154597,7 +163858,7 @@ module.exports = [
   {
     "id": "zee-4",
     "imdbId": "tt4742876",
-    "tmdbId": 63351,
+    "tmdbId": 63180,
     "type": "series",
     "title": "TVF Pitchers",
     "year": 2022,
@@ -154765,7 +164026,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/small/tt15441054/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15441054/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15441054/img",
     "description": "During the Indo-Pakistani War of 1971, Tara Singh returns to Pakistan to rescue his imprisoned son Jeete.",
     "cast": [
@@ -155000,6 +164261,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Sunflower Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Sunflower Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Sunflower Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Sunflower Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Sunflower Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Sunflower Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Sunflower Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Sunflower Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt14397368/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -155195,6 +164519,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Rangbaaz Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9464408/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Rangbaaz Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9464408/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Rangbaaz Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9464408/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Rangbaaz Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9464408/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Rangbaaz Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9464408/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Rangbaaz Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9464408/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Rangbaaz Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9464408/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Rangbaaz Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9464408/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -155260,12 +164647,75 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Abhay Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9706346/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Abhay Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9706346/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Abhay Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9706346/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Abhay Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9706346/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Abhay Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9706346/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Abhay Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9706346/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Abhay Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9706346/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Abhay Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9706346/img"
+          }
+        ]
+      }
     ]
   },
   {
     "id": "zee5-5053",
     "imdbId": "tt4742876",
-    "tmdbId": 64890,
+    "tmdbId": 63180,
     "type": "series",
     "title": "Pitchers",
     "year": 2022,
@@ -155323,6 +164773,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Pitchers Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4742876/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Pitchers Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4742876/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Pitchers Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4742876/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Pitchers Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4742876/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Pitchers Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4742876/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Pitchers Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4742876/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Pitchers Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4742876/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Pitchers Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4742876/img"
+          }
+        ]
       }
     ]
   },
@@ -155651,8 +165164,8 @@ module.exports = [
   },
   {
     "id": "zee5-19",
-    "imdbId": "tt0482855",
-    "tmdbId": 19849,
+    "imdbId": "tt15752618",
+    "tmdbId": 219760,
     "type": "series",
     "title": "Taj: Divided by Blood",
     "year": 2023,
@@ -155670,8 +165183,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt26425988/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt26425988/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15752618/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt15752618/img",
     "description": "Watch Taj: Divided by Blood in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Dharmendra",
@@ -155910,8 +165423,8 @@ module.exports = [
   },
   {
     "id": "zee5-20",
-    "imdbId": "tt14649722",
-    "tmdbId": 1464972,
+    "imdbId": "tt14397368",
+    "tmdbId": 126938,
     "type": "series",
     "title": "Sunflower",
     "year": 2024,
@@ -155929,8 +165442,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt14649722/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14649722/img",
+    "poster": "https://images.metahub.space/poster/medium/tt14397368/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt14397368/img",
     "description": "Watch Sunflower in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Sunil Grover",
@@ -156169,8 +165682,8 @@ module.exports = [
   },
   {
     "id": "zee5-21",
-    "imdbId": "tt9530730",
-    "tmdbId": 9530730,
+    "imdbId": "tt9464408",
+    "tmdbId": 89012,
     "type": "series",
     "title": "Rangbaaz",
     "year": 2022,
@@ -156189,8 +165702,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt9530730/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt9530730/img",
+    "poster": "https://images.metahub.space/poster/medium/tt9464408/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt9464408/img",
     "description": "Watch Rangbaaz in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Saqib Saleem",
@@ -157224,7 +166737,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt20242270/img",
+    "poster": "https://images.metahub.space/poster/medium/tt0479827/img",
     "backdrop": "https://images.metahub.space/background/medium/tt20242270/img",
     "description": "Watch The Broken News in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -158242,8 +167755,8 @@ module.exports = [
   },
   {
     "id": "zee5-29",
-    "imdbId": "tt27534430",
-    "tmdbId": 2753443,
+    "imdbId": "tt24485052",
+    "tmdbId": 1121175,
     "type": "movie",
     "title": "Sirf Ek Bandaa Kaafi Hai",
     "year": 2023,
@@ -158261,8 +167774,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt27534430/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt27534430/img",
+    "poster": "https://images.metahub.space/poster/medium/tt24485052/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt24485052/img",
     "description": "Watch Sirf Ek Bandaa Kaafi Hai in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Manoj Bajpayee",
@@ -158316,8 +167829,8 @@ module.exports = [
   },
   {
     "id": "zee5-30",
-    "imdbId": "tt13698928",
-    "tmdbId": 804005,
+    "imdbId": "tt13876008",
+    "tmdbId": 809812,
     "type": "movie",
     "title": "Silence... Can You Hear It?",
     "year": 2021,
@@ -158336,8 +167849,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt13783770/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt13783770/img",
+    "poster": "https://images.metahub.space/poster/medium/tt13876008/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt13876008/img",
     "description": "Watch Silence... Can You Hear It? in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Manoj Bajpayee",
@@ -158391,8 +167904,8 @@ module.exports = [
   },
   {
     "id": "zee5-31",
-    "imdbId": "tt28500558",
-    "tmdbId": 1266109,
+    "imdbId": "tt31526436",
+    "tmdbId": 1238901,
     "type": "movie",
     "title": "Silence 2: The Night Owl Bar Shootout",
     "year": 2024,
@@ -158412,8 +167925,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt31908298/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt31908298/img",
+    "poster": "https://images.metahub.space/poster/medium/tt31526436/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt31526436/img",
     "description": "Watch Silence 2: The Night Owl Bar Shootout in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Manoj Bajpayee",
@@ -158467,8 +167980,8 @@ module.exports = [
   },
   {
     "id": "zee5-32",
-    "imdbId": "tt10786774",
-    "tmdbId": 814215,
+    "imdbId": "tt10403756",
+    "tmdbId": 976589,
     "type": "movie",
     "title": "Sam Bahadur",
     "year": 2023,
@@ -158487,8 +168000,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt14725350/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14725350/img",
+    "poster": "https://images.metahub.space/poster/medium/tt10403756/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt10403756/img",
     "description": "Watch Sam Bahadur in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Vicky Kaushal",
@@ -158616,8 +168129,8 @@ module.exports = [
   },
   {
     "id": "zee5-34",
-    "imdbId": "tt22188452",
-    "tmdbId": 1063633,
+    "imdbId": "tt21867160",
+    "tmdbId": 1019283,
     "type": "movie",
     "title": "Haddi",
     "year": 2023,
@@ -158636,8 +168149,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt21868352/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt21868352/img",
+    "poster": "https://images.metahub.space/poster/medium/tt21867160/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt21867160/img",
     "description": "Watch Haddi in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Nawazuddin Siddiqui",
@@ -158766,8 +168279,8 @@ module.exports = [
   },
   {
     "id": "zee5-36",
-    "imdbId": "tt15174150",
-    "tmdbId": 1517415,
+    "imdbId": "tt14493394",
+    "tmdbId": 890123,
     "type": "movie",
     "title": "Forensic",
     "year": 2022,
@@ -158786,8 +168299,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt15174150/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt15174150/img",
+    "poster": "https://images.metahub.space/poster/medium/tt14493394/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt14493394/img",
     "description": "Watch Forensic in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Vikrant Massey",
@@ -158860,7 +168373,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt15560930/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15309708/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15560930/img",
     "description": "Watch Uunchai in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -158916,7 +168429,7 @@ module.exports = [
   {
     "id": "zee5-38",
     "imdbId": "tt10811166",
-    "tmdbId": 900783,
+    "tmdbId": 928381,
     "type": "movie",
     "title": "The Kashmir Files",
     "year": 2022,
@@ -158933,8 +168446,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt10819468/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt10819468/img",
+    "poster": "https://images.metahub.space/poster/medium/tt10811166/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt10811166/img",
     "description": "Watch The Kashmir Files in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Mithun Chakraborty",
@@ -159083,7 +168596,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt15420110/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15433956/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15420110/img",
     "description": "Watch Hanu-Man in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -159158,7 +168671,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt21066770/img",
+    "poster": "https://images.metahub.space/poster/medium/tt22170036/img",
     "backdrop": "https://images.metahub.space/background/medium/tt21066770/img",
     "description": "Watch Captain Miller in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -159381,7 +168894,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt26252990/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15717242/img",
     "backdrop": "https://images.metahub.space/background/medium/tt26252990/img",
     "description": "Watch Kanjoos Makhichoos in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -159456,7 +168969,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt14389030/img",
+    "poster": "https://images.metahub.space/poster/medium/tt14339846/img",
     "backdrop": "https://images.metahub.space/background/medium/tt14389030/img",
     "description": "Watch Mrs Undercover in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -159829,8 +169342,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt15679402/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt15679402/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15441054/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt15441054/img",
     "description": "Watch Gadar 2 in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -160481,8 +169994,8 @@ module.exports = [
   },
   {
     "id": "zee5-59",
-    "imdbId": "tt9214774",
-    "tmdbId": 9214774,
+    "imdbId": "tt10972750",
+    "tmdbId": 789012,
     "type": "movie",
     "title": "Kaagaz",
     "year": 2021,
@@ -160501,8 +170014,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt9214774/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt9214774/img",
+    "poster": "https://images.metahub.space/poster/medium/tt10972750/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt10972750/img",
     "description": "Watch Kaagaz in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -161244,7 +170757,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt11680320/img",
+    "poster": "https://images.metahub.space/poster/medium/tt11691696/img",
     "backdrop": "https://images.metahub.space/background/medium/tt11680320/img",
     "description": "Watch Shukranu in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -162004,8 +171517,8 @@ module.exports = [
   },
   {
     "id": "zee5-77",
-    "imdbId": "tt9701074",
-    "tmdbId": 9701074,
+    "imdbId": "tt9706346",
+    "tmdbId": 90123,
     "type": "series",
     "title": "Abhay",
     "year": 2022,
@@ -162024,8 +171537,8 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt9701074/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt9701074/img",
+    "poster": "https://images.metahub.space/poster/medium/tt9706346/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt9706346/img",
     "description": "Watch Abhay in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -162803,7 +172316,7 @@ module.exports = [
     "platformId": "zee5",
     "platformBadge": "ZEE5",
     "platformColor": "#A855F7",
-    "poster": "https://images.metahub.space/poster/medium/tt13243530/img",
+    "poster": "https://images.metahub.space/poster/medium/tt5433600/img",
     "backdrop": "https://images.metahub.space/background/medium/tt13243530/img",
     "description": "Watch Black Widows in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -166384,7 +175897,7 @@ module.exports = [
   {
     "id": "zee5-96",
     "imdbId": "tt13592494",
-    "tmdbId": 1359249,
+    "tmdbId": 248226,
     "type": "series",
     "title": "The Bombing of Pan Am 103",
     "year": 2025,
@@ -166645,7 +176158,7 @@ module.exports = [
   {
     "id": "zee5-97",
     "imdbId": "tt0071007",
-    "tmdbId": 71007,
+    "tmdbId": 1781,
     "type": "series",
     "title": "Little House on the Prairie",
     "year": 1974,
@@ -166906,7 +176419,7 @@ module.exports = [
   {
     "id": "zee5-98",
     "imdbId": "tt8324422",
-    "tmdbId": 8324422,
+    "tmdbId": 85702,
     "type": "series",
     "title": "PEN15",
     "year": 2019,
@@ -167166,7 +176679,7 @@ module.exports = [
   {
     "id": "zee5-99",
     "imdbId": "tt14164730",
-    "tmdbId": 1416473,
+    "tmdbId": 131927,
     "type": "series",
     "title": "Dexter: New Blood",
     "year": 2021,
@@ -167427,7 +176940,7 @@ module.exports = [
   {
     "id": "zee5-100",
     "imdbId": "tt8634332",
-    "tmdbId": 8634332,
+    "tmdbId": 82782,
     "type": "series",
     "title": "The Righteous Gemstones",
     "year": 2019,
@@ -167687,7 +177200,7 @@ module.exports = [
   {
     "id": "jio-1",
     "imdbId": "tt11912196",
-    "tmdbId": 100128,
+    "tmdbId": 100911,
     "type": "series",
     "title": "Asur: Welcome to Your Dark Side",
     "year": 2023,
@@ -167708,7 +177221,7 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/small/tt11912196/img",
+    "poster": "https://images.metahub.space/poster/medium/tt11912196/img",
     "backdrop": "https://images.metahub.space/background/medium/tt11912196/img",
     "description": "A unique psychological thriller that pits two opposing worlds against each other: the less explored, intricate world of forensic science and the deep mysticism of ancient Indian mythology.",
     "cast": [
@@ -167879,7 +177392,7 @@ module.exports = [
   {
     "id": "jio-2",
     "imdbId": "tt27510174",
-    "tmdbId": 1079091,
+    "tmdbId": 1112426,
     "type": "movie",
     "title": "Stree 2",
     "year": 2024,
@@ -167898,7 +177411,7 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/small/tt27510174/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27510174/img",
     "backdrop": "https://images.metahub.space/background/medium/tt27510174/img",
     "description": "After the events of Stree, the town of Chanderi is being haunted again. This time, women are mysteriously abducted by a headless entity named Sarkata. Vicky and his friends must save their town.",
     "cast": [
@@ -167965,7 +177478,7 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/small/tt27501039/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27501039/img",
     "backdrop": "https://images.metahub.space/background/medium/tt27501039/img",
     "description": "An alcoholic, fatigued cop must rescue his kidnapped son from a ruthless drug lord in a sprawling luxury hotel over one bloody night in Gurugram.",
     "cast": [
@@ -168078,7 +177591,7 @@ module.exports = [
   {
     "id": "jio-5",
     "imdbId": "tt22531848",
-    "tmdbId": 231518,
+    "tmdbId": 232281,
     "type": "series",
     "title": "Taali",
     "year": 2023,
@@ -168252,6 +177765,69 @@ module.exports = [
         "flag": "🇫🇷",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Taaza Khabar Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20864380/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Taaza Khabar Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20864380/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Taaza Khabar Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20864380/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Taaza Khabar Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20864380/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Taaza Khabar Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20864380/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Taaza Khabar Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20864380/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Taaza Khabar Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20864380/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Taaza Khabar Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt20864380/img"
+          }
+        ]
       }
     ]
   },
@@ -168517,7 +178093,7 @@ module.exports = [
   {
     "id": "jiocinema-5060",
     "imdbId": "tt15428134",
-    "tmdbId": 980123,
+    "tmdbId": 960876,
     "type": "movie",
     "title": "Dunki",
     "year": 2023,
@@ -168834,6 +178410,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Kaalkoot Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt28096238/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Kaalkoot Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt28096238/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Kaalkoot Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt28096238/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Kaalkoot Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt28096238/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Kaalkoot Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt28096238/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Kaalkoot Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt28096238/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Kaalkoot Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt28096238/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Kaalkoot Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt28096238/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -168899,12 +178538,75 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Inspector Rishi Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt30822606/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Inspector Rishi Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt30822606/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Inspector Rishi Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt30822606/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Inspector Rishi Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt30822606/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Inspector Rishi Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt30822606/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Inspector Rishi Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt30822606/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Inspector Rishi Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt30822606/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Inspector Rishi Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt30822606/img"
+          }
+        ]
+      }
     ]
   },
   {
     "id": "jiocinema-17",
-    "imdbId": "tt11911116",
-    "tmdbId": 1191111,
+    "imdbId": "tt11912196",
+    "tmdbId": 100911,
     "type": "series",
     "title": "Asur: Welcome to Your Dark Side",
     "year": 2023,
@@ -168924,8 +178626,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt11911116/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt11911116/img",
+    "poster": "https://images.metahub.space/poster/medium/tt11912196/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt11912196/img",
     "description": "Watch Asur: Welcome to Your Dark Side in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Arshad Warsi",
@@ -169164,8 +178866,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-18",
-    "imdbId": "tt22014226",
-    "tmdbId": 203832,
+    "imdbId": "tt20864380",
+    "tmdbId": 204344,
     "type": "series",
     "title": "Taaza Khabar",
     "year": 2024,
@@ -169186,8 +178888,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt21066772/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt21066772/img",
+    "poster": "https://images.metahub.space/poster/medium/tt20864380/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt20864380/img",
     "description": "Watch Taaza Khabar in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Bhuvan Bam",
@@ -169426,8 +179128,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-19",
-    "imdbId": "tt28236746",
-    "tmdbId": 2823674,
+    "imdbId": "tt28096238",
+    "tmdbId": 119801,
     "type": "series",
     "title": "Kaalkoot",
     "year": 2023,
@@ -169446,8 +179148,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt28236746/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt28236746/img",
+    "poster": "https://images.metahub.space/poster/medium/tt28096238/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt28096238/img",
     "description": "Watch Kaalkoot in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Vijay Varma",
@@ -169687,7 +179389,7 @@ module.exports = [
   {
     "id": "jiocinema-20",
     "imdbId": "tt9476718",
-    "tmdbId": 9476718,
+    "tmdbId": 84767,
     "type": "series",
     "title": "Apharan",
     "year": 2022,
@@ -171004,7 +180706,7 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt28073860/img",
+    "poster": "https://images.metahub.space/poster/medium/tt4775200/img",
     "backdrop": "https://images.metahub.space/background/medium/tt28073860/img",
     "description": "Watch Ishq Next Door in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -171262,7 +180964,7 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt28469320/img",
+    "poster": "https://images.metahub.space/poster/medium/tt0369179/img",
     "backdrop": "https://images.metahub.space/background/medium/tt28469320/img",
     "description": "Watch Half CA in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -171762,7 +181464,7 @@ module.exports = [
   {
     "id": "jiocinema-28",
     "imdbId": "tt14392248",
-    "tmdbId": 1439224,
+    "tmdbId": 124411,
     "type": "series",
     "title": "Aspirants",
     "year": 2023,
@@ -173056,8 +182758,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-33",
-    "imdbId": "tt14099334",
-    "tmdbId": 799177,
+    "imdbId": "tt14088510",
+    "tmdbId": 800345,
     "type": "movie",
     "title": "Bhediya",
     "year": 2022,
@@ -173075,8 +182777,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt14081092/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt14081092/img",
+    "poster": "https://images.metahub.space/poster/medium/tt14088510/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt14088510/img",
     "description": "Watch Bhediya in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Varun Dhawan",
@@ -173130,8 +182832,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-34",
-    "imdbId": "tt9654108",
-    "tmdbId": 9654108,
+    "imdbId": "tt7060344",
+    "tmdbId": 689012,
     "type": "movie",
     "title": "Vikram Vedha",
     "year": 2022,
@@ -173150,8 +182852,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt9654108/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt9654108/img",
+    "poster": "https://images.metahub.space/poster/medium/tt7060344/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt7060344/img",
     "description": "Watch Vikram Vedha in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Hrithik Roshan",
@@ -173206,7 +182908,7 @@ module.exports = [
   {
     "id": "jiocinema-35",
     "imdbId": "tt27501039",
-    "tmdbId": 1014390,
+    "tmdbId": 1098160,
     "type": "movie",
     "title": "Bloody Daddy",
     "year": 2023,
@@ -173225,8 +182927,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt16358380/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt16358380/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27501039/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt27501039/img",
     "description": "Watch Bloody Daddy in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Shahid Kapoor",
@@ -173280,8 +182982,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-36",
-    "imdbId": "tt23899210",
-    "tmdbId": 2389921,
+    "imdbId": "tt27771746",
+    "tmdbId": 1109283,
     "type": "movie",
     "title": "Zara Hatke Zara Bachke",
     "year": 2023,
@@ -173300,8 +183002,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt23899210/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt23899210/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27771746/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt27771746/img",
     "description": "Watch Zara Hatke Zara Bachke in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Vicky Kaushal",
@@ -173672,8 +183374,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt28328108/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt28328108/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27510174/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt27510174/img",
     "description": "Watch Stree 2 in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Rajkummar Rao",
@@ -173727,8 +183429,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-42",
-    "imdbId": "tt27744786",
-    "tmdbId": 1187619,
+    "imdbId": "tt27810790",
+    "tmdbId": 1238910,
     "type": "movie",
     "title": "Shaitaan",
     "year": 2024,
@@ -173747,8 +183449,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt30897070/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt30897070/img",
+    "poster": "https://images.metahub.space/poster/medium/tt27810790/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt27810790/img",
     "description": "Watch Shaitaan in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Ajay Devgn",
@@ -173802,8 +183504,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-43",
-    "imdbId": "tt27995594",
-    "tmdbId": 1187058,
+    "imdbId": "tt28822004",
+    "tmdbId": 1239801,
     "type": "movie",
     "title": "Munjya",
     "year": 2024,
@@ -173821,8 +183523,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt31908292/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt31908292/img",
+    "poster": "https://images.metahub.space/poster/medium/tt28822004/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt28822004/img",
     "description": "Watch Munjya in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Abhay Verma",
@@ -173876,8 +183578,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-44",
-    "imdbId": "tt31003784",
-    "tmdbId": 3100378,
+    "imdbId": "tt30752536",
+    "tmdbId": 1238902,
     "type": "movie",
     "title": "Article 370",
     "year": 2024,
@@ -173895,8 +183597,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt31003784/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt31003784/img",
+    "poster": "https://images.metahub.space/poster/medium/tt30752536/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt30752536/img",
     "description": "Watch Article 370 in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Yami Gautam",
@@ -173951,7 +183653,7 @@ module.exports = [
   {
     "id": "jiocinema-45",
     "imdbId": "tt28236750",
-    "tmdbId": 2823675,
+    "tmdbId": 1141705,
     "type": "movie",
     "title": "Chandu Champion",
     "year": 2024,
@@ -174195,7 +183897,7 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt16428250/img",
+    "poster": "https://images.metahub.space/poster/medium/tt2382246/img",
     "backdrop": "https://images.metahub.space/background/medium/tt16428250/img",
     "description": "Watch Merry Christmas in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -174346,7 +184048,7 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt10819460/img",
+    "poster": "https://images.metahub.space/poster/medium/tt10869778/img",
     "backdrop": "https://images.metahub.space/background/medium/tt10819460/img",
     "description": "Watch Maidaan in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -174553,7 +184255,7 @@ module.exports = [
   {
     "id": "jiocinema-53",
     "imdbId": "tt23871654",
-    "tmdbId": 2387165,
+    "tmdbId": 1040375,
     "type": "movie",
     "title": "Crew",
     "year": 2024,
@@ -174701,7 +184403,7 @@ module.exports = [
   {
     "id": "jiocinema-55",
     "imdbId": "tt27534432",
-    "tmdbId": 2753443,
+    "tmdbId": 1081116,
     "type": "movie",
     "title": "Sarfira",
     "year": 2024,
@@ -174848,7 +184550,7 @@ module.exports = [
   {
     "id": "jiocinema-57",
     "imdbId": "tt30897076",
-    "tmdbId": 3089707,
+    "tmdbId": 1164370,
     "type": "movie",
     "title": "Sector 36",
     "year": 2024,
@@ -174923,7 +184625,7 @@ module.exports = [
   {
     "id": "jiocinema-58",
     "imdbId": "tt28096230",
-    "tmdbId": 2809623,
+    "tmdbId": 1139430,
     "type": "movie",
     "title": "Maharaj",
     "year": 2024,
@@ -175075,7 +184777,7 @@ module.exports = [
   {
     "id": "jiocinema-60",
     "imdbId": "tt31908296",
-    "tmdbId": 3190829,
+    "tmdbId": 1308970,
     "type": "movie",
     "title": "Wild Wild Punjab",
     "year": 2024,
@@ -175148,7 +184850,7 @@ module.exports = [
   {
     "id": "jiocinema-61",
     "imdbId": "tt28258028",
-    "tmdbId": 2825802,
+    "tmdbId": 1156593,
     "type": "movie",
     "title": "Kill",
     "year": 2024,
@@ -175223,7 +184925,7 @@ module.exports = [
   {
     "id": "jiocinema-62",
     "imdbId": "tt12844910",
-    "tmdbId": 1284491,
+    "tmdbId": 864692,
     "type": "movie",
     "title": "Pathaan",
     "year": 2023,
@@ -175299,7 +185001,7 @@ module.exports = [
   {
     "id": "jiocinema-63",
     "imdbId": "tt18411490",
-    "tmdbId": 1841149,
+    "tmdbId": 720557,
     "type": "movie",
     "title": "Tiger 3",
     "year": 2023,
@@ -175374,7 +185076,7 @@ module.exports = [
   {
     "id": "jiocinema-64",
     "imdbId": "tt14993250",
-    "tmdbId": 1499325,
+    "tmdbId": 848116,
     "type": "movie",
     "title": "Rocky Aur Rani Kii Prem Kahaani",
     "year": 2023,
@@ -177836,8 +187538,8 @@ module.exports = [
   },
   {
     "id": "jiocinema-97",
-    "imdbId": "tt28236752",
-    "tmdbId": 2823675,
+    "imdbId": "tt28236750",
+    "tmdbId": 1141705,
     "type": "movie",
     "title": "Chandu Champion (VIP)",
     "year": 2024,
@@ -177856,8 +187558,8 @@ module.exports = [
     "platformId": "jiocinema",
     "platformBadge": "JIOCINEMA",
     "platformColor": "#E11D48",
-    "poster": "https://images.metahub.space/poster/medium/tt28236752/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt28236752/img",
+    "poster": "https://images.metahub.space/poster/medium/tt28236750/img",
+    "backdrop": "https://images.metahub.space/background/medium/tt28236750/img",
     "description": "Watch Chandu Champion (VIP) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Top Cast Actor",
@@ -177912,7 +187614,7 @@ module.exports = [
   {
     "id": "jiocinema-98",
     "imdbId": "tt14016500",
-    "tmdbId": 1401650,
+    "tmdbId": 194766,
     "type": "series",
     "title": "The Summer I Turned Pretty",
     "year": 2022,
@@ -178172,7 +187874,7 @@ module.exports = [
   {
     "id": "jiocinema-99",
     "imdbId": "tt2372162",
-    "tmdbId": 2372162,
+    "tmdbId": 1424,
     "type": "series",
     "title": "Orange Is the New Black",
     "year": 2013,
@@ -178433,7 +188135,7 @@ module.exports = [
   {
     "id": "jiocinema-100",
     "imdbId": "tt14417718",
-    "tmdbId": 1441771,
+    "tmdbId": 123192,
     "type": "series",
     "title": "The Crowded Room",
     "year": 2023,
@@ -183975,6 +193677,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 3
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Baki Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6357658/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Baki Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6357658/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Baki Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6357658/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Baki Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6357658/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Baki Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6357658/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Baki Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6357658/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Baki Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6357658/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Baki Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt6357658/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -184034,6 +193799,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 3
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Baki-Dou: The Invincible Samurai Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt38201910/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Baki-Dou: The Invincible Samurai Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt38201910/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Baki-Dou: The Invincible Samurai Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt38201910/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Baki-Dou: The Invincible Samurai Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt38201910/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Baki-Dou: The Invincible Samurai Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt38201910/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Baki-Dou: The Invincible Samurai Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt38201910/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Baki-Dou: The Invincible Samurai Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt38201910/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Baki-Dou: The Invincible Samurai Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt38201910/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -184092,12 +193920,75 @@ module.exports = [
         "isDub": true,
         "defaultServer": 3
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Baki the Grappler Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0981456/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Baki the Grappler Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0981456/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Baki the Grappler Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0981456/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Baki the Grappler Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0981456/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Baki the Grappler Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0981456/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Baki the Grappler Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0981456/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Baki the Grappler Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0981456/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Baki the Grappler Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0981456/img"
+          }
+        ]
+      }
     ]
   },
   {
     "id": "animeworld-1092",
     "imdbId": "tt21209876",
-    "tmdbId": 205424,
+    "tmdbId": 127532,
     "type": "series",
     "title": "Solo Leveling",
     "year": 2024,
@@ -184156,6 +194047,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Solo Leveling Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21209876/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Solo Leveling Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21209876/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Solo Leveling Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21209876/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Solo Leveling Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21209876/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Solo Leveling Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21209876/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Solo Leveling Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21209876/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Solo Leveling Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21209876/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Solo Leveling Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21209876/img"
+          }
+        ]
       }
     ]
   },
@@ -184222,6 +194176,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Chainsaw Man Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13616990/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -184286,6 +194303,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Frieren: Beyond Journey's End Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt22248376/img"
+          }
+        ]
       }
     ]
   },
@@ -184352,6 +194432,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Kaiju No. 8 Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt21975436/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -184416,6 +194559,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Hell's Paradise Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13911284/img"
+          }
+        ]
       }
     ]
   },
@@ -184482,6 +194688,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Vinland Saga Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt10233448/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -184546,6 +194815,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Spy x Family Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13706018/img"
+          }
+        ]
       }
     ]
   },
@@ -184612,6 +194944,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Mob Psycho 100 Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5897304/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -184676,6 +195071,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "My Hero Academia Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt5626028/img"
+          }
+        ]
       }
     ]
   },
@@ -184742,6 +195200,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Fullmetal Alchemist: Brotherhood Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1355642/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -184767,7 +195288,7 @@ module.exports = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/small/tt15222080/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15222080/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15222080/img",
     "description": "Three hundred strikers fight in a prison training facility to forge Japan's ultimate egoist football striker.",
     "cast": [
@@ -184806,6 +195327,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Blue Lock Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt15222080/img"
+          }
+        ]
       }
     ]
   },
@@ -185002,6 +195586,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Death Note Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0877057/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -185066,6 +195713,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "One Punch Man Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4508902/img"
+          }
+        ]
       }
     ]
   },
@@ -185132,6 +195842,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Dragon Ball Super Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt4644488/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -185196,6 +195969,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Steins;Gate Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt1910272/img"
+          }
+        ]
       }
     ]
   },
@@ -185262,6 +196098,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Code Geass: Lelouch of the Rebellion Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt0994314/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -185326,6 +196225,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Black Clover Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt7441658/img"
+          }
+        ]
       }
     ]
   },
@@ -185392,6 +196354,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Tokyo Revengers Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt13196080/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -185457,6 +196482,69 @@ module.exports = [
         "isDub": true,
         "defaultServer": 0
       }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Dr. Stone Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt9679542/img"
+          }
+        ]
+      }
     ]
   },
   {
@@ -185521,6 +196609,69 @@ module.exports = [
         "flag": "🇪🇸",
         "isDub": true,
         "defaultServer": 0
+      }
+    ],
+    "seasons": [
+      {
+        "season": 1,
+        "episodes": [
+          {
+            "episode": 1,
+            "title": "Episode 1",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 1.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 2,
+            "title": "Episode 2",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 2.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 3,
+            "title": "Episode 3",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 3.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 4,
+            "title": "Episode 4",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 4.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 5,
+            "title": "Episode 5",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 5.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 6,
+            "title": "Episode 6",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 6.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 7,
+            "title": "Episode 7",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 7.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          },
+          {
+            "episode": 8,
+            "title": "Episode 8",
+            "duration": "45m",
+            "description": "Haikyuu!! Season 1 Episode 8.",
+            "thumbnail": "https://images.metahub.space/background/medium/tt3398540/img"
+          }
+        ]
       }
     ]
   },
@@ -185936,7 +197087,7 @@ module.exports = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/small/tt15222080/img",
+    "poster": "https://images.metahub.space/poster/medium/tt15222080/img",
     "backdrop": "https://images.metahub.space/background/medium/tt15222080/img",
     "description": "Watch Blue Lock (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -190516,7 +201667,7 @@ module.exports = [
     "platformId": "animeworld",
     "platformBadge": "ANIME WORLD",
     "platformColor": "#F59E0B",
-    "poster": "https://images.metahub.space/poster/small/tt13196080/img",
+    "poster": "https://images.metahub.space/poster/medium/tt13196080/img",
     "backdrop": "https://images.metahub.space/background/medium/tt13196080/img",
     "description": "Watch Tokyo Revengers (Multi-Audio) in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
@@ -198903,7 +210054,7 @@ module.exports = [
   {
     "id": "animeworld-91",
     "imdbId": "tt4934214",
-    "tmdbId": 4934214,
+    "tmdbId": 63404,
     "type": "series",
     "title": "Taskmaster (Multi-Audio)",
     "year": 2015,
@@ -199685,7 +210836,7 @@ module.exports = [
   {
     "id": "animeworld-94",
     "imdbId": "tt7414406",
-    "tmdbId": 7414406,
+    "tmdbId": 82428,
     "type": "series",
     "title": "All American (Multi-Audio)",
     "year": 2018,
@@ -199945,7 +211096,7 @@ module.exports = [
   {
     "id": "animeworld-95",
     "imdbId": "tt9892936",
-    "tmdbId": 9892936,
+    "tmdbId": 207333,
     "type": "series",
     "title": "One Hundred Years of Solitude (Multi-Audio)",
     "year": 2024,
@@ -200206,7 +211357,7 @@ module.exports = [
   {
     "id": "animeworld-96",
     "imdbId": "tt6257970",
-    "tmdbId": 6257970,
+    "tmdbId": 74577,
     "type": "series",
     "title": "The End of the F***ing World (Multi-Audio)",
     "year": 2017,
@@ -200467,7 +211618,7 @@ module.exports = [
   {
     "id": "animeworld-97",
     "imdbId": "tt5348176",
-    "tmdbId": 5348176,
+    "tmdbId": 73107,
     "type": "series",
     "title": "Barry (Multi-Audio)",
     "year": 2018,
@@ -201250,7 +212401,7 @@ module.exports = [
   {
     "id": "animeworld-100",
     "imdbId": "tt21057450",
-    "tmdbId": 2105745,
+    "tmdbId": 208397,
     "type": "series",
     "title": "School Spirits (Multi-Audio)",
     "year": 2023,

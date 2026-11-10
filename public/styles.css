@@ -2634,47 +2634,47 @@ input[type=range][orient=vertical] {
    CINEMATIC AESTHETIC & ANIMATED SEARCH EXPERIENCE
    ======================================================== */
 .search-results-section {
-  padding: 95px 4% 80px 4%;
-  min-height: 90vh;
-  background: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.08) 0%, rgba(13, 16, 23, 0.96) 40%, #07080c 100%);
+  padding: 84px 4% 60px 4%;
+  min-height: 85vh;
+  background: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.1) 0%, rgba(13, 16, 23, 0.98) 45%, #06070a 100%);
   position: relative;
   transition: opacity 0.3s ease;
 }
 
-/* Glassmorphic Search Hero Panel */
+/* Glassmorphic Search Hero Island */
 .search-hero-glass-panel {
   position: relative;
-  background: rgba(18, 22, 32, 0.65);
-  backdrop-filter: blur(28px) saturate(170%);
-  -webkit-backdrop-filter: blur(28px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 22px;
-  padding: 24px 28px;
-  margin-bottom: 32px;
+  background: rgba(14, 18, 27, 0.72);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  gap: 14px;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(229, 9, 20, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   overflow: hidden;
-  animation: searchPanelSlideDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: searchPanelSlideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .search-hero-glass-panel::before {
   content: '';
   position: absolute;
-  top: -80px;
-  left: 25%;
-  width: 380px;
-  height: 160px;
-  background: radial-gradient(ellipse, rgba(229, 9, 20, 0.2) 0%, transparent 70%);
+  top: -60px;
+  left: 20%;
+  width: 400px;
+  height: 120px;
+  background: radial-gradient(ellipse, rgba(229, 9, 20, 0.18) 0%, transparent 70%);
   pointer-events: none;
-  filter: blur(35px);
+  filter: blur(30px);
 }
 
 @keyframes searchPanelSlideDown {
   from {
     opacity: 0;
-    transform: translateY(-16px) scale(0.99);
+    transform: translateY(-12px) scale(0.99);
   }
   to {
     opacity: 1;
@@ -2682,96 +2682,7 @@ input[type=range][orient=vertical] {
   }
 }
 
-/* Top Status Row */
-.search-top-status-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.search-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  color: #94a3b8;
-}
-
-.search-pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 10px #22c55e, 0 0 3px #22c55e;
-  animation: searchPulseGlow 2s infinite ease-in-out;
-}
-
-@keyframes searchPulseGlow {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: scale(1.35);
-    opacity: 1;
-    box-shadow: 0 0 18px #22c55e, 0 0 6px #22c55e;
-  }
-}
-
-.search-ott-tag {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #e2e8f0;
-  padding: 3px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-}
-
-/* Segmented Control (All / Movies / Series) */
-.search-type-segmented {
-  display: inline-flex;
-  align-items: center;
-  background: rgba(8, 10, 15, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 24px;
-  padding: 3px;
-  gap: 2px;
-}
-
-.search-type-segmented .type-pill {
-  background: transparent;
-  border: none;
-  color: #94a3b8;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 12.5px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.search-type-segmented .type-pill:hover {
-  color: #ffffff;
-}
-
-.search-type-segmented .type-pill.active {
-  background: linear-gradient(135deg, #e50914 0%, #b80710 100%);
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.45);
-  transform: scale(1.02);
-}
-
-/* Integrated In-Page Glass Search Bar */
+/* Centerpiece Glass Search Bar */
 .search-inpage-bar-container {
   width: 100%;
 }
@@ -2779,30 +2690,30 @@ input[type=range][orient=vertical] {
 .search-inpage-bar {
   display: flex;
   align-items: center;
-  background: rgba(7, 9, 14, 0.58);
-  border: 1.5px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 7px 14px 7px 18px;
+  background: rgba(6, 8, 14, 0.68);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 6px 10px 6px 16px;
   gap: 12px;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 8px 24px -6px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .search-inpage-bar:focus-within {
   border-color: rgba(229, 9, 20, 0.85);
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 24px rgba(229, 9, 20, 0.35);
-  background: rgba(11, 14, 22, 0.88);
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  background: rgba(9, 12, 20, 0.92);
 }
 
 .search-inpage-mag {
-  font-size: 17px;
+  font-size: 16px;
   color: #e50914;
   opacity: 0.9;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: transform 0.25s ease, color 0.25s ease;
 }
 
 .search-inpage-bar:focus-within .search-inpage-mag {
-  transform: scale(1.12);
+  transform: scale(1.15) rotate(-6deg);
   color: #ff3344;
 }
 
@@ -2811,7 +2722,7 @@ input[type=range][orient=vertical] {
   background: transparent;
   border: none;
   outline: none;
-  font-size: 15.5px;
+  font-size: 15px;
   color: #ffffff;
   font-family: inherit;
   font-weight: 500;
@@ -2827,15 +2738,15 @@ input[type=range][orient=vertical] {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   color: #cbd5e1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .search-inpage-clear:hover {
@@ -2847,105 +2758,100 @@ input[type=range][orient=vertical] {
 .search-inpage-mic {
   background: linear-gradient(135deg, rgba(229, 9, 20, 0.2), rgba(229, 9, 20, 0.45));
   border: 1px solid rgba(229, 9, 20, 0.55);
-  border-radius: 12px;
-  width: 38px;
-  height: 38px;
+  border-radius: 11px;
+  width: 36px;
+  height: 36px;
   color: #ffffff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
+  flex-shrink: 0;
 }
 
 .search-inpage-mic:hover {
   background: #e50914;
-  transform: scale(1.08);
+  transform: scale(1.06);
   box-shadow: 0 0 18px rgba(229, 9, 20, 0.65);
 }
 
 .search-inpage-mic.listening {
-  background: #e50914;
+  background: #22c55e !important;
+  border-color: #22c55e !important;
   animation: inpageMicPulse 1.2s infinite ease-in-out;
 }
 
 @keyframes inpageMicPulse {
   0%, 100% {
-    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 25px rgba(229, 9, 20, 0.9);
-    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.9);
+    transform: scale(1.08);
   }
 }
 
-/* Heading & Results Count Row */
-.search-heading-meta-row {
+/* Modern Unified Controls Bar (Type Switcher + OTT Brand Pills) */
+.search-controls-unified-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
   gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
-.search-heading-group {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.search-clean-heading {
-  font-size: 21px;
-  font-weight: 700;
-  color: #ffffff;
+/* Type Segmented Control */
+.search-type-segmented {
   display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  letter-spacing: -0.3px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 3px;
+  gap: 3px;
+  flex-shrink: 0;
 }
 
-.search-prefix-text {
-  font-size: 16px;
-  font-weight: 400;
+.type-pill {
+  padding: 6px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
   color: #94a3b8;
-}
-
-.search-query-badge {
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 2px 10px;
-  border-radius: 8px;
-}
-
-.search-count-chip {
+  border: none;
+  background: transparent;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
-  color: #94a3b8;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 4px 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
-/* Horizontal OTT Platform Carousel */
+.type-pill:hover {
+  color: #ffffff;
+}
+
+.type-pill.active {
+  background: #e50914;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(229, 9, 20, 0.5);
+}
+
+/* Horizontal OTT Platform Carousel with Smooth Edge Masking */
 .search-ott-carousel-wrap {
-  width: 100%;
+  flex: 1;
+  min-width: 220px;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
-  padding: 4px 0;
+  padding: 2px 0;
+  mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 14px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black calc(100% - 14px), transparent);
 }
 
 .search-ott-carousel-wrap::-webkit-scrollbar {
@@ -2954,112 +2860,121 @@ input[type=range][orient=vertical] {
 
 .search-ott-carousel-wrap .search-filter-pills {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: nowrap;
   min-width: min-content;
+  padding: 0 6px;
 }
 
 .search-pill {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
-  padding: 8px 16px;
-  border-radius: 22px;
-  font-size: 12.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .search-pill:hover {
-  background: rgba(255, 255, 255, 0.16);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-.search-pill.active {
-  background: #e50914;
-  color: #ffffff;
-  border-color: #e50914;
-  box-shadow: 0 4px 16px rgba(229, 9, 20, 0.5);
-  transform: translateY(-1px);
-}
-
-.search-pill.pill-nflx.active { background: #e50914; border-color: #e50914; box-shadow: 0 4px 16px rgba(229, 9, 20, 0.5); }
-.search-pill.pill-prm.active { background: #00A8E1; border-color: #00A8E1; box-shadow: 0 4px 16px rgba(0, 168, 225, 0.5); }
-.search-pill.pill-dis.active { background: #113CCF; border-color: #113CCF; box-shadow: 0 4px 16px rgba(17, 60, 207, 0.5); }
-.search-pill.pill-hbo.active { background: #9933FF; border-color: #9933FF; box-shadow: 0 4px 16px rgba(153, 51, 255, 0.5); }
-.search-pill.pill-app.active { background: #ffffff; color: #000; border-color: #ffffff; box-shadow: 0 4px 16px rgba(255, 255, 255, 0.4); }
-.search-pill.pill-cr.active { background: #F47521; border-color: #F47521; box-shadow: 0 4px 16px rgba(244, 117, 33, 0.5); }
-.search-pill.pill-par.active { background: #0064FF; border-color: #0064FF; box-shadow: 0 4px 16px rgba(0, 100, 255, 0.5); }
-.search-pill.pill-hulu.active { background: #1CE783; color: #07090e; border-color: #1CE783; box-shadow: 0 4px 16px rgba(28, 231, 131, 0.5); }
-.search-pill.pill-pea.active { background: #000000; color: #ffffff; border-color: #00f0ff; box-shadow: 0 4px 16px rgba(0, 240, 255, 0.4); }
-.search-pill.pill-sony.active { background: #000000; border-color: #ff0055; box-shadow: 0 4px 16px rgba(255, 0, 85, 0.4); }
-.search-pill.pill-zee.active { background: #9333ea; border-color: #9333ea; box-shadow: 0 4px 16px rgba(147, 51, 234, 0.5); }
-.search-pill.pill-jio.active { background: #e11d48; border-color: #e11d48; box-shadow: 0 4px 16px rgba(225, 29, 72, 0.5); }
-.search-pill.pill-aw.active { background: #f59e0b; color: #07090e; border-color: #f59e0b; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.5); }
-
-/* Quick Mood & Genre Tags */
-.search-quick-tags-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding-top: 4px;
-}
-
-.quick-tags-label {
-  color: #94a3b8;
-  font-size: 12.5px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-}
-
-.search-quick-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.tag-pill {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
-  padding: 5px 13px;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.tag-pill:hover {
   background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
 }
 
-.voice-tag-pill {
-  border-color: rgba(229, 9, 20, 0.45);
-  background: rgba(229, 9, 20, 0.12);
+.search-pill.active {
+  background: #e50914;
   color: #ffffff;
-  font-weight: 600;
+  border-color: #e50914;
+  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.5);
 }
 
-.voice-tag-pill:hover {
-  background: rgba(229, 9, 20, 0.28);
-  border-color: #e50914;
+.search-pill.pill-nflx.active { background: #e50914; border-color: #e50914; box-shadow: 0 3px 12px rgba(229, 9, 20, 0.5); }
+.search-pill.pill-prm.active { background: #00A8E1; border-color: #00A8E1; box-shadow: 0 3px 12px rgba(0, 168, 225, 0.5); }
+.search-pill.pill-dis.active { background: #113CCF; border-color: #113CCF; box-shadow: 0 3px 12px rgba(17, 60, 207, 0.5); }
+.search-pill.pill-hbo.active { background: #9933FF; border-color: #9933FF; box-shadow: 0 3px 12px rgba(153, 51, 255, 0.5); }
+.search-pill.pill-app.active { background: #ffffff; color: #000; border-color: #ffffff; box-shadow: 0 3px 12px rgba(255, 255, 255, 0.4); }
+.search-pill.pill-cr.active { background: #F47521; border-color: #F47521; box-shadow: 0 3px 12px rgba(244, 117, 33, 0.5); }
+.search-pill.pill-par.active { background: #0064FF; border-color: #0064FF; box-shadow: 0 3px 12px rgba(0, 100, 255, 0.5); }
+.search-pill.pill-hulu.active { background: #1CE783; color: #07090e; border-color: #1CE783; box-shadow: 0 3px 12px rgba(28, 231, 131, 0.5); }
+.search-pill.pill-pea.active { background: #000000; color: #ffffff; border-color: #00f0ff; box-shadow: 0 3px 12px rgba(0, 240, 255, 0.4); }
+.search-pill.pill-sony.active { background: #000000; border-color: #ff0055; box-shadow: 0 3px 12px rgba(255, 0, 85, 0.4); }
+.search-pill.pill-zee.active { background: #9333ea; border-color: #9333ea; box-shadow: 0 3px 12px rgba(147, 51, 234, 0.5); }
+.search-pill.pill-jio.active { background: #e11d48; border-color: #e11d48; box-shadow: 0 3px 12px rgba(225, 29, 72, 0.5); }
+.search-pill.pill-aw.active { background: #f59e0b; color: #07090e; border-color: #f59e0b; box-shadow: 0 3px 12px rgba(245, 158, 11, 0.5); }
+
+/* Sleek Live Status Row */
+.search-live-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-live-status-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.search-live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: searchPulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes searchPulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+    box-shadow: 0 0 14px #22c55e;
+  }
+}
+
+.search-live-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.search-live-sep {
+  color: #475569;
+  font-size: 13px;
+}
+
+.search-live-query {
+  font-size: 13px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.search-live-ott-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #e50914;
+  background: rgba(229, 9, 20, 0.12);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  padding: 1px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
 }
 
 /* Netflix Grid & Staggered Search Animation */
@@ -7644,9 +7559,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     padding: 120px 20px 76px;
     background-position: center;
   }
-  .billboard-backdrop { background-position: 58% center; }
-  .billboard-gradient-left { width: 100%; background: linear-gradient(90deg, rgba(16,17,20,.82), rgba(16,17,20,.2)); }
-  .billboard-gradient-bottom { height: 72%; background: linear-gradient(180deg, transparent 0%, rgba(16,17,20,.45) 22%, #101114 100%); }
+  .billboard-backdrop { background-position: center top; filter: none !important; opacity: 1 !important; }
+  .billboard-gradient-left { display: none !important; width: 0 !important; opacity: 0 !important; }
+  .billboard-gradient-bottom { height: 38% !important; background: linear-gradient(180deg, transparent 0%, rgba(16,17,20,.35) 45%, var(--canvas-bg, #101114) 100%) !important; }
   .billboard-title { max-width: 15ch; margin-block: 10px 12px; }
   .billboard-meta { gap: 7px; font-size: 12px; flex-wrap: wrap; }
   .billboard-desc { font-size: 14px; -webkit-line-clamp: 4; margin-bottom: 18px; }
@@ -12721,16 +12636,18 @@ body {
     background-position: center top !important;
   }
   .billboard-backdrop {
-    background-position: center 20% !important;
-    filter: brightness(0.9) contrast(1.05) !important;
+    background-position: center top !important;
+    filter: none !important;
+    opacity: 1 !important;
   }
   .billboard-gradient-left {
-    width: 100% !important;
-    background: linear-gradient(180deg, transparent 0%, rgba(9, 10, 14, 0.4) 30%, rgba(9, 10, 14, 0.95) 100%) !important;
+    display: none !important;
+    width: 0 !important;
+    opacity: 0 !important;
   }
   .billboard-gradient-bottom {
-    height: 75% !important;
-    background: linear-gradient(180deg, transparent 0%, rgba(9, 10, 14, 0.7) 45%, #090a0e 100%) !important;
+    height: 38% !important;
+    background: linear-gradient(180deg, transparent 0%, rgba(9, 10, 14, 0.4) 45%, var(--canvas-bg, #090a0e) 100%) !important;
   }
   .billboard-content {
     position: relative !important;
@@ -13941,4 +13858,186 @@ body.tv-mode .mobile-bottom-nav {
   image-rendering: auto;
   transform: translateZ(0);
 }
+
+/* ========================================================
+   21ST.DEV INSPIRED COMPONENT UI SYSTEM
+   Design Engineering: Luminous Glassmorphism, Micro-Borders,
+   Tactile Micro-Interactions, Segmented Controls & Glow Accents
+   ======================================================== */
+
+/* 1. 21st.dev Segmented Pill Controls */
+.genre-chip,
+.server-chip-pill,
+.modal-lang-chip,
+.setting-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #cbd5e1 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer;
+}
+
+.genre-chip:hover,
+.server-chip-pill:hover,
+.modal-lang-chip:hover,
+.setting-pill:hover {
+  background: rgba(255, 255, 255, 0.09) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+.genre-chip.active,
+.server-chip-pill.active,
+.modal-lang-chip.active,
+.setting-pill.active {
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.25) 0%, rgba(229, 9, 20, 0.08) 100%) !important;
+  border: 1px solid rgba(229, 9, 20, 0.5) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px -3px rgba(229, 9, 20, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+/* 2. 21st.dev Modern Cards & Radiant Hover Elevation */
+.movie-card {
+  border-radius: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  background: #0f121a !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+  overflow: hidden !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease !important;
+}
+
+.movie-card:hover {
+  transform: translateY(-6px) scale(1.02) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.75), 0 0 22px -4px rgba(229, 9, 20, 0.3) !important;
+  z-index: 10 !important;
+}
+
+.card-poster-wrap {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.card-poster {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.movie-card:hover .card-poster {
+  transform: scale(1.05) !important;
+}
+
+/* 3. 21st.dev Glass Badges with Luminous Glow */
+.card-ott-badge {
+  position: absolute !important;
+  top: 10px !important;
+  left: 10px !important;
+  padding: 4px 9px !important;
+  border-radius: 8px !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
+  z-index: 3 !important;
+}
+
+.card-play-hover .play-circle {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  background: rgba(229, 9, 20, 0.9) !important;
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.movie-card:hover .play-circle {
+  transform: scale(1.1) !important;
+}
+
+/* 4. 21st.dev Tactile CTA Action Buttons */
+.netflix-btn.btn-play {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%) !important;
+  color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+  border-radius: 9999px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.netflix-btn.btn-play:hover {
+  background: #ffffff !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+.netflix-btn.btn-play:active {
+  transform: scale(0.96) !important;
+}
+
+.netflix-btn.btn-info,
+.btn-download-hero {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+  border-radius: 9999px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.netflix-btn.btn-info:hover,
+.btn-download-hero:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+.netflix-btn.btn-info:active,
+.btn-download-hero:active {
+  transform: scale(0.96) !important;
+}
+
+/* 5. 21st.dev Floating Glass OTT Cards */
+.ott-card {
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.ott-card:hover {
+  transform: translateY(-4px) scale(1.03) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+.ott-card.active {
+  border-color: rgba(229, 9, 20, 0.6) !important;
+  box-shadow: 0 0 25px -4px rgba(229, 9, 20, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
 

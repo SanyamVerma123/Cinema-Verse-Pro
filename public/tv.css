@@ -59,7 +59,7 @@ body.netflix-body::-webkit-scrollbar {
 }
 
 /* ==========================================================================
-   TV LAYOUT: LEFT NAV RAIL + MAIN VIEWPORT (Zero-Overlap Flex Flow)
+   TV LAYOUT: LEFT NAV RAIL + MAIN VIEWPORT (Zero-Overlap Flow)
    ========================================================================== */
 .tv-app-container {
   display: flex !important;
@@ -73,24 +73,25 @@ body.netflix-body::-webkit-scrollbar {
   overflow-x: hidden !important;
 }
 
-/* Left Navigation Rail (Sticky flex child, never overlaps content) */
+/* Left Navigation Rail (Fixed to screen left edge, never overlaps content) */
 .tv-nav-rail {
   width: 84px !important;
   min-width: 84px !important;
-  flex-shrink: 0 !important;
   height: 100vh !important;
-  position: sticky !important;
+  position: fixed !important;
   top: 0 !important;
   left: 0 !important;
-  background: rgba(10, 12, 18, 0.98) !important;
-  backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  bottom: 0 !important;
+  background: rgba(10, 12, 18, 0.96) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   padding: 24px 0 20px !important;
-  z-index: 100 !important;
-  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+  z-index: 120 !important;
+  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
 }
@@ -99,8 +100,8 @@ body.netflix-body::-webkit-scrollbar {
   position: fixed !important;
   width: 250px !important;
   background: rgba(10, 12, 18, 0.98) !important;
-  box-shadow: 16px 0 40px rgba(0, 0, 0, 0.9) !important;
-  z-index: 200 !important;
+  box-shadow: 20px 0 50px rgba(0, 0, 0, 0.95) !important;
+  z-index: 250 !important;
 }
 
 .tv-nav-logo {
@@ -206,12 +207,13 @@ body.netflix-body::-webkit-scrollbar {
   gap: 8px;
 }
 
-/* Main Viewport Content Area (Flex sibling - 100% immune to overlap) */
+/* Main Viewport Content Area (Offset by fixed rail - 100% immune to overlap) */
 .tv-main-content {
-  flex: 1 !important;
+  flex: 1 1 auto !important;
   min-width: 0 !important;
   width: calc(100% - 84px) !important;
-  margin-left: 0 !important;
+  max-width: calc(100% - 84px) !important;
+  margin-left: 84px !important;
   min-height: 100vh !important;
   position: relative !important;
   padding-bottom: 60px !important;
@@ -225,15 +227,15 @@ body.netflix-body::-webkit-scrollbar {
 .tv-hero-spotlight {
   position: relative;
   width: 100%;
-  height: 52vh;
-  min-height: 440px;
-  max-height: 580px;
+  height: 48vh;
+  min-height: 400px;
+  max-height: 520px;
   overflow: hidden;
   display: flex;
   align-items: flex-end;
-  padding: 0 48px 42px;
+  padding: 0 48px 24px;
   box-sizing: border-box;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   background: radial-gradient(circle at 75% 30%, #1a1e29 0%, #0d1017 50%, #07080b 100%);
 }
 
@@ -244,10 +246,10 @@ body.netflix-body::-webkit-scrollbar {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 25%;
+  object-position: center 20%;
   z-index: 0;
-  filter: brightness(0.72) contrast(1.05);
-  transition: opacity 0.5s ease;
+  filter: brightness(0.92) contrast(1.04);
+  transition: opacity 0.4s ease;
 }
 
 .tv-hero-gradient {
@@ -256,9 +258,11 @@ body.netflix-body::-webkit-scrollbar {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(0deg, var(--tv-bg) 0%, rgba(7, 8, 11, 0.65) 45%, rgba(7, 8, 11, 0.15) 85%, rgba(7, 8, 11, 0.4) 100%),
-              linear-gradient(90deg, var(--tv-bg) 0%, rgba(7, 8, 11, 0.8) 35%, rgba(7, 8, 11, 0.25) 75%, transparent 100%);
+  background: 
+    linear-gradient(90deg, rgba(7, 8, 11, 0.96) 0%, rgba(7, 8, 11, 0.72) 32%, rgba(7, 8, 11, 0.18) 64%, transparent 100%),
+    linear-gradient(0deg, var(--tv-bg) 0%, rgba(7, 8, 11, 0.6) 24%, transparent 60%);
   z-index: 1;
+  pointer-events: none;
 }
 
 .tv-hero-details {
@@ -328,14 +332,14 @@ body.netflix-body::-webkit-scrollbar {
 .tv-hero-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-top: 8px;
+  gap: 16px;
+  margin-top: 4px;
 }
 
 .tv-btn {
   height: 48px;
-  padding: 0 24px;
-  border-radius: 10px;
+  padding: 0 26px;
+  border-radius: 12px;
   font-size: 15px;
   font-weight: 700;
   display: inline-flex;
@@ -348,23 +352,27 @@ body.netflix-body::-webkit-scrollbar {
 }
 
 .tv-btn-primary {
-  background: #fff;
-  color: #000;
+  background: linear-gradient(135deg, #e50914 0%, #ff3344 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px var(--tv-red-glow);
 }
 
 .tv-btn-secondary {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
+  border-color: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .tv-btn.tv-focused,
 .tv-btn:focus {
   outline: none;
-  transform: scale(1.08);
-  border-color: var(--tv-focus-border);
-  box-shadow: 0 0 28px var(--tv-red-glow);
-  background: var(--tv-red);
-  color: #fff;
+  background: #ffffff !important;
+  color: #0b0d14 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 12px var(--tv-red-glow) !important;
+  transform: scale(1.08) translateY(-2px);
 }
 
 /* ==========================================================================

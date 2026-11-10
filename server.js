@@ -260,6 +260,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Dedicated Smart TV Leanback HTML route
+app.get(['/tv', '/tv/'], (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'tv.html'));
+});
+
 // High-speed Next.js Edge & Browser Caching Middleware for < 5ms response times
 app.use('/api', (req, res, next) => {
   if (req.method === 'GET') {
@@ -352,7 +357,63 @@ const MASTER_VERIFIED_LOOKUP = {
   'the boys': { tmdbId: 76479, imdbId: 'tt1190634', backdrop: 'https://images.metahub.space/background/medium/tt1190634/img' },
   'reacher': { tmdbId: 108978, imdbId: 'tt9288030', backdrop: 'https://images.metahub.space/background/medium/tt9288030/img' },
   'upload': { tmdbId: 86326, imdbId: 'tt7826376', backdrop: 'https://images.metahub.space/background/medium/tt7826376/img' },
-  'overflow': { tmdbId: 95897, imdbId: 'tt14962432', backdrop: 'https://live.metahub.space/background/medium/tt14962432/img' }
+  'overflow': { tmdbId: 95897, imdbId: 'tt14962432', backdrop: 'https://live.metahub.space/background/medium/tt14962432/img' },
+  // Indian OTT Blockbusters & Regional Hits
+  'scam 1992: the harshad mehta story': { tmdbId: 111188, imdbId: 'tt12392504', backdrop: 'https://images.metahub.space/background/medium/tt12392504/img' },
+  'scam 1992': { tmdbId: 111188, imdbId: 'tt12392504', backdrop: 'https://images.metahub.space/background/medium/tt12392504/img' },
+  'harshad mehta': { tmdbId: 111188, imdbId: 'tt12392504', backdrop: 'https://images.metahub.space/background/medium/tt12392504/img' },
+  'scam 2003: the telgi story': { tmdbId: 233777, imdbId: 'tt26900224', backdrop: 'https://images.metahub.space/background/medium/tt26900224/img' },
+  'scam 2003': { tmdbId: 233777, imdbId: 'tt26900224', backdrop: 'https://images.metahub.space/background/medium/tt26900224/img' },
+  'rocket boys': { tmdbId: 156157, imdbId: 'tt13868972', backdrop: 'https://images.metahub.space/background/medium/tt13868972/img' },
+  'gullak': { tmdbId: 90966, imdbId: 'tt10530900', backdrop: 'https://images.metahub.space/background/medium/tt10530900/img' },
+  'maharani': { tmdbId: 125950, imdbId: 'tt14420552', backdrop: 'https://images.metahub.space/background/medium/tt14420552/img' },
+  'tabbar': { tmdbId: 135890, imdbId: 'tt15410104', backdrop: 'https://images.metahub.space/background/medium/tt15410104/img' },
+  'undekhi': { tmdbId: 106090, imdbId: 'tt12662998', backdrop: 'https://images.metahub.space/background/medium/tt12662998/img' },
+  'bramayugam': { tmdbId: 1047041, imdbId: 'tt27995166', backdrop: 'https://images.metahub.space/background/medium/tt27995166/img' },
+  'por thozhil': { tmdbId: 1098192, imdbId: 'tt27542918', backdrop: 'https://images.metahub.space/background/medium/tt27542918/img' },
+  'gargi': { tmdbId: 1001928, imdbId: 'tt18274078', backdrop: 'https://images.metahub.space/background/medium/tt18274078/img' },
+  'jl50': { tmdbId: 108912, imdbId: 'tt10228392', backdrop: 'https://images.metahub.space/background/medium/tt10228392/img' },
+  'kathmandu connection': { tmdbId: 120981, imdbId: 'tt14418654', backdrop: 'https://images.metahub.space/background/medium/tt14418654/img' },
+  'garmi': { tmdbId: 211098, imdbId: 'tt27447472', backdrop: 'https://images.metahub.space/background/medium/tt27447472/img' },
+  'avrodh: the siege within': { tmdbId: 110982, imdbId: 'tt12450378', backdrop: 'https://images.metahub.space/background/medium/tt12450378/img' },
+  'college romance': { tmdbId: 84150, imdbId: 'tt8809646', backdrop: 'https://images.metahub.space/background/medium/tt8809646/img' },
+  'salute': { tmdbId: 811902, imdbId: 'tt11559816', backdrop: 'https://images.metahub.space/background/medium/tt11559816/img' },
+  'churuli': { tmdbId: 840912, imdbId: 'tt11782298', backdrop: 'https://images.metahub.space/background/medium/tt11782298/img' },
+  'bhoothakalam': { tmdbId: 921098, imdbId: 'tt16422718', backdrop: 'https://images.metahub.space/background/medium/tt16422718/img' },
+  '2018': { tmdbId: 1045672, imdbId: 'tt22073994', backdrop: 'https://images.metahub.space/background/medium/tt22073994/img' },
+  'the kashmir files': { tmdbId: 928381, imdbId: 'tt10811166', backdrop: 'https://images.metahub.space/background/medium/tt10811166/img' },
+  'sirf ek bandaa kaafi hai': { tmdbId: 1121175, imdbId: 'tt24485052', backdrop: 'https://images.metahub.space/background/medium/tt24485052/img' },
+  'taj: divided by blood': { tmdbId: 219760, imdbId: 'tt15752618', backdrop: 'https://images.metahub.space/background/medium/tt15752618/img' },
+  'gadar 2': { tmdbId: 885331, imdbId: 'tt15441054', backdrop: 'https://images.metahub.space/background/medium/tt15441054/img' },
+  'sunflower': { tmdbId: 126938, imdbId: 'tt14397368', backdrop: 'https://images.metahub.space/background/medium/tt14397368/img' },
+  'sam bahadur': { tmdbId: 976589, imdbId: 'tt10403756', backdrop: 'https://images.metahub.space/background/medium/tt10403756/img' },
+  'silence... can you hear it?': { tmdbId: 809812, imdbId: 'tt13876008', backdrop: 'https://images.metahub.space/background/medium/tt13876008/img' },
+  'rangbaaz': { tmdbId: 89012, imdbId: 'tt9464408', backdrop: 'https://images.metahub.space/background/medium/tt9464408/img' },
+  'abhay': { tmdbId: 90123, imdbId: 'tt9706346', backdrop: 'https://images.metahub.space/background/medium/tt9706346/img' },
+  'kaagaz': { tmdbId: 789012, imdbId: 'tt10972750', backdrop: 'https://images.metahub.space/background/medium/tt10972750/img' },
+  'forensic': { tmdbId: 890123, imdbId: 'tt14493394', backdrop: 'https://images.metahub.space/background/medium/tt14493394/img' },
+  'silence 2: the night owl bar shootout': { tmdbId: 1238901, imdbId: 'tt31526436', backdrop: 'https://images.metahub.space/background/medium/tt31526436/img' },
+  'haddi': { tmdbId: 1019283, imdbId: 'tt21867160', backdrop: 'https://images.metahub.space/background/medium/tt21867160/img' },
+  'asur: welcome to your dark side': { tmdbId: 100128, imdbId: 'tt11912196', backdrop: 'https://images.metahub.space/background/medium/tt11912196/img' },
+  'asur': { tmdbId: 100128, imdbId: 'tt11912196', backdrop: 'https://images.metahub.space/background/medium/tt11912196/img' },
+  'stree 2': { tmdbId: 1079091, imdbId: 'tt27510174', backdrop: 'https://images.metahub.space/background/medium/tt27510174/img' },
+  'bloody daddy': { tmdbId: 1098160, imdbId: 'tt27501039', backdrop: 'https://images.metahub.space/background/medium/tt27501039/img' },
+  'bhediya': { tmdbId: 800345, imdbId: 'tt14088510', backdrop: 'https://images.metahub.space/background/medium/tt14088510/img' },
+  'taaza khabar': { tmdbId: 204344, imdbId: 'tt20864380', backdrop: 'https://images.metahub.space/background/medium/tt20864380/img' },
+  'article 370': { tmdbId: 1238902, imdbId: 'tt30752536', backdrop: 'https://images.metahub.space/background/medium/tt30752536/img' },
+  'shaitaan': { tmdbId: 1238910, imdbId: 'tt27810790', backdrop: 'https://images.metahub.space/background/medium/tt27810790/img' },
+  'munjya': { tmdbId: 1239801, imdbId: 'tt28822004', backdrop: 'https://images.metahub.space/background/medium/tt28822004/img' },
+  'zara hatke zara bachke': { tmdbId: 1109283, imdbId: 'tt27771746', backdrop: 'https://images.metahub.space/background/medium/tt27771746/img' },
+  'vikram vedha': { tmdbId: 689012, imdbId: 'tt7060344', backdrop: 'https://images.metahub.space/background/medium/tt7060344/img' },
+  'kaalkoot': { tmdbId: 119801, imdbId: 'tt28096238', backdrop: 'https://images.metahub.space/background/medium/tt28096238/img' },
+  'apharan': { tmdbId: 84767, imdbId: 'tt9476718', backdrop: 'https://images.metahub.space/background/medium/tt9476718/img' },
+  'kill': { tmdbId: 1156593, imdbId: 'tt28258028', backdrop: 'https://images.metahub.space/background/medium/tt28258028/img' },
+  'chandu champion': { tmdbId: 1141705, imdbId: 'tt28236750', backdrop: 'https://images.metahub.space/background/medium/tt28236750/img' },
+  'crew': { tmdbId: 1040375, imdbId: 'tt23871654', backdrop: 'https://images.metahub.space/background/medium/tt23871654/img' },
+  'sarfira': { tmdbId: 1081116, imdbId: 'tt27534432', backdrop: 'https://images.metahub.space/background/medium/tt27534432/img' },
+  'sector 36': { tmdbId: 1164370, imdbId: 'tt30897076', backdrop: 'https://images.metahub.space/background/medium/tt30897076/img' },
+  'maharaj': { tmdbId: 1139430, imdbId: 'tt28096230', backdrop: 'https://images.metahub.space/background/medium/tt28096230/img' },
+  'wild wild punjab': { tmdbId: 1308970, imdbId: 'tt31908296', backdrop: 'https://images.metahub.space/background/medium/tt31908296/img' }
 };
 
 // Check if TMDB ID looks synthetic, chopped from IMDb ID, or invalid (>2M)
@@ -371,6 +432,20 @@ function isBogusTmdbId(tmdbId, imdbId) {
 
 // In-Memory Dynamic TMDb Resolver Cache (Eliminates Stranger Things fallback)
 const TMDB_RESOLVER_CACHE = new Map();
+
+// Pre-seed verified TMDb cache from disk
+try {
+  const cacheFile = path.join(__dirname, 'verified_tmdb_cache.json');
+  if (fs.existsSync(cacheFile)) {
+    const rawCache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+    for (const [imdbKey, tmdbVal] of Object.entries(rawCache)) {
+      TMDB_RESOLVER_CACHE.set(imdbKey, String(tmdbVal));
+    }
+    console.log(`[CinemaVerse Resolver] Pre-seeded ${TMDB_RESOLVER_CACHE.size} verified TMDb IDs into in-memory cache.`);
+  }
+} catch (e) {
+  console.warn('[CinemaVerse Resolver] Could not load verified_tmdb_cache.json:', e.message);
+}
 
 async function resolveTmdbId(imdbId, isTv = false) {
   if (!imdbId || !String(imdbId).startsWith('tt')) return imdbId;
@@ -417,14 +492,12 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
     }
   }
 
-  // If TMDB ID is missing, bogus, or chopped, resolve dynamically
-  if ((!tmdb || isBogusTmdbId(tmdb, imdb)) && imdb) {
-    if (TMDB_RESOLVER_CACHE.has(imdb)) {
-      tmdb = TMDB_RESOLVER_CACHE.get(imdb);
-    } else {
-      const resolved = await resolveTmdbId(imdb, isTv);
-      if (resolved) tmdb = resolved;
-    }
+  // Prioritize verified in-memory cache if available by IMDb ID
+  if (imdb && TMDB_RESOLVER_CACHE.has(imdb)) {
+    tmdb = TMDB_RESOLVER_CACHE.get(imdb);
+  } else if ((!tmdb || isBogusTmdbId(tmdb, imdb)) && imdb) {
+    const resolved = await resolveTmdbId(imdb, isTv);
+    if (resolved) tmdb = resolved;
   }
 
   const tmdbOrImdb = tmdb || imdb || id;
@@ -2096,7 +2169,7 @@ app.get('/api/auth/history', async (req, res) => {
 
 
 // Universal Image Proxy to guarantee TV browser and mobile image rendering with zero CORS issues
-app.get('/api/image-proxy', async (req, res) => {
+app.get(['/api/image-proxy', '/image-proxy'], async (req, res) => {
   const imageUrl = req.query.url;
   if (!imageUrl) return res.status(400).send('Missing url parameter');
 

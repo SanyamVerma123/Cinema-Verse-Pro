@@ -58,12 +58,50 @@
 
   function getStreamUrl(serverIndex, item, season = 1, episode = 1) {
     if (!item) return 'about:blank';
-    const isTv = item.type === 'series';
+    const isTv = item.type === 'series' || item.type === 'tv' || item.type === 'anime' || (item.seasons && item.seasons.length > 0);
     const s = season || 1;
     const e = episode || 1;
-    const imdb = item.imdbId || '';
-    const tmdb = item.tmdbId || '';
+    let imdb = item.imdbId || '';
+    let tmdb = item.tmdbId || '';
+    const cleanTitle = (item.title || '')
+      .replace(/\s*\(Multi-Audio\)\s*/i, '')
+      .replace(/\s*\(VIP\)\s*/i, '')
+      .replace(/\s*\(Jio Special\)\s*/i, '')
+      .replace(/\s*\(Jio Premier\)\s*/i, '')
+      .replace(/\s*\(Jio\)\s*/i, '')
+      .trim()
+      .toLowerCase();
+
+    // Canonical master matching for top Indian OTT & global titles
+    if (cleanTitle.includes('harshad mehta') || cleanTitle === 'scam 1992') {
+      tmdb = 111188;
+      imdb = 'tt12392504';
+    } else if (cleanTitle.includes('scam 2003') || cleanTitle.includes('telgi')) {
+      tmdb = 233777;
+      imdb = 'tt26900224';
+    } else if (cleanTitle === 'rocket boys') {
+      tmdb = 156157;
+      imdb = 'tt13868972';
+    } else if (cleanTitle === 'gullak') {
+      tmdb = 90966;
+      imdb = 'tt10530900';
+    } else if (cleanTitle === 'maharani') {
+      tmdb = 125950;
+      imdb = 'tt14420552';
+    } else if (cleanTitle === 'asur' || cleanTitle.includes('asur: welcome')) {
+      tmdb = 100128;
+      imdb = 'tt11912196';
+    } else if (cleanTitle === 'stree 2') {
+      tmdb = 1079091;
+      imdb = 'tt27510174';
+    }
+
     const tmdbOrImdb = tmdb || imdb || item.id;
+
+    // Direct override for Server 1 (Vidly Pro) for Scam 1992 / Harshad Mehta
+    if (serverIndex === 0 && (cleanTitle.includes('harshad mehta') || cleanTitle === 'scam 1992')) {
+      return `https://vidly.pro/tv/111188/${s}/${e}?preview=1&theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`;
+    }
 
     switch (serverIndex) {
       case 0:
@@ -85,7 +123,9 @@
       case 5:
         return isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
       case 6:
-        return isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
+        return isTv 
+          ? (imdb ? `https://multiembed.mov/?video_id=${imdb}&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdb}&tmdb=1&s=${s}&e=${e}`)
+          : (imdb ? `https://multiembed.mov/?video_id=${imdb}` : `https://multiembed.mov/?video_id=${tmdb}&tmdb=1`);
       case 7:
         return isTv
           ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`
@@ -120,28 +160,41 @@
   function createTvSvgHeroBanner(title, platform) {
     const cleanTitle = (title || 'CinemaVerse').replace(/['"<>&]/g, '');
     const cleanPlat = (platform || 'NETFLIX').toUpperCase();
+    const colorMap = {
+      'SONY LIV': '#FF334B',
+      'ZEE5': '#A855F7',
+      'JIOCINEMA': '#E11D48',
+      'NETFLIX': '#E50914',
+      'PRIME VIDEO': '#00A8E1',
+      'DISNEY+ HOTSTAR': '#113CCF',
+      'HBO MAX': '#9933FF',
+      'APPLE TV+': '#64748B',
+      'CRUNCHYROLL': '#F47521',
+      'PARAMOUNT+': '#0064FF'
+    };
+    const accent = colorMap[cleanPlat] || '#E50914';
     return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
         <defs>
-          <radialGradient id="amb" cx="70%" cy="30%" r="80%">
-            <stop offset="0%" stop-color="#2d1216"/>
-            <stop offset="40%" stop-color="#141824"/>
+          <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0a0c12"/>
+            <stop offset="50%" stop-color="#121622"/>
             <stop offset="100%" stop-color="#07080b"/>
-          </radialGradient>
-          <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e50914"/>
-            <stop offset="100%" stop-color="#f59e0b"/>
           </linearGradient>
+          <radialGradient id="glow" cx="75%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="${accent}" stop-opacity="0.35"/>
+            <stop offset="60%" stop-color="${accent}" stop-opacity="0.05"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
         </defs>
-        <rect width="1920" height="1080" fill="url(#amb)"/>
-        <circle cx="1300" cy="500" r="450" fill="rgba(229,9,20,0.12)" filter="blur(60px)"/>
-        <circle cx="1400" cy="450" r="280" fill="rgba(245,158,11,0.08)" filter="blur(50px)"/>
-        <g transform="translate(1300, 480)">
-          <circle cx="0" cy="0" r="140" fill="rgba(229,9,20,0.2)" stroke="#e50914" stroke-width="4"/>
-          <polygon points="-25,-50 55,0 -25,50" fill="#ffffff"/>
+        <rect width="1920" height="1080" fill="url(#bg)"/>
+        <rect width="1920" height="1080" fill="url(#glow)"/>
+        <g transform="translate(1360, 480)">
+          <circle cx="0" cy="0" r="130" fill="rgba(255,255,255,0.06)" stroke="${accent}" stroke-width="4"/>
+          <polygon points="-25,-45 50,0 -25,45" fill="#ffffff"/>
+          <text x="0" y="195" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="900" font-size="28" fill="#ffffff" text-anchor="middle" letter-spacing="4">${cleanPlat}</text>
+          <text x="0" y="235" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="700" font-size="16" fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="2">4K ULTRA HD • AD-FREE STREAM</text>
         </g>
-        <text x="1300" y="700" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="900" font-size="34" fill="#ffffff" text-anchor="middle" letter-spacing="4">${cleanPlat}</text>
-        <text x="1300" y="745" font-family="sans-serif" font-weight="700" font-size="20" fill="#94a3b8" text-anchor="middle" letter-spacing="2">4K ULTRA HD STREAMING</text>
       </svg>
     `);
   }
@@ -149,17 +202,28 @@
   function setHeroBackdropWithFallback(backdropEl, item) {
     if (!backdropEl || !item) return;
     backdropEl.onerror = null;
+    backdropEl.dataset.proxied = '';
 
     const candidates = [];
-    if (item.backdrop && !item.backdrop.includes('undefined')) candidates.push(item.backdrop);
-    if (item.poster && !item.poster.includes('undefined')) candidates.push(item.poster);
+    if (item.backdrop && !item.backdrop.includes('undefined')) {
+      candidates.push(item.backdrop);
+      if (item.backdrop.includes('images.metahub.space')) {
+        candidates.push(item.backdrop.replace('images.metahub.space', 'live.metahub.space'));
+      }
+    }
+    if (item.poster && !item.poster.includes('undefined')) {
+      candidates.push(item.poster);
+      if (item.poster.includes('images.metahub.space')) {
+        candidates.push(item.poster.replace('images.metahub.space', 'live.metahub.space'));
+      }
+    }
 
     let idx = 0;
     function tryNext() {
       if (idx < candidates.length) {
         const url = candidates[idx++];
         backdropEl.onerror = () => {
-          if (url.includes('images.metahub.space') && !backdropEl.dataset.proxied) {
+          if (url.includes('metahub.space') && !backdropEl.dataset.proxied) {
             backdropEl.dataset.proxied = 'true';
             backdropEl.src = '/api/image-proxy?url=' + encodeURIComponent(url);
             return;
@@ -175,16 +239,59 @@
     tryNext();
   }
 
+  function createDynamicSvgPoster(title, platform) {
+    const cleanTitle = (title || 'CinemaVerse').replace(/['"<>&]/g, '');
+    const plat = (platform || 'STREAM').toUpperCase();
+    const colorMap = {
+      'SONY LIV': '#FF334B',
+      'ZEE5': '#A855F7',
+      'JIOCINEMA': '#E11D48',
+      'NETFLIX': '#E50914',
+      'PRIME VIDEO': '#00A8E1',
+      'DISNEY+ HOTSTAR': '#113CCF',
+      'HBO MAX': '#9933FF',
+      'APPLE TV+': '#64748B',
+      'CRUNCHYROLL': '#F47521',
+      'PARAMOUNT+': '#0064FF',
+      'HULU': '#1CE783',
+      'PEACOCK': '#F7A800',
+      'ANIME WORLD': '#F59E0B'
+    };
+    const accent = colorMap[plat] || '#E50914';
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750">
+        <defs>
+          <radialGradient id="g" cx="50%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="${accent}" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#090a0e" stop-opacity="1"/>
+          </radialGradient>
+        </defs>
+        <rect width="500" height="750" fill="#090a0e"/>
+        <rect width="500" height="750" fill="url(#g)"/>
+        <rect x="20" y="20" width="460" height="710" rx="16" fill="none" stroke="${accent}" stroke-width="2" stroke-opacity="0.25"/>
+        <rect x="36" y="36" width="130" height="32" rx="8" fill="${accent}"/>
+        <text x="101" y="57" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="900" font-size="13" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${plat}</text>
+        <text x="250" y="380" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="800" font-size="28" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${cleanTitle}</text>
+        <rect x="175" y="650" width="150" height="38" rx="19" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+        <text x="250" y="674" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="700" font-size="14" fill="#f59e0b" text-anchor="middle" dominant-baseline="middle">4K ULTRA HD</text>
+      </svg>
+    `);
+  }
+
   window.handleImgError = function (img, fallback) {
     if (!img) return;
     const orig = img.src || '';
-    if (orig.includes('images.metahub.space') && !img.dataset.proxied) {
+    if (orig.includes('images.metahub.space') && !img.dataset.proxied && typeof window !== 'undefined' && window.location && window.location.protocol.startsWith('http')) {
       img.dataset.proxied = 'true';
       img.src = '/api/image-proxy?url=' + encodeURIComponent(orig);
       return;
     }
     img.onerror = null;
-    img.src = fallback || 'https://images.metahub.space/poster/medium/tt4574334/img';
+    const title = img.getAttribute('alt') || 'CinemaVerse';
+    const card = img.closest('.tv-content-card, .tv-card, .movie-card');
+    const badge = card ? card.querySelector('.tv-card-ott, .card-ott-badge') : null;
+    const platName = badge ? badge.textContent : 'STREAM';
+    img.src = createDynamicSvgPoster(title, platName);
   };
 
   // =========================================================================
@@ -792,8 +899,14 @@
         return;
       }
 
-      // Universal TV Remote Back Key (Remote Back, Escape, Backspace, BrowserBack)
-      if (key === 'Escape' || key === 'Backspace' || key === 'BrowserBack' || code === 27 || code === 8 || code === 4 || code === 10009) {
+      // Universal TV Remote Back Key (Remote Back, Escape, Backspace, BrowserBack, Android Back keycode 4, webOS 461, Tizen 10009)
+      const isBackKey = (
+        key === 'Escape' || key === 'Backspace' || key === 'BrowserBack' ||
+        key === 'Back' || key === 'GoBack' || key === 'XF86Back' ||
+        code === 27 || code === 8 || code === 4 || code === 461 || code === 10009
+      );
+
+      if (isBackKey) {
         if (isPlayerActive) {
           e.preventDefault();
           closePlayer();
@@ -809,6 +922,18 @@
           switchTab('home');
           return;
         }
+      }
+
+      // Universal TV Remote OK / Enter Key (Enter, Select, Ok, Android DPAD_CENTER keycode 23, Android ENTER keycode 66, Space)
+      const isSelectKey = (
+        key === 'Enter' || key === 'Select' || key === 'Ok' || key === 'OK' || key === ' ' ||
+        code === 13 || code === 23 || code === 66 || code === 32
+      );
+
+      if (isSelectKey) {
+        e.preventDefault();
+        executeCurrentSelection();
+        return;
       }
 
       // Directional D-Pad Navigation
@@ -832,16 +957,6 @@
         case 'Right':
           e.preventDefault();
           navigateDpad('right');
-          break;
-        case 'Enter':
-        case 'Select':
-        case 'Ok':
-        case 'Space':
-        case ' ':
-          if (code === 13 || code === 32) {
-            e.preventDefault();
-            executeCurrentSelection();
-          }
           break;
       }
     });
@@ -1042,6 +1157,8 @@
     } else if (dir === 'left') {
       if (modalSubZone === 'servers') {
         modalServerIdx = Math.max(0, modalServerIdx - 1);
+        selectedModalServer = modalServerIdx;
+        document.querySelectorAll('.tv-server-chip').forEach((c, i) => c.classList.toggle('active', i === modalServerIdx));
       } else if (modalSubZone === 'actions') {
         modalActionIdx = Math.max(0, modalActionIdx - 1);
       } else if (modalSubZone === 'seasons') {
@@ -1052,6 +1169,8 @@
     } else if (dir === 'right') {
       if (modalSubZone === 'servers') {
         modalServerIdx = Math.min(STREAM_SERVERS.length - 1, modalServerIdx + 1);
+        selectedModalServer = modalServerIdx;
+        document.querySelectorAll('.tv-server-chip').forEach((c, i) => c.classList.toggle('active', i === modalServerIdx));
       } else if (modalSubZone === 'actions') {
         modalActionIdx = Math.min(1, modalActionIdx + 1);
       } else if (modalSubZone === 'seasons') {
@@ -1076,7 +1195,12 @@
       if (playerSubZone === 'servers') {
         playerServerIdx = Math.max(0, playerServerIdx - 1);
       } else if (playerSubZone === 'episodes') {
-        playerEpAction = 0; // Prev Ep
+        if (playerEpAction === 1) {
+          playerEpAction = 0; // Next -> Prev Ep
+        } else {
+          playerSubZone = 'servers'; // Back to servers from Prev Ep
+          playerServerIdx = STREAM_SERVERS.length - 1;
+        }
       }
     } else if (dir === 'right') {
       if (playerSubZone === 'servers') {
@@ -1084,8 +1208,10 @@
           playerServerIdx++;
         } else if (selectedModalItem && selectedModalItem.type === 'series') {
           playerSubZone = 'episodes';
-          playerEpAction = 1; // Next Ep
+          playerEpAction = 0; // Focus Prev Ep first
         }
+      } else if (playerSubZone === 'episodes') {
+        playerEpAction = 1; // Focus Next Ep
       }
     }
 
@@ -1097,6 +1223,11 @@
   // =========================================================================
   function executeCurrentSelection() {
     if (isPlayerActive) {
+      const hud = document.getElementById('tv-player-hud');
+      if (hud && !hud.classList.contains('visible')) {
+        showPlayerHudBriefly();
+        return;
+      }
       if (playerSubZone === 'back') {
         closePlayer();
         return;
@@ -1115,11 +1246,8 @@
     if (activeZone === 'modal') {
       if (modalSubZone === 'servers') {
         selectedModalServer = modalServerIdx;
-        const chip = document.getElementById(`tv-modal-server-${modalServerIdx}`);
-        if (chip) {
-          document.querySelectorAll('.tv-server-chip').forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
-        }
+        startPlayback(selectedModalItem, selectedModalSeason, selectedModalEpisode, selectedModalServer);
+        return;
       } else if (modalSubZone === 'actions') {
         if (modalActionIdx === 0) {
           startPlayback(selectedModalItem, selectedModalSeason, selectedModalEpisode, selectedModalServer);
@@ -1128,7 +1256,10 @@
         }
       } else if (modalSubZone === 'seasons') {
         const seasonChip = document.getElementById(`tv-modal-season-${modalSeasonIdx}`);
-        if (seasonChip) seasonChip.click();
+        if (seasonChip) {
+          seasonChip.click();
+          modalEpIdx = 0;
+        }
       } else if (modalSubZone === 'episodes') {
         const epCard = document.getElementById(`tv-modal-ep-${modalEpIdx}`);
         if (epCard) epCard.click();

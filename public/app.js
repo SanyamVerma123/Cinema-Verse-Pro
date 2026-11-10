@@ -47,10 +47,53 @@ var STORAGE_DAILY_PASS = 'cinemaverse_daily_pass';
 const FALLBACK_POSTER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%23111827"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="34">CINEMAVERSE</text><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="Arial,sans-serif" font-weight="600" font-size="16">ULTRA HD 4K</text></svg>';
 const FALLBACK_BACKDROP = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><rect width="1280" height="720" fill="%230b0f19"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="48">CINEMAVERSE PRO</text></svg>';
 
-// Global image error handler
-window.handleImgError = function(img, fallback = FALLBACK_POSTER) {
+// Global image error handler with dynamic platform-branded SVG generator
+function createDynamicSvgPoster(title, platform) {
+  const cleanTitle = (title || 'CinemaVerse').replace(/['"<>&]/g, '');
+  const plat = (platform || 'STREAM').toUpperCase();
+  const colorMap = {
+    'SONY LIV': '#FF334B',
+    'ZEE5': '#A855F7',
+    'JIOCINEMA': '#E11D48',
+    'NETFLIX': '#E50914',
+    'PRIME VIDEO': '#00A8E1',
+    'DISNEY+ HOTSTAR': '#113CCF',
+    'HBO MAX': '#9933FF',
+    'APPLE TV+': '#64748B',
+    'CRUNCHYROLL': '#F47521',
+    'PARAMOUNT+': '#0064FF',
+    'HULU': '#1CE783',
+    'PEACOCK': '#F7A800',
+    'ANIME WORLD': '#F59E0B'
+  };
+  const accent = colorMap[plat] || '#E50914';
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750">
+      <defs>
+        <radialGradient id="g" cx="50%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="${accent}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#090a0e" stop-opacity="1"/>
+        </radialGradient>
+      </defs>
+      <rect width="500" height="750" fill="#090a0e"/>
+      <rect width="500" height="750" fill="url(#g)"/>
+      <rect x="20" y="20" width="460" height="710" rx="16" fill="none" stroke="${accent}" stroke-width="2" stroke-opacity="0.25"/>
+      <rect x="36" y="36" width="130" height="32" rx="8" fill="${accent}"/>
+      <text x="101" y="57" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="900" font-size="13" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${plat}</text>
+      <text x="250" y="380" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="800" font-size="28" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${cleanTitle}</text>
+      <rect x="175" y="650" width="150" height="38" rx="19" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+      <text x="250" y="674" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-weight="700" font-size="14" fill="#f59e0b" text-anchor="middle" dominant-baseline="middle">4K ULTRA HD</text>
+    </svg>
+  `);
+}
+
+window.handleImgError = function(img, fallback = null) {
   img.onerror = null;
-  img.src = fallback;
+  const title = img.getAttribute('alt') || 'CinemaVerse';
+  const card = img.closest('.movie-card, .top10-card, .cinema-search-card');
+  const platBadge = card ? card.querySelector('.card-ott-badge, .tv-card-ott') : null;
+  const platName = platBadge ? platBadge.textContent : 'STREAM';
+  img.src = createDynamicSvgPoster(title, platName);
 };
 
 const TRUSTED_EXTERNAL_HOSTS = new Set([
@@ -1928,15 +1971,20 @@ function setupSearch() {
   let debounceTimeout = null;
 
   const onSearchQueryChange = (val, source) => {
-    if (source !== 'nav' && input && input.value !== val) input.value = val;
-    if (source !== 'inpage' && inpageInput && inpageInput.value !== val) inpageInput.value = val;
+    // Only synchronize the other input if it does NOT have active user focus!
+    if (source !== 'nav' && input && document.activeElement !== input && input.value !== val) {
+      input.value = val;
+    }
+    if (source !== 'inpage' && inpageInput && document.activeElement !== inpageInput && inpageInput.value !== val) {
+      inpageInput.value = val;
+    }
 
-    if (clearBtn) clearBtn.style.display = val ? 'block' : 'none';
-    if (inpageClear) inpageClear.style.display = val ? 'block' : 'none';
+    if (clearBtn) clearBtn.style.display = (val && val.length > 0) ? 'block' : 'none';
+    if (inpageClear) inpageClear.style.display = (val && val.length > 0) ? 'block' : 'none';
 
-    if (!val) {
+    if (!val || !val.trim()) {
       clearTimeout(debounceTimeout);
-      clearSearch();
+      clearSearch(false);
       return;
     }
 
@@ -1952,7 +2000,7 @@ function setupSearch() {
 
   if (input) {
     input.addEventListener('input', () => {
-      onSearchQueryChange(input.value.trim(), 'nav');
+      onSearchQueryChange(input.value, 'nav');
     });
 
     input.addEventListener('keydown', (e) => {
@@ -1978,7 +2026,7 @@ function setupSearch() {
 
   if (inpageInput) {
     inpageInput.addEventListener('input', () => {
-      onSearchQueryChange(inpageInput.value.trim(), 'inpage');
+      onSearchQueryChange(inpageInput.value, 'inpage');
     });
 
     inpageInput.addEventListener('keydown', (e) => {
@@ -2397,8 +2445,13 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
   const clearBtn = document.getElementById('clear-search');
   const inpageClear = document.getElementById('search-inpage-clear');
 
-  if (navInput && navInput.value !== (query || '')) navInput.value = query || '';
-  if (inpageInput && inpageInput.value !== (query || '')) inpageInput.value = query || '';
+  // CRITICAL: NEVER overwrite an input that currently has user focus!
+  if (navInput && document.activeElement !== navInput && navInput.value !== (query || '')) {
+    navInput.value = query || '';
+  }
+  if (inpageInput && document.activeElement !== inpageInput && inpageInput.value !== (query || '')) {
+    inpageInput.value = query || '';
+  }
   if (clearBtn) clearBtn.style.display = query ? 'block' : 'none';
   if (inpageClear) inpageClear.style.display = query ? 'block' : 'none';
 
@@ -2563,22 +2616,24 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
   }
 }
 
-function clearSearch() {
-  const input = document.getElementById('search-input');
-  if (input) input.value = '';
-  const inpageInput = document.getElementById('search-inpage-input');
-  if (inpageInput) inpageInput.value = '';
+function clearSearch(resetInputs = true) {
+  if (resetInputs) {
+    const input = document.getElementById('search-input');
+    if (input) input.value = '';
+    const inpageInput = document.getElementById('search-inpage-input');
+    if (inpageInput) inpageInput.value = '';
+  }
   const clearBtn = document.getElementById('clear-search');
   if (clearBtn) clearBtn.style.display = 'none';
   const inpageClear = document.getElementById('search-inpage-clear');
   if (inpageClear) inpageClear.style.display = 'none';
   const section = document.getElementById('search-results-section');
-  if (section) section.style.display = 'none';
+  if (section && resetInputs) section.style.display = 'none';
   searchPlatformFilter = 'all';
   searchTypeFilter = 'all';
   document.querySelectorAll('.search-pill').forEach(b => b.classList.toggle('active', b.textContent.includes('All OTTs') || b.textContent.trim() === 'All'));
   document.querySelectorAll('.type-pill').forEach(b => b.classList.toggle('active', b.textContent.includes('All')));
-  toggleHomeVisibilityForSearch(false);
+  if (resetInputs) toggleHomeVisibilityForSearch(false);
 }
 
 // ========================================================
@@ -3881,66 +3936,107 @@ function loadServerStream(serverIdx) {
   iframe.allow = (srv && srv.iframeAttributes && srv.iframeAttributes.allow) || 'autoplay; encrypted-media; picture-in-picture';
 
   let streamUrl = srv ? srv.url : null;
-  if (!streamUrl && currentItem) {
-    const isTv = currentItem.type === 'series';
+  if (currentItem) {
+    const isTv = currentItem.type === 'series' || currentItem.type === 'tv' || currentItem.type === 'anime' || (currentItem.seasons && currentItem.seasons.length > 0);
     const s = currentSeason || 1;
     const e = currentEpisode || 1;
-    const imdb = currentItem.imdbId || '';
-    const tmdb = currentItem.tmdbId || '';
+    let imdb = currentItem.imdbId || '';
+    let tmdb = currentItem.tmdbId || '';
+    const cleanTitle = (currentItem.title || '')
+      .replace(/\s*\(Multi-Audio\)\s*/i, '')
+      .replace(/\s*\(VIP\)\s*/i, '')
+      .replace(/\s*\(Jio Special\)\s*/i, '')
+      .replace(/\s*\(Jio Premier\)\s*/i, '')
+      .replace(/\s*\(Jio\)\s*/i, '')
+      .trim()
+      .toLowerCase();
+
+    // Canonical master matching for top Indian OTT & global titles
+    if (cleanTitle.includes('harshad mehta') || cleanTitle === 'scam 1992') {
+      tmdb = 111188;
+      imdb = 'tt12392504';
+    } else if (cleanTitle.includes('scam 2003') || cleanTitle.includes('telgi')) {
+      tmdb = 233777;
+      imdb = 'tt26900224';
+    } else if (cleanTitle === 'rocket boys') {
+      tmdb = 156157;
+      imdb = 'tt13868972';
+    } else if (cleanTitle === 'gullak') {
+      tmdb = 90966;
+      imdb = 'tt10530900';
+    } else if (cleanTitle === 'maharani') {
+      tmdb = 125950;
+      imdb = 'tt14420552';
+    } else if (cleanTitle === 'asur' || cleanTitle.includes('asur: welcome')) {
+      tmdb = 100128;
+      imdb = 'tt11912196';
+    } else if (cleanTitle === 'stree 2') {
+      tmdb = 1079091;
+      imdb = 'tt27510174';
+    }
+
     const tmdbOrImdb = tmdb || imdb || currentItem.id;
-    switch (serverIdx) {
-      case 0:
-      default:
-        streamUrl = isTv 
-          ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?preview=1&theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
-          : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?preview=1&theme=aurora&color=e50914&audioPicker=1`;
-        break;
-      case 1:
-        // Server 2: CineSrc VIP (0 Ads)
-        streamUrl = isTv ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}` : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`;
-        break;
-      case 2:
-        // Server 3: 123Embed Cloud (0 Ads)
-        streamUrl = isTv ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}` : `https://play2.123embed.net/movie/${tmdbOrImdb}`;
-        break;
-      case 3:
-        // Server 4: Global World Mirror
-        streamUrl = isTv 
-          ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
-          : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
-        break;
-      case 4:
-        // Server 5: AutoEmbed Prime VIP
-        streamUrl = isTv 
-          ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
-          : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
-        break;
-      case 5:
-        // Server 6: AnimeWorld VIP
-        streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
-        break;
-      case 6:
-        // Server 7: MultiEmbed Cloud Stream
-        streamUrl = isTv ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
-        break;
-      case 7:
-        // Server 8: VidLink Pro VIP
-        streamUrl = isTv 
-          ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`
-          : `https://vidlink.pro/movie/${tmdb || tmdbOrImdb}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`;
-        break;
-      case 8:
-        // Server 9: AnyEmbed Prime Direct
-        streamUrl = isTv 
-          ? `https://anyembed.xyz/embed/tmdb-tv-${tmdb || tmdbOrImdb}-${s}-${e}`
-          : `https://anyembed.xyz/embed/tmdb-movie-${tmdb || tmdbOrImdb}`;
-        break;
-      case 9:
-        // Server 10: Nontongo CC Captions
-        streamUrl = isTv 
-          ? `https://www.nontongo.win/embed/tv/${tmdb || tmdbOrImdb}/${s}/${e}`
-          : `https://www.nontongo.win/embed/movie/${tmdb || tmdbOrImdb}`;
-        break;
+
+    // Direct override for Server 1 (Vidly Pro) for Scam 1992 / Harshad Mehta
+    if (serverIdx === 0 && (cleanTitle.includes('harshad mehta') || cleanTitle === 'scam 1992')) {
+      streamUrl = `https://vidly.pro/tv/111188/${s}/${e}?preview=1&theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`;
+    } else if (!streamUrl) {
+      switch (serverIdx) {
+        case 0:
+        default:
+          streamUrl = isTv 
+            ? `https://vidly.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?preview=1&theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
+            : `https://vidly.pro/movie/${tmdb || tmdbOrImdb}?preview=1&theme=aurora&color=e50914&audioPicker=1`;
+          break;
+        case 1:
+          // Server 2: CineSrc VIP (0 Ads)
+          streamUrl = isTv ? `https://cinesrc.st/embed/tv/${tmdbOrImdb}?s=${s}&e=${e}` : `https://cinesrc.st/embed/movie/${tmdbOrImdb}`;
+          break;
+        case 2:
+          // Server 3: 123Embed Cloud (0 Ads)
+          streamUrl = isTv ? `https://play2.123embed.net/tv/${tmdbOrImdb}/${s}/${e}` : `https://play2.123embed.net/movie/${tmdbOrImdb}`;
+          break;
+        case 3:
+          // Server 4: Global World Mirror
+          streamUrl = isTv 
+            ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
+            : `https://player.autoembed.co/embed/movie/${imdb || tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
+          break;
+        case 4:
+          // Server 5: AutoEmbed Prime VIP
+          streamUrl = isTv 
+            ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}${imdb ? `?imdb=${imdb}` : ''}`
+            : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}${imdb ? `?imdb=${imdb}` : ''}`;
+          break;
+        case 5:
+          // Server 6: AnimeWorld VIP
+          streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
+          break;
+        case 6:
+          // Server 7: MultiEmbed Cloud Stream
+          streamUrl = isTv 
+            ? (imdb ? `https://multiembed.mov/?video_id=${imdb}&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdb}&tmdb=1&s=${s}&e=${e}`)
+            : (imdb ? `https://multiembed.mov/?video_id=${imdb}` : `https://multiembed.mov/?video_id=${tmdb}&tmdb=1`);
+          break;
+        case 7:
+          // Server 8: VidLink Pro VIP
+          streamUrl = isTv 
+            ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`
+            : `https://vidlink.pro/movie/${tmdb || tmdbOrImdb}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`;
+          break;
+        case 8:
+          // Server 9: AnyEmbed Prime Direct
+          streamUrl = isTv 
+            ? `https://anyembed.xyz/embed/tmdb-tv-${tmdb || tmdbOrImdb}-${s}-${e}`
+            : `https://anyembed.xyz/embed/tmdb-movie-${tmdb || tmdbOrImdb}`;
+          break;
+        case 9:
+          // Server 10: Nontongo CC Captions
+          streamUrl = isTv 
+            ? `https://www.nontongo.win/embed/tv/${tmdb || tmdbOrImdb}/${s}/${e}`
+            : `https://www.nontongo.win/embed/movie/${tmdb || tmdbOrImdb}`;
+          break;
+      }
     }
   }
   // Anti-Ad Provider Normalization Engine:
