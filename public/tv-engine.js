@@ -88,6 +88,9 @@
     } else if (cleanTitle === 'maharani') {
       tmdb = 125950;
       imdb = 'tt14420552';
+    } else if (cleanTitle === 'tabbar') {
+      tmdb = 136460;
+      imdb = 'tt15410104';
     } else if (cleanTitle === 'asur' || cleanTitle.includes('asur: welcome')) {
       tmdb = 100128;
       imdb = 'tt11912196';

@@ -151874,7 +151874,7 @@ module.exports = [
   {
     "id": "sonyliv-2048",
     "imdbId": "tt15410104",
-    "tmdbId": 135890,
+    "tmdbId": 136460,
     "type": "series",
     "title": "Tabbar",
     "year": 2021,
@@ -151894,8 +151894,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt15410104/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt15410104/img",
+    "poster": "https://image.tmdb.org/t/p/w500/otlPrZEtwTlNfyZWisUgZgAiLUR.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/planPZviI1eycuDvfAex8jGUyDF.jpg",
     "description": "A retired police sub-inspector goes to desperate lengths to protect his sons after a fatal home altercation.",
     "cast": [
       "Pavan Malhotra",
@@ -154521,7 +154521,7 @@ module.exports = [
   {
     "id": "sonyliv-25",
     "imdbId": "tt15410104",
-    "tmdbId": 135890,
+    "tmdbId": 136460,
     "type": "series",
     "title": "Tabbar",
     "year": 2021,
@@ -154540,8 +154540,8 @@ module.exports = [
     "platformId": "sonyliv",
     "platformBadge": "SONY LIV",
     "platformColor": "#FF334B",
-    "poster": "https://images.metahub.space/poster/medium/tt15410104/img",
-    "backdrop": "https://images.metahub.space/background/medium/tt15410104/img",
+    "poster": "https://image.tmdb.org/t/p/w500/otlPrZEtwTlNfyZWisUgZgAiLUR.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/planPZviI1eycuDvfAex8jGUyDF.jpg",
     "description": "Watch Tabbar in 4K Ultra HD on CinemaVerse with zero ads.",
     "cast": [
       "Pavan Malhotra",

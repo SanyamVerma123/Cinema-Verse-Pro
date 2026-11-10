@@ -397,7 +397,7 @@ const MASTER_VERIFIED_LOOKUP = {
   'rocket boys': { tmdbId: 156157, imdbId: 'tt13868972', backdrop: 'https://images.metahub.space/background/medium/tt13868972/img' },
   'gullak': { tmdbId: 90966, imdbId: 'tt10530900', backdrop: 'https://images.metahub.space/background/medium/tt10530900/img' },
   'maharani': { tmdbId: 125950, imdbId: 'tt14420552', backdrop: 'https://images.metahub.space/background/medium/tt14420552/img' },
-  'tabbar': { tmdbId: 135890, imdbId: 'tt15410104', backdrop: 'https://images.metahub.space/background/medium/tt15410104/img' },
+  'tabbar': { tmdbId: 136460, imdbId: 'tt15410104', backdrop: 'https://image.tmdb.org/t/p/w1280/planPZviI1eycuDvfAex8jGUyDF.jpg' },
   'undekhi': { tmdbId: 106090, imdbId: 'tt12662998', backdrop: 'https://images.metahub.space/background/medium/tt12662998/img' },
   'bramayugam': { tmdbId: 1047041, imdbId: 'tt27995166', backdrop: 'https://images.metahub.space/background/medium/tt27995166/img' },
   'por thozhil': { tmdbId: 1098192, imdbId: 'tt27542918', backdrop: 'https://images.metahub.space/background/medium/tt27542918/img' },
