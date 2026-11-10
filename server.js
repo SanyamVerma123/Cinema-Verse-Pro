@@ -865,6 +865,27 @@ app.get('/api/tmdb/search', async (req, res) => {
   }
 });
 
+app.get('/api/tmdb/search/person', async (req, res) => {
+  try {
+    const query = req.query.q || req.query.query;
+    if (!query) return res.status(400).json({ status: 'error', error: 'Query parameter q is required' });
+    const data = await tmdb.searchPerson(query);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get('/api/tmdb/person/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await tmdb.getPersonDetails(id);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
 // Unified TMDb Details Resolver for ANY Media ID (catalog ID, imdbId, or tmdbId)
 app.get('/api/tmdb/details/:id', async (req, res) => {
   try {

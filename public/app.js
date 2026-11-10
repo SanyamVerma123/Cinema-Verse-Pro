@@ -2501,6 +2501,148 @@ function renderMovieCardItem(item, idx) {
   return card;
 }
 
+
+// ========================================================
+// TMDB ARTIST SPOTLIGHT & FILMOGRAPHY MODAL ENGINE
+// ========================================================
+let currentArtistData = null;
+let currentSpotlightArtist = null;
+
+function playTrailerByEmbed(embedUrl, videoTitle) {
+  const modal = document.getElementById('trailer-modal');
+  const iframe = document.getElementById('trailer-iframe');
+  const title = document.getElementById('trailer-modal-title');
+  const extBtn = document.getElementById('trailer-external-btn');
+  const spinner = document.getElementById('trailer-spinner');
+  const altsBar = document.getElementById('trailer-alts-bar');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  if (title) title.innerHTML = `<i class="fa-brands fa-youtube text-red"></i> ${videoTitle || 'Official Video Clip'}`;
+  if (spinner) spinner.style.display = 'none';
+  if (altsBar) altsBar.style.display = 'none';
+  if (iframe) iframe.src = embedUrl;
+  if (extBtn) {
+    const keyMatch = embedUrl.match(/embed\/([^?&]+)/);
+    if (keyMatch) {
+      extBtn.href = `https://www.youtube.com/watch?v=${keyMatch[1]}`;
+      extBtn.style.display = 'inline-flex';
+    } else {
+      extBtn.style.display = 'none';
+    }
+  }
+}
+window.playTrailerByEmbed = playTrailerByEmbed;
+
+async function openArtistModal(personId, personName) {
+  if (!personId) return;
+  const modalEl = document.getElementById('artist-modal');
+  if (!modalEl) return;
+
+  modalEl.style.display = 'flex';
+  const nameEl = document.getElementById('artist-modal-name');
+  const bioEl = document.getElementById('artist-modal-bio');
+  const photoEl = document.getElementById('artist-modal-photo');
+  const deptEl = document.getElementById('artist-modal-dept');
+  const bdayEl = document.getElementById('artist-modal-birthday');
+  const bdayValEl = document.getElementById('artist-modal-birthday-val');
+  const placeEl = document.getElementById('artist-modal-place');
+  const placeValEl = document.getElementById('artist-modal-place-val');
+  const titlesEl = document.getElementById('artist-modal-titles');
+  const titlesCountEl = document.getElementById('artist-modal-titles-count');
+  const gridEl = document.getElementById('artist-filmography-grid');
+
+  if (nameEl) nameEl.textContent = personName || 'Actor Profile';
+  if (bioEl) bioEl.textContent = 'Loading artist biography and full filmography...';
+  if (photoEl) photoEl.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(personName || 'Actor') + '&background=1e293b&color=cbd5e1';
+  if (bdayEl) bdayEl.style.display = 'none';
+  if (placeEl) placeEl.style.display = 'none';
+  if (titlesEl) titlesEl.style.display = 'none';
+  if (gridEl) gridEl.innerHTML = Array(12).fill(0).map(() => '<div class="search-skeleton-card"></div>').join('');
+
+  try {
+    const res = await fetch(`/api/tmdb/person/${personId}`);
+    if (!res.ok) throw new Error('Failed to fetch person details');
+    const data = await res.json();
+    if (data.status !== 'success') throw new Error('Invalid response');
+    currentArtistData = data;
+
+    if (nameEl) nameEl.textContent = data.name;
+    if (deptEl) deptEl.innerHTML = `<i class="fa-solid fa-award text-gold"></i> ${data.knownForDepartment || 'Acting'}`;
+    if (photoEl && data.photo) {
+      photoEl.src = data.photo;
+      photoEl.onerror = () => {
+        photoEl.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.name) + '&background=1e293b&color=cbd5e1';
+      };
+    }
+    if (bioEl) {
+      bioEl.textContent = data.biography || `${data.name} is an internationally recognized artist with a prolific filmography in cinema and television.`;
+    }
+    if (data.birthday && bdayEl && bdayValEl) {
+      bdayValEl.textContent = data.birthday + (data.deathday ? ` — ${data.deathday}` : '');
+      bdayEl.style.display = 'inline-flex';
+    }
+    if (data.placeOfBirth && placeEl && placeValEl) {
+      placeValEl.textContent = data.placeOfBirth;
+      placeEl.style.display = 'inline-flex';
+    }
+    if (Array.isArray(data.filmography) && data.filmography.length > 0 && titlesEl && titlesCountEl) {
+      titlesCountEl.textContent = data.filmography.length;
+      titlesEl.style.display = 'inline-flex';
+    }
+
+    if (gridEl && Array.isArray(data.filmography)) {
+      gridEl.innerHTML = '';
+      const fragment = document.createDocumentFragment();
+      data.filmography.forEach((titleItem, idx) => {
+        const fullItem = {
+          id: String(titleItem.id),
+          tmdbId: titleItem.id,
+          title: titleItem.title,
+          type: titleItem.type || 'movie',
+          year: titleItem.year || '2024',
+          poster: titleItem.poster || FALLBACK_POSTER,
+          backdrop: titleItem.backdrop,
+          rating: titleItem.rating || 8.0,
+          matchRate: titleItem.matchRate || '99% Match',
+          quality: '4K Ultra HD',
+          platform: 'CinemaVerse VIP',
+          platformId: 'netflix',
+          platformBadge: titleItem.type === 'series' ? 'SERIES' : 'MOVIE',
+          character: titleItem.character
+        };
+        const card = renderMovieCardItem(fullItem, idx);
+        fragment.appendChild(card);
+      });
+      gridEl.appendChild(fragment);
+    }
+  } catch (err) {
+    console.error('[Artist Modal] Error:', err);
+    if (bioEl) bioEl.textContent = 'Unable to load full biography at this moment.';
+  }
+}
+
+function closeArtistModal() {
+  const modal = document.getElementById('artist-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handleArtistModalBackdropClick(e) {
+  if (e.target && e.target.id === 'artist-modal') {
+    closeArtistModal();
+  }
+}
+
+function openArtistFromSpotlight() {
+  if (currentSpotlightArtist && currentSpotlightArtist.id) {
+    openArtistModal(currentSpotlightArtist.id, currentSpotlightArtist.name);
+  }
+}
+
+window.openArtistModal = openArtistModal;
+window.closeArtistModal = closeArtistModal;
+window.handleArtistModalBackdropClick = handleArtistModalBackdropClick;
+window.openArtistFromSpotlight = openArtistFromSpotlight;
+
 async function performSearch(query, platform = searchPlatformFilter || 'all', type = searchTypeFilter || 'all', isInstantPreview = false) {
   const section = document.getElementById('search-results-section');
   const grid = document.getElementById('search-grid');
@@ -2543,6 +2685,87 @@ async function performSearch(query, platform = searchPlatformFilter || 'all', ty
   if (activeOttBadgeEl) activeOttBadgeEl.textContent = platLabel;
 
   section.style.display = 'block';
+
+  // Dynamic Artist / Actor Spotlight Integration via TMDb API
+  const spotlightEl = document.getElementById('search-artist-spotlight');
+  if (query && query.trim().length >= 2) {
+    fetch(`/api/tmdb/search/person?q=${encodeURIComponent(query.trim())}`)
+      .then(r => r.json())
+      .then(pData => {
+        if (thisSeq !== activeSearchSeq) return;
+        if (pData && pData.status === 'success' && Array.isArray(pData.data) && pData.data.length > 0) {
+          const topPerson = pData.data[0];
+          const qClean = query.trim().toLowerCase();
+          const pClean = topPerson.name.toLowerCase();
+          if (pClean.includes(qClean) || qClean.includes(pClean)) {
+            currentSpotlightArtist = topPerson;
+            if (spotlightEl) {
+              const imgEl = document.getElementById('search-artist-img');
+              const nameEl = document.getElementById('search-artist-name');
+              const knownEl = document.getElementById('search-artist-known-for');
+              if (imgEl) imgEl.src = topPerson.photo || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(topPerson.name) + '&background=1e293b&color=cbd5e1';
+              if (nameEl) nameEl.textContent = topPerson.name;
+              if (knownEl) {
+                const knownTitles = (topPerson.knownFor || []).map(k => k.title).filter(Boolean).slice(0, 3).join(', ');
+                knownEl.textContent = knownTitles ? `Known for: ${knownTitles}` : 'Prominent Cinema & Television Artist';
+              }
+              spotlightEl.style.display = 'block';
+            }
+
+            // Immediately load artist's complete filmography from TMDb into search results
+            fetch(`/api/tmdb/person/${topPerson.id}`)
+              .then(pr => pr.json())
+              .then(pDetails => {
+                if (thisSeq !== activeSearchSeq) return;
+                if (pDetails && pDetails.status === 'success' && Array.isArray(pDetails.filmography) && pDetails.filmography.length > 0) {
+                  const artistTitles = pDetails.filmography.map(t => ({
+                    id: String(t.id),
+                    tmdbId: t.id,
+                    title: t.title,
+                    type: t.type || 'movie',
+                    year: t.year || '2024',
+                    poster: t.poster || FALLBACK_POSTER,
+                    backdrop: t.backdrop,
+                    rating: t.rating || 8.0,
+                    matchRate: t.matchRate || '99% Match',
+                    quality: '4K Ultra HD',
+                    platform: 'CinemaVerse VIP',
+                    platformId: 'netflix',
+                    platformBadge: t.type === 'series' ? 'SERIES' : 'MOVIE',
+                    character: t.character
+                  }));
+
+                  // If user searched for actor directly or local matches are few, show full filmography
+                  if (localMatches.length === 0 || pClean.includes(qClean) || qClean.includes(pClean)) {
+                    const existingIds = new Set(localMatches.map(m => String(m.id || m.tmdbId)));
+                    const combined = [...localMatches];
+                    artistTitles.forEach(at => {
+                      if (!existingIds.has(String(at.id))) {
+                        combined.push(at);
+                        existingIds.add(String(at.id));
+                      }
+                    });
+                    const fragment = document.createDocumentFragment();
+                    combined.slice(0, SEARCH_PAGE_SIZE).forEach((item, idx) => fragment.appendChild(renderMovieCardItem(item, idx)));
+                    grid.replaceChildren(fragment);
+                    countDisplay.innerHTML = `<i class="fa-solid fa-star text-gold"></i> ${combined.length} titles starring ${topPerson.name}`;
+                  }
+                }
+              })
+              .catch(() => {});
+          } else if (spotlightEl) {
+            spotlightEl.style.display = 'none';
+          }
+        } else if (spotlightEl) {
+          spotlightEl.style.display = 'none';
+        }
+      })
+      .catch(() => {
+        if (spotlightEl) spotlightEl.style.display = 'none';
+      });
+  } else if (spotlightEl) {
+    spotlightEl.style.display = 'none';
+  }
 
   // 1. Natural Language Intent Parser
   const parsed = parseNaturalLanguageQuery(query);
@@ -2712,6 +2935,8 @@ function clearSearch(resetInputs = true) {
   if (inpageClear) inpageClear.style.display = 'none';
   const section = document.getElementById('search-results-section');
   if (section && resetInputs) section.style.display = 'none';
+  const spotlightEl = document.getElementById('search-artist-spotlight');
+  if (spotlightEl) spotlightEl.style.display = 'none';
   searchPlatformFilter = 'all';
   searchTypeFilter = 'all';
   document.querySelectorAll('.search-pill').forEach(b => b.classList.toggle('active', b.textContent.includes('All OTTs') || b.textContent.trim() === 'All'));
@@ -3166,11 +3391,25 @@ async function openDetailsModal(item) {
   const ratingEl = document.getElementById('modal-tmdb-rating');
   const castSectionEl = document.getElementById('modal-cast-section');
   const castAvatarsEl = document.getElementById('modal-cast-avatars');
+  const financialStatsEl = document.getElementById('modal-financial-stats');
+  const budgetPillEl = document.getElementById('modal-budget-pill');
+  const revenuePillEl = document.getElementById('modal-revenue-pill');
+  const statusPillEl = document.getElementById('modal-status-pill');
+  const clipsSectionEl = document.getElementById('modal-clips-section');
+  const clipsRowEl = document.getElementById('modal-clips-row');
+  const providersItemEl = document.getElementById('modal-watch-providers-item');
+  const providerLogosEl = document.getElementById('modal-provider-logos');
+  const keywordsItemEl = document.getElementById('modal-keywords-item');
+  const keywordsCloudEl = document.getElementById('modal-keywords-cloud');
 
   if (logoEl) logoEl.style.display = 'none';
   if (taglineEl) taglineEl.style.display = 'none';
   if (ratingEl) ratingEl.style.display = 'none';
   if (castSectionEl) castSectionEl.style.display = 'none';
+  if (financialStatsEl) financialStatsEl.style.display = 'none';
+  if (clipsSectionEl) clipsSectionEl.style.display = 'none';
+  if (providersItemEl) providersItemEl.style.display = 'none';
+  if (keywordsItemEl) keywordsItemEl.style.display = 'none';
 
   // Asynchronously Enrich with Official TMDb API Data
   (async () => {
@@ -3223,26 +3462,124 @@ async function openDetailsModal(item) {
         item.trailerKey = tmdbData.trailer.id;
       }
 
-      // 6. Top Cast Avatars with Character Names
+      // 6. Financial Stats (Budget & Box Office)
+      if (financialStatsEl) {
+        let hasStats = false;
+        if (tmdbData.budgetFormatted && budgetPillEl) {
+          const bVal = document.getElementById('modal-budget-val');
+          if (bVal) bVal.textContent = tmdbData.budgetFormatted;
+          budgetPillEl.style.display = 'inline-flex';
+          hasStats = true;
+        } else if (budgetPillEl) {
+          budgetPillEl.style.display = 'none';
+        }
+        if (tmdbData.revenueFormatted && revenuePillEl) {
+          const rVal = document.getElementById('modal-revenue-val');
+          if (rVal) rVal.textContent = tmdbData.revenueFormatted;
+          revenuePillEl.style.display = 'inline-flex';
+          hasStats = true;
+        } else if (revenuePillEl) {
+          revenuePillEl.style.display = 'none';
+        }
+        if (tmdbData.statusName && statusPillEl && tmdbData.statusName !== 'Released') {
+          const sVal = document.getElementById('modal-status-val');
+          if (sVal) sVal.textContent = tmdbData.statusName;
+          statusPillEl.style.display = 'inline-flex';
+          hasStats = true;
+        } else if (statusPillEl) {
+          statusPillEl.style.display = 'none';
+        }
+        financialStatsEl.style.display = hasStats ? 'flex' : 'none';
+      }
+
+      // 7. Interactive Top Cast Avatars (Clickable to open Artist Modal)
       if (Array.isArray(tmdbData.cast) && tmdbData.cast.length > 0 && castSectionEl && castAvatarsEl) {
         castAvatarsEl.innerHTML = '';
         const fragment = document.createDocumentFragment();
-        tmdbData.cast.slice(0, 12).forEach(c => {
+        tmdbData.cast.slice(0, 16).forEach(c => {
           const card = document.createElement('div');
-          card.className = 'modal-cast-card';
+          card.className = 'modal-cast-card clickable';
+          card.setAttribute('role', 'button');
+          card.setAttribute('tabindex', '0');
+          card.title = `Click to view ${c.name}'s filmography & biography`;
           const avatarUrl = c.photo || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(c.name) + '&background=1e293b&color=cbd5e1';
           card.innerHTML = '<div class="cast-avatar-wrap">' +
             '<img class="cast-avatar-img" src="' + avatarUrl + '" alt="' + c.name + '" loading="lazy" decoding="async" onerror="this.src=\'https://ui-avatars.com/api/?name=' + encodeURIComponent(c.name) + '&background=1e293b&color=cbd5e1\';">' +
             '</div>' +
             '<span class="cast-actor-name" title="' + c.name + '">' + c.name + '</span>' +
             '<span class="cast-char-name" title="' + (c.character || '') + '">' + (c.character || 'Cast') + '</span>';
+          card.onclick = (e) => {
+            e.stopPropagation();
+            openArtistModal(c.id, c.name);
+          };
           fragment.appendChild(card);
         });
         castAvatarsEl.appendChild(fragment);
         castSectionEl.style.display = 'block';
       }
 
-      // 7. Recommendations ("More Like This")
+      // 8. Official Short Clips, Teasers & Behind-The-Scenes Strip
+      if (Array.isArray(tmdbData.clips) && tmdbData.clips.length > 0 && clipsSectionEl && clipsRowEl) {
+        clipsRowEl.innerHTML = '';
+        const countBadge = document.getElementById('modal-clips-count');
+        if (countBadge) countBadge.textContent = `${tmdbData.clips.length} Videos`;
+        const fragment = document.createDocumentFragment();
+        tmdbData.clips.forEach(clip => {
+          const card = document.createElement('div');
+          card.className = 'modal-clip-card';
+          card.setAttribute('role', 'button');
+          card.setAttribute('tabindex', '0');
+          card.title = `Watch ${clip.name}`;
+          card.innerHTML = `
+            <div class="clip-thumb-wrap">
+              <img class="clip-thumb-img" src="${clip.thumbnail}" alt="${clip.name}" loading="lazy" decoding="async">
+              <div class="clip-play-badge">
+                <div class="clip-play-icon"><i class="fa-solid fa-play"></i></div>
+              </div>
+            </div>
+            <div class="clip-info">
+              <span class="clip-type-pill">${clip.type || 'Clip'}</span>
+              <div class="clip-title">${clip.name}</div>
+            </div>
+          `;
+          card.onclick = (e) => {
+            e.stopPropagation();
+            playTrailerByEmbed(clip.embedUrl, clip.name);
+          };
+          fragment.appendChild(card);
+        });
+        clipsRowEl.appendChild(fragment);
+        clipsSectionEl.style.display = 'block';
+      }
+
+      // 9. Streaming Watch Providers in India
+      if (Array.isArray(tmdbData.watchProviders) && tmdbData.watchProviders.length > 0 && providersItemEl && providerLogosEl) {
+        providerLogosEl.innerHTML = '';
+        tmdbData.watchProviders.forEach(p => {
+          if (!p.logo) return;
+          const img = document.createElement('img');
+          img.className = 'modal-provider-img';
+          img.src = p.logo;
+          img.alt = p.name;
+          img.title = p.name;
+          providerLogosEl.appendChild(img);
+        });
+        if (providerLogosEl.children.length > 0) providersItemEl.style.display = 'block';
+      }
+
+      // 10. Tags & Keywords
+      if (Array.isArray(tmdbData.keywords) && tmdbData.keywords.length > 0 && keywordsItemEl && keywordsCloudEl) {
+        keywordsCloudEl.innerHTML = '';
+        tmdbData.keywords.slice(0, 8).forEach(kw => {
+          const tag = document.createElement('span');
+          tag.className = 'modal-keyword-tag';
+          tag.textContent = kw;
+          keywordsCloudEl.appendChild(tag);
+        });
+        if (keywordsCloudEl.children.length > 0) keywordsItemEl.style.display = 'block';
+      }
+
+      // 11. Recommendations ("More Like This")
       if (Array.isArray(tmdbData.recommendations) && tmdbData.recommendations.length > 0) {
         renderTmdbRecommendations(tmdbData.recommendations);
       }

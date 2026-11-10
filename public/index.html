@@ -594,6 +594,23 @@
 
       </div>
 
+      <!-- Dynamic Artist / Actor Spotlight Banner in Search -->
+      <div class="search-artist-spotlight" id="search-artist-spotlight" style="display: none;">
+        <div class="artist-spotlight-card" id="artist-spotlight-card">
+          <div class="artist-spotlight-avatar">
+            <img id="search-artist-img" src="" alt="Artist">
+          </div>
+          <div class="artist-spotlight-details">
+            <span class="artist-spotlight-tag"><i class="fa-solid fa-star text-gold"></i> Artist Spotlight</span>
+            <h3 class="artist-spotlight-name" id="search-artist-name"></h3>
+            <p class="artist-spotlight-desc" id="search-artist-known-for"></p>
+          </div>
+          <button type="button" class="netflix-btn btn-secondary artist-spotlight-btn" id="search-artist-view-btn" onclick="openArtistFromSpotlight()">
+            <i class="fa-solid fa-user-circle"></i> View Profile &amp; Filmography
+          </button>
+        </div>
+      </div>
+
       <!-- Animated Search Grid -->
       <div class="netflix-grid search-animated-grid" id="search-grid"></div>
     </section>
@@ -1279,12 +1296,29 @@
           </div>
           <p class="modal-synopsis" id="modal-desc"></p>
 
+          <!-- Financial Stats (Budget & Box Office) -->
+          <div class="modal-financial-stats" id="modal-financial-stats" style="display: none;">
+            <span class="meta-pill pill-stat" id="modal-budget-pill" style="display: none;"><i class="fa-solid fa-coins text-gold"></i> Budget: <strong id="modal-budget-val"></strong></span>
+            <span class="meta-pill pill-stat" id="modal-revenue-pill" style="display: none;"><i class="fa-solid fa-chart-line text-green"></i> Box Office: <strong id="modal-revenue-val"></strong></span>
+            <span class="meta-pill pill-stat" id="modal-status-pill" style="display: none;"><i class="fa-solid fa-circle-check text-blue"></i> Status: <strong id="modal-status-val"></strong></span>
+          </div>
+
           <!-- Top Cast Avatars Strip (Enriched by TMDb API) -->
           <div class="modal-cast-section" id="modal-cast-section" style="display: none;">
             <div class="cast-section-header">
               <span class="cast-section-title"><i class="fa-solid fa-user-group text-gold"></i> Top Cast &amp; Characters</span>
+              <span class="cast-hint-badge">Tap actor to view filmography</span>
             </div>
             <div class="modal-cast-avatars-row" id="modal-cast-avatars"></div>
+          </div>
+
+          <!-- Official Clips, Teasers & Behind-The-Scenes Strip (TMDb Videos) -->
+          <div class="modal-clips-section" id="modal-clips-section" style="display: none;">
+            <div class="clips-section-header">
+              <span class="clips-section-title"><i class="fa-brands fa-youtube text-red"></i> Trailers, Teasers &amp; Short Clips</span>
+              <span class="clips-count-badge" id="modal-clips-count"></span>
+            </div>
+            <div class="modal-clips-row" id="modal-clips-row"></div>
           </div>
 
           <!-- Available Audio & Dubbed Languages Selector -->
@@ -1332,6 +1366,14 @@
             <span class="info-label">Genres:</span>
             <span class="info-value" id="modal-genres-list">-</span>
           </div>
+          <div class="modal-info-item" id="modal-watch-providers-item" style="display: none;">
+            <span class="info-label">Streaming In India:</span>
+            <div class="modal-provider-logos" id="modal-provider-logos"></div>
+          </div>
+          <div class="modal-info-item" id="modal-keywords-item" style="display: none;">
+            <span class="info-label">Keywords:</span>
+            <div class="modal-keywords-cloud" id="modal-keywords-cloud"></div>
+          </div>
         </div>
       </div>
 
@@ -1339,6 +1381,39 @@
       <div class="modal-more-section">
         <h3>More Like This</h3>
         <div class="more-like-grid" id="modal-similar-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- ARTIST / ACTOR SPOTLIGHT & FILMOGRAPHY MODAL            -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="artist-modal" style="display: none;" onclick="handleArtistModalBackdropClick(event)">
+    <div class="netflix-modal-card artist-modal-card">
+      <button class="modal-close-btn" onclick="closeArtistModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="artist-header-hero">
+        <div class="artist-avatar-wrap">
+          <img id="artist-modal-photo" src="" alt="Artist Photo">
+        </div>
+        <div class="artist-header-info">
+          <div class="artist-dept-pill" id="artist-modal-dept"><i class="fa-solid fa-award text-gold"></i> Acting</div>
+          <h2 class="artist-modal-name" id="artist-modal-name"></h2>
+          <div class="artist-meta-pills">
+            <span class="artist-pill" id="artist-modal-birthday" style="display: none;"><i class="fa-solid fa-cake-candles text-gold"></i> <span id="artist-modal-birthday-val"></span></span>
+            <span class="artist-pill" id="artist-modal-place" style="display: none;"><i class="fa-solid fa-location-dot text-red"></i> <span id="artist-modal-place-val"></span></span>
+            <span class="artist-pill" id="artist-modal-titles" style="display: none;"><i class="fa-solid fa-film text-blue"></i> <span id="artist-modal-titles-count"></span> Titles</span>
+          </div>
+          <p class="artist-modal-bio" id="artist-modal-bio"></p>
+        </div>
+      </div>
+
+      <div class="artist-filmography-section">
+        <div class="artist-filmography-header">
+          <h3><i class="fa-solid fa-clapperboard text-red"></i> Filmography &amp; Top Releases</h3>
+          <span class="artist-filmography-subtitle">Tap any title to view details and stream</span>
+        </div>
+        <div class="netflix-grid artist-filmography-grid" id="artist-filmography-grid"></div>
       </div>
     </div>
   </div>
