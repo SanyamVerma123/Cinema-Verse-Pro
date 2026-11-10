@@ -237,7 +237,9 @@ async function initializeApplication() {
     if (!heroItems.length) heroItems = currentCatalog.slice(0, 6);
     try { setupHeroCarousel(); } catch (e) { console.warn('setupHeroCarousel bootstrap:', e); }
     try { renderAllRows(currentCatalog); } catch (e) { console.warn('renderAllRows bootstrap:', e); }
-    try { updateOttHubDynamicCounts(); } catch (e) { console.warn('updateOttHubDynamicCounts bootstrap:', e); }
+    try { initMonlexView(currentCatalog); } catch (e) { console.warn('initMonlexView bootstrap:', e); }
+    try { updateOttHubDynamicCounts();
+      try { initMonlexView(currentCatalog); } catch(e) { console.warn("initMonlexView error:", e); } } catch (e) { console.warn('updateOttHubDynamicCounts bootstrap:', e); }
   }
 
   // Initialize Smart TV Remote D-Pad Navigation Engine
@@ -832,6 +834,8 @@ function filterPlatform(platformId, element) {
     const gridSec = document.getElementById('category-grid-section');
     if (gridSec) gridSec.style.display = 'none';
     showAllSections();
+    const mSpotlight = document.getElementById('monlex-spotlight-row'); if (mSpotlight) mSpotlight.style.display = 'flex';
+    const mShelves = document.getElementById('monlex-shelves-container'); if (mShelves) mShelves.style.display = 'flex';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
     openPlatformGrid(pid);
@@ -1784,6 +1788,8 @@ function toggleHomeVisibilityForSearch(isSearching) {
     if (cw) cw.style.display = 'none';
     if (watchlist) watchlist.style.display = 'none';
     if (downloads) downloads.style.display = 'none';
+    const mSpotlight = document.getElementById('monlex-spotlight-row'); if (mSpotlight) mSpotlight.style.display = 'none';
+    const mShelves = document.getElementById('monlex-shelves-container'); if (mShelves) mShelves.style.display = 'none';
     rows.forEach(r => r.style.display = 'none');
   } else {
     if (hero) hero.style.display = 'flex';
@@ -9110,4 +9116,262 @@ if (typeof window !== 'undefined') {
   window.resetAiModel = resetAiModel;
   window.setAiRowType = setAiRowType;
   window.renderAiRecommendations = renderAiRecommendations;
+}
+
+
+// ========================================================
+// MONLEX.NET CONTROLLER & LANDSCAPE SHELF RENDERER
+// ========================================================
+let currentMonlexHeroItem = null;
+let currentMonlexCategory = 'movie';
+
+function initMonlexView(catalog = currentCatalog) {
+  if (!catalog || !catalog.length) return;
+
+  // 1. Setup Hero Item (Murder Mystery by default)
+  let hero = catalog.find(x => x.id === 'netflix_murder_mystery');
+  if (!hero) {
+    hero = catalog.find(x => x.title && x.title.toLowerCase().includes('murder mystery'));
+  }
+  if (!hero) {
+    hero = catalog.find(x => x.featured || x.trending) || catalog[0];
+  }
+  renderMonlexHero(hero);
+
+  // 2. Setup Recent Movies Panel (Blood Hounds, My Name, Invitation To a Murder)
+  renderMonlexRecent(catalog);
+
+  // 3. Setup Shelves
+  renderMonlexShelves(catalog);
+}
+
+function renderMonlexHero(item) {
+  if (!item) return;
+  currentMonlexHeroItem = item;
+
+  const bgEl = document.getElementById('monlex-hero-bg');
+  const titleEl = document.getElementById('monlex-hero-title');
+  const viewsEl = document.getElementById('monlex-hero-views-count');
+  const watermarkEl = document.getElementById('monlex-hero-watermark');
+  const followBtn = document.getElementById('monlex-hero-follow-btn');
+
+  if (bgEl) {
+    const bgUrl = item.backdrop || item.poster || FALLBACK_BACKDROP;
+    bgEl.style.backgroundImage = 'url("' + bgUrl + '")';
+  }
+  if (titleEl) {
+    titleEl.textContent = item.title;
+  }
+  if (viewsEl) {
+    viewsEl.textContent = item.views || '82,642,242';
+  }
+  if (watermarkEl) {
+    watermarkEl.textContent = item.platformBadge || (item.platform ? item.platform.toUpperCase() : 'NETFLIX');
+    if (item.platformColor) {
+      watermarkEl.style.color = item.platformColor;
+    }
+  }
+  if (followBtn) {
+    const watchlist = (typeof getWatchlist === 'function') ? getWatchlist() : [];
+    const isFollowing = watchlist.some(w => w.id === item.id);
+    followBtn.innerHTML = isFollowing 
+      ? '<i class="fa-solid fa-check"></i> <span>Following</span>' 
+      : '<i class="fa-solid fa-plus"></i> <span>Follow</span>';
+    followBtn.classList.toggle('active', isFollowing);
+  }
+}
+
+function playMonlexHero() {
+  if (currentMonlexHeroItem && typeof openPlayer === 'function') {
+    openPlayer(currentMonlexHeroItem);
+  }
+}
+
+function toggleMonlexHeroFollow() {
+  if (!currentMonlexHeroItem) return;
+  if (typeof toggleWatchlist === 'function') {
+    toggleWatchlist(currentMonlexHeroItem);
+    renderMonlexHero(currentMonlexHeroItem);
+  }
+}
+
+function renderMonlexRecent(catalog) {
+  const container = document.getElementById('monlex-recent-list');
+  if (!container || !catalog) return;
+
+  const targetIds = ['netflix_bloodhounds', 'netflix_my_name', 'movie_invitation_to_a_murder'];
+  let recentItems = [];
+  targetIds.forEach(id => {
+    const found = catalog.find(x => x.id === id);
+    if (found) recentItems.push(found);
+  });
+
+  if (recentItems.length < 3) {
+    const extras = catalog.filter(x => !recentItems.some(r => r.id === x.id)).slice(0, 3 - recentItems.length);
+    recentItems = recentItems.concat(extras);
+  }
+
+  container.innerHTML = recentItems.map(item => {
+    const starCount = item.stars || (item.rating ? Math.round(item.rating / 2) : 4);
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+      starsHtml += i <= starCount ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+    }
+    const genre = (item.genres && item.genres.length) ? item.genres[0] : 'Action Movie';
+    const maturity = item.maturity || 'PG-12';
+    const thumb = item.poster || item.backdrop || FALLBACK_POSTER;
+
+    return '<div class="monlex-recent-item" onclick="openDetailsModalById(\'' + item.id + '\')" role="button" tabindex="0">' +
+      '<img src="' + thumb + '" alt="' + item.title + '" class="monlex-recent-thumb" onerror="handleImgError(this)">' +
+      '<div class="monlex-recent-info">' +
+        '<div class="monlex-recent-name">' + item.title + '</div>' +
+        '<div class="monlex-recent-genre">' + genre + '</div>' +
+        '<div class="monlex-recent-stars">' + starsHtml + '</div>' +
+      '</div>' +
+      '<span class="monlex-recent-badge">' + maturity + '</span>' +
+    '</div>';
+  }).join('');
+}
+
+function renderMonlexShelves(catalog) {
+  if (!catalog) return;
+
+  // 1. Popular Movies
+  const movieGrid = document.getElementById('monlex-popular-grid');
+  if (movieGrid) {
+    const targetMovieIds = ['movie_smite_movie', 'warner_evil_dead_rise', 'movie_invitation_to_a_murder', 'movie_shailene_woodley'];
+    let popularMovies = [];
+    targetMovieIds.forEach(id => {
+      const found = catalog.find(x => x.id === id);
+      if (found) popularMovies.push(found);
+    });
+    if (popularMovies.length < 4) {
+      const more = catalog.filter(x => x.type === 'movie' && !popularMovies.some(p => p.id === x.id)).slice(0, 4 - popularMovies.length);
+      popularMovies = popularMovies.concat(more);
+    }
+    renderMonlexLandscapeShelf(movieGrid, popularMovies);
+  }
+
+  // 2. Trending TV Shows
+  const tvGrid = document.getElementById('monlex-tv-grid');
+  if (tvGrid) {
+    const targetTvIds = ['netflix_bloodhounds', 'netflix_my_name', 'nflx-1', 'nflx-2'];
+    let tvShows = [];
+    targetTvIds.forEach(id => {
+      const found = catalog.find(x => x.id === id);
+      if (found) tvShows.push(found);
+    });
+    if (tvShows.length < 4) {
+      const more = catalog.filter(x => x.type === 'series' && !tvShows.some(p => p.id === x.id)).slice(0, 4 - tvShows.length);
+      tvShows = tvShows.concat(more);
+    }
+    renderMonlexLandscapeShelf(tvGrid, tvShows);
+  }
+
+  // 3. Top Anime
+  const animeGrid = document.getElementById('monlex-anime-grid');
+  if (animeGrid) {
+    const animeItems = catalog.filter(x => 
+      (x.genres && x.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) ||
+      x.platformId === 'crunchyroll' || x.platformId === 'animeworld'
+    ).slice(0, 4);
+    renderMonlexLandscapeShelf(animeGrid, animeItems.length ? animeItems : catalog.slice(0, 4));
+  }
+}
+
+function renderMonlexLandscapeShelf(container, items) {
+  if (!container || !items) return;
+  container.innerHTML = items.map(item => {
+    const backdrop = item.backdrop || item.poster || FALLBACK_BACKDROP;
+    const subtitle = (item.genres && item.genres.length) ? item.genres.slice(0, 2).join(' • ') : 'The Action Movie';
+
+    return '<div class="monlex-landscape-card" onclick="openDetailsModalById(\'' + item.id + '\')" role="button" tabindex="0">' +
+      '<div class="monlex-card-media-wrap">' +
+        '<img src="' + backdrop + '" alt="' + item.title + '" class="monlex-card-img" onerror="handleImgError(this)">' +
+        '<div class="monlex-card-play-center" onclick="event.stopPropagation(); openPlayerById(\'' + item.id + '\')" title="Play Now">' +
+          '<i class="fa-solid fa-play"></i>' +
+        '</div>' +
+      '</div>' +
+      '<div class="monlex-card-title">' + item.title + '</div>' +
+      '<div class="monlex-card-subtitle">' + subtitle + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function switchMonlexCategory(cat, btn) {
+  currentMonlexCategory = cat;
+  document.querySelectorAll('.monlex-cat-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const popularTitle = document.getElementById('monlex-shelf-popular-title');
+  const popularGrid = document.getElementById('monlex-popular-grid');
+
+  if (cat === 'movie') {
+    if (popularTitle) popularTitle.textContent = 'Popular Movies';
+    let hero = currentCatalog.find(x => x.id === 'netflix_murder_mystery') || currentCatalog.find(x => x.type === 'movie');
+    renderMonlexHero(hero);
+    renderMonlexShelves(currentCatalog);
+  } else if (cat === 'series') {
+    if (popularTitle) popularTitle.textContent = 'Popular TV Shows';
+    let hero = currentCatalog.find(x => x.id === 'netflix_bloodhounds') || currentCatalog.find(x => x.type === 'series');
+    renderMonlexHero(hero);
+    if (popularGrid) {
+      const seriesList = currentCatalog.filter(x => x.type === 'series').slice(0, 8);
+      renderMonlexLandscapeShelf(popularGrid, seriesList.slice(0, 4));
+    }
+  } else if (cat === 'anime') {
+    if (popularTitle) popularTitle.textContent = 'Popular Anime';
+    const animes = currentCatalog.filter(x => 
+      (x.genres && x.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) ||
+      x.platformId === 'crunchyroll' || x.platformId === 'animeworld'
+    );
+    if (animes.length) {
+      renderMonlexHero(animes[0]);
+      if (popularGrid) renderMonlexLandscapeShelf(popularGrid, animes.slice(0, 4));
+    }
+  }
+}
+
+function handleMonlexNav(section, link) {
+  document.querySelectorAll('.monlex-nav-item').forEach(i => i.classList.remove('active'));
+  if (link) link.classList.add('active');
+
+  if (section === 'home') {
+    if (typeof resetToHome === 'function') resetToHome();
+  } else if (section === 'trending') {
+    const popularShelf = document.getElementById('monlex-shelf-popular');
+    if (popularShelf) {
+      popularShelf.scrollIntoView({ behavior: 'smooth' });
+    }
+  } else if (section === 'following') {
+    if (typeof showWatchlist === 'function') showWatchlist();
+  } else if (section === 'videos') {
+    if (typeof showDownloadsSection === 'function') showDownloadsSection();
+  } else if (section === 'playlist') {
+    if (typeof showWatchlist === 'function') showWatchlist();
+  }
+}
+
+function handleMonlexSearchInput(value) {
+  const q = (value || '').trim();
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.value = q;
+
+  if (q.length > 0) {
+    if (typeof performSearch === 'function') performSearch(q);
+  } else {
+    if (typeof clearSearch === 'function') clearSearch();
+  }
+}
+
+function openDetailsModalById(id) {
+  if (!currentCatalog) return;
+  const item = currentCatalog.find(x => x.id === id);
+  if (item && typeof openDetailsModal === 'function') openDetailsModal(item);
+}
+
+function openPlayerById(id) {
+  if (!currentCatalog) return;
+  const item = currentCatalog.find(x => x.id === id);
+  if (item && typeof openPlayer === 'function') openPlayer(item);
 }
