@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 const axios = require('axios');
+const tmdb = require('./lib/tmdb');
 let catalogData = require('./catalog');
 
 // ========================================================
@@ -461,19 +462,33 @@ function isBogusTmdbId(tmdbId, imdbId) {
   return false;
 }
 
-// In-Memory Dynamic TMDb Resolver Cache (Eliminates Stranger Things fallback)
+// In-Memory Dynamic TMDb <-> IMDb Bidirectional Resolver Caches
 const TMDB_RESOLVER_CACHE = new Map();
+const IMDB_RESOLVER_CACHE = new Map();
 
-// Pre-seed verified TMDb cache from disk
+// Pre-seed verified TMDb <-> IMDb cache from disk and catalog
 try {
   const cacheFile = path.join(__dirname, 'verified_tmdb_cache.json');
   if (fs.existsSync(cacheFile)) {
     const rawCache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
     for (const [imdbKey, tmdbVal] of Object.entries(rawCache)) {
       TMDB_RESOLVER_CACHE.set(imdbKey, String(tmdbVal));
+      IMDB_RESOLVER_CACHE.set(String(tmdbVal), imdbKey);
     }
-    console.log(`[CinemaVerse Resolver] Pre-seeded ${TMDB_RESOLVER_CACHE.size} verified TMDb IDs into in-memory cache.`);
   }
+  // Pre-seed from catalogData
+  if (Array.isArray(catalogData)) {
+    for (const item of catalogData) {
+      if (item.imdbId && item.tmdbId) {
+        TMDB_RESOLVER_CACHE.set(item.imdbId, String(item.tmdbId));
+        IMDB_RESOLVER_CACHE.set(String(item.tmdbId), item.imdbId);
+      }
+    }
+  }
+  // Explicitly verify Scam 1992 (TMDb 111188 <-> IMDb tt12392504)
+  TMDB_RESOLVER_CACHE.set('tt12392504', '111188');
+  IMDB_RESOLVER_CACHE.set('111188', 'tt12392504');
+  console.log(`[CinemaVerse Resolver] Pre-seeded ${TMDB_RESOLVER_CACHE.size} verified TMDb IDs and ${IMDB_RESOLVER_CACHE.size} IMDb IDs into in-memory cache.`);
 } catch (e) {
   console.warn('[CinemaVerse Resolver] Could not load verified_tmdb_cache.json:', e.message);
 }
@@ -494,6 +509,7 @@ async function resolveTmdbId(imdbId, isTv = false) {
       if (match && match.id) {
         const val = String(match.id);
         TMDB_RESOLVER_CACHE.set(imdbId, val);
+        IMDB_RESOLVER_CACHE.set(val, imdbId);
         return val;
       }
     }
@@ -508,14 +524,45 @@ async function resolveTmdbId(imdbId, isTv = false) {
       const res = await fetch(`https://v3-cinemeta.strem.io/meta/${t}/${imdbId}.json`, { signal: AbortSignal.timeout(3500) });
       if (res.ok) {
         const d = await res.json();
-        const tmdb = d.meta?.moviedb_id || d.meta?.tmdb_id;
-        if (tmdb) {
-          const val = String(tmdb);
+        const tmdbVal = d.meta?.moviedb_id || d.meta?.tmdb_id;
+        if (tmdbVal) {
+          const val = String(tmdbVal);
           TMDB_RESOLVER_CACHE.set(imdbId, val);
+          IMDB_RESOLVER_CACHE.set(val, imdbId);
           return val;
         }
       }
     } catch(e) {}
+  }
+  return null;
+}
+
+// Convert TMDb ID -> IMDb ID (Crucial for servers requiring tt... IDs)
+async function resolveImdbId(tmdbId, isTv = false) {
+  if (!tmdbId) return null;
+  const cleanId = String(tmdbId).trim();
+  if (IMDB_RESOLVER_CACHE.has(cleanId)) return IMDB_RESOLVER_CACHE.get(cleanId);
+
+  // 1. Direct official TMDb external_ids endpoint
+  try {
+    const endpoint = isTv ? `/tv/${cleanId}/external_ids` : `/movie/${cleanId}/external_ids`;
+    const data = await tmdb.fetchFromTmdb(endpoint);
+    if (data && data.imdb_id) {
+      IMDB_RESOLVER_CACHE.set(cleanId, data.imdb_id);
+      TMDB_RESOLVER_CACHE.set(data.imdb_id, cleanId);
+      return data.imdb_id;
+    }
+  } catch (e) {
+    // If not found in primary media type, try opposite media type
+    try {
+      const altEndpoint = isTv ? `/movie/${cleanId}/external_ids` : `/tv/${cleanId}/external_ids`;
+      const data = await tmdb.fetchFromTmdb(altEndpoint);
+      if (data && data.imdb_id) {
+        IMDB_RESOLVER_CACHE.set(cleanId, data.imdb_id);
+        TMDB_RESOLVER_CACHE.set(data.imdb_id, cleanId);
+        return data.imdb_id;
+      }
+    } catch (err) {}
   }
   return null;
 }
@@ -549,6 +596,16 @@ async function getStreamServers(type, id, season = 1, episode = 1) {
   } else if ((!tmdb || isBogusTmdbId(tmdb, imdb)) && imdb) {
     const resolved = await resolveTmdbId(imdb, isTv);
     if (resolved) tmdb = resolved;
+  }
+
+  // Bidirectional resolution: If we have tmdbId but no imdbId, resolve it via TMDb external_ids
+  if (!imdb && tmdb) {
+    if (IMDB_RESOLVER_CACHE.has(String(tmdb))) {
+      imdb = IMDB_RESOLVER_CACHE.get(String(tmdb));
+    } else {
+      const resolvedImdb = await resolveImdbId(tmdb, isTv);
+      if (resolvedImdb) imdb = resolvedImdb;
+    }
   }
 
   const tmdbOrImdb = tmdb || imdb || id;
@@ -739,57 +796,124 @@ app.get('/api/library/book/:id', (req, res) => {
 
 // ========================================================
 // OFFICIAL TMDB API PROXY & DIRECT METADATA ENDPOINTS
+// Fully featured via lib/tmdb.js & official TMDb API v3
 // ========================================================
 app.get('/api/tmdb/movie/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const url = `${TMDB_BASE_URL}/movie/${id}?api_key=${TMDB_API_KEY}&append_to_response=credits,recommendations,videos`;
-    const response = await fetch(url, { signal: AbortSignal.timeout(4500) });
-    if (!response.ok) return res.status(response.status).json({ error: 'TMDB movie not found' });
-    const data = await response.json();
+    const data = await tmdb.getMovieDetails(id);
     res.json(data);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(err.message.includes('404') ? 404 : 500).json({ status: 'error', error: err.message });
   }
 });
 
 app.get('/api/tmdb/tv/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const url = `${TMDB_BASE_URL}/tv/${id}?api_key=${TMDB_API_KEY}&append_to_response=credits,recommendations,videos`;
-    const response = await fetch(url, { signal: AbortSignal.timeout(4500) });
-    if (!response.ok) return res.status(response.status).json({ error: 'TMDB tv not found' });
-    const data = await response.json();
+    const data = await tmdb.getTvDetails(id);
     res.json(data);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(err.message.includes('404') ? 404 : 500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get('/api/tmdb/tv/:id/season/:seasonNumber', async (req, res) => {
+  try {
+    let { id, seasonNumber } = req.params;
+    let tvId = id;
+    if (!/^\d+$/.test(id)) {
+      const item = catalogData.find(x => x.id === id || x.imdbId === id || String(x.tmdbId) === String(id));
+      if (item && item.tmdbId) tvId = item.tmdbId;
+    }
+    const data = await tmdb.getTvSeason(tvId, seasonNumber);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get(['/api/tmdb/trending', '/api/tmdb/trending/:timeWindow'], async (req, res) => {
+  try {
+    const { timeWindow } = req.params;
+    const data = await tmdb.getTrending(timeWindow || 'week');
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
   }
 });
 
 app.get('/api/tmdb/find/:imdbId', async (req, res) => {
   try {
     const { imdbId } = req.params;
-    const url = `${TMDB_BASE_URL}/find/${imdbId}?external_source=imdb_id&api_key=${TMDB_API_KEY}`;
-    const response = await fetch(url, { signal: AbortSignal.timeout(4500) });
-    if (!response.ok) return res.status(response.status).json({ error: 'TMDB find failed' });
-    const data = await response.json();
-    res.json(data);
+    const data = await tmdb.findByImdb(imdbId);
+    if (!data) return res.status(404).json({ status: 'error', error: 'Not found' });
+    res.json({ status: 'success', data });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ status: 'error', error: err.message });
   }
 });
 
 app.get('/api/tmdb/search', async (req, res) => {
   try {
     const query = req.query.q || req.query.query;
-    if (!query) return res.status(400).json({ error: 'Query parameter q is required' });
-    const url = `${TMDB_BASE_URL}/search/multi?query=${encodeURIComponent(query)}&api_key=${TMDB_API_KEY}`;
-    const response = await fetch(url, { signal: AbortSignal.timeout(4500) });
-    if (!response.ok) return res.status(response.status).json({ error: 'TMDB search failed' });
-    const data = await response.json();
+    if (!query) return res.status(400).json({ status: 'error', error: 'Query parameter q is required' });
+    const data = await tmdb.searchMulti(query);
     res.json(data);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+// Unified TMDb Details Resolver for ANY Media ID (catalog ID, imdbId, or tmdbId)
+app.get('/api/tmdb/details/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    let type = req.query.type;
+    let tmdbId = null;
+
+    const catalogItem = catalogData.find(x => x.id === id || x.imdbId === id || String(x.tmdbId) === String(id));
+    if (catalogItem) {
+      tmdbId = catalogItem.tmdbId;
+      if (!type) type = (catalogItem.type === 'series' || catalogItem.type === 'tv') ? 'tv' : 'movie';
+    } else if (String(id).startsWith('tt')) {
+      const found = await tmdb.findByImdb(id);
+      if (found) {
+        tmdbId = found.id;
+        if (!type) type = found.media_type;
+      }
+    } else if (/^\d+$/.test(id)) {
+      tmdbId = id;
+    }
+
+    if (!tmdbId) {
+      return res.status(404).json({ status: 'error', error: 'Could not resolve TMDb ID' });
+    }
+
+    let data;
+    if (type === 'tv' || type === 'series') {
+      data = await tmdb.getTvDetails(tmdbId);
+    } else if (type === 'movie') {
+      data = await tmdb.getMovieDetails(tmdbId);
+    } else {
+      try {
+        data = await tmdb.getMovieDetails(tmdbId);
+      } catch (e) {
+        data = await tmdb.getTvDetails(tmdbId);
+      }
+    }
+
+    if (catalogItem) {
+      data.platform = catalogItem.platform;
+      data.platformId = catalogItem.platformId;
+      data.platformBadge = catalogItem.platformBadge;
+      data.platformColor = catalogItem.platformColor;
+      data.catalogId = catalogItem.id;
+    }
+
+    res.json({ status: 'success', data });
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
   }
 });
 
@@ -1568,7 +1692,20 @@ app.get('/api/trailer/:type/:id', async (req, res) => {
     }
   }
 
-  // B. Check Cinemeta metadata for official trailer streams
+  // B. Check TMDb API for genuine official 4K/HD trailers
+  const tmdbId = (item && item.tmdbId) || (!isNaN(id) && Number(id) > 100 ? Number(id) : null);
+  if (tmdbId && trailers.length === 0) {
+    try {
+      const details = isTv ? await tmdb.getTvDetails(tmdbId) : await tmdb.getMovieDetails(tmdbId);
+      if (details && details.trailer && details.trailer.id) {
+        trailers.push({ id: details.trailer.id, title: details.trailer.title || 'Official Trailer' });
+      }
+    } catch (e) {
+      console.warn('[Trailer] TMDb lookup notice:', e.message);
+    }
+  }
+
+  // C. Check Cinemeta metadata for official trailer streams
   if (imdbId && trailers.length === 0) {
     try {
       const cRes = await fetch(`https://v3-cinemeta.strem.io/meta/${isTv ? 'series' : 'movie'}/${imdbId}.json`, { signal: AbortSignal.timeout(4000) });

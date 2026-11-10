@@ -616,6 +616,7 @@
           <span class="badge-top10" id="hero-badge-tag"><i class="fa-solid fa-fire text-red"></i> #1 in TV Shows Today</span>
         </div>
 
+        <img class="hero-title-logo" id="hero-title-logo" src="" alt="" style="display: none;">
         <h1 class="billboard-title" id="hero-title">Stranger Things</h1>
 
         <div class="billboard-meta" id="hero-meta">
@@ -1249,7 +1250,9 @@
           <div class="modal-ott-pill" id="modal-platform-badge">
             <span class="platform-chip" id="modal-platform-chip">NETFLIX</span>
           </div>
+          <img class="modal-title-logo" id="modal-title-logo" src="" alt="" style="display: none;">
           <h2 class="modal-hero-title" id="modal-title">Stranger Things</h2>
+          <div class="modal-tagline" id="modal-tagline" style="display: none;"></div>
           <div class="modal-hero-actions">
             <button class="netflix-btn btn-white" id="modal-play-btn"><i class="fa-solid fa-play"></i> <span id="modal-play-text">Play</span></button>
             <button class="netflix-btn btn-secondary" id="modal-restart-btn" style="display: none;" title="Restart from beginning"><i class="fa-solid fa-rotate-left"></i> Restart</button>
@@ -1264,6 +1267,9 @@
       <div class="modal-content-grid">
         <div class="modal-left-col">
           <div class="modal-meta-row">
+            <span class="badge-tmdb-rating" id="modal-tmdb-rating" style="display: none;">
+              <i class="fa-solid fa-star text-gold"></i> <strong id="modal-rating-val">8.5</strong><small id="modal-rating-count">(15k)</small>
+            </span>
             <span class="meta-match text-green font-bold" id="modal-match">99% Match</span>
             <span class="meta-year" id="modal-year">2024</span>
             <span class="badge-maturity" id="modal-maturity">16+</span>
@@ -1272,6 +1278,14 @@
             <span class="badge-audio" id="modal-audio">Dolby Atmos</span>
           </div>
           <p class="modal-synopsis" id="modal-desc"></p>
+
+          <!-- Top Cast Avatars Strip (Enriched by TMDb API) -->
+          <div class="modal-cast-section" id="modal-cast-section" style="display: none;">
+            <div class="cast-section-header">
+              <span class="cast-section-title"><i class="fa-solid fa-user-group text-gold"></i> Top Cast &amp; Characters</span>
+            </div>
+            <div class="modal-cast-avatars-row" id="modal-cast-avatars"></div>
+          </div>
 
           <!-- Available Audio & Dubbed Languages Selector -->
           <div class="modal-audio-dub-box" id="modal-audio-dub-box">

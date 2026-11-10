@@ -3802,6 +3802,132 @@ input[type=range][orient=vertical] {
   right: 36px;
   z-index: 5;
 }
+.modal-title-logo {
+  max-height: 75px;
+  max-width: min(340px, 80vw);
+  object-fit: contain;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.85));
+  display: block;
+}
+.modal-tagline {
+  font-style: italic;
+  color: #94a3b8;
+  font-size: 13.5px;
+  margin: -6px 0 14px;
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+}
+.hero-title-logo {
+  max-height: 95px;
+  max-width: min(440px, 75vw);
+  object-fit: contain;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.9));
+  display: block;
+}
+.badge-tmdb-rating {
+  background: rgba(234, 179, 8, 0.15);
+  border: 1px solid rgba(234, 179, 8, 0.45);
+  color: #fbbf24;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.2px;
+}
+.badge-tmdb-rating small {
+  font-size: 10.5px;
+  color: #cbd5e1;
+  font-weight: 400;
+}
+.modal-cast-section {
+  margin: 18px 0;
+  padding: 12px 14px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+}
+.cast-section-header {
+  margin-bottom: 10px;
+}
+.cast-section-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.modal-cast-avatars-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 6px 2px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+.modal-cast-avatars-row::-webkit-scrollbar {
+  height: 5px;
+}
+.modal-cast-avatars-row::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+.modal-cast-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+  max-width: 95px;
+  text-align: center;
+  gap: 6px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.modal-cast-card:hover {
+  transform: translateY(-2px);
+}
+.cast-avatar-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  background: #1e293b;
+  flex-shrink: 0;
+}
+.cast-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cast-actor-name {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #f8fafc;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cast-char-name {
+  font-size: 10px;
+  color: #94a3b8;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .modal-hero-title {
   font-size: 40px;
   font-weight: 900;

@@ -727,6 +727,35 @@ function renderHero(item) {
 
   document.getElementById('hero-title').textContent = item.title;
   document.getElementById('hero-desc').textContent = item.description;
+
+  // Hero Title Logo (TMDb Transparent Vector/PNG)
+  const heroLogo = document.getElementById('hero-title-logo');
+  const heroTitle = document.getElementById('hero-title');
+  if (heroLogo) {
+    if (item.logo) {
+      heroLogo.src = item.logo;
+      heroLogo.alt = item.title;
+      heroLogo.style.display = 'block';
+      if (heroTitle) heroTitle.style.display = 'none';
+    } else {
+      heroLogo.style.display = 'none';
+      if (heroTitle) heroTitle.style.display = 'block';
+      if (item.tmdbId) {
+        fetch('/api/tmdb/' + (item.type === 'series' ? 'tv' : 'movie') + '/' + item.tmdbId)
+          .then(r => r.json())
+          .then(d => {
+            if (d && d.logo && heroItems[currentHeroIndex]?.id === item.id) {
+              item.logo = d.logo;
+              heroLogo.src = d.logo;
+              heroLogo.alt = item.title;
+              heroLogo.style.display = 'block';
+              if (heroTitle) heroTitle.style.display = 'none';
+            }
+          })
+          .catch(() => {});
+      }
+    }
+  }
   document.getElementById('hero-year').textContent = item.year;
   document.getElementById('hero-duration').textContent = item.duration;
   document.getElementById('hero-quality').textContent = item.quality || '4K Ultra HD';
@@ -3130,6 +3159,97 @@ async function openDetailsModal(item) {
 
   document.getElementById('modal-title').textContent = item.title;
   document.getElementById('modal-desc').textContent = item.description || 'Watch now in Ultra HD.';
+
+  // Reset TMDb Enrichments to clean initial state
+  const logoEl = document.getElementById('modal-title-logo');
+  const taglineEl = document.getElementById('modal-tagline');
+  const ratingEl = document.getElementById('modal-tmdb-rating');
+  const castSectionEl = document.getElementById('modal-cast-section');
+  const castAvatarsEl = document.getElementById('modal-cast-avatars');
+
+  if (logoEl) logoEl.style.display = 'none';
+  if (taglineEl) taglineEl.style.display = 'none';
+  if (ratingEl) ratingEl.style.display = 'none';
+  if (castSectionEl) castSectionEl.style.display = 'none';
+
+  // Asynchronously Enrich with Official TMDb API Data
+  (async () => {
+    try {
+      const tmdbTargetId = item.tmdbId || item.id || item.imdbId;
+      const res = await fetch('/api/tmdb/details/' + tmdbTargetId + '?type=' + (item.type || 'movie'));
+      if (!res.ok) return;
+      const json = await res.json();
+      if (json.status !== 'success' || !json.data) return;
+      const tmdbData = json.data;
+
+      // Verify the user hasn't switched to a different title while fetching
+      if (!currentItem || (currentItem.id !== item.id && currentItem.tmdbId !== tmdbData.tmdbId)) return;
+
+      // 1. Transparent Title Logo
+      if (tmdbData.logo && logoEl) {
+        logoEl.src = tmdbData.logo;
+        logoEl.alt = tmdbData.title;
+        logoEl.onload = () => {
+          if (currentItem && (currentItem.id === item.id || currentItem.tmdbId === tmdbData.tmdbId)) {
+            logoEl.style.display = 'block';
+          }
+        };
+      }
+
+      // 2. Official Tagline
+      if (tmdbData.tagline && taglineEl) {
+        taglineEl.textContent = '"' + tmdbData.tagline + '"';
+        taglineEl.style.display = 'block';
+      }
+
+      // 3. Indian / Global Content Rating
+      if (tmdbData.certification) {
+        const matEl = document.getElementById('modal-maturity');
+        if (matEl) matEl.textContent = tmdbData.certification;
+      }
+
+      // 4. Live TMDb Rating & Vote Count
+      if (tmdbData.rating && ratingEl) {
+        const valEl = document.getElementById('modal-rating-val');
+        const countEl = document.getElementById('modal-rating-count');
+        if (valEl) valEl.textContent = Number(tmdbData.rating).toFixed(1);
+        if (countEl) countEl.textContent = tmdbData.voteCount ? '(' + Number(tmdbData.voteCount).toLocaleString() + ')' : '';
+        ratingEl.style.display = 'inline-flex';
+      }
+
+      // 5. Official Trailer Attachment
+      if (tmdbData.trailer && tmdbData.trailer.url) {
+        item.trailer = tmdbData.trailer.url;
+        item.trailerKey = tmdbData.trailer.id;
+      }
+
+      // 6. Top Cast Avatars with Character Names
+      if (Array.isArray(tmdbData.cast) && tmdbData.cast.length > 0 && castSectionEl && castAvatarsEl) {
+        castAvatarsEl.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+        tmdbData.cast.slice(0, 12).forEach(c => {
+          const card = document.createElement('div');
+          card.className = 'modal-cast-card';
+          const avatarUrl = c.photo || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(c.name) + '&background=1e293b&color=cbd5e1';
+          card.innerHTML = '<div class="cast-avatar-wrap">' +
+            '<img class="cast-avatar-img" src="' + avatarUrl + '" alt="' + c.name + '" loading="lazy" decoding="async" onerror="this.src=\'https://ui-avatars.com/api/?name=' + encodeURIComponent(c.name) + '&background=1e293b&color=cbd5e1\';">' +
+            '</div>' +
+            '<span class="cast-actor-name" title="' + c.name + '">' + c.name + '</span>' +
+            '<span class="cast-char-name" title="' + (c.character || '') + '">' + (c.character || 'Cast') + '</span>';
+          fragment.appendChild(card);
+        });
+        castAvatarsEl.appendChild(fragment);
+        castSectionEl.style.display = 'block';
+      }
+
+      // 7. Recommendations ("More Like This")
+      if (Array.isArray(tmdbData.recommendations) && tmdbData.recommendations.length > 0) {
+        renderTmdbRecommendations(tmdbData.recommendations);
+      }
+    } catch (e) {
+      console.warn('[TMDb Enrich] Details fetch notice:', e.message);
+    }
+  })();
   
   const backdropImg = document.getElementById('modal-backdrop-img');
   const targetBackdrop = item.backdrop || item.poster || FALLBACK_BACKDROP;
@@ -3420,6 +3540,70 @@ function renderModalEpisodes(seasonNum) {
       openPlayer(item, seasonNum, ep.episode, selectedServerIndex, epSavedSec);
     };
 
+    fragment.appendChild(card);
+  });
+  grid.replaceChildren(fragment);
+
+  // Asynchronously fetch TMDb episode stills & exact titles if not already enriched
+  if (item && item.type === 'series' && (!item._tmdbSeasonsLoaded || !item._tmdbSeasonsLoaded[seasonNum])) {
+    item._tmdbSeasonsLoaded = item._tmdbSeasonsLoaded || {};
+    const seriesId = item.tmdbId || item.id;
+    fetch('/api/tmdb/tv/' + seriesId + '/season/' + seasonNum)
+      .then(r => r.json())
+      .then(tmdbSeason => {
+        if (tmdbSeason && tmdbSeason.status === 'success' && Array.isArray(tmdbSeason.episodes)) {
+          item._tmdbSeasonsLoaded[seasonNum] = true;
+          tmdbSeason.episodes.forEach(tmdbEp => {
+            const localEp = sData.episodes.find(e => e.episode === tmdbEp.episode);
+            if (localEp) {
+              if (tmdbEp.thumbnail) localEp.thumbnail = tmdbEp.thumbnail;
+              if (tmdbEp.title && !tmdbEp.title.startsWith('Episode ')) localEp.title = tmdbEp.title;
+              if (tmdbEp.overview) localEp.description = tmdbEp.overview;
+              if (tmdbEp.duration) localEp.duration = tmdbEp.duration;
+            }
+          });
+          const curSelect = document.getElementById('modal-season-select');
+          if (curSelect && String(curSelect.value) === String(seasonNum) && currentItem && (currentItem.id === item.id || currentItem.tmdbId === item.tmdbId)) {
+            renderModalEpisodes(seasonNum);
+          }
+        }
+      })
+      .catch(() => {});
+  }
+}
+
+function renderTmdbRecommendations(recs) {
+  const grid = document.getElementById('modal-similar-grid');
+  if (!grid || !Array.isArray(recs) || recs.length === 0) return;
+
+  const fragment = document.createDocumentFragment();
+  recs.slice(0, 6).forEach(rec => {
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', rec.title);
+    card.innerHTML = '<div class="card-poster-wrap">' +
+      '<img class="card-poster" src="' + (rec.poster || FALLBACK_POSTER) + '" alt="' + rec.title + '" loading="lazy" decoding="async" onerror="window.handleImgError(this)">' +
+      '<div class="card-ott-badge badge-netflix">TMDb Match</div>' +
+      '<div class="card-play-hover">' +
+      '<div class="play-circle"><i class="fa-solid fa-play"></i></div>' +
+      '</div>' +
+      '</div>' +
+      '<div class="card-info">' +
+      '<h4 class="card-title">' + rec.title + '</h4>' +
+      '<div class="card-meta">' +
+      '<span class="text-green font-bold">' + (rec.matchRate || '95% Match') + '</span>' +
+      '<span>' + (rec.type === 'series' ? 'TV Show' : 'Movie') + '</span>' +
+      '</div>' +
+      '</div>';
+    card.onclick = () => openDetailsModal(rec);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Select') {
+        e.preventDefault();
+        openDetailsModal(rec);
+      }
+    });
     fragment.appendChild(card);
   });
   grid.replaceChildren(fragment);
