@@ -372,6 +372,21 @@
     renderSpotlightHero();
   }
 
+  // Activity Detector: Pause spotlight carousel when user is actively navigating
+  let spotlightResumeTimer = null;
+  function onUserActive() {
+    if (spotlightTimer) {
+      clearInterval(spotlightTimer);
+      spotlightTimer = null;
+    }
+    if (spotlightResumeTimer) clearTimeout(spotlightResumeTimer);
+    spotlightResumeTimer = setTimeout(() => {
+      if (!isPlayerActive && activeZone === 'hero') {
+        spotlightTimer = setInterval(nextSpotlight, 12000);
+      }
+    }, 20000);
+  }
+
   // =========================================================================
   // CONTENT ROWS
   // =========================================================================
@@ -394,7 +409,12 @@
 
     rowConfigs.forEach((conf, rIdx) => {
       let items = allCatalog.filter(conf.filter);
-      if (conf.top10) items = items.sort((a, b) => (a.rank || 99) - (b.rank || 99)).slice(0, 10);
+      if (conf.top10) {
+        items = items.sort((a, b) => (a.rank || 99) - (b.rank || 99)).slice(0, 10);
+      } else {
+        // Fast 60 FPS Leanback: Cap to 20 items per row to prevent memory exhaustion on Smart TVs
+        items = items.slice(0, 20);
+      }
       if (!items.length) return;
 
       const rowEl = document.createElement('div');
@@ -778,6 +798,9 @@
 
     const streamUrl = getStreamUrl(serverIndex, item, season, episode);
     console.log(`[CinemaVerse TV Player] Streaming: ${streamUrl}`);
+    iframe.setAttribute('allow', 'autoplay *; encrypted-media *; fullscreen *; picture-in-picture *; display-capture *');
+    iframe.setAttribute('referrerpolicy', 'no-referrer');
+    iframe.setAttribute('allowfullscreen', 'true');
     iframe.src = streamUrl;
 
     if (titleEl) {
@@ -823,6 +846,22 @@
       };
       chipsContainer.appendChild(chip);
     });
+
+    // Native TV Player Bridge (VLC / MX Player) if running inside Android TV APK
+    if (typeof window !== 'undefined' && window.AndroidPlayerBridge && typeof window.AndroidPlayerBridge.openExternalPlayer === 'function') {
+      const extBtn = document.createElement('button');
+      extBtn.type = 'button';
+      extBtn.className = 'tv-player-server-chip';
+      extBtn.style.background = '#22c55e';
+      extBtn.style.color = '#000';
+      extBtn.style.fontWeight = '800';
+      extBtn.textContent = '🚀 VLC / MX Player';
+      extBtn.onclick = () => {
+        const url = getStreamUrl(selectedModalServer, selectedModalItem, selectedModalSeason, selectedModalEpisode);
+        window.AndroidPlayerBridge.openExternalPlayer(url, (selectedModalItem && selectedModalItem.title) || 'Movie');
+      };
+      chipsContainer.appendChild(extBtn);
+    }
   }
 
   function switchPlayerServer(newServerIdx) {
@@ -830,6 +869,9 @@
     playerServerIdx = newServerIdx;
     const iframe = document.getElementById('tv-player-iframe');
     if (iframe && selectedModalItem) {
+      iframe.setAttribute('allow', 'autoplay *; encrypted-media *; fullscreen *; picture-in-picture *; display-capture *');
+      iframe.setAttribute('referrerpolicy', 'no-referrer');
+      iframe.setAttribute('allowfullscreen', 'true');
       iframe.src = getStreamUrl(newServerIdx, selectedModalItem, selectedModalSeason, selectedModalEpisode);
     }
     renderPlayerHudServers();
@@ -963,6 +1005,8 @@
   }
 
   function navigateDpad(dir) {
+    onUserActive();
+
     if (isPlayerActive) {
       showPlayerHudBriefly();
       navigatePlayerHud(dir);

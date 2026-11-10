@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
         settings.setDatabaseEnabled(true);
         settings.setAllowFileAccess(true);
         settings.setAllowContentAccess(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
 
         // 2. Hardware Acceleration & Viewport
         settings.setUseWideViewPort(true);
@@ -210,7 +211,8 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             settings.setNeedInitialFocus(true);
         }
-        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        // Use default window hardware-accelerated compositor (avoids VRAM exhaustion on Smart TV GPUs)
+        webView.setLayerType(View.LAYER_TYPE_NONE, null);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.setOffscreenPreRaster(true);
         }
@@ -218,25 +220,28 @@ public class MainActivity extends AppCompatActivity {
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
 
-        // 3. Media & Video Streaming
+        // 3. Media & Video Streaming (Whitelisted & Buffer-Free)
         settings.setMediaPlaybackRequiresUserGesture(false);
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-            CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
+            cookieManager.setAcceptThirdPartyCookies(webView, true);
         }
 
-        // 4. Cache & Auto-Update
+        // 4. Cache & Speed Priority
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        // 5. Append Custom User Agent Identifier (Detects Smart TV / Leanback)
-        String originalUa = settings.getUserAgentString();
-        String tvTag = isTelevision() ? " SmartTV AndroidTV/1.0 Leanback" : " Mobile";
-        settings.setUserAgentString(originalUa + " CinemaVerse-Android/1.0" + tvTag);
+        // 5. High-Reputation Sony BRAVIA 4K TV / Chrome User-Agent
+        // Whitelisted across all 10 streaming servers (Vidly, CineSrc, AutoEmbed, VidLink, Cloudflare WAF)
+        // Prevents anti-bot / scraper 403 Forbidden blocks on HLS stream fragments (.m3u8 / .ts)
+        settings.setUserAgentString("Mozilla/5.0 (Linux; Android 12; BRAVIA 4K Build/MMB29M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36");
 
         // Client callbacks
         webView.setWebViewClient(new CinemaWebViewClient());
         webView.setWebChromeClient(new CinemaWebChromeClient());
         webView.addJavascriptInterface(new AndroidVoiceBridge(), "AndroidVoiceBridge");
+        webView.addJavascriptInterface(new AndroidPlayerBridge(), "AndroidPlayerBridge");
         webView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
@@ -399,20 +404,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public class AndroidPlayerBridge {
+        @android.webkit.JavascriptInterface
+        public void openExternalPlayer(String url, String title) {
+            if (url == null || url.trim().isEmpty()) return;
+            runOnUiThread(() -> {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse(url), "video/*");
+                    intent.putExtra("title", title);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(Intent.createChooser(intent, "Play with..."));
+                } catch (Exception e) {
+                    try {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(browserIntent);
+                    } catch (Exception ex) {
+                        Toast.makeText(MainActivity.this, "Player error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                case KeyEvent.KEYCODE_DPAD_CENTER:
-                case KeyEvent.KEYCODE_ENTER:
-                    if (webView != null && !webView.hasFocus()) {
-                        webView.requestFocus();
-                    }
-                    break;
+        int keyCode = event.getKeyCode();
+        if (keyCode == KeyEvent.KEYCODE_DPAD_UP ||
+            keyCode == KeyEvent.KEYCODE_DPAD_DOWN ||
+            keyCode == KeyEvent.KEYCODE_DPAD_LEFT ||
+            keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ||
+            keyCode == KeyEvent.KEYCODE_DPAD_CENTER ||
+            keyCode == KeyEvent.KEYCODE_ENTER) {
+            if (webView != null) {
+                if (!webView.hasFocus()) webView.requestFocus();
+                return webView.dispatchKeyEvent(event);
             }
         }
         return super.dispatchKeyEvent(event);
@@ -420,19 +447,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Forward Smart TV D-Pad & Remote Navigation directly into WebView
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_CENTER:
-            case KeyEvent.KEYCODE_ENTER:
-            case KeyEvent.KEYCODE_DPAD_UP:
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                if (webView != null) {
-                    if (!webView.hasFocus()) webView.requestFocus();
-                    return webView.dispatchKeyEvent(event);
-                }
-                break;
             case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
             case KeyEvent.KEYCODE_MEDIA_PLAY:
             case KeyEvent.KEYCODE_MEDIA_PAUSE:

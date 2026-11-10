@@ -164,7 +164,8 @@ export default function TvPage({ initialCatalog }) {
           className="tv-player-iframe"
           id="tv-player-iframe"
           src="about:blank"
-          allow="autoplay; fullscreen; encrypted-media"
+          allow="autoplay *; encrypted-media *; fullscreen *; picture-in-picture *; display-capture *"
+          referrerPolicy="no-referrer"
           allowFullScreen
         />
         <div className="tv-player-hud" id="tv-player-hud">

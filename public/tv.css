@@ -82,16 +82,14 @@ body.netflix-body::-webkit-scrollbar {
   top: 0 !important;
   left: 0 !important;
   bottom: 0 !important;
-  background: rgba(10, 12, 18, 0.96) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
+  background: rgba(10, 12, 18, 0.98) !important;
   border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   padding: 24px 0 20px !important;
   z-index: 120 !important;
-  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease !important;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
 }
@@ -361,22 +359,21 @@ body.netflix-body::-webkit-scrollbar {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
 }
 
 .tv-btn.tv-focused,
 .tv-btn:focus {
-  outline: none;
+  outline: 3px solid #ffffff !important;
+  outline-offset: 2px;
   background: #ffffff !important;
   color: #0b0d14 !important;
   border-color: #ffffff !important;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 12px var(--tv-red-glow) !important;
-  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8) !important;
+  transform: scale(1.06) translateY(-2px);
 }
 
 /* ==========================================================================
-   CONTENT ROWS CONTAINER & CARDS
+   CONTENT ROWS CONTAINER & CARDS (60 FPS Hardware Optimized)
    ========================================================================== */
 .tv-rows-section {
   display: flex;
@@ -394,6 +391,8 @@ body.netflix-body::-webkit-scrollbar {
   gap: 14px;
   position: relative;
   contain: style layout;
+  content-visibility: auto;
+  contain-intrinsic-size: 280px 180px;
 }
 
 .tv-row-header {
@@ -427,7 +426,7 @@ body.netflix-body::-webkit-scrollbar {
   display: none;
 }
 
-/* Standard Movie / Series TV Card */
+/* Standard Movie / Series TV Card (Hardware Accelerated & Low Memory) */
 .tv-card {
   flex: 0 0 160px;
   width: 160px;
@@ -439,7 +438,8 @@ body.netflix-body::-webkit-scrollbar {
   cursor: pointer;
   border: 2px solid rgba(255, 255, 255, 0.08);
   transform: translateZ(0);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.16s ease, border-color 0.16s ease;
+  contain: paint layout;
 }
 
 .tv-card-poster {
@@ -512,10 +512,11 @@ body.netflix-body::-webkit-scrollbar {
 /* Card D-Pad Focused Halo State */
 .tv-card.tv-focused,
 .tv-card:focus {
-  outline: none;
-  transform: scale(1.1) translateY(-4px);
+  outline: 3px solid #ff3344;
+  outline-offset: 3px;
+  transform: scale(1.08) translateY(-4px);
   border-color: #fff;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 28px var(--tv-red-glow);
+  box-shadow: 0 8px 24px rgba(229, 9, 20, 0.6);
   z-index: 20;
 }
 
@@ -734,8 +735,7 @@ body.netflix-body::-webkit-scrollbar {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(7, 8, 11, 0.96);
-  backdrop-filter: blur(24px);
+  background: rgba(7, 8, 11, 0.98);
   z-index: 300;
   padding: 44px 6%;
   overflow-y: auto;
