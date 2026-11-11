@@ -805,6 +805,7 @@ function toggleHeroAudio() {
 // ========================================================
 
 function slideRow(rowId, direction) {
+
   const row = document.getElementById(rowId);
   if (!row) return;
   const scrollAmount = row.clientWidth * 0.75 * direction;
@@ -9155,34 +9156,47 @@ async function loadTmdbTrending(filterType = 'all', timeWindow = 'day') {
 }
 
 function renderTrendingCards(items) {
-  const listEl = document.getElementById('tmdb-trending-list');
-  if (!listEl || !items) return;
+  const listEls = document.querySelectorAll('#tmdb-trending-list');
+  if (!listEls.length || !items) return;
 
-  listEl.innerHTML = items.map((item, idx) => {
+  const html = items.map((item, idx) => {
+    const rankNum = idx + 1;
     const posterUrl = item.poster || item.backdrop || FALLBACK_POSTER;
     const title = item.title || item.name || 'Untitled';
     const rating = item.rating ? Number(item.rating).toFixed(1) : '8.0';
-    const year = item.year || (item.release_date || '2024').slice(0, 4);
+    const year = item.year || (item.release_date || item.first_air_date || '2024').slice(0, 4);
     const typeLabel = item.type === 'series' ? 'TV' : 'Movie';
     const itemId = item.id || `tmdb_${item.tmdbId || idx}`;
+    const matchRate = item.matchRate || `${Math.round(rating * 10)}% Match`;
 
     return `
-      <div class="netflix-card" data-id="${itemId}" onclick="handleTrendingCardClick('${itemId}')" role="button" tabindex="0">
-        <div class="trending-card-flame">
-          <i class="fa-solid fa-fire text-gold"></i> #${idx + 1}
-        </div>
-        <img class="card-poster" src="${posterUrl}" alt="${title}" loading="lazy" onerror="handleImgError(this)">
-        <div class="card-meta">
-          <h4 class="card-title">${title}</h4>
-          <div class="card-badges">
-            <span class="badge-rating"><i class="fa-solid fa-star text-gold"></i> ${rating}</span>
-            <span class="badge-type">${typeLabel}</span>
-            <span class="badge-year">${year}</span>
+      <div class="top10-card tmdb-trending-top10-card" data-id="${itemId}" onclick="handleTrendingCardClick('${itemId}')" role="button" tabindex="0" aria-label="${rankNum}. ${title}">
+        <div class="top10-rank-num">${rankNum}</div>
+        <div class="movie-card">
+          <div class="card-poster-wrap">
+            <img class="card-poster" src="${posterUrl}" alt="${title}" loading="lazy" decoding="async" onerror="window.handleImgError(this)">
+            <div class="card-ott-badge badge-trending"><i class="fa-solid fa-fire text-gold"></i> #${rankNum} Trending</div>
+            <div class="card-play-hover">
+              <div class="play-circle"><i class="fa-solid fa-play"></i></div>
+            </div>
+          </div>
+          <div class="card-info">
+            <h4 class="card-title">${title}</h4>
+            <div class="card-meta">
+              <span class="text-green font-bold">${matchRate}</span>
+              <span>${year}</span>
+              <span class="card-badge-hd">${typeLabel}</span>
+            </div>
           </div>
         </div>
       </div>
     `;
   }).join('');
+
+  listEls.forEach(el => {
+    el.innerHTML = html;
+    el.className = 'netflix-row top10-row tmdb-top10-row';
+  });
 }
 
 function handleTrendingCardClick(itemId) {
@@ -10087,3 +10101,5 @@ window.openUpgradeModal = openUpgradeModal;
 window.closeUpgradeModal = closeUpgradeModal;
 window.handleUpgradeBackdropClick = handleUpgradeBackdropClick;
 window.toggleProfileDropdown = toggleProfileDropdown;
+
+window.slideRow = slideRow;
