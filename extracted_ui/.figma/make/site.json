@@ -1,0 +1,10 @@
+{
+  "description": "Discover and browse a premium streaming catalog of movies through a polished, cinematic interface designed for effortless entertainment.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

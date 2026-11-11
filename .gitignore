@@ -1,5 +1,7 @@
 # Dependencies
 node_modules/
+extracted_ui/node_modules/
+extracted_ui/dist/
 .next/
 out/
 
