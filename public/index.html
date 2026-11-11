@@ -404,6 +404,198 @@
   </div>
 
 <div id="cinemaverse-app" class="cinemaverse-main-app" style="display: block;">
+
+  <!-- ======================================================== -->
+  <!-- MONLEX.NET DASHBOARD ARCHITECTURE (SCREENSHOT REPLICA)    -->
+  <!-- ======================================================== -->
+  <div class="monlex-dashboard-shell" id="monlex-dashboard-shell">
+    
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <aside class="monlex-sidebar" id="monlex-sidebar">
+      <!-- Monlex Brand with Purple M Icon -->
+      <div class="monlex-brand" onclick="resetToHome()" role="button" tabindex="0" title="Monlex.Net Home">
+        <div class="monlex-brand-icon">M</div>
+        <span class="monlex-brand-name">Monlex.Net</span>
+      </div>
+
+      <!-- In-Sidebar Search Bar with Autocomplete Dropdown -->
+      <div class="monlex-sidebar-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="monlex-search-input" placeholder="Search..." autocomplete="off">
+        <button type="button" class="monlex-search-clear" id="monlex-search-clear" onclick="clearSearch()" style="display: none;" title="Clear search">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="search-autocomplete-dropdown monlex-sidebar-autocomplete" id="monlex-search-autocomplete" style="display: none;"></div>
+      </div>
+
+      <!-- News Feed Navigation -->
+      <div class="monlex-nav-group">
+        <div class="monlex-nav-heading">News Feed</div>
+        <nav class="monlex-nav-list" id="monlex-nav-list">
+          <a href="#home" class="monlex-nav-item active" data-nav="home" onclick="handleMonlexNav('home', this); return false;">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+          </a>
+          <a href="#trending" class="monlex-nav-item" data-nav="trending" onclick="handleMonlexNav('trending', this); return false;">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span>Trending</span>
+          </a>
+          <a href="#following" class="monlex-nav-item" data-nav="following" onclick="handleMonlexNav('following', this); return false;">
+            <i class="fa-solid fa-user-group"></i>
+            <span>Following</span>
+          </a>
+          <a href="#videos" class="monlex-nav-item" data-nav="videos" onclick="handleMonlexNav('videos', this); return false;">
+            <i class="fa-solid fa-file-video"></i>
+            <span>Your Videos</span>
+          </a>
+          <a href="#playlist" class="monlex-nav-item" data-nav="playlist" onclick="handleMonlexNav('playlist', this); return false;">
+            <i class="fa-solid fa-compact-disc"></i>
+            <span>Playlist</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Following Profiles Section -->
+      <div class="monlex-following-group">
+        <div class="monlex-nav-heading">Following</div>
+        <div class="monlex-following-list">
+          <div class="monlex-following-user" onclick="showToast('Alex Smith — Connected &amp; Streaming')" role="button" tabindex="0">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" alt="Alex Smith" class="monlex-user-avatar">
+            <span class="monlex-user-name">Alex Smith</span>
+            <i class="fa-solid fa-wifi monlex-user-status text-purple" title="Signal Active"></i>
+          </div>
+          <div class="monlex-following-user" onclick="showToast('Angelina Lie is live now')" role="button" tabindex="0">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" alt="Angelina Lie" class="monlex-user-avatar">
+            <span class="monlex-user-name">Angelina Lie</span>
+            <span class="monlex-online-dot" title="Online"></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD CONTENT AREA -->
+    <main class="monlex-main-area" id="monlex-main-area">
+      <!-- TOP NAVIGATION BAR -->
+      <header class="monlex-topbar" id="monlex-topbar">
+        <!-- Category Tabs -->
+        <div class="monlex-category-tabs" id="monlex-category-tabs">
+          <button type="button" class="monlex-cat-tab" data-category="movie" onclick="switchMonlexCategory('movie', this)">Movie</button>
+          <button type="button" class="monlex-cat-tab active" data-category="series" onclick="switchMonlexCategory('series', this)">TV Show</button>
+          <button type="button" class="monlex-cat-tab" data-category="anime" onclick="switchMonlexCategory('anime', this)">Anime</button>
+        </div>
+
+        <!-- Top Right Actions -->
+        <div class="monlex-topbar-actions">
+          <button type="button" class="monlex-btn-upgrade" onclick="openAuthModal('login')" title="Upgrade VIP Experience">
+            <span>Upgrade</span>
+          </button>
+          <div class="monlex-profile-chip" id="monlex-profile-chip" onclick="toggleProfileDropdown(event)" role="button" tabindex="0" title="Account &amp; Settings">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" alt="Alex Smith" class="monlex-chip-avatar">
+            <span class="monlex-chip-name">Alex Smith</span>
+            <i class="fa-solid fa-caret-down"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- SPOTLIGHT HERO ROW (Murder Mystery + Recent Movie Panel) -->
+      <section class="monlex-spotlight-row" id="monlex-spotlight-row">
+        <!-- HERO BANNER CARD (Left ~65%) -->
+        <div class="monlex-hero-card" id="monlex-hero-card">
+          <div class="monlex-hero-bg" id="monlex-hero-bg" style="background-image: url('https://image.tmdb.org/t/p/w1280/wL8KA3zIJQPbbU5hJlyIdmmLZit.jpg');"></div>
+          <div class="monlex-hero-overlay"></div>
+          <div class="monlex-hero-content">
+            <h1 class="monlex-hero-title" id="monlex-hero-title">Murder Mystery</h1>
+            <div class="monlex-hero-views" id="monlex-hero-views">
+              <i class="fa-regular fa-eye"></i> <span id="monlex-hero-views-count">82,642,242</span>
+            </div>
+            <div class="monlex-hero-buttons">
+              <button type="button" class="monlex-btn-watch" id="monlex-hero-watch-btn" onclick="playMonlexHero()">
+                <i class="fa-solid fa-play"></i>
+                <span>Watch Now</span>
+              </button>
+              <button type="button" class="monlex-btn-following" id="monlex-hero-follow-btn" onclick="toggleMonlexHeroFollow()">
+                <i class="fa-solid fa-check"></i>
+                <span>Following</span>
+              </button>
+            </div>
+          </div>
+          <!-- Netflix watermark -->
+          <div class="monlex-hero-platform-watermark" id="monlex-hero-watermark">
+            NETFLIX
+          </div>
+        </div>
+
+        <!-- RECENT MOVIE PANEL (Right ~35%) -->
+        <div class="monlex-recent-panel" id="monlex-recent-panel">
+          <div class="monlex-recent-header">
+            <h3 class="monlex-recent-title">Recent Movie</h3>
+            <button type="button" class="monlex-recent-more-btn" onclick="filterCategory('movie')" title="View More">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+          </div>
+          <div class="monlex-recent-list" id="monlex-recent-list">
+            <!-- Dynamic Recent Cards rendered via app.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SHELVES CONTAINER (Landscape 16:9 Cards with Center Circular Play Button) -->
+      <div class="monlex-shelves-container" id="monlex-shelves-container">
+        <!-- Popular Movies Shelf -->
+        <section class="monlex-shelf-section" id="monlex-shelf-popular">
+          <div class="monlex-shelf-header">
+            <h2 class="monlex-shelf-title" id="monlex-shelf-popular-title">Popular Movies</h2>
+            <a href="#movies" class="monlex-shelf-all" onclick="filterCategory('movie'); return false;">All Movies <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+          <div class="monlex-landscape-grid" id="monlex-popular-grid">
+            <!-- Landscape cards populated here -->
+          </div>
+        </section>
+
+        <!-- TMDb Live Trending Shelf -->
+        <section class="monlex-shelf-section tmdb-trending-shelf-section" id="monlex-shelf-trending">
+          <div class="monlex-shelf-header">
+            <div class="shelf-title-with-badge">
+              <h2 class="monlex-shelf-title"><i class="fa-solid fa-fire text-red"></i> Trending on TMDb</h2>
+              <span class="trending-live-pulse-badge"><span class="pulse-dot"></span> LIVE</span>
+            </div>
+            <div class="monlex-trending-filter-tabs">
+              <button type="button" class="monlex-pill-filter active" onclick="switchTrendingFilter('all', this)">All</button>
+              <button type="button" class="monlex-pill-filter" onclick="switchTrendingFilter('movie', this)">Movies</button>
+              <button type="button" class="monlex-pill-filter" onclick="switchTrendingFilter('tv', this)">TV</button>
+            </div>
+          </div>
+          <div class="netflix-row tmdb-trending-row" id="tmdb-trending-list">
+            <!-- Populated via loadTmdbTrending() -->
+          </div>
+        </section>
+
+        <!-- Trending TV Shows Shelf -->
+        <section class="monlex-shelf-section" id="monlex-shelf-tv">
+          <div class="monlex-shelf-header">
+            <h2 class="monlex-shelf-title">Trending TV Shows</h2>
+            <a href="#series" class="monlex-shelf-all" onclick="filterCategory('series'); return false;">All TV Shows <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+          <div class="monlex-landscape-grid" id="monlex-tv-grid">
+            <!-- TV landscape cards populated here -->
+          </div>
+        </section>
+
+        <!-- Top Anime Shelf -->
+        <section class="monlex-shelf-section" id="monlex-shelf-anime">
+          <div class="monlex-shelf-header">
+            <h2 class="monlex-shelf-title">Top Anime</h2>
+            <a href="#anime" class="monlex-shelf-all" onclick="filterCategory('anime'); return false;">All Anime <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+          <div class="monlex-landscape-grid" id="monlex-anime-grid">
+            <!-- Anime landscape cards populated here -->
+          </div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
 <!-- ======================================================== -->
   <!-- CINEMAVERSE TOP NAVIGATION BAR                            -->
   <!-- ======================================================== -->
