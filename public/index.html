@@ -443,6 +443,12 @@
     </div>
 
     <div class="nav-right">
+      <!-- shadcn/ui Next-Generation Command Palette Trigger (cmdk) -->
+      <button type="button" class="shadcn-search-trigger" id="shadcn-search-trigger" onclick="openCommandPalette()" title="Open Command Search (Ctrl+K or ⌘K)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span class="search-trigger-placeholder">Search 1,300+ titles, cast, OTTs...</span>
+        <kbd class="shadcn-kbd"><span class="kbd-cmd">⌘</span>K</kbd>
+      </button>
       <!-- Netflix Expandable Search Box -->
       <div class="netflix-search-box" id="search-box">
         <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBox()" title="Search">
@@ -2945,7 +2951,7 @@
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </button>
-    <button type="button" class="mobile-nav-item" id="mob-nav-search" onclick="openSearchModal(); setActiveMobNav(this);" title="Search">
+    <button type="button" class="mobile-nav-item" id="mob-nav-search" onclick="openCommandPalette(); setActiveMobNav(this);" title="Search">
       <i class="fa-solid fa-magnifying-glass"></i>
       <span>Search</span>
     </button>
@@ -2963,6 +2969,39 @@
     </button>
   </nav>
 
+
+  
+  <!-- ======================================================== -->
+  <!-- SHADCN/UI COMMAND PALETTE DIALOG (cmdk Component)        -->
+  <!-- ======================================================== -->
+  <div class="shadcn-command-dialog-overlay" id="command-dialog-overlay" style="display: none;" onclick="closeCommandPalette(event)">
+    <div class="shadcn-command-dialog" id="command-dialog" onclick="event.stopPropagation()">
+      <div class="shadcn-command-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass shadcn-command-icon"></i>
+        <input type="text" id="command-search-input" class="shadcn-command-input" placeholder="Search 1,300+ movies, series, cast, OTTs..." autocomplete="off">
+        <button type="button" class="shadcn-command-clear" id="command-search-clear" onclick="clearCommandSearch()" style="display: none;" title="Clear">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button type="button" class="shadcn-command-voice" id="command-search-voice" onclick="toggleVoiceSearch(event)" title="Voice Search">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
+        <kbd class="shadcn-kbd kbd-esc" onclick="closeCommandPalette()">ESC</kbd>
+      </div>
+
+      <div class="shadcn-command-list" id="command-search-list">
+        <!-- Populated via renderCommandDefaultSuggestions() & handleCommandInput() -->
+      </div>
+      
+      <div class="shadcn-command-footer">
+        <div class="shadcn-command-footer-tip">
+          <span><kbd class="shadcn-kbd">↑</kbd> <kbd class="shadcn-kbd">↓</kbd> Navigate</span>
+          <span><kbd class="shadcn-kbd">↵</kbd> Select</span>
+          <span><kbd class="shadcn-kbd">ESC</kbd> Close</span>
+        </div>
+        <span class="shadcn-command-badge"><i class="fa-solid fa-bolt text-gold"></i> Live TMDb &amp; Metahub</span>
+      </div>
+    </div>
+  </div>
 
   <script src="/initial_catalog.js?v=20261110_1935"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

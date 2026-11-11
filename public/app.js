@@ -9463,3 +9463,292 @@ function selectAcGenre(genre) {
     performSearch(genre);
   }
 }
+
+
+// ========================================================
+// SHADCN/UI COMMAND PALETTE (cmdk) NEXT-GEN SEARCH ENGINE
+// ========================================================
+let isCommandPaletteOpen = false;
+let cmdActiveIndex = -1;
+let currentCmdItems = [];
+let cmdDebounceTimer = null;
+
+function openCommandPalette() {
+  const overlay = document.getElementById('command-dialog-overlay');
+  const input = document.getElementById('command-search-input');
+  if (!overlay || !input) return;
+  overlay.style.display = 'flex';
+  isCommandPaletteOpen = true;
+  input.focus();
+  input.select();
+  if (!input.value) {
+    renderCommandDefaultSuggestions();
+  } else {
+    handleCommandInput(input.value);
+  }
+}
+
+function closeCommandPalette(e) {
+  if (e && e.target && e.target.id !== 'command-dialog-overlay' && !e.target.classList.contains('kbd-esc')) {
+    return;
+  }
+  const overlay = document.getElementById('command-dialog-overlay');
+  if (overlay) overlay.style.display = 'none';
+  isCommandPaletteOpen = false;
+  cmdActiveIndex = -1;
+}
+
+function clearCommandSearch() {
+  const input = document.getElementById('command-search-input');
+  const clearBtn = document.getElementById('command-search-clear');
+  if (input) {
+    input.value = '';
+    input.focus();
+  }
+  if (clearBtn) clearBtn.style.display = 'none';
+  renderCommandDefaultSuggestions();
+}
+
+function renderCommandDefaultSuggestions() {
+  const list = document.getElementById('command-search-list');
+  if (!list) return;
+
+  const topHits = (currentCatalog || []).filter(x => x.trending || x.featured).slice(0, 5);
+
+  let html = `
+    <div class="shadcn-command-group">
+      <div class="shadcn-command-group-heading"><i class="fa-solid fa-bolt text-gold"></i> Trending Blockbusters</div>
+  `;
+
+  currentCmdItems = [];
+  topHits.forEach((item, idx) => {
+    currentCmdItems.push({ type: 'item', data: item });
+    const poster = item.poster || item.backdrop || FALLBACK_POSTER;
+    const rating = item.rating ? Number(item.rating).toFixed(1) : '8.5';
+    const year = item.year || '2024';
+    const type = item.type === 'series' ? 'TV' : 'Movie';
+
+    html += `
+      <div class="shadcn-command-item" data-idx="${idx}" onclick="selectCmdItem(${idx})" role="button">
+        <img src="${poster}" alt="${item.title}" class="shadcn-cmd-thumb" onerror="handleImgError(this)">
+        <div class="shadcn-cmd-info">
+          <div class="shadcn-cmd-title">${item.title}</div>
+          <div class="shadcn-cmd-meta">
+            <span class="shadcn-cmd-badge"><i class="fa-solid fa-star text-gold"></i> ${rating}</span>
+            <span>${type}</span>
+            <span>${year}</span>
+          </div>
+        </div>
+        <span class="shadcn-command-shortcut">↵</span>
+      </div>
+    `;
+  });
+
+  html += `
+    </div>
+    <div class="shadcn-command-group">
+      <div class="shadcn-command-group-heading"><i class="fa-solid fa-layer-group text-cyan"></i> Quick Categories</div>
+      <div class="shadcn-command-item" onclick="filterCategory('series'); closeCommandPalette();">
+        <i class="fa-solid fa-tv text-cyan"></i> <div class="shadcn-cmd-title">TV Shows &amp; Web Series</div>
+      </div>
+      <div class="shadcn-command-item" onclick="filterCategory('movie'); closeCommandPalette();">
+        <i class="fa-solid fa-film text-purple"></i> <div class="shadcn-cmd-title">Movies &amp; Blockbusters</div>
+      </div>
+      <div class="shadcn-command-item" onclick="toggleOttHub(); closeCommandPalette();">
+        <i class="fa-solid fa-circle-play text-red"></i> <div class="shadcn-cmd-title">Multi-OTT Platforms (Netflix, Prime, Disney+, HBO, Apple TV+)</div>
+      </div>
+    </div>
+  `;
+
+  list.innerHTML = html;
+}
+
+function handleCommandInput(q) {
+  const query = (q || '').trim();
+  const list = document.getElementById('command-search-list');
+  const clearBtn = document.getElementById('command-search-clear');
+  if (clearBtn) clearBtn.style.display = query ? 'block' : 'none';
+
+  if (!query) {
+    renderCommandDefaultSuggestions();
+    return;
+  }
+
+  // 1. Instant local search (<1ms)
+  const qLower = query.toLowerCase();
+  const localTitles = (currentCatalog || [])
+    .filter(x => x.title && x.title.toLowerCase().includes(qLower))
+    .slice(0, 6);
+
+  renderCommandResults(query, localTitles, []);
+
+  // 2. Debounced API search (140ms)
+  clearTimeout(cmdDebounceTimer);
+  cmdDebounceTimer = setTimeout(async () => {
+    try {
+      const res = await fetch(`/api/search/autocomplete?q=${encodeURIComponent(query)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data && data.status === 'success') {
+        renderCommandResults(query, data.titles || localTitles, data.artists || []);
+      }
+    } catch(e) {}
+  }, 140);
+}
+
+function renderCommandResults(query, titles = [], artists = []) {
+  const list = document.getElementById('command-search-list');
+  if (!list) return;
+
+  currentCmdItems = [];
+  cmdActiveIndex = -1;
+
+  if (!titles.length && !artists.length) {
+    list.innerHTML = `
+      <div class="shadcn-command-empty">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <div>No matching movies, series, or artists found for "<strong>${query}</strong>"</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Press Enter to execute global search across all 14 OTT platforms.</div>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+
+  // Movies & Series Group
+  if (titles.length) {
+    html += `<div class="shadcn-command-group"><div class="shadcn-command-group-heading"><i class="fa-solid fa-film text-red"></i> Movies &amp; Series (${titles.length})</div>`;
+    titles.forEach(item => {
+      const idx = currentCmdItems.length;
+      currentCmdItems.push({ type: 'item', data: item });
+      const poster = item.poster || item.backdrop || FALLBACK_POSTER;
+      const rating = item.rating ? Number(item.rating).toFixed(1) : '8.0';
+      const year = item.year || '2024';
+      const type = item.type === 'series' ? 'TV' : 'Movie';
+
+      html += `
+        <div class="shadcn-command-item" data-idx="${idx}" onclick="selectCmdItem(${idx})" role="button">
+          <img src="${poster}" alt="${item.title}" class="shadcn-cmd-thumb" onerror="handleImgError(this)">
+          <div class="shadcn-cmd-info">
+            <div class="shadcn-cmd-title">${highlightMatch(item.title, query)}</div>
+            <div class="shadcn-cmd-meta">
+              <span class="shadcn-cmd-badge"><i class="fa-solid fa-star text-gold"></i> ${rating}</span>
+              <span>${type}</span>
+              <span>${year}</span>
+            </div>
+          </div>
+          <span class="shadcn-command-shortcut">↵</span>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  // Cast & Artists Group
+  if (artists.length) {
+    html += `<div class="shadcn-command-group"><div class="shadcn-command-group-heading"><i class="fa-solid fa-user-astronaut text-gold"></i> Cast &amp; Artists (${artists.length})</div>`;
+    artists.forEach(artist => {
+      const idx = currentCmdItems.length;
+      currentCmdItems.push({ type: 'artist', data: artist });
+      const photo = artist.profile_path ? `/api/tmdb-image/w185${artist.profile_path}` : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80';
+      const knownFor = artist.known_for ? artist.known_for.map(k => k.title || k.name).filter(Boolean).slice(0, 2).join(', ') : 'Popular Actor';
+
+      html += `
+        <div class="shadcn-command-item" data-idx="${idx}" onclick="selectCmdItem(${idx})" role="button">
+          <img src="${photo}" alt="${artist.name}" class="shadcn-cmd-thumb" style="border-radius: 50%; width: 38px; height: 38px;" onerror="handleImgError(this)">
+          <div class="shadcn-cmd-info">
+            <div class="shadcn-cmd-title">${highlightMatch(artist.name, query)}</div>
+            <div class="shadcn-cmd-meta">
+              <span class="shadcn-cmd-badge" style="background: rgba(251,191,36,0.15); border-color: rgba(251,191,36,0.3); color: #fbbf24;"><i class="fa-solid fa-user"></i> Actor</span>
+              <span>${knownFor}</span>
+            </div>
+          </div>
+          <span class="shadcn-command-shortcut">↵</span>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  list.innerHTML = html;
+}
+
+function selectCmdItem(idx) {
+  const selected = currentCmdItems[idx];
+  if (!selected) return;
+
+  closeCommandPalette();
+
+  if (selected.type === 'item') {
+    const item = selected.data;
+    let found = (currentCatalog || []).find(x => x.id === item.id || (item.tmdbId && x.tmdbId === item.tmdbId));
+    if (found) {
+      openDetailsModal(found);
+    } else {
+      openDetailsModal(item);
+    }
+  } else if (selected.type === 'artist') {
+    const artist = selected.data;
+    if (artist.id && typeof openArtistSpotlightModal === 'function') {
+      openArtistSpotlightModal(artist.id, artist.name);
+    } else {
+      performSearch(artist.name);
+    }
+  }
+}
+
+function updateCmdSelection() {
+  const items = document.querySelectorAll('.shadcn-command-item');
+  items.forEach((el, i) => {
+    el.classList.toggle('selected', i === cmdActiveIndex);
+    if (i === cmdActiveIndex) {
+      el.scrollIntoView({ block: 'nearest' });
+    }
+  });
+}
+
+// Global Keyboard Shortcut: Cmd+K / Ctrl+K & Arrow Navigation
+window.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    if (isCommandPaletteOpen) {
+      closeCommandPalette();
+    } else {
+      openCommandPalette();
+    }
+  } else if (e.key === 'Escape' && isCommandPaletteOpen) {
+    closeCommandPalette();
+  } else if (isCommandPaletteOpen) {
+    const input = document.getElementById('command-search-input');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!currentCmdItems.length) return;
+      cmdActiveIndex = (cmdActiveIndex + 1) % currentCmdItems.length;
+      updateCmdSelection();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!currentCmdItems.length) return;
+      cmdActiveIndex = (cmdActiveIndex - 1 + currentCmdItems.length) % currentCmdItems.length;
+      updateCmdSelection();
+    } else if (e.key === 'Enter') {
+      if (cmdActiveIndex >= 0 && cmdActiveIndex < currentCmdItems.length) {
+        e.preventDefault();
+        selectCmdItem(cmdActiveIndex);
+      } else if (input && input.value.trim()) {
+        e.preventDefault();
+        const q = input.value.trim();
+        closeCommandPalette();
+        performSearch(q);
+      }
+    }
+  }
+});
+
+// Setup command input listener once DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  const cmdInput = document.getElementById('command-search-input');
+  if (cmdInput) {
+    cmdInput.addEventListener('input', (e) => handleCommandInput(e.target.value));
+  }
+});

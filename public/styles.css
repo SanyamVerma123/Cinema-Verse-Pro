@@ -15756,3 +15756,614 @@ body.netflix-body {
   font-weight: 600 !important;
   letter-spacing: -0.2px !important;
 }
+
+
+
+/* ========================================================
+   SHADCN/UI NEXT-GENERATION COMPONENT SYSTEM
+   Inspired by shadcn/ui (New York style), Radix UI & cmdk
+   ======================================================== */
+
+:root {
+  --shadcn-bg: #07090e;
+  --shadcn-card: #0d111d;
+  --shadcn-popover: #0f1424;
+  --shadcn-primary: #ffffff;
+  --shadcn-primary-fg: #090a0f;
+  --shadcn-secondary: #161b2c;
+  --shadcn-secondary-fg: #f1f5f9;
+  --shadcn-muted: #1e2538;
+  --shadcn-muted-fg: #94a3b8;
+  --shadcn-accent: #1e263d;
+  --shadcn-accent-fg: #ffffff;
+  --shadcn-border: rgba(255, 255, 255, 0.1);
+  --shadcn-input: rgba(255, 255, 255, 0.12);
+  --shadcn-ring: rgba(229, 9, 20, 0.5);
+  --shadcn-radius: 12px;
+  --shadcn-red: #e50914;
+  --shadcn-red-glow: 0 0 24px rgba(229, 9, 20, 0.4);
+}
+
+/* 1. SHADCN SEARCH TRIGGER & COMMAND PALETTE (cmdk) */
+.shadcn-search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--shadcn-border);
+  border-radius: 9999px;
+  padding: 8px 14px;
+  color: var(--shadcn-muted-fg);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  width: 280px;
+  user-select: none;
+}
+.shadcn-search-trigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+.shadcn-search-trigger:focus-visible {
+  outline: none;
+  border-color: var(--shadcn-red);
+  box-shadow: var(--shadcn-red-glow);
+}
+.search-trigger-placeholder {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.shadcn-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--shadcn-muted-fg);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 2px 6px;
+  line-height: 1;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+.kbd-cmd {
+  font-size: 11px;
+}
+
+/* Floating Command Dialog Overlay */
+.shadcn-command-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+  padding-left: 16px;
+  padding-right: 16px;
+  animation: shadcnFadeIn 0.15s ease-out;
+}
+@keyframes shadcnFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes shadcnScaleIn {
+  from { opacity: 0; transform: scale(0.96) translateY(-10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Command Dialog Box */
+.shadcn-command-dialog {
+  width: 100%;
+  max-width: 620px;
+  background: rgba(13, 17, 28, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(229, 9, 20, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: shadcnScaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shadcn-command-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+.shadcn-command-icon {
+  color: var(--shadcn-muted-fg);
+  font-size: 15px;
+}
+.shadcn-command-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-family: inherit;
+}
+.shadcn-command-input::placeholder {
+  color: #64748b;
+}
+.shadcn-command-clear, .shadcn-command-voice {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+.shadcn-command-clear:hover, .shadcn-command-voice:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+.kbd-esc {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.shadcn-command-list {
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.shadcn-command-list::-webkit-scrollbar {
+  width: 6px;
+}
+.shadcn-command-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+
+.shadcn-command-group-heading {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 6px 10px;
+}
+
+.shadcn-command-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.shadcn-command-item:hover, .shadcn-command-item.selected {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+.shadcn-command-item.selected {
+  outline: 1px solid rgba(229, 9, 20, 0.4);
+}
+.shadcn-cmd-thumb {
+  width: 38px;
+  height: 52px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #1e293b;
+}
+.shadcn-cmd-info {
+  flex: 1;
+  min-width: 0;
+}
+.shadcn-cmd-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.shadcn-cmd-meta {
+  font-size: 11.5px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+.shadcn-cmd-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+}
+.shadcn-command-shortcut {
+  font-size: 11px;
+  color: #64748b;
+  font-family: ui-monospace, monospace;
+}
+
+.shadcn-command-empty {
+  padding: 32px 16px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13.5px;
+}
+.shadcn-command-empty i {
+  font-size: 28px;
+  color: #475569;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.shadcn-command-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 11.5px;
+  color: #64748b;
+}
+.shadcn-command-footer-tip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.shadcn-command-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+/* 2. SHADCN BUTTONS SYSTEM (buttonVariants) */
+.btn-shadcn-primary, .netflix-btn.btn-white {
+  background: #ffffff !important;
+  color: #090a0f !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 9px 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.btn-shadcn-primary:hover, .netflix-btn.btn-white:hover {
+  background: #f1f5f9 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2) !important;
+}
+.btn-shadcn-primary:active, .netflix-btn.btn-white:active {
+  transform: scale(0.97) !important;
+}
+
+.btn-shadcn-secondary, .netflix-btn.btn-grey {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  color: #ffffff !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 10px !important;
+  padding: 9px 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.btn-shadcn-secondary:hover, .netflix-btn.btn-grey:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
+.btn-shadcn-secondary:active, .netflix-btn.btn-grey:active {
+  transform: scale(0.97) !important;
+}
+
+.btn-shadcn-icon, .btn-round {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.btn-shadcn-icon:hover, .btn-round:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: scale(1.08) !important;
+}
+.btn-shadcn-icon:active, .btn-round:active {
+  transform: scale(0.95) !important;
+}
+
+/* 3. SHADCN TABS (TabsList & TabsTrigger) */
+.netflix-nav-links {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  padding: 4px !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+.netflix-nav-links .nav-item {
+  color: #94a3b8 !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.netflix-nav-links .nav-item:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+.netflix-nav-links .nav-item.active {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Streaming Server Selector Tabs (shadcn TabsList) */
+.stream-server-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 4px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+.stream-server-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.stream-server-tab:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.stream-server-tab.active {
+  background: linear-gradient(135deg, #e50914, #b91c1c);
+  color: #ffffff;
+  border-color: rgba(229, 9, 20, 0.4);
+  box-shadow: 0 2px 10px rgba(229, 9, 20, 0.4);
+}
+
+/* 4. SHADCN BADGES (badgeVariants) */
+.badge-quality, .badge-audio, .badge-maturity, .badge-ott {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  padding: 2px 8px !important;
+  border-radius: 9999px !important;
+  text-transform: uppercase !important;
+}
+.badge-quality {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #ffffff !important;
+}
+.badge-audio {
+  background: rgba(99, 102, 241, 0.15) !important;
+  border: 1px solid rgba(99, 102, 241, 0.35) !important;
+  color: #a5b4fc !important;
+}
+.badge-maturity {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #cbd5e1 !important;
+}
+.meta-match {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  background: rgba(34, 197, 94, 0.12) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
+  color: #4ade80 !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  padding: 2px 8px !important;
+  border-radius: 9999px !important;
+}
+
+/* 5. SHADCN DETAILS MODAL (DialogContent) */
+.netflix-modal-card {
+  max-width: 840px !important;
+  width: calc(100% - 32px) !important;
+  background: rgba(13, 17, 28, 0.98) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 50px rgba(229, 9, 20, 0.12) !important;
+  backdrop-filter: blur(36px) !important;
+  -webkit-backdrop-filter: blur(36px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  max-height: 90vh !important;
+}
+.modal-close-btn {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  z-index: 10 !important;
+  cursor: pointer !important;
+}
+.modal-close-btn:hover {
+  background: rgba(229, 9, 20, 0.8) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Cast Spotlight using shadcn Avatar tokens */
+.modal-cast-chips {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin-top: 14px !important;
+}
+.cast-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 9999px !important;
+  padding: 4px 12px 4px 4px !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #e2e8f0 !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+.cast-chip:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+.cast-chip img {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
+
+/* 6. SHADCN DROPDOWN MENUS (DropdownMenuContent) */
+.profile-dropdown-menu, .notifications-dropdown {
+  min-width: 240px !important;
+  background: rgba(14, 18, 30, 0.98) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(229, 9, 20, 0.1) !important;
+  backdrop-filter: blur(28px) !important;
+  -webkit-backdrop-filter: blur(28px) !important;
+  padding: 6px !important;
+}
+.profile-dropdown-list li {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 9px 12px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #cbd5e1 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+.profile-dropdown-list li:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+.profile-menu-divider {
+  height: 1px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  margin: 6px 0 !important;
+}
+
+/* 7. SHADCN CARDS & POSTERS (Card & AspectRatio) */
+.netflix-card {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(18, 22, 34, 0.7) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+.netflix-card:hover {
+  transform: translateY(-6px) scale(1.04) !important;
+  border-color: rgba(229, 9, 20, 0.6) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(229, 9, 20, 0.25) !important;
+}
+
+
+/* shadcn Command Trigger & Mobile Search Switcher */
+@media (min-width: 768px) {
+  .netflix-search-box {
+    display: none !important;
+  }
+  .shadcn-search-trigger {
+    display: inline-flex !important;
+  }
+}
+@media (max-width: 767px) {
+  .shadcn-search-trigger {
+    display: none !important;
+  }
+  .netflix-search-box {
+    display: flex !important;
+  }
+}
