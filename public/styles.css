@@ -15186,3 +15186,573 @@ body.tv-mode .mobile-bottom-nav {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   letter-spacing: 0.3px;
 }
+
+
+/* ========================================================
+   CINEMAVERSE MASTER PROFESSIONAL POLISH & ELEVATION LAYER
+   ======================================================== */
+
+:root {
+  --bg-deep: #080911;
+  --bg-surface-elevated: #0f121d;
+  --bg-card-glass: rgba(18, 22, 34, 0.75);
+  --bg-glass-heavy: rgba(12, 15, 24, 0.92);
+  --red-primary: #e50914;
+  --red-gradient: linear-gradient(135deg, #e50914 0%, #b80710 100%);
+  --red-glow-subtle: 0 0 20px rgba(229, 9, 20, 0.35);
+  --red-glow-intense: 0 0 30px rgba(229, 9, 20, 0.6);
+  --gold-metallic: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  --gold-glow: 0 0 16px rgba(245, 158, 11, 0.35);
+  --emerald-accent: #10b981;
+  --cyan-accent: #06b6d4;
+  --text-pure: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-muted-clean: #9ca3af;
+  --border-glass-subtle: 1px solid rgba(255, 255, 255, 0.09);
+  --border-glass-hover: 1px solid rgba(255, 255, 255, 0.22);
+  --border-glass-active: 1px solid rgba(229, 9, 20, 0.7);
+  --shadow-elevation-1: 0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-elevation-2: 0 12px 32px rgba(0, 0, 0, 0.65);
+  --shadow-elevation-3: 0 24px 60px rgba(0, 0, 0, 0.85);
+  --shadow-modal-luxury: 0 35px 100px rgba(0, 0, 0, 0.9), 0 0 50px rgba(229, 9, 20, 0.12);
+  --spring-smooth: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  --spring-fast: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Deep Obsidian Canvas with Subtle Starfield / Cosmic Ambient */
+body.netflix-body {
+  background-color: var(--bg-deep) !important;
+  color: var(--text-pure) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 1. TOP NAVBAR ELEVATION */
+.netflix-navbar {
+  background: var(--bg-glass-heavy) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6) !important;
+  transition: background var(--spring-smooth), box-shadow var(--spring-smooth) !important;
+}
+
+.netflix-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: transform var(--spring-smooth) !important;
+}
+.netflix-logo:hover {
+  transform: scale(1.03) !important;
+}
+.logo-badge-icon {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  background: var(--red-gradient) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: var(--red-glow-subtle) !important;
+}
+.logo-netflix {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 21px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.5px !important;
+  color: #fff !important;
+}
+.logo-sub {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 21px !important;
+  font-weight: 800 !important;
+  color: var(--red-primary) !important;
+}
+
+/* Navigation Links */
+.netflix-nav-links .nav-item {
+  color: var(--text-secondary) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 8px 14px !important;
+  border-radius: 9999px !important;
+  text-decoration: none !important;
+  transition: var(--spring-smooth) !important;
+  position: relative !important;
+}
+.netflix-nav-links .nav-item:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+.netflix-nav-links .nav-item.active {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  background: rgba(229, 9, 20, 0.16) !important;
+  border: 1px solid rgba(229, 9, 20, 0.4) !important;
+  box-shadow: 0 0 14px rgba(229, 9, 20, 0.2) !important;
+}
+
+/* Camouflage Disguise Button */
+.nav-camouflage-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: rgba(245, 158, 11, 0.1) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  border-radius: 9999px !important;
+  padding: 7px 15px !important;
+  color: #fbbf24 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: var(--spring-smooth) !important;
+}
+.nav-camouflage-btn:hover {
+  background: rgba(245, 158, 11, 0.22) !important;
+  border-color: rgba(245, 158, 11, 0.6) !important;
+  box-shadow: var(--gold-glow) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Notification Bell */
+.nav-bell {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: var(--border-glass-subtle) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: var(--spring-smooth) !important;
+  position: relative !important;
+}
+.nav-bell:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  transform: scale(1.05) !important;
+}
+.bell-badge {
+  background: var(--red-gradient) !important;
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.8) !important;
+}
+
+/* Profile Chip */
+.netflix-profile-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 4px !important;
+  border-radius: 9999px !important;
+  cursor: pointer !important;
+  transition: var(--spring-smooth) !important;
+}
+.profile-avatar {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  transition: var(--spring-smooth) !important;
+}
+.netflix-profile-wrap:hover .profile-avatar {
+  border-color: var(--red-primary) !important;
+  box-shadow: var(--red-glow-subtle) !important;
+  transform: scale(1.05) !important;
+}
+
+/* 2. SEARCH BOX & AUTOCOMPLETE ELEVATION */
+.netflix-search-box {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 9999px !important;
+  padding: 4px 10px 4px 6px !important;
+  transition: var(--spring-smooth) !important;
+}
+.netflix-search-box.open {
+  background: rgba(10, 12, 20, 0.95) !important;
+  border-color: rgba(229, 9, 20, 0.7) !important;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.2), 0 0 20px rgba(229, 9, 20, 0.25) !important;
+}
+.netflix-search-box input {
+  font-size: 14px !important;
+  color: #ffffff !important;
+  padding: 6px 8px !important;
+}
+.netflix-search-box input::placeholder {
+  color: #9ca3af !important;
+}
+.search-toggle-btn {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  transition: var(--spring-smooth) !important;
+}
+.search-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+.voice-search-btn {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  transition: var(--spring-smooth) !important;
+}
+.voice-search-btn:hover {
+  background: rgba(229, 9, 20, 0.2) !important;
+  color: var(--red-primary) !important;
+  transform: scale(1.1) !important;
+}
+.clear-search-btn {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: var(--spring-smooth) !important;
+}
+.clear-search-btn:hover {
+  background: var(--red-primary) !important;
+  transform: scale(1.1) rotate(90deg) !important;
+}
+
+/* Autocomplete Dropdown */
+.search-autocomplete-dropdown {
+  background: rgba(13, 16, 26, 0.98) !important;
+  backdrop-filter: blur(30px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.92), 0 0 35px rgba(229, 9, 20, 0.15) !important;
+}
+.ac-item {
+  border-radius: 10px !important;
+  margin: 2px 8px !important;
+  padding: 8px 12px !important;
+  transition: var(--spring-fast) !important;
+}
+.ac-item:hover, .ac-item.selected {
+  background: rgba(229, 9, 20, 0.16) !important;
+  transform: translateX(4px) !important;
+}
+.ac-item-thumb {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+}
+.ac-item-avatar {
+  border-radius: 50% !important;
+  border: 2px solid rgba(255, 255, 255, 0.25) !important;
+}
+.ac-hl {
+  color: #ff3b30 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 12px rgba(229, 9, 20, 0.4) !important;
+}
+
+/* 3. HERO BILLBOARD & ACTION BUTTONS ELEVATION */
+.netflix-billboard {
+  position: relative !important;
+  min-height: 78vh !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.billboard-title {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: clamp(34px, 5vw, 62px) !important;
+  font-weight: 900 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.8px !important;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85) !important;
+  margin-bottom: 14px !important;
+}
+.billboard-desc {
+  font-size: clamp(14px, 1.3vw, 17px) !important;
+  line-height: 1.6 !important;
+  color: #e5e7eb !important;
+  max-width: 680px !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important;
+  margin-bottom: 24px !important;
+}
+
+/* Luxury Standard Action Buttons */
+.netflix-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  padding: 12px 28px !important;
+  border-radius: 12px !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: var(--spring-smooth) !important;
+  user-select: none !important;
+}
+.netflix-btn:active {
+  transform: scale(0.96) !important;
+}
+.btn-white {
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25) !important;
+}
+.btn-white:hover {
+  background: #f3f4f6 !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.4) !important;
+}
+.btn-grey {
+  background: rgba(255, 255, 255, 0.16) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+}
+.btn-grey:hover {
+  background: rgba(255, 255, 255, 0.26) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+.btn-download-hero {
+  background: rgba(20, 24, 38, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+.btn-download-hero:hover {
+  background: rgba(229, 9, 20, 0.25) !important;
+  border-color: var(--red-primary) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+.btn-round {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: var(--spring-smooth) !important;
+}
+.btn-round:hover {
+  background: rgba(255, 255, 255, 0.24) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  transform: scale(1.08) !important;
+}
+.btn-round:active {
+  transform: scale(0.94) !important;
+}
+
+/* Metadata Badges in Hero */
+.badge-ott {
+  background: var(--red-gradient) !important;
+  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.5) !important;
+  border-radius: 6px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.6px !important;
+}
+.badge-quality {
+  border: 1px solid rgba(245, 158, 11, 0.5) !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #fef08a !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+  padding: 3px 8px !important;
+}
+.badge-audio {
+  border: 1px solid rgba(6, 182, 212, 0.45) !important;
+  background: rgba(6, 182, 212, 0.12) !important;
+  color: #a5f3fc !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+  padding: 3px 8px !important;
+}
+.badge-maturity {
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+  padding: 3px 8px !important;
+}
+.meta-match {
+  color: var(--emerald-accent) !important;
+  font-weight: 700 !important;
+}
+
+/* 4. MULTI-OTT HUB CARDS ELEVATION */
+.ott-card {
+  background: rgba(18, 22, 34, 0.72) !important;
+  backdrop-filter: blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 14px !important;
+  padding: 12px 18px !important;
+  transition: var(--spring-smooth) !important;
+}
+.ott-card:hover {
+  transform: translateY(-4px) !important;
+  background: rgba(26, 31, 48, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.65) !important;
+}
+.ott-card.active {
+  border-color: var(--red-primary) !important;
+  background: rgba(229, 9, 20, 0.16) !important;
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.35) !important;
+}
+.ott-active-dot {
+  background: var(--red-primary) !important;
+  box-shadow: 0 0 10px var(--red-primary) !important;
+}
+
+/* 5. TMDB TRENDING ROW ELEVATION */
+.tmdb-trending-row-wrap {
+  margin: 36px 0 !important;
+}
+.trending-pill-btn {
+  transition: var(--spring-smooth) !important;
+}
+.trending-pill-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+.trending-card-flame {
+  background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.6) !important;
+  border-radius: 8px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.4px !important;
+}
+
+/* 6. NETFLIX CARDS & SLIDER ARROWS */
+.netflix-card {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  transition: var(--spring-smooth) !important;
+  background: #121522 !important;
+}
+.netflix-card:hover {
+  transform: translateY(-6px) scale(1.04) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.2) !important;
+  z-index: 10 !important;
+}
+.card-poster {
+  border-radius: 12px !important;
+  transition: transform var(--spring-smooth) !important;
+}
+
+/* Floating Glass Slider Arrows */
+.slider-arrow {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  background: rgba(14, 17, 28, 0.88) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65) !important;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+  transition: var(--spring-smooth) !important;
+}
+.slider-arrow:hover {
+  background: rgba(229, 9, 20, 0.85) !important;
+  border-color: rgba(229, 9, 20, 1) !important;
+  transform: translateY(-50%) scale(1.12) !important;
+  box-shadow: 0 10px 28px rgba(229, 9, 20, 0.5) !important;
+}
+
+/* 7. DETAILS MODAL & SERVER PILLS ELEVATION */
+#details-modal .netflix-modal-card {
+  background: rgba(14, 17, 27, 0.97) !important;
+  backdrop-filter: blur(34px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(34px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 24px !important;
+  box-shadow: var(--shadow-modal-luxury) !important;
+}
+
+/* Server Selector Pills */
+.server-pill, .server-tab-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 10px !important;
+  padding: 8px 16px !important;
+  color: #e5e7eb !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: var(--spring-smooth) !important;
+}
+.server-pill:hover, .server-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+.server-pill.active, .server-tab-btn.active {
+  background: var(--red-gradient) !important;
+  border-color: rgba(229, 9, 20, 0.9) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 18px rgba(229, 9, 20, 0.5) !important;
+}
+
+/* 8. MOBILE BOTTOM NAVIGATION DOCK ELEVATION */
+.mobile-bottom-nav {
+  background: rgba(10, 13, 22, 0.92) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 24px 24px 0 0 !important;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.7) !important;
+}
+.mobile-nav-item {
+  transition: var(--spring-smooth) !important;
+}
+.mobile-nav-item.active {
+  color: #ffffff !important;
+}
+.mobile-nav-item.active i {
+  color: var(--red-primary) !important;
+  filter: drop-shadow(0 0 8px rgba(229, 9, 20, 0.7)) !important;
+  transform: scale(1.15) !important;
+}
+
+/* 9. TOAST NOTIFICATIONS ELEVATION */
+.toast {
+  background: rgba(18, 22, 34, 0.96) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 9999px !important;
+  padding: 12px 26px !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.25) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.2px !important;
+}
