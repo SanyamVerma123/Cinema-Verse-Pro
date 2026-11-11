@@ -6,6 +6,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const axios = require('axios');
 const tmdb = require('./lib/tmdb');
+const security = require('./lib/security');
 let catalogData = require('./catalog');
 
 // ========================================================
@@ -280,7 +281,52 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public'), { index: false }));
+
+// Vault Authentication Verification Endpoint
+app.post('/api/vault/verify', (req, res) => {
+  const { passcode } = req.body || {};
+  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  const verification = security.verifyPrivatePassword(passcode, clientIp);
+
+  if (!verification.success) {
+    return res.status(401).json(verification);
+  }
+
+  const sessionToken = security.createSessionToken();
+  res.setHeader('Set-Cookie', `__session_vault=${sessionToken}; Path=/; SameSite=Lax; Max-Age=86400; HttpOnly`);
+
+  return res.json({
+    success: true,
+    redirect: '/vault'
+  });
+});
+
+// Vault Session Status
+app.get('/api/vault/status', (req, res) => {
+  const authorized = security.isRequestAuthorized(req);
+  return res.json({ authorized });
+});
+
+// Vault Logout
+app.post('/api/vault/logout', (req, res) => {
+  res.setHeader('Set-Cookie', '__session_vault=; Path=/; SameSite=Lax; Max-Age=0; HttpOnly');
+  return res.json({ success: true, redirect: '/' });
+});
+
+// Protected Vault App UI
+app.get(['/vault', '/vault/'], (req, res) => {
+  if (!security.isRequestAuthorized(req)) {
+    // Return 404 to avoid disclosing existence
+    return res.status(404).send('Not Found');
+  }
+  const vaultPath = path.join(__dirname, 'private_vault', 'index.html');
+  if (fs.existsSync(vaultPath)) {
+    return res.sendFile(vaultPath);
+  }
+  return res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Dedicated Smart TV Leanback HTML route
 app.get(['/tv', '/tv/'], (req, res) => {
@@ -633,8 +679,7 @@ const CINEMA_SECRET_PASSCODES = ['cinema2026', 'master', 'cinemaverse', 'quantum
 const CINEMA_AUTH_TOKEN = 'CV_SECURE_TOKEN_2026_MASTER';
 
 function isCinemaAuthorized(req) {
-  // Allow all streaming, search, and catalog requests across Smart TV, Mobile APK, and Web
-  return true;
+  return security.isRequestAuthorized(req);
 }
 
 const ALEXANDRIA_COLLECTIONS = [
@@ -855,6 +900,76 @@ app.get(['/api/tmdb/trending', '/api/tmdb/trending/:param1', '/api/tmdb/trending
   }
 });
 
+app.get('/api/tmdb/popular/:type', async (req, res) => {
+  try {
+    const { type } = req.params;
+    const page = parseInt(req.query.page, 10) || 1;
+    const data = await tmdb.getPopular(type, page);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get('/api/tmdb/top-rated/:type', async (req, res) => {
+  try {
+    const { type } = req.params;
+    const page = parseInt(req.query.page, 10) || 1;
+    const data = await tmdb.getTopRated(type, page);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get('/api/tmdb/upcoming', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page, 10) || 1;
+    const data = await tmdb.getUpcoming(page);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get('/api/tmdb/now-playing', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page, 10) || 1;
+    const data = await tmdb.getNowPlaying(page);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get('/api/tmdb/genres/:type', async (req, res) => {
+  try {
+    const { type } = req.params;
+    const data = await tmdb.getGenres(type);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get('/api/tmdb/discover', async (req, res) => {
+  try {
+    const data = await tmdb.discover(req.query);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
+app.get('/api/tmdb/collection/:id', async (req, res) => {
+  try {
+    const data = await tmdb.getCollection(req.params.id);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ status: 'error', error: err.message });
+  }
+});
+
 // Autocomplete instant suggestions endpoint
 app.get('/api/search/autocomplete', async (req, res) => {
   try {
@@ -951,10 +1066,36 @@ app.get('/api/tmdb/find/:imdbId', async (req, res) => {
   }
 });
 
+// Voice / Text Dialogue Assistant Endpoint
+app.post('/api/assistant/interact', (req, res) => {
+  const { query, sessionId } = req.body || {};
+  const turn = security.processDialogueTurn(query, sessionId);
+  if (!turn) {
+    return res.json({ status: 'normal' });
+  }
+
+  if (turn.status === 'unlock' && turn.token) {
+    res.setHeader('Set-Cookie', `__session_vault=${turn.token}; Path=/; SameSite=Lax; Max-Age=86400; HttpOnly`);
+  }
+
+  return res.json({ status: 'success', dialogue: true, ...turn });
+});
+
 app.get('/api/tmdb/search', async (req, res) => {
   try {
     const query = req.query.q || req.query.query;
+    const sessionId = req.query.sessionId;
     if (!query) return res.status(400).json({ status: 'error', error: 'Query parameter q is required' });
+    
+    // Check dialogue state machine
+    const turn = security.processDialogueTurn(query, sessionId);
+    if (turn) {
+      if (turn.status === 'unlock' && turn.token) {
+        res.setHeader('Set-Cookie', `__session_vault=${turn.token}; Path=/; SameSite=Lax; Max-Age=86400; HttpOnly`);
+      }
+      return res.json({ status: 'success', dialogue: true, ...turn });
+    }
+
     const data = await tmdb.searchMulti(query);
     res.json(data);
   } catch (err) {
@@ -1399,24 +1540,32 @@ function parseNaturalLanguageQuery(rawQuery) {
 
 // 3. Search Endpoint (Returns CinemaVerse Movies & Series with Relevance Scoring)
 app.get('/api/search', async (req, res) => {
+  const q = (req.query.q || req.query.query || '').trim();
+  const turn = security.processDialogueTurn(q, req.query.sessionId);
+  if (turn) {
+    if (turn.status === 'unlock' && turn.token) {
+      res.setHeader('Set-Cookie', `__session_vault=${turn.token}; Path=/; SameSite=Lax; Max-Age=86400; HttpOnly`);
+    }
+    return res.json({ status: 'success', dialogue: true, ...turn });
+  }
+
   if (req.query.mode === 'library') {
-    const q = (req.query.q || '').trim().toLowerCase();
+    const libQuery = q.toLowerCase();
     const books = ALEXANDRIA_CATALOG.filter(b => 
-      !q || b.title.toLowerCase().includes(q) || 
-      b.author.toLowerCase().includes(q) || 
-      b.category.toLowerCase().includes(q) || 
-      b.description.toLowerCase().includes(q)
+      !libQuery || b.title.toLowerCase().includes(libQuery) || 
+      b.author.toLowerCase().includes(libQuery) || 
+      b.category.toLowerCase().includes(libQuery) || 
+      b.description.toLowerCase().includes(libQuery)
     );
     return res.json({
       status: 'success',
       mode: 'library',
-      query: req.query.q || '',
+      query: q,
       total: books.length,
       data: books
     });
   }
 
-  const q = (req.query.q || '').trim();
   const platform = (req.query.platform || 'all').toLowerCase();
   const type = (req.query.type || 'all').toLowerCase();
   const genre = (req.query.genre || 'all').toLowerCase();
@@ -1906,11 +2055,7 @@ app.get('/api/trailer/:type/:id', async (req, res) => {
 app.get('/api/sources/:type/:id', async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   if (!isCinemaAuthorized(req)) {
-    return res.status(403).json({
-      status: 'error',
-      mode: 'restricted',
-      error: 'Alexandria Digital Archive: Scholar clearance required to access media archives.'
-    });
+    return res.status(404).json({ error: 'Not found' });
   }
 
   const { type, id } = req.params;
@@ -2081,7 +2226,7 @@ app.get('/api/download/sources/:type/:id', async (req, res) => {
 // 6. Safe Frame (Ad-Shield Protected Stream Player)
 app.get('/api/player/safe-frame', (req, res) => {
   if (!isCinemaAuthorized(req)) {
-    return res.status(403).send('<html><body style="background:#0b0f19;color:#e2e8f0;font-family:sans-serif;padding:40px;text-align:center;"><h2>Alexandria Digital Archive</h2><p>Institutional Scholar credentials required to access protected media.</p></body></html>');
+    return res.status(404).send('Not Found');
   }
   const targetUrl = req.query.url;
   if (!targetUrl) {

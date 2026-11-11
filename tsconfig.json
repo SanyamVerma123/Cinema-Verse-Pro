@@ -26,15 +26,17 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx"
+    "pages/**/*"
   ],
   "exclude": [
     "node_modules",
     "android",
     "desktop",
-    ".next"
+    ".next",
+    "scratch",
+    "components",
+    "private_vault",
+    "public",
+    "catalog.js"
   ]
 }

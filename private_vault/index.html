@@ -1,0 +1,3011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CinemaVerse — Universal Multi-OTT Streaming (4K • Zero Ads)</title>
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Watch Netflix, Prime Video, Disney+, HBO Max, Apple TV+ in common. Ad-free 4K streaming, zero redirects.">
+  <!-- PWA & Mobile Web App Meta -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#06070a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CinemaVerse">
+
+  <!-- Crisp App Icons for Homescreen Installation & Browser Tabs -->
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=20261110_1935">
+  <script>
+    // Robust universal image fallback & proxy retry handler for TV, Mobile & Web
+    window.handleImgError = function(img, fallback) {
+      if (!img) return;
+      const src = img.src || '';
+      if (!img.dataset.proxied && (src.includes('image.tmdb.org') || src.includes('images.metahub.space') || src.includes('live.metahub.space'))) {
+        img.dataset.proxied = 'true';
+        if (src.includes('image.tmdb.org/t/p/')) {
+          img.src = src.replace(/^https?:\/\/image\.tmdb\.org\/t\/p\//, '/api/tmdb-image/');
+        } else if (src.includes('images.metahub.space/')) {
+          img.src = src.replace(/^https?:\/\/images\.metahub\.space\//, '/api/metahub-image/');
+        } else {
+          img.src = '/api/image-proxy?url=' + encodeURIComponent(src);
+        }
+        return;
+      }
+      img.onerror = null;
+      img.src = fallback || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='750' viewBox='0 0 500 750'%3E%3Crect width='500' height='750' fill='%230f172a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e50914' font-family='Arial,sans-serif' font-weight='900' font-size='28'%3ECINEMAVERSE%3C/text%3E%3C/svg%3E";
+    };
+  </script>
+</head>
+<body class="netflix-body">
+  <script id="early-img-error">
+    window.handleImgError = function(img, fallback) {
+      if (!img) return;
+      const src = img.src || '';
+      if (!img.dataset.proxied && (src.includes('image.tmdb.org') || src.includes('images.metahub.space') || src.includes('live.metahub.space'))) {
+        img.dataset.proxied = 'true';
+        if (src.includes('image.tmdb.org/t/p/')) {
+          img.src = src.replace(/^https?:\/\/image\.tmdb\.org\/t\/p\//, '/api/tmdb-image/');
+        } else if (src.includes('images.metahub.space/')) {
+          img.src = src.replace(/^https?:\/\/images\.metahub\.space\//, '/api/metahub-image/');
+        } else {
+          img.src = '/api/image-proxy?url=' + encodeURIComponent(src);
+        }
+        return;
+      }
+      img.onerror = null;
+      img.src = fallback || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750"><rect width="500" height="750" fill="%230f172a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23e50914" font-family="Arial,sans-serif" font-weight="900" font-size="28">CINEMAVERSE</text></svg>';
+    };
+  </script>
+
+    <!-- ======================================================== -->
+  <!-- ALEXANDRIA DIGITAL ARCHIVE (DECOY CAMOUFLAGE SYSTEM)      -->
+  <!-- ======================================================== -->
+  <div id="decoy-library-app" class="decoy-library-wrapper" style="display: none;">
+    <!-- Alexandria Navigation Header -->
+    <header class="alex-navbar" id="alex-navbar">
+      <div class="alex-nav-left">
+        <div class="alex-brand" onclick="handleAlexLogoClick()" title="Alexandria Digital Archive — Triple Click for Archival Override" role="button" tabindex="0">
+          <div class="alex-seal-badge" id="alex-seal-badge">
+            <i class="fa-solid fa-landmark-dome"></i>
+          </div>
+          <div class="alex-brand-text">
+            <span class="alex-title">ALEXANDRIA</span>
+            <span class="alex-sub">DIGITAL ARCHIVE</span>
+          </div>
+        </div>
+        <nav class="alex-nav-links">
+          <button type="button" class="alex-nav-btn active" onclick="filterAlexCategory('all', this)">All Manuscripts</button>
+          <button type="button" class="alex-nav-btn" onclick="filterAlexCategory('Classical Philosophy', this)">Philosophy</button>
+          <button type="button" class="alex-nav-btn" onclick="filterAlexCategory('World Epics & Poetry', this)">Epics &amp; Poetry</button>
+          <button type="button" class="alex-nav-btn" onclick="filterAlexCategory('Renaissance & Drama', this)">Renaissance</button>
+          <button type="button" class="alex-nav-btn" onclick="filterAlexCategory('British & World Classics', this)">Classics</button>
+        </nav>
+      </div>
+
+      <div class="alex-nav-right">
+        <!-- Live Academic Search Bar -->
+        <div class="alex-search-wrap">
+          <i class="fa-solid fa-magnifying-glass alex-search-icon"></i>
+          <input type="text" id="alex-search-input" class="alex-search-input" placeholder="Search classical texts, authors... (Press Enter)" oninput="handleAlexSearch(this.value)" onkeydown="handleAlexSearchKey(event)">
+        </div>
+
+        <!-- Academic Scholar / Cardholder Login Button -->
+        <button type="button" class="btn-alex-login" id="btn-alex-login" onclick="openAlexLoginModal()">
+          <i class="fa-solid fa-id-card"></i>
+          <span id="alex-login-btn-text">Scholar Sign-In</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Alexandria Academic Hero Banner -->
+    <section class="alex-hero">
+      <div class="alex-hero-overlay"></div>
+      <div class="alex-hero-content">
+        <div class="alex-hero-badge">
+          <i class="fa-solid fa-scroll text-gold"></i>
+          <span>UNIVERSAL OPEN ACCESS HUMANITIES REPOSITORY</span>
+        </div>
+        <h1 class="alex-hero-title">Preserving the Foundational Works of Human Thought</h1>
+        <p class="alex-hero-desc">
+          The Bibliotheca Alexandrina Digital Archive provides unencumbered, public-domain scholarly access to the world's most enduring literature, moral philosophy, classical dialogues, and historical treatises.
+        </p>
+
+        <!-- Academic Search & Discovery Bar -->
+        <div class="alex-hero-search-row">
+          <div class="alex-hero-input-group">
+            <i class="fa-solid fa-book-open"></i>
+            <input type="text" id="alex-hero-search" placeholder="Enter title, author, or LCCN catalog ID (e.g. 'Meditations', 'Plato', 'Shakespeare')..." oninput="handleAlexSearch(this.value)" onkeydown="handleAlexSearchKey(event)">
+            <button type="button" class="btn-alex-search" onclick="handleAlexSearch(document.getElementById('alex-hero-search').value)">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Stat Strip -->
+        <div class="alex-stats-strip">
+          <div class="alex-stat-pill">
+            <strong>45,280+</strong>
+            <span>Preserved Texts</span>
+          </div>
+          <div class="alex-stat-divider"></div>
+          <div class="alex-stat-pill">
+            <strong>100% Free</strong>
+            <span>Public Domain Access</span>
+          </div>
+          <div class="alex-stat-divider"></div>
+          <div class="alex-stat-pill">
+            <strong>140+</strong>
+            <span>University Partners</span>
+          </div>
+          <div class="alex-stat-divider"></div>
+          <div class="alex-stat-pill">
+            <strong>24 / 7</strong>
+            <span>Open Global Vault</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Classical Collections Section -->
+    <main class="alex-main-catalog" id="alex-main-catalog">
+      <div class="alex-catalog-header">
+        <div>
+          <h2 class="alex-section-title">Classical Catalog &amp; Illuminated Manuscripts</h2>
+          <p class="alex-section-sub">Peer-reviewed transcripts from the Greek, Roman, Renaissance, and Enlightenment canons.</p>
+        </div>
+        <div class="alex-view-modes">
+          <span class="alex-count-badge" id="alex-results-count">8 Curated Manuscripts Available</span>
+        </div>
+      </div>
+
+      <!-- Manuscripts Grid -->
+      <div class="alex-books-grid" id="alex-books-grid">
+        <article class="alex-book-card" id="card-alex-meditations">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80" alt="Meditations" loading="lazy">
+            <span class="alex-book-tag">Classical Philosophy</span>
+            <span class="alex-book-year">180 AD</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">Meditations</h4>
+            <div class="alex-book-author">Marcus Aurelius</div>
+            <p class="alex-book-desc">Private personal journals of Roman Emperor Marcus Aurelius detailing Stoic discipline, cosmic reason, human dignity, and virtue.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: B580 .A3 1990</span>
+              <span>Dewey: 188</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-meditations')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-meditations')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-republic">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80" alt="The Republic" loading="lazy">
+            <span class="alex-book-tag">Classical Philosophy</span>
+            <span class="alex-book-year">375 BC</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">The Republic</h4>
+            <div class="alex-book-author">Plato</div>
+            <p class="alex-book-desc">A foundational dialogue on the concept of justice, the ideal commonwealth, and the allegory of the cave.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: JC71 .P35</span>
+              <span>Dewey: 184</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-republic')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-republic')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-odyssey">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1463320726281-696a485928c7?w=600&auto=format&fit=crop&q=80" alt="The Odyssey" loading="lazy">
+            <span class="alex-book-tag">World Epics & Poetry</span>
+            <span class="alex-book-year">750 BC</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">The Odyssey</h4>
+            <div class="alex-book-author">Homer</div>
+            <p class="alex-book-desc">The timeless epic detailing the arduous decade-long journey of Odysseus, king of Ithaca, following the Trojan War.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: PA4022 .A1</span>
+              <span>Dewey: 883.01</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-odyssey')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-odyssey')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-hamlet">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&auto=format&fit=crop&q=80" alt="Hamlet" loading="lazy">
+            <span class="alex-book-tag">Renaissance & Drama</span>
+            <span class="alex-book-year">1601</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">Hamlet, Prince of Denmark</h4>
+            <div class="alex-book-author">William Shakespeare</div>
+            <p class="alex-book-desc">Shakespeare's philosophical masterpiece examining existential doubt, mortality, treachery, and righteous vengeance.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: PR2807 .A25</span>
+              <span>Dewey: 822.33</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-hamlet')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-hamlet')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-pride">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1491841573634-28140fc7ced7?w=600&auto=format&fit=crop&q=80" alt="Pride and Prejudice" loading="lazy">
+            <span class="alex-book-tag">British & World Classics</span>
+            <span class="alex-book-year">1813</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">Pride and Prejudice</h4>
+            <div class="alex-book-author">Jane Austen</div>
+            <p class="alex-book-desc">An acute social satire capturing the tumultuous courtship between Elizabeth Bennet and Fitzwilliam Darcy.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: PR4034 .P7</span>
+              <span>Dewey: 823.7</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-pride')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-pride')">Cite</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="alex-book-card" id="card-alex-artofwar">
+          <div class="alex-book-cover-wrap">
+            <img class="alex-book-cover" src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=600&auto=format&fit=crop&q=80" alt="The Art of War" loading="lazy">
+            <span class="alex-book-tag">Classical Philosophy</span>
+            <span class="alex-book-year">5th Century BC</span>
+          </div>
+          <div class="alex-book-info">
+            <h4 class="alex-book-title">The Art of War</h4>
+            <div class="alex-book-author">Sun Tzu</div>
+            <p class="alex-book-desc">Thirteen definitive chapters on warfare, strategic positioning, deception, and psychological acumen.</p>
+            <div class="alex-book-meta-row">
+              <span>LCCN: U101 .S95</span>
+              <span>Dewey: 355.02</span>
+            </div>
+            <div class="alex-book-actions">
+              <button type="button" class="btn-read-online" onclick="openAlexReader('alex-artofwar')">
+                <i class="fa-solid fa-book-open"></i> Read Online
+              </button>
+              <button type="button" class="btn-cite-text" onclick="citeAlexBook('alex-artofwar')">Cite</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <!-- Alexandria Academic Footer -->
+    <footer class="alex-footer">
+      <div class="alex-footer-inner">
+        <div class="alex-footer-left">
+          <div class="alex-brand">
+            <i class="fa-solid fa-landmark-dome text-gold"></i>
+            <span>Bibliotheca Alexandrina — International Digital Archive</span>
+          </div>
+          <p>Dedicated to universal scholarship, preservation of ancient heritage, and open academic inquiry.</p>
+        </div>
+        <div class="alex-footer-links">
+          <span>Dewey Decimal Classification</span>
+          <span>Library of Congress Online Catalog</span>
+          <span>Terms of Scholarly Open Access</span>
+          <span>Institutional Research Portal</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Alexandria Reader Modal -->
+  <div class="alex-modal" id="modal-alex-reader" style="display:none;" onclick="handleAlexModalBackdrop(event, 'modal-alex-reader')">
+    <div class="alex-reader-dialog">
+      <div class="alex-reader-header">
+        <div class="alex-reader-meta">
+          <span class="alex-reader-badge" id="alex-reader-category">Classical Philosophy</span>
+          <h3 class="alex-reader-title" id="alex-reader-title">Meditations</h3>
+          <p class="alex-reader-author" id="alex-reader-author">Marcus Aurelius • 180 AD</p>
+        </div>
+        <div class="alex-reader-controls">
+          <button type="button" class="btn-alex-theme" onclick="toggleAlexReaderTheme()" title="Toggle Reading Theme (Dark / Sepia / Paper)">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+          </button>
+          <button type="button" class="btn-alex-font" onclick="changeAlexFontSize(-1)" title="Decrease font size">A-</button>
+          <button type="button" class="btn-alex-font" onclick="changeAlexFontSize(1)" title="Increase font size">A+</button>
+          <button type="button" class="btn-alex-close" onclick="closeAlexReader()" title="Close reading room">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="alex-reader-body" id="alex-reader-body">
+        <pre class="alex-reader-text" id="alex-reader-text"></pre>
+      </div>
+      <div class="alex-reader-footer">
+        <span id="alex-reader-classification">Classification: LCCN B580 .A3</span>
+        <button type="button" class="btn-alex-reader-close" onclick="closeAlexReader()">Exit Reading Room</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alexandria Member Login Modal (Dual Decoy & Secret Door) -->
+  <div class="alex-modal" id="modal-alex-login" style="display:none;" onclick="handleAlexModalBackdrop(event, 'modal-alex-login')">
+    <div class="alex-login-dialog">
+      <button type="button" class="alex-login-close" onclick="closeAlexLoginModal()" title="Close dialog">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="alex-login-header">
+        <div class="alex-login-icon">
+          <i class="fa-solid fa-building-columns"></i>
+        </div>
+        <h3>Alexandria Cardholder Portal</h3>
+        <p>Sign in with your University Library ID or Research Access Passcode to access restricted archives.</p>
+      </div>
+
+      <form class="alex-login-form" id="alex-login-form" onsubmit="handleAlexLoginSubmit(event)">
+        <div class="alex-input-group">
+          <label for="alex-input-user">Cardholder ID or Institutional Email</label>
+          <div class="alex-input-wrap">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="text" id="alex-input-user" placeholder="e.g. scholar@oxford.edu or 882419" required>
+          </div>
+        </div>
+
+        <div class="alex-input-group">
+          <label for="alex-input-pass">Access Passcode / Security Key</label>
+          <div class="alex-input-wrap">
+            <i class="fa-solid fa-key"></i>
+            <input type="password" id="alex-input-pass" placeholder="Enter cardholder passcode" required>
+          </div>
+          <small class="alex-input-hint">For public domain materials, no password is required. For archival clearance, enter key.</small>
+        </div>
+
+        <div class="alex-login-status" id="alex-login-status" style="display:none;"></div>
+
+        <button type="submit" class="btn-alex-submit" id="btn-alex-submit">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Authenticate &amp; Access</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+<div id="cinemaverse-app" class="cinemaverse-main-app" style="display: block;">
+<!-- ======================================================== -->
+  <!-- CINEMAVERSE TOP NAVIGATION BAR                            -->
+  <!-- ======================================================== -->
+  <header class="netflix-navbar" id="navbar">
+    <div class="nav-left">
+      <!-- CinemaVerse Iconic Wordmark Logo with Brand Icon Badge -->
+      <div class="netflix-logo" onclick="resetToHome()" role="button" tabindex="0" title="CinemaVerse Home">
+        <div class="logo-badge-icon">
+          <img src="/logo.svg" alt="CinemaVerse" width="28" height="28" class="logo-svg-img">
+        </div>
+        <div class="logo-text-group">
+          <span class="logo-netflix">CINEMA</span>
+          <span class="logo-sub">VERSE</span>
+        </div>
+      </div>
+
+      <!-- Mobile / Tablet "Browse" Dropdown Menu Trigger (Hidden on Phone Viewports - Bottom Dock Replaces It) -->
+      <button type="button" class="nav-mobile-browse hide-on-mobile" id="nav-mobile-browse" onclick="toggleMobileBrowseMenu(event)" aria-label="Browse Menu">
+        <span>Browse</span>
+        <i class="fa-solid fa-caret-down"></i>
+      </button>
+
+      <!-- Desktop & Tablet Navigation Links -->
+      <nav class="netflix-nav-links" id="netflix-nav-links">
+        <a href="#home" class="nav-item active" onclick="filterPlatform('all', this)">Home</a>
+        <a href="#series" class="nav-item" onclick="filterCategory('series', this)">TV Shows</a>
+        <a href="#movies" class="nav-item" onclick="filterCategory('movie', this)">Movies</a>
+        <a href="#new" class="nav-item" onclick="filterCategory('top10', this)">New & Popular</a>
+        <a href="#watchlist" class="nav-item" onclick="showWatchlist(this)">My List</a>
+        <a href="#downloads" class="nav-item nav-item-downloads" onclick="showDownloadsSection(this)">
+          <i class="fa-solid fa-arrow-down-to-bracket text-red"></i> Downloads
+        </a>
+        <a href="#browse-ott" class="nav-item text-gold" onclick="toggleOttHub()">
+          <i class="fa-solid fa-layer-group"></i> Multi-OTT Hub
+        </a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <!-- shadcn/ui Next-Generation Command Palette Trigger (cmdk) -->
+      <button type="button" class="shadcn-search-trigger" id="shadcn-search-trigger" onclick="openCommandPalette()" title="Open Command Search (Ctrl+K or ⌘K)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span class="search-trigger-placeholder">Search 1,300+ titles, cast, OTTs...</span>
+        <kbd class="shadcn-kbd"><span class="kbd-cmd">⌘</span>K</kbd>
+      </button>
+      <!-- Netflix Expandable Search Box -->
+      <div class="netflix-search-box" id="search-box">
+        <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearchBox()" title="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <input type="text" id="search-input" placeholder="Titles, people, genres, OTTs..." autocomplete="off">
+        <button class="clear-search-btn" id="clear-search" onclick="clearSearch()" style="display: none;" title="Clear search">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="search-autocomplete-dropdown" id="search-autocomplete" style="display: none;"></div>
+        <button type="button" class="voice-search-btn" id="voice-search-btn" onclick="toggleVoiceSearch(event)" onmousedown="event.preventDefault()" ontouchstart="event.stopPropagation()" title="Search with Voice">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
+      </div>
+
+      <!-- Kids Link (Authentic Clean Text Link) -->
+      <span class="nav-kids-link" onclick="filterGenre('Animation')">Kids</span>
+
+      <!-- Instant Stealth Camouflage Disguise Button (Desktop Only; Mobile has it on bottom dock) -->
+      <button type="button" class="nav-camouflage-btn hide-on-mobile" id="btn-panic-camouflage" onclick="activateLibraryCamouflage()" title="Instant Library Disguise (Esc / Ctrl+Shift+L)">
+        <i class="fa-solid fa-book-bookmark text-gold"></i>
+        <span class="camou-btn-text">Disguise</span>
+      </button>
+
+      <!-- Notification Bell with Interactive Dropdown -->
+      <div class="nav-bell-wrapper" id="nav-bell-wrapper">
+        <button type="button" class="nav-bell" id="nav-bell-btn" onclick="toggleNotificationDropdown(event)" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">
+          <i class="fa-regular fa-bell"></i>
+          <span class="bell-badge" id="bell-badge">4</span>
+        </button>
+        
+        <!-- Netflix Notifications Dropdown Panel -->
+        <div class="notifications-dropdown" id="notifications-dropdown" style="display: none;">
+          <div class="notif-header">
+            <h4><i class="fa-solid fa-bell text-red"></i> New Movies & Releases</h4>
+            <button class="notif-clear-btn" onclick="clearAllNotifications()">Mark all read</button>
+          </div>
+          <div class="notif-list" id="notif-list">
+            <!-- Dynamically populated from catalog in app.js -->
+          </div>
+          <div class="notif-footer">
+            <span class="notif-footer-text"><i class="fa-solid fa-sparkles text-gold"></i> Updated with 2026 Cinema Releases</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Netflix Profile Dropdown (Clean Button + Avatar + Subtle Caret, Touch-Optimized) -->
+      <div class="netflix-profile-wrapper" id="netflix-profile-wrapper">
+        <button type="button" class="netflix-profile-wrap" id="nav-profile-btn" onclick="toggleProfileDropdown(event)" aria-label="Account & Settings" aria-haspopup="true" aria-expanded="false" title="Account & Settings">
+          <img class="profile-avatar" id="nav-profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Profile">
+          <i class="fa-solid fa-caret-down profile-caret" id="nav-profile-caret"></i>
+        </button>
+
+        <!-- Profile Dropdown Flyout -->
+        <div class="profile-dropdown-menu" id="profile-dropdown-menu" style="display: none;">
+          <div class="profile-menu-user-row" onclick="handleProfileOption(event, 'profile')">
+            <img class="profile-menu-avatar" id="dropdown-profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar">
+            <div class="profile-menu-user-info">
+              <span class="profile-menu-username" id="dropdown-profile-name">Cinema Fan</span>
+              <span class="profile-menu-badge"><i class="fa-solid fa-crown text-gold"></i> Pro 4K VIP Member</span>
+            </div>
+            <i class="fa-solid fa-pen-to-square profile-edit-icon" title="Edit Profile"></i>
+          </div>
+
+          <div class="profile-menu-divider"></div>
+
+          <ul class="profile-dropdown-list">
+            <li onclick="activateLibraryCamouflage()"><i class="fa-solid fa-book-bookmark text-gold"></i> <span>Instant Library Disguise</span> <span class="menu-pill-new" style="background: rgba(251,191,36,0.2); color: #fbbf24; border-color: rgba(251,191,36,0.4);">Esc</span></li>
+            <li onclick="openAuthModal('login')"><i class="fa-solid fa-cloud-arrow-up text-cyan"></i> <span id="nav-auth-status-text">Supabase Cloud Sync & Login</span></li>
+            <li onclick="openAuthModal('sessions')"><i class="fa-solid fa-clock-rotate-left text-gold"></i> <span>Login & Logout History</span></li>
+            <li onclick="openAuthModal('history')"><i class="fa-solid fa-clock text-green"></i> <span>Cloud Watch History</span></li>
+            <li onclick="handleProfileOption(event, 'profile')"><i class="fa-solid fa-user-gear text-red"></i> <span>Manage Profile & Name</span></li>
+            <li onclick="handleProfileOption(event, 'downloads')"><i class="fa-solid fa-arrow-down-to-bracket text-red"></i> <span>My Offline Downloads</span></li>
+            <li onclick="handleProfileOption(event, 'settings', 'install')"><i class="fa-solid fa-download text-gold"></i> <span>Download & Install App</span> <span class="menu-pill-new">PWA</span></li>
+            <li onclick="handleProfileOption(event, 'settings', 'streaming')"><i class="fa-solid fa-sliders text-cyan"></i> <span>Settings & Server Mirrors</span></li>
+            <li onclick="handleProfileOption(event, 'settings', 'audio')"><i class="fa-solid fa-language text-purple"></i> <span>Audio & Dub Preferences</span></li>
+            <li onclick="handleProfileOption(event, 'settings', 'shield')"><i class="fa-solid fa-shield-halved text-green"></i> <span>Ad-Shield & Privacy</span></li>
+            <li onclick="handleProfileOption(event, 'watchlist')"><i class="fa-solid fa-bookmark text-yellow"></i> <span>My Watchlist</span></li>
+            <li onclick="handleProfileOption(event, 'audit')"><i class="fa-solid fa-file-shield text-blue"></i> <span>APK Safety Audit</span></li>
+            <li class="danger-item" onclick="handleProfileOption(event, 'settings', 'data')"><i class="fa-solid fa-trash-can text-red"></i> <span>Clear History & Cache</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="netflix-main" id="main-content">
+
+    <!-- COMMON SEARCH RESULTS OVERLAY (AESTHETIC & ANIMATED) -->
+    <section class="section search-results-section" id="search-results-section" style="display: none;">
+      <div class="search-hero-glass-panel">
+        
+        <!-- Centerpiece Glass Floating Search Bar -->
+        <div class="search-inpage-bar-container">
+          <div class="search-inpage-bar" id="search-inpage-bar">
+            <div class="search-autocomplete-dropdown inpage-autocomplete" id="search-inpage-autocomplete" style="display: none;"></div>
+            <i class="fa-solid fa-magnifying-glass search-inpage-mag"></i>
+            <input type="text" id="search-inpage-input" placeholder="Search 1,300+ movies, series, actors, genres..." autocomplete="off">
+            <button type="button" class="search-inpage-clear" id="search-inpage-clear" onclick="clearSearch()" style="display: none;" title="Clear search">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button type="button" class="search-inpage-mic" id="search-inpage-mic" onclick="toggleVoiceSearch(event)" onmousedown="event.preventDefault()" ontouchstart="event.stopPropagation()" title="Voice Search (Speak)">
+              <i class="fa-solid fa-microphone"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modern Unified Controls Bar (Type Switcher + OTT Brand Carousel) -->
+        <div class="search-controls-unified-bar">
+          <!-- Type Segmented Glass Pill (All / Movies / Series) -->
+          <div class="search-type-segmented" id="search-type-segmented">
+            <button type="button" class="type-pill active" onclick="filterSearchType('all', this)"><i class="fa-solid fa-layer-group"></i> All</button>
+            <button type="button" class="type-pill" onclick="filterSearchType('movie', this)"><i class="fa-solid fa-film"></i> Movies</button>
+            <button type="button" class="type-pill" onclick="filterSearchType('series', this)"><i class="fa-solid fa-tv"></i> Series</button>
+          </div>
+
+          <!-- OTT Platform Carousel Track with Edge Masking -->
+          <div class="search-ott-carousel-wrap">
+            <div class="search-filter-pills" id="search-filter-pills">
+              <button type="button" class="search-pill active" onclick="filterSearchPlatform('all', this)"><i class="fa-solid fa-layer-group"></i> All OTTs</button>
+              <button type="button" class="search-pill pill-nflx" onclick="filterSearchPlatform('netflix', this)"><i class="fa-solid fa-play text-red"></i> Netflix</button>
+              <button type="button" class="search-pill pill-prm" onclick="filterSearchPlatform('prime', this)"><i class="fa-solid fa-circle-play text-blue"></i> Prime Video</button>
+              <button type="button" class="search-pill pill-dis" onclick="filterSearchPlatform('disney', this)"><i class="fa-solid fa-sparkles text-blue"></i> Disney+</button>
+              <button type="button" class="search-pill pill-hbo" onclick="filterSearchPlatform('hbo', this)"><i class="fa-solid fa-crown text-purple"></i> HBO Max</button>
+              <button type="button" class="search-pill pill-app" onclick="filterSearchPlatform('apple', this)"><i class="fa-brands fa-apple"></i> Apple TV+</button>
+              <button type="button" class="search-pill pill-cr" onclick="filterSearchPlatform('crunchyroll', this)"><i class="fa-solid fa-dragon text-orange"></i> Crunchyroll</button>
+              <button type="button" class="search-pill pill-par" onclick="filterSearchPlatform('paramount', this)"><i class="fa-solid fa-mountain"></i> Paramount+</button>
+              <button type="button" class="search-pill pill-hulu" onclick="filterSearchPlatform('hulu', this)"><i class="fa-solid fa-tv text-green"></i> Hulu</button>
+              <button type="button" class="search-pill pill-pea" onclick="filterSearchPlatform('peacock', this)"><i class="fa-solid fa-feather text-gold"></i> Peacock</button>
+              <button type="button" class="search-pill pill-sony" onclick="filterSearchPlatform('sonyliv', this)"><i class="fa-solid fa-film text-red"></i> Sony LIV</button>
+              <button type="button" class="search-pill pill-zee" onclick="filterSearchPlatform('zee5', this)"><i class="fa-solid fa-star text-purple"></i> Zee5</button>
+              <button type="button" class="search-pill pill-jio" onclick="filterSearchPlatform('jiocinema', this)"><i class="fa-solid fa-clapperboard text-red"></i> JioCinema</button>
+              <button type="button" class="search-pill pill-aw" onclick="filterSearchPlatform('animeworld', this)"><i class="fa-solid fa-fire text-gold"></i> Anime World</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sleek Live Status & Active Query Header -->
+        <div class="search-live-status-row">
+          <div class="search-live-status-left">
+            <span class="search-live-pulse-dot"></span>
+            <span class="search-live-count" id="search-count"><i class="fa-solid fa-film text-red"></i> 0 titles</span>
+            <span class="search-live-sep">•</span>
+            <span class="search-live-query" id="search-query-display">All Titles</span>
+            <span class="search-live-ott-badge" id="search-active-ott-badge">All 14 OTTs</span>
+            <span class="search-prefix-text" id="search-title-prefix" style="display: none;">Showing</span>
+          </div>
+          <div class="ai-search-interpretation" id="ai-search-interpretation" style="display: none;"></div>
+        </div>
+
+      </div>
+
+      <!-- Dynamic Artist / Actor Spotlight Banner in Search -->
+      <div class="search-artist-spotlight" id="search-artist-spotlight" style="display: none;">
+        <div class="artist-spotlight-card" id="artist-spotlight-card">
+          <div class="artist-spotlight-avatar">
+            <img id="search-artist-img" src="" alt="Artist">
+          </div>
+          <div class="artist-spotlight-details">
+            <span class="artist-spotlight-tag"><i class="fa-solid fa-star text-gold"></i> Artist Spotlight</span>
+            <h3 class="artist-spotlight-name" id="search-artist-name"></h3>
+            <p class="artist-spotlight-desc" id="search-artist-known-for"></p>
+          </div>
+          <button type="button" class="netflix-btn btn-secondary artist-spotlight-btn" id="search-artist-view-btn" onclick="openArtistFromSpotlight()">
+            <i class="fa-solid fa-user-circle"></i> View Profile &amp; Filmography
+          </button>
+        </div>
+      </div>
+
+      <!-- Animated Search Grid -->
+      <div class="netflix-grid search-animated-grid" id="search-grid"></div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- NETFLIX BILLBOARD HERO FEATURED SPOTLIGHT                -->
+    <!-- ======================================================== -->
+    <section class="netflix-billboard" id="hero-banner">
+      <div class="billboard-backdrop" id="hero-backdrop" style="background-image: url('https://images.metahub.space/background/medium/tt4574334/img');"></div>
+      <div class="billboard-gradient-left"></div>
+      <div class="billboard-gradient-bottom"></div>
+
+      <!-- Left / Right Carousel Buttons -->
+      <button class="hero-arrow arrow-left" onclick="prevHeroSlide()" aria-label="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hero-arrow arrow-right" onclick="nextHeroSlide()" aria-label="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+
+      <div class="billboard-content">
+        <div class="billboard-badges">
+          <span class="badge-ott" id="hero-platform-badge">NETFLIX</span>
+          <span class="badge-top10" id="hero-badge-tag"><i class="fa-solid fa-fire text-red"></i> #1 in TV Shows Today</span>
+        </div>
+
+        <img class="hero-title-logo" id="hero-title-logo" src="" alt="" style="display: none;">
+        <h1 class="billboard-title" id="hero-title">Stranger Things</h1>
+
+        <div class="billboard-meta" id="hero-meta">
+          <span class="meta-match text-green font-bold" id="hero-match">99% Match</span>
+          <span class="meta-year" id="hero-year">2024</span>
+          <span class="badge-maturity" id="hero-maturity">16+</span>
+          <span class="meta-duration" id="hero-duration">4 Seasons</span>
+          <span class="badge-quality" id="hero-quality">4K Ultra HD</span>
+          <span class="badge-audio" id="hero-audio">Dolby Atmos</span>
+        </div>
+
+        <p class="billboard-desc" id="hero-desc">
+          When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.
+        </p>
+
+        <div class="billboard-actions">
+          <button class="netflix-btn btn-white" id="hero-play-btn">
+            <i class="fa-solid fa-play"></i> Play
+          </button>
+          <button class="netflix-btn btn-grey" id="hero-info-btn">
+            <i class="fa-solid fa-circle-info"></i> More Info
+          </button>
+          <button class="netflix-btn btn-download-hero" id="hero-download-btn" onclick="openDownloadModalForHero()" title="Download for Offline Viewing">
+            <i class="fa-solid fa-arrow-down-to-bracket"></i> Download
+          </button>
+          <button class="btn-round" id="hero-share-btn" onclick="shareHeroMovie()" title="Share Title">
+            <i class="fa-solid fa-share-nodes"></i>
+          </button>
+          <button class="btn-round" id="hero-watchlist-btn" title="Add to My List">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Billboard Maturity Tag & Audio Toggle -->
+      <div class="billboard-right-meta">
+        <button class="btn-audio-toggle" id="hero-audio-btn" onclick="toggleHeroAudio()" title="Mute/Unmute Preview">
+          <i class="fa-solid fa-volume-high" id="hero-audio-icon"></i>
+        </button>
+        <span class="billboard-age-rating" id="hero-age-rating">16+</span>
+      </div>
+
+      <!-- Slide Indicator Dots -->
+      <div class="billboard-dots" id="hero-dots"></div>
+    </section>
+
+    <section class="disc-cascade-showcase-section" id="disc-cascade-showcase">
+      <div class="disc-cascade-ambient"></div>
+      
+      <!-- Top Stage Bar -->
+      <div class="disc-stage-header">
+        <div class="disc-stage-info">
+          <span class="disc-stage-tag"><i class="fa-solid fa-compact-disc fa-spin text-red"></i> 4K MASTER DISC CATALOGUE</span>
+          <h2 class="disc-stage-title" id="disc-active-title">Stranger Things</h2>
+          <div class="disc-stage-credits">
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">SIDE A</span>
+              <span class="disc-credit-value" id="disc-credit-side">NETFLIX</span>
+            </div>
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">YEAR</span>
+              <span class="disc-credit-value" id="disc-credit-year">2024</span>
+            </div>
+            <div class="disc-credit-line">
+              <span class="disc-credit-label">LENGTH</span>
+              <span class="disc-credit-value" id="disc-credit-length">4 Seasons</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="disc-stage-brand-wrap">
+          <span class="disc-stage-brand">side/b</span>
+          <div class="disc-stage-nav">
+            <span class="active">Records <span class="dot"></span></span>
+            <span>Sessions</span>
+            <span>Catalogue ▾</span>
+          </div>
+        </div>
+
+        <div class="disc-stage-action">
+          <button type="button" class="btn-disc-play" id="btn-disc-play" onclick="playActiveDisc()" title="Play Title in 4K">
+            <i class="fa-solid fa-play"></i> <span>Play Disc</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Center Disc Stage Viewport -->
+      <div class="disc-stage-viewport" id="disc-stage-viewport">
+        <div class="disc-stage-track" id="disc-stage-track">
+          <!-- CD discs dynamically injected here -->
+        </div>
+      </div>
+
+      <!-- Bottom Stage Controls & Reviews -->
+      <div class="disc-stage-footer">
+        <div class="disc-stage-hint">
+          <span>DRAG · ← →</span>
+        </div>
+
+        <div class="disc-stage-reviews" id="disc-stage-reviews">
+          <div class="disc-review-item">
+            <div class="disc-stars">★★★★★</div>
+            <span class="disc-review-source">THE WAX</span>
+            <span class="disc-review-quote" id="disc-quote-1">“CLIMBS AND NEVER STOPS”</span>
+          </div>
+          <div class="disc-review-item">
+            <div class="disc-stars">★★★★★</div>
+            <span class="disc-review-source">GROOVE NOTES</span>
+            <span class="disc-review-quote" id="disc-quote-2">“A RECORD FOR WINDOWS”</span>
+          </div>
+        </div>
+
+        <div class="disc-stage-controls">
+          <button type="button" class="disc-nav-arrow" onclick="prevDiscSlide()" aria-label="Previous Disc">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="disc-counter" id="disc-counter">01 / 10</span>
+          <button type="button" class="disc-nav-arrow" onclick="nextDiscSlide()" aria-label="Next Disc">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ======================================================== -->
+    <!-- MULTI-OTT PLATFORM HUB (NETMIRROR INTEGRATION IN COMMON) -->
+    <!-- ======================================================== -->
+    <div class="ott-hub-wrapper" id="ott-hub-wrapper">
+      <div class="ott-hub-ambient-sheen"></div>
+      <div class="ott-hub-header">
+        <div class="ott-hub-header-left">
+          <div class="ott-hub-icon-badge">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <div class="ott-hub-titles">
+            <h3 class="ott-hub-title">Multi-OTT Streaming Universe</h3>
+            <span class="ott-hub-subtitle">Stream content across 14 global platforms • provider availability varies</span>
+          </div>
+        </div>
+        <div class="ott-hub-header-right">
+          <span class="ott-hub-badge"><i class="fa-solid fa-sparkles text-gold"></i> 14 Platforms • 1,300+ Titles</span>
+          <div class="ott-hub-nav-arrows">
+            <button type="button" class="ott-nav-arrow" onclick="slideOttBar(-1)" aria-label="Scroll OTTs Left" title="Scroll Left">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="ott-nav-arrow" onclick="slideOttBar(1)" aria-label="Scroll OTTs Right" title="Scroll Right">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ott-platforms-scroll-wrap">
+        <div class="ott-platforms-bar" id="ott-platforms-bar">
+          <!-- All OTTs -->
+          <div class="ott-card active ott-card-all" onclick="filterPlatform('all', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-globe"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">ALL OTTs</span>
+              <span class="ott-subcount">1,300+ Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Netflix -->
+          <div class="ott-card ott-nflx" onclick="filterPlatform('netflix', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-play"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">NETFLIX</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Prime Video -->
+          <div class="ott-card ott-prm" onclick="filterPlatform('prime', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-circle-play"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">prime video</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Disney+ Hotstar -->
+          <div class="ott-card ott-dis" onclick="filterPlatform('disney', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-sparkles"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">Disney+ hotstar</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- HBO Max -->
+          <div class="ott-card ott-hbo" onclick="filterPlatform('hbo', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-crown"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">MAX</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Apple TV+ -->
+          <div class="ott-card ott-app" onclick="filterPlatform('apple', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-brands fa-apple"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">Apple tv+</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Crunchyroll -->
+          <div class="ott-card ott-cr" onclick="filterPlatform('crunchyroll', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-dragon"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">Crunchyroll</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Paramount+ -->
+          <div class="ott-card ott-par" onclick="filterPlatform('paramount', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-mountain"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">Paramount+</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Hulu -->
+          <div class="ott-card ott-hulu" onclick="filterPlatform('hulu', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-tv"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">hulu</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Peacock -->
+          <div class="ott-card ott-pea" onclick="filterPlatform('peacock', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-feather"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">peacock</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Sony LIV -->
+          <div class="ott-card ott-sony" onclick="filterPlatform('sonyliv', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-film"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">SONY LIV</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Zee5 -->
+          <div class="ott-card ott-zee" onclick="filterPlatform('zee5', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-star"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">ZEE5</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- JioCinema -->
+          <div class="ott-card ott-jio" onclick="filterPlatform('jiocinema', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-clapperboard"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">JioCinema</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+
+          <!-- Anime World -->
+          <div class="ott-card ott-aw" onclick="filterPlatform('animeworld', this)" role="button" tabindex="0">
+            <div class="ott-card-icon-wrap"><i class="fa-solid fa-fire"></i></div>
+            <div class="ott-card-info">
+              <span class="ott-brand">ANIME WORLD</span>
+              <span class="ott-subcount">100 Titles</span>
+            </div>
+            <div class="ott-active-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVE OTT PLATFORM FILTER BANNER -->
+    <section class="section platform-banner-section" id="platform-banner-section" style="display: none;">
+      <div class="platform-banner" id="platform-banner">
+        <div class="platform-banner-content">
+          <h2 id="platform-banner-title">Netflix Originals & Blockbusters</h2>
+          <p id="platform-banner-desc">Showing exclusive titles and top movies from Netflix</p>
+        </div>
+        <button class="btn-reset-platform" onclick="filterPlatform('all')"><i class="fa-solid fa-xmark"></i> Show All OTTs</button>
+      </div>
+    </section>
+
+    <!-- DYNAMIC CATEGORY HEADER BAR & VIEW SWITCHER -->
+    <div class="category-header-bar" id="category-header-bar" style="display: none;">
+      <div class="category-header-info">
+        <div class="category-title-wrap">
+          <span class="category-icon" id="category-icon"><i class="fa-solid fa-tv text-red"></i></span>
+          <h2 class="category-title" id="category-title">TV Shows</h2>
+          <span class="category-count-badge" id="category-count-badge">49 Series</span>
+        </div>
+        <p class="category-desc" id="category-desc">Explore award-winning series, binge-worthy dramas, and 4K TV hits across all OTT platforms.</p>
+      </div>
+      <div class="category-actions">
+        <!-- Genre Filter Chips -->
+        <div class="category-genre-chips" id="category-genre-chips">
+          <!-- Dynamically populated from JavaScript -->
+        </div>
+        <!-- View Mode Switcher -->
+        <div class="category-view-switcher">
+          <button type="button" class="view-switch-btn active" id="view-mode-rows" onclick="switchCategoryView('rows')" title="Platform Rows View">
+            <i class="fa-solid fa-bars-staggered"></i> <span>Rows</span>
+          </button>
+          <button type="button" class="view-switch-btn" id="view-mode-grid" onclick="switchCategoryView('grid')" title="All Titles Grid View">
+            <i class="fa-solid fa-grip"></i> <span id="view-mode-grid-label">All Titles Grid</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DYNAMIC CATEGORY ALL-TITLES GRID SECTION -->
+    <section class="section category-grid-section" id="category-grid-section" style="display: none;">
+      <div class="category-grid-toolbar">
+        <div class="category-grid-meta-wrap">
+          <span class="category-grid-count" id="category-grid-count">49 Titles Available</span>
+          <span class="category-grid-subtext">Click any title to view details, trailers, episodes, or stream in 4K</span>
+        </div>
+        <div class="category-grid-sort">
+          <span class="sort-label">Sort:</span>
+          <button type="button" class="grid-sort-pill active" onclick="sortCategoryGrid('popular', this)">Most Popular</button>
+          <button type="button" class="grid-sort-pill" onclick="sortCategoryGrid('rating', this)">Highest Rated</button>
+          <button type="button" class="grid-sort-pill" onclick="sortCategoryGrid('latest', this)">Latest Year</button>
+        </div>
+      </div>
+      <div class="netflix-grid" id="category-grid"></div>
+    </section>
+
+    <!-- CONTINUE WATCHING ROW -->
+    <section class="netflix-row-wrap" id="continue-watching-section" style="display: none;">
+      <div class="row-header">
+        <h2 class="row-title">Continue Watching for You</h2>
+        <button class="btn-clear-cw" onclick="clearContinueWatching()">Clear All</button>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('continue-watching-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="continue-watching-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('continue-watching-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- AI NEURAL RECOMMENDATIONS ROW (MACHINE LEARNING PERSONALIZATION) -->
+    <!-- ======================================================== -->
+    <section class="netflix-row-wrap ai-recommendations-row-wrap" id="ai-recommended-section">
+      <div class="row-header">
+        <div class="row-title-ai-group">
+          <h2 class="row-title">
+            <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+            Recommended For You
+            <span class="ai-badge-chip"><i class="fa-solid fa-brain"></i> AI Personalized</span>
+          </h2>
+          <span class="row-subtitle-ai" id="ai-recom-subtitle">Neural taste model trained on what you watch &amp; enjoy</span>
+        </div>
+        <div class="ai-row-actions">
+          <div class="ai-type-pill-selector" id="ai-type-pill-selector">
+            <button type="button" class="ai-pill-btn active" data-type="all" onclick="setAiRowType('all', this)" title="Show all smart recommendations">
+              <i class="fa-solid fa-layer-group"></i> All
+            </button>
+            <button type="button" class="ai-pill-btn" data-type="movie" onclick="setAiRowType('movie', this)" title="Classify and show only Movies">
+              <i class="fa-solid fa-film"></i> Movies
+            </button>
+            <button type="button" class="ai-pill-btn" data-type="series" onclick="setAiRowType('series', this)" title="Classify and show only TV Series">
+              <i class="fa-solid fa-tv"></i> Series
+            </button>
+          </div>
+          <button type="button" class="btn-ai-filter-quick" onclick="openSettingsModal('filters')" title="Fine-tune your Movie Filters &amp; Taste Preferences">
+            <i class="fa-solid fa-sliders"></i> Taste Filters
+          </button>
+        </div>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('ai-recommended-list', -1)" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="ai-recommended-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('ai-recommended-list', 1)" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    
+    <!-- ======================================================== -->
+    <!-- 3D DISC CASCADE CAROUSEL SHOWCASE (CD POSTER VINYL FORMAT)-->
+    <!-- ======================================================== -->
+    
+
+    
+    <!-- ======================================================== -->
+    <!-- TMDB WORLDWIDE REAL-TIME TRENDING ROW (LIVE FEED)         -->
+    <!-- ======================================================== -->
+    <section class="netflix-row-wrap tmdb-trending-row-wrap" id="tmdb-trending-section">
+      <div class="row-header">
+        <div class="row-title-trending-group">
+          <h2 class="row-title">
+            <i class="fa-solid fa-fire text-red"></i>
+            Trending Worldwide on TMDb
+            <span class="trending-badge-chip"><i class="fa-solid fa-bolt"></i> Live Feed</span>
+          </h2>
+          <span class="row-subtitle-trending" id="tmdb-trending-subtitle">Top movies &amp; series trending across global audiences today</span>
+        </div>
+        <div class="trending-window-selector">
+          <button type="button" class="trending-pill-btn active" data-type="all" onclick="switchTrendingFilter('all', this)">
+            <i class="fa-solid fa-layer-group"></i> All
+          </button>
+          <button type="button" class="trending-pill-btn" data-type="movie" onclick="switchTrendingFilter('movie', this)">
+            <i class="fa-solid fa-film"></i> Movies
+          </button>
+          <button type="button" class="trending-pill-btn" data-type="tv" onclick="switchTrendingFilter('tv', this)">
+            <i class="fa-solid fa-tv"></i> TV Series
+          </button>
+        </div>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('tmdb-trending-list', -1)" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="tmdb-trending-list">
+          <!-- Dynamically populated in real-time from /api/tmdb/trending -->
+        </div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('tmdb-trending-list', 1)" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 1: TOP 10 MOVIES TODAY (WITH GIANT NETFLIX NUMBERS!) -->
+    <!-- ======================================================== -->
+    <section class="netflix-row-wrap" id="section-top10-movies">
+      <div class="row-header">
+        <h2 class="row-title">Top 10 Movies Today</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('top10-movies-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row top10-row" id="top10-movies-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('top10-movies-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ROW 2: TOP 10 TV SHOWS TODAY (WITH GIANT NETFLIX NUMBERS!)-->
+    <!-- ======================================================== -->
+    <section class="netflix-row-wrap" id="section-top10-series">
+      <div class="row-header">
+        <h2 class="row-title">Top 10 TV Shows Today</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('top10-series-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row top10-row" id="top10-series-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('top10-series-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 3: POPULAR ON NETFLIX -->
+    <section class="netflix-row-wrap" id="section-netflix">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-nflx">NETFLIX</span> Only on Netflix</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('netflix-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="netflix-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('netflix-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 4: PRIME VIDEO EXCLUSIVES -->
+    <section class="netflix-row-wrap" id="section-prime">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-prm">PRIME VIDEO</span> Prime Video Exclusives</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('prime-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="prime-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('prime-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 5: DISNEY+ HOTSTAR VAULT -->
+    <section class="netflix-row-wrap" id="section-disney">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-dis">DISNEY+ HOTSTAR</span> Marvel Studios & Disney Vault</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('disney-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="disney-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('disney-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 6: HBO MAX PRESTIGE -->
+    <section class="netflix-row-wrap" id="section-hbo">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-hbo">MAX</span> HBO Prestige Series & Warner Bros</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('hbo-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="hbo-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('hbo-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 7: APPLE TV+ MASTERPIECES -->
+    <section class="netflix-row-wrap" id="section-apple">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-app">APPLE TV+</span> Apple Original Series</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('apple-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="apple-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('apple-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 8: ANIME & CRUNCHYROLL -->
+    <section class="netflix-row-wrap" id="section-crunchyroll">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-cr">CRUNCHYROLL</span> Anime Hub & Shonen Masterpieces</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('crunchyroll-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="crunchyroll-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('crunchyroll-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 9: PARAMOUNT+ BLOCKBUSTERS -->
+    <section class="netflix-row-wrap" id="section-paramount">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-par">PARAMOUNT+</span> Paramount+ Blockbusters & Showtime</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('paramount-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="paramount-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('paramount-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 10: HULU ORIGINALS -->
+    <section class="netflix-row-wrap" id="section-hulu">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-hulu">HULU</span> Hulu Originals & FX Award-Winners</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('hulu-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="hulu-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('hulu-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 11: PEACOCK EXCLUSIVES -->
+    <section class="netflix-row-wrap" id="section-peacock">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-pea">PEACOCK</span> Peacock Exclusives & NBCUniversal Hits</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('peacock-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="peacock-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('peacock-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 12: SONY LIV INDIAN ORIGINALS -->
+    <section class="netflix-row-wrap" id="section-sonyliv">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-sony">SONY LIV</span> Sony LIV Premium Indian Originals & Thrillers</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('sonyliv-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="sonyliv-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('sonyliv-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 13: ZEE5 BLOCKBUSTERS -->
+    <section class="netflix-row-wrap" id="section-zee5">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-zee">ZEE5</span> Zee5 Regional Blockbusters & Cinema</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('zee5-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="zee5-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('zee5-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 14: JIOCINEMA DIRECT PREMIERES -->
+    <section class="netflix-row-wrap" id="section-jiocinema">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-jio">JIOCINEMA</span> JioCinema Premieres & Bollywood Hits</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('jiocinema-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="jiocinema-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('jiocinema-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- ROW 15: ANIME WORLD (WatchAnimeWorld Hub) -->
+    <section class="netflix-row-wrap" id="section-animeworld">
+      <div class="row-header">
+        <h2 class="row-title"><span class="badge-inline-ott badge-aw">ANIME WORLD</span> WatchAnimeWorld VIP (Hindi/Eng/Jap Multi-Audio)</h2>
+      </div>
+      <div class="row-slider-container">
+        <button class="slider-arrow slider-arrow-left" onclick="slideRow('animeworld-list', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="netflix-row" id="animeworld-list"></div>
+        <button class="slider-arrow slider-arrow-right" onclick="slideRow('animeworld-list', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- WATCHLIST (MY LIST) PAGE -->
+    <section class="section" id="watchlist-section" style="display: none;">
+      <div class="row-header">
+        <h2 class="row-title"><i class="fa-solid fa-bookmark text-red"></i> My List</h2>
+        <span class="section-count" id="watchlist-count">0 titles</span>
+      </div>
+      <div class="netflix-grid" id="watchlist-grid"></div>
+    </section>
+
+    <!-- OFFLINE IN-APP DOWNLOADS VAULT PAGE -->
+    <section class="section downloads-section" id="downloads-section" style="display: none;">
+      <div class="downloads-header-card">
+        <div>
+          <h2 class="row-title"><i class="fa-solid fa-arrow-down-to-bracket text-red"></i> My Offline Downloads</h2>
+          <span class="downloads-storage-meta" id="downloads-storage-meta">0 titles • 0 MB used (Stored in In-App Vault • 100% Offline Playable)</span>
+        </div>
+        <div class="downloads-header-actions">
+          <button class="btn-action-outline text-yellow" onclick="openSettingsModal('storage')"><i class="fa-solid fa-gear"></i> Storage Settings</button>
+          <button class="btn-action-outline text-red" onclick="clearAllOfflineDownloads()"><i class="fa-solid fa-trash-can"></i> Clear All Downloads</button>
+        </div>
+      </div>
+      <div class="netflix-grid" id="downloads-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- NETFLIX DETAILS MODAL (FULL DIALOG VIEW)                 -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="details-modal" style="display: none;" onclick="handleModalBackdropClick(event)">
+    <div class="netflix-modal-card">
+      <button class="modal-close-btn" onclick="closeDetailsModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="modal-hero-wrap">
+        <img class="modal-hero-img" id="modal-backdrop-img" src="" alt="">
+        <div class="modal-hero-fade"></div>
+        <div class="modal-hero-info">
+          <div class="modal-ott-pill" id="modal-platform-badge">
+            <span class="platform-chip" id="modal-platform-chip">NETFLIX</span>
+          </div>
+          <img class="modal-title-logo" id="modal-title-logo" src="" alt="" style="display: none;">
+          <h2 class="modal-hero-title" id="modal-title">Stranger Things</h2>
+          <div class="modal-tagline" id="modal-tagline" style="display: none;"></div>
+          <div class="modal-hero-actions">
+            <button class="netflix-btn btn-white" id="modal-play-btn"><i class="fa-solid fa-play"></i> <span id="modal-play-text">Play</span></button>
+            <button class="netflix-btn btn-secondary" id="modal-restart-btn" style="display: none;" title="Restart from beginning"><i class="fa-solid fa-rotate-left"></i> Restart</button>
+            <button class="netflix-btn btn-download-modal" id="modal-download-btn" onclick="openDownloadModal(currentItem)"><i class="fa-solid fa-arrow-down-to-bracket"></i> Download</button>
+            <button class="netflix-btn btn-secondary" id="modal-trailer-btn" onclick="openTrailerModal()"><i class="fa-brands fa-youtube text-red"></i> Trailer</button>
+            <button class="btn-round" id="modal-watchlist-btn" title="Add to My List"><i class="fa-solid fa-plus"></i></button>
+            <button class="btn-round" id="modal-share-btn" onclick="shareMovie()" title="Share Movie or Series"><i class="fa-solid fa-share-nodes"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-content-grid">
+        <div class="modal-left-col">
+          <div class="modal-meta-row">
+            <span class="badge-tmdb-rating" id="modal-tmdb-rating" style="display: none;">
+              <i class="fa-solid fa-star text-gold"></i> <strong id="modal-rating-val">8.5</strong><small id="modal-rating-count">(15k)</small>
+            </span>
+            <span class="meta-match text-green font-bold" id="modal-match">99% Match</span>
+            <span class="meta-year" id="modal-year">2024</span>
+            <span class="badge-maturity" id="modal-maturity">16+</span>
+            <span class="meta-duration" id="modal-duration">4 Seasons</span>
+            <span class="badge-quality" id="modal-quality">4K Ultra HD</span>
+            <span class="badge-audio" id="modal-audio">Dolby Atmos</span>
+          </div>
+          <p class="modal-synopsis" id="modal-desc"></p>
+
+          <!-- Financial Stats (Budget & Box Office) -->
+          <div class="modal-financial-stats" id="modal-financial-stats" style="display: none;">
+            <span class="meta-pill pill-stat" id="modal-budget-pill" style="display: none;"><i class="fa-solid fa-coins text-gold"></i> Budget: <strong id="modal-budget-val"></strong></span>
+            <span class="meta-pill pill-stat" id="modal-revenue-pill" style="display: none;"><i class="fa-solid fa-chart-line text-green"></i> Box Office: <strong id="modal-revenue-val"></strong></span>
+            <span class="meta-pill pill-stat" id="modal-status-pill" style="display: none;"><i class="fa-solid fa-circle-check text-blue"></i> Status: <strong id="modal-status-val"></strong></span>
+          </div>
+
+          <!-- Top Cast Avatars Strip (Enriched by TMDb API) -->
+          <div class="modal-cast-section" id="modal-cast-section" style="display: none;">
+            <div class="cast-section-header">
+              <span class="cast-section-title"><i class="fa-solid fa-user-group text-gold"></i> Top Cast &amp; Characters</span>
+              <span class="cast-hint-badge">Tap actor to view filmography</span>
+            </div>
+            <div class="modal-cast-avatars-row" id="modal-cast-avatars"></div>
+          </div>
+
+          <!-- Official Clips, Teasers & Behind-The-Scenes Strip (TMDb Videos) -->
+          <div class="modal-clips-section" id="modal-clips-section" style="display: none;">
+            <div class="clips-section-header">
+              <span class="clips-section-title"><i class="fa-brands fa-youtube text-red"></i> Trailers, Teasers &amp; Short Clips</span>
+              <span class="clips-count-badge" id="modal-clips-count"></span>
+            </div>
+            <div class="modal-clips-row" id="modal-clips-row"></div>
+          </div>
+
+          <!-- Available Audio & Dubbed Languages Selector -->
+          <div class="modal-audio-dub-box" id="modal-audio-dub-box">
+            <div class="audio-dub-header">
+              <span class="audio-dub-title"><i class="fa-solid fa-language text-gold"></i> Available Audio & Dubbed Languages:</span>
+              <span class="audio-dub-status" id="modal-selected-language-label">English (Original)</span>
+            </div>
+            <div class="modal-language-chips" id="modal-language-chips"></div>
+          </div>
+
+          <!-- Streaming Server Selector on Movie Page -->
+          <div class="modal-server-select-box">
+            <div class="server-box-header">
+              <span class="server-box-title"><i class="fa-solid fa-server text-red"></i> Select Streaming Server:</span>
+              <span class="server-box-status" id="modal-selected-server-name">Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio &amp; 3 Servers • ✅ 0 Ads)</span>
+            </div>
+            <div class="modal-server-chips" id="modal-server-chips"></div>
+          </div>
+
+          <!-- TV Series Season & Episode Picker with Rich Thumbnails -->
+          <div class="modal-episodes-section" id="modal-episodes-section" style="display: none;">
+            <div class="episodes-header-row">
+              <h3><i class="fa-solid fa-layer-group text-red"></i> Episodes</h3>
+              <select class="netflix-select" id="modal-season-select" onchange="renderModalEpisodes(this.value)"></select>
+            </div>
+            <div class="episodes-container" id="modal-episodes-grid"></div>
+          </div>
+        </div>
+
+        <div class="modal-right-col">
+          <div class="modal-info-item">
+            <span class="info-label">Streaming Home:</span>
+            <span class="info-value font-bold text-gold" id="modal-ott-source">Netflix</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">Cast:</span>
+            <div class="modal-cast-chips" id="modal-cast"></div>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">Director:</span>
+            <span class="info-value" id="modal-director">-</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">Genres:</span>
+            <span class="info-value" id="modal-genres-list">-</span>
+          </div>
+          <div class="modal-info-item" id="modal-watch-providers-item" style="display: none;">
+            <span class="info-label">Streaming In India:</span>
+            <div class="modal-provider-logos" id="modal-provider-logos"></div>
+          </div>
+          <div class="modal-info-item" id="modal-keywords-item" style="display: none;">
+            <span class="info-label">Keywords:</span>
+            <div class="modal-keywords-cloud" id="modal-keywords-cloud"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- More Like This Grid -->
+      <div class="modal-more-section">
+        <h3>More Like This</h3>
+        <div class="more-like-grid" id="modal-similar-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- ARTIST / ACTOR SPOTLIGHT & FILMOGRAPHY MODAL            -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="artist-modal" style="display: none;" onclick="handleArtistModalBackdropClick(event)">
+    <div class="netflix-modal-card artist-modal-card">
+      <button class="modal-close-btn" onclick="closeArtistModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="artist-header-hero">
+        <div class="artist-avatar-wrap">
+          <img id="artist-modal-photo" src="" alt="Artist Photo">
+        </div>
+        <div class="artist-header-info">
+          <div class="artist-dept-pill" id="artist-modal-dept"><i class="fa-solid fa-award text-gold"></i> Acting</div>
+          <h2 class="artist-modal-name" id="artist-modal-name"></h2>
+          <div class="artist-meta-pills">
+            <span class="artist-pill" id="artist-modal-birthday" style="display: none;"><i class="fa-solid fa-cake-candles text-gold"></i> <span id="artist-modal-birthday-val"></span></span>
+            <span class="artist-pill" id="artist-modal-place" style="display: none;"><i class="fa-solid fa-location-dot text-red"></i> <span id="artist-modal-place-val"></span></span>
+            <span class="artist-pill" id="artist-modal-titles" style="display: none;"><i class="fa-solid fa-film text-blue"></i> <span id="artist-modal-titles-count"></span> Titles</span>
+          </div>
+          <p class="artist-modal-bio" id="artist-modal-bio"></p>
+        </div>
+      </div>
+
+      <div class="artist-filmography-section">
+        <div class="artist-filmography-header">
+          <h3><i class="fa-solid fa-clapperboard text-red"></i> Filmography &amp; Top Releases</h3>
+          <span class="artist-filmography-subtitle">Tap any title to view details and stream</span>
+        </div>
+        <div class="netflix-grid artist-filmography-grid" id="artist-filmography-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- NETFLIX CINEMA VIDEO PLAYER (ZERO REDIRECT, ZERO ERROR)  -->
+  <!-- ======================================================== -->
+  <div class="netflix-player-overlay" id="player-overlay" style="display: none;">
+    <!-- Small React-Style Floating Arrow Tab to Reveal Controls (Click Only) -->
+    <button class="player-reveal-arrow-tab" id="player-reveal-tab" onclick="revealPlayerTopBar()" title="Click to Show CinemaVerse Controls">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+
+    <!-- Top Player Header (Auto-Hiding) -->
+    <div class="player-top-bar" id="player-header">
+      <div class="player-left-info">
+        <button class="player-btn-back" id="btn-player-back" onclick="closePlayer(true)" title="Back to Movie Details (Esc)">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span class="btn-back-text">Back to Movie</span>
+        </button>
+        <div class="player-title-block">
+          <h3 class="player-main-title" id="player-stream-title">Stranger Things</h3>
+          <div class="player-meta-badges" id="player-meta-badges">
+            <span class="player-badge-pill" id="player-stream-subtitle">Server 1: VidLink Pro HD</span>
+            <span class="player-badge-pill badge-quality">4K Ultra HD</span>
+            <span class="player-badge-pill badge-audio"><i class="fa-solid fa-volume-high"></i> Dolby Atmos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-right-controls">
+        <!-- Streaming Servers Dropdown Pill -->
+        <div class="player-server-pill" id="player-server-pill">
+          <i class="fa-solid fa-server text-red"></i>
+          <select class="netflix-select-pill" id="server-select" onchange="changeServer(this.value)">
+            <option value="0" selected>Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio &amp; 3 Servers • ✅ 0 Ads)</option>
+            <option value="1">Server 2: CineSrc VIP Player (Open Source • ✅ 0 Ads)</option>
+            <option value="2">Server 3: 123Embed Cloud Player (In-Player Switcher • 4K)</option>
+            <option value="3">Server 4: Global World Mirror (Multi-Language &amp; Dubbed)</option>
+            <option value="4">Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR)</option>
+            <option value="5">Server 6: AnimeWorld VIP (Hindi/Eng/Jap)</option>
+            <option value="6">Server 7: MultiEmbed Cloud Stream (Global Mirror)</option>
+            <option value="7">Server 8: VidLink Pro VIP (Ultra HD 4K • Multi-Audio)</option>
+            <option value="8">Server 9: AnyEmbed Prime Direct (1080p Direct)</option>
+            <option value="9">Server 10: Nontongo CC Captions (Multi-Subtitles)</option>
+          </select>
+        </div>
+
+        <!-- Audio & Dubbed Language Selector in Header -->
+        <div class="player-audio-pill" id="player-audio-pill" title="Change Dubbed Audio Track">
+          <i class="fa-solid fa-language text-gold"></i>
+          <select class="netflix-select-pill" id="player-audio-select" onchange="changeDubLanguage(this.value)">
+            <option value="en">🌐 English (Original)</option>
+            <option value="hi">🇮🇳 Hindi Dubbed</option>
+            <option value="ja">🇯🇵 Japanese Audio</option>
+            <option value="ta">🇮🇳 Tamil Dubbed</option>
+            <option value="te">🇮🇳 Telugu Dubbed</option>
+            <option value="es">🇪🇸 Spanish Dubbed</option>
+            <option value="fr">🇫🇷 French Dubbed</option>
+            <option value="de">🇩🇪 German Dubbed</option>
+          </select>
+        </div>
+
+        <!-- Zoom Out / Full Page Mode Toggle -->
+        <button class="player-pill-btn" id="btn-theater-mode" onclick="toggleTheaterMode()" title="Toggle Full Page / Zoom Out to Show Movie Details & Episodes">
+          <i class="fa-solid fa-compress" id="theater-icon"></i>
+          <span id="theater-text">Zoom Out</span>
+        </button>
+
+        <!-- Movie & Stream Settings Button -->
+        <button class="player-pill-btn" id="btn-player-settings" onclick="togglePlayerSettings()" title="Movie & Stream Settings (Aspect Ratio, Zoom, Speed, Audio)">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </button>
+
+        <!-- Pure Ad Zap Button -->
+        <button class="player-pill-btn" id="btn-zap-ads" onclick="zapAdOverlays()" title="Zap Ads & Refresh Clean Stream (Key: Z)">
+          <i class="fa-solid fa-bolt text-red"></i>
+          <span>Zap Ads</span>
+        </button>
+
+        <!-- Episodes Drawer Button -->
+        <button class="player-pill-btn" id="btn-episodes-drawer" onclick="toggleEpisodesDrawer()" title="Episode Selector" style="display: none;">
+          <i class="fa-solid fa-list-ul"></i>
+          <span>Episodes</span>
+        </button>
+
+        <!-- Fullscreen Button -->
+        <button class="player-icon-btn" onclick="shareMovie()" title="Share Movie or Series (Get Direct Watch Link)">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+
+        <button class="player-icon-btn" onclick="toggleFullscreen()" title="Fullscreen (F)">
+          <i class="fa-solid fa-expand" id="fullscreen-icon"></i>
+        </button>
+
+        <!-- Toggle Cinema Bar View (Click to Collapse) -->
+        <button class="player-icon-btn" id="btn-collapse-player-bar" onclick="collapsePlayerTopBar()" title="Hide Controls (Click to Hide)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </button>
+
+        <!-- Close Player Button -->
+        <button class="player-icon-btn btn-player-close" onclick="closePlayer()" title="Exit Player (Esc)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Video Viewport Stage -->
+    <div class="player-stage" id="player-viewport">
+      <!-- NETFLIX RED CIRCULAR BUFFER SPINNER OVERLAY -->
+      <div class="player-buffering-overlay fade-out" id="player-buffering-overlay">
+        <div class="netflix-spinner-box">
+          <div class="netflix-spinner-ring"></div>
+          <div class="netflix-spinner-text" id="buffering-text">Loading Stream in 4K Ultra HD</div>
+          <div class="netflix-spinner-sub" id="buffering-sub">Loading the selected provider player...</div>
+        </div>
+      </div>
+
+      <!-- Pure Video Stream Iframe (100% Server Compatible - Zero Sandbox Restrictions) -->
+      <iframe
+        id="player-iframe"
+        src=""
+        allowfullscreen
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
+        referrerpolicy="origin"
+      ></iframe>
+
+      <!-- MOVIE & STREAM SETTINGS FLYOUT PANEL -->
+      <div class="player-settings-panel" id="player-settings-panel" style="display: none;">
+        <div class="settings-panel-header">
+          <h4><i class="fa-solid fa-sliders text-red"></i> Movie & Stream Settings</h4>
+          <button class="settings-close-btn" onclick="togglePlayerSettings()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="settings-panel-body">
+          <!-- Video Zoom / Aspect Ratio -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-expand"></i> Aspect Ratio & Screen Fit:</label>
+            <div class="settings-pill-row">
+              <button class="setting-pill active" onclick="setVideoZoom('fit', this)">Fit (Default)</button>
+              <button class="setting-pill" onclick="setVideoZoom('zoom', this)">Zoom / Fill</button>
+              <button class="setting-pill" onclick="setVideoZoom('cinema', this)">Cinema 21:9</button>
+              <button class="setting-pill" onclick="setVideoZoom('stretch', this)">Stretch</button>
+            </div>
+          </div>
+          <!-- Server Selector in Settings -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-server text-red"></i> Streaming Server Mirror:</label>
+            <select class="settings-select" id="settings-panel-server-select" onchange="changeServer(this.value)">
+            <option value="0" selected>Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio &amp; 3 Servers • ✅ 0 Ads)</option>
+            <option value="1">Server 2: CineSrc VIP Player (Open Source • ✅ 0 Ads)</option>
+            <option value="2">Server 3: 123Embed Cloud Player (In-Player Switcher • 4K)</option>
+            <option value="3">Server 4: Global World Mirror (Multi-Language &amp; Dubbed)</option>
+            <option value="4">Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR)</option>
+            <option value="5">Server 6: AnimeWorld VIP (Hindi/Eng/Jap)</option>
+            <option value="6">Server 7: MultiEmbed Cloud Stream (Global Mirror)</option>
+            <option value="7">Server 8: VidLink Pro VIP (Ultra HD 4K • Multi-Audio)</option>
+            <option value="8">Server 9: AnyEmbed Prime Direct (1080p Direct)</option>
+            <option value="9">Server 10: Nontongo CC Captions (Multi-Subtitles)</option>
+          </select>
+          </div>
+          <!-- Dubbed Audio & Multi-Language Track Selector -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-language text-gold"></i> Dubbed Audio Language & Multi-Track:</label>
+            <div class="settings-pill-row" id="settings-audio-pills">
+              <button class="setting-pill active" onclick="changeDubLanguage('en', this)">🌐 English (Original)</button>
+              <button class="setting-pill" onclick="changeDubLanguage('hi', this)">🇮🇳 Hindi Dubbed</button>
+              <button class="setting-pill" onclick="changeDubLanguage('ja', this)">🇯🇵 Japanese</button>
+              <button class="setting-pill" onclick="changeDubLanguage('ta', this)">🇮🇳 Tamil Dub</button>
+              <button class="setting-pill" onclick="changeDubLanguage('te', this)">🇮🇳 Telugu Dub</button>
+              <button class="setting-pill" onclick="changeDubLanguage('es', this)">🇪🇸 Spanish</button>
+              <button class="setting-pill" onclick="changeDubLanguage('fr', this)">🇫🇷 French</button>
+              <button class="setting-pill" onclick="changeDubLanguage('de', this)">🇩🇪 German</button>
+            </div>
+          </div>
+          <!-- Video Quality -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-tv"></i> Video Quality:</label>
+            <div class="settings-pill-row">
+              <button class="setting-pill active" onclick="setQualityPill('4k', this)">4K Ultra HD</button>
+              <button class="setting-pill" onclick="setQualityPill('1080p', this)">1080p FHD</button>
+              <button class="setting-pill" onclick="setQualityPill('auto', this)">Auto (Adaptive)</button>
+            </div>
+          </div>
+          <!-- Playback Speed -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-gauge-high"></i> Playback Speed:</label>
+            <div class="settings-pill-row">
+              <button class="setting-pill" onclick="setPlaybackSpeed(0.75, this)">0.75x</button>
+              <button class="setting-pill active" onclick="setPlaybackSpeed(1.0, this)">1.0x Normal</button>
+              <button class="setting-pill" onclick="setPlaybackSpeed(1.25, this)">1.25x</button>
+              <button class="setting-pill" onclick="setPlaybackSpeed(1.5, this)">1.5x</button>
+            </div>
+          </div>
+          <!-- Share Direct Link -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-share-nodes"></i> Share with Friends:</label>
+            <button class="setting-pill" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; background: rgba(229, 9, 20, 0.15); border-color: rgba(229, 9, 20, 0.4); color: #fff; font-weight: 600; cursor: pointer;" onclick="shareMovie()"><i class="fa-solid fa-share-nodes"></i> Share Direct Watch Link</button>
+          </div>
+
+          <!-- Popup handling status -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-shield-halved text-cyan"></i> Popup handling:</label>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px;">
+              <span style="font-size: 13px; font-weight: 600; color: #10b981; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-circle-info"></i> Parent page popup guard
+              </span>
+              <span style="font-size: 11px; color: var(--text-dim);">Provider ads may still appear</span>
+            </div>
+          </div>
+
+          <!-- Audio & Subtitles Information -->
+          <div class="settings-group">
+            <label><i class="fa-solid fa-language"></i> Audio & Subtitles:</label>
+            <p class="settings-tip">Select audio tracks and subtitles directly via the CC / Audio controls in the video player canvas.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Episodes Side Drawer (TV Series) -->
+      <div class="netflix-episodes-drawer" id="episodes-drawer" style="display: none;">
+        <div class="drawer-header">
+          <div class="drawer-title-group">
+            <i class="fa-solid fa-layer-group text-red"></i>
+            <h3>Episodes</h3>
+          </div>
+          <button class="btn-close-drawer" onclick="toggleEpisodesDrawer()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="drawer-season-picker">
+          <label>Season:</label>
+          <select class="netflix-select" id="drawer-season-select" onchange="renderDrawerEpisodes(this.value)"></select>
+        </div>
+        <div class="drawer-episodes-list" id="drawer-episodes-list"></div>
+      </div>
+    </div>
+
+    <!-- THEATER DUAL VIEW (SHOWS MOVIE DETAILS & EPISODES WHEN ZOOMED OUT) -->
+    <div class="player-theater-details" id="player-theater-details" style="display: none;">
+      <div class="theater-inner-wrap">
+        <!-- Movie Title & Metadata Row -->
+        <div class="theater-info-row">
+          <div class="theater-info-left">
+            <h2 class="theater-movie-title" id="theater-title">Movie Title</h2>
+            <div class="modal-meta-row" id="theater-meta-row">
+              <span class="meta-match text-green font-bold" id="theater-match">99% Match</span>
+              <span class="meta-year" id="theater-year">2024</span>
+              <span class="badge-maturity" id="theater-maturity">16+</span>
+              <span class="meta-duration" id="theater-duration">4 Seasons</span>
+              <span class="badge-quality" id="theater-quality">4K Ultra HD</span>
+              <span class="badge-audio" id="theater-audio">Dolby Atmos</span>
+            </div>
+            <p class="theater-synopsis" id="theater-desc"></p>
+          </div>
+          <div class="theater-info-right">
+            <button class="netflix-btn btn-white" onclick="toggleTheaterMode()"><i class="fa-solid fa-expand"></i> Full Page View</button>
+            <button class="netflix-btn btn-secondary" onclick="shareMovie()"><i class="fa-solid fa-share-nodes"></i> Share</button>
+            <button class="netflix-btn btn-secondary" onclick="togglePlayerSettings()"><i class="fa-solid fa-gear"></i> Movie Settings</button>
+          </div>
+        </div>
+
+        <!-- Server Selector in Theater Mode -->
+        <div class="modal-server-select-box">
+          <div class="server-box-header">
+            <span class="server-box-title"><i class="fa-solid fa-server text-red"></i> Change Streaming Server:</span>
+            <span class="server-box-status" id="theater-selected-server-name">Server 1: Global World Mirror (Multi-Language & Dubbed)</span>
+          </div>
+          <div class="modal-server-chips" id="theater-server-chips"></div>
+        </div>
+
+        <!-- Episodes List with 16:9 Thumbnails in Theater Mode -->
+        <div class="theater-episodes-section" id="theater-episodes-section" style="display: none;">
+          <div class="episodes-header-row">
+            <h3><i class="fa-solid fa-layer-group text-red"></i> Episodes & Seasons</h3>
+            <select class="netflix-select" id="theater-season-select" onchange="renderTheaterEpisodes(this.value)"></select>
+          </div>
+          <div class="episodes-container" id="theater-episodes-grid"></div>
+        </div>
+
+        <!-- More Like This in Theater Mode -->
+        <div class="theater-more-section">
+          <h3>More Like This</h3>
+          <div class="more-like-grid" id="theater-similar-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Controls Bar (Netflix Style Auto-Hiding) -->
+    <div class="player-bottom-bar" id="player-bottom-bar">
+      <!-- Scrub Bar / Timeline with Red Netflix fill -->
+      <div class="player-timeline-wrapper">
+        <div class="player-timeline-track">
+          <div class="player-timeline-progress" id="player-timeline-progress"></div>
+        </div>
+      </div>
+
+      <div class="player-bottom-controls">
+        <div class="controls-left">
+          <!-- Play / Pause -->
+          <button class="bottom-icon-btn" onclick="togglePlayPause()" title="Play / Pause (Space)" id="btn-play-pause">
+            <i class="fa-solid fa-pause" id="play-pause-icon"></i>
+          </button>
+
+          <!-- Rewind 10s -->
+          <button class="bottom-icon-btn" onclick="seekRelative(-10)" title="Rewind 10s">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span class="btn-num">10</span>
+          </button>
+
+          <!-- Forward 10s -->
+          <button class="bottom-icon-btn" onclick="seekRelative(10)" title="Forward 10s">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span class="btn-num">10</span>
+          </button>
+
+          <!-- Volume with horizontal hover slider -->
+          <div class="volume-slider-group">
+            <button class="bottom-icon-btn" onclick="toggleMute()" title="Mute / Unmute" id="btn-volume-icon">
+              <i class="fa-solid fa-volume-high" id="bottom-vol-icon"></i>
+            </button>
+            <div class="volume-slider-box">
+              <input type="range" id="bottom-volume-slider" min="0" max="1" step="0.05" value="1.0" oninput="setVolume(this.value)">
+            </div>
+          </div>
+
+          <!-- Live / Stream status -->
+          <div class="stream-status-tag">
+            <span class="live-dot"></span>
+            <span id="player-status-text">ULTRA HD STREAM</span>
+          </div>
+        </div>
+
+        <div class="controls-center">
+          <span class="player-center-title" id="player-center-title">Now Playing</span>
+        </div>
+
+        <div class="controls-right">
+          <!-- Next Episode Button (Series Only) -->
+          <button class="netflix-btn-next-ep" id="btn-player-next-ep" onclick="playNextEpisode()" title="Next Episode" style="display: none;">
+            <span>Next Episode</span>
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+
+          <!-- Episodes Drawer Toggle (Series Only) -->
+          <button class="bottom-icon-btn" id="btn-bottom-episodes" onclick="toggleEpisodesDrawer()" title="Episodes List" style="display: none;">
+            <i class="fa-solid fa-layer-group"></i>
+          </button>
+
+          <!-- Quick Playback Speed (0.75x, 1x, 1.25x, 1.5x, 2x) -->
+          <button class="bottom-pill-btn" id="btn-quick-speed" onclick="cyclePlaybackSpeed()" title="Playback Speed (Click to cycle)">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span id="player-speed-text">1.0x</span>
+          </button>
+
+          <!-- Quick Aspect Ratio / Screen Fit (Fit, Zoom, Cinema, Stretch) -->
+          <button class="bottom-pill-btn" id="btn-quick-zoom" onclick="cycleVideoZoom()" title="Aspect Ratio & Fit (Click to cycle)">
+            <i class="fa-solid fa-crop-simple"></i>
+            <span id="player-zoom-text">Fit 16:9</span>
+          </button>
+
+          <!-- Zoom Out / Full Page Mode Button in Bottom Bar -->
+          <button class="bottom-pill-btn" id="btn-bottom-theater" onclick="toggleTheaterMode()" title="Toggle Full Page / Zoom Out">
+            <i class="fa-solid fa-compress" id="bottom-theater-icon"></i>
+            <span id="bottom-theater-text">Zoom Out</span>
+          </button>
+
+          <!-- Quick Server Cycle Pill (Hidden in Full Page, Shown in Theater) -->
+          <button class="bottom-pill-btn" id="btn-bottom-server" onclick="cycleNextServer()" title="Switch to Next Server">
+            <i class="fa-solid fa-server"></i>
+            <span id="quick-server-tag">Server 1</span>
+          </button>
+
+          <!-- Settings Gear in Bottom Bar -->
+          <button class="bottom-icon-btn" onclick="togglePlayerSettings()" title="Movie & Stream Settings">
+            <i class="fa-solid fa-gear"></i>
+          </button>
+
+          <!-- Fullscreen Button -->
+          <button class="bottom-icon-btn" onclick="toggleFullscreen()" title="Fullscreen (F)">
+            <i class="fa-solid fa-expand" id="bottom-fullscreen-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORENSIC REA AUDIT & SAFETY REPORT MODAL -->
+  <div class="netflix-modal-backdrop" id="audit-modal" style="display: none;" onclick="handleAuditBackdropClick(event)">
+    <div class="netflix-modal-card modal-audit-card">
+      <button class="modal-close-btn" onclick="closeAuditModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="audit-header">
+        <div class="audit-badge-wrap">
+          <i class="fa-solid fa-shield-virus audit-icon text-red"></i>
+          <div>
+            <h2>CinemaVerse Pro — APK Forensic & Security Architecture Audit</h2>
+            <p class="audit-subtitle">Forensic vulnerability inspection on legacy <code>app.netmirror.netmirrornew</code> using REA</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="audit-body">
+        <div class="verdict-banner">
+          <div class="verdict-status status-warning">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div>
+              <strong>Safety Verdict: Adware & Privacy-Hostile Piracy Wrapper (Medium Risk)</strong>
+              <p>While the APK does not contain destructive trojans, it operates an undisclosed affiliate redirect, a resilient C2 dynamic backend, and aggressive ad trackers.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="audit-section-heading"><i class="fa-solid fa-magnifying-glass-arrow-right"></i> Confirmed Forensic Findings in Legacy NetMirror APK</h3>
+        <div class="findings-list" id="audit-findings-list"></div>
+
+        <h3 class="audit-section-heading"><i class="fa-solid fa-sparkles text-gold"></i> Why CinemaVerse Pro Is Superior</h3>
+        <div class="comparison-grid">
+          <div class="comp-card comp-bad">
+            <h4><i class="fa-solid fa-xmark text-red"></i> Legacy NetMirror APK Vulnerabilities</h4>
+            <ul>
+              <li><i class="fa-solid fa-xmark"></i> Undisclosed 10s affiliate redirect on launch</li>
+              <li><i class="fa-solid fa-xmark"></i> C2-style dynamic backend repointing (mobidetect)</li>
+              <li><i class="fa-solid fa-xmark"></i> Exfiltrates user watch history to net52.cc</li>
+              <li><i class="fa-solid fa-xmark"></i> Intrusive popunder ads & external app redirects</li>
+              <li><i class="fa-solid fa-xmark"></i> Cleartext traffic leaves users vulnerable</li>
+            </ul>
+          </div>
+
+          <div class="comp-card comp-good">
+            <h4><i class="fa-solid fa-check text-green"></i> CinemaVerse Pro</h4>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> 100% Free full Netflix-grade streaming experience</li>
+              <li><i class="fa-solid fa-check"></i> All OTTs in one place (Netflix, Prime, Disney+, HBO Max, Apple TV+)</li>
+              <li><i class="fa-solid fa-check"></i> Adaptive Shield: ZERO redirects & NO "Sandbox not allowed" error</li>
+              <li><i class="fa-solid fa-check"></i> 8 High-Speed Mirror Servers with 1-click fallback</li>
+              <li><i class="fa-solid fa-check"></i> Complete privacy: 0 telemetry, 0 data exfiltration</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRAILER PREVIEW MODAL -->
+  <div class="netflix-modal-backdrop" id="trailer-modal" style="display: none;" onclick="handleTrailerBackdropClick(event)">
+    <div class="netflix-modal-card modal-trailer-card">
+      <button class="modal-close-btn" onclick="closeTrailerModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="trailer-header">
+        <h3 id="trailer-modal-title"><i class="fa-brands fa-youtube text-red"></i> Official Trailer</h3>
+        <div class="trailer-header-actions">
+          <a id="trailer-external-btn" href="#" target="_blank" rel="noopener noreferrer" class="trailer-ext-link-btn" style="display: none;">
+            <i class="fa-brands fa-youtube text-red"></i> <span>Watch on YouTube</span>
+          </a>
+        </div>
+      </div>
+      <div class="trailer-video-stage" id="trailer-stage">
+        <div class="trailer-loading-spinner" id="trailer-spinner" style="display: none;">
+          <i class="fa-solid fa-spinner fa-spin text-red"></i>
+          <span>Loading official trailer...</span>
+        </div>
+        <iframe id="trailer-iframe" src="" allowfullscreen="true" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div class="trailer-stage-fallback" id="trailer-stage-fallback" style="display: none;">
+          <div class="trailer-fallback-content">
+            <i class="fa-brands fa-youtube trailer-fallback-icon text-red"></i>
+            <h4>Watch Official Trailer</h4>
+            <p>Direct studio playback available on YouTube.</p>
+            <a id="trailer-fallback-link" href="#" target="_blank" rel="noopener noreferrer" class="netflix-btn btn-white">
+              <i class="fa-solid fa-play text-red"></i> Play on YouTube
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="trailer-alts-bar" id="trailer-alts-bar" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- PROFILE EDIT & AVATAR MODAL                                -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="profile-edit-modal" style="display: none;" onclick="handleProfileBackdropClick(event)">
+    <div class="netflix-modal-card profile-settings-card">
+      <button class="modal-close-btn" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="profile-modal-header">
+        <h3><i class="fa-solid fa-user-pen text-red"></i> Edit Profile</h3>
+        <p class="profile-modal-sub">Customize your profile name and pick your favorite Netflix streaming avatar.</p>
+      </div>
+
+      <div class="profile-modal-body">
+        <!-- Live Avatar & Name Preview -->
+        <div class="profile-preview-card">
+          <img class="profile-preview-avatar" id="edit-preview-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Avatar">
+          <div class="profile-preview-meta">
+            <span class="profile-preview-badge"><i class="fa-solid fa-crown text-gold"></i> VIP Ultra HD</span>
+            <h4 id="edit-preview-name">Cinema Fan</h4>
+            <span class="profile-preview-status">Active Streamer • All OTTs Unlocked</span>
+          </div>
+        </div>
+
+        <!-- Name Input -->
+        <div class="profile-input-group">
+          <label for="profile-name-input"><i class="fa-solid fa-signature text-gold"></i> Profile Name:</label>
+          <div class="profile-input-box">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="profile-name-input" placeholder="Enter your name..." maxlength="24" oninput="updateProfilePreviewName(this.value)">
+          </div>
+        </div>
+
+        <!-- Avatar Selection Grid -->
+        <div class="profile-avatars-section">
+          <label><i class="fa-solid fa-image text-cyan"></i> Select Profile Avatar:</label>
+          <div class="avatars-grid" id="avatars-grid">
+            <!-- Rendered by JS or predefined options -->
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-modal-actions">
+        <button class="btn-netflix-secondary" onclick="closeProfileModal()">Cancel</button>
+        <button class="btn-netflix-primary" onclick="saveProfileChanges()"><i class="fa-solid fa-floppy-disk"></i> Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- SUPABASE AUTH, SESSION AUDIT & CLOUD HISTORY MODAL       -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="supabase-auth-modal" style="display: none;" onclick="handleAuthModalBackdropClick(event)">
+    <div class="netflix-modal-card auth-modal-card">
+      <button class="modal-close-btn" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="auth-modal-header">
+        <div class="auth-header-title">
+          <h3><i class="fa-solid fa-bolt text-cyan"></i> Supabase Cloud Sync</h3>
+          <span class="auth-status-pill" id="auth-status-indicator"><i class="fa-solid fa-circle"></i> Local Storage Mode</span>
+        </div>
+        <p class="auth-modal-sub">Secure user login, automatic watch history saving, and detailed login/logout audit logs.</p>
+        
+        <!-- Auth Tabs Navigation -->
+        <div class="auth-tabs-nav">
+          <button class="auth-tab-btn active" id="tab-btn-login" onclick="switchAuthTab('login')"><i class="fa-solid fa-user-lock"></i> Account</button>
+          <button class="auth-tab-btn" id="tab-btn-sessions" onclick="switchAuthTab('sessions')"><i class="fa-solid fa-clock-rotate-left"></i> Login & Logout Times</button>
+          <button class="auth-tab-btn" id="tab-btn-history" onclick="switchAuthTab('history')"><i class="fa-solid fa-clock"></i> Watch History</button>
+          <button class="auth-tab-btn" id="tab-btn-config" onclick="switchAuthTab('config')"><i class="fa-solid fa-gear"></i> Settings</button>
+        </div>
+      </div>
+
+      <div class="auth-modal-body">
+        <!-- TAB 1: ACCOUNT (LOGIN / REGISTER / LOGGED-IN STATE) -->
+        <div class="auth-tab-pane" id="auth-pane-login">
+          <!-- State A: Not Logged In -->
+          <div id="auth-logged-out-view">
+            <div class="auth-form-card">
+              <div class="auth-input-group">
+                <label for="auth-email-input"><i class="fa-solid fa-envelope text-red"></i> Email Address:</label>
+                <div class="auth-input-box">
+                  <i class="fa-solid fa-at"></i>
+                  <input type="email" id="auth-email-input" placeholder="user@example.com" autocomplete="email">
+                </div>
+              </div>
+
+              <div class="auth-input-group">
+                <label for="auth-password-input"><i class="fa-solid fa-key text-gold"></i> Password:</label>
+                <div class="auth-input-box">
+                  <i class="fa-solid fa-lock"></i>
+                  <input type="password" id="auth-password-input" placeholder="••••••••" autocomplete="current-password">
+                </div>
+              </div>
+
+              <div class="auth-actions-row">
+                <button type="button" class="btn-auth-primary" onclick="handleAuthLogin()">
+                  <i class="fa-solid fa-right-to-bracket"></i> Sign In
+                </button>
+                <button type="button" class="btn-auth-secondary" onclick="handleAuthSignUp()">
+                  <i class="fa-solid fa-user-plus"></i> Create Account
+                </button>
+                <button type="button" class="btn-auth-ghost" onclick="handleGuestLogin()">
+                  <i class="fa-solid fa-user-ninja"></i> Fast Guest Mode
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- State B: Logged In -->
+          <div id="auth-logged-in-view" style="display: none;">
+            <div class="auth-user-card">
+              <div class="auth-user-header">
+                <div class="auth-avatar-circle" id="auth-display-avatar">👤</div>
+                <div class="auth-user-meta">
+                  <h4 id="auth-display-email">user@example.com</h4>
+                  <span class="auth-user-badge"><i class="fa-solid fa-shield-check text-green"></i> Authenticated Session</span>
+                </div>
+              </div>
+
+              <div class="auth-session-details">
+                <div class="auth-detail-item">
+                  <span class="detail-label"><i class="fa-solid fa-right-to-bracket text-green"></i> Current Login Time:</span>
+                  <span class="detail-val" id="auth-current-login-time">Just now</span>
+                </div>
+                <div class="auth-detail-item">
+                  <span class="detail-label"><i class="fa-solid fa-fingerprint text-cyan"></i> Session ID:</span>
+                  <span class="detail-val" id="auth-current-session-id">Active</span>
+                </div>
+                <div class="auth-detail-item">
+                  <span class="detail-label"><i class="fa-solid fa-database text-gold"></i> Cloud Sync:</span>
+                  <span class="detail-val text-green">Auto-saving Watch History & Timestamps</span>
+                </div>
+              </div>
+
+              <div class="auth-logged-in-actions">
+                <button type="button" class="btn-auth-danger" onclick="handleSupabaseLogout()">
+                  <i class="fa-solid fa-right-from-bracket"></i> Log Out (Record Logout Timestamp)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: LOGIN & LOGOUT AUDIT LOGS -->
+        <div class="auth-tab-pane" id="auth-pane-sessions" style="display: none;">
+          <div class="sessions-header">
+            <h4><i class="fa-solid fa-timeline text-gold"></i> Login & Logout Session History</h4>
+            <span class="sessions-subtitle">Detailed record of every login, logout time, and session duration.</span>
+          </div>
+          <div class="sessions-list" id="sessions-history-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- TAB 3: WATCH HISTORY SAVED IN SUPABASE -->
+        <div class="auth-tab-pane" id="auth-pane-history" style="display: none;">
+          <div class="watch-history-header">
+            <div>
+              <h4><i class="fa-solid fa-clapperboard text-red"></i> Saved Watch History</h4>
+              <span class="sessions-subtitle">Cloud synced movie and series progress across all devices.</span>
+            </div>
+            <button class="btn-sync-action" onclick="handleSyncWatchHistory()"><i class="fa-solid fa-arrows-rotate"></i> Sync to Continue Watching</button>
+          </div>
+          <div class="watch-history-list" id="supabase-watch-history-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- TAB 4: SUPABASE CONFIGURATION -->
+        <div class="auth-tab-pane" id="auth-pane-config" style="display: none;">
+          <div class="config-header">
+            <h4><i class="fa-solid fa-plug text-cyan"></i> Supabase Project Settings</h4>
+            <p class="sessions-subtitle">Connect your Supabase project to enable multi-device cloud authentication and database persistence.</p>
+          </div>
+
+          <div class="config-fields">
+            <div class="auth-input-group">
+              <label for="sb-url-input"><i class="fa-solid fa-link text-cyan"></i> Supabase Project URL:</label>
+              <div class="auth-input-box">
+                <i class="fa-solid fa-globe"></i>
+                <input type="text" id="sb-url-input" placeholder="https://your-project.supabase.co">
+              </div>
+            </div>
+
+            <div class="auth-input-group">
+              <label for="sb-key-input"><i class="fa-solid fa-key text-gold"></i> Supabase Anon Key (Public):</label>
+              <div class="auth-input-box">
+                <i class="fa-solid fa-shield"></i>
+                <input type="password" id="sb-key-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+              </div>
+            </div>
+
+            <div class="config-actions">
+              <button type="button" class="btn-auth-primary" onclick="saveSupabaseSettings()">
+                <i class="fa-solid fa-floppy-disk"></i> Save & Connect Project
+              </button>
+            </div>
+
+            <div class="config-instructions">
+              <h5><i class="fa-solid fa-info-circle text-gold"></i> Database Tables Quick Setup:</h5>
+              <p>Run the SQL script provided in <code>supabase/schema.sql</code> in your Supabase SQL Editor to create the <code>user_sessions</code> and <code>watch_history</code> tables with Row Level Security (RLS) automatically enabled.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-modal-footer">
+        <button class="btn-netflix-secondary" onclick="closeAuthModal()">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ======================================================== -->
+  <!-- DEEP APP SETTINGS & PWA DOWNLOAD MODAL                     -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="app-settings-modal" style="display: none;" onclick="handleSettingsBackdropClick(event)">
+    <div class="netflix-modal-card app-settings-card">
+      <button class="modal-close-btn" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="settings-modal-header">
+        <div class="settings-header-title">
+          <h3><i class="fa-solid fa-sliders text-red"></i> CinemaVerse Pro Settings</h3>
+          <span class="settings-header-badge">v3.2.0 • Ultra HD</span>
+        </div>
+        <p class="settings-header-desc">Manage homescreen app installation, streaming mirrors, multi-language dubbing, and privacy.</p>
+      </div>
+
+      <div class="settings-modal-layout">
+        <!-- Settings Sidebar Navigation -->
+        <div class="settings-sidebar">
+          <button class="settings-tab-btn active" data-tab="install" onclick="switchSettingsTab('install', this)">
+            <i class="fa-solid fa-download text-gold"></i>
+            <span>Download App</span>
+            <span class="tab-badge-new">NEW</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="filters" onclick="switchSettingsTab('filters', this)">
+            <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+            <span>Movie Filters &amp; AI</span>
+            <span class="tab-badge-new" style="background: linear-gradient(135deg, #e50914, #f59e0b);">AI</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="streaming" onclick="switchSettingsTab('streaming', this)">
+            <i class="fa-solid fa-server text-cyan"></i>
+            <span>Streaming Mirrors</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="audio" onclick="switchSettingsTab('audio', this)">
+            <i class="fa-solid fa-language text-purple"></i>
+            <span>Audio & Dubbing</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="subtitles" onclick="switchSettingsTab('subtitles', this)">
+            <i class="fa-solid fa-closed-captioning text-green"></i>
+            <span>Subtitles</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="shield" onclick="switchSettingsTab('shield', this)">
+            <i class="fa-solid fa-shield-halved text-red"></i>
+            <span>Ad-Shield & Privacy</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="storage" onclick="switchSettingsTab('storage', this)">
+            <i class="fa-solid fa-database text-yellow"></i>
+            <span>Storage & History</span>
+          </button>
+          <button class="settings-tab-btn" data-tab="about" onclick="switchSettingsTab('about', this)">
+            <i class="fa-solid fa-circle-info text-blue"></i>
+            <span>About App</span>
+          </button>
+        </div>
+
+        <!-- Settings Tab Content Area -->
+        <div class="settings-content-pane">
+
+          <!-- TAB 1: DOWNLOAD & HOMESCREEN INSTALLATION -->
+          <div class="settings-tab-panel active" id="tab-install">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-mobile-screen-button text-gold"></i> Install CinemaVerse on Your Home Screen</h4>
+              <p>Experience true full-screen, native app performance without browser address bars, ads, or interruptions.</p>
+            </div>
+
+            <!-- Auto-Update Guarantee Banner -->
+            <div class="auto-update-banner">
+              <div class="auto-update-icon"><i class="fa-solid fa-arrows-rotate fa-spin text-gold"></i></div>
+              <div class="auto-update-text">
+                <strong>Automatic Cloud Updates Guaranteed:</strong>
+                <span>All CinemaVerse standalone apps update themselves automatically when the site updates. You never need to re-download or reinstall a new file to get new movies, servers, or features!</span>
+              </div>
+            </div>
+
+            <!-- Multi-Platform Downloads Grid (Android, Windows, macOS, Linux, PWA) -->
+            <div class="platforms-download-grid" id="platforms-download-grid">
+              
+              <!-- 1. ANDROID APK (Mobile, Tablet, Android TV, Fire TV) -->
+              <div class="platform-app-card card-android" id="card-platform-android">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-android">
+                    <i class="fa-brands fa-android"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>Android App (APK)</h5>
+                      <span class="platform-tag">v1.0.0</span>
+                    </div>
+                    <p class="platform-devices">Phones • Tablets • Android TV • Fire TV</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-green"></i> TV Remote D-Pad Navigation</span>
+                  <span><i class="fa-solid fa-check text-green"></i> 4K Fullscreen Immersive</span>
+                  <span><i class="fa-solid fa-check text-green"></i> Auto-Updating Cloud Shell</span>
+                </div>
+                <div class="platform-action">
+                  <a href="/CinemaVerse-Pro.apk" class="btn-platform-download btn-android" id="btn-download-apk" download="CinemaVerse-Pro.apk" onclick="handleApkDirectDownload(event)" title="Download Android APK directly">
+                    <i class="fa-brands fa-android"></i>
+                    <div class="dl-btn-label">
+                      <strong>Download Android APK</strong>
+                      <small>Direct File • 5.6 MB • Zero Setup</small>
+                    </div>
+                  </a>
+                  <a href="https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-apk/CinemaVerse-Pro.apk" class="btn-platform-mirror" target="_blank" rel="noopener noreferrer" title="Alternative GitHub Direct Mirror">
+                    <i class="fa-brands fa-github"></i> Alternative Direct Mirror (GitHub)
+                  </a>
+                </div>
+              </div>
+
+              <!-- 2. WINDOWS PC (Windows 10 & 11) -->
+              <div class="platform-app-card card-windows" id="card-platform-windows">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-windows">
+                    <i class="fa-brands fa-windows"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>Windows Desktop</h5>
+                      <span class="platform-tag">64-Bit</span>
+                    </div>
+                    <p class="platform-devices">Windows 10 &amp; Windows 11 PC / Laptops</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-cyan"></i> F11 Cinema Mode</span>
+                  <span><i class="fa-solid fa-check text-cyan"></i> Hardware GPU Acceleration</span>
+                  <span><i class="fa-solid fa-check text-cyan"></i> Media Keys &amp; Keyboard Controls</span>
+                </div>
+                <div class="platform-action">
+                  <a href="https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-desktop/CinemaVerse-Windows-Setup.exe" class="btn-platform-download btn-windows" id="btn-download-windows" target="_blank" rel="noopener noreferrer" title="Download Windows Installer">
+                    <i class="fa-brands fa-windows"></i>
+                    <div class="dl-btn-label">
+                      <strong>Download for Windows</strong>
+                      <small>Setup Installer (.exe) • 64-Bit</small>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- 3. MACOS (Apple Silicon M1/M2/M3 & Intel) -->
+              <div class="platform-app-card card-macos" id="card-platform-macos">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-macos">
+                    <i class="fa-brands fa-apple"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>macOS Desktop</h5>
+                      <span class="platform-tag">Universal</span>
+                    </div>
+                    <p class="platform-devices">MacBook, iMac, Mac mini (M1/M2/M3 &amp; Intel)</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-purple"></i> Retina 4K Display Rendering</span>
+                  <span><i class="fa-solid fa-check text-purple"></i> Native Fullscreen &amp; PiP</span>
+                  <span><i class="fa-solid fa-check text-purple"></i> Ad-Shield Preconfigured</span>
+                </div>
+                <div class="platform-action">
+                  <a href="https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-desktop/CinemaVerse-macOS.dmg" class="btn-platform-download btn-macos" id="btn-download-macos" target="_blank" rel="noopener noreferrer" title="Download Mac DMG File">
+                    <i class="fa-brands fa-apple"></i>
+                    <div class="dl-btn-label">
+                      <strong>Download for Mac</strong>
+                      <small>Disk Image (.dmg) • Universal Binary</small>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- 4. LINUX (AppImage & deb) -->
+              <div class="platform-app-card card-linux" id="card-platform-linux">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-linux">
+                    <i class="fa-brands fa-linux"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>Linux Standalone</h5>
+                      <span class="platform-tag">AppImage</span>
+                    </div>
+                    <p class="platform-devices">Ubuntu, Debian, Fedora, Arch, Manjaro</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-yellow"></i> Zero Dependency AppImage</span>
+                  <span><i class="fa-solid fa-check text-yellow"></i> Wayland &amp; X11 Compatible</span>
+                  <span><i class="fa-solid fa-check text-yellow"></i> VA-API Hardware Video Decoding</span>
+                </div>
+                <div class="platform-action">
+                  <a href="https://github.com/SanyamVerma123/Cinema-Verse-Pro/releases/download/latest-desktop/CinemaVerse-Linux.AppImage" class="btn-platform-download btn-linux" id="btn-download-linux" target="_blank" rel="noopener noreferrer" title="Download Linux AppImage">
+                    <i class="fa-brands fa-linux"></i>
+                    <div class="dl-btn-label">
+                      <strong>Download for Linux</strong>
+                      <small>Portable AppImage • All Distros</small>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- 5. INSTANT WEB APP (PWA) -->
+              <div class="platform-app-card card-pwa" id="card-platform-pwa">
+                <div class="platform-card-header">
+                  <div class="platform-icon-wrap icon-pwa">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                  </div>
+                  <div class="platform-meta">
+                    <div class="platform-title-row">
+                      <h5>Instant Web App (PWA)</h5>
+                      <span class="platform-tag tag-green">Zero Storage</span>
+                    </div>
+                    <p class="platform-devices">iPhone, iPad, Chrome, Edge, Safari, Brave</p>
+                  </div>
+                </div>
+                <div class="platform-perks">
+                  <span><i class="fa-solid fa-check text-green"></i> 1-Click Install to Home Screen</span>
+                  <span><i class="fa-solid fa-check text-green"></i> Zero Disk Space Required</span>
+                  <span><i class="fa-solid fa-check text-green"></i> Offline Mode &amp; Fast Cache</span>
+                </div>
+                <div class="platform-action">
+                  <button type="button" class="btn-platform-download btn-pwa" id="btn-install-pwa" onclick="triggerPwaInstall()" title="Install CinemaVerse PWA immediately">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                    <div class="dl-btn-label">
+                      <strong>Add to Home Screen (Instant)</strong>
+                      <small>No installer needed • Browser native</small>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Platform Specific Install Guides -->
+            <div class="install-guides-grid">
+              <div class="guide-card">
+                <div class="guide-header">
+                  <i class="fa-brands fa-android text-green"></i>
+                  <h6>Android (Chrome / Brave)</h6>
+                </div>
+                <ol>
+                  <li>Tap the <strong>three dots (⋮)</strong> menu in the top right.</li>
+                  <li>Select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</li>
+                  <li>Confirm by tapping <strong>Install</strong>.</li>
+                </ol>
+              </div>
+
+              <div class="guide-card">
+                <div class="guide-header">
+                  <i class="fa-brands fa-apple text-white"></i>
+                  <h6>iPhone / iPad (Safari)</h6>
+                </div>
+                <ol>
+                  <li>Tap the <strong>Share button (<i class="fa-solid fa-arrow-up-from-bracket"></i>)</strong> at the bottom.</li>
+                  <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+                  <li>Tap <strong>Add</strong> in the top-right corner.</li>
+                </ol>
+              </div>
+
+              <div class="guide-card">
+                <div class="guide-header">
+                  <i class="fa-brands fa-windows text-cyan"></i>
+                  <h6>PC / Windows / Mac</h6>
+                </div>
+                <ol>
+                  <li>Click the <strong>Install icon</strong> in your browser address bar.</li>
+                  <li>Or open the browser menu &gt; <strong>"Install CinemaVerse Pro"</strong>.</li>
+                  <li>Launch directly from your Desktop or Taskbar.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: MOVIE FILTERS & AI TASTE PREFERENCES -->
+          <div class="settings-tab-panel" id="tab-filters">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-wand-magic-sparkles text-gold"></i> Content Filters &amp; AI Personalization</h4>
+              <p>Filter what types of movies and shows appear across CinemaVerse, and configure your Machine Learning recommendation model.</p>
+            </div>
+
+            <!-- Content Type Filter -->
+            <div class="setting-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-film text-red"></i> Primary Content Type</label>
+                <span>Filter all homepage rows and recommendations by format.</span>
+              </div>
+              <div class="filter-pills-group" id="filter-type-group">
+                <button type="button" class="filter-choice-btn active" data-type="all" onclick="selectFilterType('all', this)">All (Movies &amp; Series)</button>
+                <button type="button" class="filter-choice-btn" data-type="movie" onclick="selectFilterType('movie', this)"><i class="fa-solid fa-film"></i> Movies Only</button>
+                <button type="button" class="filter-choice-btn" data-type="series" onclick="selectFilterType('series', this)"><i class="fa-solid fa-tv"></i> TV Series Only</button>
+              </div>
+            </div>
+
+            <!-- Favorite Genres Multi-Select -->
+            <div class="setting-row filter-genres-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-tags text-cyan"></i> Preferred Genres &amp; Categories</label>
+                <span>Select genres you enjoy. CinemaVerse will prioritize these in recommendations and catalog feeds.</span>
+              </div>
+              <div class="genres-chips-grid" id="filter-genres-grid">
+                <!-- Dynamically populated toggle chips: Action, Sci-Fi, Thriller, Drama, Horror, Anime, Comedy, etc. -->
+              </div>
+            </div>
+
+            <!-- Preferred Streaming Platforms -->
+            <div class="setting-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-layer-group text-gold"></i> Preferred Streaming Platforms</label>
+                <span>Prioritize titles from specific OTT hubs.</span>
+              </div>
+              <div class="platforms-chips-grid" id="filter-platforms-grid">
+                <button type="button" class="filter-chip-pill active" data-platform="netflix" onclick="togglePlatformFilter('netflix', this)"><span class="badge-dot-nflx"></span> Netflix</button>
+                <button type="button" class="filter-chip-pill active" data-platform="prime" onclick="togglePlatformFilter('prime', this)"><span class="badge-dot-prm"></span> Prime Video</button>
+                <button type="button" class="filter-chip-pill active" data-platform="disney" onclick="togglePlatformFilter('disney', this)"><span class="badge-dot-dis"></span> Disney+ Hotstar</button>
+                <button type="button" class="filter-chip-pill active" data-platform="hbo" onclick="togglePlatformFilter('hbo', this)"><span class="badge-dot-hbo"></span> HBO Max</button>
+                <button type="button" class="filter-chip-pill active" data-platform="apple" onclick="togglePlatformFilter('apple', this)"><span class="badge-dot-app"></span> Apple TV+</button>
+                <button type="button" class="filter-chip-pill active" data-platform="crunchyroll" onclick="togglePlatformFilter('crunchyroll', this)"><span class="badge-dot-cr"></span> Crunchyroll / Anime</button>
+              </div>
+            </div>
+
+            <!-- Release Era & Age Maturity -->
+            <div class="setting-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-calendar text-yellow"></i> Release Era</label>
+                <span>Filter catalog titles by release year timeframe.</span>
+              </div>
+              <select class="settings-dropdown" id="filter-setting-era" onchange="updateEraFilter(this.value)">
+                <option value="all" selected>All Eras (Classics to 2026)</option>
+                <option value="latest">2024 - 2026 Latest Releases Only</option>
+                <option value="modern">2018 - 2023 Modern Hits</option>
+                <option value="classics">Before 2018 (Legacy Classics)</option>
+              </select>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label><i class="fa-solid fa-shield text-green"></i> Content Maturity Rating</label>
+                <span>Select family-friendly or unrestricted viewing.</span>
+              </div>
+              <select class="settings-dropdown" id="filter-setting-maturity" onchange="updateMaturityFilter(this.value)">
+                <option value="all" selected>All Ratings (Family + Mature)</option>
+                <option value="family">Family Friendly (PG, PG-13, TV-14 &amp; Below)</option>
+                <option value="mature">18+ / TV-MA / R-Rated Only</option>
+              </select>
+            </div>
+
+            <!-- Machine Learning AI Taste Inspector -->
+            <div class="ai-taste-inspector-card">
+              <div class="ai-inspector-header">
+                <div class="ai-inspector-title">
+                  <i class="fa-solid fa-brain text-gold"></i>
+                  <div>
+                    <h5>Machine Learning Taste Model (Active)</h5>
+                    <span id="ai-model-status-text">Continuously learning from your watch history, likes, and interactions.</span>
+                  </div>
+                </div>
+                <button type="button" class="btn-reset-ai-model" onclick="resetAiModel()" title="Reset AI taste profile">
+                  <i class="fa-solid fa-arrows-rotate"></i> Reset Taste Model
+                </button>
+              </div>
+              <div class="ai-bars-container" id="ai-taste-bars-container">
+                <!-- Dynamically populated top learned genre confidence bars -->
+              </div>
+            </div>
+
+            <!-- Actions Bar -->
+            <div class="filter-actions-bar">
+              <button type="button" class="btn-netflix-secondary" onclick="resetContentFilters()"><i class="fa-solid fa-rotate-left"></i> Reset to All</button>
+              <button type="button" class="btn-netflix-primary" onclick="saveAndApplyContentFilters()"><i class="fa-solid fa-check"></i> Apply Filters &amp; Update Rows</button>
+            </div>
+          </div>
+
+          <!-- TAB 2: STREAMING & MIRRORS -->
+          <div class="settings-tab-panel" id="tab-streaming">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-server text-cyan"></i> Streaming Mirror Preferences</h4>
+              <p>Select your default preferred server mirror and playback configurations.</p>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Default Streaming Server</label>
+                <span>Choose which server loads automatically when clicking play on any movie or show.</span>
+              </div>
+              <select class="settings-dropdown" id="setting-default-server" onchange="saveDefaultServerPref(this.value)">
+            <option value="0" selected>Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio &amp; 3 Servers • ✅ 0 Ads)</option>
+            <option value="1">Server 2: CineSrc VIP Player (Open Source • ✅ 0 Ads)</option>
+            <option value="2">Server 3: 123Embed Cloud Player (In-Player Switcher • 4K)</option>
+            <option value="3">Server 4: Global World Mirror (Multi-Language &amp; Dubbed)</option>
+            <option value="4">Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR)</option>
+            <option value="5">Server 6: AnimeWorld VIP (Hindi/Eng/Jap)</option>
+            <option value="6">Server 7: MultiEmbed Cloud Stream (Global Mirror)</option>
+            <option value="7">Server 8: VidLink Pro VIP (Ultra HD 4K • Multi-Audio)</option>
+            <option value="8">Server 9: AnyEmbed Prime Direct (1080p Direct)</option>
+            <option value="9">Server 10: Nontongo CC Captions (Multi-Subtitles)</option>
+          </select>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Default Screen Fit / Aspect Ratio</label>
+                <span>Select how videos automatically scale inside the cinema viewport stage.</span>
+              </div>
+              <select class="settings-dropdown" id="setting-default-zoom" onchange="saveDefaultZoomPref(this.value)">
+                <option value="fit">Fit to Screen (Default)</option>
+                <option value="zoom">Zoom / Fill (No Black Bars)</option>
+                <option value="cinema">Cinema Anamorphic 21:9</option>
+                <option value="stretch">Stretch 16:9 Full</option>
+              </select>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Auto-Play Next Episode</label>
+                <span>Automatically queue and buffer the subsequent TV episode when finished.</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-autoplay-next" checked onchange="saveAutoplayPref(this.checked)">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- TAB 3: AUDIO & DUBBING -->
+          <div class="settings-tab-panel" id="tab-audio">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-language text-purple"></i> Audio & Dubbed Language Preferences</h4>
+              <p>Configure which language audio track CinemaVerse prioritizes across streaming servers.</p>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Default Dubbed Audio Track</label>
+                <span>Preferred language for Hollywood movies, Anime, and international releases.</span>
+              </div>
+              <select class="settings-dropdown" id="setting-default-dub" onchange="saveDefaultDubPref(this.value)">
+                <option value="en">🌐 English (Original Audio)</option>
+                <option value="hi">🇮🇳 Hindi Dubbed</option>
+                <option value="ja">🇯🇵 Japanese (Anime Audio)</option>
+                <option value="ta">🇮🇳 Tamil Dubbed</option>
+                <option value="te">🇮🇳 Telugu Dubbed</option>
+                <option value="es">🇪🇸 Spanish Dubbed</option>
+                <option value="fr">🇫🇷 French Dubbed</option>
+                <option value="de">🇩🇪 German Dubbed</option>
+              </select>
+            </div>
+
+            <div class="setting-note-card">
+              <i class="fa-solid fa-circle-info text-cyan"></i>
+              <p>When Hindi, Tamil, Telugu, or Japanese is chosen, CinemaVerse automatically auto-routes playback to <strong>Server 4 (Global Mirror)</strong> or <strong>Server 9 (AnimeWorld VIP)</strong> which support multi-audio streams.</p>
+            </div>
+          </div>
+
+          <!-- TAB 4: SUBTITLES -->
+          <div class="settings-tab-panel" id="tab-subtitles">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-closed-captioning text-green"></i> Subtitles & Closed Captions</h4>
+              <p>Customize font appearance and default caption language.</p>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Subtitle Font Size</label>
+                <span>Choose preferred text sizing for closed captions.</span>
+              </div>
+              <select class="settings-dropdown" id="setting-sub-size" onchange="saveSubSizePref(this.value)">
+                <option value="normal">Normal (100%)</option>
+                <option value="small">Small (75%)</option>
+                <option value="large">Large (125%)</option>
+                <option value="xlarge">Extra Large (150%)</option>
+              </select>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Auto-Load English CC</label>
+                <span>Automatically request English captions when available.</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-auto-sub" checked onchange="saveAutoSubPref(this.checked)">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- TAB 5: AD-SHIELD & PRIVACY -->
+          <div class="settings-tab-panel" id="tab-shield">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-shield-halved text-red"></i> Popup handling</h4>
+              <p>The app can block external popups opened by its own page while a player is active. Cross-origin providers control their own iframe popups.</p>
+            </div>
+
+            <div class="shield-status-card">
+              <div class="shield-badge-pill"><span class="pulse-dot"></span> PARENT PAGE GUARD</div>
+              <h5>Best-effort popup blocking</h5>
+              <p>External window.open requests from this app are blocked while playback is active. The provider frame stays unsandboxed for Vidly compatibility, so its own popups and ads cannot be reliably blocked by this page.</p>
+              <div class="shield-metrics-grid">
+                <div class="shield-metric-box">
+                  <span class="metric-num text-cyan">Page</span>
+                  <span class="metric-label">Guard scope</span>
+                </div>
+                <div class="shield-metric-box">
+                  <span class="metric-num text-gold">Provider</span>
+                  <span class="metric-label">Ads may appear</span>
+                </div>
+                <div class="shield-metric-box">
+                  <span class="metric-num text-green">Vidly</span>
+                  <span class="metric-label">Frame unsandboxed</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Parent page popup guard</label>
+                <span>Blocks external window.open calls made by this page during playback.</span>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-strict-shield" checked disabled>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- TAB 6: DATA & STORAGE -->
+          <div class="settings-tab-panel" id="tab-storage">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-database text-yellow"></i> Data & Storage Management</h4>
+              <p>Manage locally stored watch history, watchlist, and custom profile preferences.</p>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Clear Continue Watching</label>
+                <span>Remove all saved in-progress movie and episode playback positions.</span>
+              </div>
+              <button class="btn-action-outline text-yellow" onclick="clearContinueWatchingData()">
+                <i class="fa-solid fa-clock-rotate-left"></i> Clear History
+              </button>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Reset My Watchlist</label>
+                <span>Remove all saved bookmarks from your personal watchlist.</span>
+              </div>
+              <button class="btn-action-outline text-red" onclick="clearWatchlistData()">
+                <i class="fa-solid fa-trash-can"></i> Clear Watchlist
+              </button>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label>Factory Reset App Preferences</label>
+                <span>Restore default profile name, avatar, and server mirror selections.</span>
+              </div>
+              <button class="btn-action-outline text-red" onclick="resetAllAppSettings()">
+                <i class="fa-solid fa-arrows-rotate"></i> Reset All
+              </button>
+            </div>
+          </div>
+
+          <!-- TAB 7: ABOUT -->
+          <div class="settings-tab-panel" id="tab-about">
+            <div class="settings-pane-header">
+              <h4><i class="fa-solid fa-circle-info text-blue"></i> About CinemaVerse Pro</h4>
+              <p>Next-generation free universal streaming platform with Netflix design system.</p>
+            </div>
+
+            <div class="about-app-card">
+              <div class="about-logo">
+                <span class="logo-netflix">CINEMA</span> <span class="logo-sub">VERSE PRO</span>
+              </div>
+              <p class="about-version">Build: <strong>v3.2.0 (2026 Release)</strong> • Environment: <strong>Vercel Edge</strong></p>
+              <p class="about-desc">Engineered for clean, ad-free streaming across Netflix, Prime Video, Disney+, HBO Max, Apple TV+, and anime platforms with automatic multi-language dubbing.</p>
+
+              <div class="about-repo-box">
+                <i class="fa-brands fa-github text-white"></i>
+                <div class="about-repo-info">
+                  <span class="repo-name">CinemaVerse Pro</span>
+                  <span class="repo-branch"><i class="fa-solid fa-code-branch text-green"></i> main branch (Clean CI/CD)</span>
+                </div>
+                <a href="https://github.com/SanyamVerma123/CinemaVerse-Pro" target="_blank" rel="noopener noreferrer" data-allow-external="true" class="btn-github-link">
+                  View Source <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- SHARE MODAL (NATIVE SHARE SHEET & SOCIAL CHANNELS)       -->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="share-modal" style="display: none;" onclick="handleShareBackdropClick(event)">
+    <div class="netflix-modal-card share-modal-card">
+      <button class="modal-close-btn" onclick="closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="share-modal-header">
+        <h3><i class="fa-solid fa-share-nodes text-red"></i> Share with Friends</h3>
+        <p class="share-modal-sub">Share this title to watch together in 4K Ultra HD with 0 ads.</p>
+      </div>
+
+      <div class="share-preview-card">
+        <img class="share-preview-poster" id="share-preview-poster" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="Poster" onerror="if(window.handleImgError)window.handleImgError(this)">
+        <div class="share-preview-meta">
+          <span class="share-badge-quality"><i class="fa-solid fa-sparkles text-gold"></i> CinemaVerse Pro</span>
+          <h4 id="share-preview-title">Title</h4>
+          <span class="share-item-sub" id="share-preview-sub">2026 • 4K Ultra HD • Zero Ads</span>
+        </div>
+      </div>
+
+      <!-- Quick Social Sharing Channels -->
+      <div class="share-channels-grid">
+        <button type="button" class="share-channel-btn share-whatsapp" onclick="shareVia('whatsapp')">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>WhatsApp</span>
+        </button>
+        <button type="button" class="share-channel-btn share-telegram" onclick="shareVia('telegram')">
+          <i class="fa-brands fa-telegram"></i>
+          <span>Telegram</span>
+        </button>
+        <button type="button" class="share-channel-btn share-twitter" onclick="shareVia('twitter')">
+          <i class="fa-brands fa-x-twitter"></i>
+          <span>Twitter / X</span>
+        </button>
+        <button type="button" class="share-channel-btn share-facebook" onclick="shareVia('facebook')">
+          <i class="fa-brands fa-facebook-f"></i>
+          <span>Facebook</span>
+        </button>
+        <button type="button" class="share-channel-btn share-system" onclick="shareVia('native')">
+          <i class="fa-solid fa-ellipsis"></i>
+          <span>More Apps</span>
+        </button>
+      </div>
+
+      <!-- Copy Direct Link Box -->
+      <div class="share-copy-box">
+        <label><i class="fa-solid fa-link text-cyan"></i> Direct Streaming Link:</label>
+        <div class="share-input-wrap">
+          <input type="text" id="share-link-input" readonly>
+          <button type="button" class="btn-copy-link" id="btn-copy-share" onclick="copyShareLink()">
+            <i class="fa-solid fa-copy"></i> <span>Copy Link</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- DOWNLOAD MANAGER MODAL (REAL VIDEO STREAMS & IN-APP VAULT)-->
+  <!-- ======================================================== -->
+  <div class="netflix-modal-backdrop" id="download-manager-modal" style="display: none;" onclick="handleDownloadBackdropClick(event)">
+    <div class="netflix-modal-card download-modal-card">
+      <button class="modal-close-btn" onclick="closeDownloadModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="download-modal-header">
+        <h3 id="dl-title"><i class="fa-solid fa-download text-red"></i> Download Video & Offline Stream</h3>
+        <p class="download-modal-sub">Real direct high-speed video files (MP4/MKV) and In-App Offline Vault without fake mocking.</p>
+      </div>
+
+      <div class="download-modal-body">
+        <!-- Media Preview Card -->
+        <div class="download-preview-card">
+          <img class="download-preview-poster" id="dl-preview-poster" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="Poster" onerror="if(window.handleImgError)window.handleImgError(this)">
+          <div class="download-preview-meta">
+            <span class="download-badge-quality" id="dl-badge-quality">4K Ultra HD</span>
+            <h4 id="dl-item-title">Title</h4>
+            <span class="download-item-sub" id="dl-item-sub">2026 • 2h 15m</span>
+            <div class="download-audio-chips" id="dl-audio-chips">
+              <span class="chip-audio"><i class="fa-solid fa-headphones"></i> Multi-Audio (Hindi / Eng)</span>
+              <span class="chip-audio"><i class="fa-solid fa-bolt text-gold"></i> High Speed CDN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Stream Download Sources List -->
+        <div class="download-real-sources-section">
+          <div class="dl-sources-header">
+            <h5><i class="fa-solid fa-circle-nodes text-green"></i> Real Video Download Streams (Direct Files)</h5>
+            <span class="dl-sources-badge">Ready to Download</span>
+          </div>
+
+          <!-- Loading state -->
+          <div id="dl-sources-loading" class="dl-sources-loading" style="display: none;">
+            <i class="fa-solid fa-spinner fa-spin text-red"></i>
+            <span>Resolving real 4K & 1080p high-speed video files...</span>
+          </div>
+
+          <!-- Dynamic Sources Container -->
+          <div id="dl-sources-container" class="dl-sources-container">
+            <!-- Dynamically populated by app.js with real 4K, 1080p, 720p files -->
+          </div>
+        </div>
+
+        <!-- In-App Offline Vault Download Section -->
+        <div class="download-vault-section">
+          <h5><i class="fa-solid fa-vault text-gold"></i> In-App Offline Vault (Watch Inside App Without Internet)</h5>
+          
+          <!-- Download Progress Box (Active during real download) -->
+          <div class="download-progress-container" id="download-progress-container" style="display: none;">
+            <div class="download-progress-header">
+              <span id="dl-progress-status"><i class="fa-solid fa-spinner fa-spin text-red"></i> Downloading video stream into In-App Vault...</span>
+              <span class="dl-progress-percent" id="dl-progress-percent">0%</span>
+            </div>
+            <div class="dl-progress-track">
+              <div class="dl-progress-fill" id="dl-progress-fill" style="width: 0%;"></div>
+            </div>
+            <div class="dl-progress-meta">
+              <span id="dl-progress-speed">Streaming bytes...</span>
+              <span id="dl-progress-eta">Saving into device offline vault</span>
+            </div>
+          </div>
+
+          <div class="vault-actions-row" id="download-actions-grid">
+            <button type="button" class="btn-vault-download" id="btn-start-inapp-download" onclick="startInAppDownload()">
+              <i class="fa-solid fa-arrow-down-to-bracket"></i>
+              <span>Save into In-App Vault for Offline Play</span>
+            </button>
+            <button type="button" class="btn-server-stream-link" id="btn-direct-stream-link" onclick="openDirectStreamDownload()">
+              <i class="fa-solid fa-bolt text-gold"></i>
+              <span>Open Server 4 Global Stream</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOICE SEARCH HUD MODAL -->
+  <div class="voice-search-modal" id="voice-search-modal" style="display: none;" onclick="closeVoiceSearchOnBackdrop(event)">
+    <div class="voice-modal-card" onclick="event.stopPropagation()">
+      <button type="button" class="voice-modal-close" onclick="stopVoiceSearch(true)" aria-label="Close voice search">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="voice-mic-container">
+        <div class="voice-pulse-ring" id="voice-pulse-ring-1"></div>
+        <div class="voice-pulse-ring delay-1" id="voice-pulse-ring-2"></div>
+        <div class="voice-mic-circle" id="voice-mic-indicator" onclick="toggleVoiceListeningManual()" title="Tap to Toggle Listening">
+          <i class="fa-solid fa-microphone voice-mic-icon"></i>
+        </div>
+      </div>
+
+      <h3 class="voice-status-heading" id="voice-status-heading">Listening... Speak now</h3>
+      
+      <!-- Live Real-Time Voice Input & Transcription Row -->
+      <div class="voice-input-row" id="voice-input-row">
+        <input type="text" class="voice-modal-input" id="voice-modal-input" placeholder="Listening for speech or type here..." autocomplete="off">
+        <button type="button" class="btn-voice-modal-go" id="btn-voice-modal-go" onclick="submitVoiceModalInput()" title="Search">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+      <p class="voice-transcript-hint" id="voice-transcript-hint">Say any movie name, series, actor, or genre...</p>
+
+      <div class="voice-suggestions">
+        <span class="voice-suggestions-label">Try saying:</span>
+        <div class="voice-chips-row">
+          <button type="button" class="voice-chip" onclick="searchVoiceHint('Inception movie')"><i class="fa-solid fa-film"></i> Inception movie</button>
+          <button type="button" class="voice-chip" onclick="searchVoiceHint('Deadpool and Wolverine')"><i class="fa-solid fa-masks-theater"></i> Deadpool &amp; Wolverine</button>
+          <button type="button" class="voice-chip" onclick="searchVoiceHint('Horror movies')"><i class="fa-solid fa-ghost"></i> Horror movies</button>
+          <button type="button" class="voice-chip" onclick="searchVoiceHint('Christopher Nolan')"><i class="fa-solid fa-star"></i> Christopher Nolan</button>
+        </div>
+      </div>
+
+      <div class="voice-modal-footer">
+        <button type="button" class="btn-voice-cancel" onclick="stopVoiceSearch(true)">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+    <span id="toast-message">Message</span>
+  </div>
+
+  <!-- NETFLIX FOOTER -->
+  <footer class="netflix-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <span class="footer-brand"><span class="text-red">CINEMA</span>VERSE PRO</span>
+        <p>The ultimate free universal multi-OTT streaming platform.</p>
+      </div>
+      <div class="footer-links-grid">
+        <a href="#home" onclick="filterPlatform('all')">FAQ</a>
+        <a href="#help" onclick="openAuditModal()">Safety Audit</a>
+        <a href="#terms" onclick="showToast('CinemaVerse is 100% ad-free')">Terms of Use</a>
+        <a href="#privacy" onclick="showToast('Your privacy is 100% protected on your device')">Privacy Policy</a>
+      </div>
+      <p class="footer-copy">© 2026 CinemaVerse Pro. Universal Multi-OTT Streaming Universe.</p>
+    </div>
+  </footer>
+</div>
+
+  <!-- ======================================================== -->
+  <!-- MOBILE BOTTOM NAVIGATION DOCK (Luxury Glassmorphism)     -->
+  <!-- ======================================================== -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <button type="button" class="mobile-nav-item active" id="mob-nav-home" onclick="resetToHome(); setActiveMobNav(this);" title="Home">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </button>
+    <button type="button" class="mobile-nav-item" id="mob-nav-search" onclick="openCommandPalette(); setActiveMobNav(this);" title="Search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search</span>
+    </button>
+    <button type="button" class="mobile-nav-item" id="mob-nav-download" onclick="scrollToDownloadCenter(); setActiveMobNav(this);" title="Install &amp; Downloads">
+      <i class="fa-solid fa-download"></i>
+      <span>Install App</span>
+    </button>
+    <button type="button" class="mobile-nav-item" id="mob-nav-camou" onclick="activateLibraryCamouflage()" title="Instant Disguise">
+      <i class="fa-solid fa-book-bookmark text-gold"></i>
+      <span>Disguise</span>
+    </button>
+    <button type="button" class="mobile-nav-item" id="mob-nav-profile" onclick="openAuthModal(); setActiveMobNav(this);" title="Profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Account</span>
+    </button>
+  </nav>
+
+
+  
+  <!-- ======================================================== -->
+  <!-- SHADCN/UI COMMAND PALETTE DIALOG (cmdk Component)        -->
+  <!-- ======================================================== -->
+  <div class="shadcn-command-dialog-overlay" id="command-dialog-overlay" style="display: none;" onclick="closeCommandPalette(event)">
+    <div class="shadcn-command-dialog" id="command-dialog" onclick="event.stopPropagation()">
+      <div class="shadcn-command-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass shadcn-command-icon"></i>
+        <input type="text" id="command-search-input" class="shadcn-command-input" placeholder="Search 1,300+ movies, series, cast, OTTs..." autocomplete="off">
+        <button type="button" class="shadcn-command-clear" id="command-search-clear" onclick="clearCommandSearch()" style="display: none;" title="Clear">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button type="button" class="shadcn-command-voice" id="command-search-voice" onclick="toggleVoiceSearch(event)" title="Voice Search">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
+        <kbd class="shadcn-kbd kbd-esc" onclick="closeCommandPalette()">ESC</kbd>
+      </div>
+
+      <div class="shadcn-command-list" id="command-search-list">
+        <!-- Populated via renderCommandDefaultSuggestions() & handleCommandInput() -->
+      </div>
+      
+      <div class="shadcn-command-footer">
+        <div class="shadcn-command-footer-tip">
+          <span><kbd class="shadcn-kbd">↑</kbd> <kbd class="shadcn-kbd">↓</kbd> Navigate</span>
+          <span><kbd class="shadcn-kbd">↵</kbd> Select</span>
+          <span><kbd class="shadcn-kbd">ESC</kbd> Close</span>
+        </div>
+        <span class="shadcn-command-badge"><i class="fa-solid fa-bolt text-gold"></i> Live TMDb &amp; Metahub</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="/initial_catalog.js?v=20261110_1935"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js?v=20261110_1935"></script>
+  <script src="app.js?v=20261110_1935"></script>
+</body>
+</html>
