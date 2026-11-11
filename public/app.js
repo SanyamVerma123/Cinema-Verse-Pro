@@ -237,13 +237,15 @@ async function initializeApplication() {
     if (!heroItems.length) heroItems = currentCatalog.slice(0, 6);
     try { setupHeroCarousel(); } catch (e) { console.warn('setupHeroCarousel bootstrap:', e); }
     try { renderAllRows(currentCatalog); } catch (e) { console.warn('renderAllRows bootstrap:', e); }
-    try { updateOttHubDynamicCounts(); } catch (e) { console.warn('updateOttHubDynamicCounts bootstrap:', e); }
+    try { updateOttHubDynamicCounts();
+      try { initMonlexView(currentCatalog); } catch (e) { console.warn("initMonlexView post-load:", e); } } catch (e) { console.warn('updateOttHubDynamicCounts bootstrap:', e); }
   }
 
   // Initialize Smart TV Remote D-Pad Navigation Engine
   initSmartTvNavigation();
   try { setupAutocomplete(); } catch (e) { console.warn("setupAutocomplete:", e); }
   try { loadTmdbTrending(); } catch (e) { console.warn("loadTmdbTrending:", e); }
+  try { initMonlexView(currentCatalog); } catch (e) { console.warn("initMonlexView bootstrap:", e); }
 
   // Asynchronously load full 5MB catalog with automatic retry
   await loadCatalog();
@@ -2525,14 +2527,14 @@ function playTrailerByEmbed(embedUrl, videoTitle) {
 
   let videoId = '';
   if (typeof embedUrl === 'string') {
-    const m = embedUrl.match(/(?:embed\/|v\/|watch\?v=|youtu\.be\/)([\w-]{11})/);
+    const m = embedUrl.match(/(?:embed\/|v\/|watch\?v=|youtu\.be\/|shorts\/)([\w-]{11})/);
     if (m) videoId = m[1];
   }
 
   const cleanEmbed = videoId 
-    ? 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&mute=0&enablejsapi=1&playsinline=1&rel=0'
+    ? 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&mute=0&enablejsapi=1&playsinline=1&rel=0'
     : embedUrl;
-  const ytWatchUrl = videoId ? 'https://www.youtube.com/watch?v=' + videoId : '#';
+  const ytWatchUrl = videoId ? 'https://www.youtube.com/watch?v=' + videoId : (embedUrl || '#');
 
   if (title) title.innerHTML = `<i class="fa-brands fa-youtube text-red"></i> ${videoTitle || 'Official Video Clip'}`;
   if (spinner) spinner.style.display = 'none';
@@ -2548,6 +2550,8 @@ function playTrailerByEmbed(embedUrl, videoTitle) {
   }
 
   if (iframe) {
+    iframe.removeAttribute('referrerpolicy');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
     iframe.src = cleanEmbed;
   }
 }
@@ -9222,10 +9226,12 @@ let acDebounceTimer = null;
 function setupAutocomplete() {
   const navInput = document.getElementById('search-input');
   const inpageInput = document.getElementById('search-inpage-input');
+  const sidebarInput = document.getElementById('monlex-search-input');
 
   [
     { input: navInput, dropdownId: 'search-autocomplete' },
-    { input: inpageInput, dropdownId: 'search-inpage-autocomplete' }
+    { input: inpageInput, dropdownId: 'search-inpage-autocomplete' },
+    { input: sidebarInput, dropdownId: 'monlex-search-autocomplete' }
   ].forEach(({ input, dropdownId }) => {
     if (!input) return;
     const dropdown = document.getElementById(dropdownId);
@@ -9258,6 +9264,11 @@ function setupAutocomplete() {
     }
     if (inpageDropdown && !inpageBox?.contains(e.target)) {
       inpageDropdown.style.display = 'none';
+    }
+    const sidebarDropdown = document.getElementById('monlex-search-autocomplete');
+    const sidebarSearch = document.querySelector('.monlex-sidebar-search');
+    if (sidebarDropdown && !sidebarSearch?.contains(e.target)) {
+      sidebarDropdown.style.display = 'none';
     }
   });
 }
@@ -9432,6 +9443,8 @@ function selectAcItem(idx) {
   const inpageDropdown = document.getElementById('search-inpage-autocomplete');
   if (navDropdown) navDropdown.style.display = 'none';
   if (inpageDropdown) inpageDropdown.style.display = 'none';
+  const sidebarDropdown = document.getElementById('monlex-search-autocomplete');
+  if (sidebarDropdown) sidebarDropdown.style.display = 'none';
 
   if (selected.type === 'title') {
     const item = selected.data;
@@ -9752,3 +9765,325 @@ document.addEventListener('DOMContentLoaded', () => {
     cmdInput.addEventListener('input', (e) => handleCommandInput(e.target.value));
   }
 });
+
+
+// ========================================================
+// MONLEX.NET UI ARCHITECTURE CONTROLLER
+// ========================================================
+let currentMonlexHeroItem = null;
+let currentMonlexCategory = 'series'; // TV Show active by default as shown in screenshot
+
+function initMonlexView(catalog = currentCatalog) {
+  if (!catalog || !catalog.length) return;
+
+  // 1. Setup Hero Item (Murder Mystery by default as in screenshot, or top featured)
+  let hero = catalog.find(x => x.id === 'netflix_murder_mystery');
+  if (!hero) {
+    hero = catalog.find(x => x.title && x.title.toLowerCase().includes('murder mystery'));
+  }
+  if (!hero) {
+    hero = catalog.find(x => x.featured || x.trending) || catalog[0];
+  }
+  renderMonlexHero(hero);
+
+  // 2. Setup Recent Movies Panel (Blood Hounds, My Name, Invitation To a Murder)
+  renderMonlexRecent(catalog);
+
+  // 3. Setup Shelves (Popular Movies 4 landscape cards, TV, Anime)
+  renderMonlexShelves(catalog);
+
+  // 4. Load Live TMDb Trending Row
+  try {
+    if (typeof loadTmdbTrending === 'function') {
+      loadTmdbTrending('all', 'day');
+    }
+  } catch (e) {
+    console.warn('[Monlex TMDb Trending Error]', e);
+  }
+}
+
+function renderMonlexHero(item) {
+  if (!item) return;
+  currentMonlexHeroItem = item;
+
+  const bgEl = document.getElementById('monlex-hero-bg');
+  const titleEl = document.getElementById('monlex-hero-title');
+  const viewsEl = document.getElementById('monlex-hero-views-count');
+  const watermarkEl = document.getElementById('monlex-hero-watermark');
+  const followBtn = document.getElementById('monlex-hero-follow-btn');
+
+  if (bgEl) {
+    const bgUrl = item.backdrop || item.poster || FALLBACK_BACKDROP;
+    bgEl.style.backgroundImage = 'url("' + bgUrl + '")';
+  }
+  if (titleEl) {
+    titleEl.textContent = item.title;
+  }
+  if (viewsEl) {
+    viewsEl.textContent = item.views || '82,642,242';
+  }
+  if (watermarkEl) {
+    watermarkEl.textContent = item.platformBadge || (item.platform ? item.platform.toUpperCase() : 'NETFLIX');
+    if (item.platformColor) {
+      watermarkEl.style.color = item.platformColor;
+    }
+  }
+  if (followBtn) {
+    const watchlist = (typeof getWatchlist === 'function') ? getWatchlist() : [];
+    const isFollowing = watchlist.some(w => w.id === item.id);
+    followBtn.innerHTML = isFollowing 
+      ? '<i class="fa-solid fa-check"></i> <span>Following</span>' 
+      : '<i class="fa-solid fa-plus"></i> <span>Follow</span>';
+    followBtn.classList.toggle('active', isFollowing);
+  }
+}
+
+function playMonlexHero() {
+  if (currentMonlexHeroItem && typeof openPlayer === 'function') {
+    openPlayer(currentMonlexHeroItem);
+  }
+}
+
+function toggleMonlexHeroFollow() {
+  if (!currentMonlexHeroItem) return;
+  if (typeof toggleWatchlist === 'function') {
+    toggleWatchlist(currentMonlexHeroItem);
+    renderMonlexHero(currentMonlexHeroItem);
+  }
+}
+
+function renderMonlexRecent(catalog) {
+  const container = document.getElementById('monlex-recent-list');
+  if (!container || !catalog) return;
+
+  const targetIds = ['netflix_bloodhounds', 'netflix_my_name', 'movie_invitation_to_a_murder'];
+  let recentItems = [];
+  targetIds.forEach(id => {
+    const found = catalog.find(x => x.id === id);
+    if (found) recentItems.push(found);
+  });
+
+  if (recentItems.length < 3) {
+    const extras = catalog.filter(x => !recentItems.some(r => r.id === x.id)).slice(0, 3 - recentItems.length);
+    recentItems = recentItems.concat(extras);
+  }
+
+  container.innerHTML = recentItems.map((item, idx) => {
+    // In screenshot: Item 1 has 3 stars, Item 2 has 5 stars, Item 3 has 3 stars
+    const starCounts = [3, 5, 3];
+    const starCount = starCounts[idx] || (item.stars || (item.rating ? Math.round(item.rating / 2) : 4));
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+      starsHtml += i <= starCount 
+        ? '<i class="fa-solid fa-star text-gold"></i>' 
+        : '<i class="fa-solid fa-star" style="color: #3f3f46;"></i>';
+    }
+    const genre = (item.genres && item.genres.length) ? item.genres[0] : 'Action Movie';
+    const maturity = item.maturity || 'PG-12';
+    const thumb = item.poster || item.backdrop || FALLBACK_POSTER;
+
+    return '<div class="monlex-recent-item" onclick="openDetailsModalById(\'' + item.id + '\')" role="button" tabindex="0">' +
+      '<img src="' + thumb + '" alt="' + item.title + '" class="monlex-recent-thumb" onerror="handleImgError(this)">' +
+      '<div class="monlex-recent-info">' +
+        '<div class="monlex-recent-name">' + item.title + '</div>' +
+        '<div class="monlex-recent-genre">' + genre + '</div>' +
+        '<div class="monlex-recent-stars">' + starsHtml + '</div>' +
+      '</div>' +
+      '<span class="monlex-recent-badge">' + maturity + '</span>' +
+    '</div>';
+  }).join('');
+}
+
+function renderMonlexShelves(catalog) {
+  if (!catalog) return;
+
+  // 1. Popular Movies (Screenshot: Smite Movie, Evil Dead Rise, Invitation To a Murder, Shailene Woodley)
+  const movieGrid = document.getElementById('monlex-popular-grid');
+  if (movieGrid) {
+    const targetMovieIds = ['movie_smite_movie', 'warner_evil_dead_rise', 'movie_invitation_to_a_murder', 'movie_shailene_woodley'];
+    let popularMovies = [];
+    targetMovieIds.forEach(id => {
+      const found = catalog.find(x => x.id === id);
+      if (found) popularMovies.push(found);
+    });
+    if (popularMovies.length < 4) {
+      const more = catalog.filter(x => x.type === 'movie' && !popularMovies.some(p => p.id === x.id)).slice(0, 4 - popularMovies.length);
+      popularMovies = popularMovies.concat(more);
+    }
+    renderMonlexLandscapeShelf(movieGrid, popularMovies);
+  }
+
+  // 2. Trending TV Shows
+  const tvGrid = document.getElementById('monlex-tv-grid');
+  if (tvGrid) {
+    const seriesItems = catalog.filter(x => x.type === 'series').slice(0, 4);
+    renderMonlexLandscapeShelf(tvGrid, seriesItems);
+  }
+
+  // 3. Top Anime
+  const animeGrid = document.getElementById('monlex-anime-grid');
+  if (animeGrid) {
+    const animeItems = catalog.filter(x => 
+      (x.genres && x.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) ||
+      x.platformId === 'crunchyroll' || x.platformId === 'animeworld'
+    ).slice(0, 4);
+    renderMonlexLandscapeShelf(animeGrid, animeItems.length ? animeItems : catalog.slice(0, 4));
+  }
+}
+
+function renderMonlexLandscapeShelf(container, items) {
+  if (!container || !items) return;
+  container.innerHTML = items.map(item => {
+    const backdrop = item.backdrop || item.poster || FALLBACK_BACKDROP;
+    const subtitle = (item.genres && item.genres.length) ? item.genres.slice(0, 2).join(' • ') : 'The Action Movie';
+
+    return '<div class="monlex-landscape-card" onclick="openDetailsModalById(\'' + item.id + '\')" role="button" tabindex="0">' +
+      '<div class="monlex-card-media-wrap">' +
+        '<img src="' + backdrop + '" alt="' + item.title + '" class="monlex-card-img" onerror="handleImgError(this)">' +
+        '<div class="monlex-card-play-center" onclick="event.stopPropagation(); openPlayerById(\'' + item.id + '\')" title="Play Now">' +
+          '<i class="fa-solid fa-play"></i>' +
+        '</div>' +
+      '</div>' +
+      '<div class="monlex-card-title">' + item.title + '</div>' +
+      '<div class="monlex-card-subtitle">' + subtitle + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function switchMonlexCategory(cat, btn) {
+  currentMonlexCategory = cat;
+  document.querySelectorAll('.monlex-cat-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const popularTitle = document.getElementById('monlex-shelf-popular-title');
+  const popularGrid = document.getElementById('monlex-popular-grid');
+
+  if (cat === 'movie') {
+    if (popularTitle) popularTitle.textContent = 'Popular Movies';
+    let hero = currentCatalog.find(x => x.id === 'netflix_murder_mystery') || currentCatalog.find(x => x.type === 'movie');
+    renderMonlexHero(hero);
+    renderMonlexShelves(currentCatalog);
+  } else if (cat === 'series') {
+    if (popularTitle) popularTitle.textContent = 'Popular TV Shows';
+    let hero = currentCatalog.find(x => x.id === 'netflix_bloodhounds') || currentCatalog.find(x => x.type === 'series');
+    renderMonlexHero(hero);
+    if (popularGrid) {
+      const seriesList = currentCatalog.filter(x => x.type === 'series').slice(0, 8);
+      renderMonlexLandscapeShelf(popularGrid, seriesList.slice(0, 4));
+    }
+  } else if (cat === 'anime') {
+    if (popularTitle) popularTitle.textContent = 'Popular Anime';
+    const animes = currentCatalog.filter(x => 
+      (x.genres && x.genres.some(g => g.toLowerCase().includes('anime') || g.toLowerCase().includes('animation'))) ||
+      x.platformId === 'crunchyroll' || x.platformId === 'animeworld'
+    );
+    if (animes.length) {
+      renderMonlexHero(animes[0]);
+      if (popularGrid) renderMonlexLandscapeShelf(popularGrid, animes.slice(0, 4));
+    }
+  }
+}
+
+function handleMonlexNav(section, link) {
+  document.querySelectorAll('.monlex-nav-item').forEach(i => i.classList.remove('active'));
+  if (link) link.classList.add('active');
+
+  if (section === 'home') {
+    if (typeof resetToHome === 'function') resetToHome();
+    const heroCard = document.getElementById('monlex-hero-card');
+    if (heroCard) heroCard.scrollIntoView({ behavior: 'smooth' });
+  } else if (section === 'trending') {
+    const trendingShelf = document.getElementById('monlex-shelf-trending') || document.getElementById('tmdb-trending-section');
+    if (trendingShelf) {
+      trendingShelf.scrollIntoView({ behavior: 'smooth' });
+    }
+  } else if (section === 'following') {
+    if (typeof showWatchlist === 'function') showWatchlist();
+  } else if (section === 'videos') {
+    if (typeof showDownloadsSection === 'function') showDownloadsSection();
+  } else if (section === 'playlist') {
+    if (typeof toggleOttHub === 'function') {
+      toggleOttHub();
+    } else if (typeof showWatchlist === 'function') {
+      showWatchlist();
+    }
+  }
+}
+
+function handleMonlexSearchInput(value) {
+  const q = (value || '').trim();
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.value = q;
+
+  const clearBtn = document.getElementById('monlex-search-clear');
+  if (clearBtn) clearBtn.style.display = q.length > 0 ? 'block' : 'none';
+
+  if (q.length > 0) {
+    if (typeof performSearch === 'function') performSearch(q);
+  } else {
+    if (typeof clearSearch === 'function') clearSearch();
+  }
+}
+
+function openDetailsModalById(id) {
+  if (!currentCatalog) return;
+  const item = currentCatalog.find(x => x.id === id);
+  if (item && typeof openDetailsModal === 'function') openDetailsModal(item);
+}
+
+function openPlayerById(id) {
+  if (!currentCatalog) return;
+  const item = currentCatalog.find(x => x.id === id);
+  if (item && typeof openPlayer === 'function') openPlayer(item);
+}
+
+function openUpgradeModal() {
+  const modal = document.getElementById('vip-upgrade-modal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeUpgradeModal() {
+  const modal = document.getElementById('vip-upgrade-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handleUpgradeBackdropClick(e) {
+  if (e.target && e.target.id === 'vip-upgrade-modal') {
+    closeUpgradeModal();
+  }
+}
+
+function toggleProfileDropdown(e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById('monlex-profile-dropdown');
+  if (!menu) return;
+  const isOpen = menu.classList.contains('open');
+  document.querySelectorAll('.monlex-profile-dropdown').forEach(m => m.classList.remove('open'));
+  if (!isOpen) {
+    menu.classList.add('open');
+  }
+}
+
+// Global dismiss for profile dropdown
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('monlex-profile-dropdown');
+  const chip = document.getElementById('monlex-profile-chip');
+  if (menu && menu.classList.contains('open') && !chip?.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
+
+// Window bindings
+window.initMonlexView = initMonlexView;
+window.renderMonlexHero = renderMonlexHero;
+window.playMonlexHero = playMonlexHero;
+window.toggleMonlexHeroFollow = toggleMonlexHeroFollow;
+window.switchMonlexCategory = switchMonlexCategory;
+window.handleMonlexNav = handleMonlexNav;
+window.handleMonlexSearchInput = handleMonlexSearchInput;
+window.openDetailsModalById = openDetailsModalById;
+window.openPlayerById = openPlayerById;
+window.openUpgradeModal = openUpgradeModal;
+window.closeUpgradeModal = closeUpgradeModal;
+window.handleUpgradeBackdropClick = handleUpgradeBackdropClick;
+window.toggleProfileDropdown = toggleProfileDropdown;
