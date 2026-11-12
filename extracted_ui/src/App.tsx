@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Catalog, type CatalogCfg } from "./components/Catalog";
+import { ChatModal } from "./components/ChatModal";
 import { Detail } from "./components/Detail";
 import { Hero } from "./components/Hero";
 import { NotificationsDrawer } from "./components/NotificationsDrawer";
@@ -109,6 +110,7 @@ export default function App() {
   const [search, setSearch] = useState<{ voice: boolean } | null>(null);
   const [personId, setPersonId] = useState<number | null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [notice, setNotice] = useState(!hasApi);
@@ -268,6 +270,29 @@ export default function App() {
               )}
             </button>
 
+            {/* AI Copilot / Chat Button */}
+            <button
+              onClick={() => setChatOpen(true)}
+              aria-label="CinemaVerse AI Concierge"
+              title="CinemaVerse AI Concierge (Chat & Recommendations)"
+              className="group relative grid size-10 sm:size-11 place-items-center rounded-full border border-purple-500/40 bg-purple-600/20 text-purple-300 shadow-lg backdrop-blur-md transition-all duration-200 hover:scale-105 hover:bg-purple-600 hover:text-white hover:border-purple-500 active:scale-95"
+            >
+              <svg
+                className="size-5 transition-transform duration-200 group-hover:scale-110"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
+              </svg>
+              <span className="absolute -top-0.5 -right-0.5 flex size-2.5 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-[#0c0d14]">
+                <span className="size-1 rounded-full bg-white animate-ping" />
+              </span>
+            </button>
+
             {/* Profile Avatar / Settings Button */}
             <button
               onClick={() => setSettingsOpen(true)}
@@ -395,6 +420,12 @@ export default function App() {
         onClose={() => setSettingsOpen(false)}
         onOpenMedia={open}
         onPlay={play}
+      />
+      <ChatModal
+        isOpen={chatOpen}
+        onClose={() => setChatOpen(false)}
+        onOpenMedia={open}
+        onPlay={(m) => play(m)}
       />
       {search && (
         <Search

@@ -11,6 +11,7 @@ export interface CloudProfile {
   preferences: Record<string, any>;
   continue_watching?: any[];
   favorites?: any[];
+  chat_history?: any[];
   updated_at?: string;
 }
 

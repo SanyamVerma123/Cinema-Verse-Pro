@@ -105,9 +105,12 @@ export function Player({
 
   // Top bar visibility and auto-hide states
   const [topBarVisible, setTopBarVisible] = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [serverMenuOpen, setServerMenuOpen] = useState(false);
+  const serverMenuRef = useRef<HTMLDivElement>(null);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
+  const isAnyMenuOpen = serverMenuOpen || langMenuOpen;
   const [isHoveringHeader, setIsHoveringHeader] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -154,29 +157,53 @@ export function Player({
   // Active server object
   const activeServerObj = STREAM_SERVERS.find((s) => s.id === currentServer) || STREAM_SERVERS[0];
 
+  // Real-time Continue Watching tracking: ensure any title played appears in Continue Watching immediately!
+  useEffect(() => {
+    if (!media) return;
+    const initialTime = 120; // 2 minutes in
+    const totalDuration = 7200; // 2 hours default
+    const activeEpLabel = isTv ? `S${season}:E${episode}` : undefined;
+    saveProgress(media, initialTime, totalDuration, activeEpLabel);
+
+    let currentSec = initialTime;
+    const tracker = setInterval(() => {
+      currentSec += 10;
+      saveProgress(media, currentSec, totalDuration, activeEpLabel);
+    }, 10000);
+
+    return () => {
+      clearInterval(tracker);
+      saveProgress(media, currentSec, totalDuration, activeEpLabel);
+    };
+  }, [media, season, episode, isTv]);
+
   // Auto-collapse top bar ONLY after inactivity and NEVER while menu is open or hovering/interacting
   useEffect(() => {
-    if (!topBarVisible || menuOpen || isHoveringHeader) return;
+    if (!topBarVisible || isAnyMenuOpen || isHoveringHeader) return;
     const idleTimer = setTimeout(() => {
-      if (!menuOpen && !isHoveringHeader) {
+      if (!isAnyMenuOpen && !isHoveringHeader) {
         setTopBarVisible(false);
       }
     }, 6000);
     return () => clearTimeout(idleTimer);
-  }, [topBarVisible, menuOpen, isHoveringHeader]);
+  }, [topBarVisible, isAnyMenuOpen, isHoveringHeader]);
 
-  // Handle clicking outside 3-lines dropdown menu
+  // Handle clicking outside Server or Language dropdown menu
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
+      const target = e.target as Node;
+      if (serverMenuRef.current && !serverMenuRef.current.contains(target)) {
+        setServerMenuOpen(false);
+      }
+      if (langMenuRef.current && !langMenuRef.current.contains(target)) {
+        setLangMenuOpen(false);
       }
     };
-    if (menuOpen) {
+    if (serverMenuOpen || langMenuOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     }
     return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [menuOpen]);
+  }, [serverMenuOpen, langMenuOpen]);
 
   // Reset loading spinner on server change, episode change or zap
   useEffect(() => {
@@ -189,8 +216,9 @@ export function Player({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (menuOpen) {
-          setMenuOpen(false);
+        if (serverMenuOpen || langMenuOpen) {
+          setServerMenuOpen(false);
+          setLangMenuOpen(false);
         } else {
           onClose();
         }
@@ -202,7 +230,7 @@ export function Player({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, menuOpen]);
+  }, [onClose, serverMenuOpen, langMenuOpen]);
 
   // Fullscreen handler
   const toggleFullscreen = () => {
@@ -487,45 +515,13 @@ export function Player({
           </div>
 
           {/* Right Controls: Exactly and ONLY in this order:
-              a) Season dropdown (desktop / wide viewports)
-              b) Episode dropdown (desktop / wide viewports)
-              c) Zap Ads button (⚡ Zap Ads)
-              d) 3-lines menu button (≡) with sleek dropdown menu for Server and Dub
-              e) Cross close button (✕)
+              a) Zap Ads button (⚡ Zap Ads)
+              b) Server Icon button (Tailwind Server Stack) with server dropdown
+              c) Language Icon button (Tailwind Globe / Language) with audio/dub dropdown
+              d) Cross close button (✕)
           */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-            {/* a) Season dropdown (desktop) */}
-            {isTv && (
-              <div className="hidden md:block w-[80px] sm:w-[110px]">
-                <Select
-                  size="sm"
-                  value={String(season)}
-                  onChange={(v) => {
-                    setSeason(Number(v));
-                    setEpisode(1);
-                  }}
-                  options={seasonOptions}
-                  className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20"
-                  ariaLabel="Select Season"
-                />
-              </div>
-            )}
-
-            {/* b) Episode dropdown (desktop) */}
-            {isTv && (
-              <div className="hidden md:block w-[105px] sm:w-[160px] md:w-[200px]">
-                <Select
-                  size="sm"
-                  value={String(episode)}
-                  onChange={(v) => setEpisode(Number(v))}
-                  options={episodeOptions}
-                  className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
-                  ariaLabel="Select Episode"
-                />
-              </div>
-            )}
-
-            {/* c) Zap Ads button */}
+            {/* a) Zap Ads button */}
             <button
               onClick={zapAds}
               title="Zap Ads & Refresh Clean Stream (Key: Z)"
@@ -536,145 +532,177 @@ export function Player({
               <span className="hidden sm:inline">Ads</span>
             </button>
 
-            {/* d) 3-lines menu button (≡) with sleek dropdown menu for Server and Dub Language */}
-            <div className="relative shrink-0" ref={menuRef}>
+            {/* b) Server Icon Button (Tailwind/Lucide Server Stack) */}
+            <div className="relative shrink-0" ref={serverMenuRef}>
               <button
-                onClick={() => setMenuOpen((o) => !o)}
-                aria-label="Server and Audio Settings"
-                title="Server & Audio Settings (≡)"
-                aria-expanded={menuOpen}
+                onClick={() => {
+                  setServerMenuOpen((o) => !o);
+                  setLangMenuOpen(false);
+                }}
+                aria-label="Select Streaming Server"
+                title={`Select Streaming Server (Active: ${activeServerObj.name.split(":")[0]})`}
+                aria-expanded={serverMenuOpen}
                 className={`grid size-8 sm:size-9 place-items-center rounded-xl border transition active:scale-95 ${
-                  menuOpen
+                  serverMenuOpen
                     ? "border-red-500 bg-red-600/30 text-white"
                     : "border-white/15 bg-white/10 text-white hover:bg-white/20 hover:border-white/30"
                 }`}
               >
                 <svg
-                  width="18"
-                  height="18"
+                  width="17"
+                  height="17"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.2"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
+                  <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
+                  <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
+                  <line x1="6" x2="6.01" y1="6" y2="6" />
+                  <line x1="6" x2="6.01" y1="18" y2="18" />
                 </svg>
               </button>
 
-              {menuOpen && (
+              {serverMenuOpen && (
                 <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 rounded-2xl border border-white/15 bg-[#0e0f17]/98 backdrop-blur-2xl shadow-2xl p-3 z-50 animate-[fade_.15s_ease-out]">
-                  {/* Pick the Server (all 10 servers with badges and active checkmark) */}
-                  <div className="mb-2.5">
-                    <div className="flex items-center justify-between px-1 mb-1.5">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
-                        Streaming Servers
-                      </span>
-                      <span className="text-[10px] font-bold text-red-400">
-                        {activeServerObj.name.split(":")[0]}
-                      </span>
-                    </div>
-                    <div className="max-h-56 overflow-y-auto space-y-1 pr-1 no-scrollbar">
-                      {serverOptions.map((s) => {
-                        const isActive = currentServer === s.value;
-                        return (
-                          <button
-                            key={s.value}
-                            onClick={() => {
-                              setCurrentServer(s.value);
-                              setMenuOpen(false);
-                            }}
-                            className={`group flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-left text-xs transition active:scale-[0.98] ${
-                              isActive
-                                ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
-                                : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
-                            }`}
-                          >
-                            <div className="min-w-0 pr-2">
-                              <div className="truncate font-semibold">{s.label}</div>
-                              {s.hint && (
-                                <div className="text-[10px] text-white/40 group-hover:text-white/60">
-                                  {s.hint}
-                                </div>
-                              )}
-                            </div>
-                            {isActive ? (
-                              <svg
-                                className="size-4 shrink-0 text-red-500"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <polyline points="20 6 9 17 4 12" />
-                              </svg>
-                            ) : (
-                              <span className="size-3.5 shrink-0 rounded-full border border-white/20 group-hover:border-white/40" />
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
+                  <div className="flex items-center justify-between px-1 mb-1.5">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
+                      Streaming Servers (1-10)
+                    </span>
+                    <span className="text-[10px] font-bold text-red-400">
+                      {activeServerObj.name.split(":")[0]}
+                    </span>
                   </div>
-
-                  {/* Divider */}
-                  <div className="my-2 border-t border-white/10" />
-
-                  {/* Pick the Dub/Audio Language */}
-                  <div>
-                    <div className="flex items-center justify-between px-1 mb-1.5">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
-                        Audio / Dub Language
-                      </span>
-                      <span className="text-[10px] font-bold text-accent">
-                        {DUB_OPTIONS.find((d) => d.value === dubLanguage)?.label || "English"}
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {DUB_OPTIONS.map((opt) => {
-                        const isActive = dubLanguage === opt.value;
-                        return (
-                          <button
-                            key={opt.value}
-                            onClick={() => {
-                              handleDubChange(opt.value);
-                              setMenuOpen(false);
-                            }}
-                            className={`flex items-center justify-between rounded-xl px-2.5 py-1.5 text-xs transition active:scale-[0.98] ${
-                              isActive
-                                ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
-                                : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
-                            }`}
-                          >
-                            <span className="truncate">{opt.label}</span>
-                            {isActive && (
-                              <svg
-                                className="size-3.5 shrink-0 text-red-500 ml-1"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <polyline points="20 6 9 17 4 12" />
-                              </svg>
+                  <div className="max-h-60 overflow-y-auto space-y-1 pr-1 no-scrollbar">
+                    {serverOptions.map((s) => {
+                      const isActive = currentServer === s.value;
+                      return (
+                        <button
+                          key={s.value}
+                          onClick={() => {
+                            setCurrentServer(s.value);
+                            setServerMenuOpen(false);
+                          }}
+                          className={`group flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-left text-xs transition active:scale-[0.98] ${
+                            isActive
+                              ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
+                              : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
+                          }`}
+                        >
+                          <div className="min-w-0 pr-2">
+                            <div className="truncate font-semibold">{s.label}</div>
+                            {s.hint && (
+                              <div className="text-[10px] text-white/40 group-hover:text-white/60">
+                                {s.hint}
+                              </div>
                             )}
-                          </button>
-                        );
-                      })}
-                    </div>
+                          </div>
+                          {isActive ? (
+                            <svg
+                              className="size-4 shrink-0 text-red-500"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          ) : (
+                            <span className="size-3.5 shrink-0 rounded-full border border-white/20 group-hover:border-white/40" />
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
             </div>
 
-            {/* e) Cross close button (✕) */}
+            {/* c) Language Icon Button (Tailwind/Lucide Globe / Languages) */}
+            <div className="relative shrink-0" ref={langMenuRef}>
+              <button
+                onClick={() => {
+                  setLangMenuOpen((o) => !o);
+                  setServerMenuOpen(false);
+                }}
+                aria-label="Select Audio & Dub Language"
+                title={`Audio Language (Active: ${DUB_OPTIONS.find((d) => d.value === dubLanguage)?.label || "English"})`}
+                aria-expanded={langMenuOpen}
+                className={`grid size-8 sm:size-9 place-items-center rounded-xl border transition active:scale-95 ${
+                  langMenuOpen
+                    ? "border-accent bg-accent/30 text-white"
+                    : "border-white/15 bg-white/10 text-white hover:bg-white/20 hover:border-white/30"
+                }`}
+              >
+                <svg
+                  width="17"
+                  height="17"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" x2="22" y1="12" y2="12" />
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+              </button>
+
+              {langMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-64 sm:w-72 rounded-2xl border border-white/15 bg-[#0e0f17]/98 backdrop-blur-2xl shadow-2xl p-3 z-50 animate-[fade_.15s_ease-out]">
+                  <div className="flex items-center justify-between px-1 mb-2">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
+                      Audio / Dub Language
+                    </span>
+                    <span className="text-[10px] font-bold text-accent">
+                      {DUB_OPTIONS.find((d) => d.value === dubLanguage)?.label || "English"}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {DUB_OPTIONS.map((opt) => {
+                      const isActive = dubLanguage === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            handleDubChange(opt.value);
+                            setLangMenuOpen(false);
+                          }}
+                          className={`flex items-center justify-between rounded-xl px-2.5 py-2 text-xs transition active:scale-[0.98] ${
+                            isActive
+                              ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
+                              : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
+                          }`}
+                        >
+                          <span className="truncate">{opt.label}</span>
+                          {isActive && (
+                            <svg
+                              className="size-3.5 shrink-0 text-red-500 ml-1"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* d) Cross close button (✕) */}
             <button
               onClick={onClose}
               aria-label="Exit Player"
@@ -685,43 +713,42 @@ export function Player({
             </button>
           </div>
         </div>
-      </header>
 
-      {/* Floating Left-Middle Boundary Bar for Season & Episode selection on mobile & horizontal mobile */}
-      {isTv && topBarVisible && (
-        <div
-          onMouseEnter={() => setIsHoveringHeader(true)}
-          onMouseLeave={() => setIsHoveringHeader(false)}
-          className="md:hidden fixed left-2.5 top-1/2 -translate-y-1/2 z-40 flex flex-col items-start gap-1.5 rounded-2xl border border-white/20 bg-[#09090d]/92 p-2 backdrop-blur-xl shadow-2xl animate-[fade_.2s_ease-out]"
-        >
-          <div className="flex items-center gap-1 px-1 text-[9px] font-black text-amber uppercase tracking-wider">
-            <span>S{season}:E{episode}</span>
+        {/* Thin horizontal block for Season and Episode selection at top, down to the top bar */}
+        {isTv && (
+          <div className="mt-2 pt-2 border-t border-white/10 flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar">
+            <span className="text-[10px] font-black uppercase tracking-wider text-amber shrink-0 flex items-center gap-1">
+              <span>S{season}:E{episode}</span>
+            </span>
+            <div className="w-[100px] sm:w-[130px] shrink-0">
+              <Select
+                size="sm"
+                value={String(season)}
+                onChange={(v) => {
+                  setSeason(Number(v));
+                  setEpisode(1);
+                }}
+                options={seasonOptions}
+                className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20"
+                ariaLabel="Select Season"
+              />
+            </div>
+            <div className="w-[150px] sm:w-[240px] shrink-0">
+              <Select
+                size="sm"
+                value={String(episode)}
+                onChange={(v) => setEpisode(Number(v))}
+                options={episodeOptions}
+                className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
+                ariaLabel="Select Episode"
+              />
+            </div>
+            <span className="hidden sm:inline text-[11px] text-white/40 truncate">
+              {episodeOptions.find((e) => e.value === String(episode))?.label}
+            </span>
           </div>
-          <div className="w-[100px]">
-            <Select
-              size="sm"
-              value={String(season)}
-              onChange={(v) => {
-                setSeason(Number(v));
-                setEpisode(1);
-              }}
-              options={seasonOptions}
-              className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20"
-              ariaLabel="Select Season"
-            />
-          </div>
-          <div className="w-[125px] sm:w-[140px]">
-            <Select
-              size="sm"
-              value={String(episode)}
-              onChange={(v) => setEpisode(Number(v))}
-              options={episodeOptions}
-              className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
-              ariaLabel="Select Episode"
-            />
-          </div>
-        </div>
-      )}
+        )}
+      </header>
 
       {/* Main Video Viewport Stage */}
       <div className="relative size-full flex-1 bg-black overflow-hidden">
@@ -778,9 +805,9 @@ export function Player({
             title={titleOf(media)}
             onLoad={() => {
               setIsLoading(false);
-              if (!menuOpen && !isHoveringHeader) {
+              if (!isAnyMenuOpen && !isHoveringHeader) {
                 setTimeout(() => {
-                  if (!menuOpen && !isHoveringHeader) setTopBarVisible(false);
+                  if (!isAnyMenuOpen && !isHoveringHeader) setTopBarVisible(false);
                 }, 4000);
               }
             }}
