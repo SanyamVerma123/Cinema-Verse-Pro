@@ -105,12 +105,12 @@ export const STREAM_SERVERS: StreamServer[] = [
   },
   {
     id: "vidsrc-buzz",
-    name: "Server 10: VidSrc Buzz CC",
+    name: "Server 10: VidSrc CC Clean",
     badge: "Multi-Subtitles • Multi-Audio • ✅ 0 Ads",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://vidsrc.buzz/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.buzz/embed/movie/${id}`,
+        ? `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.cc/v2/embed/movie/${id}`,
   },
 ];
 

@@ -815,7 +815,7 @@ export function Player({
             allowFullScreen
             referrerPolicy="origin"
             sandbox={
-              url.includes('cinesrc.st')
+              url.includes('cinesrc.st') || url.includes('vidfast.vc') || url.includes('vidsrc.su')
                 ? "allow-scripts allow-same-origin allow-forms allow-presentation"
                 : undefined
             }
