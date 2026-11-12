@@ -210,6 +210,75 @@ export const PAGES: Record<string, PageDef> = {
       { type: "mylist", id: "nm" },
     ],
   },
+  anime: {
+    hero: {
+      path: "/discover/tv",
+      kind: "tv",
+      params: {
+        with_genres: "16",
+        with_original_language: "ja",
+        sort_by: "popularity.desc",
+      },
+    },
+    sections: [
+      row("a-top", "Top 10 Anime Series", "/discover/tv", "tv", "top10", {
+        with_genres: "16",
+        with_original_language: "ja",
+        sort_by: "popularity.desc",
+      }),
+      row("a-trend", "Trending Anime Series", "/discover/tv", "tv", "poster", {
+        with_genres: "16",
+        with_original_language: "ja",
+        sort_by: "popularity.desc",
+      }),
+      row("a-movies", "Anime Feature Films", "/discover/movie", "movie", "landscape", {
+        with_genres: "16",
+        with_original_language: "ja",
+        sort_by: "popularity.desc",
+      }),
+      {
+        type: "banner",
+        id: "ab",
+        path: "/discover/tv",
+        index: 0,
+        kind: "tv",
+        eyebrow: "Masterpiece Sagas",
+        params: {
+          with_genres: "16",
+          with_original_language: "ja",
+          sort_by: "vote_average.desc",
+          "vote_count.gte": "250",
+        },
+      },
+      row("a-action", "Action & Shonen", "/discover/tv", "tv", "poster", {
+        with_genres: "16,10759",
+        with_original_language: "ja",
+        sort_by: "popularity.desc",
+      }),
+      row("a-fantasy", "Fantasy & Supernatural", "/discover/tv", "tv", "landscape", {
+        with_genres: "16,10765",
+        with_original_language: "ja",
+        sort_by: "popularity.desc",
+      }),
+      row("a-top-rated", "Critically Acclaimed Anime", "/discover/tv", "tv", "poster", {
+        with_genres: "16",
+        with_original_language: "ja",
+        sort_by: "vote_average.desc",
+        "vote_count.gte": "300",
+      }),
+      row("a-slice", "Romance & Drama", "/discover/tv", "tv", "landscape", {
+        with_genres: "16,18",
+        with_original_language: "ja",
+        sort_by: "popularity.desc",
+      }),
+      row("a-scifi", "Sci-Fi & Cyberpunk", "/discover/tv", "tv", "poster", {
+        with_genres: "16,10765",
+        with_original_language: "ja",
+        "vote_count.gte": "150",
+        sort_by: "popularity.desc",
+      }),
+    ],
+  },
 };
 
 export const NETWORKS = [213, 49, 2739, 1024, 2552, 453, 4330, 3353];

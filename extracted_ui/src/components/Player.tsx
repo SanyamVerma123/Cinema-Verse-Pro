@@ -254,6 +254,38 @@ export function Player({
     return () => window.removeEventListener("message", handleMsg);
   }, [media, activeLabel]);
 
+  // CinemaVerse Anti-Redirect & Popunder Shield
+  useEffect(() => {
+    const origOpen = window.open;
+    // Override window.open while Player is mounted
+    window.open = function (...args: any[]) {
+      console.warn("CinemaVerse Anti-Redirect Shield: Blocked popup/redirect window.open attempt:", args);
+      return null;
+    };
+
+    // Auto-refocus handler on blur (immediately, 40ms, and 150ms)
+    const handleBlur = () => {
+      window.focus();
+      setTimeout(() => window.focus(), 40);
+      setTimeout(() => window.focus(), 150);
+    };
+    window.addEventListener("blur", handleBlur);
+
+    // Anti-hijack beforeunload handler to prevent rogue cross-origin iframe scripts from navigating top window away
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+      return "";
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.open = origOpen;
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   // Native HLS & Direct Video playback handling
   useEffect(() => {
     const v = video.current;
@@ -403,7 +435,7 @@ export function Player({
           {/* Main Top Row */}
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             {/* Left Info: Back Button, Title, and Quality Badges */}
-            <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+            <div className="flex min-w-0 items-center gap-2 sm:gap-3.5 shrink-0">
               <button
                 onClick={onClose}
                 autoFocus
@@ -416,21 +448,21 @@ export function Player({
               </button>
 
               <div className="min-w-0">
-                <h2 className="truncate font-display text-xs sm:text-base lg:text-lg font-extrabold text-white">
+                <h2 className="shrink min-w-[120px] max-w-[280px] lg:max-w-md truncate font-display text-xs sm:text-base lg:text-lg font-extrabold text-white">
                   {titleOf(media)}
                 </h2>
-                <div className="mt-0.5 flex flex-wrap items-center gap-1 sm:gap-1.5 text-[9px] sm:text-[11px]">
-                  <span className="rounded-md bg-red-600/90 px-1 sm:px-1.5 py-0.5 font-bold text-white shadow-xs">
+                <div className="mt-0.5 flex items-center flex-nowrap gap-1.5 shrink-0 whitespace-nowrap overflow-hidden text-[9px] sm:text-[11px]">
+                  <span className="rounded-md bg-red-600/90 px-1 sm:px-1.5 py-0.5 font-bold text-white shadow-xs shrink-0 whitespace-nowrap">
                     {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
                   </span>
-                  <span className="rounded-md border border-white/20 bg-white/10 px-1 sm:px-1.5 py-0.5 font-semibold text-white/90">
+                  <span className="rounded-md border border-white/20 bg-white/10 px-1 sm:px-1.5 py-0.5 font-semibold text-white/90 shrink-0 whitespace-nowrap">
                     4K Ultra HD
                   </span>
-                  <span className="hidden sm:inline-flex items-center gap-1 rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300">
+                  <span className="hidden sm:inline-flex items-center gap-1 rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300 shrink-0 whitespace-nowrap">
                     <Icon name="volume" size={11} /> Dolby Atmos
                   </span>
                   {isTv && (
-                    <span className="rounded-md bg-white/15 px-1 sm:px-1.5 py-0.5 font-bold text-amber">
+                    <span className="rounded-md bg-white/15 px-1 sm:px-1.5 py-0.5 font-bold text-amber shrink-0 whitespace-nowrap">
                       S{season}:E{episode}
                     </span>
                   )}
@@ -440,9 +472,9 @@ export function Player({
 
             {/* Right Controls: Desktop Dropdowns + Action buttons */}
             <div className="flex items-center gap-1.5 sm:gap-2.5">
-              {/* TV Season & Episode Selectors (Desktop) */}
+              {/* TV Season & Episode Selectors (Desktop >= 1280px only, to prevent crushing title on <1280px) */}
               {isTv && (
-                <div className="hidden lg:flex items-center gap-1.5">
+                <div className="hidden xl:flex items-center gap-1.5">
                   {/* Season Select (if more than 1 season) */}
                   {availableSeasons.length > 1 && (
                     <Select
@@ -495,7 +527,7 @@ export function Player({
                     className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 text-xs font-bold text-white backdrop-blur transition hover:bg-white/20 active:scale-95"
                   >
                     <Icon name="list" size={14} />
-                    <span className="hidden xl:inline">Episodes</span>
+                    <span className="hidden 2xl:inline">Episodes</span>
                   </button>
                 </div>
               )}
@@ -507,7 +539,7 @@ export function Player({
                   value={currentServer}
                   onChange={(v) => setCurrentServer(v)}
                   options={serverOptions}
-                  className="w-[180px] lg:w-[210px] text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
+                  className="w-[170px] lg:w-[200px] text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
                   ariaLabel="Select Streaming Server"
                 />
               </div>
@@ -519,7 +551,7 @@ export function Player({
                   value={dubLanguage}
                   onChange={(v) => handleDubChange(v)}
                   options={DUB_OPTIONS}
-                  className="w-[130px] lg:w-[150px] text-xs font-semibold bg-white/10 border-white/15"
+                  className="w-[125px] lg:w-[145px] text-xs font-semibold bg-white/10 border-white/15"
                   ariaLabel="Select Dubbed Audio Track"
                 />
               </div>
@@ -585,25 +617,17 @@ export function Player({
             </div>
           </div>
 
-          {/* Mobile Sub-Header: Scrollable controls including Episode Selector, Server & Dubbing */}
-          <div className="mt-2 flex sm:hidden items-center gap-1.5 overflow-x-auto no-scrollbar pt-1.5 border-t border-white/10">
-            {/* Server Selector on Mobile */}
-            <div className="w-[130px] shrink-0">
-              <Select
-                size="sm"
-                value={currentServer}
-                onChange={(v) => setCurrentServer(v)}
-                options={serverOptions}
-                className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
-                ariaLabel="Streaming Server"
-              />
-            </div>
+          {/* Dedicated Secondary Sub-Deck Toolbar on Medium/Small Viewports (< 1280px) for TV shows (Apple TV+ / CinemaVerse Aesthetics) */}
+          {isTv && (
+            <div className="mt-2.5 flex xl:hidden items-center justify-between gap-2 overflow-x-auto no-scrollbar rounded-2xl border border-white/10 bg-[#12131c]/90 px-3 py-2 backdrop-blur-xl shadow-2xl">
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-accent shrink-0">
+                  <Icon name="tv" size={14} />
+                  <span>Series Navigation</span>
+                </span>
 
-            {/* TV Series Episode & Season Selector on Mobile */}
-            {isTv && (
-              <>
                 {availableSeasons.length > 1 && (
-                  <div className="w-[95px] shrink-0">
+                  <div className="w-[100px] sm:w-[125px] shrink-0">
                     <Select
                       size="sm"
                       value={String(season)}
@@ -612,65 +636,105 @@ export function Player({
                         setEpisode(1);
                       }}
                       options={seasonOptions}
-                      className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
-                      ariaLabel="Season"
+                      className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20"
+                      ariaLabel="Select Season"
                     />
                   </div>
                 )}
 
-                <div className="w-[140px] shrink-0">
+                <div className="w-[150px] sm:w-[200px] shrink-0">
                   <Select
                     size="sm"
                     value={String(episode)}
                     onChange={(v) => setEpisode(Number(v))}
                     options={episodeOptions}
-                    className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
-                    ariaLabel="Episode"
+                    className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-accent/50"
+                    ariaLabel="Select Episode"
                   />
                 </div>
 
+                {/* Prev / Next Episode Steppers */}
                 <div className="flex items-center gap-0.5 shrink-0 bg-white/10 p-0.5 rounded-xl border border-white/15">
                   <button
                     onClick={prevEpisode}
                     disabled={!hasPrevEpisode}
-                    className="px-2 py-1 text-[11px] font-bold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg"
-                    title="Previous Episode"
+                    title="Previous Episode (Key: P)"
+                    className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
                   >
-                    {"‹"}
+                    {"‹ Prev"}
                   </button>
                   <button
                     onClick={nextEpisode}
                     disabled={!hasNextEpisode}
-                    className="px-2 py-1 text-[11px] font-bold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg"
-                    title="Next Episode"
+                    title="Next Episode (Key: N)"
+                    className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
                   >
-                    {"›"}
+                    {"Next ›"}
                   </button>
                 </div>
 
+                {/* Episodes Drawer toggle button */}
                 <button
                   onClick={() => setEpisodesDrawerOpen(true)}
-                  className="flex shrink-0 items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 text-[11px] font-bold text-white active:scale-95"
-                  title="Browse All Episodes"
+                  title="Browse All Episodes (Key: E)"
+                  className="flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 text-xs font-bold text-white backdrop-blur transition hover:bg-white/20 active:scale-95"
                 >
-                  <Icon name="list" size={13} />
+                  <Icon name="list" size={14} />
                   <span>Episodes</span>
                 </button>
-              </>
-            )}
+              </div>
 
-            {/* Audio Dubbing on Mobile */}
-            <div className="w-[110px] shrink-0">
-              <Select
-                size="sm"
-                value={dubLanguage}
-                onChange={(v) => handleDubChange(v)}
-                options={DUB_OPTIONS}
-                className="w-full text-[11px] font-semibold bg-white/10 border-white/15"
-                ariaLabel="Audio Dubbing"
-              />
+              {/* On mobile screens < 640px, server selector and audio dubbing fit right into the toolbar */}
+              <div className="flex sm:hidden items-center gap-1.5 shrink-0">
+                <div className="w-[125px] shrink-0">
+                  <Select
+                    size="sm"
+                    value={currentServer}
+                    onChange={(v) => setCurrentServer(v)}
+                    options={serverOptions}
+                    className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
+                    ariaLabel="Streaming Server"
+                  />
+                </div>
+                <div className="w-[105px] shrink-0">
+                  <Select
+                    size="sm"
+                    value={dubLanguage}
+                    onChange={(v) => handleDubChange(v)}
+                    options={DUB_OPTIONS}
+                    className="w-full text-[11px] font-semibold bg-white/10 border-white/15"
+                    ariaLabel="Audio Dubbing"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Mobile Sub-Header for Movies only (< 640px) */}
+          {!isTv && (
+            <div className="mt-2 flex sm:hidden items-center gap-1.5 overflow-x-auto no-scrollbar pt-1.5 border-t border-white/10">
+              <div className="w-[140px] shrink-0">
+                <Select
+                  size="sm"
+                  value={currentServer}
+                  onChange={(v) => setCurrentServer(v)}
+                  options={serverOptions}
+                  className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
+                  ariaLabel="Streaming Server"
+                />
+              </div>
+              <div className="w-[120px] shrink-0">
+                <Select
+                  size="sm"
+                  value={dubLanguage}
+                  onChange={(v) => handleDubChange(v)}
+                  options={DUB_OPTIONS}
+                  className="w-full text-[11px] font-semibold bg-white/10 border-white/15"
+                  ariaLabel="Audio Dubbing"
+                />
+              </div>
+            </div>
+          )}
         </header>
       )}
 
@@ -710,7 +774,7 @@ export function Player({
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
             allowFullScreen
             referrerPolicy="origin"
-            sandbox={url.includes('vidfast.vc') || url.includes('vidlink.pro') || url.includes('vidsrc.su') || url.includes('vidsrc.buzz') || url.includes('cinesrc.st') || url.includes('123embed.net') ? "allow-scripts allow-same-origin allow-forms allow-presentation" : undefined}
+            sandbox={url.includes('cinesrc.st') || url.includes('123embed.net') ? "allow-scripts allow-same-origin allow-forms allow-presentation" : undefined}
             className="size-full border-0 bg-black"
           />
         ) : (

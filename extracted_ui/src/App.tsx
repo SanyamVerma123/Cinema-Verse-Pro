@@ -22,11 +22,12 @@ import {
 } from "./lib/store";
 import { hasApi, titleOf, type Media } from "./lib/tmdb";
 
-type PageId = "home" | "movies" | "tv" | "new" | "browse" | "list" | "catalog";
+type PageId = "home" | "movies" | "tv" | "anime" | "new" | "browse" | "list" | "catalog";
 const NAV: [PageId, string][] = [
   ["home", "Home"],
   ["movies", "Movies"],
   ["tv", "Series"],
+  ["anime", "Anime"],
   ["new", "New & Popular"],
   ["browse", "Browse"],
   ["list", "My List"],
@@ -35,6 +36,7 @@ const MOBILE: [PageId, string, IconName][] = [
   ["home", "Home", "home"],
   ["movies", "Movies", "film"],
   ["tv", "Series", "tv"],
+  ["anime", "Anime", "sparkles"],
   ["browse", "Browse", "compass"],
   ["list", "My List", "list"],
 ];
@@ -322,7 +324,7 @@ export default function App() {
             </p>
           </div>
           {[
-            ["Explore", "Movies", "Series", "New & Popular"],
+            ["Explore", "Movies", "Series", "Anime", "New & Popular"],
             ["Account", "My List", "Continue watching", "Settings"],
             ["Platform", "Universal OTTs", "4K Ultra HD", "Privacy"],
           ].map(([h, ...ls]) => (
@@ -343,7 +345,7 @@ export default function App() {
 
       <nav
         aria-label="Mobile"
-        className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-white/10 bg-ink/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-2xl md:hidden"
+        className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-6 border-t border-white/10 bg-ink/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-2xl md:hidden"
       >
         {MOBILE.map(([id, label, icon]) => (
           <button

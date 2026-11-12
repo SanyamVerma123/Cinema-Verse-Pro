@@ -198,7 +198,7 @@ export function Search({
       (m) => m.media_type !== "person" && (m.poster_path || m.backdrop_path),
     );
     const people = all.filter((m) => m.media_type === "person");
-    return { titles: titles.slice(0, 10), people: people.slice(0, 6) };
+    return { titles: titles.slice(0, 25), people: people.slice(0, 10) };
   }, [data, filter]);
   const items = [...flat.titles, ...flat.people];
   const cur = items[Math.min(active, items.length - 1)];
@@ -219,6 +219,18 @@ export function Search({
   const forget = () => {
     setRecent([]);
     localStorage.removeItem("frame:recent");
+  };
+  const viewAll = () => {
+    const query = debounced || q.trim();
+    if (!query) return;
+    remember(query);
+    onClose();
+    onAll({
+      title: 'Search results for "' + query + '"',
+      path: "/search/multi",
+      params: { query, include_adult: "false" },
+      kind: "all",
+    });
   };
   const personCatalog = (p: Media) => {
     remember(debounced);
@@ -402,6 +414,13 @@ export function Search({
                   ref={input}
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      viewAll();
+                    }
+                  }}
                   placeholder={listening ? "Listening…" : "Search movies, series, people"}
                   aria-label="Search"
                   className="h-full min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-white/30 sm:text-lg"
@@ -601,6 +620,17 @@ export function Search({
                       </h2>
                     )}
                     <ul>{flat.people.map((m, i) => row(m, flat.titles.length + i))}</ul>
+
+                    {/* Prominent "View all results" button */}
+                    <div className="mt-4 pt-3 border-t border-white/10 px-1 pb-2">
+                      <button
+                        onClick={viewAll}
+                        className="group w-full flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/10 hover:bg-white/20 hover:border-accent/50 py-3.5 px-5 text-sm font-bold text-white shadow-lg transition active:scale-[0.99]"
+                      >
+                        <span>View all results for &ldquo;{debounced || q}&rdquo;</span>
+                        <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">→</span>
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
