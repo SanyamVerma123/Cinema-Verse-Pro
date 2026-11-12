@@ -471,68 +471,53 @@ export function Player({
       <header
         onMouseEnter={() => setIsHoveringHeader(true)}
         onMouseLeave={() => setIsHoveringHeader(false)}
-        className={`absolute inset-x-0 top-0 z-40 border-b border-white/10 bg-gradient-to-b from-[#09090d]/98 via-[#09090d]/90 to-transparent p-2 sm:px-6 sm:py-3.5 landscape:max-h-[520px]:py-1 landscape:max-h-[520px]:px-3 backdrop-blur-xl transition-all duration-300 transform ${
+        className={`absolute inset-x-0 top-0 z-40 border-b border-white/10 bg-gradient-to-b from-[#09090d]/98 via-[#09090d]/92 to-transparent px-2.5 py-1.5 sm:px-5 sm:py-2 backdrop-blur-xl transition-all duration-300 transform ${
           topBarVisible
             ? "translate-y-0 opacity-100 pointer-events-auto"
             : "-translate-y-full opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex items-center justify-between gap-1.5 sm:gap-4">
-          {/* Left Info: Back Button, Title, and Badges */}
-          <div className="flex min-w-0 items-center gap-1.5 sm:gap-3.5 shrink-0">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-3">
+          {/* Left Info: Back Button, Title, and Server in ONE SINGLE ROW */}
+          <div className="flex min-w-0 items-center gap-1.5 sm:gap-2.5 shrink">
             <button
               onClick={onClose}
               autoFocus
               aria-label="Back to Movie Details"
               title="Back to Movie Details (Esc)"
-              className="flex shrink-0 items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-2 py-1.5 sm:px-3 sm:py-2 landscape:max-h-[520px]:px-2 landscape:max-h-[520px]:py-1 text-xs landscape:max-h-[520px]:text-[11px] font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 active:scale-95"
+              className="flex shrink-0 items-center gap-1 rounded-lg border border-white/15 bg-white/10 px-2 py-1 text-xs font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 active:scale-95"
             >
-              <Icon name="left" size={14} />
-              <span className="hidden sm:inline landscape:max-h-[520px]:hidden">Back</span>
+              <Icon name="left" size={13} />
+              <span className="hidden sm:inline">Back</span>
             </button>
 
-            <div className="min-w-0">
-              <h2 className="shrink min-w-[80px] max-w-[140px] sm:max-w-[280px] lg:max-w-md landscape:max-h-[520px]:max-w-[130px] truncate font-display text-xs sm:text-base lg:text-lg font-extrabold text-white">
+            {/* Title & Server in ONE SINGLE ROW (no wrap, no second line) */}
+            <div className="flex items-center gap-1.5 min-w-0">
+              <h2 className="shrink min-w-0 max-w-[110px] xs:max-w-[150px] sm:max-w-[260px] md:max-w-md truncate font-display text-xs sm:text-sm font-extrabold text-white">
                 {titleOf(media)}
               </h2>
-              <div className="mt-0.5 flex items-center flex-nowrap gap-1 sm:gap-1.5 shrink-0 whitespace-nowrap overflow-hidden text-[9px] sm:text-[11px] landscape:max-h-[520px]:text-[9px]">
-                <span className="rounded-md bg-red-600/90 px-1 sm:px-1.5 py-0.5 font-bold text-white shadow-xs shrink-0 whitespace-nowrap">
-                  {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
-                </span>
-                <span className="hidden xs:inline-block rounded-md border border-white/20 bg-white/10 px-1 sm:px-1.5 py-0.5 font-semibold text-white/90 shrink-0 whitespace-nowrap">
-                  4K Ultra HD
-                </span>
-                <span className="hidden md:inline-flex items-center gap-1 rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300 shrink-0 whitespace-nowrap">
-                  <Icon name="volume" size={11} /> Dolby Atmos
-                </span>
-                {isTv && (
-                  <span className="rounded-md bg-white/15 px-1 sm:px-1.5 py-0.5 font-bold text-amber shrink-0 whitespace-nowrap">
-                    S{season}:E{episode}
-                  </span>
-                )}
-              </div>
+              <span className="shrink-0 rounded bg-red-600/90 px-1.5 py-0.5 text-[9px] sm:text-[10px] font-black text-white shadow-xs whitespace-nowrap">
+                {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
+              </span>
+              <span className="hidden md:inline-block shrink-0 rounded border border-white/20 bg-white/10 px-1 py-0.5 text-[9px] font-semibold text-white/80 whitespace-nowrap">
+                4K UHD
+              </span>
             </div>
           </div>
 
-          {/* Right Controls: Exactly and ONLY in this order:
-              a) Zap Ads button (⚡ Zap Ads)
-              b) Server Icon button (Tailwind Server Stack) with server dropdown
-              c) Language Icon button (Tailwind Globe / Language) with audio/dub dropdown
-              d) Cross close button (✕)
-          */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          {/* Right Controls: Zap, Server, Language, Up Arrow, Close */}
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             {/* a) Zap Ads button */}
             <button
               onClick={zapAds}
               title="Zap Ads & Refresh Clean Stream (Key: Z)"
-              className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-red-500/40 bg-red-600/20 px-2 sm:px-2.5 py-1.5 sm:py-2 landscape:max-h-[520px]:py-1 landscape:max-h-[520px]:px-2 text-[10px] sm:text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm shrink-0"
+              className="flex items-center gap-1 rounded-lg border border-red-500/40 bg-red-600/20 px-2 py-1 text-[10px] sm:text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm shrink-0"
             >
               <span className="text-red-400">⚡</span>
               <span>Zap</span>
-              <span className="hidden sm:inline">Ads</span>
             </button>
 
-            {/* b) Server Icon Button (Tailwind/Lucide Server Stack) */}
+            {/* b) Server Icon Button */}
             <div className="relative shrink-0" ref={serverMenuRef}>
               <button
                 onClick={() => {
@@ -542,15 +527,15 @@ export function Player({
                 aria-label="Select Streaming Server"
                 title={`Select Streaming Server (Active: ${activeServerObj.name.split(":")[0]})`}
                 aria-expanded={serverMenuOpen}
-                className={`grid size-8 sm:size-9 place-items-center rounded-xl border transition active:scale-95 ${
+                className={`grid size-7 sm:size-8 place-items-center rounded-lg border transition active:scale-95 ${
                   serverMenuOpen
                     ? "border-red-500 bg-red-600/30 text-white"
                     : "border-white/15 bg-white/10 text-white hover:bg-white/20 hover:border-white/30"
                 }`}
               >
                 <svg
-                  width="17"
-                  height="17"
+                  width="15"
+                  height="15"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -566,16 +551,16 @@ export function Player({
               </button>
 
               {serverMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 rounded-2xl border border-white/15 bg-[#0e0f17]/98 backdrop-blur-2xl shadow-2xl p-3 z-50 animate-[fade_.15s_ease-out]">
+                <div className="absolute right-0 top-full mt-1.5 w-64 sm:w-72 rounded-2xl border border-white/20 bg-[#12131f]/98 backdrop-blur-2xl shadow-2xl p-2.5 z-50 animate-[fade_.15s_ease-out]">
                   <div className="flex items-center justify-between px-1 mb-1.5">
                     <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
-                      Streaming Servers (1-10)
+                      Servers
                     </span>
                     <span className="text-[10px] font-bold text-red-400">
                       {activeServerObj.name.split(":")[0]}
                     </span>
                   </div>
-                  <div className="max-h-60 overflow-y-auto space-y-1 pr-1 no-scrollbar">
+                  <div className="max-h-56 overflow-y-auto space-y-1 pr-1 no-scrollbar">
                     {serverOptions.map((s) => {
                       const isActive = currentServer === s.value;
                       return (
@@ -585,35 +570,17 @@ export function Player({
                             setCurrentServer(s.value);
                             setServerMenuOpen(false);
                           }}
-                          className={`group flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-left text-xs transition active:scale-[0.98] ${
+                          className={`group flex w-full items-center justify-between rounded-xl px-2 py-1.5 text-left text-xs transition active:scale-[0.98] ${
                             isActive
                               ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
                               : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
                           }`}
                         >
-                          <div className="min-w-0 pr-2">
+                          <div className="min-w-0 pr-1">
                             <div className="truncate font-semibold">{s.label}</div>
-                            {s.hint && (
-                              <div className="text-[10px] text-white/40 group-hover:text-white/60">
-                                {s.hint}
-                              </div>
-                            )}
+                            {s.hint && <div className="text-[9px] text-white/40">{s.hint}</div>}
                           </div>
-                          {isActive ? (
-                            <svg
-                              className="size-4 shrink-0 text-red-500"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                          ) : (
-                            <span className="size-3.5 shrink-0 rounded-full border border-white/20 group-hover:border-white/40" />
-                          )}
+                          {isActive && <Icon name="check" size={14} className="text-red-500 shrink-0 ml-1" />}
                         </button>
                       );
                     })}
@@ -622,7 +589,7 @@ export function Player({
               )}
             </div>
 
-            {/* c) Language Icon Button (Tailwind/Lucide Globe / Languages) */}
+            {/* c) Language Icon Button */}
             <div className="relative shrink-0" ref={langMenuRef}>
               <button
                 onClick={() => {
@@ -632,15 +599,15 @@ export function Player({
                 aria-label="Select Audio & Dub Language"
                 title={`Audio Language (Active: ${DUB_OPTIONS.find((d) => d.value === dubLanguage)?.label || "English"})`}
                 aria-expanded={langMenuOpen}
-                className={`grid size-8 sm:size-9 place-items-center rounded-xl border transition active:scale-95 ${
+                className={`grid size-7 sm:size-8 place-items-center rounded-lg border transition active:scale-95 ${
                   langMenuOpen
                     ? "border-accent bg-accent/30 text-white"
                     : "border-white/15 bg-white/10 text-white hover:bg-white/20 hover:border-white/30"
                 }`}
               >
                 <svg
-                  width="17"
-                  height="17"
+                  width="15"
+                  height="15"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -655,16 +622,16 @@ export function Player({
               </button>
 
               {langMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-64 sm:w-72 rounded-2xl border border-white/15 bg-[#0e0f17]/98 backdrop-blur-2xl shadow-2xl p-3 z-50 animate-[fade_.15s_ease-out]">
-                  <div className="flex items-center justify-between px-1 mb-2">
+                <div className="absolute right-0 top-full mt-1.5 w-60 sm:w-64 rounded-2xl border border-white/20 bg-[#12131f]/98 backdrop-blur-2xl shadow-2xl p-2.5 z-50 animate-[fade_.15s_ease-out]">
+                  <div className="flex items-center justify-between px-1 mb-1.5">
                     <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
-                      Audio / Dub Language
+                      Audio / Dub
                     </span>
                     <span className="text-[10px] font-bold text-accent">
                       {DUB_OPTIONS.find((d) => d.value === dubLanguage)?.label || "English"}
                     </span>
                   </div>
-                  <div className="grid grid-cols-2 gap-1.5">
+                  <div className="grid grid-cols-2 gap-1">
                     {DUB_OPTIONS.map((opt) => {
                       const isActive = dubLanguage === opt.value;
                       return (
@@ -674,26 +641,14 @@ export function Player({
                             handleDubChange(opt.value);
                             setLangMenuOpen(false);
                           }}
-                          className={`flex items-center justify-between rounded-xl px-2.5 py-2 text-xs transition active:scale-[0.98] ${
+                          className={`flex items-center justify-between rounded-xl px-2 py-1 text-xs transition active:scale-[0.98] ${
                             isActive
                               ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
                               : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
                           }`}
                         >
                           <span className="truncate">{opt.label}</span>
-                          {isActive && (
-                            <svg
-                              className="size-3.5 shrink-0 text-red-500 ml-1"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                          )}
+                          {isActive && <Icon name="check" size={14} className="text-red-500 shrink-0 ml-1" />}
                         </button>
                       );
                     })}
@@ -702,25 +657,41 @@ export function Player({
               )}
             </div>
 
-            {/* d) Cross close button (✕) */}
+            {/* Upward Arrow Button to slide/hide the top bar immediately */}
+            <button
+              onClick={() => {
+                setServerMenuOpen(false);
+                setLangMenuOpen(false);
+                setTopBarVisible(false);
+              }}
+              aria-label="Hide Controls"
+              title="Hide Controls (Slide Up)"
+              className="grid size-7 sm:size-8 place-items-center rounded-lg border border-white/15 bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition active:scale-90 shrink-0"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="18 15 12 9 6 15" />
+              </svg>
+            </button>
+
+            {/* Cross close button (✕) */}
             <button
               onClick={onClose}
               aria-label="Exit Player"
               title="Exit Player (Esc)"
-              className="grid size-8 sm:size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white/80 backdrop-blur transition hover:bg-red-600 hover:text-white hover:border-red-600 active:scale-95 shrink-0"
+              className="grid size-7 sm:size-8 place-items-center rounded-lg border border-white/15 bg-white/10 text-white/80 backdrop-blur transition hover:bg-red-600 hover:text-white hover:border-red-600 active:scale-90 shrink-0"
             >
-              <Icon name="close" size={15} />
+              <Icon name="close" size={13} />
             </button>
           </div>
         </div>
 
-        {/* Thin horizontal block for Season and Episode selection at top, down to the top bar */}
+        {/* Super-thin Season and Episode selection row for series */}
         {isTv && (
-          <div className="mt-2 pt-2 border-t border-white/10 flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar">
-            <span className="text-[10px] font-black uppercase tracking-wider text-amber shrink-0 flex items-center gap-1">
-              <span>S{season}:E{episode}</span>
+          <div className="mt-1 pt-1 border-t border-white/10 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
+            <span className="text-[9px] font-black uppercase text-amber shrink-0">
+              S{season}:E{episode}
             </span>
-            <div className="w-[100px] sm:w-[130px] shrink-0">
+            <div className="w-[85px] sm:w-[105px] shrink-0">
               <Select
                 size="sm"
                 value={String(season)}
@@ -729,21 +700,21 @@ export function Player({
                   setEpisode(1);
                 }}
                 options={seasonOptions}
-                className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20"
+                className="w-full !py-0.5 !text-[11px] font-semibold bg-[#161722]/95 border-white/20"
                 ariaLabel="Select Season"
               />
             </div>
-            <div className="w-[150px] sm:w-[240px] shrink-0">
+            <div className="w-[125px] sm:w-[180px] shrink-0">
               <Select
                 size="sm"
                 value={String(episode)}
                 onChange={(v) => setEpisode(Number(v))}
                 options={episodeOptions}
-                className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
+                className="w-full !py-0.5 !text-[11px] font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
                 ariaLabel="Select Episode"
               />
             </div>
-            <span className="hidden sm:inline text-[11px] text-white/40 truncate">
+            <span className="hidden sm:inline text-[10px] text-white/40 truncate">
               {episodeOptions.find((e) => e.value === String(episode))?.label}
             </span>
           </div>
@@ -815,7 +786,7 @@ export function Player({
             allowFullScreen
             referrerPolicy="origin"
             sandbox={
-              url.includes('cinesrc.st') || url.includes('vidfast.vc') || url.includes('vidsrc.su')
+              url.includes('cinesrc.st')
                 ? "allow-scripts allow-same-origin allow-forms allow-presentation"
                 : undefined
             }
