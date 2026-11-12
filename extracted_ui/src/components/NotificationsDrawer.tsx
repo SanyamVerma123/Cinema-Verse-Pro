@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { img, titleOf, useTmdb, type Media } from "../lib/tmdb";
 import {
   daysUntilRelease,
   isReminded,
+  isUpcoming,
   releaseDateLabel,
   remindersStore,
   requestNotificationPermission,
@@ -28,9 +29,40 @@ export function NotificationsDrawer({
     return "denied";
   });
 
-  // Upcoming discovery from TMDb proxy
-  const { data: upcomingData, loading: upcomingLoading } = useTmdb<any>("/movie/upcoming");
-  const upcomingTitles: Media[] = upcomingData?.results?.slice(0, 10) ?? [];
+  const [bannerDismissed, setBannerDismissed] = useState(() => {
+    try {
+      return localStorage.getItem("cv:hide_push_banner") === "true";
+    } catch {
+      return false;
+    }
+  });
+
+  const dismissBanner = () => {
+    setBannerDismissed(true);
+    try {
+      localStorage.setItem("cv:hide_push_banner", "true");
+    } catch {}
+  };
+
+  // Upcoming discovery from TMDb proxy: strictly from current date to next months!
+  const todayStr = useMemo(() => new Date().toISOString().split("T")[0], []);
+  const nextMonthsStr = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 120); // Next 4 months
+    return d.toISOString().split("T")[0];
+  }, []);
+
+  const { data: upcomingData } = useTmdb<any>("/discover/movie", {
+    "primary_release_date.gte": todayStr,
+    "primary_release_date.lte": nextMonthsStr,
+    sort_by: "popularity.desc",
+  });
+
+  // Strictly filter to ensure release_date is in the future (> today)
+  const upcomingTitles: Media[] = useMemo(() => {
+    const raw: Media[] = upcomingData?.results ?? [];
+    return raw.filter((m) => isUpcoming(m)).slice(0, 12);
+  }, [upcomingData]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -49,27 +81,8 @@ export function NotificationsDrawer({
     setPerm(res);
   };
 
-  const handleTestNotification = () => {
-    if (typeof window === "undefined" || !("Notification" in window)) return;
-    if (Notification.permission === "granted") {
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.ready.then((reg) => {
-          reg.showNotification("CinemaVerse Alert Test 🎬", {
-            body: "Push notification system is active! You'll receive alerts even when your phone screen is closed.",
-            icon: "/icon-192.png",
-            badge: "/icon-192.png",
-          });
-        });
-      } else {
-        new Notification("CinemaVerse Alert Test 🎬", {
-          body: "Push notification system is active! You'll receive alerts even when your phone screen is closed.",
-          icon: "/icon-192.png",
-        });
-      }
-    } else {
-      handleRequestPerm();
-    }
-  };
+  // Hide the enable notification panel once delivered/granted or dismissed
+  const showBanner = perm !== "granted" && !bannerDismissed;
 
   if (!isOpen) return null;
 
@@ -105,35 +118,35 @@ export function NotificationsDrawer({
 
         {/* Content Body */}
         <div className="no-scrollbar flex-1 overflow-y-auto p-4 sm:p-5 space-y-6">
-          {/* Web Push / Mobile Background Notification Card */}
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-white/[0.05] via-[#171824] to-[#12131c] p-4 shadow-lg">
-            <div className="flex items-start gap-3">
-              <div className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-red-600/20 text-red-400 border border-red-500/30">
-                <Icon name="bell" size={16} />
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-xs font-bold text-white">
-                    Mobile &amp; Closed-Tab Alerts
-                  </h3>
-                  {perm === "granted" ? (
-                    <span className="rounded-md bg-emerald-500/20 px-1.5 py-0.5 text-[9px] font-bold text-emerald-400 border border-emerald-500/30">
-                      Active
-                    </span>
-                  ) : (
+          {/* Web Push / Mobile Background Notification Card (Hides automatically after delivery/enable or dismiss) */}
+          {showBanner && (
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-white/[0.05] via-[#171824] to-[#12131c] p-4 shadow-lg animate-[fade_.3s_both]">
+              <button
+                onClick={dismissBanner}
+                title="Dismiss Banner"
+                aria-label="Dismiss Banner"
+                className="absolute top-2.5 right-2.5 text-white/40 hover:text-white p-1 rounded-lg hover:bg-white/10 transition"
+              >
+                <Icon name="close" size={14} />
+              </button>
+              <div className="flex items-start gap-3">
+                <div className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-red-600/20 text-red-400 border border-red-500/30">
+                  <Icon name="bell" size={16} />
+                </div>
+                <div className="min-w-0 flex-1 pr-4">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-xs font-bold text-white">
+                      Mobile &amp; Closed-Tab Alerts
+                    </h3>
                     <span className="rounded-md bg-amber/20 px-1.5 py-0.5 text-[9px] font-bold text-amber border border-amber/30">
                       Permission Needed
                     </span>
-                  )}
-                </div>
-                <p className="mt-1 text-[11px] leading-relaxed text-white/60">
-                  {perm === "granted"
-                    ? "Notifications enabled! You'll receive system alerts on your lock screen even when CinemaVerse is closed."
-                    : "Receive push notifications directly on your phone's lock screen the moment your movie premieres, even when the browser or app is closed."}
-                </p>
+                  </div>
+                  <p className="mt-1 text-[11px] leading-relaxed text-white/60">
+                    Receive push notifications directly on your phone&apos;s lock screen the moment your movie premieres, even when the browser or app is closed.
+                  </p>
 
-                <div className="mt-3 flex items-center gap-2">
-                  {perm !== "granted" ? (
+                  <div className="mt-3 flex items-center gap-2">
                     <button
                       onClick={handleRequestPerm}
                       className="btn-shine relative flex items-center gap-1.5 rounded-lg bg-linear-to-r from-red-600 to-accent px-3 py-1.5 text-xs font-bold text-white shadow-md transition hover:brightness-110 active:scale-95"
@@ -141,18 +154,11 @@ export function NotificationsDrawer({
                       <Icon name="bell" size={13} />
                       Enable Mobile Notifications
                     </button>
-                  ) : (
-                    <button
-                      onClick={handleTestNotification}
-                      className="flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/90 hover:bg-white/20 active:scale-95 transition"
-                    >
-                      Send Test Alert
-                    </button>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* User's Active Reminders */}
           <div>
@@ -213,7 +219,7 @@ export function NotificationsDrawer({
                           </span>
                           {days !== null && (
                             <span className="rounded border border-white/15 bg-white/5 px-1.5 py-0.5 text-white/70">
-                              {days === 0 ? "Releases Today!" : `In ${days} days`}
+                              {`In ${days} days`}
                             </span>
                           )}
                         </div>
@@ -235,12 +241,15 @@ export function NotificationsDrawer({
             )}
           </div>
 
-          {/* Upcoming Blockbusters Discovery */}
+          {/* Upcoming Blockbusters Discovery (Filtered strictly to future titles from current date to next months) */}
           {upcomingTitles.length > 0 && (
             <div className="pt-2 border-t border-white/8">
-              <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-white/70">
-                Upcoming Blockbusters
-              </h3>
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-white/70">
+                  Upcoming Releases
+                </h3>
+                <span className="text-[10px] text-white/40">Next 1–4 Months</span>
+              </div>
               <div className="space-y-2">
                 {upcomingTitles.map((m) => {
                   const reminded = isReminded(reminders, m);
@@ -267,7 +276,7 @@ export function NotificationsDrawer({
                             {titleOf(m)}
                           </p>
                           <p className="text-[10px] text-white/50">
-                            {releaseDateLabel(m)} {days !== null ? `(In ${days}d)` : ""}
+                            {releaseDateLabel(m)} {days !== null ? `(In ${days} days)` : ""}
                           </p>
                         </div>
                       </button>

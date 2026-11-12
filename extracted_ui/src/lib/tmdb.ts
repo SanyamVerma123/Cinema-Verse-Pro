@@ -30,7 +30,10 @@ export type Media = {
 };
 export const titleOf = (m: Media) => m.title || m.name || "Untitled";
 export const yearOf = (m: Media) => (m.release_date || m.first_air_date || "").slice(0, 4);
-export const typeOf = (m: Media): Kind => (m.media_type === "tv" ? "tv" : "movie");
+export const typeOf = (m: Media): Kind =>
+  m.media_type === "tv" || (!m.title && Boolean(m.name)) || Boolean(m.first_air_date && !m.release_date)
+    ? "tv"
+    : "movie";
 export const matchOf = (m: Media) => (m.vote_average ? Math.round(m.vote_average * 10) : null);
 
 export const img = (path?: string | null, size = "w500") => {

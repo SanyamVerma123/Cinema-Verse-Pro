@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getStreamUrl, STREAM_SERVERS } from "../lib/stream";
 import { progressStore, keyOf, saveProgress } from "../lib/store";
-import { pickTrailer, titleOf, typeOf, useTmdb, type Media } from "../lib/tmdb";
+import { img, pickTrailer, titleOf, typeOf, useTmdb, type Media } from "../lib/tmdb";
 import { Icon } from "./ui";
 import { Select, type Opt } from "./Select";
 
@@ -37,11 +37,71 @@ export function Player({
   // TV Episode & Season navigation state
   const [season, setSeason] = useState(initialSeason ?? 1);
   const [episode, setEpisode] = useState(initialEpisode ?? 1);
+  const [episodesDrawerOpen, setEpisodesDrawerOpen] = useState(false);
 
   useEffect(() => {
     if (initialSeason !== undefined) setSeason(initialSeason);
     if (initialEpisode !== undefined) setEpisode(initialEpisode);
   }, [initialSeason, initialEpisode]);
+
+  // Fetch TV show details (to get all seasons and total episodes)
+  const { data: showData } = useTmdb<any>(isTv ? `/tv/${media.id}` : null);
+  // Fetch specific season details (to get list of episodes with names, runtimes, stills, overview)
+  const { data: seasonData } = useTmdb<any>(
+    isTv ? `/tv/${media.id}/season/${season}` : null,
+  );
+
+  // Available seasons list
+  const availableSeasons: any[] = useMemo(() => {
+    if (!isTv) return [];
+    const list = (showData?.seasons ?? []).filter((s: any) => s.season_number > 0);
+    if (list.length > 0) return list;
+    return [{ season_number: 1, name: "Season 1", episode_count: 10 }];
+  }, [isTv, showData]);
+
+  // Season Options for Select
+  const seasonOptions: Opt[] = useMemo(() => {
+    return availableSeasons.map((s) => ({
+      value: String(s.season_number),
+      label: s.name || `Season ${s.season_number}`,
+      hint: s.episode_count ? `${s.episode_count} eps` : undefined,
+    }));
+  }, [availableSeasons]);
+
+  // Current Season Object
+  const currentSeasonObj = availableSeasons.find((s) => s.season_number === season);
+
+  // Episodes list from season details or fallback to placeholders
+  const episodesList: any[] = useMemo(() => {
+    if (!isTv) return [];
+    const eps: any[] = seasonData?.episodes ?? [];
+    if (eps.length > 0) return eps;
+    const count = currentSeasonObj?.episode_count || Math.max(episode, 12);
+    return Array.from({ length: count }, (_, i) => ({
+      episode_number: i + 1,
+      name: `Episode ${i + 1}`,
+      runtime: undefined,
+      overview: "",
+    }));
+  }, [isTv, seasonData, currentSeasonObj, episode]);
+
+  // Episode Options for Select
+  const episodeOptions: Opt[] = useMemo(() => {
+    return episodesList.map((e) => ({
+      value: String(e.episode_number),
+      label: `E${e.episode_number}: ${e.name || `Episode ${e.episode_number}`}`,
+      hint: e.runtime ? `${e.runtime}m` : undefined,
+    }));
+  }, [episodesList]);
+
+  // Current episode details
+  const currentEpisodeObj = episodesList.find((e) => e.episode_number === episode);
+  const currentEpisodeTitle = currentEpisodeObj?.name || (isTv ? `Episode ${episode}` : "");
+
+  // Stepper limits
+  const totalEpisodesInSeason = episodesList.length;
+  const hasNextEpisode = isTv && (episode < totalEpisodesInSeason || availableSeasons.some((s) => s.season_number > season));
+  const hasPrevEpisode = isTv && (episode > 1 || season > 1);
 
   // Server selection (defaulting to Server 1: Vidly Pro VIP)
   const [currentServer, setCurrentServer] = useState<string>(STREAM_SERVERS[0].id);
@@ -81,24 +141,28 @@ export function Player({
 
   // Active episode / media label
   const activeLabel = isTv
-    ? `S${season} · E${episode}${initialLabel && !initialLabel.startsWith(`S${season}`) ? ` · ${initialLabel}` : ""}`
+    ? `S${season} · E${episode}${currentEpisodeTitle ? ` · ${currentEpisodeTitle}` : ""}`
     : initialLabel;
 
   // Active server object
   const activeServerObj = STREAM_SERVERS.find((s) => s.id === currentServer) || STREAM_SERVERS[0];
 
-  // Reset loading spinner on server change or zap
+  // Reset loading spinner on server change, episode change or zap
   useEffect(() => {
     setIsLoading(true);
     const t = setTimeout(() => setIsLoading(false), 900); // 900ms failsafe
     return () => clearTimeout(t);
-  }, [url, zapCount]);
+  }, [url, zapCount, season, episode]);
 
-  // Keyboard shortcuts: Esc, F (fullscreen), Z (zap ads), N (next ep), P (prev ep)
+  // Keyboard shortcuts: Esc, F (fullscreen), Z (zap ads), N (next ep), P (prev ep), E (episodes drawer)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
+        if (episodesDrawerOpen) {
+          setEpisodesDrawerOpen(false);
+        } else {
+          onClose();
+        }
       } else if (e.key === "f" || e.key === "F") {
         toggleFullscreen();
       } else if (e.key === "z" || e.key === "Z") {
@@ -107,11 +171,13 @@ export function Player({
         nextEpisode();
       } else if (isTv && (e.key === "p" || e.key === "P")) {
         prevEpisode();
+      } else if (isTv && (e.key === "e" || e.key === "E")) {
+        setEpisodesDrawerOpen((o) => !o);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, isTv, season, episode]);
+  }, [onClose, isTv, season, episode, episodesDrawerOpen]);
 
   // Fullscreen handler
   const toggleFullscreen = () => {
@@ -145,10 +211,27 @@ export function Player({
 
   // TV Episode Steppers
   const nextEpisode = () => {
-    setEpisode((e) => e + 1);
+    if (episode < totalEpisodesInSeason) {
+      setEpisode((e) => e + 1);
+    } else {
+      const nextS = availableSeasons.find((s) => s.season_number === season + 1);
+      if (nextS) {
+        setSeason(nextS.season_number);
+        setEpisode(1);
+      }
+    }
   };
+
   const prevEpisode = () => {
-    setEpisode((e) => Math.max(1, e - 1));
+    if (episode > 1) {
+      setEpisode((e) => e - 1);
+    } else if (season > 1) {
+      const prevS = availableSeasons.find((s) => s.season_number === season - 1);
+      if (prevS) {
+        setSeason(prevS.season_number);
+        setEpisode(prevS.episode_count || 1);
+      }
+    }
   };
 
   // Listen to postMessage from iframe embeds for progress saving
@@ -357,26 +440,62 @@ export function Player({
 
             {/* Right Controls: Desktop Dropdowns + Action buttons */}
             <div className="flex items-center gap-1.5 sm:gap-2.5">
-              {/* TV Episode Steppers (Desktop) */}
+              {/* TV Season & Episode Selectors (Desktop) */}
               {isTv && (
-                <div className="hidden lg:flex items-center gap-1 bg-white/10 p-0.5 rounded-xl border border-white/15">
+                <div className="hidden lg:flex items-center gap-1.5">
+                  {/* Season Select (if more than 1 season) */}
+                  {availableSeasons.length > 1 && (
+                    <Select
+                      size="sm"
+                      value={String(season)}
+                      onChange={(v) => {
+                        setSeason(Number(v));
+                        setEpisode(1);
+                      }}
+                      options={seasonOptions}
+                      className="w-[110px] text-xs font-semibold bg-[#161722]/95 border-white/20"
+                      ariaLabel="Select Season"
+                    />
+                  )}
+
+                  {/* Episode Select Dropdown */}
+                  <Select
+                    size="sm"
+                    value={String(episode)}
+                    onChange={(v) => setEpisode(Number(v))}
+                    options={episodeOptions}
+                    className="w-[170px] xl:w-[210px] text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-accent/50"
+                    ariaLabel="Select Episode"
+                  />
+
+                  {/* Quick Prev / Next Episode Buttons */}
+                  <div className="flex items-center gap-0.5 bg-white/10 p-0.5 rounded-xl border border-white/15">
+                    <button
+                      onClick={prevEpisode}
+                      disabled={!hasPrevEpisode}
+                      title="Previous Episode (Key: P)"
+                      className="px-2 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
+                    >
+                      {"‹ Prev"}
+                    </button>
+                    <button
+                      onClick={nextEpisode}
+                      disabled={!hasNextEpisode}
+                      title="Next Episode (Key: N)"
+                      className="px-2 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
+                    >
+                      {"Next ›"}
+                    </button>
+                  </div>
+
+                  {/* View All Episodes Drawer Button */}
                   <button
-                    onClick={prevEpisode}
-                    disabled={episode <= 1}
-                    title="Previous Episode (Key: P)"
-                    className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
+                    onClick={() => setEpisodesDrawerOpen(true)}
+                    title="Browse All Episodes (Key: E)"
+                    className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 text-xs font-bold text-white backdrop-blur transition hover:bg-white/20 active:scale-95"
                   >
-                    {"‹ Prev"}
-                  </button>
-                  <span className="px-1.5 text-xs font-bold text-white/90">
-                    Ep {episode}
-                  </span>
-                  <button
-                    onClick={nextEpisode}
-                    title="Next Episode (Key: N)"
-                    className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition"
-                  >
-                    {"Next ›"}
+                    <Icon name="list" size={14} />
+                    <span className="hidden xl:inline">Episodes</span>
                   </button>
                 </div>
               )}
@@ -388,7 +507,7 @@ export function Player({
                   value={currentServer}
                   onChange={(v) => setCurrentServer(v)}
                   options={serverOptions}
-                  className="w-[190px] lg:w-[230px] text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
+                  className="w-[180px] lg:w-[210px] text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
                   ariaLabel="Select Streaming Server"
                 />
               </div>
@@ -400,7 +519,7 @@ export function Player({
                   value={dubLanguage}
                   onChange={(v) => handleDubChange(v)}
                   options={DUB_OPTIONS}
-                  className="w-[140px] lg:w-[160px] text-xs font-semibold bg-white/10 border-white/15"
+                  className="w-[130px] lg:w-[150px] text-xs font-semibold bg-white/10 border-white/15"
                   ariaLabel="Select Dubbed Audio Track"
                 />
               </div>
@@ -466,9 +585,10 @@ export function Player({
             </div>
           </div>
 
-          {/* Mobile Sub-Header: Professional UI-based Dropdowns for Server & Dubbing */}
-          <div className="mt-2 flex sm:hidden items-center gap-2 pt-1 border-t border-white/10">
-            <div className="min-w-0 flex-1">
+          {/* Mobile Sub-Header: Scrollable controls including Episode Selector, Server & Dubbing */}
+          <div className="mt-2 flex sm:hidden items-center gap-1.5 overflow-x-auto no-scrollbar pt-1.5 border-t border-white/10">
+            {/* Server Selector on Mobile */}
+            <div className="w-[130px] shrink-0">
               <Select
                 size="sm"
                 value={currentServer}
@@ -479,7 +599,68 @@ export function Player({
               />
             </div>
 
-            <div className="w-[125px] shrink-0">
+            {/* TV Series Episode & Season Selector on Mobile */}
+            {isTv && (
+              <>
+                {availableSeasons.length > 1 && (
+                  <div className="w-[95px] shrink-0">
+                    <Select
+                      size="sm"
+                      value={String(season)}
+                      onChange={(v) => {
+                        setSeason(Number(v));
+                        setEpisode(1);
+                      }}
+                      options={seasonOptions}
+                      className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
+                      ariaLabel="Season"
+                    />
+                  </div>
+                )}
+
+                <div className="w-[140px] shrink-0">
+                  <Select
+                    size="sm"
+                    value={String(episode)}
+                    onChange={(v) => setEpisode(Number(v))}
+                    options={episodeOptions}
+                    className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
+                    ariaLabel="Episode"
+                  />
+                </div>
+
+                <div className="flex items-center gap-0.5 shrink-0 bg-white/10 p-0.5 rounded-xl border border-white/15">
+                  <button
+                    onClick={prevEpisode}
+                    disabled={!hasPrevEpisode}
+                    className="px-2 py-1 text-[11px] font-bold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg"
+                    title="Previous Episode"
+                  >
+                    {"‹"}
+                  </button>
+                  <button
+                    onClick={nextEpisode}
+                    disabled={!hasNextEpisode}
+                    className="px-2 py-1 text-[11px] font-bold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg"
+                    title="Next Episode"
+                  >
+                    {"›"}
+                  </button>
+                </div>
+
+                <button
+                  onClick={() => setEpisodesDrawerOpen(true)}
+                  className="flex shrink-0 items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 text-[11px] font-bold text-white active:scale-95"
+                  title="Browse All Episodes"
+                >
+                  <Icon name="list" size={13} />
+                  <span>Episodes</span>
+                </button>
+              </>
+            )}
+
+            {/* Audio Dubbing on Mobile */}
+            <div className="w-[110px] shrink-0">
               <Select
                 size="sm"
                 value={dubLanguage}
@@ -489,27 +670,6 @@ export function Player({
                 ariaLabel="Audio Dubbing"
               />
             </div>
-
-            {isTv && (
-              <div className="flex items-center gap-1 shrink-0 bg-white/10 p-0.5 rounded-xl border border-white/15">
-                <button
-                  onClick={prevEpisode}
-                  disabled={episode <= 1}
-                  className="px-1.5 py-1 text-[10px] font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg"
-                >
-                  {"‹"}
-                </button>
-                <span className="px-1 text-[10px] font-bold text-amber">
-                  E{episode}
-                </span>
-                <button
-                  onClick={nextEpisode}
-                  className="px-1.5 py-1 text-[10px] font-semibold text-white/80 hover:text-white rounded-lg"
-                >
-                  {"›"}
-                </button>
-              </div>
-            )}
           </div>
         </header>
       )}
@@ -550,7 +710,7 @@ export function Player({
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
             allowFullScreen
             referrerPolicy="origin"
-            sandbox={url.includes('/api/player/vidsrc') ? "allow-scripts allow-same-origin allow-forms allow-presentation" : undefined}
+            sandbox={url.includes('vidfast.vc') || url.includes('vidlink.pro') || url.includes('vidsrc.su') || url.includes('vidsrc.buzz') || url.includes('cinesrc.st') || url.includes('123embed.net') ? "allow-scripts allow-same-origin allow-forms allow-presentation" : undefined}
             className="size-full border-0 bg-black"
           />
         ) : (
@@ -596,6 +756,121 @@ export function Player({
           </div>
         )}
       </div>
+
+      {/* Episodes Drawer Overlay (Quick episode switcher with rich thumbnails and overviews) */}
+      {isTv && episodesDrawerOpen && (
+        <div
+          className="fixed inset-0 z-[120] flex justify-end bg-black/75 backdrop-blur-sm animate-[fade_.2s_both]"
+          onClick={() => setEpisodesDrawerOpen(false)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Episodes list"
+            onClick={(e) => e.stopPropagation()}
+            className="no-scrollbar relative flex size-full max-w-md flex-col bg-[#0e0f16] border-l border-white/10 shadow-2xl shadow-black animate-[slideInRight_.3s_cubic-bezier(.16,1,.3,1)_both]"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-white/10 bg-[#141520]/90 px-5 py-4 backdrop-blur-md">
+              <div className="min-w-0 pr-2">
+                <h3 className="font-display text-base font-extrabold text-white truncate">
+                  {titleOf(media)}
+                </h3>
+                <p className="text-xs text-white/50">
+                  {currentSeasonObj?.name || `Season ${season}`} • {episodesList.length} Episodes
+                </p>
+              </div>
+              <button
+                onClick={() => setEpisodesDrawerOpen(false)}
+                aria-label="Close Episodes Drawer"
+                className="grid size-8 place-items-center rounded-xl bg-white/10 text-white/80 hover:bg-white/20 transition active:scale-95"
+              >
+                <Icon name="close" size={15} />
+              </button>
+            </div>
+
+            {/* Season Selector inside drawer */}
+            {availableSeasons.length > 1 && (
+              <div className="p-4 border-b border-white/8 bg-[#11121a]">
+                <Select
+                  size="sm"
+                  label="Season"
+                  value={String(season)}
+                  onChange={(v) => {
+                    setSeason(Number(v));
+                    setEpisode(1);
+                  }}
+                  options={seasonOptions}
+                  className="w-full text-xs font-bold"
+                />
+              </div>
+            )}
+
+            {/* Episodes List */}
+            <div className="no-scrollbar flex-1 overflow-y-auto p-4 space-y-3">
+              {episodesList.map((e) => {
+                const isCur = e.episode_number === episode;
+                return (
+                  <button
+                    key={e.episode_number}
+                    onClick={() => {
+                      setEpisode(e.episode_number);
+                      setEpisodesDrawerOpen(false);
+                    }}
+                    className={`group w-full flex items-start gap-3 rounded-2xl p-2.5 text-left border transition active:scale-[0.99] ${
+                      isCur
+                        ? "border-accent/60 bg-accent/15 shadow-lg shadow-accent/10"
+                        : "border-white/8 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.06]"
+                    }`}
+                  >
+                    {/* Thumbnail */}
+                    <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-panel">
+                      {e.still_path ? (
+                        <img
+                          src={img(e.still_path, "w500")}
+                          alt=""
+                          className="size-full object-cover transition group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="size-full flex items-center justify-center bg-[#171822] text-xs font-bold text-white/30">
+                          E{e.episode_number}
+                        </div>
+                      )}
+                      <span className={`absolute inset-0 grid place-items-center transition ${isCur ? "bg-black/40 opacity-100" : "bg-black/30 opacity-0 group-hover:opacity-100"}`}>
+                        <span className={`grid size-7 place-items-center rounded-full text-black ${isCur ? "bg-accent text-white" : "bg-white"}`}>
+                          <Icon name="play" size={11} />
+                        </span>
+                      </span>
+                    </div>
+
+                    {/* Details */}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className={`text-[11px] font-black ${isCur ? "text-accent" : "text-white/60"}`}>
+                          EPISODE {e.episode_number}
+                        </span>
+                        {e.runtime && (
+                          <span className="text-[10px] text-white/40 shrink-0">
+                            {e.runtime}m
+                          </span>
+                        )}
+                      </div>
+                      <h4 className={`text-xs font-bold truncate mt-0.5 ${isCur ? "text-white" : "text-white/90 group-hover:text-white"}`}>
+                        {e.name || `Episode ${e.episode_number}`}
+                      </h4>
+                      {e.overview && (
+                        <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-white/50">
+                          {e.overview}
+                        </p>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -2,7 +2,20 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { genreNames, GENRE_NAMES, MOVIE_GENRES, TV_GENRES } from "../lib/genres";
 import type { RowDef, SectionDef } from "../lib/layout";
 import { NETWORKS } from "../lib/layout";
-import { inList, keyOf, listStore, progressStore, toggleList, useStore } from "../lib/store";
+import {
+  daysUntilRelease,
+  inList,
+  isReminded,
+  isUpcoming,
+  keyOf,
+  listStore,
+  progressStore,
+  releaseDateLabel,
+  remindersStore,
+  toggleList,
+  toggleReminder,
+  useStore,
+} from "../lib/store";
 import {
   img,
   matchOf,
@@ -219,10 +232,12 @@ function Top10Card({ m, rank, onOpen }: { m: Media; rank: number; onOpen: Open }
 }
 
 function UpcomingCard({ m, onOpen, i = 0 }: { m: Media; onOpen: Open; i?: number }) {
-  const list = useStore(listStore);
-  const saved = inList(list, m);
+  const reminders = useStore(remindersStore);
+  const reminded = isReminded(reminders, m);
   const d = new Date(m.release_date || m.first_air_date || "");
   const ok = !isNaN(+d);
+  const days = daysUntilRelease(m);
+
   return (
     <article
       style={{ animationDelay: `${Math.min(i, 10) * 60}ms` }}
@@ -247,6 +262,11 @@ function UpcomingCard({ m, onOpen, i = 0 }: { m: Media; onOpen: Open; i?: number
             </i>
           </span>
         )}
+        {days !== null && (
+          <span className="absolute right-3 top-3 rounded-lg bg-linear-to-r from-red-600 to-accent px-2 py-1 text-[10px] font-bold text-white shadow-md backdrop-blur">
+            {`In ${days} days`}
+          </span>
+        )}
       </button>
       <div className="mt-2.5 flex items-start gap-3">
         <div className="min-w-0 flex-1">
@@ -256,11 +276,11 @@ function UpcomingCard({ m, onOpen, i = 0 }: { m: Media; onOpen: Open; i?: number
           </p>
         </div>
         <button
-          onClick={() => toggleList(m)}
-          className={`flex shrink-0 flex-col items-center gap-1 text-[10px] font-semibold ${saved ? "text-accent" : "text-white/70 hover:text-white"}`}
+          onClick={() => toggleReminder(m)}
+          className={`flex shrink-0 flex-col items-center gap-1 text-[10px] font-semibold transition active:scale-90 ${reminded ? "text-accent" : "text-white/70 hover:text-white"}`}
         >
-          <Icon name={saved ? "check" : "bell"} size={18} />
-          {saved ? "Saved" : "Remind me"}
+          <Icon name={reminded ? "check" : "bell"} size={18} />
+          {reminded ? "Saved" : "Remind me"}
         </button>
       </div>
     </article>
@@ -338,7 +358,7 @@ export function Row({ def, onOpen, onAll }: { def: RowDef; onOpen: Open; onAll: 
       </p>
     ) : null;
   const cap = def.variant === "top10" ? 10 : def.variant === "people" ? 20 : 20;
-  const shown = items.slice(0, cap);
+  const shown = (def.variant === "upcoming" ? items.filter(isUpcoming) : items).slice(0, cap);
   const all =
     def.variant === "people" || def.variant === "top10"
       ? undefined

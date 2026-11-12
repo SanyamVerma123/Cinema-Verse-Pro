@@ -125,7 +125,8 @@ export function daysUntilRelease(m?: Media | null): number | null {
     const target = new Date(dateStr).getTime();
     const now = new Date().setHours(0, 0, 0, 0);
     const diffDays = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
-    return diffDays > 0 ? diffDays : 0;
+    // Strictly positive upcoming days only; never return 0 or negative for already released titles
+    return diffDays > 0 ? diffDays : null;
   } catch {
     return null;
   }

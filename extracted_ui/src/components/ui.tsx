@@ -64,7 +64,12 @@ const P: Record<string, ReactNode> = {
     </>
   ),
   list: <path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" />,
-  bell: <path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4Zm4 4h4" />,
+  bell: (
+    <>
+      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+    </>
+  ),
   sliders: <path d="M4 7h10m4 0h2M4 17h2m4 0h10M14 4v6m-4 4v6" />,
   ext: <path d="M14 4h6v6m0-6-9 9M18 14v5H5V6h5" />,
   user: (

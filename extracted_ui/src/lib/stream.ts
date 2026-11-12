@@ -77,40 +77,40 @@ export const STREAM_SERVERS: StreamServer[] = [
         : `https://player.autoembed.co/embed/movie/${id}`,
   },
   {
-    id: "vidsrc",
-    name: "Server 7: VidSrc Cloud VIP",
-    badge: "✅ 0 Ads • Hindi & Multi-Audio",
+    id: "vidfast",
+    name: "Server 7: VidFast Ultra HD",
+    badge: "✅ 0 Ads • Instant Fast 4K",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `/api/player/vidsrc?type=tv&id=${id}&s=${s}&e=${e}`
-        : `/api/player/vidsrc?type=movie&id=${id}`,
+        ? `https://vidfast.vc/tv/${id}/${s}/${e}`
+        : `https://vidfast.vc/movie/${id}`,
   },
   {
     id: "vidlink",
     name: "Server 8: VidLink Pro VIP",
-    badge: "Ultra HD 4K • Multi-Audio",
+    badge: "Ultra HD 4K • Multi-Audio • ✅ 0 Ads",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://vidlink.pro/tv/${id}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true`
-        : `https://vidlink.pro/movie/${id}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true`,
+        ? `https://vidlink.pro/tv/${id}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true&multiLang=true`
+        : `https://vidlink.pro/movie/${id}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true&multiLang=true`,
   },
   {
-    id: "anyembed",
-    name: "Server 9: AnyEmbed Prime Direct",
-    badge: "1080p Direct Mirror",
+    id: "vidsrc-direct",
+    name: "Server 9: VidSrc Direct HD",
+    badge: "1080p Direct • HLS • ✅ 0 Ads",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://anyembed.xyz/embed/tmdb-tv-${id}-${s}-${e}`
-        : `https://anyembed.xyz/embed/tmdb-movie-${id}`,
+        ? `https://vidsrc.su/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.su/embed/movie/${id}`,
   },
   {
-    id: "nontongo",
-    name: "Server 10: Nontongo CC Captions",
-    badge: "Multi-Subtitles • High Speed",
+    id: "vidsrc-buzz",
+    name: "Server 10: VidSrc Buzz CC",
+    badge: "Multi-Subtitles • Multi-Audio • ✅ 0 Ads",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://www.nontongo.win/embed/tv/${id}/${s}/${e}`
-        : `https://www.nontongo.win/embed/movie/${id}`,
+        ? `https://vidsrc.buzz/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.buzz/embed/movie/${id}`,
   },
 ];
 

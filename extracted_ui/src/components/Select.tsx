@@ -159,6 +159,7 @@ export function Select({
       </button>
       {open &&
         pos &&
+        typeof document !== "undefined" &&
         createPortal(
           <div
             ref={menu}
@@ -207,7 +208,7 @@ export function Select({
               );
             })}
           </div>,
-          document.body,
+          (document.fullscreenElement as HTMLElement) || document.body,
         )}
     </>
   );

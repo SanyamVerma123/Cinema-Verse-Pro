@@ -252,11 +252,15 @@ export default function App() {
               onClick={() => setNotificationsOpen(true)}
               aria-label="Release Notifications and Reminders"
               title="Release Notifications and Reminders"
-              className="relative grid size-10 sm:size-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white/90 shadow-md backdrop-blur-md transition hover:scale-105 hover:bg-white/20 active:scale-95"
+              className="group relative grid size-10 sm:size-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white/90 shadow-lg backdrop-blur-md transition-all duration-200 hover:scale-105 hover:bg-white/20 hover:border-white/30 hover:text-white active:scale-95"
             >
-              <Icon name="bell" size={18} />
+              <Icon
+                name="bell"
+                size={19}
+                className="transition-transform duration-200 group-hover:rotate-12"
+              />
               {reminders.length > 0 && (
-                <span className="absolute -top-1 -right-1 flex size-4 sm:size-5 items-center justify-center rounded-full bg-red-600 text-[9px] sm:text-[10px] font-black text-white shadow-md ring-2 ring-[#0c0d14] animate-pulse">
+                <span className="absolute -top-1 -right-1 flex min-w-5 h-5 items-center justify-center rounded-full bg-linear-to-r from-red-600 to-accent px-1 text-[10px] font-black text-white shadow-lg ring-2 ring-[#0c0d14] animate-pulse">
                   {reminders.length}
                 </span>
               )}

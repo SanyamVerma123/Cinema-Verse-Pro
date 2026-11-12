@@ -57,6 +57,12 @@ export type PageDef = {
   sections: SectionDef[];
 };
 
+const todayIso = new Date().toISOString().split("T")[0];
+const upcomingParams: Record<string, string> = {
+  "primary_release_date.gte": todayIso,
+  sort_by: "popularity.desc",
+};
+
 export const PAGES: Record<string, PageDef> = {
   home: {
     hero: { path: "/trending/all/day", kind: "all" },
@@ -99,10 +105,10 @@ export const PAGES: Record<string, PageDef> = {
       row(
         "soon",
         "Coming soon",
-        "/movie/upcoming",
+        "/discover/movie",
         "movie",
         "upcoming",
-        undefined,
+        upcomingParams,
         "Set a reminder for what is next",
       ),
       by("scifi", "Sci-fi & fantasy", "movie", "878,14", "poster"),
@@ -149,7 +155,7 @@ export const PAGES: Record<string, PageDef> = {
       row("m-pop", "Popular", "/movie/popular", "movie", "poster"),
       { type: "genres", id: "mg", title: "Movie genres", kind: "movie" },
       row("m-top", "Top rated", "/movie/top_rated", "movie"),
-      row("m-soon", "Upcoming", "/movie/upcoming", "movie", "upcoming"),
+      row("m-soon", "Upcoming", "/discover/movie", "movie", "upcoming", upcomingParams),
       by("m-action", "Action", "movie", "28", "poster"),
       by("m-comedy", "Comedy", "movie", "35"),
       by("m-drama", "Drama", "movie", "18", "poster"),
@@ -185,15 +191,15 @@ export const PAGES: Record<string, PageDef> = {
     ],
   },
   new: {
-    hero: { path: "/movie/upcoming", kind: "movie" },
+    hero: { path: "/discover/movie", kind: "movie", params: upcomingParams },
     sections: [
       row(
         "n-soon",
         "Coming soon",
-        "/movie/upcoming",
+        "/discover/movie",
         "movie",
         "upcoming",
-        undefined,
+        upcomingParams,
         "Set a reminder for what is next",
       ),
       row("n-today", "Trending today", "/trending/all/day", "all", "top10"),
