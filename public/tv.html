@@ -66,25 +66,47 @@
         </button>
         <button type="button" class="tv-nav-item" data-tab="series" id="tv-nav-series" onclick="if(window.switchTvTab)window.switchTvTab('series')">
           <i class="fa-solid fa-tv"></i>
-          <span>TV Series</span>
+          <span>Series</span>
         </button>
         <button type="button" class="tv-nav-item" data-tab="anime" id="tv-nav-anime" onclick="if(window.switchTvTab)window.switchTvTab('anime')">
           <i class="fa-solid fa-wand-magic-sparkles"></i>
           <span>Anime</span>
         </button>
-        <button type="button" class="tv-nav-item" data-tab="ott" id="tv-nav-ott" onclick="if(window.switchTvTab)window.switchTvTab('ott')">
-          <i class="fa-solid fa-layer-group"></i>
-          <span>OTT Hub</span>
+        <button type="button" class="tv-nav-item" data-tab="new" id="tv-nav-new" onclick="if(window.switchTvTab)window.switchTvTab('new')">
+          <i class="fa-solid fa-fire"></i>
+          <span>New & Popular</span>
         </button>
-        <button type="button" class="tv-nav-item" data-tab="search" id="tv-nav-search" onclick="if(window.switchTvTab)window.switchTvTab('search')">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <span>Search</span>
+        <button type="button" class="tv-nav-item" data-tab="browse" id="tv-nav-browse" onclick="if(window.switchTvTab)window.switchTvTab('browse')">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Browse</span>
+        </button>
+        <button type="button" class="tv-nav-item" data-tab="list" id="tv-nav-list" onclick="if(window.switchTvTab)window.switchTvTab('list')">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>My List</span>
         </button>
       </nav>
 
       <div class="tv-nav-right">
+        <!-- PC-style animated Search hint pill -->
+        <div class="tv-nav-search-pill" id="tv-nav-search-pill" onclick="if(window.switchTvTab)window.switchTvTab('search')" tabindex="0">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span class="tv-nav-hint-text" id="tv-nav-hint-text">Search movies, series, cast...</span>
+          <span class="tv-nav-mic-badge"><i class="fa-solid fa-microphone"></i></span>
+        </div>
+
+        <!-- Notifications Bell -->
+        <button type="button" class="tv-nav-icon-btn" id="tv-nav-bell-btn" onclick="if(window.openTvNotifications)window.openTvNotifications()" title="Notifications" tabindex="0">
+          <i class="fa-solid fa-bell"></i>
+          <span class="tv-nav-badge-dot">3</span>
+        </button>
+
+        <!-- Settings Gear -->
+        <button type="button" class="tv-nav-icon-btn" id="tv-nav-settings-btn" onclick="if(window.openTvSettings)window.openTvSettings()" title="Settings" tabindex="0">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+
         <span class="tv-badge-vip"><i class="fa-solid fa-bolt"></i> 4K VIP</span>
-        <div class="tv-nav-avatar">CV</div>
+        <div class="tv-nav-avatar" id="tv-nav-avatar-btn" onclick="if(window.openTvSettings)window.openTvSettings()" tabindex="0">CV</div>
       </div>
     </header>
 
@@ -101,10 +123,13 @@
             <span class="tv-pill-meta text-gold" id="tv-hero-rating"><i class="fa-solid fa-star"></i> 9.1</span>
             <span class="tv-pill-meta text-green" id="tv-hero-match">99% Match</span>
             <span class="tv-pill-meta" id="tv-hero-year">2024</span>
+            <span class="tv-pill-meta" id="tv-hero-cert">TV-MA</span>
             <span class="tv-pill-meta" id="tv-hero-quality">4K Ultra HD</span>
+            <span class="tv-pill-meta" id="tv-hero-audio"><i class="fa-solid fa-volume-high"></i> Dolby Atmos</span>
           </div>
 
           <h1 class="tv-hero-title" id="tv-hero-title">CinemaVerse</h1>
+          <div class="tv-hero-genres" id="tv-hero-genres">Action • Sci-Fi • Thriller</div>
           <p class="tv-hero-desc" id="tv-hero-desc">
             Stream over 1,300+ blockbuster movies and TV series across Netflix, Prime Video, Disney+, HBO Max, and Apple TV+ in 4K with zero ads.
           </p>
@@ -116,10 +141,16 @@
             <button type="button" class="tv-btn tv-btn-secondary" id="tv-hero-btn-info">
               <i class="fa-solid fa-circle-info"></i> More Info
             </button>
-            <button type="button" class="tv-btn tv-btn-secondary" id="tv-hero-btn-list">
-              <i class="fa-solid fa-plus"></i> Watchlist
+            <button type="button" class="tv-btn tv-btn-secondary" id="tv-hero-btn-list" onclick="if(window.toggleHeroWatchlist)window.toggleHeroWatchlist()">
+              <i class="fa-solid fa-plus"></i> <span id="tv-hero-list-text">Watchlist</span>
+            </button>
+            <button type="button" class="tv-btn tv-btn-icon" id="tv-hero-btn-mute" onclick="if(window.toggleHeroSound)window.toggleHeroSound()" title="Mute/Unmute">
+              <i class="fa-solid fa-volume-xmark" id="tv-hero-mute-icon"></i>
             </button>
           </div>
+
+          <!-- Hero Carousel Slide Dots (1-6) -->
+          <div class="tv-hero-dots" id="tv-hero-dots"></div>
         </div>
       </section>
 
@@ -142,6 +173,15 @@
           </button>
         </div>
 
+        <!-- PC-style Search Category Filters -->
+        <div class="tv-search-filters" id="tv-search-filters">
+          <button type="button" class="tv-filter-chip active" data-filter="all" onclick="if(window.setSearchFilter)window.setSearchFilter('all')">All</button>
+          <button type="button" class="tv-filter-chip" data-filter="movie" onclick="if(window.setSearchFilter)window.setSearchFilter('movie')">Movies</button>
+          <button type="button" class="tv-filter-chip" data-filter="series" onclick="if(window.setSearchFilter)window.setSearchFilter('series')">Series</button>
+          <button type="button" class="tv-filter-chip" data-filter="anime" onclick="if(window.setSearchFilter)window.setSearchFilter('anime')">Anime</button>
+          <button type="button" class="tv-filter-chip" data-filter="person" onclick="if(window.setSearchFilter)window.setSearchFilter('person')">Actors & Cast</button>
+        </div>
+
         <!-- Virtual Leanback Keyboard Grid -->
         <div class="tv-keyboard-grid" id="tv-keyboard-grid"></div>
         <div class="tv-keyboard-actions" id="tv-keyboard-actions"></div>
@@ -160,6 +200,12 @@
         <h2 class="tv-details-title" id="tv-details-title">Movie Title</h2>
         <div class="tv-details-meta" id="tv-details-meta"></div>
         <p class="tv-details-desc" id="tv-details-desc"></p>
+
+        <!-- Cast & Crew Row -->
+        <div class="tv-modal-cast-section" id="tv-details-cast-section">
+          <span class="tv-server-picker-title">Starring Cast:</span>
+          <div class="tv-modal-cast-chips" id="tv-details-cast"></div>
+        </div>
 
         <!-- Server Selector -->
         <div class="tv-server-picker-row">
@@ -187,6 +233,79 @@
       <h3 class="tv-row-title" id="tv-episodes-heading">Episodes</h3>
       <div class="tv-episodes-scroller" id="tv-episodes-scroller"></div>
     </div>
+  </div>
+
+  <!-- TV Person / Actor Modal (Matches PC PersonModal) -->
+  <div class="tv-details-modal tv-person-modal" id="tv-person-modal">
+    <div class="tv-details-hero">
+      <img class="tv-person-poster" id="tv-person-img" src="" alt="Actor">
+      <div class="tv-details-info">
+        <div class="tv-hero-badge-row">
+          <span class="tv-ott-badge">ACTOR PROFILE</span>
+          <span class="tv-pill-meta text-gold" id="tv-person-dept">Acting</span>
+        </div>
+        <h2 class="tv-details-title" id="tv-person-name">Actor Name</h2>
+        <p class="tv-details-desc" id="tv-person-bio">Biography...</p>
+        <div>
+          <button type="button" class="tv-btn tv-btn-secondary" id="tv-person-close-btn" onclick="if(window.closeTvPersonModal)window.closeTvPersonModal()">
+            <i class="fa-solid fa-arrow-left"></i> Back to CinemaVerse
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="tv-person-filmography">
+      <h3 class="tv-row-title">Known For & Filmography in CinemaVerse</h3>
+      <div class="tv-row-scroller" id="tv-person-movies-scroller"></div>
+    </div>
+  </div>
+
+  <!-- TV Settings Modal (Matches PC SettingsModal) -->
+  <div class="tv-details-modal tv-settings-modal" id="tv-settings-modal">
+    <div class="tv-settings-container">
+      <div class="tv-settings-header">
+        <h2 class="tv-details-title"><i class="fa-solid fa-gear" style="color:var(--tv-red);"></i> TV Settings & Personalization</h2>
+        <button type="button" class="tv-btn tv-btn-secondary" onclick="if(window.closeTvSettings)window.closeTvSettings()"><i class="fa-solid fa-xmark"></i> Close (Back)</button>
+      </div>
+      <div class="tv-settings-grid">
+        <div class="tv-settings-card">
+          <h4 class="tv-settings-card-title"><i class="fa-solid fa-user"></i> Profile & VIP Status</h4>
+          <p style="color:var(--tv-text-muted);font-size:14px;margin-bottom:12px;">Active Account: <strong>CinemaVerse VIP</strong></p>
+          <div class="tv-settings-option-row">
+            <span>Streaming Quality:</span>
+            <span class="tv-badge-vip" style="font-size:12px;">4K Ultra HD • HDR10+</span>
+          </div>
+        </div>
+
+        <div class="tv-settings-card">
+          <h4 class="tv-settings-card-title"><i class="fa-solid fa-server"></i> Default Streaming Mirror</h4>
+          <p style="color:var(--tv-text-muted);font-size:13px;margin-bottom:12px;">Preferred server for 1-click instant playback:</p>
+          <div class="tv-server-chips" id="tv-settings-servers"></div>
+        </div>
+
+        <div class="tv-settings-card">
+          <h4 class="tv-settings-card-title"><i class="fa-solid fa-shield-halved"></i> Device Trust & Private Vault</h4>
+          <p style="color:var(--tv-text-muted);font-size:13px;margin-bottom:12px;" id="tv-settings-device-info">Device IP saved to Supabase cloud. Vault PIN: 2026</p>
+          <button type="button" class="tv-btn tv-btn-secondary" onclick="if(window.lockTvVault)window.lockTvVault()"><i class="fa-solid fa-lock"></i> Lock Vault Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TV Notifications Drawer (Matches PC NotificationsDrawer) -->
+  <div class="tv-details-modal tv-notifications-modal" id="tv-notifications-modal">
+    <div class="tv-settings-container">
+      <div class="tv-settings-header">
+        <h2 class="tv-details-title"><i class="fa-solid fa-bell" style="color:var(--tv-gold);"></i> Upcoming Releases & Notifications</h2>
+        <button type="button" class="tv-btn tv-btn-secondary" onclick="if(window.closeTvNotifications)window.closeTvNotifications()"><i class="fa-solid fa-xmark"></i> Close (Back)</button>
+      </div>
+      <div class="tv-notifications-list" id="tv-notifications-list"></div>
+    </div>
+  </div>
+
+  <!-- PC Floating Toast Notification -->
+  <div class="tv-toast" id="tv-toast">
+    <i class="fa-solid fa-circle-check text-green"></i>
+    <span id="tv-toast-text">Notification message</span>
   </div>
 
   <!-- Fullscreen TV Video Player Overlay -->

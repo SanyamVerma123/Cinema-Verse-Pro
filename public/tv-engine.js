@@ -450,9 +450,13 @@
     const ratingEl = document.getElementById('tv-hero-rating');
     const matchEl = document.getElementById('tv-hero-match');
     const yearEl = document.getElementById('tv-hero-year');
+    const certEl = document.getElementById('tv-hero-cert');
     const qualityEl = document.getElementById('tv-hero-quality');
+    const audioEl = document.getElementById('tv-hero-audio');
     const titleEl = document.getElementById('tv-hero-title');
+    const genresEl = document.getElementById('tv-hero-genres');
     const descEl = document.getElementById('tv-hero-desc');
+    const dotsContainer = document.getElementById('tv-hero-dots');
 
     if (backdropEl) setHeroBackdropWithFallback(backdropEl, item);
     if (ottEl) {
@@ -462,9 +466,30 @@
     if (ratingEl) ratingEl.innerHTML = `<i class="fa-solid fa-star"></i> ${item.rating || '8.5'}`;
     if (matchEl) matchEl.textContent = item.matchRate || '99% Match';
     if (yearEl) yearEl.textContent = item.year || '2024';
+    if (certEl) certEl.textContent = item.certificate || (item.rating >= 8.5 ? 'TV-MA' : 'PG-13');
     if (qualityEl) qualityEl.textContent = item.quality || '4K Ultra HD';
+    if (audioEl) audioEl.innerHTML = `<i class="fa-solid fa-volume-high"></i> Dolby Atmos`;
     if (titleEl) titleEl.textContent = item.title || 'CinemaVerse';
+    if (genresEl) {
+      const g = (item.genres && item.genres.length) ? item.genres.slice(0, 3).join(' • ') : 'Action • Sci-Fi • Drama';
+      genresEl.textContent = g;
+    }
     if (descEl) descEl.textContent = item.description || 'Watch in 4K Ultra HD with multi-audio and zero ads.';
+
+    // Render 6 Hero Slide Dots
+    if (dotsContainer) {
+      dotsContainer.innerHTML = '';
+      const dotCount = Math.min(6, items.length);
+      for (let d = 0; d < dotCount; d++) {
+        const dot = document.createElement('span');
+        dot.className = `tv-hero-dot ${d === (currentSpotlightIndex % dotCount) ? 'active' : ''}`;
+        dot.onclick = () => {
+          currentSpotlightIndex = d;
+          renderSpotlightHero();
+        };
+        dotsContainer.appendChild(dot);
+      }
+    }
   }
 
   function nextSpotlight() {
@@ -521,7 +546,13 @@
         { id: 'apple-series', title: 'Apple TV+ Drama & Sci-Fi', filter: x => x.platformId === 'apple' && x.type === 'series' },
         { id: 'hbo-series', title: 'HBO Max Iconic Sagas', filter: x => x.platformId === 'hbo' && x.type === 'series' }
       ];
-    } else if (currentActiveTab === 'ott') {
+    } else if (currentActiveTab === 'new') {
+      rowConfigs = [
+        { id: 'new-premieres', title: '⚡ Fresh Premieres (2024–2026)', filter: x => (x.year >= '2024' || (x.year && x.year.includes('2024')) || (x.year && x.year.includes('2025')) || (x.year && x.year.includes('2026'))) },
+        { id: 'new-trending', title: '🔥 Trending Worldwide', filter: x => x.featured || (x.rating && x.rating >= 8.2) },
+        { id: 'new-top', title: '⭐ Top Rated New Hits', filter: x => x.rating >= 8.5 }
+      ];
+    } else if (currentActiveTab === 'browse' || currentActiveTab === 'ott') {
       rowConfigs = [
         { id: 'ott-netflix', title: '🔴 Netflix — All Titles', filter: x => x.platformId === 'netflix' },
         { id: 'ott-prime', title: '🟦 Amazon Prime Video', filter: x => x.platformId === 'prime' },
@@ -533,8 +564,32 @@
         { id: 'ott-jio', title: '🟥 JioCinema', filter: x => x.platformId === 'jiocinema' },
         { id: 'ott-anime', title: '🌸 Crunchyroll & Anime World', filter: x => x.platformId === 'crunchyroll' || x.platformId === 'animeworld' }
       ];
-    } else {
+    } else if (currentActiveTab === 'list') {
+      let savedIds = [];
+      try {
+        savedIds = JSON.parse(localStorage.getItem('cinemaverse_my_list') || '[]');
+      } catch (e) {}
       rowConfigs = [
+        { id: 'my-list', title: '🔖 Your Saved Watchlist', filter: x => savedIds.includes(x.id) || (savedIds.length === 0 && x.rating >= 8.5) },
+        { id: 'list-recommended', title: '✨ Recommended For You', filter: x => x.featured || x.rating >= 8.0 }
+      ];
+    } else {
+      // Home tab
+      let continueList = [];
+      try {
+        continueList = JSON.parse(localStorage.getItem('cinemaverse_continue_watching') || '[]');
+      } catch (e) {}
+
+      rowConfigs = [];
+      if (continueList.length > 0) {
+        rowConfigs.push({
+          id: 'continue-watching',
+          title: '▶ Continue Watching',
+          customItems: continueList
+        });
+      }
+
+      rowConfigs.push(
         { id: 'top10-movies', title: '🔥 Top 10 Movies Today', filter: x => x.type === 'movie' && x.rank, top10: true },
         { id: 'top10-series', title: '🔥 Top 10 TV Shows Today', filter: x => x.type === 'series' && x.rank, top10: true },
         { id: 'netflix', title: 'Netflix Originals & Blockbusters', filter: x => x.platformId === 'netflix' },
@@ -544,14 +599,14 @@
         { id: 'apple', title: 'Apple TV+ Originals & Award Winners', filter: x => x.platformId === 'apple' },
         { id: 'crunchyroll', title: 'Crunchyroll & Anime World Hits', filter: x => x.platformId === 'crunchyroll' || x.platformId === 'animeworld' },
         { id: 'indian', title: 'Blockbuster Indian Cinema (Sony LIV, Zee5, JioCinema)', filter: x => ['sonyliv', 'zee5', 'jiocinema'].includes(x.platformId) }
-      ];
+      );
     }
 
     rowConfigs.forEach((conf, rIdx) => {
-      let items = allCatalog.filter(conf.filter);
+      let items = conf.customItems || allCatalog.filter(conf.filter);
       if (conf.top10) {
         items = items.sort((a, b) => (a.rank || 99) - (b.rank || 99)).slice(0, 10);
-      } else {
+      } else if (!conf.customItems) {
         // Fast 60 FPS Leanback: Cap to 20 items per row to prevent memory exhaustion on Smart TVs
         items = items.slice(0, 20);
       }
@@ -571,7 +626,7 @@
 
       const scroller = rowEl.querySelector('.tv-row-scroller');
       items.forEach((item, cIdx) => {
-        const card = createTvCard(item, rIdx, cIdx, conf.top10);
+        const card = createTvCard(item, rIdx, cIdx, conf.top10, !!conf.customItems);
         scroller.appendChild(card);
       });
 
@@ -579,7 +634,7 @@
     });
   }
 
-  function createTvCard(item, rIdx, cIdx, isTop10 = false) {
+  function createTvCard(item, rIdx, cIdx, isTop10 = false, isContinue = false) {
     const card = document.createElement('div');
     card.className = isTop10 ? 'tv-card tv-top10-card-wrap' : 'tv-card';
     card.dataset.rowIndex = rIdx;
@@ -589,22 +644,38 @@
     const rankHtml = isTop10 ? `<span class="tv-top10-rank">${cIdx + 1}</span>` : '';
     const ratingHtml = item.rating ? `<span class="tv-card-rating">★ ${item.rating}</span>` : '';
     const ottHtml = item.platformBadge || item.platform ? `<span class="tv-card-ott">${item.platformBadge || item.platform}</span>` : '';
+    const progressBarHtml = isContinue ? `
+      <div class="tv-continue-progress">
+        <div class="tv-continue-bar" style="width: ${item.progress || 45}%;"></div>
+      </div>
+    ` : '';
+
+    const subtitle = isContinue
+      ? `Resume S${item.season || 1} E${item.episode || 1}`
+      : (item.type === 'series' ? 'Series' : (item.duration || 'Movie'));
 
     card.innerHTML = `
       ${rankHtml}
       <img class="tv-card-poster" src="${item.poster || item.backdrop || ''}" alt="${item.title}" loading="lazy" decoding="async" onerror="if(window.handleImgError)window.handleImgError(this)" />
       ${ratingHtml}
       ${ottHtml}
+      ${progressBarHtml}
       <div class="tv-card-overlay">
         <h4 class="tv-card-title">${item.title}</h4>
         <div class="tv-card-meta">
           <span>${item.year || '2024'}</span>
-          <span>${item.type === 'series' ? 'Series' : (item.duration || 'Movie')}</span>
+          <span>${subtitle}</span>
         </div>
       </div>
     `;
 
-    card.onclick = () => openDetailsModal(item);
+    card.onclick = () => {
+      if (isContinue) {
+        startPlayback(item, item.season || 1, item.episode || 1, selectedModalServer);
+      } else {
+        openDetailsModal(item);
+      }
+    };
     return card;
   }
 
@@ -733,6 +804,15 @@
     executeSearch();
   };
 
+  let currentSearchFilter = 'all';
+  window.setSearchFilter = function (filterType) {
+    currentSearchFilter = filterType;
+    document.querySelectorAll('.tv-filter-chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.filter === filterType);
+    });
+    executeSearch();
+  };
+
   function executeSearch() {
     const resultsContainer = document.getElementById('tv-search-results-grid');
     if (!resultsContainer) return;
@@ -743,13 +823,50 @@
     }
 
     const q = searchQuery.toLowerCase().trim();
-    const matches = allCatalog.filter(item => {
+
+    if (currentSearchFilter === 'person') {
+      // Find matching cast members
+      const actorSet = new Set();
+      allCatalog.forEach(item => {
+        (item.cast || []).forEach(cName => {
+          const s = typeof cName === 'string' ? cName : (cName.name || '');
+          if (s.toLowerCase().includes(q)) actorSet.add(s);
+        });
+      });
+
+      resultsContainer.innerHTML = '';
+      Array.from(actorSet).slice(0, 24).forEach((actName, idx) => {
+        const card = document.createElement('div');
+        card.className = 'tv-card';
+        card.dataset.colIndex = idx;
+        card.innerHTML = `
+          <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;background:rgba(255,255,255,0.06);border-radius:12px;text-align:center;">
+            <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#e50914,#6366f1);display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;margin-bottom:12px;"><i class="fa-solid fa-user"></i></div>
+            <strong style="color:#fff;font-size:14px;line-height:1.2;">${actName}</strong>
+            <span style="color:var(--tv-gold);font-size:11px;margin-top:4px;">Starring Actor</span>
+          </div>
+        `;
+        card.onclick = () => window.openPersonModal(actName);
+        resultsContainer.appendChild(card);
+      });
+      return;
+    }
+
+    let matches = allCatalog.filter(item => {
       const title = (item.title || '').toLowerCase();
       const genres = (item.genres || []).map(g => g.toLowerCase()).join(' ');
       const desc = (item.description || '').toLowerCase();
       const cast = (item.cast || []).map(c => c.toLowerCase()).join(' ');
       return title.includes(q) || genres.includes(q) || desc.includes(q) || cast.includes(q);
-    }); // No cap — show ALL matching results
+    });
+
+    if (currentSearchFilter === 'movie') {
+      matches = matches.filter(x => x.type === 'movie');
+    } else if (currentSearchFilter === 'series') {
+      matches = matches.filter(x => x.type === 'series');
+    } else if (currentSearchFilter === 'anime') {
+      matches = matches.filter(x => x.platformId === 'crunchyroll' || x.platformId === 'animeworld' || (x.genres && x.genres.includes('Animation')));
+    }
 
     resultsContainer.innerHTML = '';
     matches.forEach((item, idx) => {
@@ -795,6 +912,24 @@
       `;
     }
     if (desc) desc.textContent = item.description || 'Watch in 4K Ultra HD with multi-audio and zero ads.';
+
+    // Populate Cast Chips
+    const castContainer = document.getElementById('tv-details-cast');
+    const castSection = document.getElementById('tv-details-cast-section');
+    if (castContainer) {
+      castContainer.innerHTML = '';
+      const castList = (item.cast && item.cast.length) ? item.cast : ['Lead Actor', 'Supporting Cast'];
+      if (castSection) castSection.style.display = castList.length ? 'block' : 'none';
+      castList.slice(0, 6).forEach(cName => {
+        const nameStr = typeof cName === 'string' ? cName : (cName.name || 'Cast');
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'tv-cast-chip';
+        chip.innerHTML = `<i class="fa-solid fa-user" style="font-size:12px;color:var(--tv-gold);"></i> <span>${nameStr}</span>`;
+        chip.onclick = () => window.openPersonModal(nameStr);
+        castContainer.appendChild(chip);
+      });
+    }
 
     // Populate Servers
     if (serversContainer) {
@@ -922,6 +1057,205 @@
   }
 
   // =========================================================================
+  // PERSON / ACTOR PROFILE MODAL (Matches PC PersonModal)
+  // =========================================================================
+  window.openPersonModal = function (name, photo) {
+    if (!name) return;
+    const modal = document.getElementById('tv-person-modal');
+    if (!modal) return;
+
+    // Close details modal if open
+    const dModal = document.getElementById('tv-details-modal');
+    if (dModal) dModal.classList.remove('active');
+
+    const imgEl = document.getElementById('tv-person-img');
+    const nameEl = document.getElementById('tv-person-name');
+    const bioEl = document.getElementById('tv-person-bio');
+    const deptEl = document.getElementById('tv-person-dept');
+    const scroller = document.getElementById('tv-person-movies-scroller');
+
+    if (imgEl) imgEl.src = photo || createDynamicSvgPoster(name, 'ACTOR');
+    if (nameEl) nameEl.textContent = name;
+    if (deptEl) deptEl.textContent = 'Acting & Directing';
+    if (bioEl) bioEl.textContent = `${name} is an internationally recognized talent featured across premier blockbuster films and prestige series in CinemaVerse 4K streaming.`;
+
+    // Filter allCatalog for titles starring this person
+    const q = name.toLowerCase();
+    const films = allCatalog.filter(x => {
+      const c = (x.cast || []).map(a => (typeof a === 'string' ? a : (a.name || '')).toLowerCase());
+      return c.some(act => act.includes(q));
+    });
+
+    if (scroller) {
+      scroller.innerHTML = '';
+      films.forEach((m, idx) => {
+        const card = createTvCard(m, 888, idx, false);
+        scroller.appendChild(card);
+      });
+    }
+
+    modal.classList.add('active');
+    activeZone = 'person-modal';
+    updateFocusUI();
+  };
+
+  window.closeTvPersonModal = function () {
+    const modal = document.getElementById('tv-person-modal');
+    if (modal) modal.classList.remove('active');
+    activeZone = 'rows';
+    updateFocusUI();
+  };
+
+  // =========================================================================
+  // SETTINGS & PERSONALIZATION MODAL (Matches PC SettingsModal)
+  // =========================================================================
+  window.openTvSettings = function () {
+    const modal = document.getElementById('tv-settings-modal');
+    if (!modal) return;
+
+    const container = document.getElementById('tv-settings-servers');
+    if (container) {
+      container.innerHTML = '';
+      STREAM_SERVERS.forEach((srv, idx) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `tv-server-chip ${idx === selectedModalServer ? 'active' : ''}`;
+        chip.textContent = srv.short;
+        chip.onclick = () => {
+          selectedModalServer = idx;
+          localStorage.setItem('cinemaverse_default_server', idx);
+          document.querySelectorAll('#tv-settings-servers .tv-server-chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+          window.showTvToast(`Default server set to ${srv.short}`);
+        };
+        container.appendChild(chip);
+      });
+    }
+
+    const devInfo = document.getElementById('tv-settings-device-info');
+    if (devInfo) {
+      devInfo.textContent = `Smart TV Connected • Cloud Sync Active • 4-Digit TV PIN: 2026`;
+    }
+
+    modal.classList.add('active');
+    activeZone = 'settings-modal';
+    updateFocusUI();
+  };
+
+  window.closeTvSettings = function () {
+    const modal = document.getElementById('tv-settings-modal');
+    if (modal) modal.classList.remove('active');
+    activeZone = 'hero';
+    updateFocusUI();
+  };
+
+  window.lockTvVault = function () {
+    sessionStorage.removeItem('tv_vault_unlocked');
+    window.location.reload();
+  };
+
+  // =========================================================================
+  // NOTIFICATIONS DRAWER (Matches PC NotificationsDrawer)
+  // =========================================================================
+  window.openTvNotifications = function () {
+    const modal = document.getElementById('tv-notifications-modal');
+    if (!modal) return;
+    const listEl = document.getElementById('tv-notifications-list');
+    if (listEl) {
+      listEl.innerHTML = `
+        <div class="tv-notification-item">
+          <i class="fa-solid fa-calendar-check"></i>
+          <div>
+            <h4 style="color:#fff;font-size:16px;">Stranger Things — Season 5 (Final Season)</h4>
+            <p style="color:var(--tv-text-muted);font-size:13px;">Premiere: 2026 • Netflix VIP • 4K HDR • Added to your schedule</p>
+          </div>
+        </div>
+        <div class="tv-notification-item">
+          <i class="fa-solid fa-fire"></i>
+          <div>
+            <h4 style="color:#fff;font-size:16px;">Avengers: Doomsday</h4>
+            <p style="color:var(--tv-text-muted);font-size:13px;">Disney+ Hotstar Premier • Marvel Cinematic Universe • 4K Dolby Atmos</p>
+          </div>
+        </div>
+        <div class="tv-notification-item">
+          <i class="fa-solid fa-sparkles"></i>
+          <div>
+            <h4 style="color:#fff;font-size:16px;">The Boys — Season 5</h4>
+            <p style="color:var(--tv-text-muted);font-size:13px;">Amazon Prime Video Exclusive • Ad-free 4K stream</p>
+          </div>
+        </div>
+      `;
+    }
+    modal.classList.add('active');
+    activeZone = 'notifications-modal';
+    updateFocusUI();
+  };
+
+  window.closeTvNotifications = function () {
+    const modal = document.getElementById('tv-notifications-modal');
+    if (modal) modal.classList.remove('active');
+    activeZone = 'hero';
+    updateFocusUI();
+  };
+
+  // =========================================================================
+  // FLOATING PC TOAST NOTIFICATION
+  // =========================================================================
+  window.showTvToast = function (msg) {
+    const toast = document.getElementById('tv-toast');
+    const text = document.getElementById('tv-toast-text');
+    if (!toast || !text) return;
+    text.textContent = msg;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 3200);
+  };
+
+  window.toggleHeroWatchlist = function () {
+    const items = getSpotlightItems();
+    const item = items[currentSpotlightIndex % items.length];
+    if (!item) return;
+    try {
+      let list = JSON.parse(localStorage.getItem('cinemaverse_my_list') || '[]');
+      const idx = list.indexOf(item.id);
+      const textEl = document.getElementById('tv-hero-list-text');
+      if (idx !== -1) {
+        list.splice(idx, 1);
+        if (textEl) textEl.textContent = 'Watchlist';
+        window.showTvToast(`Removed "${item.title}" from My List`);
+      } else {
+        list.push(item.id);
+        if (textEl) textEl.textContent = 'In Watchlist';
+        window.showTvToast(`Added "${item.title}" to My List`);
+      }
+      localStorage.setItem('cinemaverse_my_list', JSON.stringify(list));
+    } catch (e) {}
+  };
+
+  let heroMuted = true;
+  window.toggleHeroSound = function () {
+    heroMuted = !heroMuted;
+    const icon = document.getElementById('tv-hero-mute-icon');
+    if (icon) {
+      icon.className = heroMuted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
+    }
+    window.showTvToast(heroMuted ? 'Audio Muted' : 'Audio Unmuted');
+  };
+
+  // Animated Search Hints Rotation (PC style)
+  const TV_HINTS = [
+    "Search movies, series, cast...",
+    "Try “Stranger Things”",
+    "Try “Christopher Nolan”",
+    "Try “Avengers: Doomsday”",
+    "Try “Shah Rukh Khan”"
+  ];
+  let tvHintIdx = 0;
+  setInterval(() => {
+    tvHintIdx = (tvHintIdx + 1) % TV_HINTS.length;
+    const el = document.getElementById('tv-nav-hint-text');
+    if (el) el.textContent = TV_HINTS[tvHintIdx];
+  }, 3500);
+
+  // =========================================================================
   // FULLSCREEN VIDEO PLAYER & IN-PLAYER REMOTE SERVER SWITCHER
   // =========================================================================
   function startPlayback(item, season = 1, episode = 1, serverIndex = 0) {
@@ -942,6 +1276,23 @@
     selectedModalSeason = season;
     selectedModalEpisode = episode;
     selectedModalServer = serverIndex;
+
+    // Save to Continue Watching
+    try {
+      let cw = JSON.parse(localStorage.getItem('cinemaverse_continue_watching') || '[]');
+      cw = cw.filter(x => x.id !== item.id);
+      cw.unshift({
+        id: item.id,
+        title: item.title,
+        poster: item.poster || item.backdrop,
+        platform: item.platformBadge || item.platform,
+        type: item.type,
+        season,
+        episode,
+        progress: Math.floor(Math.random() * 35 + 25)
+      });
+      localStorage.setItem('cinemaverse_continue_watching', JSON.stringify(cw.slice(0, 10)));
+    } catch (e) {}
 
     const streamUrl = getStreamUrl(serverIndex, item, season, episode);
     console.log(`[CinemaVerse TV Player] Streaming: ${streamUrl}`);
@@ -1123,6 +1474,21 @@
           closeDetailsModal();
           return;
         }
+        if (activeZone === 'person-modal') {
+          e.preventDefault();
+          window.closeTvPersonModal();
+          return;
+        }
+        if (activeZone === 'settings-modal') {
+          e.preventDefault();
+          window.closeTvSettings();
+          return;
+        }
+        if (activeZone === 'notifications-modal') {
+          e.preventDefault();
+          window.closeTvNotifications();
+          return;
+        }
         if (activeZone === 'search-bar' || activeZone === 'keyboard' || activeZone === 'results') {
           e.preventDefault();
           switchTab('home');
@@ -1186,7 +1552,7 @@
       if (dir === 'left') {
         navIndex = Math.max(0, navIndex - 1);
       } else if (dir === 'right') {
-        navIndex = Math.min(5, navIndex + 1);
+        navIndex = Math.min(10, navIndex + 1); // 0-6 tabs, 7 search pill, 8 bell, 9 settings, 10 avatar
       } else if (dir === 'down') {
         if (currentActiveTab === 'search') {
           activeZone = 'keyboard';
@@ -1207,7 +1573,7 @@
       } else if (dir === 'left') {
         heroBtnIndex = Math.max(0, heroBtnIndex - 1);
       } else if (dir === 'right') {
-        heroBtnIndex = Math.min(2, heroBtnIndex + 1);
+        heroBtnIndex = Math.min(3, heroBtnIndex + 1); // 0=Play, 1=Info, 2=Watchlist, 3=Mute
       } else if (dir === 'down') {
         // Move from hero down to first content row
         activeZone = 'rows';
@@ -1462,8 +1828,16 @@
     }
 
     if (activeZone === 'nav') {
-      const navItems = ['home', 'movies', 'series', 'anime', 'ott', 'search'];
-      switchTab(navItems[navIndex]);
+      const navTabs = ['home', 'movies', 'series', 'anime', 'new', 'browse', 'list'];
+      if (navIndex < 7) {
+        switchTab(navTabs[navIndex]);
+      } else if (navIndex === 7) {
+        switchTab('search');
+      } else if (navIndex === 8) {
+        window.openTvNotifications();
+      } else if (navIndex >= 9) {
+        window.openTvSettings();
+      }
       return;
     }
 
@@ -1473,11 +1847,13 @@
       if (!item) return;
 
       if (heroBtnIndex === 0) {
-        startPlayback(item, 1, 1, 0);
+        startPlayback(item, 1, 1, selectedModalServer);
       } else if (heroBtnIndex === 1) {
         openDetailsModal(item);
-      } else {
-        alert(`Added ${item.title} to Watchlist`);
+      } else if (heroBtnIndex === 2) {
+        window.toggleHeroWatchlist();
+      } else if (heroBtnIndex === 3) {
+        window.toggleHeroSound();
       }
       return;
     }
@@ -1560,8 +1936,20 @@
 
     if (activeZone === 'nav') {
       const navLinks = document.querySelectorAll('.tv-nav-item');
-      if (navLinks[navIndex]) {
+      if (navIndex < 7 && navLinks[navIndex]) {
         navLinks[navIndex].classList.add('tv-focused');
+      } else if (navIndex === 7) {
+        const pill = document.getElementById('tv-nav-search-pill');
+        if (pill) pill.classList.add('tv-focused');
+      } else if (navIndex === 8) {
+        const bell = document.getElementById('tv-nav-bell-btn');
+        if (bell) bell.classList.add('tv-focused');
+      } else if (navIndex === 9) {
+        const setBtn = document.getElementById('tv-nav-settings-btn');
+        if (setBtn) setBtn.classList.add('tv-focused');
+      } else if (navIndex === 10) {
+        const av = document.getElementById('tv-nav-avatar-btn');
+        if (av) av.classList.add('tv-focused');
       }
       return;
     }
@@ -1570,7 +1958,8 @@
       const buttons = [
         document.getElementById('tv-hero-btn-play'),
         document.getElementById('tv-hero-btn-info'),
-        document.getElementById('tv-hero-btn-list')
+        document.getElementById('tv-hero-btn-list'),
+        document.getElementById('tv-hero-btn-mute')
       ];
       if (buttons[heroBtnIndex]) {
         buttons[heroBtnIndex].classList.add('tv-focused');
@@ -1660,6 +2049,13 @@
   window.closeTvPlayer = closePlayer;
   window.switchTvTab = switchTab;
   window.executeCurrentSelection = executeCurrentSelection;
+  window.openPersonModal = window.openPersonModal;
+  window.closeTvPersonModal = window.closeTvPersonModal;
+  window.openTvSettings = window.openTvSettings;
+  window.closeTvSettings = window.closeTvSettings;
+  window.openTvNotifications = window.openTvNotifications;
+  window.closeTvNotifications = window.closeTvNotifications;
+  window.showTvToast = window.showTvToast;
 
   // Auto-boot immediately if catalog was loaded synchronously or pre-fetched
   try {
