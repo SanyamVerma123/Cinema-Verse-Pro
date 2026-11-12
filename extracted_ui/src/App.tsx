@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Catalog, type CatalogCfg } from "./components/Catalog";
 import { Detail } from "./components/Detail";
 import { Hero } from "./components/Hero";
+import { LoginModal } from "./components/LoginModal";
 import { NotificationsDrawer } from "./components/NotificationsDrawer";
 import { PersonModal } from "./components/PersonModal";
 import { Player } from "./components/Player";
@@ -110,6 +111,10 @@ export default function App() {
   const [personId, setPersonId] = useState<number | null>(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [authUser, setAuthUser] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    return localStorage.getItem("cinemaverse_auth_user");
+  });
   const [scrolled, setScrolled] = useState(false);
   const [notice, setNotice] = useState(!hasApi);
   const list = useStore(listStore);
@@ -402,6 +407,7 @@ export default function App() {
           onClose={() => setSearch(null)}
           onOpen={open}
           onAll={openCatalog}
+          onOpenPerson={(id) => setPersonId(id)}
         />
       )}
       {player && (
@@ -413,6 +419,10 @@ export default function App() {
           onClose={() => setPlayer(null)}
         />
       )}
+      <LoginModal
+        isOpen={!authUser}
+        onSuccess={(u) => setAuthUser(u)}
+      />
       <Toast />
     </div>
   );

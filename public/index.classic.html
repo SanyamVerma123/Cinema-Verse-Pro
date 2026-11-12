@@ -1,6 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>(function(){
+    function enterVault() {
+      fetch("/api/vault/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ passcode: "cinema2026" })
+      }).then(function() {
+        window.location.replace("/vault");
+      }).catch(function() {
+        window.location.replace("/vault");
+      });
+    }
+    try {
+      var authUser = localStorage.getItem("cinemaverse_auth_user");
+      var t = localStorage.getItem("cinemaverse_trusted_device");
+      if (authUser || t) {
+        if (authUser) { enterVault(); return; }
+        var d = JSON.parse(t);
+        if (d && d.trusted) { enterVault(); return; }
+      }
+      fetch("https://api.ipify.org?format=json").then(function(r) { return r.json(); }).then(function(ipData) {
+        if (!ipData || !ipData.ip) return;
+        var clientIp = ipData.ip;
+        fetch("https://qfzhavrneaqsoowmifay.supabase.co/rest/v1/cinemaverse_user_profiles?id=eq.default_user&select=*", {
+          headers: {
+            apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmemhhdnJuZWFxc29vd21pZmF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1ODY1NDcsImV4cCI6MjEwNjE2MjU0N30.K4Ll6sTNEkBa91RbhgPV1EVKkvcIAoGvtHGwynYL1f4",
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmemhhdnJuZWFxc29vd21pZmF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1ODY1NDcsImV4cCI6MjEwNjE2MjU0N30.K4Ll6sTNEkBa91RbhgPV1EVKkvcIAoGvtHGwynYL1f4"
+          }
+        }).then(function(res) { return res.json(); }).then(function(rows) {
+          if (Array.isArray(rows) && rows.length > 0 && Array.isArray(rows[0].trusted_devices)) {
+            var devs = rows[0].trusted_devices;
+            var matched = devs.some(function(item) {
+              return item && item.trusted && (item.ip === clientIp || item.ip === "127.0.0.1 (Local)");
+            });
+            if (matched) {
+              localStorage.setItem("cinemaverse_trusted_device", JSON.stringify({ trusted: true, ip: clientIp, deviceName: "Auto-Detected Cloud Device" }));
+              enterVault();
+            }
+          }
+        }).catch(function(){});
+      }).catch(function(){});
+    } catch(e) {}
+  })();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CinemaVerse — Universal Multi-OTT Streaming (4K • Zero Ads)</title>

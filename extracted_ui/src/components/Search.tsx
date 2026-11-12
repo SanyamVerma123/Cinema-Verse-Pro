@@ -72,7 +72,11 @@ function Preview({
   if (m.media_type === "person") {
     return (
       <div key={`p${m.id}`} className="animate-[fade_.35s_both] p-6 text-center">
-        <span className="mx-auto block size-32 overflow-hidden rounded-full bg-panel ring-2 ring-accent/60">
+        <button
+          onClick={() => onPerson(m)}
+          title="Open Actor Profile"
+          className="mx-auto block size-32 overflow-hidden rounded-full bg-panel ring-2 ring-accent/60 transition hover:scale-105 hover:ring-accent"
+        >
           {m.profile_path ? (
             <img src={img(m.profile_path, "w185")} alt="" className="size-full object-cover" />
           ) : (
@@ -80,9 +84,9 @@ function Preview({
               {m.name?.[0]}
             </span>
           )}
-        </span>
+        </button>
         <h3 className="mt-4 font-display text-2xl font-bold">{m.name}</h3>
-        <p className="text-xs text-white/50">{m.known_for_department}</p>
+        <p className="text-xs text-white/50">{m.known_for_department || "Actor / Filmmaker"}</p>
         {m.known_for && m.known_for.length > 0 && (
           <div className="mt-5 space-y-1.5 text-left">
             <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-white/40">
@@ -101,9 +105,10 @@ function Preview({
         )}
         <button
           onClick={() => onPerson(m)}
-          className="btn-shine relative mt-5 h-11 w-full overflow-hidden rounded-xl bg-white text-sm font-bold text-black"
+          className="btn-shine relative mt-5 flex h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-red-600 to-accent text-sm font-bold text-white shadow-lg transition hover:scale-[1.02]"
         >
-          View filmography
+          <Icon name="user" size={16} />
+          View Full Biography &amp; Filmography
         </button>
       </div>
     );
@@ -165,11 +170,13 @@ export function Search({
   onClose,
   onOpen,
   onAll,
+  onOpenPerson,
 }: {
   startVoice?: boolean;
   onClose: () => void;
   onOpen: Open;
   onAll: OpenCatalog;
+  onOpenPerson?: (personId: number) => void;
 }) {
   const [q, setQ] = useState("");
   const [debounced, setDebounced] = useState("");
@@ -235,12 +242,16 @@ export function Search({
   const personCatalog = (p: Media) => {
     remember(debounced);
     onClose();
-    onAll({
-      title: `Starring ${p.name}`,
-      path: "/discover/movie",
-      params: { with_cast: String(p.id), sort_by: "popularity.desc" },
-      kind: "movie",
-    });
+    if (onOpenPerson && p.id) {
+      onOpenPerson(p.id);
+    } else {
+      onAll({
+        title: `Starring ${p.name}`,
+        path: "/discover/movie",
+        params: { with_cast: String(p.id), sort_by: "popularity.desc" },
+        kind: "movie",
+      });
+    }
   };
   const choose = (m: Media, o?: { play?: boolean }) => {
     if (m.media_type === "person") return personCatalog(m);

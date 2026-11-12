@@ -117,7 +117,7 @@ export function Player({
   const [zapCount, setZapCount] = useState(0);
 
   // Ad Shield state for Servers 7, 9, 10
-  const isAdShieldServer = ["vidfast", "vidsrc-direct", "vidsrc-buzz"].includes(currentServer);
+  const isAdShieldServer = ["vidfast", "vidsrc-deep", "vidsrc-direct", "vidsrc-buzz"].includes(currentServer);
   const [adShieldAbsorber, setAdShieldAbsorber] = useState(true);
 
   // Reset ad absorber whenever server or stream changes
@@ -561,27 +561,38 @@ export function Player({
                     </span>
                   </div>
                   <div className="max-h-56 overflow-y-auto space-y-1 pr-1 no-scrollbar">
-                    {serverOptions.map((s) => {
+                    {serverOptions.map((s, idx) => {
                       const isActive = currentServer === s.value;
+                      const isDivider = idx === 7;
                       return (
-                        <button
-                          key={s.value}
-                          onClick={() => {
-                            setCurrentServer(s.value);
-                            setServerMenuOpen(false);
-                          }}
-                          className={`group flex w-full items-center justify-between rounded-xl px-2 py-1.5 text-left text-xs transition active:scale-[0.98] ${
-                            isActive
-                              ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
-                              : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
-                          }`}
-                        >
-                          <div className="min-w-0 pr-1">
-                            <div className="truncate font-semibold">{s.label}</div>
-                            {s.hint && <div className="text-[9px] text-white/40">{s.hint}</div>}
-                          </div>
-                          {isActive && <Icon name="check" size={14} className="text-red-500 shrink-0 ml-1" />}
-                        </button>
+                        <div key={s.value}>
+                          {isDivider && (
+                            <div className="my-1.5 border-t border-white/10 pt-1.5 pb-0.5 px-2 flex items-center justify-between">
+                              <span className="text-[9px] font-black uppercase tracking-wider text-amber-400/90 flex items-center gap-1.5">
+                                <span className="size-1.5 rounded-full bg-amber-400 animate-pulse" />
+                                Fallback / Ad-Shield Mirrors
+                              </span>
+                              <span className="text-[8px] text-white/40">Loose Try</span>
+                            </div>
+                          )}
+                          <button
+                            onClick={() => {
+                              setCurrentServer(s.value);
+                              setServerMenuOpen(false);
+                            }}
+                            className={`group flex w-full items-center justify-between rounded-xl px-2 py-1.5 text-left text-xs transition active:scale-[0.98] ${
+                              isActive
+                                ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
+                                : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
+                            }`}
+                          >
+                            <div className="min-w-0 pr-1">
+                              <div className="truncate font-semibold">{s.label}</div>
+                              {s.hint && <div className="text-[9px] text-white/40">{s.hint}</div>}
+                            </div>
+                            {isActive && <Icon name="check" size={14} className="text-red-500 shrink-0 ml-1" />}
+                          </button>
+                        </div>
                       );
                     })}
                   </div>

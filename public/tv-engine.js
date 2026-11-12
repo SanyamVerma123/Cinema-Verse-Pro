@@ -50,10 +50,10 @@
     { id: 3, name: 'Server 4: Global World Mirror', short: 'AutoEmbed' },
     { id: 4, name: 'Server 5: AutoEmbed Prime VIP', short: 'Prime VIP' },
     { id: 5, name: 'Server 6: AnimeWorld VIP', short: 'AnimeWorld' },
-    { id: 6, name: 'Server 7: VidSrc Cloud (Hindi Dubbed • ✅ 0 Ads)', short: 'VidSrc Hindi' },
-    { id: 7, name: 'Server 8: VidLink Pro VIP', short: 'VidLink Pro' },
-    { id: 8, name: 'Server 9: AnyEmbed Direct', short: 'AnyEmbed' },
-    { id: 9, name: 'Server 10: Nontongo Subtitles', short: 'Nontongo' }
+    { id: 6, name: 'Server 7: VidLink Pro VIP (Ultra HD)', short: 'VidLink Pro' },
+    { id: 7, name: 'Server 8: VidFast Ultra HD', short: 'VidFast' },
+    { id: 8, name: 'Server 9: VidSrc Pro Deep', short: 'VidSrc Deep' },
+    { id: 9, name: 'Server 10: VidSrc Buzz CC', short: 'VidSrc Buzz' }
   ];
 
   function getStreamUrl(serverIndex, item, season = 1, episode = 1) {
@@ -126,21 +126,21 @@
       case 5:
         return isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
       case 6:
-        return isTv 
-          ? `/api/player/vidsrc?type=tv&id=${tmdb || tmdbOrImdb}&s=${s}&e=${e}`
-          : `/api/player/vidsrc?type=movie&id=${tmdb || tmdbOrImdb}`;
+        return isTv
+          ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true&multiLang=true`
+          : `https://vidlink.pro/movie/${tmdb || tmdbOrImdb}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true&multiLang=true`;
       case 7:
         return isTv
-          ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`
-          : `https://vidlink.pro/movie/${tmdb || tmdbOrImdb}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`;
+          ? `https://vidfast.vc/tv/${tmdb || tmdbOrImdb}/${s}/${e}`
+          : `https://vidfast.vc/movie/${tmdb || tmdbOrImdb}`;
       case 8:
         return isTv
-          ? `https://anyembed.xyz/embed/tmdb-tv-${tmdb || tmdbOrImdb}-${s}-${e}`
-          : `https://anyembed.xyz/embed/tmdb-movie-${tmdb || tmdbOrImdb}`;
+          ? `https://vidsrc.pm/embed/tv/${tmdb || tmdbOrImdb}/${s}/${e}`
+          : `https://vidsrc.pm/embed/movie/${tmdb || tmdbOrImdb}`;
       case 9:
         return isTv
-          ? `https://www.nontongo.win/embed/tv/${tmdb || tmdbOrImdb}/${s}/${e}`
-          : `https://www.nontongo.win/embed/movie/${tmdb || tmdbOrImdb}`;
+          ? `https://vidsrc.buzz/embed/tv/${tmdb || tmdbOrImdb}/${s}/${e}`
+          : `https://vidsrc.buzz/embed/movie/${tmdb || tmdbOrImdb}`;
       default:
         return isTv
           ? `https://player.autoembed.co/embed/tv/${imdb || tmdbOrImdb}/${s}/${e}`
@@ -761,6 +761,13 @@
     if (serversContainer) {
       serversContainer.innerHTML = '';
       STREAM_SERVERS.forEach((srv, idx) => {
+        if (idx === 7) {
+          const div = document.createElement('span');
+          div.className = 'tv-server-divider';
+          div.style.cssText = 'height:24px;width:2px;background:rgba(234,179,8,0.5);margin:0 6px;align-self:center;border-radius:1px;';
+          div.title = 'Fallback Mirrors';
+          serversContainer.appendChild(div);
+        }
         const chip = document.createElement('button');
         chip.type = 'button';
         chip.className = `tv-server-chip ${idx === selectedModalServer ? 'active' : ''}`;
@@ -939,6 +946,13 @@
     chipsContainer.innerHTML = '';
 
     STREAM_SERVERS.forEach((srv, idx) => {
+      if (idx === 7) {
+        const div = document.createElement('span');
+        div.className = 'tv-server-divider';
+        div.style.cssText = 'height:24px;width:2px;background:rgba(234,179,8,0.5);margin:0 6px;align-self:center;border-radius:1px;';
+        div.title = 'Fallback Mirrors';
+        chipsContainer.appendChild(div);
+      }
       const chip = document.createElement('button');
       chip.type = 'button';
       chip.className = `tv-player-server-chip ${idx === selectedModalServer ? 'active' : ''}`;

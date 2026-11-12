@@ -77,17 +77,8 @@ export const STREAM_SERVERS: StreamServer[] = [
         : `https://player.autoembed.co/embed/movie/${id}`,
   },
   {
-    id: "vidfast",
-    name: "Server 7: VidFast Ultra HD",
-    badge: "✅ 0 Ads • Instant Fast 4K",
-    build: (type, id, s = 1, e = 1) =>
-      type === "tv"
-        ? `https://vidfast.vc/tv/${id}/${s}/${e}`
-        : `https://vidfast.vc/movie/${id}`,
-  },
-  {
     id: "vidlink",
-    name: "Server 8: VidLink Pro VIP",
+    name: "Server 7: VidLink Pro VIP",
     badge: "Ultra HD 4K • Multi-Audio • ✅ 0 Ads",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
@@ -95,18 +86,27 @@ export const STREAM_SERVERS: StreamServer[] = [
         : `https://vidlink.pro/movie/${id}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true&multiLang=true`,
   },
   {
-    id: "vidsrc-direct",
-    name: "Server 9: VidSrc Direct HD",
-    badge: "1080p Direct • HLS • ✅ 0 Ads",
+    id: "vidfast",
+    name: "Server 8: VidFast Ultra HD",
+    badge: "Fast 4K Mirror • Ad Shield Active",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://vidsrc.su/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.su/embed/movie/${id}`,
+        ? `https://vidfast.vc/tv/${id}/${s}/${e}`
+        : `https://vidfast.vc/movie/${id}`,
+  },
+  {
+    id: "vidsrc-deep",
+    name: "Server 9: VidSrc Pro Deep",
+    badge: "Deep 1080p Stream • Multi-Source",
+    build: (type, id, s = 1, e = 1) =>
+      type === "tv"
+        ? `https://vidsrc.pm/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.pm/embed/movie/${id}`,
   },
   {
     id: "vidsrc-buzz",
     name: "Server 10: VidSrc Buzz CC",
-    badge: "Multi-Subtitles • Multi-Audio • ✅ 0 Ads",
+    badge: "Multi-Subtitles • Multi-Audio • Loose Try",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
         ? `https://vidsrc.buzz/embed/tv/${id}/${s}/${e}`
