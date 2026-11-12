@@ -687,14 +687,17 @@ export function Player({
         </div>
       </header>
 
-      {/* Floating Bottom Bar for Season & Episode selection on mobile & horizontal mobile */}
+      {/* Floating Left-Middle Boundary Bar for Season & Episode selection on mobile & horizontal mobile */}
       {isTv && topBarVisible && (
         <div
           onMouseEnter={() => setIsHoveringHeader(true)}
           onMouseLeave={() => setIsHoveringHeader(false)}
-          className="md:hidden fixed bottom-3 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 rounded-2xl border border-white/20 bg-[#09090d]/90 px-3 py-1.5 backdrop-blur-xl shadow-2xl animate-[fade_.2s_ease-out]"
+          className="md:hidden fixed left-2.5 top-1/2 -translate-y-1/2 z-40 flex flex-col items-start gap-1.5 rounded-2xl border border-white/20 bg-[#09090d]/92 p-2 backdrop-blur-xl shadow-2xl animate-[fade_.2s_ease-out]"
         >
-          <div className="w-[105px]">
+          <div className="flex items-center gap-1 px-1 text-[9px] font-black text-amber uppercase tracking-wider">
+            <span>S{season}:E{episode}</span>
+          </div>
+          <div className="w-[100px]">
             <Select
               size="sm"
               value={String(season)}
@@ -707,7 +710,7 @@ export function Player({
               ariaLabel="Select Season"
             />
           </div>
-          <div className="w-[145px] sm:w-[170px]">
+          <div className="w-[125px] sm:w-[140px]">
             <Select
               size="sm"
               value={String(episode)}

@@ -393,6 +393,8 @@ export default function App() {
       <SettingsModal
         isOpen={settingsOpen}
         onClose={() => setSettingsOpen(false)}
+        onOpenMedia={open}
+        onPlay={play}
       />
       {search && (
         <Search

@@ -216,18 +216,38 @@ export function toggleReminder(m: Media) {
 export type UserSettings = {
   profileName: string;
   avatar: string;
+  avatarUrl?: string;
+  bio?: string;
+  vipBadge?: string;
   defaultServer: string;
   defaultAudio: string;
+  quality?: string;
   autoplayNext: boolean;
+  autoZapAds?: boolean;
+  trailerSound?: boolean;
   pushNotifications: boolean;
+  trustedDevice?: boolean;
+  deviceName?: string;
+  deviceIp?: string;
+  lastSyncedAt?: number;
 };
 
 export const settingsStore = create<UserSettings>("cv:settings", {
   profileName: "Cinema Pro",
-  avatar: "gradient",
+  avatar: "samurai",
+  avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&h=256&q=80",
+  bio: "4K Film & Anime Connoisseur",
+  vipBadge: "Obsidian VIP",
   defaultServer: "vidly",
   defaultAudio: "en",
+  quality: "auto",
   autoplayNext: true,
+  autoZapAds: true,
+  trailerSound: true,
   pushNotifications: true,
+  trustedDevice: false,
+  deviceName: "",
+  deviceIp: "",
+  lastSyncedAt: 0,
 });
 
