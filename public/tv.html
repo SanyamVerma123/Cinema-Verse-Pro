@@ -18,11 +18,11 @@
         <h2 class="tv-vault-title">CINEMAVERSE PRO</h2>
         <span class="tv-vault-badge">PRIVATE VAULT TV ACCESS</span>
       </div>
-      <p class="tv-vault-prompt">Enter Private App Passcode to unlock TV experience:</p>
+      <p class="tv-vault-prompt">Enter 4-Digit TV PIN (Default: 2026):</p>
       <div class="tv-vault-input-row">
-        <input type="password" id="tv-vault-pass-input" class="tv-vault-input" placeholder="••••••••" maxlength="20" autofocus />
+        <input type="password" id="tv-vault-pass-input" class="tv-vault-input" placeholder="••••" maxlength="6" inputmode="numeric" pattern="[0-9]*" autofocus />
         <button type="button" id="tv-vault-submit-btn" class="tv-btn tv-btn-primary" onclick="if(window.submitTvPasscode)window.submitTvPasscode()">
-          <i class="fa-solid fa-lock-open"></i> Unlock
+          <i class="fa-solid fa-lock-open"></i> Unlock (OK)
         </button>
       </div>
       <div id="tv-vault-error" class="tv-vault-error" style="display: none;"></div>
@@ -45,18 +45,14 @@
   </div>
 
   <div class="tv-app-container">
-    <!-- Left Navigation Rail -->
-    <nav class="tv-nav-rail" id="tv-nav-rail">
+    <!-- Top Glass Navigation Bar (PC-Identical Universal Layout) -->
+    <header class="tv-top-nav" id="tv-nav-rail">
       <div class="tv-nav-logo">
         <div class="tv-nav-logo-icon">C</div>
-        <span class="tv-nav-logo-text">CINEMAVERSE</span>
+        <span class="tv-nav-logo-text">CINEMA<span style="color:#e50914;">VERSE</span></span>
       </div>
 
-      <div class="tv-nav-items">
-        <button type="button" class="tv-nav-item" data-tab="search" id="tv-nav-search">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <span>Search</span>
-        </button>
+      <nav class="tv-nav-items">
         <button type="button" class="tv-nav-item active" data-tab="home" id="tv-nav-home">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
@@ -77,15 +73,17 @@
           <i class="fa-solid fa-layer-group"></i>
           <span>OTT Hub</span>
         </button>
-      </div>
+        <button type="button" class="tv-nav-item" data-tab="search" id="tv-nav-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Search</span>
+        </button>
+      </nav>
 
-      <div class="tv-nav-bottom">
-        <div class="tv-nav-item" style="opacity: 0.6;">
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>Ad-Free 4K VIP</span>
-        </div>
+      <div class="tv-nav-right">
+        <span class="tv-badge-vip"><i class="fa-solid fa-bolt"></i> 4K VIP</span>
+        <div class="tv-nav-avatar">CV</div>
       </div>
-    </nav>
+    </header>
 
     <!-- Main Content Area -->
     <main class="tv-main-content">
