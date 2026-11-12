@@ -1,8 +1,19 @@
 /**
- * CinemaVerse Multi-Server Streaming Subsystem
- * Supports VidLink Pro VIP (0 Ads), AutoEmbed, VidSrc Pro, MultiEmbed, Embed.su, etc.
- * Supports direct HLS/m3u8, direct video files, and responsive iframe embeds.
+ * CinemaVerse Pro Universal Multi-Server Streaming Subsystem
+ *
+ * Maintains the exact server ranking from CinemaVerse Pro:
+ *  Server 1: Vidly Pro VIP (Glassmorphism Aurora • Multi-Audio & 3 Servers • 0 Ads)
+ *  Server 2: CineSrc VIP Player (Open Source • 0 Ads)
+ *  Server 3: 123Embed Cloud Player (In-Player Switcher • 4K)
+ *  Server 4: Global World Mirror (Multi-Language & Dubbed)
+ *  Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR)
+ *  Server 6: AnimeWorld VIP (Hindi/Eng/Jap)
+ *  Server 7: MultiEmbed Cloud Stream (Global Mirror)
+ *  Server 8: VidLink Pro VIP (Ultra HD 4K • Multi-Audio)
+ *  Server 9: AnyEmbed Prime Direct (1080p Direct)
+ *  Server 10: Nontongo CC Captions (Multi-Subtitles)
  */
+
 export interface StreamServer {
   id: string;
   name: string;
@@ -12,67 +23,94 @@ export interface StreamServer {
 
 export const STREAM_SERVERS: StreamServer[] = [
   {
-    id: "vidlink",
-    name: "Server 1: VidLink Pro VIP",
-    badge: "0 Ads • 4K Aurora",
+    id: "vidly",
+    name: "Server 1: Vidly Pro VIP",
+    badge: "Aurora Glass • 0 Ads",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://vidlink.pro/tv/${id}/${s}/${e}?preview=1&theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
-        : `https://vidlink.pro/movie/${id}?preview=1&theme=aurora&color=e50914&audioPicker=1`,
+        ? `https://vidly.pro/tv/${id}/${s}/${e}?preview=1&theme=aurora&color=e50914&audioPicker=1&nextEpisode=1`
+        : `https://vidly.pro/movie/${id}?preview=1&theme=aurora&color=e50914&audioPicker=1`,
+  },
+  {
+    id: "cinesrc",
+    name: "Server 2: CineSrc VIP Player",
+    badge: "0 Ads • Open Source",
+    build: (type, id, s = 1, e = 1) =>
+      type === "tv"
+        ? `https://cinesrc.st/embed/tv/${id}?s=${s}&e=${e}`
+        : `https://cinesrc.st/embed/movie/${id}`,
+  },
+  {
+    id: "embed123",
+    name: "Server 3: 123Embed Cloud",
+    badge: "4K UHD • In-Player Switcher",
+    build: (type, id, s = 1, e = 1) =>
+      type === "tv"
+        ? `https://play2.123embed.net/tv/${id}/${s}/${e}`
+        : `https://play2.123embed.net/movie/${id}`,
+  },
+  {
+    id: "global",
+    name: "Server 4: Global World Mirror",
+    badge: "Multi-Language & Dubbed",
+    build: (type, id, s = 1, e = 1) =>
+      type === "tv"
+        ? `https://player.autoembed.co/embed/tv/${id}/${s}/${e}`
+        : `https://player.autoembed.co/embed/movie/${id}`,
   },
   {
     id: "autoembed",
-    name: "Server 2: AutoEmbed Global",
-    badge: "High Speed CDN",
+    name: "Server 5: AutoEmbed Prime VIP",
+    badge: "4K HDR • Multi-Language",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
         ? `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}`
         : `https://player.autoembed.cc/embed/movie/${id}`,
   },
   {
-    id: "vidsrc_pro",
-    name: "Server 3: VidSrc Pro",
-    badge: "Multi-Quality",
+    id: "animeworld",
+    name: "Server 6: AnimeWorld VIP",
+    badge: "Hindi / Eng / Japanese Audio",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://vidsrc.pro/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.pro/embed/movie/${id}`,
-  },
-  {
-    id: "embedsu",
-    name: "Server 4: Embed.su VIP",
-    badge: "Fast Buffering",
-    build: (type, id, s = 1, e = 1) =>
-      type === "tv"
-        ? `https://embed.su/embed/tv/${id}/${s}/${e}`
-        : `https://embed.su/embed/movie/${id}`,
+        ? `https://player.autoembed.co/embed/tv/${id}/${s}/${e}`
+        : `https://player.autoembed.co/embed/movie/${id}`,
   },
   {
     id: "multiembed",
-    name: "Server 5: MultiEmbed",
-    badge: "Global Fallback",
+    name: "Server 7: MultiEmbed Cloud Stream",
+    badge: "Global Mirror • Multi-Source",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
         ? `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
         : `https://multiembed.mov/?video_id=${id}&tmdb=1`,
   },
   {
-    id: "cinesrc",
-    name: "Server 6: CineSrc Stream",
-    badge: "HD Multi-Audio",
+    id: "vidlink",
+    name: "Server 8: VidLink Pro VIP",
+    badge: "Ultra HD 4K • Multi-Audio",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://cinesrc.stream/embed/tv/${id}/${s}/${e}`
-        : `https://cinesrc.stream/embed/movie/${id}`,
+        ? `https://vidlink.pro/tv/${id}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true`
+        : `https://vidlink.pro/movie/${id}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&player=default&title=true&poster=true&autoplay=true&nextbutton=true`,
   },
   {
-    id: "vidsrc_cc",
-    name: "Server 7: VidSrc CC",
-    badge: "Alternate CDN",
+    id: "anyembed",
+    name: "Server 9: AnyEmbed Prime Direct",
+    badge: "1080p Direct Mirror",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.cc/v2/embed/movie/${id}`,
+        ? `https://anyembed.xyz/embed/tmdb-tv-${id}-${s}-${e}`
+        : `https://anyembed.xyz/embed/tmdb-movie-${id}`,
+  },
+  {
+    id: "nontongo",
+    name: "Server 10: Nontongo CC Captions",
+    badge: "Multi-Subtitles • High Speed",
+    build: (type, id, s = 1, e = 1) =>
+      type === "tv"
+        ? `https://www.nontongo.win/embed/tv/${id}/${s}/${e}`
+        : `https://www.nontongo.win/embed/movie/${id}`,
   },
 ];
 
@@ -103,6 +141,6 @@ export function getStreamUrl(o: {
       .replace("{episode}", String(o.episode ?? 1));
   }
 
-  // Default to Server 1: VidLink Pro VIP
+  // Default to Server 1: Vidly Pro VIP
   return STREAM_SERVERS[0].build(o.type, o.id, o.season ?? 1, o.episode ?? 1);
 }

@@ -3,6 +3,7 @@ import { MOVIE_GENRES, GENRE_NAMES, TV_GENRES } from "../lib/genres";
 import { listStore, useStore } from "../lib/store";
 import { tmdb, type Kind, type Media } from "../lib/tmdb";
 import { PosterCard, type Open } from "./Rows";
+import { Select, SlideTabs } from "./Select";
 import { Icon } from "./ui";
 
 export type CatalogCfg = {
@@ -102,75 +103,57 @@ export function Catalog({ cfg, onOpen }: { cfg: CatalogCfg; onOpen: Open }) {
       .catch(() => setLoading(false));
   };
   const shown = isList ? mylist : items;
-  const sel =
-    "rounded-lg border border-white/12 bg-panel px-3 py-2 text-sm outline-none focus:border-accent";
   return (
     <div className="min-h-screen px-[4vw] pb-24 pt-24 sm:pt-28">
-      <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-5xl">
+      <h1 className="animate-[rise_.7s_cubic-bezier(.16,1,.3,1)_both] font-display text-3xl font-extrabold tracking-tight sm:text-5xl">
         {cfg.browse ? "Browse" : cfg.title}
       </h1>
       {cfg.browse && (
         <div className="mt-6 space-y-4">
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex rounded-lg border border-white/12 p-0.5" role="tablist">
-              {(["movie", "tv"] as Kind[]).map((k) => (
-                <button
-                  key={k}
-                  role="tab"
-                  aria-selected={kind === k}
-                  onClick={() => {
-                    setKind(k);
-                    setGenre("");
-                  }}
-                  className={`rounded-md px-4 py-1.5 text-sm font-semibold ${kind === k ? "bg-white text-black" : "text-white/60"}`}
-                >
-                  {k === "movie" ? "Movies" : "Series"}
-                </button>
-              ))}
-            </div>
-            <select
-              className={sel}
+            <SlideTabs
+              label="Type"
+              items={[
+                { id: "movie" as Kind, label: "Movies" },
+                { id: "tv" as Kind, label: "Series" },
+              ]}
+              value={kind}
+              onChange={(k) => {
+                setKind(k);
+                setGenre("");
+              }}
+            />
+            <Select
+              label="Sort"
               value={sort}
-              onChange={(e) => setSort(e.target.value)}
-              aria-label="Sort by"
-            >
-              {SORTS.filter(([v]) => kind === "movie" || v !== "revenue.desc").map(([v, n]) => (
-                <option key={v} value={v}>
-                  {n}
-                </option>
-              ))}
-            </select>
-            <select
-              className={sel}
+              onChange={setSort}
+              options={SORTS.filter(([v]) => kind === "movie" || v !== "revenue.desc").map(
+                ([value, label]) => ({ value, label }),
+              )}
+            />
+            <Select
+              label="Year"
               value={year}
-              onChange={(e) => setYear(e.target.value)}
-              aria-label="Year"
-            >
-              {YEARS.map((y) => (
-                <option key={y} value={y}>
-                  {y || "Any year"}
-                </option>
-              ))}
-            </select>
-            <select
-              className={sel}
+              onChange={setYear}
+              options={YEARS.map((y) => ({ value: y, label: y || "Any year" }))}
+            />
+            <Select
+              label="Rating"
               value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              aria-label="Minimum rating"
-            >
-              {["", "6", "7", "8"].map((r) => (
-                <option key={r} value={r}>
-                  {r ? `${r}+ rating` : "Any rating"}
-                </option>
-              ))}
-            </select>
+              onChange={setRating}
+              options={["", "6", "7", "8"].map((r) => ({
+                value: r,
+                label: r ? `${r}+ stars` : "Any rating",
+              }))}
+            />
           </div>
           <div className="no-scrollbar -mx-[4vw] flex gap-2 overflow-x-auto px-[4vw] pb-1">
-            {["", ...(kind === "movie" ? MOVIE_GENRES : TV_GENRES).map(String)].map((g) => (
+            {["", ...(kind === "movie" ? MOVIE_GENRES : TV_GENRES).map(String)].map((g, n) => (
               <button
                 key={g}
+                style={{ animationDelay: `${n * 30}ms` }}
                 onClick={() => setGenre(g)}
-                className={`shrink-0 rounded-full border px-4 py-1.5 text-sm transition ${genre === g ? "border-white bg-white font-semibold text-black" : "border-white/15 text-white/70 hover:border-white/50"}`}
+                className={`card-in shrink-0 rounded-full border px-4 py-1.5 text-sm transition active:scale-95 ${genre === g ? "border-white bg-white font-semibold text-black" : "border-white/15 text-white/70 hover:border-white/50"}`}
               >
                 {g ? GENRE_NAMES[+g] : "All"}
               </button>
@@ -187,9 +170,9 @@ export function Catalog({ cfg, onOpen }: { cfg: CatalogCfg; onOpen: Open }) {
         </p>
       )}
       <div className="mt-8 grid grid-cols-3 gap-2.5 sm:grid-cols-4 sm:gap-3.5 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
-        {shown.map((m) => (
+        {shown.map((m, n) => (
           <div key={`${m.media_type}${m.id}`} className="relative aspect-2/3 [&>div]:!w-full">
-            <PosterCard m={m} onOpen={onOpen} />
+            <PosterCard m={m} i={n % 16} onOpen={onOpen} />
           </div>
         ))}
         {loading &&

@@ -44,10 +44,36 @@ const slim = (m: Media): Media => ({
 });
 
 export const listStore = create<Media[]>("frame:list", []);
+
+// Non-persistent toast state
+function mem<T>(initial: T) {
+  let s = initial;
+  const subs = new Set<() => void>();
+  return {
+    get: () => s,
+    set(v: T) {
+      s = v;
+      subs.forEach((f) => f());
+    },
+    subscribe(f: () => void) {
+      subs.add(f);
+      return () => {
+        subs.delete(f);
+      };
+    },
+  };
+}
+export const toastStore = mem<{ id: number; msg: string; undo?: () => void } | null>(null);
 export const inList = (list: Media[], m: Media) => list.some((x) => keyOf(x) === keyOf(m));
 export function toggleList(m: Media) {
   const cur = listStore.get();
-  listStore.set(inList(cur, m) ? cur.filter((x) => keyOf(x) !== keyOf(m)) : [slim(m), ...cur]);
+  const had = inList(cur, m);
+  listStore.set(had ? cur.filter((x) => keyOf(x) !== keyOf(m)) : [slim(m), ...cur]);
+  toastStore.set({
+    id: Date.now(),
+    msg: `${had ? "Removed from" : "Added to"} My List`,
+    undo: () => toggleList(m),
+  });
 }
 
 export type Progress = { media: Media; pct: number; time: number; at: number; label?: string };

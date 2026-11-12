@@ -14,6 +14,7 @@ import {
   type Kind,
   type Media,
 } from "../lib/tmdb";
+import { Reveal } from "./Reveal";
 import { Chip, Icon, RoundBtn } from "./ui";
 
 export type Open = (m: Media, o?: { play?: boolean }) => void;
@@ -116,12 +117,14 @@ function Card({
   variant,
   rank,
   progress,
+  i = 0,
 }: {
   m: Media;
   onOpen: Open;
   variant: "landscape" | "poster";
   rank?: number;
   progress?: number;
+  i?: number;
 }) {
   const list = useStore(listStore);
   const saved = inList(list, m);
@@ -132,12 +135,13 @@ function Card({
   const match = matchOf(m);
   return (
     <div
-      className={`${variant === "landscape" ? "aspect-video" : "aspect-2/3"} group/card relative shrink-0 snap-start ${rank ? "w-full" : W[variant]} transition duration-300 [@media(hover:hover)]:hover:z-30 [@media(hover:hover)]:hover:scale-[1.12]`}
+      style={rank ? undefined : { animationDelay: `${Math.min(i, 12) * 55}ms` }}
+      className={`card-in ${variant === "landscape" ? "aspect-video" : "aspect-2/3"} group/card relative shrink-0 snap-start ${rank ? "w-full" : W[variant]} transition duration-300 [@media(hover:hover)]:hover:z-30 [@media(hover:hover)]:hover:scale-[1.12]`}
     >
       <button
         onClick={() => onOpen(m)}
         aria-label={`Open ${titleOf(m)}`}
-        className="absolute inset-0 overflow-hidden rounded-lg bg-panel ring-1 ring-white/5 transition group-hover/card:shadow-2xl group-hover/card:shadow-black group-hover/card:ring-white/25"
+        className="shine absolute inset-0 overflow-hidden rounded-lg bg-panel ring-1 ring-white/5 transition group-hover/card:shadow-2xl group-hover/card:shadow-black group-hover/card:ring-white/25"
       >
         {src ? (
           <img src={src} alt="" loading="lazy" className="size-full object-cover" />
@@ -191,11 +195,16 @@ function Card({
   );
 }
 
-export const PosterCard = (p: { m: Media; onOpen: Open }) => <Card {...p} variant="poster" />;
+export const PosterCard = (p: { m: Media; onOpen: Open; i?: number }) => (
+  <Card {...p} variant="poster" />
+);
 
 function Top10Card({ m, rank, onOpen }: { m: Media; rank: number; onOpen: Open }) {
   return (
-    <div className={`flex shrink-0 snap-start items-end ${W.top10}`}>
+    <div
+      style={{ animationDelay: `${rank * 60}ms` }}
+      className={`card-in top10-card flex shrink-0 snap-start items-end ${W.top10}`}
+    >
       <span
         className="top-num -mr-4 -mb-1 shrink-0 select-none font-display text-[clamp(90px,11vw,170px)] font-black leading-[.8]"
         aria-hidden="true"
@@ -209,13 +218,16 @@ function Top10Card({ m, rank, onOpen }: { m: Media; rank: number; onOpen: Open }
   );
 }
 
-function UpcomingCard({ m, onOpen }: { m: Media; onOpen: Open }) {
+function UpcomingCard({ m, onOpen, i = 0 }: { m: Media; onOpen: Open; i?: number }) {
   const list = useStore(listStore);
   const saved = inList(list, m);
   const d = new Date(m.release_date || m.first_air_date || "");
   const ok = !isNaN(+d);
   return (
-    <article className={`shrink-0 snap-start ${W.upcoming}`}>
+    <article
+      style={{ animationDelay: `${Math.min(i, 10) * 60}ms` }}
+      className={`card-in shrink-0 snap-start ${W.upcoming}`}
+    >
       <button
         onClick={() => onOpen(m)}
         className="group relative block aspect-video w-full overflow-hidden rounded-xl bg-panel"
@@ -255,7 +267,7 @@ function UpcomingCard({ m, onOpen }: { m: Media; onOpen: Open }) {
   );
 }
 
-function PersonCard({ p, onAll }: { p: Media; onAll: OpenCatalog }) {
+function PersonCard({ p, onAll, i = 0 }: { p: Media; onAll: OpenCatalog; i?: number }) {
   const src = img(p.profile_path, "w185");
   return (
     <button
@@ -267,7 +279,8 @@ function PersonCard({ p, onAll }: { p: Media; onAll: OpenCatalog }) {
           kind: "movie",
         })
       }
-      className={`group shrink-0 snap-start text-center ${W.people}`}
+      style={{ animationDelay: `${Math.min(i, 14) * 45}ms` }}
+      className={`card-in group shrink-0 snap-start text-center ${W.people}`}
     >
       <span className="relative mx-auto block aspect-square w-full overflow-hidden rounded-full bg-panel ring-1 ring-white/10 transition group-hover:ring-2 group-hover:ring-accent">
         {src ? (
@@ -341,13 +354,14 @@ export function Row({ def, onOpen, onAll }: { def: RowDef; onOpen: Open; onAll: 
             def.variant === "top10" ? (
               <Top10Card key={m.id} m={m} rank={i + 1} onOpen={onOpen} />
             ) : def.variant === "upcoming" ? (
-              <UpcomingCard key={m.id} m={m} onOpen={onOpen} />
+              <UpcomingCard key={m.id} m={m} onOpen={onOpen} i={i} />
             ) : def.variant === "people" ? (
-              <PersonCard key={m.id} p={m} onAll={onAll} />
+              <PersonCard key={m.id} p={m} onAll={onAll} i={i} />
             ) : (
               <Card
                 key={m.id}
                 m={m}
+                i={i}
                 onOpen={onOpen}
                 variant={def.variant === "poster" ? "poster" : "landscape"}
               />
@@ -367,8 +381,9 @@ export function ContinueRow({ onOpen }: { onOpen: Open }) {
     <section>
       <Heading title="Continue watching" sub="Pick up right where you left off" />
       <Scroller>
-        {items.map((p) => (
+        {items.map((p, i) => (
           <Card
+            i={i}
             key={keyOf(p.media)}
             m={p.media}
             onOpen={(m) => onOpen(m, { play: true })}
@@ -392,8 +407,8 @@ export function MyListRow({ onOpen, onAll }: { onOpen: Open; onAll: OpenCatalog 
         onAll={() => onAll({ title: "My List", path: "", kind: "all" })}
       />
       <Scroller>
-        {list.map((m) => (
-          <Card key={keyOf(m)} m={m} onOpen={onOpen} variant="poster" />
+        {list.map((m, i) => (
+          <Card key={keyOf(m)} m={m} i={i} onOpen={onOpen} variant="poster" />
         ))}
       </Scroller>
     </section>
@@ -414,16 +429,16 @@ export function Banner({
   return (
     <section ref={ref} className="px-[4vw]">
       {m ? (
-        <div className="relative isolate min-h-[340px] overflow-hidden rounded-2xl bg-panel sm:min-h-[400px] lg:min-h-[460px]">
+        <div className="group relative isolate min-h-[340px] overflow-hidden rounded-2xl bg-panel sm:min-h-[400px] lg:min-h-[460px]">
           <img
             src={img(m.backdrop_path, "w1280")}
             alt=""
             loading="lazy"
-            className="absolute inset-0 -z-10 size-full object-cover"
+            className="absolute inset-0 -z-10 size-full object-cover transition-transform duration-[2500ms] ease-out group-hover:scale-110"
           />
           <div className="absolute inset-0 -z-10 bg-linear-to-r from-ink via-ink/70 to-transparent" />
           <div className="absolute inset-0 -z-10 bg-linear-to-t from-ink/80 to-transparent sm:hidden" />
-          <div className="flex min-h-[inherit] max-w-xl flex-col justify-end gap-3 p-6 sm:justify-center sm:p-12">
+          <div className="stagger flex min-h-[inherit] max-w-xl flex-col justify-end gap-3 p-6 sm:justify-center sm:p-12">
             <span className="text-[11px] font-bold uppercase tracking-[.25em] text-accent">
               {def.eyebrow}
             </span>
@@ -439,7 +454,7 @@ export function Banner({
             <div className="mt-2 flex gap-2.5">
               <button
                 onClick={() => onOpen(m, { play: true })}
-                className="flex h-11 items-center gap-2 rounded-lg bg-white px-5 text-sm font-bold text-black hover:bg-white/85"
+                className="btn-shine relative flex h-11 items-center gap-2 overflow-hidden rounded-lg bg-white px-5 text-sm font-bold text-black hover:bg-white/85"
               >
                 <Icon name="play" size={18} />
                 Play
@@ -475,7 +490,7 @@ export function GenreTiles({
     <section>
       <Heading title={title} />
       <div className="grid grid-cols-2 gap-2.5 px-[4vw] sm:grid-cols-3 sm:gap-3 md:grid-cols-4 lg:grid-cols-6">
-        {ids.slice(0, 12).map((id) => (
+        {ids.slice(0, 12).map((id, n) => (
           <button
             key={id}
             onClick={() =>
@@ -490,8 +505,8 @@ export function GenreTiles({
                 kind,
               })
             }
-            style={{ ["--h" as string]: (id * 47) % 360 }}
-            className="genre-tile group relative h-20 overflow-hidden rounded-xl p-4 text-left sm:h-24"
+            style={{ ["--h" as string]: (id * 47) % 360, animationDelay: `${n * 45}ms` }}
+            className="genre-tile card-in group relative h-20 overflow-hidden rounded-xl p-4 text-left sm:h-24"
           >
             <span className="font-display text-base font-bold sm:text-lg">{GENRE_NAMES[id]}</span>
             <Icon
@@ -558,21 +573,23 @@ export function Sections({
 }) {
   return (
     <div className="flex flex-col gap-9 sm:gap-11">
-      {sections.map((s) =>
-        s.type === "row" ? (
-          <Row key={s.id} def={s} onOpen={onOpen} onAll={onAll} />
-        ) : s.type === "banner" ? (
-          <Banner key={s.id} def={s} onOpen={onOpen} />
-        ) : s.type === "genres" ? (
-          <GenreTiles key={s.id} title={s.title} kind={s.kind} onAll={onAll} />
-        ) : s.type === "networks" ? (
-          <Networks key={s.id} title={s.title} onAll={onAll} />
-        ) : s.type === "continue" ? (
-          <ContinueRow key={s.id} onOpen={onOpen} />
-        ) : (
-          <MyListRow key={s.id} onOpen={onOpen} onAll={onAll} />
-        ),
-      )}
+      {sections.map((s) => (
+        <Reveal key={s.id}>
+          {s.type === "row" ? (
+            <Row def={s} onOpen={onOpen} onAll={onAll} />
+          ) : s.type === "banner" ? (
+            <Banner def={s} onOpen={onOpen} />
+          ) : s.type === "genres" ? (
+            <GenreTiles title={s.title} kind={s.kind} onAll={onAll} />
+          ) : s.type === "networks" ? (
+            <Networks title={s.title} onAll={onAll} />
+          ) : s.type === "continue" ? (
+            <ContinueRow onOpen={onOpen} />
+          ) : (
+            <MyListRow onOpen={onOpen} onAll={onAll} />
+          )}
+        </Reveal>
+      ))}
     </div>
   );
 }

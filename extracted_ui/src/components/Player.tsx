@@ -42,13 +42,28 @@ export function Player({
     if (initialEpisode !== undefined) setEpisode(initialEpisode);
   }, [initialSeason, initialEpisode]);
 
-  // Server selection (defaulting to Server 1: VidLink Pro VIP)
+  // Server selection (defaulting to Server 1: Vidly Pro VIP)
   const [currentServer, setCurrentServer] = useState<string>(STREAM_SERVERS[0].id);
+
+  // Dubbed language state
+  const [dubLanguage, setDubLanguage] = useState<string>("en");
+
+  // Top bar visibility toggle
+  const [topBarVisible, setTopBarVisible] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [zapCount, setZapCount] = useState(0);
+
+  // Fetch trailers & videos from TMDb proxy
+  const { data: videoData } = useTmdb<any>(`/${type}/${media.id}/videos`);
+  const trailer = pickTrailer(videoData?.results);
 
   // Computed streaming URL
   const isTrailerMode = currentServer === "trailer";
   const url = isTrailerMode
-    ? ""
+    ? trailer
+      ? `https://www.youtube-nocookie.com/embed/${trailer.key}?autoplay=1&rel=0&modestbranding=1`
+      : ""
     : getStreamUrl({
         type,
         id: media.id,
@@ -58,32 +73,89 @@ export function Player({
       });
 
   const video = useRef<HTMLVideoElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [err, setErr] = useState("");
   const [resumeNotice, setResumeNotice] = useState<string | null>(null);
-
-  // Fetch trailers & videos from TMDb proxy
-  const { data: videoData } = useTmdb<any>(`/${type}/${media.id}/videos`);
-  const trailer = pickTrailer(videoData?.results);
 
   // Active episode / media label
   const activeLabel = isTv
     ? `S${season} · E${episode}${initialLabel && !initialLabel.startsWith(`S${season}`) ? ` · ${initialLabel}` : ""}`
     : initialLabel;
 
-  // Keyboard shortcut: Escape to close
+  // Active server object
+  const activeServerObj = STREAM_SERVERS.find((s) => s.id === currentServer) || STREAM_SERVERS[0];
+
+  // Reset loading spinner on server change or zap
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    setIsLoading(true);
+    const t = setTimeout(() => setIsLoading(false), 900); // 900ms failsafe
+    return () => clearTimeout(t);
+  }, [url, zapCount]);
+
+  // Keyboard shortcuts: Esc, F (fullscreen), Z (zap ads), N (next ep), P (prev ep)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      } else if (e.key === "f" || e.key === "F") {
+        toggleFullscreen();
+      } else if (e.key === "z" || e.key === "Z") {
+        zapAds();
+      } else if (isTv && (e.key === "n" || e.key === "N")) {
+        nextEpisode();
+      } else if (isTv && (e.key === "p" || e.key === "P")) {
+        prevEpisode();
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, [onClose, isTv, season, episode]);
 
-  // Listen to postMessage from iframe embeds (e.g. VidLink Pro) for progress saving
+  // Fullscreen handler
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      containerRef.current?.requestFullscreen?.().catch(() => {});
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+      setIsFullscreen(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", handleFsChange);
+    return () => document.removeEventListener("fullscreenchange", handleFsChange);
+  }, []);
+
+  // Zap Ads action
+  const zapAds = () => {
+    setZapCount((c) => c + 1);
+    setIsLoading(true);
+    if (iframeRef.current) {
+      const curSrc = iframeRef.current.src;
+      iframeRef.current.src = "about:blank";
+      setTimeout(() => {
+        if (iframeRef.current) iframeRef.current.src = curSrc;
+      }, 80);
+    }
+  };
+
+  // TV Episode Steppers
+  const nextEpisode = () => {
+    setEpisode((e) => e + 1);
+  };
+  const prevEpisode = () => {
+    setEpisode((e) => Math.max(1, e - 1));
+  };
+
+  // Listen to postMessage from iframe embeds for progress saving
   useEffect(() => {
     const handleMsg = (e: MessageEvent) => {
       try {
         const data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
         if (!data) return;
-        // VidLink postMessage format: { type: "MEDIA_DATA", data: { currentTime, duration } }
         if (data.type === "MEDIA_DATA" && data.data) {
           const { currentTime, duration } = data.data;
           if (duration && duration > 0) {
@@ -121,7 +193,6 @@ export function Player({
     };
     v.addEventListener("error", onVideoError);
 
-    // HLS .m3u8 playback
     if (/\.m3u8/i.test(url) && !v.canPlayType("application/vnd.apple.mpegurl")) {
       import("hls.js").then(({ default: Hls }) => {
         if (!Hls.isSupported()) {
@@ -160,10 +231,10 @@ export function Player({
       v.play().catch(() => {});
     }
 
-    let lastSave = 0;
+    let lastTime = 0;
     const onTime = () => {
-      if (Date.now() - lastSave > 4000) {
-        lastSave = Date.now();
+      if (Date.now() - lastTime > 4000) {
+        lastTime = Date.now();
         saveProgress(media, v.currentTime, v.duration, activeLabel);
       }
     };
@@ -174,154 +245,243 @@ export function Player({
       v.removeEventListener("timeupdate", onTime);
       v.removeEventListener("loadedmetadata", onMeta);
       v.removeEventListener("error", onVideoError);
-      if (hlsInstance) {
-        hlsInstance.destroy();
-      }
+      hlsInstance?.destroy();
     };
   }, [url, media, activeLabel]);
 
+  // Dub Language change handler
+  const handleDubChange = (lang: string) => {
+    setDubLanguage(lang);
+    if (lang === "hi" || lang === "ja" || lang === "ta" || lang === "te") {
+      // Auto-switch to multi-language or dubbed server if current server isn't
+      if (currentServer !== "vidly" && currentServer !== "global" && currentServer !== "animeworld") {
+        setCurrentServer("global");
+      }
+    }
+  };
+
   return (
     <div
-      className="fixed inset-0 z-[80] flex flex-col bg-black text-white"
+      ref={containerRef}
+      className="fixed inset-0 z-[100] flex flex-col bg-black select-none font-sans"
       role="dialog"
       aria-modal="true"
       aria-label={`Playing ${titleOf(media)}`}
     >
-      {/* Top Bar Header with Controls */}
-      <div className="absolute inset-x-0 top-0 z-20 flex flex-wrap items-center justify-between gap-3 bg-gradient-to-b from-black/95 via-black/60 to-transparent p-4 sm:p-6">
-        {/* Left: Back button & Title Info */}
-        <div className="flex min-w-0 items-center gap-3">
-          <button
-            onClick={onClose}
-            autoFocus
-            aria-label="Back"
-            className="grid size-10 shrink-0 place-items-center rounded-full bg-white/10 backdrop-blur transition hover:bg-white/25 active:scale-95"
+      {/* Floating Reveal Tab when top bar is collapsed */}
+      {!topBarVisible && (
+        <button
+          onClick={() => setTopBarVisible(true)}
+          title="Click to Show Controls"
+          className="absolute left-1/2 top-0 z-50 -translate-x-1/2 rounded-b-xl border border-t-0 border-white/20 bg-black/80 px-6 py-2 text-white/80 shadow-2xl backdrop-blur-md transition-all hover:bg-black hover:text-white hover:py-2.5"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            <Icon name="left" />
-          </button>
-          <div className="min-w-0">
-            <h1 className="truncate font-display text-sm font-bold sm:text-base md:text-lg">
-              {titleOf(media)}
-            </h1>
-            {activeLabel && <p className="truncate text-xs text-white/60">{activeLabel}</p>}
-          </div>
-        </div>
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+      )}
 
-        {/* Right: TV Controls, Trailer Toggle & Server Selector */}
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-          {/* TV Episode Quick Navigation Stepper */}
-          {isTv && (
-            <div className="flex items-center rounded-lg border border-white/15 bg-black/60 px-1.5 py-1 text-xs backdrop-blur-md">
-              <button
-                disabled={episode <= 1}
-                onClick={() => {
-                  setErr("");
-                  setEpisode((e) => Math.max(1, e - 1));
-                }}
-                aria-label="Previous Episode"
-                className="px-2 py-0.5 font-medium text-white/70 transition hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
-                title="Previous Episode"
-              >
-                Prev
-              </button>
-              <span className="px-2 font-semibold text-accent">
-                S{season}:E{episode}
-              </span>
-              <button
-                onClick={() => {
-                  setErr("");
-                  setEpisode((e) => e + 1);
-                }}
-                aria-label="Next Episode"
-                className="px-2 py-0.5 font-medium text-white/70 transition hover:text-white"
-                title="Next Episode"
-              >
-                Next
-              </button>
-            </div>
-          )}
-
-          {/* Official YouTube Trailer Toggle Button */}
-          {trailer && (
+      {/* Top Player HUD Header */}
+      {topBarVisible && (
+        <header className="absolute inset-x-0 top-0 z-40 flex items-center justify-between gap-4 border-b border-white/10 bg-gradient-to-b from-[#09090d]/95 via-[#09090d]/80 to-transparent p-3 sm:px-6 sm:py-3.5 backdrop-blur-md transition-all duration-300">
+          {/* Left Info: Back Button, Title, and Quality Badges */}
+          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
             <button
-              onClick={() => {
-                setErr("");
-                setCurrentServer((prev) => (prev === "trailer" ? STREAM_SERVERS[0].id : "trailer"));
-              }}
-              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold backdrop-blur-md transition ${
-                isTrailerMode
-                  ? "bg-amber-400 text-black shadow-lg shadow-amber-400/20"
-                  : "border border-white/15 bg-white/10 text-white hover:bg-white/20"
-              }`}
-              title={isTrailerMode ? "Switch to Full Stream" : "Watch Official YouTube Trailer"}
+              onClick={onClose}
+              autoFocus
+              aria-label="Back to Movie Details"
+              title="Back to Movie Details (Esc)"
+              className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-xs font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 hover:border-white/30 active:scale-95"
             >
-              <Icon name="play" size={13} />
-              <span>{isTrailerMode ? "Stream Full" : "Trailer"}</span>
+              <Icon name="left" size={16} />
+              <span className="hidden sm:inline">Back</span>
             </button>
-          )}
 
-          {/* Sleek Multi-Server Selector Dropdown */}
-          <div className="relative">
-            <select
-              value={currentServer}
-              onChange={(e) => {
-                setErr("");
-                setCurrentServer(e.target.value);
-              }}
-              aria-label="Select Streaming Server"
-              className="cursor-pointer appearance-none rounded-lg border border-white/20 bg-black/80 py-1.5 pl-3 pr-8 text-xs font-semibold text-white shadow-xl backdrop-blur-md transition hover:border-white/40 focus:border-accent focus:outline-none"
-            >
-              <optgroup label="Streaming Servers (VIP)" className="bg-[#141419] text-white/60">
+            <div className="min-w-0">
+              <h2 className="truncate font-display text-sm font-extrabold text-white sm:text-base lg:text-lg">
+                {titleOf(media)}
+              </h2>
+              <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-[10px] sm:text-[11px]">
+                <span className="rounded-md bg-red-600/90 px-1.5 py-0.5 font-bold text-white shadow-xs">
+                  {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
+                </span>
+                <span className="rounded-md border border-white/20 bg-white/10 px-1.5 py-0.5 font-semibold text-white/90">
+                  4K Ultra HD
+                </span>
+                <span className="hidden rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300 sm:inline-flex items-center gap-1">
+                  <Icon name="volume" size={11} /> Dolby Atmos
+                </span>
+                {isTv && (
+                  <span className="rounded-md bg-white/15 px-1.5 py-0.5 font-bold text-amber">
+                    S{season}:E{episode}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Controls: Server Dropdown, Audio Dub Selector, TV Steppers, Zap Ads, Fullscreen, Close */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* TV Episode Steppers */}
+            {isTv && (
+              <div className="hidden lg:flex items-center gap-1 bg-white/10 p-0.5 rounded-xl border border-white/15">
+                <button
+                  onClick={prevEpisode}
+                  disabled={episode <= 1}
+                  title="Previous Episode (Key: P)"
+                  className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
+                >
+                  ‹ Prev
+                </button>
+                <span className="px-1.5 text-xs font-bold text-white/90">
+                  Ep {episode}
+                </span>
+                <button
+                  onClick={nextEpisode}
+                  title="Next Episode (Key: N)"
+                  className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition"
+                >
+                  Next ›
+                </button>
+              </div>
+            )}
+
+            {/* Server Selector Dropdown */}
+            <div className="relative flex items-center">
+              <select
+                value={currentServer}
+                onChange={(e) => setCurrentServer(e.target.value)}
+                aria-label="Select Streaming Server"
+                className="h-9 cursor-pointer appearance-none rounded-xl border border-white/20 bg-[#161722]/90 pl-3 pr-8 text-xs font-bold text-white shadow-lg backdrop-blur-md outline-none transition hover:border-red-500 hover:bg-[#1f202e] focus:border-red-500 focus:ring-1 focus:ring-red-500"
+              >
                 {STREAM_SERVERS.map((s) => (
-                  <option key={s.id} value={s.id} className="bg-[#141419] py-1 text-white">
+                  <option key={s.id} value={s.id} className="bg-[#12131a] text-white py-1">
                     {s.name} ({s.badge})
                   </option>
                 ))}
-              </optgroup>
-              {trailer && (
-                <optgroup label="Official Media" className="bg-[#141419] text-white/60">
-                  <option value="trailer" className="bg-[#141419] py-1 text-amber-400">
-                    🎬 Official Trailer (YouTube HD)
+                {trailer && (
+                  <option value="trailer" className="bg-[#12131a] text-amber py-1">
+                    Official Trailer (YouTube 4K)
                   </option>
-                </optgroup>
-              )}
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-2.5 flex items-center text-white/50">
-              <Icon name="down" size={12} />
+                )}
+              </select>
+              <span className="pointer-events-none absolute right-2.5 text-white/50">
+                <Icon name="down" size={13} />
+              </span>
+            </div>
+
+            {/* Audio & Dubbed Language Selector */}
+            <div className="relative hidden md:flex items-center">
+              <select
+                value={dubLanguage}
+                onChange={(e) => handleDubChange(e.target.value)}
+                aria-label="Change Dubbed Audio Track"
+                title="Change Dubbed Audio Track"
+                className="h-9 cursor-pointer appearance-none rounded-xl border border-white/15 bg-white/10 pl-2.5 pr-7 text-xs font-semibold text-white/90 backdrop-blur outline-none transition hover:bg-white/20 focus:border-accent"
+              >
+                <option value="en" className="bg-[#12131a] text-white">🌐 English (Original)</option>
+                <option value="hi" className="bg-[#12131a] text-white">🇮🇳 Hindi Dubbed</option>
+                <option value="ja" className="bg-[#12131a] text-white">🇯🇵 Japanese Audio</option>
+                <option value="ta" className="bg-[#12131a] text-white">🇮🇳 Tamil Dubbed</option>
+                <option value="te" className="bg-[#12131a] text-white">🇮🇳 Telugu Dubbed</option>
+                <option value="es" className="bg-[#12131a] text-white">🇪🇸 Spanish Dubbed</option>
+                <option value="fr" className="bg-[#12131a] text-white">🇫🇷 French Dubbed</option>
+                <option value="de" className="bg-[#12131a] text-white">🇩🇪 German Dubbed</option>
+              </select>
+              <span className="pointer-events-none absolute right-2 text-white/40">
+                <Icon name="down" size={12} />
+              </span>
+            </div>
+
+            {/* Zap Ads Button */}
+            <button
+              onClick={zapAds}
+              title="Zap Ads & Refresh Clean Stream (Key: Z)"
+              className="flex items-center gap-1.5 rounded-xl border border-red-500/40 bg-red-600/20 px-2.5 py-2 text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm"
+            >
+              <span className="text-red-400">⚡</span>
+              <span className="hidden sm:inline">Zap Ads</span>
+            </button>
+
+            {/* Fullscreen Button */}
+            <button
+              onClick={toggleFullscreen}
+              title="Fullscreen (Key: F)"
+              aria-label="Toggle Fullscreen"
+              className="grid size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:bg-white/25 active:scale-95"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                {isFullscreen ? (
+                  <>
+                    <polyline points="4 14 10 14 10 20" />
+                    <polyline points="20 10 14 10 14 4" />
+                    <line x1="14" y1="10" x2="21" y2="3" />
+                    <line x1="3" y1="21" x2="10" y2="14" />
+                  </>
+                ) : (
+                  <>
+                    <polyline points="15 3 21 3 21 9" />
+                    <polyline points="9 21 3 21 3 15" />
+                    <line x1="21" y1="3" x2="14" y2="10" />
+                    <line x1="3" y1="21" x2="10" y2="14" />
+                  </>
+                )}
+              </svg>
+            </button>
+
+            {/* Collapse Controls Button */}
+            <button
+              onClick={() => setTopBarVisible(false)}
+              title="Hide Controls (Click to Collapse)"
+              aria-label="Hide Controls"
+              className="hidden sm:grid size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:bg-white/25 active:scale-95"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="18 15 12 9 6 15" />
+              </svg>
+            </button>
+
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              aria-label="Exit Player"
+              title="Exit Player (Esc)"
+              className="grid size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white/80 backdrop-blur transition hover:bg-red-600 hover:text-white hover:border-red-600 active:scale-95"
+            >
+              <Icon name="close" size={16} />
+            </button>
+          </div>
+        </header>
+      )}
+
+      {/* Main Video Viewport Stage */}
+      <div className="relative size-full flex-1 bg-black">
+        {/* Netflix Red Circular Buffering Spinner Overlay */}
+        {isLoading && (
+          <div className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/80 backdrop-blur-xs transition-opacity duration-300">
+            <div className="relative flex flex-col items-center">
+              <div className="size-16 animate-spin rounded-full border-4 border-white/10 border-t-red-600 shadow-xl shadow-red-600/30" />
+              <div className="mt-5 font-display text-sm font-black tracking-wider text-white">
+                Loading Stream in 4K Ultra HD
+              </div>
+              <div className="mt-1 text-xs text-white/50">
+                Connecting to {isTrailerMode ? "Official YouTube Trailer" : activeServerObj.name}...
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
 
-      {/* Playback Container */}
-      <div className="relative flex size-full flex-1 items-center justify-center overflow-hidden bg-black">
-        {/* Official YouTube Trailer Player */}
-        {isTrailerMode ? (
-          trailer ? (
-            <iframe
-              key={trailer.key}
-              title={`${titleOf(media)} - Official Trailer`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              src={`https://www.youtube-nocookie.com/embed/${trailer.key}?autoplay=1&rel=0&modestbranding=1`}
-              className="size-full border-0 bg-black"
-            />
-          ) : (
-            <div className="flex flex-col items-center gap-4 px-6 text-center">
-              <p className="text-base font-semibold text-white/80">Official Trailer Not Available</p>
-              <p className="text-xs text-white/50">
-                Switch back to a stream server above to watch the full title.
-              </p>
-              <button
-                onClick={() => setCurrentServer(STREAM_SERVERS[0].id)}
-                className="rounded-lg bg-accent px-4 py-2 text-xs font-semibold text-white shadow-lg transition hover:bg-accent/80"
-              >
-                Switch to Server 1: VidLink Pro VIP
-              </button>
-            </div>
-          )
-        ) : url && isFile(url) ? (
-          /* Direct Video / Native HLS Player */
+        {/* Video Player Core: Native Video or Universal Iframe Embed */}
+        {url && isFile(url) ? (
           <video
             ref={video}
             controls
@@ -330,19 +490,20 @@ export function Player({
             className="size-full bg-black object-contain"
           />
         ) : url ? (
-          /* Multi-Server Responsive Embed */
           <iframe
-            key={`${currentServer}:${url}`}
+            key={`${url}-${zapCount}`}
+            ref={iframeRef}
             src={url}
             title={titleOf(media)}
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope"
+            onLoad={() => setIsLoading(false)}
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
             allowFullScreen
+            referrerPolicy="origin"
             className="size-full border-0 bg-black"
           />
         ) : (
-          /* Fallback when stream URL is missing */
-          <div className="flex flex-col items-center justify-center gap-4 px-6 text-center">
-            {trailer ? (
+          <div className="relative flex size-full flex-col items-center justify-center gap-5 px-6 text-center">
+            {trailer && (
               <iframe
                 title="Trailer"
                 allow="autoplay; encrypted-media; fullscreen"
@@ -350,35 +511,35 @@ export function Player({
                 src={`https://www.youtube-nocookie.com/embed/${trailer.key}?autoplay=1&rel=0&modestbranding=1`}
                 className="aspect-video w-full max-w-5xl rounded-xl border-0 bg-panel shadow-2xl"
               />
-            ) : (
-              <p className="text-sm text-white/60">No stream source available for this title.</p>
             )}
+            <div className="max-w-xl rounded-xl border border-white/10 bg-panel/90 p-5 text-left backdrop-blur-md">
+              <b className="text-sm text-white">Showing Official 4K Trailer</b>
+              <p className="mt-1.5 text-xs leading-relaxed text-white/60">
+                You can switch servers anytime from the server dropdown at the top right to watch the full {type === "tv" ? "series" : "movie"}.
+              </p>
+            </div>
           </div>
         )}
 
-        {/* Resume Position Indicator Toast */}
+        {/* Resume notification banner */}
         {resumeNotice && (
-          <div className="pointer-events-none absolute bottom-16 left-6 z-30 flex items-center gap-2 rounded-lg border border-white/20 bg-black/85 px-4 py-2 text-xs font-medium text-white shadow-2xl backdrop-blur-md">
-            <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-            {resumeNotice}
+          <div className="absolute bottom-16 left-1/2 z-50 -translate-x-1/2 rounded-full border border-emerald-500/30 bg-[#12131a]/95 px-5 py-2.5 text-xs font-semibold text-emerald-300 shadow-2xl backdrop-blur-md animate-[rise_.3s_both]">
+            ✓ {resumeNotice}
           </div>
         )}
 
-        {/* Error Notice */}
+        {/* Error notice */}
         {err && (
-          <div className="absolute inset-x-0 bottom-16 mx-auto flex w-fit max-w-[90%] items-center gap-3 rounded-lg border border-red-500/30 bg-red-950/80 px-4 py-2.5 text-xs text-red-200 shadow-xl backdrop-blur-md">
-            <span>{err}</span>
+          <div className="absolute inset-x-0 bottom-20 mx-auto w-fit rounded-xl border border-red-500/30 bg-red-950/80 px-5 py-3 text-sm text-red-200 shadow-2xl backdrop-blur-md">
+            {err}
             <button
               onClick={() => {
                 setErr("");
-                // Switch to next server
-                const idx = STREAM_SERVERS.findIndex((s) => s.id === currentServer);
-                const next = STREAM_SERVERS[(idx + 1) % STREAM_SERVERS.length];
-                setCurrentServer(next.id);
+                zapAds();
               }}
-              className="rounded bg-red-500/30 px-2 py-1 font-semibold text-white transition hover:bg-red-500/50"
+              className="ml-3 underline hover:text-white"
             >
-              Try Next Server
+              Retry
             </button>
           </div>
         )}

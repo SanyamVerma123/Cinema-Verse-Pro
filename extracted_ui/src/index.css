@@ -128,3 +128,279 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ───────── Premium motion & components ───────── */
+@property --a {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered entrance. "backwards" so hover transforms still work once finished. */
+.card-in {
+  animation: cardIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.reveal:not(.in) .card-in,
+.reveal:not(.in) .stagger > * {
+  animation-play-state: paused;
+}
+.stagger > * {
+  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.stagger > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.stagger > *:nth-child(2) {
+  animation-delay: 0.14s;
+}
+.stagger > *:nth-child(3) {
+  animation-delay: 0.23s;
+}
+.stagger > *:nth-child(4) {
+  animation-delay: 0.32s;
+}
+.stagger > *:nth-child(5) {
+  animation-delay: 0.41s;
+}
+.stagger > *:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.stagger > *:nth-child(7) {
+  animation-delay: 0.59s;
+}
+
+/* Light sweep on hover */
+.shine {
+  isolation: isolate;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 65%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shine:hover::after {
+  transform: translateX(130%);
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(139, 108, 255, 0.35) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+}
+.btn-shine:hover::after {
+  transform: translateX(120%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.top10-card .top-num {
+  transition:
+    -webkit-text-stroke-color 0.4s,
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.top10-card:hover .top-num {
+  -webkit-text-stroke-color: #8b6cff;
+  transform: translateX(-6px) scale(1.04);
+}
+
+/* Animated gradient ring (search + header pill) */
+.glow-wrap {
+  background: rgba(255, 255, 255, 0.1);
+}
+.glow-ring {
+  background: conic-gradient(from var(--a), #8b6cff, #ff6a88, #ffb547, #8b6cff);
+  animation: conicspin 4s linear infinite;
+  filter: blur(0.4px);
+}
+.glow-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  filter: blur(14px);
+  opacity: 0.45;
+  z-index: -1;
+}
+
+.mic-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1.5px solid #8b6cff;
+  animation: ring 2.6s ease-out infinite;
+  pointer-events: none;
+}
+
+@layer components {
+  .kbd {
+    display: inline-grid;
+    min-width: 22px;
+    height: 22px;
+    place-items: center;
+    padding: 0 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom-width: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    font: 600 10px/1 var(--font-sans);
+    color: rgba(255, 255, 255, 0.65);
+  }
+}
+
+mark {
+  background: none;
+}
+
+/* Genre tiles: slow drifting glow */
+.genre-tile::before {
+  content: "";
+  position: absolute;
+  width: 140%;
+  aspect-ratio: 1;
+  right: -60%;
+  top: -90%;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--h) 90% 65% / 0.35), transparent 65%);
+  animation: drift 7s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.genre-tile > * {
+  position: relative;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94);
+  }
+}
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(46px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes itemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+@keyframes iconpop {
+  0% {
+    transform: scale(0.3) rotate(-40deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.3) rotate(8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes conicspin {
+  to {
+    --a: 360deg;
+  }
+}
+@keyframes ring {
+  from {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+@keyframes drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-18%, 22%) scale(1.25);
+  }
+}
+@keyframes hintIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes shrink {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}

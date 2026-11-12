@@ -109,7 +109,7 @@ export function Hero({
 
       <div
         key={m.id}
-        className="absolute bottom-[17%] left-[4vw] right-[4vw] max-w-[640px] animate-[rise_.7s_both] md:bottom-[20%]"
+        className="absolute bottom-[20vh] sm:bottom-[21vh] md:bottom-[23vh] left-[4vw] right-[4vw] max-w-[660px] z-20 animate-[rise_.7s_both]"
       >
         <div className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.22em] text-white/80">
           <span className="grid size-5 place-items-center rounded bg-accent">
@@ -142,17 +142,17 @@ export function Hero({
           {m.overview}
         </p>
         <p className="mt-2.5 text-xs text-white/50">{genreNames(m.genre_ids, 4).join("  •  ")}</p>
-        <div className="mt-5 flex flex-wrap gap-2.5">
+        <div className="mt-5 flex flex-wrap items-center gap-3">
           <button
             onClick={() => onOpen(m, { play: true })}
-            className="flex h-12 items-center gap-2.5 rounded-lg bg-white px-7 text-[15px] font-bold text-black transition hover:bg-white/85 active:scale-95"
+            className="btn-shine relative overflow-hidden flex h-12 items-center gap-2.5 rounded-lg bg-white px-7 text-[15px] font-bold text-black transition hover:bg-white/85 active:scale-95 shadow-xl shadow-black/40"
           >
             <Icon name="play" size={22} />
             Play
           </button>
           <button
             onClick={() => onOpen(m)}
-            className="flex h-12 items-center gap-2.5 rounded-lg bg-white/20 px-6 text-[15px] font-semibold backdrop-blur-md transition hover:bg-white/30 active:scale-95"
+            className="flex h-12 items-center gap-2.5 rounded-lg bg-white/20 px-6 text-[15px] font-semibold backdrop-blur-md transition hover:bg-white/30 active:scale-95 border border-white/10"
           >
             <Icon name="info" size={22} />
             More info
@@ -167,7 +167,7 @@ export function Hero({
         </div>
       </div>
 
-      <div className="absolute bottom-[17%] right-0 flex items-center gap-3 md:bottom-[20%]">
+      <div className="absolute bottom-[20vh] sm:bottom-[21vh] md:bottom-[23vh] right-0 z-20 flex items-center gap-3">
         {videoOn && trailer && (
           <RoundBtn
             icon={muted ? "mute" : "volume"}
@@ -183,7 +183,7 @@ export function Hero({
         )}
       </div>
 
-      <div className="absolute bottom-[calc(8vh+6px)] left-[4vw] right-[4vw] z-10 flex items-end justify-between gap-6 md:bottom-[calc(9vh+10px)]">
+      <div className="absolute bottom-6 sm:bottom-8 left-[4vw] right-[4vw] z-10 flex items-end justify-between gap-6">
         <div className="flex gap-1.5" role="tablist" aria-label="Featured titles">
           {slides.map((s, idx) => (
             <button

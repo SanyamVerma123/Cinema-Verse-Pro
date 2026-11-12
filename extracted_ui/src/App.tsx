@@ -5,20 +5,87 @@ import { Hero } from "./components/Hero";
 import { Player } from "./components/Player";
 import { Sections, type Open } from "./components/Rows";
 import { Search } from "./components/Search";
+import { SlideTabs } from "./components/Select";
 import { Brand, Icon, type IconName } from "./components/ui";
 import { PAGES } from "./lib/layout";
-import { listStore, useStore } from "./lib/store";
+import { listStore, toastStore, useStore } from "./lib/store";
 import { hasApi, type Media } from "./lib/tmdb";
 
 type PageId = "home" | "movies" | "tv" | "new" | "browse" | "list" | "catalog";
-const NAV: [PageId, string, IconName][] = [
+const NAV: [PageId, string][] = [
+  ["home", "Home"],
+  ["movies", "Movies"],
+  ["tv", "Series"],
+  ["new", "New & Popular"],
+  ["browse", "Browse"],
+  ["list", "My List"],
+];
+const MOBILE: [PageId, string, IconName][] = [
   ["home", "Home", "home"],
   ["movies", "Movies", "film"],
   ["tv", "Series", "tv"],
-  ["new", "New & Popular", "bell"],
   ["browse", "Browse", "compass"],
   ["list", "My List", "list"],
 ];
+const HINTS = [
+  "Search movies, series, cast...",
+  "Try “Stranger Things”",
+  "Try “Christopher Nolan”",
+  "Try “Avengers: Doomsday”",
+  "Tap the mic to speak",
+];
+
+function Hint() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((x) => (x + 1) % HINTS.length), 3200);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <span
+      key={i}
+      className="hidden min-w-0 flex-1 animate-[hintIn_.55s_cubic-bezier(.16,1,.3,1)_both] truncate text-left lg:inline"
+    >
+      {HINTS[i]}
+    </span>
+  );
+}
+
+function Toast() {
+  const t = useStore(toastStore);
+  useEffect(() => {
+    if (!t) return;
+    const id = setTimeout(() => toastStore.set(null), 3400);
+    return () => clearTimeout(id);
+  }, [t]);
+  if (!t) return null;
+  return (
+    <div
+      key={t.id}
+      role="status"
+      className="fixed bottom-24 left-1/2 z-[120] -translate-x-1/2 md:bottom-8"
+    >
+      <div className="relative flex animate-[toastIn_.5s_cubic-bezier(.16,1,.3,1)_both] items-center gap-4 overflow-hidden rounded-2xl border border-white/15 bg-[#16161e]/95 py-3 pl-4 pr-3 shadow-2xl shadow-black/60 backdrop-blur-xl">
+        <span className="grid size-7 place-items-center rounded-full bg-accent/25 text-accent">
+          <Icon name="check" size={15} className="animate-[iconpop_.5s_.1s_both]" />
+        </span>
+        <span className="text-sm font-medium">{t.msg}</span>
+        {t.undo && (
+          <button
+            onClick={() => {
+              t.undo?.();
+            }}
+            className="rounded-lg px-3 py-1.5 text-xs font-bold text-accent hover:bg-white/10"
+          >
+            Undo
+          </button>
+        )}
+        <i className="absolute inset-x-0 bottom-0 h-0.5 origin-left animate-[shrink_3.4s_linear_both] bg-linear-to-r from-accent to-[#ff6a88]" />
+      </div>
+    </div>
+  );
+}
+
 type PlayReq = { media: Media; season?: number; episode?: number; label?: string };
 
 export default function App() {
@@ -34,37 +101,58 @@ export default function App() {
   const go = useCallback((p: PageId) => {
     setPage(p);
     setCatalog(null);
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-  const openCatalog = useCallback((c: Omit<CatalogCfg, "browse">) => {
-    setCatalog(c);
-    setPage("catalog");
-    setDetail(null);
-    window.scrollTo({ top: 0 });
+
+  const open: Open = useCallback((media, o) => {
+    setDetail({ media, play: o?.play });
   }, []);
-  const open: Open = useCallback((media, o) => setDetail({ media, play: o?.play }), []);
+
   const play = useCallback(
-    (media: Media, o: { season?: number; episode?: number; label?: string } = {}) =>
-      setPlayer({ media, ...o }),
+    (media: Media, o?: { season?: number; episode?: number; label?: string }) => {
+      setDetail(null);
+      setPlayer({ media, ...o });
+    },
+    [],
+  );
+
+  const openCatalog = useCallback(
+    (cfg: CatalogCfg) => {
+      setCatalog(cfg);
+      setPage("catalog");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
     [],
   );
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    let raf = 0;
+    const root = document.documentElement;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const max = root.scrollHeight - window.innerHeight;
+        root.style.setProperty("--sy", String(Math.min(y, 1400)));
+        root.style.setProperty("--p", String(max > 0 ? y / max : 0));
+        setScrolled(y > 40);
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     const onKey = (e: KeyboardEvent) => {
-      const t = e.target as HTMLElement;
-      if (
-        ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") ||
-        (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(t.tagName))
-      ) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearch({ voice: false });
+      }
+      if (e.key === "/" && !["INPUT", "TEXTAREA"].includes((e.target as HTMLElement).tagName)) {
         e.preventDefault();
         setSearch({ voice: false });
       }
     };
     window.addEventListener("keydown", onKey);
     return () => {
+      cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("keydown", onKey);
     };
@@ -72,157 +160,151 @@ export default function App() {
 
   const def = PAGES[page];
   const active = page === "catalog" ? "" : page;
+  const pageKey = page === "catalog" && catalog ? `c${catalog.title}${catalog.path}` : page;
+
   return (
-    <div className="min-h-screen bg-ink pb-20 text-white md:pb-0">
+    <div className="min-h-screen bg-ink pb-20 text-white md:pb-0 font-sans selection:bg-purple-600 selection:text-white">
       <header className="fixed inset-x-0 top-0 z-50">
-        {notice && (
-          <div className="relative flex items-center justify-center bg-accent px-10 py-2 text-center text-xs font-medium sm:text-[13px]">
-            <span>
-              Demo data. Add <code className="rounded bg-black/25 px-1">VITE_TMDB_READ_TOKEN</code>{" "}
-              to <code className="rounded bg-black/25 px-1">.env</code> and restart to load live
-              TMDB catalogs.
-            </span>
-            <button
-              aria-label="Dismiss"
-              onClick={() => setNotice(false)}
-              className="absolute right-3 top-1/2 -translate-y-1/2"
-            >
-              <Icon name="close" size={16} />
-            </button>
-          </div>
-        )}
         <div
-          className={`flex h-16 items-center gap-5 px-[4vw] transition-colors duration-300 lg:gap-8 ${scrolled ? "bg-ink/90 shadow-lg shadow-black/40 backdrop-blur-xl" : "bg-linear-to-b from-black/80 to-transparent"}`}
+          className={`flex h-16 items-center px-[4vw] transition-all duration-500 sm:h-20 ${
+            scrolled
+              ? "bg-[#09090d]/90 shadow-2xl shadow-black/80 backdrop-blur-2xl border-b border-white/8"
+              : "bg-gradient-to-b from-black/85 via-black/40 to-transparent"
+          }`}
         >
-          <button onClick={() => go("home")} aria-label="Frame home">
+          <button
+            onClick={() => go("home")}
+            aria-label="CinemaVerse Home"
+            className="group mr-6 flex items-center gap-3 transition hover:opacity-95"
+          >
             <Brand />
           </button>
-          <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
-            {NAV.map(([id, label]) => (
-              <button
-                key={id}
-                onClick={() => go(id)}
-                aria-current={active === id ? "page" : undefined}
-                className={`rounded-full px-3 py-1.5 text-[13px] transition lg:px-3.5 ${active === id ? "bg-white/12 font-semibold text-white" : "text-white/65 hover:text-white"}`}
-              >
-                {label}
-                {id === "list" && list.length > 0 && (
-                  <sup className="ml-1 text-accent">{list.length}</sup>
-                )}
-              </button>
-            ))}
+          <nav aria-label="Main" className="hidden md:block">
+            <SlideTabs
+              variant="pill"
+              label="Primary"
+              items={NAV.map(([id, label]) => ({ id, label }))}
+              value={active}
+              onChange={(id) => go(id as PageId)}
+              className="[&_button]:!px-3 lg:[&_button]:!px-4"
+            />
           </nav>
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex items-center gap-2.5">
             <button
               onClick={() => setSearch({ voice: false })}
               aria-label="Search"
-              className="flex h-10 items-center gap-2.5 rounded-full border border-white/15 bg-white/8 px-3.5 text-sm text-white/70 backdrop-blur transition hover:border-white/40 hover:text-white lg:w-64"
+              className="glow-wrap group relative flex h-11 items-center rounded-full p-px transition active:scale-[.97] lg:w-72"
             >
-              <Icon name="search" size={18} />
-              <span className="hidden lg:inline">Search</span>
-              <kbd className="ml-auto hidden rounded border border-white/20 px-1.5 text-[10px] lg:inline">
-                ⌘K
-              </kbd>
+              <span className="glow-ring pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <span className="relative flex size-full items-center gap-3 rounded-full border border-white/14 bg-[#15151c]/80 px-4 text-sm text-white/60 backdrop-blur-xl transition group-hover:border-transparent group-hover:text-white">
+                <Icon
+                  name="search"
+                  size={18}
+                  className="shrink-0 transition group-hover:text-accent"
+                />
+                <Hint />
+                <kbd className="kbd ml-auto hidden lg:inline-block">⌘K</kbd>
+              </span>
             </button>
             <button
               onClick={() => setSearch({ voice: true })}
               aria-label="Search by voice"
               title="Search by voice"
-              className="grid size-10 place-items-center rounded-full bg-linear-to-br from-accent to-[#ff6a88] shadow-lg shadow-accent/30 transition hover:scale-105 active:scale-95"
+              className="mic-pulse relative grid size-11 place-items-center rounded-full bg-linear-to-br from-accent to-[#ff6a88] shadow-lg shadow-accent/30 transition hover:scale-110 active:scale-90"
             >
               <Icon name="mic" size={19} />
             </button>
             <span
-              className="ml-1 hidden size-9 place-items-center rounded-full bg-linear-to-br from-amber to-[#ff6a88] text-sm font-bold text-black sm:grid"
+              className="ml-1 hidden size-10 place-items-center rounded-full bg-linear-to-br from-red-600 via-purple-600 to-indigo-600 text-xs font-black text-white ring-2 ring-white/10 sm:grid shadow-md shadow-purple-600/30"
               aria-hidden="true"
             >
-              A
+              CV
             </span>
           </div>
+          <i
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left bg-linear-to-r from-accent via-[#ff6a88] to-amber"
+            style={{ transform: "scaleX(var(--p, 0))" }}
+          />
         </div>
       </header>
 
       <main>
-        {page === "catalog" && catalog ? (
-          <Catalog
-            key={catalog.title + catalog.path + JSON.stringify(catalog.params)}
-            cfg={catalog}
-            onOpen={open}
-          />
-        ) : page === "browse" ? (
-          <Catalog
-            key="browse"
-            cfg={{ title: "Browse", path: "", kind: "movie", browse: true }}
-            onOpen={open}
-          />
-        ) : page === "list" ? (
-          <Catalog key="list" cfg={{ title: "My List", path: "", kind: "all" }} onOpen={open} />
-        ) : (
-          def && (
-            <div key={page}>
-              <Hero
-                path={def.hero.path}
-                kind={def.hero.kind}
-                params={def.hero.params}
-                onOpen={open}
-              />
-              <div className="relative z-10 -mt-[6vh] pb-10 md:-mt-[7vh]">
-                <Sections sections={def.sections} onOpen={open} onAll={openCatalog} />
-              </div>
-            </div>
-          )
-        )}
+        <div key={pageKey} className="animate-[pageIn_.7s_cubic-bezier(.16,1,.3,1)_backwards]">
+          {page === "catalog" && catalog ? (
+            <Catalog cfg={catalog} onOpen={open} />
+          ) : page === "browse" ? (
+            <Catalog
+              cfg={{ title: "Browse", path: "", kind: "movie", browse: true }}
+              onOpen={open}
+            />
+          ) : page === "list" ? (
+            <Catalog cfg={{ title: "My List", path: "", kind: "all" }} onOpen={open} />
+          ) : (
+            def && (
+              <>
+                <Hero
+                  path={def.hero.path}
+                  kind={def.hero.kind}
+                  params={def.hero.params}
+                  onOpen={open}
+                />
+                {/* Spacing fix: Clean transition below hero with no overlap on hero action buttons */}
+                <div className="relative z-10 -mt-2 sm:-mt-4 md:-mt-6 pb-12">
+                  <Sections sections={def.sections} onOpen={open} onAll={openCatalog} />
+                </div>
+              </>
+            )
+          )}
+        </div>
       </main>
 
       <footer className="border-t border-white/8 px-[4vw] py-12 text-xs text-white/45">
         <div className="grid gap-8 sm:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Brand className="!text-2xl opacity-80" />
-            <p className="mt-3 max-w-xs leading-relaxed">
-              Your personal cinema. Discover films and series, then watch from your own library.
+            <Brand className="!text-xl opacity-90" />
+            <p className="mt-3 max-w-xs leading-relaxed text-white/60">
+              Universal Multi-OTT Streaming Universe. Discover extraordinary films and series in 4K with zero ads.
             </p>
           </div>
           {[
             ["Explore", "Movies", "Series", "New & Popular"],
             ["Account", "My List", "Continue watching", "Settings"],
-            ["Support", "Help centre", "Terms of use", "Privacy"],
+            ["Platform", "Universal OTTs", "4K Ultra HD", "Privacy"],
           ].map(([h, ...ls]) => (
             <div key={h}>
-              <b className="text-white/70">{h}</b>
+              <b className="text-white/80">{h}</b>
               <ul className="mt-3 space-y-2">
                 {ls.map((l) => (
-                  <li key={l}>{l}</li>
+                  <li key={l} className="hover:text-white/80 transition-colors cursor-pointer">{l}</li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <p className="mt-10 max-w-3xl leading-relaxed">
-          This product uses the TMDB API but is not endorsed or certified by TMDB. Film and series
-          metadata and imagery are provided by TMDB.
+        <p className="mt-10 max-w-3xl leading-relaxed text-white/40">
+          © 2026 CinemaVerse Pro. Universal Multi-OTT Streaming Universe. Powered by official TMDb data &amp; multi-source CDN streams.
         </p>
       </footer>
 
       <nav
         aria-label="Mobile"
-        className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-white/10 bg-ink/92 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden"
+        className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 border-t border-white/10 bg-ink/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-2xl md:hidden"
       >
-        {(
-          [
-            ["home", "Home", "home"],
-            ["movies", "Movies", "film"],
-            ["tv", "Series", "tv"],
-            ["browse", "Browse", "compass"],
-            ["list", "My List", "list"],
-          ] as [PageId, string, IconName][]
-        ).map(([id, label, icon]) => (
+        {MOBILE.map(([id, label, icon]) => (
           <button
             key={id}
             onClick={() => go(id)}
             aria-current={active === id ? "page" : undefined}
-            className={`flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium ${active === id ? "text-white" : "text-white/45"}`}
+            className={`relative flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium transition active:scale-90 ${active === id ? "text-white" : "text-white/45"}`}
           >
-            <Icon name={icon} size={21} className={active === id ? "text-accent" : ""} />
+            {active === id && (
+              <i className="absolute inset-x-5 top-0 h-0.5 animate-[fade_.3s_both] rounded-b bg-linear-to-r from-accent to-[#ff6a88]" />
+            )}
+            <Icon
+              name={icon}
+              size={21}
+              className={`transition ${active === id ? "-translate-y-0.5 text-accent" : ""}`}
+            />
             {label}
           </button>
         ))}
@@ -255,6 +337,7 @@ export default function App() {
           onClose={() => setPlayer(null)}
         />
       )}
+      <Toast />
     </div>
   );
 }

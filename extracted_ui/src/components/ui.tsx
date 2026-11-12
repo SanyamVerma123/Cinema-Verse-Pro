@@ -105,12 +105,16 @@ export function Icon({
 export function Brand({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`inline-flex items-center gap-2 font-display text-[26px] font-extrabold tracking-tighter ${className}`}
+      className={`inline-flex items-center gap-2.5 font-display text-[22px] font-black tracking-tight select-none ${className}`}
     >
-      <span className="relative grid size-7 place-items-center rounded-lg bg-linear-to-br from-accent to-[#ff6a88]">
-        <Icon name="play" size={14} className="text-white" />
+      <img src="/logo.svg" alt="CinemaVerse" className="size-8 object-contain drop-shadow-md" />
+      <span className="flex items-center font-display">
+        <span className="text-[#ff334b] font-black tracking-tight drop-shadow-sm">CINEMA</span>
+        <span className="text-white font-extrabold tracking-tight">VERSE</span>
+        <span className="ml-1.5 rounded-md bg-linear-to-r from-purple-600 to-indigo-600 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white shadow-sm">
+          PRO
+        </span>
       </span>
-      frame
     </span>
   );
 }
