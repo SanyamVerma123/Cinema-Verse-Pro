@@ -111,13 +111,13 @@ export function Catalog({ cfg, onOpen }: { cfg: CatalogCfg; onOpen: Open }) {
           k = "all";
           path = q ? "/search/multi" : "/trending/all/day";
           params = q
-            ? { query: q, page: String(p), include_adult: "false" }
+            ? { query: q, page: String(p), include_adult: "true" }
             : { page: String(p) };
         } else if (searchTab === "movie") {
           k = "movie";
           path = q ? "/search/movie" : "/discover/movie";
           params = q
-            ? { query: q, page: String(p), include_adult: "false" }
+            ? { query: q, page: String(p), include_adult: "true" }
             : {
                 page: String(p),
                 sort_by: sort === "date" ? "primary_release_date.desc" : sort,
@@ -128,7 +128,7 @@ export function Catalog({ cfg, onOpen }: { cfg: CatalogCfg; onOpen: Open }) {
           k = "tv";
           path = q ? "/search/tv" : "/discover/tv";
           params = q
-            ? { query: q, page: String(p), include_adult: "false" }
+            ? { query: q, page: String(p), include_adult: "true" }
             : {
                 page: String(p),
                 sort_by: sort === "date" ? "first_air_date.desc" : sort,
@@ -139,12 +139,13 @@ export function Catalog({ cfg, onOpen }: { cfg: CatalogCfg; onOpen: Open }) {
           k = "tv";
           if (q) {
             path = "/search/multi";
-            params = { query: q, page: String(p), include_adult: "false" };
+            params = { query: q, page: String(p), include_adult: "true" };
             filterFn = (m: any) =>
               Boolean(
                 m.genre_ids?.includes(16) ||
                   m.original_language === "ja" ||
-                  m.origin_country?.includes("JP"),
+                  m.origin_country?.includes("JP") ||
+                  (m.title || m.name || "").toLowerCase().includes(q.toLowerCase()),
               );
           } else {
             path = "/discover/tv";
@@ -190,7 +191,7 @@ export function Catalog({ cfg, onOpen }: { cfg: CatalogCfg; onOpen: Open }) {
       return tmdb<{ results: Media[]; total_pages: number }>(path, params).then((r) => {
         let results = (r.results || [])
           .map((m) => ({ ...m, media_type: m.media_type ?? (k === "all" ? "movie" : k) }) as Media)
-          .filter((m) => m.poster_path);
+          .filter((m) => m.poster_path || m.backdrop_path || m.title || m.name);
 
         if (filterFn) {
           results = results.filter(filterFn);
@@ -474,7 +475,7 @@ export function Catalog({ cfg, onOpen }: { cfg: CatalogCfg; onOpen: Open }) {
         </p>
       )}
 
-      <div className="mt-8 grid grid-cols-3 gap-2.5 sm:grid-cols-4 sm:gap-3.5 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
+      <div className="mt-8 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 gap-2.5 sm:gap-3.5">
         {shown.map((m, n) => (
           <div key={`${m.media_type}${m.id}`} className="relative aspect-2/3 [&>div]:!w-full">
             <PosterCard m={m} i={n % 16} onOpen={onOpen} />

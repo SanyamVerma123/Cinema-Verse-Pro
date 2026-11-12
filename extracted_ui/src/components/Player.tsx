@@ -154,20 +154,14 @@ export function Player({
   // Active server object
   const activeServerObj = STREAM_SERVERS.find((s) => s.id === currentServer) || STREAM_SERVERS[0];
 
-  // Auto-hide HUD on movie / stream load (2.5s timer)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTopBarVisible(false);
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, [url]);
-
-  // Auto-collapse top bar after inactivity when revealed
+  // Auto-collapse top bar ONLY after inactivity and NEVER while menu is open or hovering/interacting
   useEffect(() => {
     if (!topBarVisible || menuOpen || isHoveringHeader) return;
     const idleTimer = setTimeout(() => {
-      setTopBarVisible(false);
-    }, 4000);
+      if (!menuOpen && !isHoveringHeader) {
+        setTopBarVisible(false);
+      }
+    }, 6000);
     return () => clearTimeout(idleTimer);
   }, [topBarVisible, menuOpen, isHoveringHeader]);
 
@@ -449,38 +443,38 @@ export function Player({
       <header
         onMouseEnter={() => setIsHoveringHeader(true)}
         onMouseLeave={() => setIsHoveringHeader(false)}
-        className={`absolute inset-x-0 top-0 z-40 border-b border-white/10 bg-gradient-to-b from-[#09090d]/98 via-[#09090d]/90 to-transparent p-2.5 sm:px-6 sm:py-3.5 backdrop-blur-xl transition-all duration-300 transform ${
+        className={`absolute inset-x-0 top-0 z-40 border-b border-white/10 bg-gradient-to-b from-[#09090d]/98 via-[#09090d]/90 to-transparent p-2 sm:px-6 sm:py-3.5 landscape:max-h-[520px]:py-1 landscape:max-h-[520px]:px-3 backdrop-blur-xl transition-all duration-300 transform ${
           topBarVisible
             ? "translate-y-0 opacity-100 pointer-events-auto"
             : "-translate-y-full opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex items-center justify-between gap-2 sm:gap-4">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-4">
           {/* Left Info: Back Button, Title, and Badges */}
-          <div className="flex min-w-0 items-center gap-2 sm:gap-3.5 shrink-0">
+          <div className="flex min-w-0 items-center gap-1.5 sm:gap-3.5 shrink-0">
             <button
               onClick={onClose}
               autoFocus
               aria-label="Back to Movie Details"
               title="Back to Movie Details (Esc)"
-              className="flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 hover:border-white/30 active:scale-95"
+              className="flex shrink-0 items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-2 py-1.5 sm:px-3 sm:py-2 landscape:max-h-[520px]:px-2 landscape:max-h-[520px]:py-1 text-xs landscape:max-h-[520px]:text-[11px] font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 active:scale-95"
             >
-              <Icon name="left" size={15} />
-              <span className="hidden sm:inline">Back</span>
+              <Icon name="left" size={14} />
+              <span className="hidden sm:inline landscape:max-h-[520px]:hidden">Back</span>
             </button>
 
             <div className="min-w-0">
-              <h2 className="shrink min-w-[100px] max-w-[200px] sm:max-w-[280px] lg:max-w-md truncate font-display text-xs sm:text-base lg:text-lg font-extrabold text-white">
+              <h2 className="shrink min-w-[80px] max-w-[140px] sm:max-w-[280px] lg:max-w-md landscape:max-h-[520px]:max-w-[130px] truncate font-display text-xs sm:text-base lg:text-lg font-extrabold text-white">
                 {titleOf(media)}
               </h2>
-              <div className="mt-0.5 flex items-center flex-nowrap gap-1.5 shrink-0 whitespace-nowrap overflow-hidden text-[9px] sm:text-[11px]">
+              <div className="mt-0.5 flex items-center flex-nowrap gap-1 sm:gap-1.5 shrink-0 whitespace-nowrap overflow-hidden text-[9px] sm:text-[11px] landscape:max-h-[520px]:text-[9px]">
                 <span className="rounded-md bg-red-600/90 px-1 sm:px-1.5 py-0.5 font-bold text-white shadow-xs shrink-0 whitespace-nowrap">
                   {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
                 </span>
-                <span className="rounded-md border border-white/20 bg-white/10 px-1 sm:px-1.5 py-0.5 font-semibold text-white/90 shrink-0 whitespace-nowrap">
+                <span className="hidden xs:inline-block rounded-md border border-white/20 bg-white/10 px-1 sm:px-1.5 py-0.5 font-semibold text-white/90 shrink-0 whitespace-nowrap">
                   4K Ultra HD
                 </span>
-                <span className="hidden sm:inline-flex items-center gap-1 rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300 shrink-0 whitespace-nowrap">
+                <span className="hidden md:inline-flex items-center gap-1 rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300 shrink-0 whitespace-nowrap">
                   <Icon name="volume" size={11} /> Dolby Atmos
                 </span>
                 {isTv && (
@@ -493,16 +487,16 @@ export function Player({
           </div>
 
           {/* Right Controls: Exactly and ONLY in this order:
-              a) Season dropdown (when type is tv, changing season)
-              b) Episode dropdown (when type is tv, changing episode)
+              a) Season dropdown (desktop / wide viewports)
+              b) Episode dropdown (desktop / wide viewports)
               c) Zap Ads button (⚡ Zap Ads)
               d) 3-lines menu button (≡) with sleek dropdown menu for Server and Dub
               e) Cross close button (✕)
           */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-            {/* a) Season dropdown */}
+            {/* a) Season dropdown (desktop) */}
             {isTv && (
-              <div className="w-[80px] sm:w-[110px]">
+              <div className="hidden md:block w-[80px] sm:w-[110px]">
                 <Select
                   size="sm"
                   value={String(season)}
@@ -517,9 +511,9 @@ export function Player({
               </div>
             )}
 
-            {/* b) Episode dropdown */}
+            {/* b) Episode dropdown (desktop) */}
             {isTv && (
-              <div className="w-[105px] sm:w-[160px] md:w-[200px]">
+              <div className="hidden md:block w-[105px] sm:w-[160px] md:w-[200px]">
                 <Select
                   size="sm"
                   value={String(episode)}
@@ -535,10 +529,10 @@ export function Player({
             <button
               onClick={zapAds}
               title="Zap Ads & Refresh Clean Stream (Key: Z)"
-              className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-red-500/40 bg-red-600/20 px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm shrink-0"
+              className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-red-500/40 bg-red-600/20 px-2 sm:px-2.5 py-1.5 sm:py-2 landscape:max-h-[520px]:py-1 landscape:max-h-[520px]:px-2 text-[10px] sm:text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm shrink-0"
             >
               <span className="text-red-400">⚡</span>
-              <span className="hidden xs:inline sm:inline">Zap</span>
+              <span>Zap</span>
               <span className="hidden sm:inline">Ads</span>
             </button>
 
@@ -693,6 +687,39 @@ export function Player({
         </div>
       </header>
 
+      {/* Floating Bottom Bar for Season & Episode selection on mobile & horizontal mobile */}
+      {isTv && topBarVisible && (
+        <div
+          onMouseEnter={() => setIsHoveringHeader(true)}
+          onMouseLeave={() => setIsHoveringHeader(false)}
+          className="md:hidden fixed bottom-3 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 rounded-2xl border border-white/20 bg-[#09090d]/90 px-3 py-1.5 backdrop-blur-xl shadow-2xl animate-[fade_.2s_ease-out]"
+        >
+          <div className="w-[105px]">
+            <Select
+              size="sm"
+              value={String(season)}
+              onChange={(v) => {
+                setSeason(Number(v));
+                setEpisode(1);
+              }}
+              options={seasonOptions}
+              className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20"
+              ariaLabel="Select Season"
+            />
+          </div>
+          <div className="w-[145px] sm:w-[170px]">
+            <Select
+              size="sm"
+              value={String(episode)}
+              onChange={(v) => setEpisode(Number(v))}
+              options={episodeOptions}
+              className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
+              ariaLabel="Select Episode"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Main Video Viewport Stage */}
       <div className="relative size-full flex-1 bg-black overflow-hidden">
         {/* Netflix Red Circular Buffering Spinner Overlay */}
@@ -748,18 +775,18 @@ export function Player({
             title={titleOf(media)}
             onLoad={() => {
               setIsLoading(false);
-              setTopBarVisible(false);
+              if (!menuOpen && !isHoveringHeader) {
+                setTimeout(() => {
+                  if (!menuOpen && !isHoveringHeader) setTopBarVisible(false);
+                }, 4000);
+              }
             }}
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
             allowFullScreen
             referrerPolicy="origin"
             sandbox={
-              url.includes('cinesrc.st') ||
-              url.includes('123embed.net') ||
-              url.includes('vidsrc.buzz') ||
-              url.includes('vidfast.vc') ||
-              url.includes('/api/player/vidsrc')
-                ? "allow-scripts allow-same-origin allow-forms allow-presentation allow-encrypted-media"
+              url.includes('cinesrc.st')
+                ? "allow-scripts allow-same-origin allow-forms allow-presentation"
                 : undefined
             }
             className="size-full border-0 bg-black"

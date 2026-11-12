@@ -188,17 +188,17 @@ export function Search({
   }, [q]);
   const { data, loading } = useTmdb<{ results?: Media[] }>(
     debounced ? ENDPOINT[filter] : null,
-    debounced ? { query: debounced, include_adult: "false" } : {},
+    debounced ? { query: debounced, include_adult: "true" } : {},
   );
   const flat = useMemo(() => {
     const all = (data?.results ?? []).map(
       (m) => ({ ...m, media_type: m.media_type ?? (filter === "all" ? "movie" : filter) }) as Media,
     );
     const titles = all.filter(
-      (m) => m.media_type !== "person" && (m.poster_path || m.backdrop_path),
+      (m) => m.media_type !== "person",
     );
     const people = all.filter((m) => m.media_type === "person");
-    return { titles: titles.slice(0, 25), people: people.slice(0, 10) };
+    return { titles: titles.slice(0, 30), people: people.slice(0, 10) };
   }, [data, filter]);
   const items = [...flat.titles, ...flat.people];
   const cur = items[Math.min(active, items.length - 1)];
@@ -228,7 +228,7 @@ export function Search({
     onAll({
       title: 'Search results for "' + query + '"',
       path: "/search/multi",
-      params: { query, include_adult: "false" },
+      params: { query, include_adult: "true" },
       kind: "all",
     });
   };
