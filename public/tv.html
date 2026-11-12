@@ -16,15 +16,17 @@
       <div class="tv-vault-logo">
         <div class="tv-nav-logo-icon">C</div>
         <h2 class="tv-vault-title">CINEMAVERSE PRO</h2>
-        <span class="tv-vault-badge">PRIVATE VAULT TV ACCESS</span>
+        <span class="tv-vault-badge">🔐 PRIVATE VAULT — TV ACCESS</span>
       </div>
-      <p class="tv-vault-prompt">Enter 4-Digit TV PIN (Default: 2026):</p>
-      <div class="tv-vault-input-row">
-        <input type="password" id="tv-vault-pass-input" class="tv-vault-input" placeholder="••••" maxlength="6" inputmode="numeric" pattern="[0-9]*" autofocus />
-        <button type="button" id="tv-vault-submit-btn" class="tv-btn tv-btn-primary" onclick="if(window.submitTvPasscode)window.submitTvPasscode()">
-          <i class="fa-solid fa-lock-open"></i> Unlock (OK)
-        </button>
+      <p class="tv-vault-prompt">Enter your 4-digit PIN to continue</p>
+      <!-- iOS-style PIN dot display -->
+      <div class="tv-pin-dots" id="tv-pin-dots">
+        <span class="tv-pin-dot" id="tv-dot-0"></span>
+        <span class="tv-pin-dot" id="tv-dot-1"></span>
+        <span class="tv-pin-dot" id="tv-dot-2"></span>
+        <span class="tv-pin-dot" id="tv-dot-3"></span>
       </div>
+      <input type="password" id="tv-vault-pass-input" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
       <div id="tv-vault-error" class="tv-vault-error" style="display: none;"></div>
       <!-- Remote-friendly On-screen Keypad -->
       <div class="tv-vault-keypad">
@@ -39,8 +41,9 @@
         <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('9')">9</button>
         <button type="button" class="tv-key-btn tv-key-action" onclick="if(window.typeTvBackspace)window.typeTvBackspace()">⌫</button>
         <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('0')">0</button>
-        <button type="button" class="tv-key-btn tv-key-action tv-key-ok" onclick="if(window.submitTvPasscode)window.submitTvPasscode()">OK</button>
+        <button type="button" class="tv-key-btn tv-key-ok" onclick="if(window.submitTvPasscode)window.submitTvPasscode()">OK</button>
       </div>
+      <p style="margin-top:16px;font-size:12px;color:rgba(255,255,255,0.3);">Default PIN: 2026</p>
     </div>
   </div>
 
@@ -53,27 +56,27 @@
       </div>
 
       <nav class="tv-nav-items">
-        <button type="button" class="tv-nav-item active" data-tab="home" id="tv-nav-home">
+        <button type="button" class="tv-nav-item active" data-tab="home" id="tv-nav-home" onclick="if(window.switchTvTab)window.switchTvTab('home')">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </button>
-        <button type="button" class="tv-nav-item" data-tab="movies" id="tv-nav-movies">
+        <button type="button" class="tv-nav-item" data-tab="movies" id="tv-nav-movies" onclick="if(window.switchTvTab)window.switchTvTab('movies')">
           <i class="fa-solid fa-film"></i>
           <span>Movies</span>
         </button>
-        <button type="button" class="tv-nav-item" data-tab="series" id="tv-nav-series">
+        <button type="button" class="tv-nav-item" data-tab="series" id="tv-nav-series" onclick="if(window.switchTvTab)window.switchTvTab('series')">
           <i class="fa-solid fa-tv"></i>
           <span>TV Series</span>
         </button>
-        <button type="button" class="tv-nav-item" data-tab="anime" id="tv-nav-anime">
+        <button type="button" class="tv-nav-item" data-tab="anime" id="tv-nav-anime" onclick="if(window.switchTvTab)window.switchTvTab('anime')">
           <i class="fa-solid fa-wand-magic-sparkles"></i>
           <span>Anime</span>
         </button>
-        <button type="button" class="tv-nav-item" data-tab="ott" id="tv-nav-ott">
+        <button type="button" class="tv-nav-item" data-tab="ott" id="tv-nav-ott" onclick="if(window.switchTvTab)window.switchTvTab('ott')">
           <i class="fa-solid fa-layer-group"></i>
           <span>OTT Hub</span>
         </button>
-        <button type="button" class="tv-nav-item" data-tab="search" id="tv-nav-search">
+        <button type="button" class="tv-nav-item" data-tab="search" id="tv-nav-search" onclick="if(window.switchTvTab)window.switchTvTab('search')">
           <i class="fa-solid fa-magnifying-glass"></i>
           <span>Search</span>
         </button>

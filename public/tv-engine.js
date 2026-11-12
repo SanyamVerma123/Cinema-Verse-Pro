@@ -308,6 +308,11 @@
       if (err) { err.textContent = 'Please enter 4-digit PIN'; err.style.display = 'block'; }
       return;
     }
+    // Update PIN dots to filled state
+    for (let i = 0; i < 4; i++) {
+      const dot = document.getElementById(`tv-dot-${i}`);
+      if (dot) dot.classList.toggle('filled', i < val.length);
+    }
     // Numeric PINs accepted on TV: 2026, 1234, or full cinema2026
     let ok = (val === '2026' || val === '1234' || val === '2025' || val === 'cinema2026');
     if (!ok) {
@@ -346,8 +351,18 @@
 
   window.typeTvDigit = function (digit) {
     const input = document.getElementById('tv-vault-pass-input');
-    if (input) {
+    if (input && input.value.length < 6) {
       input.value += digit;
+      // Update iOS-style PIN dots
+      const len = input.value.length;
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById(`tv-dot-${i}`);
+        if (dot) dot.classList.toggle('filled', i < len);
+      }
+      // Auto-submit when 4 digits are entered
+      if (len === 4) {
+        setTimeout(() => { if (window.submitTvPasscode) window.submitTvPasscode(); }, 300);
+      }
     }
   };
 
@@ -355,6 +370,11 @@
     const input = document.getElementById('tv-vault-pass-input');
     if (input && input.value.length > 0) {
       input.value = input.value.slice(0, -1);
+      const len = input.value.length;
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById(`tv-dot-${i}`);
+        if (dot) dot.classList.toggle('filled', i < len);
+      }
     }
   };
 
@@ -500,6 +520,18 @@
         { id: 'prime-series', title: 'Amazon Originals', filter: x => x.platformId === 'prime' && x.type === 'series' },
         { id: 'apple-series', title: 'Apple TV+ Drama & Sci-Fi', filter: x => x.platformId === 'apple' && x.type === 'series' },
         { id: 'hbo-series', title: 'HBO Max Iconic Sagas', filter: x => x.platformId === 'hbo' && x.type === 'series' }
+      ];
+    } else if (currentActiveTab === 'ott') {
+      rowConfigs = [
+        { id: 'ott-netflix', title: '🔴 Netflix — All Titles', filter: x => x.platformId === 'netflix' },
+        { id: 'ott-prime', title: '🟦 Amazon Prime Video', filter: x => x.platformId === 'prime' },
+        { id: 'ott-disney', title: '💙 Disney+ Hotstar', filter: x => x.platformId === 'disney' },
+        { id: 'ott-hbo', title: '🟣 HBO Max', filter: x => x.platformId === 'hbo' },
+        { id: 'ott-apple', title: '⬛ Apple TV+', filter: x => x.platformId === 'apple' },
+        { id: 'ott-sony', title: '🔵 Sony LIV', filter: x => x.platformId === 'sonyliv' },
+        { id: 'ott-zee5', title: '🟪 ZEE5', filter: x => x.platformId === 'zee5' },
+        { id: 'ott-jio', title: '🟥 JioCinema', filter: x => x.platformId === 'jiocinema' },
+        { id: 'ott-anime', title: '🌸 Crunchyroll & Anime World', filter: x => x.platformId === 'crunchyroll' || x.platformId === 'animeworld' }
       ];
     } else {
       rowConfigs = [
@@ -717,7 +749,7 @@
       const desc = (item.description || '').toLowerCase();
       const cast = (item.cast || []).map(c => c.toLowerCase()).join(' ');
       return title.includes(q) || genres.includes(q) || desc.includes(q) || cast.includes(q);
-    }).slice(0, 36);
+    }); // No cap — show ALL matching results
 
     resultsContainer.innerHTML = '';
     matches.forEach((item, idx) => {

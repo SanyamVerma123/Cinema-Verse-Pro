@@ -1219,3 +1219,268 @@ body.netflix-body::-webkit-scrollbar {
   color: #fff;
 }
 
+
+
+/* ==========================================================================
+   TV UI POLISH v2 — PIN DOTS, CINEMATIC HERO, MODAL GLASS, TRANSITIONS
+   ========================================================================== */
+
+/* ---- iOS-style PIN Dots ---- */
+.tv-pin-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px auto 24px;
+}
+
+.tv-pin-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+.tv-pin-dot.filled {
+  background: var(--tv-red);
+  border-color: var(--tv-red);
+  box-shadow: 0 0 14px var(--tv-red-glow);
+  transform: scale(1.15);
+}
+
+/* ---- Hide old tv-vault-input-row (replaced by dots) ---- */
+.tv-vault-input-row {
+  display: none !important;
+}
+
+/* ---- Improved Vault Modal ---- */
+.tv-vault-modal {
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(145deg, #13151f, #0a0b10);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 32px;
+  padding: 48px 44px 44px;
+  box-shadow:
+    0 40px 80px -20px rgba(0, 0, 0, 0.98),
+    0 0 60px rgba(229, 9, 20, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  text-align: center;
+  animation: tvVaultIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.tv-vault-prompt {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 4px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.tv-vault-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.tv-key-btn {
+  height: 60px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0;
+}
+
+.tv-key-btn:hover,
+.tv-key-btn:focus,
+.tv-key-btn.tv-focused {
+  background: var(--tv-red);
+  border-color: #fff;
+  box-shadow: 0 0 20px var(--tv-red-glow);
+  transform: scale(1.07);
+  outline: none;
+}
+
+.tv-key-action {
+  background: rgba(255, 255, 255, 0.10);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tv-key-ok {
+  background: linear-gradient(135deg, var(--tv-red), #ff3344);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  box-shadow: 0 4px 16px var(--tv-red-glow);
+}
+
+.tv-key-ok:hover,
+.tv-key-ok:focus {
+  background: #ff4455;
+  box-shadow: 0 6px 24px var(--tv-red-glow);
+  transform: scale(1.07);
+}
+
+/* ---- Active Nav Item — Red Underline Pill ---- */
+.tv-nav-item.active {
+  color: #fff !important;
+  background: rgba(229, 9, 20, 0.15) !important;
+  border-color: rgba(229, 9, 20, 0.5) !important;
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.25) !important;
+}
+
+/* ---- Improved Hero — Richer Gradient ---- */
+.tv-hero-spotlight {
+  height: 55vh !important;
+  min-height: 420px !important;
+  max-height: 580px !important;
+}
+
+.tv-hero-gradient {
+  background:
+    linear-gradient(90deg, rgba(7, 8, 11, 0.98) 0%, rgba(7, 8, 11, 0.80) 35%, rgba(7, 8, 11, 0.25) 65%, transparent 100%),
+    linear-gradient(0deg, var(--tv-bg) 0%, rgba(7, 8, 11, 0.7) 28%, rgba(7, 8, 11, 0.1) 65%, transparent 100%),
+    linear-gradient(180deg, rgba(7, 8, 11, 0.6) 0%, transparent 20%) !important;
+}
+
+.tv-hero-title {
+  font-size: 52px !important;
+  font-weight: 900 !important;
+  letter-spacing: -1px !important;
+  text-shadow: 0 2px 32px rgba(0, 0, 0, 0.98), 0 0 60px rgba(0, 0, 0, 0.7) !important;
+}
+
+.tv-hero-desc {
+  -webkit-line-clamp: 3 !important;
+  font-size: 16px !important;
+}
+
+/* ---- Hero Action Buttons ---- */
+.tv-btn-primary {
+  background: linear-gradient(135deg, #e50914 0%, #ff3344 60%, #cc0812 100%) !important;
+  box-shadow: 0 6px 24px rgba(229, 9, 20, 0.6), 0 2px 8px rgba(0,0,0,0.5) !important;
+}
+
+/* ---- Improved Detail Modal — Cinematic Glass ---- */
+.tv-details-modal {
+  background: rgba(5, 6, 10, 0.97) !important;
+  backdrop-filter: blur(32px) !important;
+  -webkit-backdrop-filter: blur(32px) !important;
+}
+
+.tv-details-modal.active {
+  animation: tvModalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes tvModalIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tv-details-poster {
+  width: 240px !important;
+  height: 360px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255,255,255,0.1) !important;
+}
+
+.tv-details-title {
+  font-size: 44px !important;
+}
+
+/* ---- Improved Cards ---- */
+.tv-card {
+  flex: 0 0 170px !important;
+  width: 170px !important;
+  height: 255px !important;
+  border-radius: 12px !important;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+.tv-card.tv-focused,
+.tv-card:focus {
+  outline: 3px solid #ff3344 !important;
+  outline-offset: 4px !important;
+  transform: scale(1.1) translateY(-6px) !important;
+  border-color: #fff !important;
+  box-shadow: 0 12px 36px rgba(229, 9, 20, 0.7), 0 4px 16px rgba(0,0,0,0.9) !important;
+  z-index: 25 !important;
+}
+
+/* ---- Page Transition Fade (tab switching) ---- */
+.tv-rows-section,
+.tv-search-container {
+  animation: tvFadeIn 0.25s ease both;
+}
+
+@keyframes tvFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---- Improved Player HUD ---- */
+.tv-player-hud {
+  padding: 20px 32px !important;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.78) 70%, transparent 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.tv-player-hud-title {
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.2px !important;
+}
+
+/* ---- Search Results Grid — Responsive ---- */
+.tv-search-results-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+  gap: 18px !important;
+}
+
+/* ---- Server Chips — Better Contrast ---- */
+.tv-server-chip {
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+  letter-spacing: 0.2px !important;
+}
+
+.tv-server-chip.active {
+  background: rgba(229, 9, 20, 0.35) !important;
+  border-color: rgba(229, 9, 20, 0.8) !important;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.3) !important;
+}
+
+/* ---- Bottom fade gradient on content rows ---- */
+.tv-rows-section::after {
+  content: '';
+  display: block;
+  height: 60px;
+  background: linear-gradient(0deg, var(--tv-bg) 0%, transparent 100%);
+  pointer-events: none;
+  position: sticky;
+  bottom: 0;
+}
+
+/* ---- OTT badge colour per platform ---- */
+.tv-ott-badge[data-platform="NETFLIX"] { background: #e50914; }
+.tv-ott-badge[data-platform="PRIME VIDEO"] { background: #00a8e1; }
+.tv-ott-badge[data-platform="DISNEY+ HOTSTAR"] { background: #113ccf; }
+.tv-ott-badge[data-platform="HBO MAX"] { background: #9933ff; }
+.tv-ott-badge[data-platform="APPLE TV+"] { background: #333; }
+.tv-ott-badge[data-platform="SONY LIV"] { background: #ff334b; }
+.tv-ott-badge[data-platform="ZEE5"] { background: #a855f7; }
+.tv-ott-badge[data-platform="JIOCINEMA"] { background: #e11d48; }
+.tv-ott-badge[data-platform="CRUNCHYROLL"] { background: #f47521; }
