@@ -394,7 +394,7 @@ export function Search({
         aria-modal="true"
         aria-label="Search"
         onKeyDown={onKeys}
-        className="relative mx-auto flex h-full w-full max-w-5xl animate-[modalIn_.5s_cubic-bezier(.16,1,.3,1)_both] flex-col overflow-hidden border border-white/12 bg-[#101016]/95 shadow-[0_50px_140px_-20px_rgba(0,0,0,.95)] backdrop-blur-2xl sm:h-auto sm:max-h-[84vh] sm:rounded-3xl"
+        className="relative mx-auto flex h-full w-full max-w-5xl animate-[modalIn_.5s_cubic-bezier(.16,1,.3,1)_both] flex-col overflow-hidden border border-white/12 bg-[#101016]/95 shadow-[0_50px_140px_-20px_rgba(0,0,0,.95)] backdrop-blur-2xl sm:h-[84vh] sm:max-h-[84vh] sm:rounded-3xl"
       >
         <i className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-accent to-transparent" />
 
@@ -485,7 +485,7 @@ export function Search({
           </div>
         </div>
 
-        <div className="min-h-0 flex-1 border-t border-white/8">
+        <div className="flex-1 min-h-0 h-full border-t border-white/8 overflow-hidden flex flex-col">
           {listening ? (
             <div
               className="grid h-full min-h-[320px] place-content-center justify-items-center gap-6 px-6 py-14 text-center"
@@ -507,12 +507,12 @@ export function Search({
             </div>
           ) : (
             <div
-              className={`grid h-full max-h-[calc(84vh-190px)] ${searching && items.length ? "lg:grid-cols-[minmax(0,1fr)_380px]" : ""}`}
+              className={`grid flex-1 min-h-0 h-full overflow-hidden ${searching && items.length ? "lg:grid-cols-[minmax(0,1fr)_380px]" : ""}`}
             >
               <div
                 role="listbox"
                 aria-label="Results"
-                className="no-scrollbar min-h-0 overflow-y-auto p-3 sm:p-4"
+                className="flex-1 min-h-0 h-full overflow-y-auto overscroll-contain p-3 sm:p-4"
               >
                 {err && (
                   <p
@@ -638,7 +638,7 @@ export function Search({
               {searching && cur && (
                 <aside
                   aria-label="Preview"
-                  className="no-scrollbar hidden overflow-y-auto border-l border-white/8 bg-black/20 lg:block"
+                  className="hidden h-full overflow-y-auto overscroll-contain border-l border-white/8 bg-black/20 lg:block"
                 >
                   <Preview m={cur} onOpen={choose} onPerson={personCatalog} />
                 </aside>

@@ -99,9 +99,7 @@ export const STREAM_SERVERS: StreamServer[] = [
     name: "Server 9: VidSrc Direct HD",
     badge: "1080p Direct • HLS • ✅ 0 Ads",
     build: (type, id, s = 1, e = 1) =>
-      type === "tv"
-        ? `https://vidsrc.su/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.su/embed/movie/${id}`,
+      `/api/player/vidsrc?type=${type}&id=${id}&s=${s}&e=${e}`,
   },
   {
     id: "vidsrc-buzz",

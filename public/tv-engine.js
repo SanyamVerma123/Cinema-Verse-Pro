@@ -300,14 +300,86 @@
   // =========================================================================
   // INITIALIZATION
   // =========================================================================
+  window.submitTvPasscode = async function () {
+    const input = document.getElementById('tv-vault-pass-input');
+    const err = document.getElementById('tv-vault-error');
+    const val = (input ? input.value : '').trim();
+    if (!val) {
+      if (err) { err.textContent = 'Please enter passcode'; err.style.display = 'block'; }
+      return;
+    }
+    let ok = (val === 'cinema2026');
+    if (!ok) {
+      try {
+        const res = await fetch('/api/vault/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ passcode: val }),
+        });
+        const data = await res.json();
+        if (data && data.authenticated) ok = true;
+      } catch (e) {}
+    }
+    if (ok) {
+      sessionStorage.setItem('tv_vault_unlocked', 'true');
+      const overlay = document.getElementById('tv-vault-auth-overlay');
+      if (overlay) overlay.style.display = 'none';
+      if (err) err.style.display = 'none';
+      renderSpotlightHero();
+      renderAllContentRows();
+      activeZone = 'hero';
+      heroBtnIndex = 0;
+      updateFocusUI();
+      if (!spotlightTimer) spotlightTimer = setInterval(nextSpotlight, 8000);
+    } else {
+      if (err) { err.textContent = 'Invalid Vault Passcode. Access Denied.'; err.style.display = 'block'; }
+      if (input) { input.value = ''; input.focus(); }
+    }
+  };
+
+  window.typeTvDigit = function (digit) {
+    const input = document.getElementById('tv-vault-pass-input');
+    if (input) {
+      input.value += digit;
+    }
+  };
+
+  window.typeTvBackspace = function () {
+    const input = document.getElementById('tv-vault-pass-input');
+    if (input && input.value.length > 0) {
+      input.value = input.value.slice(0, -1);
+    }
+  };
+
   window.initTvApp = function (catalog) {
     allCatalog = Array.isArray(catalog) ? catalog : (window.__TV_CATALOG__ || []);
     console.log(`[CinemaVerse TV] Engine active with ${allCatalog.length} titles`);
 
     buildOnScreenKeyboard();
+    setupRemoteKeyEvents();
+
+    // Check Private Vault Authentication First
+    const unlocked = sessionStorage.getItem('tv_vault_unlocked');
+    if (unlocked !== 'true') {
+      const overlay = document.getElementById('tv-vault-auth-overlay');
+      if (overlay) {
+        overlay.style.display = 'flex';
+        const input = document.getElementById('tv-vault-pass-input');
+        if (input) {
+          setTimeout(() => input.focus(), 150);
+          input.onkeydown = (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              window.submitTvPasscode();
+            }
+          };
+        }
+      }
+      return;
+    }
+
     renderSpotlightHero();
     renderAllContentRows();
-    setupRemoteKeyEvents();
 
     // Default focus: Hero Watch Now button
     activeZone = 'hero';
@@ -398,17 +470,43 @@
     if (!container) return;
     container.innerHTML = '';
 
-    const rowConfigs = [
-      { id: 'top10-movies', title: '🔥 Top 10 Movies Today', filter: x => x.type === 'movie' && x.rank, top10: true },
-      { id: 'top10-series', title: '🔥 Top 10 TV Shows Today', filter: x => x.type === 'series' && x.rank, top10: true },
-      { id: 'netflix', title: 'Netflix Originals & Blockbusters', filter: x => x.platformId === 'netflix' },
-      { id: 'prime', title: 'Amazon Prime Video Exclusives', filter: x => x.platformId === 'prime' },
-      { id: 'disney', title: 'Disney+ Hotstar & Marvel Cinematic Universe', filter: x => x.platformId === 'disney' },
-      { id: 'hbo', title: 'HBO Max Prestige Series & Warner Bros', filter: x => x.platformId === 'hbo' },
-      { id: 'apple', title: 'Apple TV+ Originals & Award Winners', filter: x => x.platformId === 'apple' },
-      { id: 'crunchyroll', title: 'Crunchyroll & Anime World Hits', filter: x => x.platformId === 'crunchyroll' || x.platformId === 'animeworld' },
-      { id: 'indian', title: 'Blockbuster Indian Cinema (Sony LIV, Zee5, JioCinema)', filter: x => ['sonyliv', 'zee5', 'jiocinema'].includes(x.platformId) }
-    ];
+    let rowConfigs = [];
+    if (currentActiveTab === 'anime') {
+      rowConfigs = [
+        { id: 'anime-trending', title: '🔥 Trending Anime Series', filter: x => x.platformId === 'crunchyroll' || x.platformId === 'animeworld' || (x.genres && x.genres.includes('Animation')) },
+        { id: 'anime-crunchy', title: 'Crunchyroll VIP Masterpieces', filter: x => x.platformId === 'crunchyroll' },
+        { id: 'anime-world', title: 'AnimeWorld Multi-Audio Dubbed', filter: x => x.platformId === 'animeworld' },
+        { id: 'anime-top', title: '⭐ Top Rated Anime Sagas', filter: x => (x.platformId === 'crunchyroll' || x.platformId === 'animeworld' || (x.genres && x.genres.includes('Animation'))) && (x.rating >= 8.0) }
+      ];
+    } else if (currentActiveTab === 'movies') {
+      rowConfigs = [
+        { id: 'top10-movies', title: '🔥 Top 10 Movies Today', filter: x => x.type === 'movie' && x.rank, top10: true },
+        { id: 'netflix-movies', title: 'Netflix Blockbuster Movies', filter: x => x.platformId === 'netflix' && x.type === 'movie' },
+        { id: 'prime-movies', title: 'Amazon Prime Movies', filter: x => x.platformId === 'prime' && x.type === 'movie' },
+        { id: 'disney-movies', title: 'Disney+ Marvel & Blockbusters', filter: x => x.platformId === 'disney' && x.type === 'movie' },
+        { id: 'hbo-movies', title: 'HBO Max Cinema Premieres', filter: x => x.platformId === 'hbo' && x.type === 'movie' }
+      ];
+    } else if (currentActiveTab === 'series') {
+      rowConfigs = [
+        { id: 'top10-series', title: '🔥 Top 10 TV Shows Today', filter: x => x.type === 'series' && x.rank, top10: true },
+        { id: 'netflix-series', title: 'Netflix Prestige Series', filter: x => x.platformId === 'netflix' && x.type === 'series' },
+        { id: 'prime-series', title: 'Amazon Originals', filter: x => x.platformId === 'prime' && x.type === 'series' },
+        { id: 'apple-series', title: 'Apple TV+ Drama & Sci-Fi', filter: x => x.platformId === 'apple' && x.type === 'series' },
+        { id: 'hbo-series', title: 'HBO Max Iconic Sagas', filter: x => x.platformId === 'hbo' && x.type === 'series' }
+      ];
+    } else {
+      rowConfigs = [
+        { id: 'top10-movies', title: '🔥 Top 10 Movies Today', filter: x => x.type === 'movie' && x.rank, top10: true },
+        { id: 'top10-series', title: '🔥 Top 10 TV Shows Today', filter: x => x.type === 'series' && x.rank, top10: true },
+        { id: 'netflix', title: 'Netflix Originals & Blockbusters', filter: x => x.platformId === 'netflix' },
+        { id: 'prime', title: 'Amazon Prime Video Exclusives', filter: x => x.platformId === 'prime' },
+        { id: 'disney', title: 'Disney+ Hotstar & Marvel Cinematic Universe', filter: x => x.platformId === 'disney' },
+        { id: 'hbo', title: 'HBO Max Prestige Series & Warner Bros', filter: x => x.platformId === 'hbo' },
+        { id: 'apple', title: 'Apple TV+ Originals & Award Winners', filter: x => x.platformId === 'apple' },
+        { id: 'crunchyroll', title: 'Crunchyroll & Anime World Hits', filter: x => x.platformId === 'crunchyroll' || x.platformId === 'animeworld' },
+        { id: 'indian', title: 'Blockbuster Indian Cinema (Sony LIV, Zee5, JioCinema)', filter: x => ['sonyliv', 'zee5', 'jiocinema'].includes(x.platformId) }
+      ];
+    }
 
     rowConfigs.forEach((conf, rIdx) => {
       let items = allCatalog.filter(conf.filter);
@@ -1509,6 +1607,7 @@
       if (heroSection) heroSection.style.display = 'flex';
       if (rowsSection) rowsSection.style.display = 'flex';
       if (searchSection) searchSection.classList.remove('active');
+      renderAllContentRows();
       activeZone = 'hero';
       heroBtnIndex = 0;
       updateFocusUI();

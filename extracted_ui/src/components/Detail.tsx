@@ -207,7 +207,7 @@ export function Detail({
             alt=""
             className="absolute inset-0 -z-20 size-full object-cover object-top"
           />
-          {videoOn && trailer && window.matchMedia("(min-width:640px)").matches && (
+          {videoOn && trailer && (
             <iframe
               ref={trailerFrameRef}
               title="Trailer"

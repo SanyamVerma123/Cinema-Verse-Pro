@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getStreamUrl, STREAM_SERVERS } from "../lib/stream";
 import { progressStore, keyOf, saveProgress } from "../lib/store";
-import { img, pickTrailer, titleOf, typeOf, useTmdb, type Media } from "../lib/tmdb";
+import { pickTrailer, titleOf, typeOf, useTmdb, type Media } from "../lib/tmdb";
 import { Icon } from "./ui";
 import { Select, type Opt } from "./Select";
 
@@ -37,7 +37,6 @@ export function Player({
   // TV Episode & Season navigation state
   const [season, setSeason] = useState(initialSeason ?? 1);
   const [episode, setEpisode] = useState(initialEpisode ?? 1);
-  const [episodesDrawerOpen, setEpisodesDrawerOpen] = useState(false);
 
   useEffect(() => {
     if (initialSeason !== undefined) setSeason(initialSeason);
@@ -98,22 +97,30 @@ export function Player({
   const currentEpisodeObj = episodesList.find((e) => e.episode_number === episode);
   const currentEpisodeTitle = currentEpisodeObj?.name || (isTv ? `Episode ${episode}` : "");
 
-  // Stepper limits
-  const totalEpisodesInSeason = episodesList.length;
-  const hasNextEpisode = isTv && (episode < totalEpisodesInSeason || availableSeasons.some((s) => s.season_number > season));
-  const hasPrevEpisode = isTv && (episode > 1 || season > 1);
-
   // Server selection (defaulting to Server 1: Vidly Pro VIP)
   const [currentServer, setCurrentServer] = useState<string>(STREAM_SERVERS[0].id);
 
   // Dubbed language state
   const [dubLanguage, setDubLanguage] = useState<string>("en");
 
-  // Top bar visibility toggle
+  // Top bar visibility and auto-hide states
   const [topBarVisible, setTopBarVisible] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isHoveringHeader, setIsHoveringHeader] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [zapCount, setZapCount] = useState(0);
+
+  // Ad Shield state for Servers 7, 9, 10
+  const isAdShieldServer = ["vidfast", "vidsrc-direct", "vidsrc-buzz"].includes(currentServer);
+  const [adShieldAbsorber, setAdShieldAbsorber] = useState(true);
+
+  // Reset ad absorber whenever server or stream changes
+  useEffect(() => {
+    setAdShieldAbsorber(true);
+  }, [currentServer, zapCount, season, episode]);
 
   // Fetch trailers & videos from TMDb proxy
   const { data: videoData } = useTmdb<any>(`/${type}/${media.id}/videos`);
@@ -147,6 +154,36 @@ export function Player({
   // Active server object
   const activeServerObj = STREAM_SERVERS.find((s) => s.id === currentServer) || STREAM_SERVERS[0];
 
+  // Auto-hide HUD on movie / stream load (2.5s timer)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTopBarVisible(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, [url]);
+
+  // Auto-collapse top bar after inactivity when revealed
+  useEffect(() => {
+    if (!topBarVisible || menuOpen || isHoveringHeader) return;
+    const idleTimer = setTimeout(() => {
+      setTopBarVisible(false);
+    }, 4000);
+    return () => clearTimeout(idleTimer);
+  }, [topBarVisible, menuOpen, isHoveringHeader]);
+
+  // Handle clicking outside 3-lines dropdown menu
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [menuOpen]);
+
   // Reset loading spinner on server change, episode change or zap
   useEffect(() => {
     setIsLoading(true);
@@ -154,12 +191,12 @@ export function Player({
     return () => clearTimeout(t);
   }, [url, zapCount, season, episode]);
 
-  // Keyboard shortcuts: Esc, F (fullscreen), Z (zap ads), N (next ep), P (prev ep), E (episodes drawer)
+  // Keyboard shortcuts: Esc, F (fullscreen), Z (zap ads)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (episodesDrawerOpen) {
-          setEpisodesDrawerOpen(false);
+        if (menuOpen) {
+          setMenuOpen(false);
         } else {
           onClose();
         }
@@ -167,17 +204,11 @@ export function Player({
         toggleFullscreen();
       } else if (e.key === "z" || e.key === "Z") {
         zapAds();
-      } else if (isTv && (e.key === "n" || e.key === "N")) {
-        nextEpisode();
-      } else if (isTv && (e.key === "p" || e.key === "P")) {
-        prevEpisode();
-      } else if (isTv && (e.key === "e" || e.key === "E")) {
-        setEpisodesDrawerOpen((o) => !o);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, isTv, season, episode, episodesDrawerOpen]);
+  }, [onClose, menuOpen]);
 
   // Fullscreen handler
   const toggleFullscreen = () => {
@@ -209,31 +240,6 @@ export function Player({
     }
   };
 
-  // TV Episode Steppers
-  const nextEpisode = () => {
-    if (episode < totalEpisodesInSeason) {
-      setEpisode((e) => e + 1);
-    } else {
-      const nextS = availableSeasons.find((s) => s.season_number === season + 1);
-      if (nextS) {
-        setSeason(nextS.season_number);
-        setEpisode(1);
-      }
-    }
-  };
-
-  const prevEpisode = () => {
-    if (episode > 1) {
-      setEpisode((e) => e - 1);
-    } else if (season > 1) {
-      const prevS = availableSeasons.find((s) => s.season_number === season - 1);
-      if (prevS) {
-        setSeason(prevS.season_number);
-        setEpisode(prevS.episode_count || 1);
-      }
-    }
-  };
-
   // Listen to postMessage from iframe embeds for progress saving
   useEffect(() => {
     const handleMsg = (e: MessageEvent) => {
@@ -254,20 +260,29 @@ export function Player({
     return () => window.removeEventListener("message", handleMsg);
   }, [media, activeLabel]);
 
-  // CinemaVerse Anti-Redirect & Popunder Shield
+  // Ad Shield: Aggressive window.open override & auto-refocus blur handler
   useEffect(() => {
     const origOpen = window.open;
-    // Override window.open while Player is mounted
-    window.open = function (...args: any[]) {
-      console.warn("CinemaVerse Anti-Redirect Shield: Blocked popup/redirect window.open attempt:", args);
+    const blockWindowOpen = function (...args: any[]) {
+      console.warn("[Ad Shield] Blocked popup / window.open attempt:", args);
       return null;
     };
+    window.open = blockWindowOpen;
+    try {
+      Object.defineProperty(window, "open", {
+        configurable: true,
+        writable: true,
+        value: blockWindowOpen,
+      });
+    } catch {}
 
-    // Auto-refocus handler on blur (immediately, 40ms, and 150ms)
+    // Auto-refocus handler on blur to counter popunders & tab defocusing
     const handleBlur = () => {
       window.focus();
-      setTimeout(() => window.focus(), 40);
+      setTimeout(() => window.focus(), 25);
+      setTimeout(() => window.focus(), 60);
       setTimeout(() => window.focus(), 150);
+      setTimeout(() => window.focus(), 300);
     };
     window.addEventListener("blur", handleBlur);
 
@@ -289,7 +304,7 @@ export function Player({
   // Native HLS & Direct Video playback handling
   useEffect(() => {
     const v = video.current;
-    if (!url || !v || !isFile(url)) return;
+    if (!url || !isFile(url)) return;
 
     let hlsInstance: any = null;
     const resume = progressStore.get()[keyOf(media)];
@@ -331,7 +346,7 @@ export function Player({
                 break;
               default:
                 hls.destroy();
-                setErr("Stream playback failed. Please select another server above.");
+                setErr("Stream playback failed. Please select another server.");
                 break;
             }
           }
@@ -402,17 +417,18 @@ export function Player({
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] flex flex-col bg-black select-none font-sans"
+      className="fixed inset-0 z-[100] flex flex-col bg-black select-none font-sans overflow-hidden"
       role="dialog"
       aria-modal="true"
       aria-label={`Playing ${titleOf(media)}`}
     >
-      {/* Floating Reveal Tab when top bar is collapsed */}
+      {/* Floating Reveal Tab when top bar is collapsed: transparent down arrow button at top center */}
       {!topBarVisible && (
         <button
           onClick={() => setTopBarVisible(true)}
-          title="Click to Show Controls"
-          className="absolute left-1/2 top-0 z-50 -translate-x-1/2 rounded-b-xl border border-t-0 border-white/20 bg-black/80 px-6 py-2 text-white/80 shadow-2xl backdrop-blur-md transition-all hover:bg-black hover:text-white hover:py-2.5"
+          title="Show Controls"
+          aria-label="Show Controls"
+          className="absolute left-1/2 top-0 z-50 -translate-x-1/2 rounded-b-2xl border border-white/20 bg-black/40 hover:bg-black/80 px-6 py-1.5 backdrop-blur-md text-white/90 shadow-2xl transition hover:py-2"
         >
           <svg
             width="18"
@@ -430,316 +446,255 @@ export function Player({
       )}
 
       {/* Top Player HUD Header */}
-      {topBarVisible && (
-        <header className="absolute inset-x-0 top-0 z-40 border-b border-white/10 bg-gradient-to-b from-[#09090d]/98 via-[#09090d]/90 to-transparent p-2.5 sm:px-6 sm:py-3.5 backdrop-blur-xl transition-all duration-300">
-          {/* Main Top Row */}
-          <div className="flex items-center justify-between gap-2 sm:gap-4">
-            {/* Left Info: Back Button, Title, and Quality Badges */}
-            <div className="flex min-w-0 items-center gap-2 sm:gap-3.5 shrink-0">
-              <button
-                onClick={onClose}
-                autoFocus
-                aria-label="Back to Movie Details"
-                title="Back to Movie Details (Esc)"
-                className="flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 hover:border-white/30 active:scale-95"
-              >
-                <Icon name="left" size={15} />
-                <span className="hidden sm:inline">Back</span>
-              </button>
+      <header
+        onMouseEnter={() => setIsHoveringHeader(true)}
+        onMouseLeave={() => setIsHoveringHeader(false)}
+        className={`absolute inset-x-0 top-0 z-40 border-b border-white/10 bg-gradient-to-b from-[#09090d]/98 via-[#09090d]/90 to-transparent p-2.5 sm:px-6 sm:py-3.5 backdrop-blur-xl transition-all duration-300 transform ${
+          topBarVisible
+            ? "translate-y-0 opacity-100 pointer-events-auto"
+            : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="flex items-center justify-between gap-2 sm:gap-4">
+          {/* Left Info: Back Button, Title, and Badges */}
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3.5 shrink-0">
+            <button
+              onClick={onClose}
+              autoFocus
+              aria-label="Back to Movie Details"
+              title="Back to Movie Details (Esc)"
+              className="flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 hover:border-white/30 active:scale-95"
+            >
+              <Icon name="left" size={15} />
+              <span className="hidden sm:inline">Back</span>
+            </button>
 
-              <div className="min-w-0">
-                <h2 className="shrink min-w-[120px] max-w-[280px] lg:max-w-md truncate font-display text-xs sm:text-base lg:text-lg font-extrabold text-white">
-                  {titleOf(media)}
-                </h2>
-                <div className="mt-0.5 flex items-center flex-nowrap gap-1.5 shrink-0 whitespace-nowrap overflow-hidden text-[9px] sm:text-[11px]">
-                  <span className="rounded-md bg-red-600/90 px-1 sm:px-1.5 py-0.5 font-bold text-white shadow-xs shrink-0 whitespace-nowrap">
-                    {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
+            <div className="min-w-0">
+              <h2 className="shrink min-w-[100px] max-w-[200px] sm:max-w-[280px] lg:max-w-md truncate font-display text-xs sm:text-base lg:text-lg font-extrabold text-white">
+                {titleOf(media)}
+              </h2>
+              <div className="mt-0.5 flex items-center flex-nowrap gap-1.5 shrink-0 whitespace-nowrap overflow-hidden text-[9px] sm:text-[11px]">
+                <span className="rounded-md bg-red-600/90 px-1 sm:px-1.5 py-0.5 font-bold text-white shadow-xs shrink-0 whitespace-nowrap">
+                  {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
+                </span>
+                <span className="rounded-md border border-white/20 bg-white/10 px-1 sm:px-1.5 py-0.5 font-semibold text-white/90 shrink-0 whitespace-nowrap">
+                  4K Ultra HD
+                </span>
+                <span className="hidden sm:inline-flex items-center gap-1 rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300 shrink-0 whitespace-nowrap">
+                  <Icon name="volume" size={11} /> Dolby Atmos
+                </span>
+                {isTv && (
+                  <span className="rounded-md bg-white/15 px-1 sm:px-1.5 py-0.5 font-bold text-amber shrink-0 whitespace-nowrap">
+                    S{season}:E{episode}
                   </span>
-                  <span className="rounded-md border border-white/20 bg-white/10 px-1 sm:px-1.5 py-0.5 font-semibold text-white/90 shrink-0 whitespace-nowrap">
-                    4K Ultra HD
-                  </span>
-                  <span className="hidden sm:inline-flex items-center gap-1 rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300 shrink-0 whitespace-nowrap">
-                    <Icon name="volume" size={11} /> Dolby Atmos
-                  </span>
-                  {isTv && (
-                    <span className="rounded-md bg-white/15 px-1 sm:px-1.5 py-0.5 font-bold text-amber shrink-0 whitespace-nowrap">
-                      S{season}:E{episode}
-                    </span>
-                  )}
-                </div>
+                )}
               </div>
-            </div>
-
-            {/* Right Controls: Desktop Dropdowns + Action buttons */}
-            <div className="flex items-center gap-1.5 sm:gap-2.5">
-              {/* TV Season & Episode Selectors (Desktop >= 1280px only, to prevent crushing title on <1280px) */}
-              {isTv && (
-                <div className="hidden xl:flex items-center gap-1.5">
-                  {/* Season Select (if more than 1 season) */}
-                  {availableSeasons.length > 1 && (
-                    <Select
-                      size="sm"
-                      value={String(season)}
-                      onChange={(v) => {
-                        setSeason(Number(v));
-                        setEpisode(1);
-                      }}
-                      options={seasonOptions}
-                      className="w-[110px] text-xs font-semibold bg-[#161722]/95 border-white/20"
-                      ariaLabel="Select Season"
-                    />
-                  )}
-
-                  {/* Episode Select Dropdown */}
-                  <Select
-                    size="sm"
-                    value={String(episode)}
-                    onChange={(v) => setEpisode(Number(v))}
-                    options={episodeOptions}
-                    className="w-[170px] xl:w-[210px] text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-accent/50"
-                    ariaLabel="Select Episode"
-                  />
-
-                  {/* Quick Prev / Next Episode Buttons */}
-                  <div className="flex items-center gap-0.5 bg-white/10 p-0.5 rounded-xl border border-white/15">
-                    <button
-                      onClick={prevEpisode}
-                      disabled={!hasPrevEpisode}
-                      title="Previous Episode (Key: P)"
-                      className="px-2 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
-                    >
-                      {"‹ Prev"}
-                    </button>
-                    <button
-                      onClick={nextEpisode}
-                      disabled={!hasNextEpisode}
-                      title="Next Episode (Key: N)"
-                      className="px-2 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
-                    >
-                      {"Next ›"}
-                    </button>
-                  </div>
-
-                  {/* View All Episodes Drawer Button */}
-                  <button
-                    onClick={() => setEpisodesDrawerOpen(true)}
-                    title="Browse All Episodes (Key: E)"
-                    className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 text-xs font-bold text-white backdrop-blur transition hover:bg-white/20 active:scale-95"
-                  >
-                    <Icon name="list" size={14} />
-                    <span className="hidden 2xl:inline">Episodes</span>
-                  </button>
-                </div>
-              )}
-
-              {/* Server Custom Select (Desktop, shown on sm+) */}
-              <div className="hidden sm:block">
-                <Select
-                  size="sm"
-                  value={currentServer}
-                  onChange={(v) => setCurrentServer(v)}
-                  options={serverOptions}
-                  className="w-[170px] lg:w-[200px] text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
-                  ariaLabel="Select Streaming Server"
-                />
-              </div>
-
-              {/* Audio / Dubbed Custom Select (Desktop, shown on md+) */}
-              <div className="hidden md:block">
-                <Select
-                  size="sm"
-                  value={dubLanguage}
-                  onChange={(v) => handleDubChange(v)}
-                  options={DUB_OPTIONS}
-                  className="w-[125px] lg:w-[145px] text-xs font-semibold bg-white/10 border-white/15"
-                  ariaLabel="Select Dubbed Audio Track"
-                />
-              </div>
-
-              {/* Zap Ads Button */}
-              <button
-                onClick={zapAds}
-                title="Zap Ads & Refresh Clean Stream (Key: Z)"
-                className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-red-500/40 bg-red-600/20 px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm"
-              >
-                <span className="text-red-400">⚡</span>
-                <span className="hidden xs:inline sm:inline">Zap</span>
-                <span className="hidden sm:inline">Ads</span>
-              </button>
-
-              {/* Fullscreen Button */}
-              <button
-                onClick={toggleFullscreen}
-                title="Fullscreen (Key: F)"
-                aria-label="Toggle Fullscreen"
-                className="grid size-8 sm:size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:bg-white/25 active:scale-95"
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  {isFullscreen ? (
-                    <>
-                      <polyline points="4 14 10 14 10 20" />
-                      <polyline points="20 10 14 10 14 4" />
-                      <line x1="14" y1="10" x2="21" y2="3" />
-                      <line x1="3" y1="21" x2="10" y2="14" />
-                    </>
-                  ) : (
-                    <>
-                      <polyline points="15 3 21 3 21 9" />
-                      <polyline points="9 21 3 21 3 15" />
-                      <line x1="21" y1="3" x2="14" y2="10" />
-                      <line x1="3" y1="21" x2="10" y2="14" />
-                    </>
-                  )}
-                </svg>
-              </button>
-
-              {/* Collapse Controls Button (Desktop) */}
-              <button
-                onClick={() => setTopBarVisible(false)}
-                title="Hide Controls (Click to Collapse)"
-                aria-label="Hide Controls"
-                className="hidden sm:grid size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:bg-white/25 active:scale-95"
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="18 15 12 9 6 15" />
-                </svg>
-              </button>
-
-              {/* Close Button */}
-              <button
-                onClick={onClose}
-                aria-label="Exit Player"
-                title="Exit Player (Esc)"
-                className="grid size-8 sm:size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white/80 backdrop-blur transition hover:bg-red-600 hover:text-white hover:border-red-600 active:scale-95"
-              >
-                <Icon name="close" size={15} />
-              </button>
             </div>
           </div>
 
-          {/* Dedicated Secondary Sub-Deck Toolbar on Medium/Small Viewports (< 1280px) for TV shows (Apple TV+ / CinemaVerse Aesthetics) */}
-          {isTv && (
-            <div className="mt-2.5 flex xl:hidden items-center justify-between gap-2 overflow-x-auto no-scrollbar rounded-2xl border border-white/10 bg-[#12131c]/90 px-3 py-2 backdrop-blur-xl shadow-2xl">
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-accent shrink-0">
-                  <Icon name="tv" size={14} />
-                  <span>Series Navigation</span>
-                </span>
+          {/* Right Controls: Exactly and ONLY in this order:
+              a) Season dropdown (when type is tv, changing season)
+              b) Episode dropdown (when type is tv, changing episode)
+              c) Zap Ads button (⚡ Zap Ads)
+              d) 3-lines menu button (≡) with sleek dropdown menu for Server and Dub
+              e) Cross close button (✕)
+          */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* a) Season dropdown */}
+            {isTv && (
+              <div className="w-[80px] sm:w-[110px]">
+                <Select
+                  size="sm"
+                  value={String(season)}
+                  onChange={(v) => {
+                    setSeason(Number(v));
+                    setEpisode(1);
+                  }}
+                  options={seasonOptions}
+                  className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20"
+                  ariaLabel="Select Season"
+                />
+              </div>
+            )}
 
-                {availableSeasons.length > 1 && (
-                  <div className="w-[100px] sm:w-[125px] shrink-0">
-                    <Select
-                      size="sm"
-                      value={String(season)}
-                      onChange={(v) => {
-                        setSeason(Number(v));
-                        setEpisode(1);
-                      }}
-                      options={seasonOptions}
-                      className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20"
-                      ariaLabel="Select Season"
-                    />
-                  </div>
-                )}
+            {/* b) Episode dropdown */}
+            {isTv && (
+              <div className="w-[105px] sm:w-[160px] md:w-[200px]">
+                <Select
+                  size="sm"
+                  value={String(episode)}
+                  onChange={(v) => setEpisode(Number(v))}
+                  options={episodeOptions}
+                  className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
+                  ariaLabel="Select Episode"
+                />
+              </div>
+            )}
 
-                <div className="w-[150px] sm:w-[200px] shrink-0">
-                  <Select
-                    size="sm"
-                    value={String(episode)}
-                    onChange={(v) => setEpisode(Number(v))}
-                    options={episodeOptions}
-                    className="w-full text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-accent/50"
-                    ariaLabel="Select Episode"
-                  />
-                </div>
+            {/* c) Zap Ads button */}
+            <button
+              onClick={zapAds}
+              title="Zap Ads & Refresh Clean Stream (Key: Z)"
+              className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-red-500/40 bg-red-600/20 px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm shrink-0"
+            >
+              <span className="text-red-400">⚡</span>
+              <span className="hidden xs:inline sm:inline">Zap</span>
+              <span className="hidden sm:inline">Ads</span>
+            </button>
 
-                {/* Prev / Next Episode Steppers */}
-                <div className="flex items-center gap-0.5 shrink-0 bg-white/10 p-0.5 rounded-xl border border-white/15">
-                  <button
-                    onClick={prevEpisode}
-                    disabled={!hasPrevEpisode}
-                    title="Previous Episode (Key: P)"
-                    className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
-                  >
-                    {"‹ Prev"}
-                  </button>
-                  <button
-                    onClick={nextEpisode}
-                    disabled={!hasNextEpisode}
-                    title="Next Episode (Key: N)"
-                    className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
-                  >
-                    {"Next ›"}
-                  </button>
-                </div>
-
-                {/* Episodes Drawer toggle button */}
-                <button
-                  onClick={() => setEpisodesDrawerOpen(true)}
-                  title="Browse All Episodes (Key: E)"
-                  className="flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 text-xs font-bold text-white backdrop-blur transition hover:bg-white/20 active:scale-95"
+            {/* d) 3-lines menu button (≡) with sleek dropdown menu for Server and Dub Language */}
+            <div className="relative shrink-0" ref={menuRef}>
+              <button
+                onClick={() => setMenuOpen((o) => !o)}
+                aria-label="Server and Audio Settings"
+                title="Server & Audio Settings (≡)"
+                aria-expanded={menuOpen}
+                className={`grid size-8 sm:size-9 place-items-center rounded-xl border transition active:scale-95 ${
+                  menuOpen
+                    ? "border-red-500 bg-red-600/30 text-white"
+                    : "border-white/15 bg-white/10 text-white hover:bg-white/20 hover:border-white/30"
+                }`}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <Icon name="list" size={14} />
-                  <span>Episodes</span>
-                </button>
-              </div>
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              </button>
 
-              {/* On mobile screens < 640px, server selector and audio dubbing fit right into the toolbar */}
-              <div className="flex sm:hidden items-center gap-1.5 shrink-0">
-                <div className="w-[125px] shrink-0">
-                  <Select
-                    size="sm"
-                    value={currentServer}
-                    onChange={(v) => setCurrentServer(v)}
-                    options={serverOptions}
-                    className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
-                    ariaLabel="Streaming Server"
-                  />
-                </div>
-                <div className="w-[105px] shrink-0">
-                  <Select
-                    size="sm"
-                    value={dubLanguage}
-                    onChange={(v) => handleDubChange(v)}
-                    options={DUB_OPTIONS}
-                    className="w-full text-[11px] font-semibold bg-white/10 border-white/15"
-                    ariaLabel="Audio Dubbing"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
+              {menuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 rounded-2xl border border-white/15 bg-[#0e0f17]/98 backdrop-blur-2xl shadow-2xl p-3 z-50 animate-[fade_.15s_ease-out]">
+                  {/* Pick the Server (all 10 servers with badges and active checkmark) */}
+                  <div className="mb-2.5">
+                    <div className="flex items-center justify-between px-1 mb-1.5">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
+                        Streaming Servers
+                      </span>
+                      <span className="text-[10px] font-bold text-red-400">
+                        {activeServerObj.name.split(":")[0]}
+                      </span>
+                    </div>
+                    <div className="max-h-56 overflow-y-auto space-y-1 pr-1 no-scrollbar">
+                      {serverOptions.map((s) => {
+                        const isActive = currentServer === s.value;
+                        return (
+                          <button
+                            key={s.value}
+                            onClick={() => {
+                              setCurrentServer(s.value);
+                              setMenuOpen(false);
+                            }}
+                            className={`group flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-left text-xs transition active:scale-[0.98] ${
+                              isActive
+                                ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
+                                : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
+                            }`}
+                          >
+                            <div className="min-w-0 pr-2">
+                              <div className="truncate font-semibold">{s.label}</div>
+                              {s.hint && (
+                                <div className="text-[10px] text-white/40 group-hover:text-white/60">
+                                  {s.hint}
+                                </div>
+                              )}
+                            </div>
+                            {isActive ? (
+                              <svg
+                                className="size-4 shrink-0 text-red-500"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                            ) : (
+                              <span className="size-3.5 shrink-0 rounded-full border border-white/20 group-hover:border-white/40" />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
 
-          {/* Mobile Sub-Header for Movies only (< 640px) */}
-          {!isTv && (
-            <div className="mt-2 flex sm:hidden items-center gap-1.5 overflow-x-auto no-scrollbar pt-1.5 border-t border-white/10">
-              <div className="w-[140px] shrink-0">
-                <Select
-                  size="sm"
-                  value={currentServer}
-                  onChange={(v) => setCurrentServer(v)}
-                  options={serverOptions}
-                  className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
-                  ariaLabel="Streaming Server"
-                />
-              </div>
-              <div className="w-[120px] shrink-0">
-                <Select
-                  size="sm"
-                  value={dubLanguage}
-                  onChange={(v) => handleDubChange(v)}
-                  options={DUB_OPTIONS}
-                  className="w-full text-[11px] font-semibold bg-white/10 border-white/15"
-                  ariaLabel="Audio Dubbing"
-                />
-              </div>
+                  {/* Divider */}
+                  <div className="my-2 border-t border-white/10" />
+
+                  {/* Pick the Dub/Audio Language */}
+                  <div>
+                    <div className="flex items-center justify-between px-1 mb-1.5">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-white/50">
+                        Audio / Dub Language
+                      </span>
+                      <span className="text-[10px] font-bold text-accent">
+                        {DUB_OPTIONS.find((d) => d.value === dubLanguage)?.label || "English"}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {DUB_OPTIONS.map((opt) => {
+                        const isActive = dubLanguage === opt.value;
+                        return (
+                          <button
+                            key={opt.value}
+                            onClick={() => {
+                              handleDubChange(opt.value);
+                              setMenuOpen(false);
+                            }}
+                            className={`flex items-center justify-between rounded-xl px-2.5 py-1.5 text-xs transition active:scale-[0.98] ${
+                              isActive
+                                ? "bg-red-600/25 border border-red-500/60 text-white font-bold"
+                                : "border border-transparent bg-white/[0.04] text-white/80 hover:bg-white/10 hover:text-white"
+                            }`}
+                          >
+                            <span className="truncate">{opt.label}</span>
+                            {isActive && (
+                              <svg
+                                className="size-3.5 shrink-0 text-red-500 ml-1"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </header>
-      )}
+
+            {/* e) Cross close button (✕) */}
+            <button
+              onClick={onClose}
+              aria-label="Exit Player"
+              title="Exit Player (Esc)"
+              className="grid size-8 sm:size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white/80 backdrop-blur transition hover:bg-red-600 hover:text-white hover:border-red-600 active:scale-95 shrink-0"
+            >
+              <Icon name="close" size={15} />
+            </button>
+          </div>
+        </div>
+      </header>
 
       {/* Main Video Viewport Stage */}
-      <div className="relative size-full flex-1 bg-black">
+      <div className="relative size-full flex-1 bg-black overflow-hidden">
         {/* Netflix Red Circular Buffering Spinner Overlay */}
         {isLoading && (
           <div className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/80 backdrop-blur-xs transition-opacity duration-300">
@@ -751,6 +706,27 @@ export function Player({
               <div className="mt-1 text-xs text-white/50">
                 Connecting to {isTrailerMode ? "Official YouTube Trailer" : activeServerObj.name}...
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* First-Interaction Ad Click Absorber Layer for Servers 7, 9, 10 */}
+        {isAdShieldServer && adShieldAbsorber && !isLoading && (
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setAdShieldAbsorber(false);
+              window.focus();
+              setTimeout(() => window.focus(), 30);
+              setTimeout(() => window.focus(), 100);
+            }}
+            className="absolute inset-0 z-20 cursor-pointer bg-black/10 backdrop-blur-[1px] flex items-center justify-center transition-opacity duration-200"
+            title="Click to Activate Stream Safely (Ad Shield Protected)"
+          >
+            <div className="flex items-center gap-2 rounded-full border border-emerald-500/40 bg-black/80 px-4 py-2 text-xs font-semibold text-emerald-300 shadow-2xl backdrop-blur-md transition hover:scale-105 hover:bg-black/95">
+              <span className="inline-block size-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>⚡ Ad Shield Active • Click to Play</span>
             </div>
           </div>
         )}
@@ -770,11 +746,22 @@ export function Player({
             ref={iframeRef}
             src={url}
             title={titleOf(media)}
-            onLoad={() => setIsLoading(false)}
+            onLoad={() => {
+              setIsLoading(false);
+              setTopBarVisible(false);
+            }}
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
             allowFullScreen
             referrerPolicy="origin"
-            sandbox={url.includes('cinesrc.st') || url.includes('123embed.net') ? "allow-scripts allow-same-origin allow-forms allow-presentation" : undefined}
+            sandbox={
+              url.includes('cinesrc.st') ||
+              url.includes('123embed.net') ||
+              url.includes('vidsrc.buzz') ||
+              url.includes('vidfast.vc') ||
+              url.includes('/api/player/vidsrc')
+                ? "allow-scripts allow-same-origin allow-forms allow-presentation allow-encrypted-media"
+                : undefined
+            }
             className="size-full border-0 bg-black"
           />
         ) : (
@@ -791,7 +778,7 @@ export function Player({
             <div className="max-w-xl rounded-xl border border-white/10 bg-panel/90 p-5 text-left backdrop-blur-md">
               <b className="text-sm text-white">Showing Official 4K Trailer</b>
               <p className="mt-1.5 text-xs leading-relaxed text-white/60">
-                You can switch servers anytime from the server dropdown at the top right to watch the full {type === "tv" ? "series" : "movie"}.
+                You can switch servers anytime from the server menu at the top right to watch the full {type === "tv" ? "series" : "movie"}.
               </p>
             </div>
           </div>
@@ -820,121 +807,6 @@ export function Player({
           </div>
         )}
       </div>
-
-      {/* Episodes Drawer Overlay (Quick episode switcher with rich thumbnails and overviews) */}
-      {isTv && episodesDrawerOpen && (
-        <div
-          className="fixed inset-0 z-[120] flex justify-end bg-black/75 backdrop-blur-sm animate-[fade_.2s_both]"
-          onClick={() => setEpisodesDrawerOpen(false)}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Episodes list"
-            onClick={(e) => e.stopPropagation()}
-            className="no-scrollbar relative flex size-full max-w-md flex-col bg-[#0e0f16] border-l border-white/10 shadow-2xl shadow-black animate-[slideInRight_.3s_cubic-bezier(.16,1,.3,1)_both]"
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-white/10 bg-[#141520]/90 px-5 py-4 backdrop-blur-md">
-              <div className="min-w-0 pr-2">
-                <h3 className="font-display text-base font-extrabold text-white truncate">
-                  {titleOf(media)}
-                </h3>
-                <p className="text-xs text-white/50">
-                  {currentSeasonObj?.name || `Season ${season}`} • {episodesList.length} Episodes
-                </p>
-              </div>
-              <button
-                onClick={() => setEpisodesDrawerOpen(false)}
-                aria-label="Close Episodes Drawer"
-                className="grid size-8 place-items-center rounded-xl bg-white/10 text-white/80 hover:bg-white/20 transition active:scale-95"
-              >
-                <Icon name="close" size={15} />
-              </button>
-            </div>
-
-            {/* Season Selector inside drawer */}
-            {availableSeasons.length > 1 && (
-              <div className="p-4 border-b border-white/8 bg-[#11121a]">
-                <Select
-                  size="sm"
-                  label="Season"
-                  value={String(season)}
-                  onChange={(v) => {
-                    setSeason(Number(v));
-                    setEpisode(1);
-                  }}
-                  options={seasonOptions}
-                  className="w-full text-xs font-bold"
-                />
-              </div>
-            )}
-
-            {/* Episodes List */}
-            <div className="no-scrollbar flex-1 overflow-y-auto p-4 space-y-3">
-              {episodesList.map((e) => {
-                const isCur = e.episode_number === episode;
-                return (
-                  <button
-                    key={e.episode_number}
-                    onClick={() => {
-                      setEpisode(e.episode_number);
-                      setEpisodesDrawerOpen(false);
-                    }}
-                    className={`group w-full flex items-start gap-3 rounded-2xl p-2.5 text-left border transition active:scale-[0.99] ${
-                      isCur
-                        ? "border-accent/60 bg-accent/15 shadow-lg shadow-accent/10"
-                        : "border-white/8 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.06]"
-                    }`}
-                  >
-                    {/* Thumbnail */}
-                    <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-panel">
-                      {e.still_path ? (
-                        <img
-                          src={img(e.still_path, "w500")}
-                          alt=""
-                          className="size-full object-cover transition group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="size-full flex items-center justify-center bg-[#171822] text-xs font-bold text-white/30">
-                          E{e.episode_number}
-                        </div>
-                      )}
-                      <span className={`absolute inset-0 grid place-items-center transition ${isCur ? "bg-black/40 opacity-100" : "bg-black/30 opacity-0 group-hover:opacity-100"}`}>
-                        <span className={`grid size-7 place-items-center rounded-full text-black ${isCur ? "bg-accent text-white" : "bg-white"}`}>
-                          <Icon name="play" size={11} />
-                        </span>
-                      </span>
-                    </div>
-
-                    {/* Details */}
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-1">
-                        <span className={`text-[11px] font-black ${isCur ? "text-accent" : "text-white/60"}`}>
-                          EPISODE {e.episode_number}
-                        </span>
-                        {e.runtime && (
-                          <span className="text-[10px] text-white/40 shrink-0">
-                            {e.runtime}m
-                          </span>
-                        )}
-                      </div>
-                      <h4 className={`text-xs font-bold truncate mt-0.5 ${isCur ? "text-white" : "text-white/90 group-hover:text-white"}`}>
-                        {e.name || `Episode ${e.episode_number}`}
-                      </h4>
-                      {e.overview && (
-                        <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-white/50">
-                          {e.overview}
-                        </p>
-                      )}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

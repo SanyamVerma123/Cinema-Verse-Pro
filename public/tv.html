@@ -10,6 +10,40 @@
 <body class="tv-body">
   <div class="tv-ambient-glow"></div>
 
+  <!-- TV Private Vault Access Authentication Overlay -->
+  <div id="tv-vault-auth-overlay" class="tv-vault-overlay" style="display: none;">
+    <div class="tv-vault-modal">
+      <div class="tv-vault-logo">
+        <div class="tv-nav-logo-icon">C</div>
+        <h2 class="tv-vault-title">CINEMAVERSE PRO</h2>
+        <span class="tv-vault-badge">PRIVATE VAULT TV ACCESS</span>
+      </div>
+      <p class="tv-vault-prompt">Enter Private App Passcode to unlock TV experience:</p>
+      <div class="tv-vault-input-row">
+        <input type="password" id="tv-vault-pass-input" class="tv-vault-input" placeholder="••••••••" maxlength="20" autofocus />
+        <button type="button" id="tv-vault-submit-btn" class="tv-btn tv-btn-primary" onclick="if(window.submitTvPasscode)window.submitTvPasscode()">
+          <i class="fa-solid fa-lock-open"></i> Unlock
+        </button>
+      </div>
+      <div id="tv-vault-error" class="tv-vault-error" style="display: none;"></div>
+      <!-- Remote-friendly On-screen Keypad -->
+      <div class="tv-vault-keypad">
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('1')">1</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('2')">2</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('3')">3</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('4')">4</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('5')">5</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('6')">6</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('7')">7</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('8')">8</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('9')">9</button>
+        <button type="button" class="tv-key-btn tv-key-action" onclick="if(window.typeTvBackspace)window.typeTvBackspace()">⌫</button>
+        <button type="button" class="tv-key-btn" onclick="if(window.typeTvDigit)window.typeTvDigit('0')">0</button>
+        <button type="button" class="tv-key-btn tv-key-action tv-key-ok" onclick="if(window.submitTvPasscode)window.submitTvPasscode()">OK</button>
+      </div>
+    </div>
+  </div>
+
   <div class="tv-app-container">
     <!-- Left Navigation Rail -->
     <nav class="tv-nav-rail" id="tv-nav-rail">
@@ -34,6 +68,10 @@
         <button type="button" class="tv-nav-item" data-tab="series" id="tv-nav-series">
           <i class="fa-solid fa-tv"></i>
           <span>TV Series</span>
+        </button>
+        <button type="button" class="tv-nav-item" data-tab="anime" id="tv-nav-anime">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>Anime</span>
         </button>
         <button type="button" class="tv-nav-item" data-tab="ott" id="tv-nav-ott">
           <i class="fa-solid fa-layer-group"></i>
