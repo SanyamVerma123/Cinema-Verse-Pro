@@ -1,3 +1,10 @@
+process.on('unhandledRejection', (reason, promise) => {
+  console.warn('[Server Warning] Caught unhandledRejection:', reason?.message || reason);
+});
+process.on('uncaughtException', (err) => {
+  console.error('[Server Error] Caught uncaughtException:', err?.message || err);
+});
+
 const supabaseLib = require('./lib/supabase');
 const express = require('express');
 const cors = require('cors');
@@ -282,7 +289,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public'), { index: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Vault Authentication Verification Endpoint
 app.post('/api/vault/verify', (req, res) => {
@@ -325,7 +335,7 @@ app.get(['/vault', '/vault/'], (req, res) => {
   if (fs.existsSync(vaultPath)) {
     return res.sendFile(vaultPath);
   }
-  return res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  return res.status(404).send('Not Found');
 });
 
 // Dedicated Smart TV Leanback HTML route
@@ -879,9 +889,9 @@ app.get('/api/tmdb/tv/:id/season/:seasonNumber', async (req, res) => {
 });
 
 // Universal TMDb API Proxy (Bypasses Indian ISP DNS sinkholes & caches responses)
-app.all(['/api/tmdb-proxy', '/api/tmdb-proxy/*'], async (req, res) => {
+app.use('/api/tmdb-proxy', async (req, res) => {
   try {
-    let subPath = req.path.replace(/^\/api\/tmdb-proxy/, '') || '/';
+    let subPath = req.url.split('?')[0] || '/';
     if (!subPath.startsWith('/')) subPath = '/' + subPath;
     const query = { ...req.query };
     const data = await tmdb.fetchFromTmdb(subPath, query);
@@ -2906,12 +2916,16 @@ app.get(['/api/image-proxy', '/image-proxy'], (req, res) => {
 });
 
 if (require.main === module) {
-  app.listen(PORT, '0.0.0.0', () => {
+  const server = app.listen(PORT, '0.0.0.0', () => {
     console.log('===================================================');
     console.log(`  CinemaVerse Pro — Universal Multi-OTT Streaming`);
     console.log(`  Running at http://localhost:${PORT}`);
     console.log(`  10 Streaming Servers • Multi-OTT Hub • Adaptive Shield`);
     console.log('===================================================');
+  });
+
+  server.on('error', (err) => {
+    console.error('[HTTP SERVER ERROR]', err);
   });
 }
 

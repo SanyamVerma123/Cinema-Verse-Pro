@@ -11,14 +11,14 @@ export async function getServerSideProps({ req, res }) {
 
   const fs = require('fs');
   const path = require('path');
-  const htmlPath = path.join(process.cwd(), 'private_vault', 'index.html');
-  const fallbackPath = path.join(process.cwd(), 'public', 'index.html');
-  const targetPath = fs.existsSync(htmlPath) ? htmlPath : fallbackPath;
+  const targetPath = path.join(process.cwd(), 'private_vault', 'index.html');
 
   if (fs.existsSync(targetPath)) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.write(fs.readFileSync(targetPath, 'utf8'));
     res.end();
+  } else {
+    return { notFound: true };
   }
 
   return {

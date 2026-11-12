@@ -37,7 +37,8 @@ export const img = (path?: string | null, size = "w500") => {
   if (!path) return "";
   if (path.startsWith("http")) return path;
   // Route through local proxy to unblock Indian ISP DNS sinkholes (Jio/Airtel) with disk caching
-  return `/api/tmdb-image/${size}${path}`;
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  return `/api/tmdb-image/${size}${cleanPath}`;
 };
 
 const cache = new Map<string, Promise<any>>();
@@ -49,13 +50,15 @@ export function tmdb<T = any>(path: string, params: Record<string, string> = {})
   if (hit) return hit;
 
   const p: Promise<T> = (async () => {
+    const cleanPath = path.startsWith("/") ? path : `/${path}`;
+
     // 1. Try local server proxy (zero ISP blocks, disk-cached)
     try {
-      const localUrl = `/api/tmdb-proxy${path}?${qs}`;
+      const localUrl = `/api/tmdb-proxy${cleanPath}?${qs}`;
       const res = await fetch(localUrl);
       if (res.ok) {
         const data = await res.json();
-        if (data && (data.results || data.id || data.genres)) return data;
+        if (data && !data.error && data.status_code === undefined) return data;
       }
     } catch (e) {
       // Fall through to upstream direct
@@ -64,7 +67,7 @@ export function tmdb<T = any>(path: string, params: Record<string, string> = {})
     // 2. Try direct TMDB API with Token/Key
     if (hasApi) {
       try {
-        const directUrl = `https://api.themoviedb.org/3${path}?${qs}`;
+        const directUrl = `https://api.themoviedb.org/3${cleanPath}?${qs}`;
         const res = await fetch(directUrl, {
           headers: TOKEN ? { Authorization: `Bearer ${TOKEN}`, accept: "application/json" } : {},
         });

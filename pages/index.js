@@ -145,23 +145,31 @@ export default function MovieDiscoveryPortal({
   // TEXT-TO-SPEECH (SPEAK THROUGH DEVICE SPEAKERS)
   // -------------------------------------------------------------
   const speakAloud = (text, onEnd) => {
+    let called = false;
+    const safeEnd = () => {
+      if (!called) {
+        called = true;
+        if (onEnd) onEnd();
+      }
+    };
+
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       try {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.rate = 0.95;
         utterance.pitch = 1.0;
-        if (onEnd) {
-          utterance.onend = () => { onEnd(); };
-          utterance.onerror = () => { onEnd(); };
-        }
+        utterance.onend = safeEnd;
+        utterance.onerror = safeEnd;
+        // Safety timeout so execution is never stalled if browser speech synthesis blocks
+        setTimeout(safeEnd, 2200);
         window.speechSynthesis.speak(utterance);
       } catch (err) {
         console.warn('Speech synthesis error:', err);
-        if (onEnd) onEnd();
+        safeEnd();
       }
     } else {
-      if (onEnd) onEnd();
+      safeEnd();
     }
   };
 
