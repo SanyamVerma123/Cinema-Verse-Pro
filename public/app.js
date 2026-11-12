@@ -3362,7 +3362,7 @@ const STREAMING_SERVERS = [
   { id: 3, name: 'Server 4: Global World Mirror (Multi-Language & Dubbed)', badge: 'Multi-Language • Dubbed', shortBadge: 'Dubbed Mirror', provider: 'Global World Mirror', hasAds: null },
   { id: 4, name: 'Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR)', badge: 'Multi-Language 4K', shortBadge: 'Provider player', provider: 'AutoEmbed Prime', hasAds: null },
   { id: 5, name: 'Server 6: AnimeWorld VIP (Hindi/Eng/Jap)', badge: 'Hindi / English / Japanese', shortBadge: 'Provider player', provider: 'AnimeWorld', hasAds: null },
-  { id: 6, name: 'Server 7: VidSrc Cloud VIP (Hindi Dubbed • Multi-Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi & Multi-Audio', shortBadge: 'Hindi Dubbed', provider: 'VidSrc Cloud VIP', hasAds: false },
+  { id: 6, name: 'Server 7: VidSrc Cloud VIP (Hindi Dubbed • Multi-Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi & Multi-Audio', shortBadge: 'Hindi Dubbed', provider: 'VidSrc Cloud VIP', hasAds: false, iframeAttributes: { sandbox: 'allow-scripts allow-same-origin allow-forms allow-presentation' } },
   { id: 7, name: 'Server 8: VidLink Pro VIP (Ultra HD 4K • Multi-Audio)', badge: 'Ultra HD 4K • Multi-Audio', shortBadge: '4K Multi-Audio', provider: 'VidLink Pro', hasAds: null },
   { id: 8, name: 'Server 9: AnyEmbed Prime Direct (1080p Direct)', badge: '1080p Direct • HLS', shortBadge: '1080p Direct', provider: 'AnyEmbed Prime', hasAds: null },
   { id: 9, name: 'Server 10: Nontongo CC Captions (Multi-Subtitles)', badge: 'Multi-Subtitles • Asian Dramas', shortBadge: 'Subtitles Cloud', provider: 'Nontongo Cloud', hasAds: null },
@@ -4611,6 +4611,11 @@ function loadServerStream(serverIdx) {
           break;
         case 6:
           // Server 7: VidSrc Cloud VIP (Hindi Dubbed • Multi-Audio • Zero Ads)
+          if (iframe) {
+            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
+            iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media');
+            iframe.referrerPolicy = 'no-referrer';
+          }
           streamUrl = isTv 
             ? `/api/player/vidsrc?type=tv&id=${tmdb || tmdbOrImdb}&s=${s}&e=${e}`
             : `/api/player/vidsrc?type=movie&id=${tmdb || tmdbOrImdb}`;

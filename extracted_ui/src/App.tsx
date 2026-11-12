@@ -2,14 +2,25 @@ import { useCallback, useEffect, useState } from "react";
 import { Catalog, type CatalogCfg } from "./components/Catalog";
 import { Detail } from "./components/Detail";
 import { Hero } from "./components/Hero";
+import { NotificationsDrawer } from "./components/NotificationsDrawer";
+import { PersonModal } from "./components/PersonModal";
 import { Player } from "./components/Player";
 import { Sections, type Open } from "./components/Rows";
 import { Search } from "./components/Search";
 import { SlideTabs } from "./components/Select";
+import { SettingsModal } from "./components/SettingsModal";
 import { Brand, Icon, type IconName } from "./components/ui";
 import { PAGES } from "./lib/layout";
-import { listStore, toastStore, useStore } from "./lib/store";
-import { hasApi, type Media } from "./lib/tmdb";
+import {
+  isUpcoming,
+  listStore,
+  releaseDateLabel,
+  remindersStore,
+  toastStore,
+  toggleReminder,
+  useStore,
+} from "./lib/store";
+import { hasApi, titleOf, type Media } from "./lib/tmdb";
 
 type PageId = "home" | "movies" | "tv" | "new" | "browse" | "list" | "catalog";
 const NAV: [PageId, string][] = [
@@ -94,9 +105,20 @@ export default function App() {
   const [detail, setDetail] = useState<{ media: Media; play?: boolean } | null>(null);
   const [player, setPlayer] = useState<PlayReq | null>(null);
   const [search, setSearch] = useState<{ voice: boolean } | null>(null);
+  const [personId, setPersonId] = useState<number | null>(null);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [notice, setNotice] = useState(!hasApi);
   const list = useStore(listStore);
+  const reminders = useStore(remindersStore);
+
+  // Register service worker for background notifications
+  useEffect(() => {
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
+  }, []);
 
   const go = useCallback((p: PageId) => {
     setPage(p);
@@ -105,11 +127,30 @@ export default function App() {
   }, []);
 
   const open: Open = useCallback((media, o) => {
+    if (o?.play && isUpcoming(media)) {
+      const rel = releaseDateLabel(media);
+      toastStore.set({
+        id: Date.now(),
+        msg: `📅 "${titleOf(media)}" premieres on ${rel}. Scheduled in your notifications!`,
+      });
+      toggleReminder(media);
+      setDetail({ media, play: false });
+      return;
+    }
     setDetail({ media, play: o?.play });
   }, []);
 
   const play = useCallback(
     (media: Media, o?: { season?: number; episode?: number; label?: string }) => {
+      if (isUpcoming(media)) {
+        const rel = releaseDateLabel(media);
+        toastStore.set({
+          id: Date.now(),
+          msg: `📅 "${titleOf(media)}" premieres on ${rel}. Not released yet!`,
+        });
+        toggleReminder(media);
+        return;
+      }
       setDetail(null);
       setPlayer({ media, ...o });
     },
@@ -206,20 +247,30 @@ export default function App() {
                 <kbd className="kbd ml-auto hidden lg:inline-block">⌘K</kbd>
               </span>
             </button>
+            {/* Notification Bell Button */}
             <button
-              onClick={() => setSearch({ voice: true })}
-              aria-label="Search by voice"
-              title="Search by voice"
-              className="mic-pulse relative grid size-11 place-items-center rounded-full bg-linear-to-br from-accent to-[#ff6a88] shadow-lg shadow-accent/30 transition hover:scale-110 active:scale-90"
+              onClick={() => setNotificationsOpen(true)}
+              aria-label="Release Notifications and Reminders"
+              title="Release Notifications and Reminders"
+              className="relative grid size-10 sm:size-11 place-items-center rounded-full border border-white/15 bg-white/10 text-white/90 shadow-md backdrop-blur-md transition hover:scale-105 hover:bg-white/20 active:scale-95"
             >
-              <Icon name="mic" size={19} />
+              <Icon name="bell" size={18} />
+              {reminders.length > 0 && (
+                <span className="absolute -top-1 -right-1 flex size-4 sm:size-5 items-center justify-center rounded-full bg-red-600 text-[9px] sm:text-[10px] font-black text-white shadow-md ring-2 ring-[#0c0d14] animate-pulse">
+                  {reminders.length}
+                </span>
+              )}
             </button>
-            <span
-              className="ml-1 hidden size-10 place-items-center rounded-full bg-linear-to-br from-red-600 via-purple-600 to-indigo-600 text-xs font-black text-white ring-2 ring-white/10 sm:grid shadow-md shadow-purple-600/30"
-              aria-hidden="true"
+
+            {/* Profile Avatar / Settings Button */}
+            <button
+              onClick={() => setSettingsOpen(true)}
+              aria-label="Profile and Settings"
+              title="Profile and Settings"
+              className="relative grid size-10 sm:size-11 place-items-center rounded-full bg-linear-to-br from-red-600 via-purple-600 to-indigo-600 text-xs font-black text-white ring-2 ring-white/20 shadow-md shadow-purple-600/30 transition hover:scale-105 active:scale-95"
             >
               CV
-            </span>
+            </button>
           </div>
           <i
             className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left bg-linear-to-r from-accent via-[#ff6a88] to-amber"
@@ -249,7 +300,7 @@ export default function App() {
                   onOpen={open}
                 />
                 {/* Spacing fix: Clean transition below hero with no overlap on hero action buttons */}
-                <div className="relative z-10 -mt-2 sm:-mt-4 md:-mt-6 pb-12">
+                <div className="relative z-10 mt-1 sm:mt-0 pb-12">
                   <Sections sections={def.sections} onOpen={open} onAll={openCatalog} />
                 </div>
               </>
@@ -318,8 +369,25 @@ export default function App() {
           onOpen={open}
           onPlay={play}
           onCatalog={openCatalog}
+          onOpenPerson={(id) => setPersonId(id)}
         />
       )}
+      {personId !== null && (
+        <PersonModal
+          personId={personId}
+          onClose={() => setPersonId(null)}
+          onOpenMedia={open}
+        />
+      )}
+      <NotificationsDrawer
+        isOpen={notificationsOpen}
+        onClose={() => setNotificationsOpen(false)}
+        onOpenMedia={open}
+      />
+      <SettingsModal
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+      />
       {search && (
         <Search
           startVoice={search.voice}

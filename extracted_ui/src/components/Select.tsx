@@ -175,7 +175,7 @@ export function Select({
               minWidth: pos.minWidth,
               maxHeight: pos.maxH,
             }}
-            className={`no-scrollbar fixed z-[100] w-max max-w-[min(92vw,360px)] overflow-y-auto rounded-2xl border border-white/12 bg-[#14141b]/95 p-1.5 shadow-[0_30px_80px_-10px_rgba(0,0,0,.9),inset_0_1px_0_rgba(255,255,255,.06)] outline-none backdrop-blur-2xl animate-[pop_.22s_cubic-bezier(.16,1,.3,1)_both] ${pos.bottom !== undefined ? "origin-bottom" : "origin-top"}`}
+            className={`no-scrollbar fixed z-[9999] w-max max-w-[min(92vw,360px)] overflow-y-auto rounded-2xl border border-white/12 bg-[#14141b]/95 p-1.5 shadow-[0_30px_80px_-10px_rgba(0,0,0,.9),inset_0_1px_0_rgba(255,255,255,.06)] outline-none backdrop-blur-2xl animate-[pop_.22s_cubic-bezier(.16,1,.3,1)_both] ${pos.bottom !== undefined ? "origin-bottom" : "origin-top"}`}
           >
             {options.map((o, i) => {
               const on = o.value === value;

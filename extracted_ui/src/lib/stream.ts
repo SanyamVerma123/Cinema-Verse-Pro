@@ -77,13 +77,13 @@ export const STREAM_SERVERS: StreamServer[] = [
         : `https://player.autoembed.co/embed/movie/${id}`,
   },
   {
-    id: "multiembed",
-    name: "Server 7: MultiEmbed Cloud Stream",
-    badge: "Global Mirror • Multi-Source",
+    id: "vidsrc",
+    name: "Server 7: VidSrc Cloud VIP",
+    badge: "✅ 0 Ads • Hindi & Multi-Audio",
     build: (type, id, s = 1, e = 1) =>
       type === "tv"
-        ? `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
-        : `https://multiembed.mov/?video_id=${id}&tmdb=1`,
+        ? `/api/player/vidsrc?type=tv&id=${id}&s=${s}&e=${e}`
+        : `/api/player/vidsrc?type=movie&id=${id}`,
   },
   {
     id: "vidlink",

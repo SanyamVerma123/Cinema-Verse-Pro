@@ -3,6 +3,7 @@ import { getStreamUrl, STREAM_SERVERS } from "../lib/stream";
 import { progressStore, keyOf, saveProgress } from "../lib/store";
 import { pickTrailer, titleOf, typeOf, useTmdb, type Media } from "../lib/tmdb";
 import { Icon } from "./ui";
+import { Select, type Opt } from "./Select";
 
 const isFile = (u: string) => /\.(m3u8|mp4|webm|mov|mkv|mpd)(\?|#|$)/i.test(u);
 
@@ -260,6 +261,29 @@ export function Player({
     }
   };
 
+  // Custom UI-based Options for Server and Dubbing
+  const serverOptions: Opt[] = [
+    ...STREAM_SERVERS.map((s) => ({
+      value: s.id,
+      label: s.name,
+      hint: s.badge,
+    })),
+    ...(trailer
+      ? [{ value: "trailer", label: "Official Trailer", hint: "YouTube 4K" }]
+      : []),
+  ];
+
+  const DUB_OPTIONS: Opt[] = [
+    { value: "en", label: "🌐 English", hint: "Original" },
+    { value: "hi", label: "🇮🇳 Hindi", hint: "Dubbed" },
+    { value: "ja", label: "🇯🇵 Japanese", hint: "Original/Dub" },
+    { value: "ta", label: "🇮🇳 Tamil", hint: "Dubbed" },
+    { value: "te", label: "🇮🇳 Telugu", hint: "Dubbed" },
+    { value: "es", label: "🇪🇸 Spanish", hint: "Dubbed" },
+    { value: "fr", label: "🇫🇷 French", hint: "Dubbed" },
+    { value: "de", label: "🇩🇪 German", hint: "Dubbed" },
+  ];
+
   return (
     <div
       ref={containerRef}
@@ -292,173 +316,200 @@ export function Player({
 
       {/* Top Player HUD Header */}
       {topBarVisible && (
-        <header className="absolute inset-x-0 top-0 z-40 flex items-center justify-between gap-4 border-b border-white/10 bg-gradient-to-b from-[#09090d]/95 via-[#09090d]/80 to-transparent p-3 sm:px-6 sm:py-3.5 backdrop-blur-md transition-all duration-300">
-          {/* Left Info: Back Button, Title, and Quality Badges */}
-          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-            <button
-              onClick={onClose}
-              autoFocus
-              aria-label="Back to Movie Details"
-              title="Back to Movie Details (Esc)"
-              className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-xs font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 hover:border-white/30 active:scale-95"
-            >
-              <Icon name="left" size={16} />
-              <span className="hidden sm:inline">Back</span>
-            </button>
+        <header className="absolute inset-x-0 top-0 z-40 border-b border-white/10 bg-gradient-to-b from-[#09090d]/98 via-[#09090d]/90 to-transparent p-2.5 sm:px-6 sm:py-3.5 backdrop-blur-xl transition-all duration-300">
+          {/* Main Top Row */}
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
+            {/* Left Info: Back Button, Title, and Quality Badges */}
+            <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+              <button
+                onClick={onClose}
+                autoFocus
+                aria-label="Back to Movie Details"
+                title="Back to Movie Details (Esc)"
+                className="flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold text-white backdrop-blur transition hover:scale-105 hover:bg-white/20 hover:border-white/30 active:scale-95"
+              >
+                <Icon name="left" size={15} />
+                <span className="hidden sm:inline">Back</span>
+              </button>
 
-            <div className="min-w-0">
-              <h2 className="truncate font-display text-sm font-extrabold text-white sm:text-base lg:text-lg">
-                {titleOf(media)}
-              </h2>
-              <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-[10px] sm:text-[11px]">
-                <span className="rounded-md bg-red-600/90 px-1.5 py-0.5 font-bold text-white shadow-xs">
-                  {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
-                </span>
-                <span className="rounded-md border border-white/20 bg-white/10 px-1.5 py-0.5 font-semibold text-white/90">
-                  4K Ultra HD
-                </span>
-                <span className="hidden rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300 sm:inline-flex items-center gap-1">
-                  <Icon name="volume" size={11} /> Dolby Atmos
-                </span>
-                {isTv && (
-                  <span className="rounded-md bg-white/15 px-1.5 py-0.5 font-bold text-amber">
-                    S{season}:E{episode}
+              <div className="min-w-0">
+                <h2 className="truncate font-display text-xs sm:text-base lg:text-lg font-extrabold text-white">
+                  {titleOf(media)}
+                </h2>
+                <div className="mt-0.5 flex flex-wrap items-center gap-1 sm:gap-1.5 text-[9px] sm:text-[11px]">
+                  <span className="rounded-md bg-red-600/90 px-1 sm:px-1.5 py-0.5 font-bold text-white shadow-xs">
+                    {isTrailerMode ? "Trailer" : activeServerObj.name.split(":")[0]}
                   </span>
-                )}
+                  <span className="rounded-md border border-white/20 bg-white/10 px-1 sm:px-1.5 py-0.5 font-semibold text-white/90">
+                    4K Ultra HD
+                  </span>
+                  <span className="hidden sm:inline-flex items-center gap-1 rounded-md border border-purple-500/40 bg-purple-600/20 px-1.5 py-0.5 font-semibold text-purple-300">
+                    <Icon name="volume" size={11} /> Dolby Atmos
+                  </span>
+                  {isTv && (
+                    <span className="rounded-md bg-white/15 px-1 sm:px-1.5 py-0.5 font-bold text-amber">
+                      S{season}:E{episode}
+                    </span>
+                  )}
+                </div>
               </div>
+            </div>
+
+            {/* Right Controls: Desktop Dropdowns + Action buttons */}
+            <div className="flex items-center gap-1.5 sm:gap-2.5">
+              {/* TV Episode Steppers (Desktop) */}
+              {isTv && (
+                <div className="hidden lg:flex items-center gap-1 bg-white/10 p-0.5 rounded-xl border border-white/15">
+                  <button
+                    onClick={prevEpisode}
+                    disabled={episode <= 1}
+                    title="Previous Episode (Key: P)"
+                    className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
+                  >
+                    {"‹ Prev"}
+                  </button>
+                  <span className="px-1.5 text-xs font-bold text-white/90">
+                    Ep {episode}
+                  </span>
+                  <button
+                    onClick={nextEpisode}
+                    title="Next Episode (Key: N)"
+                    className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition"
+                  >
+                    {"Next ›"}
+                  </button>
+                </div>
+              )}
+
+              {/* Server Custom Select (Desktop, shown on sm+) */}
+              <div className="hidden sm:block">
+                <Select
+                  size="sm"
+                  value={currentServer}
+                  onChange={(v) => setCurrentServer(v)}
+                  options={serverOptions}
+                  className="w-[190px] lg:w-[230px] text-xs font-semibold bg-[#161722]/95 border-white/20 hover:border-red-500/50"
+                  ariaLabel="Select Streaming Server"
+                />
+              </div>
+
+              {/* Audio / Dubbed Custom Select (Desktop, shown on md+) */}
+              <div className="hidden md:block">
+                <Select
+                  size="sm"
+                  value={dubLanguage}
+                  onChange={(v) => handleDubChange(v)}
+                  options={DUB_OPTIONS}
+                  className="w-[140px] lg:w-[160px] text-xs font-semibold bg-white/10 border-white/15"
+                  ariaLabel="Select Dubbed Audio Track"
+                />
+              </div>
+
+              {/* Zap Ads Button */}
+              <button
+                onClick={zapAds}
+                title="Zap Ads & Refresh Clean Stream (Key: Z)"
+                className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-red-500/40 bg-red-600/20 px-2 sm:px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm"
+              >
+                <span className="text-red-400">⚡</span>
+                <span className="hidden xs:inline sm:inline">Zap</span>
+                <span className="hidden sm:inline">Ads</span>
+              </button>
+
+              {/* Fullscreen Button */}
+              <button
+                onClick={toggleFullscreen}
+                title="Fullscreen (Key: F)"
+                aria-label="Toggle Fullscreen"
+                className="grid size-8 sm:size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:bg-white/25 active:scale-95"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  {isFullscreen ? (
+                    <>
+                      <polyline points="4 14 10 14 10 20" />
+                      <polyline points="20 10 14 10 14 4" />
+                      <line x1="14" y1="10" x2="21" y2="3" />
+                      <line x1="3" y1="21" x2="10" y2="14" />
+                    </>
+                  ) : (
+                    <>
+                      <polyline points="15 3 21 3 21 9" />
+                      <polyline points="9 21 3 21 3 15" />
+                      <line x1="21" y1="3" x2="14" y2="10" />
+                      <line x1="3" y1="21" x2="10" y2="14" />
+                    </>
+                  )}
+                </svg>
+              </button>
+
+              {/* Collapse Controls Button (Desktop) */}
+              <button
+                onClick={() => setTopBarVisible(false)}
+                title="Hide Controls (Click to Collapse)"
+                aria-label="Hide Controls"
+                className="hidden sm:grid size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:bg-white/25 active:scale-95"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="18 15 12 9 6 15" />
+                </svg>
+              </button>
+
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                aria-label="Exit Player"
+                title="Exit Player (Esc)"
+                className="grid size-8 sm:size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white/80 backdrop-blur transition hover:bg-red-600 hover:text-white hover:border-red-600 active:scale-95"
+              >
+                <Icon name="close" size={15} />
+              </button>
             </div>
           </div>
 
-          {/* Right Controls: Server Dropdown, Audio Dub Selector, TV Steppers, Zap Ads, Fullscreen, Close */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* TV Episode Steppers */}
+          {/* Mobile Sub-Header: Professional UI-based Dropdowns for Server & Dubbing */}
+          <div className="mt-2 flex sm:hidden items-center gap-2 pt-1 border-t border-white/10">
+            <div className="min-w-0 flex-1">
+              <Select
+                size="sm"
+                value={currentServer}
+                onChange={(v) => setCurrentServer(v)}
+                options={serverOptions}
+                className="w-full text-[11px] font-semibold bg-[#161722]/95 border-white/20"
+                ariaLabel="Streaming Server"
+              />
+            </div>
+
+            <div className="w-[125px] shrink-0">
+              <Select
+                size="sm"
+                value={dubLanguage}
+                onChange={(v) => handleDubChange(v)}
+                options={DUB_OPTIONS}
+                className="w-full text-[11px] font-semibold bg-white/10 border-white/15"
+                ariaLabel="Audio Dubbing"
+              />
+            </div>
+
             {isTv && (
-              <div className="hidden lg:flex items-center gap-1 bg-white/10 p-0.5 rounded-xl border border-white/15">
+              <div className="flex items-center gap-1 shrink-0 bg-white/10 p-0.5 rounded-xl border border-white/15">
                 <button
                   onClick={prevEpisode}
                   disabled={episode <= 1}
-                  title="Previous Episode (Key: P)"
-                  className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg hover:bg-white/10 transition"
+                  className="px-1.5 py-1 text-[10px] font-semibold text-white/80 hover:text-white disabled:opacity-30 disabled:pointer-events-none rounded-lg"
                 >
-                  ‹ Prev
+                  {"‹"}
                 </button>
-                <span className="px-1.5 text-xs font-bold text-white/90">
-                  Ep {episode}
+                <span className="px-1 text-[10px] font-bold text-amber">
+                  E{episode}
                 </span>
                 <button
                   onClick={nextEpisode}
-                  title="Next Episode (Key: N)"
-                  className="px-2.5 py-1 text-xs font-semibold text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition"
+                  className="px-1.5 py-1 text-[10px] font-semibold text-white/80 hover:text-white rounded-lg"
                 >
-                  Next ›
+                  {"›"}
                 </button>
               </div>
             )}
-
-            {/* Server Selector Dropdown */}
-            <div className="relative flex items-center">
-              <select
-                value={currentServer}
-                onChange={(e) => setCurrentServer(e.target.value)}
-                aria-label="Select Streaming Server"
-                className="h-9 cursor-pointer appearance-none rounded-xl border border-white/20 bg-[#161722]/90 pl-3 pr-8 text-xs font-bold text-white shadow-lg backdrop-blur-md outline-none transition hover:border-red-500 hover:bg-[#1f202e] focus:border-red-500 focus:ring-1 focus:ring-red-500"
-              >
-                {STREAM_SERVERS.map((s) => (
-                  <option key={s.id} value={s.id} className="bg-[#12131a] text-white py-1">
-                    {s.name} ({s.badge})
-                  </option>
-                ))}
-                {trailer && (
-                  <option value="trailer" className="bg-[#12131a] text-amber py-1">
-                    Official Trailer (YouTube 4K)
-                  </option>
-                )}
-              </select>
-              <span className="pointer-events-none absolute right-2.5 text-white/50">
-                <Icon name="down" size={13} />
-              </span>
-            </div>
-
-            {/* Audio & Dubbed Language Selector */}
-            <div className="relative hidden md:flex items-center">
-              <select
-                value={dubLanguage}
-                onChange={(e) => handleDubChange(e.target.value)}
-                aria-label="Change Dubbed Audio Track"
-                title="Change Dubbed Audio Track"
-                className="h-9 cursor-pointer appearance-none rounded-xl border border-white/15 bg-white/10 pl-2.5 pr-7 text-xs font-semibold text-white/90 backdrop-blur outline-none transition hover:bg-white/20 focus:border-accent"
-              >
-                <option value="en" className="bg-[#12131a] text-white">🌐 English (Original)</option>
-                <option value="hi" className="bg-[#12131a] text-white">🇮🇳 Hindi Dubbed</option>
-                <option value="ja" className="bg-[#12131a] text-white">🇯🇵 Japanese Audio</option>
-                <option value="ta" className="bg-[#12131a] text-white">🇮🇳 Tamil Dubbed</option>
-                <option value="te" className="bg-[#12131a] text-white">🇮🇳 Telugu Dubbed</option>
-                <option value="es" className="bg-[#12131a] text-white">🇪🇸 Spanish Dubbed</option>
-                <option value="fr" className="bg-[#12131a] text-white">🇫🇷 French Dubbed</option>
-                <option value="de" className="bg-[#12131a] text-white">🇩🇪 German Dubbed</option>
-              </select>
-              <span className="pointer-events-none absolute right-2 text-white/40">
-                <Icon name="down" size={12} />
-              </span>
-            </div>
-
-            {/* Zap Ads Button */}
-            <button
-              onClick={zapAds}
-              title="Zap Ads & Refresh Clean Stream (Key: Z)"
-              className="flex items-center gap-1.5 rounded-xl border border-red-500/40 bg-red-600/20 px-2.5 py-2 text-xs font-bold text-red-200 transition hover:bg-red-600 hover:text-white active:scale-95 shadow-sm"
-            >
-              <span className="text-red-400">⚡</span>
-              <span className="hidden sm:inline">Zap Ads</span>
-            </button>
-
-            {/* Fullscreen Button */}
-            <button
-              onClick={toggleFullscreen}
-              title="Fullscreen (Key: F)"
-              aria-label="Toggle Fullscreen"
-              className="grid size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:bg-white/25 active:scale-95"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                {isFullscreen ? (
-                  <>
-                    <polyline points="4 14 10 14 10 20" />
-                    <polyline points="20 10 14 10 14 4" />
-                    <line x1="14" y1="10" x2="21" y2="3" />
-                    <line x1="3" y1="21" x2="10" y2="14" />
-                  </>
-                ) : (
-                  <>
-                    <polyline points="15 3 21 3 21 9" />
-                    <polyline points="9 21 3 21 3 15" />
-                    <line x1="21" y1="3" x2="14" y2="10" />
-                    <line x1="3" y1="21" x2="10" y2="14" />
-                  </>
-                )}
-              </svg>
-            </button>
-
-            {/* Collapse Controls Button */}
-            <button
-              onClick={() => setTopBarVisible(false)}
-              title="Hide Controls (Click to Collapse)"
-              aria-label="Hide Controls"
-              className="hidden sm:grid size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur transition hover:bg-white/25 active:scale-95"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="18 15 12 9 6 15" />
-              </svg>
-            </button>
-
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              aria-label="Exit Player"
-              title="Exit Player (Esc)"
-              className="grid size-9 place-items-center rounded-xl border border-white/15 bg-white/10 text-white/80 backdrop-blur transition hover:bg-red-600 hover:text-white hover:border-red-600 active:scale-95"
-            >
-              <Icon name="close" size={16} />
-            </button>
           </div>
         </header>
       )}
@@ -499,6 +550,7 @@ export function Player({
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture; xr-spatial-tracking"
             allowFullScreen
             referrerPolicy="origin"
+            sandbox={url.includes('/api/player/vidsrc') ? "allow-scripts allow-same-origin allow-forms allow-presentation" : undefined}
             className="size-full border-0 bg-black"
           />
         ) : (

@@ -1,6 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { genreNames } from "../lib/genres";
-import { inList, listStore, toggleList, useStore } from "../lib/store";
+import {
+  daysUntilRelease,
+  inList,
+  isReminded,
+  isUpcoming,
+  listStore,
+  releaseDateLabel,
+  remindersStore,
+  toggleList,
+  toggleReminder,
+  useStore,
+} from "../lib/store";
 import {
   certOf,
   img,
@@ -37,6 +48,7 @@ export function Detail({
   onOpen,
   onPlay,
   onCatalog,
+  onOpenPerson,
 }: {
   media: Media;
   autoPlay?: boolean;
@@ -49,6 +61,7 @@ export function Detail({
     params?: Record<string, string>;
     kind: "movie" | "tv";
   }) => void;
+  onOpenPerson?: (personId: number) => void;
 }) {
   const type = typeOf(media);
   const { data: d } = useTmdb<any>(`/${type}/${media.id}`, { append_to_response: APPEND });
@@ -59,8 +72,13 @@ export function Detail({
   const [trailerMuted, setTrailerMuted] = useState(true);
   const trailerFrameRef = useRef<HTMLIFrameElement>(null);
   const list = useStore(listStore);
+  const reminders = useStore(remindersStore);
 
   const m: Media = d ?? media;
+  const upcoming = isUpcoming(m);
+  const reminded = isReminded(reminders, m);
+  const relDate = releaseDateLabel(m);
+  const days = daysUntilRelease(m);
   const trailer = pickTrailer(d?.videos?.results);
   const logo = (d?.images?.logos ?? []).find(
     (l: any) => l.iso_639_1 === "en" || !l.iso_639_1,
@@ -213,17 +231,27 @@ export function Detail({
               </h2>
             )}
             <div className="mt-5 flex flex-wrap items-center gap-2.5">
-              <button
-                onClick={() => onPlay(m, first)}
-                className="btn-shine relative flex h-11 items-center gap-2 overflow-hidden rounded-lg bg-white px-6 text-sm font-bold text-black hover:bg-white/85 sm:h-12 sm:px-8 shadow-xl"
-              >
-                <Icon name="play" size={20} />
-                Play
-              </button>
+              {upcoming ? (
+                <button
+                  onClick={() => toggleReminder(m)}
+                  className="btn-shine relative flex h-11 items-center gap-2 overflow-hidden rounded-lg bg-linear-to-r from-red-600 to-accent px-6 text-sm font-bold text-white hover:brightness-110 sm:h-12 sm:px-8 shadow-xl shadow-red-600/30 active:scale-95"
+                >
+                  <Icon name={reminded ? "check" : "bell"} size={19} />
+                  {reminded ? "Reminder Set" : "Notify Me"}
+                </button>
+              ) : (
+                <button
+                  onClick={() => onPlay(m, first)}
+                  className="btn-shine relative flex h-11 items-center gap-2 overflow-hidden rounded-lg bg-white px-6 text-sm font-bold text-black hover:bg-white/85 sm:h-12 sm:px-8 shadow-xl active:scale-95"
+                >
+                  <Icon name="play" size={20} />
+                  Play
+                </button>
+              )}
               {trailer && (
                 <button
                   onClick={() => setTab("Trailers & clips")}
-                  className="hidden h-12 items-center gap-2 rounded-lg bg-white/20 px-5 text-sm font-semibold backdrop-blur hover:bg-white/30 sm:flex"
+                  className="h-11 sm:h-12 flex items-center gap-2 rounded-lg bg-white/20 px-5 text-sm font-semibold backdrop-blur hover:bg-white/30 active:scale-95 transition"
                 >
                   Trailer
                 </button>
@@ -236,6 +264,16 @@ export function Detail({
                 onClick={() => toggleList(m)}
               />
             </div>
+            {upcoming && (
+              <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-red-500/30 bg-red-600/20 px-3.5 py-2.5 text-xs text-white backdrop-blur-md">
+                <span className="grid size-6 shrink-0 place-items-center rounded-md bg-red-600 text-white font-bold">
+                  <Icon name="bell" size={13} />
+                </span>
+                <span className="font-semibold">
+                  Upcoming Release • Scheduled for {relDate} {days !== null ? `(${days === 0 ? "Today" : `in ${days} days`})` : ""}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -433,12 +471,14 @@ export function Detail({
                     <button
                       key={c.id}
                       onClick={() =>
-                        onCatalog({
-                          title: c.name,
-                          path: "/discover/movie",
-                          params: { with_cast: String(c.id) },
-                          kind: "movie",
-                        })
+                        onOpenPerson
+                          ? onOpenPerson(c.id)
+                          : onCatalog({
+                              title: c.name,
+                              path: "/discover/movie",
+                              params: { with_cast: String(c.id) },
+                              kind: "movie",
+                            })
                       }
                       className="group flex items-center gap-3 rounded-xl bg-panel p-2.5 text-left transition hover:bg-white/10"
                     >

@@ -73,6 +73,31 @@ const P: Record<string, ReactNode> = {
       <path d="M4 21a8 8 0 0 1 16 0" />
     </>
   ),
+  settings: (
+    <>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+    </>
+  ),
+  trash: (
+    <>
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    </>
+  ),
+  shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
+  download: (
+    <>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </>
+  ),
+  sparkles: (
+    <>
+      <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
+    </>
+  ),
 };
 export type IconName = keyof typeof P;
 export function Icon({
@@ -105,13 +130,17 @@ export function Icon({
 export function Brand({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`inline-flex items-center gap-2.5 font-display text-[22px] font-black tracking-tight select-none ${className}`}
+      className={`inline-flex items-center gap-1.5 sm:gap-2.5 font-display text-sm sm:text-base md:text-xl lg:text-[22px] font-black tracking-tight select-none ${className}`}
     >
-      <img src="/logo.svg" alt="CinemaVerse" className="size-8 object-contain drop-shadow-md" />
-      <span className="flex items-center font-display">
-        <span className="text-[#ff334b] font-black tracking-tight drop-shadow-sm">CINEMA</span>
-        <span className="text-white font-extrabold tracking-tight">VERSE</span>
-        <span className="ml-1.5 rounded-md bg-linear-to-r from-purple-600 to-indigo-600 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-white shadow-sm">
+      <img
+        src="/logo.svg"
+        alt="CinemaVerse"
+        className="size-6 sm:size-7 md:size-8 shrink-0 object-contain drop-shadow-md"
+      />
+      <span className="flex items-center font-display tracking-tight">
+        <span className="text-[#ff334b] font-black drop-shadow-sm">CINEMA</span>
+        <span className="text-white font-extrabold">VERSE</span>
+        <span className="ml-1 sm:ml-1.5 rounded-md bg-linear-to-r from-purple-600 to-indigo-600 px-1 sm:px-1.5 py-0.5 text-[7px] sm:text-[9px] font-black uppercase tracking-wider text-white shadow-sm">
           PRO
         </span>
       </span>

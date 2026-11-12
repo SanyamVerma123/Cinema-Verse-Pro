@@ -804,6 +804,11 @@
     iframe.setAttribute('allow', 'autoplay *; encrypted-media *; fullscreen *; picture-in-picture *; display-capture *');
     iframe.setAttribute('referrerpolicy', 'no-referrer');
     iframe.setAttribute('allowfullscreen', 'true');
+    if (serverIndex === 6) {
+      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
+    } else {
+      iframe.removeAttribute('sandbox');
+    }
     iframe.src = streamUrl;
 
     if (titleEl) {
@@ -875,6 +880,11 @@
       iframe.setAttribute('allow', 'autoplay *; encrypted-media *; fullscreen *; picture-in-picture *; display-capture *');
       iframe.setAttribute('referrerpolicy', 'no-referrer');
       iframe.setAttribute('allowfullscreen', 'true');
+      if (newServerIdx === 6) {
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
+      } else {
+        iframe.removeAttribute('sandbox');
+      }
       iframe.src = getStreamUrl(newServerIdx, selectedModalItem, selectedModalSeason, selectedModalEpisode);
     }
     renderPlayerHudServers();

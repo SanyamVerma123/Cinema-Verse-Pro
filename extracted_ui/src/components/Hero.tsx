@@ -1,6 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { genreNames } from "../lib/genres";
-import { inList, listStore, toggleList, useStore } from "../lib/store";
+import {
+  daysUntilRelease,
+  inList,
+  isReminded,
+  isUpcoming,
+  listStore,
+  releaseDateLabel,
+  remindersStore,
+  toggleList,
+  toggleReminder,
+  useStore,
+} from "../lib/store";
 import {
   certOf,
   img,
@@ -42,6 +53,12 @@ export function Hero({
   const frame = useRef<HTMLIFrameElement>(null);
   const m: Media | undefined = slides[i];
   const list = useStore(listStore);
+  const reminders = useStore(remindersStore);
+  const upcoming = m ? isUpcoming(m) : false;
+  const reminded = m ? isReminded(reminders, m) : false;
+  const relDate = m ? releaseDateLabel(m) : "";
+  const days = m ? daysUntilRelease(m) : null;
+
   const { data } = useTmdb<any>(m ? `/${typeOf(m)}/${m.id}` : null, {
     append_to_response: "videos,images,content_ratings,release_dates",
     include_image_language: "en,null",
@@ -109,9 +126,9 @@ export function Hero({
 
       <div
         key={m.id}
-        className="absolute bottom-[20vh] sm:bottom-[21vh] md:bottom-[23vh] left-[4vw] right-[4vw] max-w-[660px] z-20 animate-[rise_.7s_both]"
+        className="absolute bottom-16 sm:bottom-20 md:bottom-[22vh] left-[4vw] right-[4vw] max-w-[660px] z-20 animate-[rise_.7s_both]"
       >
-        <div className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.22em] text-white/80">
+        <div className="mb-2 sm:mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.22em] text-white/80">
           <span className="grid size-5 place-items-center rounded bg-accent">
             <Icon name="play" size={10} />
           </span>
@@ -123,67 +140,84 @@ export function Hero({
           <img
             src={img(logo.file_path, "w500")}
             alt={titleOf(m)}
-            className="max-h-28 w-auto max-w-[80%] object-contain object-left drop-shadow-2xl sm:max-h-36"
+            className="max-h-20 sm:max-h-28 md:max-h-36 w-auto max-w-[80%] object-contain object-left drop-shadow-2xl"
           />
         ) : (
-          <h1 className="font-display text-[clamp(38px,7vw,84px)] font-extrabold leading-[.95] tracking-tighter drop-shadow-2xl">
+          <h1 className="font-display text-[clamp(28px,6vw,72px)] font-extrabold leading-[.95] tracking-tighter drop-shadow-2xl">
             {titleOf(m)}
           </h1>
         )}
-        <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px] text-white/80">
-          {matchOf(m) !== null && <b className="text-emerald-400">{matchOf(m)}% match</b>}
+        <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-x-2.5 sm:gap-x-3 gap-y-1.5 text-xs sm:text-[13px] text-white/80">
+          {upcoming ? (
+            <span className="rounded-md bg-linear-to-r from-red-600 to-accent px-2 py-0.5 text-xs font-bold text-white shadow-xs">
+              Releases {relDate} {days !== null ? `(In ${days}d)` : ""}
+            </span>
+          ) : (
+            matchOf(m) !== null && <b className="text-emerald-400">{matchOf(m)}% match</b>
+          )}
           <span>{yearOf(m)}</span>
           {cert && <Chip>{cert}</Chip>}
           {meta && <span>{meta}</span>}
           <Chip>4K</Chip>
           <Chip>HDR</Chip>
         </div>
-        <p className="mt-3.5 line-clamp-3 max-w-lg text-sm leading-relaxed text-white/80 sm:text-[15px]">
+        <p className="mt-2.5 sm:mt-3.5 line-clamp-2 sm:line-clamp-3 max-w-lg text-xs sm:text-[15px] leading-relaxed text-white/80">
           {m.overview}
         </p>
-        <p className="mt-2.5 text-xs text-white/50">{genreNames(m.genre_ids, 4).join("  •  ")}</p>
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          <button
-            onClick={() => onOpen(m, { play: true })}
-            className="btn-shine relative overflow-hidden flex h-12 items-center gap-2.5 rounded-lg bg-white px-7 text-[15px] font-bold text-black transition hover:bg-white/85 active:scale-95 shadow-xl shadow-black/40"
-          >
-            <Icon name="play" size={22} />
-            Play
-          </button>
+        <p className="mt-2 text-[11px] sm:text-xs text-white/50">{genreNames(m.genre_ids, 4).join("  •  ")}</p>
+        <div className="mt-4 sm:mt-5 flex flex-wrap items-center gap-2.5 sm:gap-3">
+          {upcoming ? (
+            <button
+              onClick={() => toggleReminder(m)}
+              className="btn-shine relative overflow-hidden flex h-10 sm:h-12 items-center gap-2 rounded-lg bg-linear-to-r from-red-600 to-accent px-5 sm:px-7 text-xs sm:text-[15px] font-bold text-white transition hover:brightness-110 active:scale-95 shadow-xl shadow-red-600/30"
+            >
+              <Icon name={reminded ? "check" : "bell"} size={18} />
+              {reminded ? "Reminder Set" : "Notify Me"}
+            </button>
+          ) : (
+            <button
+              onClick={() => onOpen(m, { play: true })}
+              className="btn-shine relative overflow-hidden flex h-10 sm:h-12 items-center gap-2 rounded-lg bg-white px-5 sm:px-7 text-xs sm:text-[15px] font-bold text-black transition hover:bg-white/85 active:scale-95 shadow-xl shadow-black/40"
+            >
+              <Icon name="play" size={20} />
+              Play
+            </button>
+          )}
           <button
             onClick={() => onOpen(m)}
-            className="flex h-12 items-center gap-2.5 rounded-lg bg-white/20 px-6 text-[15px] font-semibold backdrop-blur-md transition hover:bg-white/30 active:scale-95 border border-white/10"
+            className="flex h-10 sm:h-12 items-center gap-2 rounded-lg bg-white/20 px-4 sm:px-6 text-xs sm:text-[15px] font-semibold backdrop-blur-md transition hover:bg-white/30 active:scale-95 border border-white/10"
           >
-            <Icon name="info" size={22} />
+            <Icon name="info" size={18} />
             More info
           </button>
           <RoundBtn
             icon={inList(list, m) ? "check" : "plus"}
             label="My List"
-            size={48}
+            size={42}
+            className="size-10 sm:size-12"
             active={inList(list, m)}
             onClick={() => toggleList(m)}
           />
         </div>
       </div>
 
-      <div className="absolute bottom-[20vh] sm:bottom-[21vh] md:bottom-[23vh] right-0 z-20 flex items-center gap-3">
+      <div className="absolute bottom-16 sm:bottom-20 md:bottom-[22vh] right-0 z-20 flex items-center gap-3">
         {videoOn && trailer && (
           <RoundBtn
             icon={muted ? "mute" : "volume"}
             label={muted ? "Unmute trailer" : "Mute trailer"}
-            size={42}
+            size={40}
             onClick={toggleSound}
           />
         )}
         {cert && (
-          <span className="border-l-[3px] border-white/70 bg-black/40 py-1.5 pl-3 pr-[4vw] text-sm font-semibold backdrop-blur">
+          <span className="border-l-[3px] border-white/70 bg-black/40 py-1.5 pl-3 pr-[4vw] text-xs sm:text-sm font-semibold backdrop-blur">
             {cert}
           </span>
         )}
       </div>
 
-      <div className="absolute bottom-6 sm:bottom-8 left-[4vw] right-[4vw] z-10 flex items-end justify-between gap-6">
+      <div className="absolute bottom-3 sm:bottom-6 left-[4vw] right-[4vw] z-10 flex items-end justify-between gap-6">
         <div className="flex gap-1.5" role="tablist" aria-label="Featured titles">
           {slides.map((s, idx) => (
             <button
