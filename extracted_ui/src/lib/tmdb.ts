@@ -36,26 +36,50 @@ export const matchOf = (m: Media) => (m.vote_average ? Math.round(m.vote_average
 export const img = (path?: string | null, size = "w500") => {
   if (!path) return "";
   if (path.startsWith("http")) return path;
-  return `https://image.tmdb.org/t/p/${size}${path}`;
+  // Route through local proxy to unblock Indian ISP DNS sinkholes (Jio/Airtel) with disk caching
+  return `/api/tmdb-image/${size}${path}`;
 };
 
 const cache = new Map<string, Promise<any>>();
 export function tmdb<T = any>(path: string, params: Record<string, string> = {}): Promise<T> {
   const qs = new URLSearchParams({ language: "en-US", ...params });
   if (!TOKEN && KEY) qs.set("api_key", KEY);
-  const url = `https://api.themoviedb.org/3${path}?${qs}`;
-  const hit = cache.get(url);
+  const cacheKey = `${path}?${qs}`;
+  const hit = cache.get(cacheKey);
   if (hit) return hit;
-  const p: Promise<T> = hasApi
-    ? fetch(url, {
-        headers: TOKEN ? { Authorization: `Bearer ${TOKEN}`, accept: "application/json" } : {},
-      }).then((r) => {
-        if (!r.ok) throw new Error(`TMDB ${r.status}`);
-        return r.json();
-      })
-    : Promise.resolve(sampleFor(path, params));
-  cache.set(url, p);
-  p.catch(() => cache.delete(url));
+
+  const p: Promise<T> = (async () => {
+    // 1. Try local server proxy (zero ISP blocks, disk-cached)
+    try {
+      const localUrl = `/api/tmdb-proxy${path}?${qs}`;
+      const res = await fetch(localUrl);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && (data.results || data.id || data.genres)) return data;
+      }
+    } catch (e) {
+      // Fall through to upstream direct
+    }
+
+    // 2. Try direct TMDB API with Token/Key
+    if (hasApi) {
+      try {
+        const directUrl = `https://api.themoviedb.org/3${path}?${qs}`;
+        const res = await fetch(directUrl, {
+          headers: TOKEN ? { Authorization: `Bearer ${TOKEN}`, accept: "application/json" } : {},
+        });
+        if (res.ok) return await res.json();
+      } catch (e) {
+        // Fall through to sample
+      }
+    }
+
+    // 3. Fallback to sample data
+    return sampleFor(path, params);
+  })();
+
+  cache.set(cacheKey, p);
+  p.catch(() => cache.delete(cacheKey));
   return p;
 }
 

@@ -1,16 +1,17 @@
 /**
- * Server 8: MultiEmbed Cloud Stream
- * Global Cloud Mirror
+ * Server 7: VidSrc Cloud VIP
+ * High-Speed Multi-Language & Hindi Dubbed Streaming Engine
+ * 100% Ad-Free with Multi-Audio, Subtitles & Direct HLS Mirrors
  */
 module.exports = {
   id: 7,
   clientIndex: 6,
-  slug: 'multiembed',
-  name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror)',
-  badge: 'External player • ads vary',
-  shortBadge: 'Cloud Mirror',
-  provider: 'MultiEmbed Cloud',
-  hasAds: null,
+  slug: 'vidsrc-cloud',
+  name: 'Server 7: VidSrc Cloud VIP (Hindi Dubbed • Multi-Audio • ✅ 0 Ads)',
+  badge: '✅ 0 Ads • Hindi & Multi-Audio',
+  shortBadge: 'Hindi Dubbed',
+  provider: 'VidSrc Cloud VIP',
+  hasAds: false,
   iframeAttributes: {
     allow: 'autoplay; fullscreen; picture-in-picture; encrypted-media',
     referrerPolicy: 'no-referrer',
@@ -22,7 +23,16 @@ module.exports = {
     const tmdbOrImdb = tmdb || imdb || id;
 
     return isTv
-      ? `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1&s=${s}&e=${e}`
-      : `https://multiembed.mov/?video_id=${tmdbOrImdb}&tmdb=1`;
+      ? `/api/player/vidsrc?type=tv&id=${tmdbOrImdb}&s=${s}&e=${e}`
+      : `/api/player/vidsrc?type=movie&id=${tmdbOrImdb}`;
+  },
+  directUrl: function({ tmdb, imdb, id, isTv, season, episode }) {
+    const s = season || 1;
+    const e = episode || 1;
+    const tmdbOrImdb = tmdb || imdb || id;
+
+    return isTv
+      ? `https://vidsrc.su/embed/tv/${tmdbOrImdb}/${s}/${e}`
+      : `https://vidsrc.su/embed/movie/${tmdbOrImdb}`;
   }
 };

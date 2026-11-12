@@ -878,6 +878,19 @@ app.get('/api/tmdb/tv/:id/season/:seasonNumber', async (req, res) => {
   }
 });
 
+// Universal TMDb API Proxy (Bypasses Indian ISP DNS sinkholes & caches responses)
+app.all(['/api/tmdb-proxy', '/api/tmdb-proxy/*'], async (req, res) => {
+  try {
+    let subPath = req.path.replace(/^\/api\/tmdb-proxy/, '') || '/';
+    if (!subPath.startsWith('/')) subPath = '/' + subPath;
+    const query = { ...req.query };
+    const data = await tmdb.fetchFromTmdb(subPath, query);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get(['/api/tmdb/trending', '/api/tmdb/trending/:param1', '/api/tmdb/trending/:param1/:param2'], async (req, res) => {
   try {
     let mediaType = 'all';
@@ -2339,7 +2352,114 @@ app.get('/api/player/safe-frame', (req, res) => {
   res.send(safeFrameHtml);
 });
 
-// 7. Security Audit Endpoint
+// 7. Server 7: Zero-Ad VidSrc Cloud Stream Sanitizer (Hindi Dubbed & Multi-Audio)
+app.get('/api/player/vidsrc', async (req, res) => {
+  const { type = 'movie', id, s = 1, e = 1 } = req.query;
+  if (!id) return res.status(400).send('Missing media id');
+
+  const isTv = type === 'series' || type === 'tv';
+  const targetPath = isTv ? `tv/${id}/${s}/${e}` : `movie/${id}`;
+  const primaryDomain = 'https://vidsrc.su';
+  const fallbackDomain = 'https://vidsrc.pm';
+
+  async function fetchStream(domain) {
+    return axios.get(`${domain}/embed/${targetPath}`, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'Referer': `${domain}/`,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
+      timeout: 6500
+    });
+  }
+
+  let html = '';
+  let activeDomain = primaryDomain;
+
+  try {
+    const resp = await fetchStream(primaryDomain);
+    html = resp.data;
+  } catch (err) {
+    try {
+      activeDomain = fallbackDomain;
+      const fbResp = await fetchStream(fallbackDomain);
+      html = fbResp.data;
+    } catch (fbErr) {
+      // Direct redirect fallback to upstream if both backend proxies timeout
+      return res.redirect(`${primaryDomain}/embed/${targetPath}`);
+    }
+  }
+
+  // 1. Strip third-party ad injector & telemetry scripts cleanly
+  while (html.includes('alchemmauls') || html.includes('hexa.su')) {
+    const idx = html.indexOf('alchemmauls') !== -1 ? html.indexOf('alchemmauls') : html.indexOf('hexa.su');
+    const start = html.lastIndexOf('<script', idx);
+    const end = html.indexOf('</script>', idx) + 9;
+    if (start !== -1 && end > start) {
+      html = html.slice(0, start) + html.slice(end);
+    } else {
+      break;
+    }
+  }
+
+  // 2. Inject Base href so relative assets load seamlessly from the upstream domain
+  if (!html.includes('<base ')) {
+    html = html.replace('<head>', `<head><base href="${activeDomain}/">`);
+  }
+
+  // 3. Inject Ironclad Ad-Shield
+  const shieldScript = `
+  <script>
+    // CinemaVerse Master Ad-Shield for Server 7 (Zero Ads & Zero Popups)
+    (function() {
+      window.open = function() {
+        console.warn('[CinemaVerse Shield] Suppressed popup attempt');
+        return null;
+      };
+      window.alert = function() {};
+      window.confirm = function() { return true; };
+      window.prompt = function() { return null; };
+
+      // Neutralize dynamic script injection for ad networks
+      var origAppend = Node.prototype.appendChild;
+      Node.prototype.appendChild = function(el) {
+        if (el && el.tagName === 'SCRIPT' && el.src) {
+          var s = el.src.toLowerCase();
+          if (s.includes('alchemmauls') || s.includes('hexa') || s.includes('pop') || s.includes('adsterra') || s.includes('doubleclick')) {
+            console.warn('[CinemaVerse Shield] Blocked ad script tag:', s);
+            return el;
+          }
+        }
+        return origAppend.apply(this, arguments);
+      };
+
+      // Intercept and prevent click redirects to ad sites
+      document.addEventListener('click', function(e) {
+        var a = e.target && e.target.closest ? e.target.closest('a') : null;
+        if (a && (a.target === '_blank' || a.target === '_top')) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.warn('[CinemaVerse Shield] Blocked anchor hijack:', a.href);
+          return false;
+        }
+      }, true);
+
+      // Neutralize blur popunder traps
+      window.addEventListener('blur', function() {
+        try { window.focus(); } catch(_) {}
+      });
+    })();
+  </script>
+  `;
+
+  html = html.replace('<head>', '<head>' + shieldScript);
+
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=600');
+  res.send(html);
+});
+
+// 8. Security Audit Endpoint
 app.get('/api/security-audit', (req, res) => {
   res.json({
     target: 'NetMirror.apk (v3.0)',

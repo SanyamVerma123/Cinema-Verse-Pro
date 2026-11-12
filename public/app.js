@@ -3362,7 +3362,7 @@ const STREAMING_SERVERS = [
   { id: 3, name: 'Server 4: Global World Mirror (Multi-Language & Dubbed)', badge: 'Multi-Language • Dubbed', shortBadge: 'Dubbed Mirror', provider: 'Global World Mirror', hasAds: null },
   { id: 4, name: 'Server 5: AutoEmbed Prime VIP (Multi-Language • 4K HDR)', badge: 'Multi-Language 4K', shortBadge: 'Provider player', provider: 'AutoEmbed Prime', hasAds: null },
   { id: 5, name: 'Server 6: AnimeWorld VIP (Hindi/Eng/Jap)', badge: 'Hindi / English / Japanese', shortBadge: 'Provider player', provider: 'AnimeWorld', hasAds: null },
-  { id: 6, name: 'Server 7: MultiEmbed Cloud Stream (Global Mirror)', badge: 'Global Cloud Mirror', shortBadge: 'Cloud Mirror', provider: 'MultiEmbed Cloud', hasAds: null },
+  { id: 6, name: 'Server 7: VidSrc Cloud VIP (Hindi Dubbed • Multi-Audio • ✅ 0 Ads)', badge: '✅ 0 Ads • Hindi & Multi-Audio', shortBadge: 'Hindi Dubbed', provider: 'VidSrc Cloud VIP', hasAds: false },
   { id: 7, name: 'Server 8: VidLink Pro VIP (Ultra HD 4K • Multi-Audio)', badge: 'Ultra HD 4K • Multi-Audio', shortBadge: '4K Multi-Audio', provider: 'VidLink Pro', hasAds: null },
   { id: 8, name: 'Server 9: AnyEmbed Prime Direct (1080p Direct)', badge: '1080p Direct • HLS', shortBadge: '1080p Direct', provider: 'AnyEmbed Prime', hasAds: null },
   { id: 9, name: 'Server 10: Nontongo CC Captions (Multi-Subtitles)', badge: 'Multi-Subtitles • Asian Dramas', shortBadge: 'Subtitles Cloud', provider: 'Nontongo Cloud', hasAds: null },
@@ -3661,7 +3661,7 @@ async function openDetailsModal(item) {
     langContainer.innerHTML = '';
     const rawLangs = (item.languages && item.languages.length > 0) ? item.languages : [
       { code: 'en', name: 'English (Original)', flag: '🌐', defaultServer: 0 },
-      { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 6 },
       { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 5 },
       { code: 'ta', name: 'Tamil Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
       { code: 'te', name: 'Telugu Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
@@ -3671,7 +3671,7 @@ async function openDetailsModal(item) {
     const LANG_CHIP_DICT = {
       en: { code: 'en', name: 'English (Original)', flag: '🌐', defaultServer: 0 },
       ja: { code: 'ja', name: 'Japanese Audio', flag: '🇯🇵', defaultServer: 5 },
-      hi: { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
+      hi: { code: 'hi', name: 'Hindi Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 6 },
       ta: { code: 'ta', name: 'Tamil Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
       te: { code: 'te', name: 'Telugu Dubbed', flag: '🇮🇳', isDub: true, defaultServer: 0 },
       es: { code: 'es', name: 'Spanish Dubbed', flag: '🇪🇸', isDub: true, defaultServer: 0 },
@@ -4610,10 +4610,10 @@ function loadServerStream(serverIdx) {
           streamUrl = isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
           break;
         case 6:
-          // Server 7: MultiEmbed Cloud Stream
+          // Server 7: VidSrc Cloud VIP (Hindi Dubbed • Multi-Audio • Zero Ads)
           streamUrl = isTv 
-            ? (imdb ? `https://multiembed.mov/?video_id=${imdb}&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdb}&tmdb=1&s=${s}&e=${e}`)
-            : (imdb ? `https://multiembed.mov/?video_id=${imdb}` : `https://multiembed.mov/?video_id=${tmdb}&tmdb=1`);
+            ? `/api/player/vidsrc?type=tv&id=${tmdb || tmdbOrImdb}&s=${s}&e=${e}`
+            : `/api/player/vidsrc?type=movie&id=${tmdb || tmdbOrImdb}`;
           break;
         case 7:
           // Server 8: VidLink Pro VIP

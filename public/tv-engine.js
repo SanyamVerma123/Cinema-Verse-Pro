@@ -50,7 +50,7 @@
     { id: 3, name: 'Server 4: Global World Mirror', short: 'AutoEmbed' },
     { id: 4, name: 'Server 5: AutoEmbed Prime VIP', short: 'Prime VIP' },
     { id: 5, name: 'Server 6: AnimeWorld VIP', short: 'AnimeWorld' },
-    { id: 6, name: 'Server 7: MultiEmbed Cloud', short: 'MultiEmbed' },
+    { id: 6, name: 'Server 7: VidSrc Cloud (Hindi Dubbed • ✅ 0 Ads)', short: 'VidSrc Hindi' },
     { id: 7, name: 'Server 8: VidLink Pro VIP', short: 'VidLink Pro' },
     { id: 8, name: 'Server 9: AnyEmbed Direct', short: 'AnyEmbed' },
     { id: 9, name: 'Server 10: Nontongo Subtitles', short: 'Nontongo' }
@@ -127,8 +127,8 @@
         return isTv ? `https://player.autoembed.co/embed/tv/${tmdbOrImdb}/${s}/${e}` : `https://player.autoembed.co/embed/movie/${tmdbOrImdb}`;
       case 6:
         return isTv 
-          ? (imdb ? `https://multiembed.mov/?video_id=${imdb}&s=${s}&e=${e}` : `https://multiembed.mov/?video_id=${tmdb}&tmdb=1&s=${s}&e=${e}`)
-          : (imdb ? `https://multiembed.mov/?video_id=${imdb}` : `https://multiembed.mov/?video_id=${tmdb}&tmdb=1`);
+          ? `/api/player/vidsrc?type=tv&id=${tmdb || tmdbOrImdb}&s=${s}&e=${e}`
+          : `/api/player/vidsrc?type=movie&id=${tmdb || tmdbOrImdb}`;
       case 7:
         return isTv
           ? `https://vidlink.pro/tv/${tmdb || tmdbOrImdb}/${s}/${e}?primaryColor=e50914&secondaryColor=181818&iconColor=ffffff&icons=default&player=default&title=true&poster=true&autoplay=false&nextbutton=true`

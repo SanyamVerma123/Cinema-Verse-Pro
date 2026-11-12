@@ -107,10 +107,10 @@ export function Brand({ className = "" }: { className?: string }) {
     <span
       className={`inline-flex items-center gap-2 font-display text-[26px] font-extrabold tracking-tighter ${className}`}
     >
-      <span className="relative grid size-7 place-items-center rounded-lg bg-linear-to-br from-[#e50914] to-[#ff3b30] shadow-md shadow-red-600/30">
+      <span className="relative grid size-7 place-items-center rounded-lg bg-linear-to-br from-accent to-[#ff6a88]">
         <Icon name="play" size={14} className="text-white" />
       </span>
-      <span>Cinema<span className="text-[#e50914]">Verse</span></span>
+      frame
     </span>
   );
 }
